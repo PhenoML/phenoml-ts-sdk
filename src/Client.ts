@@ -4,9 +4,13 @@
 
 import * as environments from "./environments.js";
 import * as core from "./core/index.js";
-import { mergeHeaders, mergeOnlyDefinedHeaders } from "./core/headers.js";
-import * as phenoml from "./api/index.js";
-import * as errors from "./errors/index.js";
+import { mergeHeaders } from "./core/headers.js";
+import { Agent } from "./api/resources/agent/client/Client.js";
+import { Authtoken } from "./api/resources/authtoken/client/Client.js";
+import { Cohort } from "./api/resources/cohort/client/Client.js";
+import { Construe } from "./api/resources/construe/client/Client.js";
+import { Lang2Fhir } from "./api/resources/lang2Fhir/client/Client.js";
+import { Tools } from "./api/resources/tools/client/Client.js";
 
 export declare namespace phenomlClient {
     export interface Options {
@@ -35,6 +39,12 @@ export declare namespace phenomlClient {
 
 export class phenomlClient {
     protected readonly _options: phenomlClient.Options;
+    protected _agent: Agent | undefined;
+    protected _authtoken: Authtoken | undefined;
+    protected _cohort: Cohort | undefined;
+    protected _construe: Construe | undefined;
+    protected _lang2Fhir: Lang2Fhir | undefined;
+    protected _tools: Tools | undefined;
 
     constructor(_options: phenomlClient.Options) {
         this._options = {
@@ -43,7 +53,7 @@ export class phenomlClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "phenoml",
-                    "X-Fern-SDK-Version": "0.0.6",
+                    "X-Fern-SDK-Version": "0.0.11",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -52,365 +62,27 @@ export class phenomlClient {
         };
     }
 
-    /**
-     * Converts natural language text into a structured FHIR resource
-     *
-     * @param {phenoml.CreateRequest} request
-     * @param {phenomlClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link phenoml.BadRequestError}
-     * @throws {@link phenoml.UnauthorizedError}
-     * @throws {@link phenoml.InternalServerError}
-     *
-     * @example
-     *     await client.createFhirResourceFromText({
-     *         version: "R4",
-     *         resource: "auto",
-     *         text: "Patient has severe asthma with acute exacerbation"
-     *     })
-     */
-    public createFhirResourceFromText(
-        request: phenoml.CreateRequest,
-        requestOptions?: phenomlClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.FhirResource> {
-        return core.HttpResponsePromise.fromPromise(this.__createFhirResourceFromText(request, requestOptions));
+    public get agent(): Agent {
+        return (this._agent ??= new Agent(this._options));
     }
 
-    private async __createFhirResourceFromText(
-        request: phenoml.CreateRequest,
-        requestOptions?: phenomlClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.FhirResource>> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
-                "lang2fhir/create",
-            ),
-            method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
-            contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
-            requestType: "json",
-            body: request,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body as phenoml.FhirResource, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new phenoml.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new phenoml.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new phenoml.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.phenomlError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /lang2fhir/create.");
-            case "unknown":
-                throw new errors.phenomlError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
+    public get authtoken(): Authtoken {
+        return (this._authtoken ??= new Authtoken(this._options));
     }
 
-    /**
-     * Converts natural language text into FHIR search parameters
-     *
-     * @param {phenoml.SearchRequest} request
-     * @param {phenomlClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link phenoml.BadRequestError}
-     * @throws {@link phenoml.UnauthorizedError}
-     * @throws {@link phenoml.FailedDependencyError}
-     * @throws {@link phenoml.InternalServerError}
-     *
-     * @example
-     *     await client.generateFhirSearchParametersFromText({
-     *         text: "Appointments between March 2-9, 2025"
-     *     })
-     */
-    public generateFhirSearchParametersFromText(
-        request: phenoml.SearchRequest,
-        requestOptions?: phenomlClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.SearchResponse> {
-        return core.HttpResponsePromise.fromPromise(
-            this.__generateFhirSearchParametersFromText(request, requestOptions),
-        );
+    public get cohort(): Cohort {
+        return (this._cohort ??= new Cohort(this._options));
     }
 
-    private async __generateFhirSearchParametersFromText(
-        request: phenoml.SearchRequest,
-        requestOptions?: phenomlClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.SearchResponse>> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
-                "lang2fhir/search",
-            ),
-            method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
-            contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
-            requestType: "json",
-            body: request,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body as phenoml.SearchResponse, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new phenoml.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new phenoml.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 424:
-                    throw new phenoml.FailedDependencyError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new phenoml.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.phenomlError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /lang2fhir/search.");
-            case "unknown":
-                throw new errors.phenomlError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
+    public get construe(): Construe {
+        return (this._construe ??= new Construe(this._options));
     }
 
-    /**
-     * Upload a custom FHIR StructureDefinition profile for use with the lang2fhir service
-     *
-     * @param {phenoml.ProfileUploadRequest} request
-     * @param {phenomlClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link phenoml.BadRequestError}
-     * @throws {@link phenoml.UnauthorizedError}
-     * @throws {@link phenoml.ForbiddenError}
-     * @throws {@link phenoml.InternalServerError}
-     *
-     * @example
-     *     await client.uploadCustomFhirProfile({
-     *         version: "version",
-     *         resource: "custom-patient",
-     *         profile: "profile"
-     *     })
-     */
-    public uploadCustomFhirProfile(
-        request: phenoml.ProfileUploadRequest,
-        requestOptions?: phenomlClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.PostLang2FhirProfileUploadResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__uploadCustomFhirProfile(request, requestOptions));
+    public get lang2Fhir(): Lang2Fhir {
+        return (this._lang2Fhir ??= new Lang2Fhir(this._options));
     }
 
-    private async __uploadCustomFhirProfile(
-        request: phenoml.ProfileUploadRequest,
-        requestOptions?: phenomlClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.PostLang2FhirProfileUploadResponse>> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
-                "lang2fhir/profile/upload",
-            ),
-            method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
-            contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
-            requestType: "json",
-            body: request,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return {
-                data: _response.body as phenoml.PostLang2FhirProfileUploadResponse,
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new phenoml.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new phenoml.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 403:
-                    throw new phenoml.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new phenoml.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.phenomlError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /lang2fhir/profile/upload.");
-            case "unknown":
-                throw new errors.phenomlError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * Extracts text from a document (PDF or image) and converts it into a structured FHIR resource
-     *
-     * @param {phenoml.DocumentRequest} request
-     * @param {phenomlClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link phenoml.BadRequestError}
-     * @throws {@link phenoml.UnauthorizedError}
-     * @throws {@link phenoml.InternalServerError}
-     *
-     * @example
-     *     await client.convertDocumentToFhirResource({
-     *         version: "R4",
-     *         resource: "questionnaire",
-     *         content: "content",
-     *         fileType: "application/pdf"
-     *     })
-     */
-    public convertDocumentToFhirResource(
-        request: phenoml.DocumentRequest,
-        requestOptions?: phenomlClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.FhirResource> {
-        return core.HttpResponsePromise.fromPromise(this.__convertDocumentToFhirResource(request, requestOptions));
-    }
-
-    private async __convertDocumentToFhirResource(
-        request: phenoml.DocumentRequest,
-        requestOptions?: phenomlClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.FhirResource>> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
-                "lang2fhir/document",
-            ),
-            method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
-            contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
-            requestType: "json",
-            body: request,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body as phenoml.FhirResource, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new phenoml.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new phenoml.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new phenoml.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.phenomlError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /lang2fhir/document.");
-            case "unknown":
-                throw new errors.phenomlError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    public get tools(): Tools {
+        return (this._tools ??= new Tools(this._options));
     }
 }
