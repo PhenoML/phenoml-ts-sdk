@@ -1,9 +1,9 @@
-# Phenoml TypeScript Library
+# PhenoML TypeScript Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Ffern-demo%2Fphenoml-ts-sdk)
 [![npm shield](https://img.shields.io/npm/v/phenoml)](https://www.npmjs.com/package/phenoml)
 
-The Phenoml TypeScript library provides convenient access to the Phenoml API from TypeScript.
+The PhenoML TypeScript library provides convenient access to the PhenoML API from TypeScript.
 
 ## Installation
 
