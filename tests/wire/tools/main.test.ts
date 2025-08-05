@@ -8,7 +8,7 @@ import { phenomlClient } from "../../../src/Client";
 describe("Tools", () => {
     test("createFhirResource", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
         const rawRequestBody = { resource: "auto", text: "Patient John Doe has severe asthma with acute exacerbation" };
         const rawResponseBody = {
             fhir_resource: {
@@ -60,7 +60,7 @@ describe("Tools", () => {
 
     test("searchFhirResources", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "Find all appointments for patient John Doe next week" };
         const rawResponseBody = {
             resource_type: "Appointment",
@@ -117,7 +117,7 @@ describe("Tools", () => {
 
     test("analyzeCohort", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
         const rawRequestBody = {
             text: "female patients over 20 with diabetes but not hypertension",
             provider: "medplum",

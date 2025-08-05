@@ -8,7 +8,7 @@ import { phenomlClient } from "../../../src/Client";
 describe("Agent", () => {
     test("create", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", prompts: ["prompt_123", "prompt_456"], is_active: true };
         const rawResponseBody = {
             success: true,
@@ -59,7 +59,7 @@ describe("Agent", () => {
 
     test("list", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -103,7 +103,7 @@ describe("Agent", () => {
 
     test("get", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -143,7 +143,7 @@ describe("Agent", () => {
 
     test("update", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = {
             success: true,
@@ -190,7 +190,7 @@ describe("Agent", () => {
 
     test("delete", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
 
         const rawResponseBody = { success: true, message: "Agent deleted successfully" };
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
@@ -204,7 +204,7 @@ describe("Agent", () => {
 
     test("patch", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
         const rawRequestBody = [
             { op: "replace", path: "/name", value: "Updated Agent Name" },
             { op: "add", path: "/tags/-", value: "new-tag" },
@@ -270,7 +270,7 @@ describe("Agent", () => {
 
     test("chat", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
         const rawRequestBody = { message: "What is the patient's current condition?", agent_id: "agent-123" };
         const rawResponseBody = {
             response: "I'll create a patient record for John Doe with diabetes. Let me process that information...",

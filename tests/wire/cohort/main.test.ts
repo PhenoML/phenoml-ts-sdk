@@ -8,7 +8,7 @@ import { phenomlClient } from "../../../src/Client";
 describe("Cohort", () => {
     test("analyze", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "female patients over 65 with diabetes but not hypertension" };
         const rawResponseBody = {
             success: true,
