@@ -17,7 +17,8 @@ export declare namespace phenomlClient {
         environment?: core.Supplier<environments.phenomlEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        username: core.Supplier<string>;
+        password: core.Supplier<string>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
         fetcher?: core.FetchFunction;
@@ -53,7 +54,8 @@ export class phenomlClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "phenoml",
-                    "X-Fern-SDK-Version": "0.0.11",
+                    "X-Fern-SDK-Version": "0.0.1",
+                    "User-Agent": "phenoml/0.0.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },

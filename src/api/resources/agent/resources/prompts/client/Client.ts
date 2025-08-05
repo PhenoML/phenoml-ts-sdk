@@ -13,7 +13,8 @@ export declare namespace Prompts {
         environment?: core.Supplier<environments.phenomlEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        username: core.Supplier<string>;
+        password: core.Supplier<string>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
         fetcher?: core.FetchFunction;
@@ -645,7 +646,10 @@ export class Prompts {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        return core.BasicAuth.toAuthorizationHeader({
+            username: await core.Supplier.get(this._options.username),
+            password: await core.Supplier.get(this._options.password),
+        });
     }
 }

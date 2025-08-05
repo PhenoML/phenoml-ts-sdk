@@ -943,9 +943,9 @@ await client.agent.prompts.loadDefaults();
 </dl>
 </details>
 
-## Authtoken
+## Authtoken Auth
 
-<details><summary><code>client.authtoken.<a href="/src/api/resources/authtoken/client/Client.ts">generateToken</a>() -> phenoml.AuthtokenGenerateTokenResponse</code></summary>
+<details><summary><code>client.authtoken.auth.<a href="/src/api/resources/authtoken/resources/auth/client/Client.ts">generateToken</a>({ ...params }) -> phenoml.AuthGenerateTokenResponse</code></summary>
 <dl>
 <dd>
 
@@ -957,7 +957,7 @@ await client.agent.prompts.loadDefaults();
 <dl>
 <dd>
 
-Generates a JWT token using Basic Authentication with username or email and password.
+Obtain an access token using client credentials
 
 </dd>
 </dl>
@@ -973,7 +973,10 @@ Generates a JWT token using Basic Authentication with username or email and pass
 <dd>
 
 ```typescript
-await client.authtoken.generateToken();
+await client.authtoken.auth.generateToken({
+    username: "username",
+    password: "password",
+});
 ```
 
 </dd>
@@ -989,7 +992,15 @@ await client.authtoken.generateToken();
 <dl>
 <dd>
 
-**requestOptions:** `Authtoken.RequestOptions`
+**request:** `phenoml.authtoken.AuthGenerateTokenRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Auth.RequestOptions`
 
 </dd>
 </dl>
