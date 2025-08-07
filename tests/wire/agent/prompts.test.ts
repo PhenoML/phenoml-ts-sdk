@@ -8,7 +8,7 @@ import { phenomlClient } from "../../../src/Client";
 describe("Prompts", () => {
     test("list", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -47,7 +47,7 @@ describe("Prompts", () => {
 
     test("create", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "Medical Assistant System Prompt",
             content: "You are a helpful medical assistant specialized in FHIR data processing...",
@@ -97,7 +97,7 @@ describe("Prompts", () => {
 
     test("get", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -132,7 +132,7 @@ describe("Prompts", () => {
 
     test("update", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = {
             success: true,
@@ -174,7 +174,7 @@ describe("Prompts", () => {
 
     test("delete", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { success: true, message: "Prompt deleted successfully" };
         server
@@ -194,7 +194,7 @@ describe("Prompts", () => {
 
     test("patch", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = [
             { op: "replace", path: "/name", value: "Updated Agent Name" },
             { op: "add", path: "/tags/-", value: "new-tag" },
@@ -255,7 +255,7 @@ describe("Prompts", () => {
 
     test("loadDefaults", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { success: true, message: "Operation completed successfully" };
         server
