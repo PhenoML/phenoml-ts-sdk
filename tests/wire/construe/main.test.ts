@@ -8,7 +8,7 @@ import { phenomlClient } from "../../../src/Client";
 describe("Construe", () => {
     test("uploadCodeSystem", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "CUSTOM_CODES", version: "1.0", format: "json", file: "file" };
         const rawResponseBody = { status: "success" };
         server
@@ -33,7 +33,7 @@ describe("Construe", () => {
 
     test("extractCodes", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney",
         };
@@ -78,7 +78,7 @@ describe("Construe", () => {
 
     test("cohort", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "Between 20 and 40 years old with hyperlipidemia" };
         const rawResponseBody = {
             queries: [

@@ -13,8 +13,7 @@ export declare namespace Tools {
         environment?: core.Supplier<environments.phenomlEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        username: core.Supplier<string>;
-        password: core.Supplier<string>;
+        token: core.Supplier<core.BearerToken>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
         fetcher?: core.FetchFunction;
@@ -325,10 +324,7 @@ export class Tools {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        return core.BasicAuth.toAuthorizationHeader({
-            username: await core.Supplier.get(this._options.username),
-            password: await core.Supplier.get(this._options.password),
-        });
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

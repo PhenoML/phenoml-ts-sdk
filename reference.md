@@ -974,7 +974,7 @@ Obtain an access token using client credentials
 
 ```typescript
 await client.authtoken.auth.generateToken({
-    username: "username",
+    identity: "identity",
     password: "password",
 });
 ```

@@ -8,7 +8,7 @@ import { phenomlClient } from "../../../src/Client";
 describe("Lang2Fhir", () => {
     test("create", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             version: "R4",
             resource: "auto",
@@ -36,7 +36,7 @@ describe("Lang2Fhir", () => {
 
     test("search", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "Appointments between March 2-9, 2025" };
         const rawResponseBody = { resourceType: "Appointment", searchParams: "date=ge2025-03-02&date=le2025-03-09" };
         server
@@ -59,7 +59,7 @@ describe("Lang2Fhir", () => {
 
     test("uploadProfile", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { version: "version", resource: "custom-patient", profile: "profile" };
         const rawResponseBody = {
             message: "Profile uploaded successfully",
@@ -93,7 +93,7 @@ describe("Lang2Fhir", () => {
 
     test("document", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ username: "test", password: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             version: "R4",
             resource: "questionnaire",

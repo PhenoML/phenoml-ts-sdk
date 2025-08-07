@@ -1,14 +1,14 @@
 # Phenoml TypeScript Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Ffern-demo%2Fphenoml-ts-sdk)
-[![npm shield](https://img.shields.io/npm/v/phenoml)](https://www.npmjs.com/package/phenoml)
+[![npm shield](https://img.shields.io/npm/v/)](https://www.npmjs.com/package/)
 
 The Phenoml TypeScript library provides convenient access to the Phenoml API from TypeScript.
 
 ## Installation
 
 ```sh
-npm i -s phenoml
+npm i -s
 ```
 
 ## Reference
@@ -20,9 +20,9 @@ A full reference for this library is available [here](https://github.com/fern-de
 Instantiate and use the client with the following:
 
 ```typescript
-import { phenomlClient } from "phenoml";
+import { phenomlClient } from "";
 
-const client = new phenomlClient({ username: "YOUR_USERNAME", password: "YOUR_PASSWORD" });
+const client = new phenomlClient({ token: "YOUR_TOKEN" });
 await client.agent.create({
     name: "name",
     prompts: ["prompt_123", "prompt_456"],
