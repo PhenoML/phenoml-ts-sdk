@@ -68,11 +68,6 @@ class TokenSupplier {
 
 export class PhenoMLClient extends phenomlClient {
     constructor(options: PhenoMLClient.Options) {
-        // Validate auth options
-        if (!options.token && (!options.username || !options.password)) {
-            throw new Error("Must provide either 'token' or both 'username' and 'password'");
-        }
-
         if (options.token && (options.username || options.password)) {
             throw new Error("Cannot provide both 'token' and 'username'/'password'");
         }
@@ -83,17 +78,18 @@ export class PhenoMLClient extends phenomlClient {
             return;
         }
 
-        // Create lazy token supplier for username/password
-        const baseUrl = (typeof options.baseUrl === 'string' ? options.baseUrl : undefined) ||
-                       (typeof options.environment === 'string' ? options.environment : undefined) ||
-                       environments.phenomlEnvironment.Default;
-        
-        const tokenSupplier = new TokenSupplier(
-            options.username!,
-            options.password!,
-            baseUrl,
-            options.fetcher
-        );
+        // Validate auth options
+        if (!options.username || !options.password) {
+            throw new Error("Must provide both 'username' and 'password'");
+        }
+
+        // Create token supplier for username/password
+        const baseUrl =
+            (typeof options.baseUrl === "string" ? options.baseUrl : undefined) ||
+            (typeof options.environment === "string" ? options.environment : undefined) ||
+            environments.phenomlEnvironment.Default;
+
+        const tokenSupplier = new TokenSupplier(options.username, options.password, baseUrl, options.fetcher);
 
         super({
             ...options,
