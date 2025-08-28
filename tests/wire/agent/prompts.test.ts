@@ -6,45 +6,6 @@ import { mockServerPool } from "../../mock-server/MockServerPool";
 import { phenomlClient } from "../../../src/Client";
 
 describe("Prompts", () => {
-    test("list", async () => {
-        const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-
-        const rawResponseBody = {
-            success: true,
-            message: "Prompts retrieved successfully",
-            prompts: [
-                {
-                    id: "prompt_123",
-                    name: "Medical Assistant System Prompt",
-                    description: "System prompt for medical assistant agent",
-                    content: "You are a helpful medical assistant...",
-                    is_default: false,
-                    is_active: true,
-                    tags: ["medical", "system"],
-                },
-            ],
-        };
-        server.mockEndpoint().get("/agent/prompts").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
-
-        const response = await client.agent.prompts.list();
-        expect(response).toEqual({
-            success: true,
-            message: "Prompts retrieved successfully",
-            prompts: [
-                {
-                    id: "prompt_123",
-                    name: "Medical Assistant System Prompt",
-                    description: "System prompt for medical assistant agent",
-                    content: "You are a helpful medical assistant...",
-                    is_default: false,
-                    is_active: true,
-                    tags: ["medical", "system"],
-                },
-            ],
-        });
-    });
-
     test("create", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
@@ -92,6 +53,51 @@ describe("Prompts", () => {
                 is_active: true,
                 tags: ["medical", "system"],
             },
+        });
+    });
+
+    test("list", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            success: true,
+            message: "Prompts retrieved successfully",
+            prompts: [
+                {
+                    id: "prompt_123",
+                    name: "Medical Assistant System Prompt",
+                    description: "System prompt for medical assistant agent",
+                    content: "You are a helpful medical assistant...",
+                    is_default: false,
+                    is_active: true,
+                    tags: ["medical", "system"],
+                },
+            ],
+        };
+        server
+            .mockEndpoint()
+            .get("/agent/prompts/list")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.agent.prompts.list();
+        expect(response).toEqual({
+            success: true,
+            message: "Prompts retrieved successfully",
+            prompts: [
+                {
+                    id: "prompt_123",
+                    name: "Medical Assistant System Prompt",
+                    description: "System prompt for medical assistant agent",
+                    content: "You are a helpful medical assistant...",
+                    is_default: false,
+                    is_active: true,
+                    tags: ["medical", "system"],
+                },
+            ],
         });
     });
 

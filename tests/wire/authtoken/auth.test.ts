@@ -9,7 +9,7 @@ describe("Auth", () => {
     test("generateToken", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { identity: "identity", password: "password" };
+        const rawRequestBody = { username: "username", password: "password" };
         const rawResponseBody = { token: "token" };
         server
             .mockEndpoint()
@@ -21,7 +21,7 @@ describe("Auth", () => {
             .build();
 
         const response = await client.authtoken.auth.generateToken({
-            identity: "identity",
+            username: "username",
             password: "password",
         });
         expect(response).toEqual({

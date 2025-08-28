@@ -68,6 +68,11 @@ export class Lang2Fhir {
         request: phenoml.lang2Fhir.CreateRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.lang2Fhir.FhirResource>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -76,11 +81,7 @@ export class Lang2Fhir {
                 "lang2fhir/create",
             ),
             method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
@@ -160,6 +161,11 @@ export class Lang2Fhir {
         request: phenoml.lang2Fhir.SearchRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.lang2Fhir.SearchResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -168,11 +174,7 @@ export class Lang2Fhir {
                 "lang2fhir/search",
             ),
             method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
@@ -259,6 +261,11 @@ export class Lang2Fhir {
         request: phenoml.lang2Fhir.ProfileUploadRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.lang2Fhir.Lang2FhirUploadProfileResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -267,11 +274,7 @@ export class Lang2Fhir {
                 "lang2fhir/profile/upload",
             ),
             method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
@@ -358,6 +361,11 @@ export class Lang2Fhir {
         request: phenoml.lang2Fhir.DocumentRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.lang2Fhir.FhirResource>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -366,11 +374,7 @@ export class Lang2Fhir {
                 "lang2fhir/document",
             ),
             method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",

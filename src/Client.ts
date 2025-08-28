@@ -52,8 +52,9 @@ export class phenomlClient {
             headers: mergeHeaders(
                 {
                     "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "",
-                    "X-Fern-SDK-Version": "0.0.24",
+                    "X-Fern-SDK-Name": "phenoml",
+                    "X-Fern-SDK-Version": "0.0.2",
+                    "User-Agent": "phenoml/0.0.2",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },

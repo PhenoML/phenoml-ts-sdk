@@ -51,7 +51,7 @@ export class Auth {
      *
      * @example
      *     await client.authtoken.auth.generateToken({
-     *         identity: "identity",
+     *         username: "username",
      *         password: "password"
      *     })
      */
@@ -66,6 +66,11 @@ export class Auth {
         request: phenoml.authtoken.AuthGenerateTokenRequest,
         requestOptions?: Auth.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.authtoken.AuthGenerateTokenResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -74,11 +79,7 @@ export class Auth {
                 "auth/token",
             ),
             method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",

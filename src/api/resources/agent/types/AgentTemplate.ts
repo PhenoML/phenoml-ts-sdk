@@ -13,25 +13,13 @@ export interface AgentTemplate {
     description?: string;
     /** Array of prompt IDs used by this agent */
     prompts?: string[];
+    /** Array of MCP server tool IDs used by this agent */
+    tools?: string[];
     /** Whether the agent is active */
     is_active?: boolean;
     /** Tags for categorizing the agent */
     tags?: string[];
     /** FHIR provider type - can be a single provider or array of providers */
-    provider?: AgentTemplate.Provider;
+    provider?: phenoml.agent.AgentProvider;
     meta?: phenoml.agent.AgentFhirConfig;
-}
-
-export namespace AgentTemplate {
-    /**
-     * FHIR provider type - can be a single provider or array of providers
-     */
-    export type Provider =
-        | "medplum"
-        | "google_healthcare"
-        | "canvas"
-        | "hapi"
-        /**
-         * Array of FHIR providers */
-        | ("medplum" | "google_healthcare" | "canvas" | "hapi")[];
 }
