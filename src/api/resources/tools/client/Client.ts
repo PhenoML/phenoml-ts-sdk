@@ -7,6 +7,7 @@ import * as core from "../../../../core/index.js";
 import * as phenoml from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as errors from "../../../../errors/index.js";
+import { McpServer } from "../resources/mcpServer/client/Client.js";
 
 export declare namespace Tools {
     export interface Options {
@@ -35,9 +36,14 @@ export declare namespace Tools {
 
 export class Tools {
     protected readonly _options: Tools.Options;
+    protected _mcpServer: McpServer | undefined;
 
     constructor(_options: Tools.Options) {
         this._options = _options;
+    }
+
+    public get mcpServer(): McpServer {
+        return (this._mcpServer ??= new McpServer(this._options));
     }
 
     /**
@@ -69,6 +75,11 @@ export class Tools {
         request: phenoml.tools.Lang2FhirAndCreateRequest,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.Lang2FhirAndCreateResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -77,11 +88,7 @@ export class Tools {
                 "tools/lang2fhir-and-create",
             ),
             method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
@@ -166,6 +173,11 @@ export class Tools {
         request: phenoml.tools.Lang2FhirAndSearchRequest,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.Lang2FhirAndSearchResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -174,11 +186,7 @@ export class Tools {
                 "tools/lang2fhir-and-search",
             ),
             method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
@@ -263,6 +271,11 @@ export class Tools {
         request: phenoml.tools.CohortRequest,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.CohortResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -271,11 +284,7 @@ export class Tools {
                 "tools/cohort",
             ),
             method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",

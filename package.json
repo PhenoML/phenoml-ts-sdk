@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "version": "0.0.24",
+    "name": "phenoml",
+    "version": "0.0.2",
     "private": false,
     "repository": "github:fern-demo/phenoml-ts-sdk",
     "type": "commonjs",

@@ -41,81 +41,6 @@ export class Prompts {
     }
 
     /**
-     * Retrieves a list of agent prompts belonging to the authenticated user
-     *
-     * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.InternalServerError}
-     *
-     * @example
-     *     await client.agent.prompts.list()
-     */
-    public list(requestOptions?: Prompts.RequestOptions): core.HttpResponsePromise<phenoml.agent.PromptsListResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
-    }
-
-    private async __list(
-        requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.PromptsListResponse>> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
-                "agent/prompts",
-            ),
-            method: "GET",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
-            queryParameters: requestOptions?.queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body as phenoml.agent.PromptsListResponse, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.phenomlError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /agent/prompts.");
-            case "unknown":
-                throw new errors.phenomlError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
      * Creates a new agent prompt
      *
      * @param {phenoml.agent.AgentPromptsCreateRequest} request
@@ -144,6 +69,11 @@ export class Prompts {
         request: phenoml.agent.AgentPromptsCreateRequest,
         requestOptions?: Prompts.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -152,11 +82,7 @@ export class Prompts {
                 "agent/prompts",
             ),
             method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
@@ -206,6 +132,82 @@ export class Prompts {
     }
 
     /**
+     * Retrieves a list of agent prompts belonging to the authenticated user
+     *
+     * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.agent.UnauthorizedError}
+     * @throws {@link phenoml.agent.ForbiddenError}
+     * @throws {@link phenoml.agent.InternalServerError}
+     *
+     * @example
+     *     await client.agent.prompts.list()
+     */
+    public list(requestOptions?: Prompts.RequestOptions): core.HttpResponsePromise<phenoml.agent.PromptsListResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
+    }
+
+    private async __list(
+        requestOptions?: Prompts.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.agent.PromptsListResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                "agent/prompts/list",
+            ),
+            method: "GET",
+            headers: _headers,
+            queryParameters: requestOptions?.queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as phenoml.agent.PromptsListResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                case 403:
+                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /agent/prompts/list.");
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Retrieves a specific prompt by its ID
      *
      * @param {string} id - Prompt ID
@@ -230,6 +232,11 @@ export class Prompts {
         id: string,
         requestOptions?: Prompts.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -238,11 +245,7 @@ export class Prompts {
                 `agent/prompts/${encodeURIComponent(id)}`,
             ),
             method: "GET",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             queryParameters: requestOptions?.queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -317,6 +320,11 @@ export class Prompts {
         request: phenoml.agent.AgentPromptsUpdateRequest = {},
         requestOptions?: Prompts.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -325,11 +333,7 @@ export class Prompts {
                 `agent/prompts/${encodeURIComponent(id)}`,
             ),
             method: "PUT",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
@@ -405,6 +409,11 @@ export class Prompts {
         id: string,
         requestOptions?: Prompts.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.PromptsDeleteResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -413,11 +422,7 @@ export class Prompts {
                 `agent/prompts/${encodeURIComponent(id)}`,
             ),
             method: "DELETE",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             queryParameters: requestOptions?.queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
@@ -503,6 +508,11 @@ export class Prompts {
         request: phenoml.agent.JsonPatch,
         requestOptions?: Prompts.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -511,11 +521,7 @@ export class Prompts {
                 `agent/prompts/${encodeURIComponent(id)}`,
             ),
             method: "PATCH",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             contentType: "application/json+patch",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
@@ -587,6 +593,11 @@ export class Prompts {
     private async __loadDefaults(
         requestOptions?: Prompts.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.SuccessResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -595,11 +606,7 @@ export class Prompts {
                 "agent/prompts/load-defaults",
             ),
             method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
+            headers: _headers,
             queryParameters: requestOptions?.queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,

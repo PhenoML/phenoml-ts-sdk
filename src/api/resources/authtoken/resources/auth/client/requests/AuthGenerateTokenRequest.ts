@@ -5,13 +5,13 @@
 /**
  * @example
  *     {
- *         identity: "identity",
+ *         username: "username",
  *         password: "password"
  *     }
  */
 export interface AuthGenerateTokenRequest {
     /** The user's username or email */
-    identity: string;
+    username: string;
     /** The user's password */
     password: string;
 }

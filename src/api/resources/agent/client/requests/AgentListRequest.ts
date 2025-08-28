@@ -7,12 +7,8 @@
  *     {}
  */
 export interface AgentListRequest {
-    /**
-     * Filter by active status
-     */
+    /** Filter by active status */
     is_active?: boolean;
-    /**
-     * Filter by tags
-     */
+    /** Filter by tags */
     tags?: string;
 }

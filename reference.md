@@ -481,9 +481,7 @@ await client.agent.chat({
 </dl>
 </details>
 
-## Agent Prompts
-
-<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">list</a>() -> phenoml.PromptsListResponse</code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">getChatMessages</a>({ ...params }) -> phenoml.AgentGetChatMessagesResponse</code></summary>
 <dl>
 <dd>
 
@@ -495,7 +493,7 @@ await client.agent.chat({
 <dl>
 <dd>
 
-Retrieves a list of agent prompts belonging to the authenticated user
+Retrieves a list of chat messages for a given chat session
 
 </dd>
 </dl>
@@ -511,7 +509,9 @@ Retrieves a list of agent prompts belonging to the authenticated user
 <dd>
 
 ```typescript
-await client.agent.prompts.list();
+await client.agent.getChatMessages({
+    chat_session_id: "chat_session_id",
+});
 ```
 
 </dd>
@@ -527,7 +527,15 @@ await client.agent.prompts.list();
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions`
+**request:** `phenoml.agent.AgentGetChatMessagesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agent.RequestOptions`
 
 </dd>
 </dl>
@@ -537,6 +545,8 @@ await client.agent.prompts.list();
 </dd>
 </dl>
 </details>
+
+## Agent Prompts
 
 <details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">create</a>({ ...params }) -> phenoml.AgentPromptsResponse</code></summary>
 <dl>
@@ -590,6 +600,61 @@ await client.agent.prompts.create({
 
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Prompts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">list</a>() -> phenoml.PromptsListResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a list of agent prompts belonging to the authenticated user
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.prompts.list();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
 
 <dl>
 <dd>
@@ -974,7 +1039,7 @@ Obtain an access token using client credentials
 
 ```typescript
 await client.authtoken.auth.generateToken({
-    identity: "identity",
+    username: "username",
     password: "password",
 });
 ```
@@ -1731,6 +1796,521 @@ await client.tools.analyzeCohort({
 <dd>
 
 **request:** `phenoml.tools.CohortRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Tools McpServer
+
+<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">create</a>({ ...params }) -> phenoml.McpServerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new MCP server
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.mcpServer.create({
+    name: "My MCP Server",
+    mcp_server_url: "https://mcp.example.com",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.tools.McpServerCreateRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">list</a>() -> phenoml.McpServerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists all MCP servers for a specific user
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.mcpServer.list();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">get</a>(mcpServerId) -> phenoml.McpServerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Gets a MCP server by ID
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.mcpServer.get("mcp_server_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcpServerId:** `string` — ID of the MCP server to retrieve
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">delete</a>(mcpServerId) -> phenoml.McpServerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a MCP server by ID
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.mcpServer.delete("mcp_server_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcpServerId:** `string` — ID of the MCP server to delete
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Tools McpServer Tools
+
+<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">list</a>(mcpServerId) -> phenoml.McpServerToolResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists all MCP server tools for a specific MCP server
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.mcpServer.tools.list("mcp_server_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcpServerId:** `string` — ID of the MCP server to list tools for
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">get</a>(mcpServerToolId) -> phenoml.McpServerToolResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Gets a MCP server tool by ID
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.mcpServer.tools.get("mcp_server_tool_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcpServerToolId:** `string` — ID of the MCP server tool to retrieve
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">delete</a>(mcpServerToolId) -> phenoml.McpServerToolResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a MCP server tool by ID
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcpServerToolId:** `string` — ID of the MCP server tool to delete
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">call</a>(mcpServerToolId, { ...params }) -> phenoml.McpServerToolCallResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Calls a MCP server tool
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+    arguments: {
+        title: "PhenoML Agent API",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcpServerToolId:** `string` — ID of the MCP server tool to call
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.tools.mcpServer.McpServerToolCallRequest`
 
 </dd>
 </dl>

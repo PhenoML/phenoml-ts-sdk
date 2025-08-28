@@ -18,6 +18,7 @@ describe("Agent", () => {
                 name: "Medical Assistant",
                 description: "An AI assistant for medical information processing",
                 prompts: ["prompt_123", "prompt_456"],
+                tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
                 provider: "medplum",
@@ -46,6 +47,7 @@ describe("Agent", () => {
                 name: "Medical Assistant",
                 description: "An AI assistant for medical information processing",
                 prompts: ["prompt_123", "prompt_456"],
+                tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
                 provider: "medplum",
@@ -70,6 +72,7 @@ describe("Agent", () => {
                     name: "Medical Assistant",
                     description: "An AI assistant for medical information processing",
                     prompts: ["prompt_123", "prompt_456"],
+                    tools: ["mcp_server_123", "mcp_server_456"],
                     is_active: true,
                     tags: ["medical", "fhir"],
                     provider: "medplum",
@@ -89,6 +92,7 @@ describe("Agent", () => {
                     name: "Medical Assistant",
                     description: "An AI assistant for medical information processing",
                     prompts: ["prompt_123", "prompt_456"],
+                    tools: ["mcp_server_123", "mcp_server_456"],
                     is_active: true,
                     tags: ["medical", "fhir"],
                     provider: "medplum",
@@ -113,6 +117,7 @@ describe("Agent", () => {
                 name: "Medical Assistant",
                 description: "An AI assistant for medical information processing",
                 prompts: ["prompt_123", "prompt_456"],
+                tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
                 provider: "medplum",
@@ -130,6 +135,7 @@ describe("Agent", () => {
                 name: "Medical Assistant",
                 description: "An AI assistant for medical information processing",
                 prompts: ["prompt_123", "prompt_456"],
+                tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
                 provider: "medplum",
@@ -153,6 +159,7 @@ describe("Agent", () => {
                 name: "Medical Assistant",
                 description: "An AI assistant for medical information processing",
                 prompts: ["prompt_123", "prompt_456"],
+                tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
                 provider: "medplum",
@@ -177,6 +184,7 @@ describe("Agent", () => {
                 name: "Medical Assistant",
                 description: "An AI assistant for medical information processing",
                 prompts: ["prompt_123", "prompt_456"],
+                tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
                 provider: "medplum",
@@ -218,6 +226,7 @@ describe("Agent", () => {
                 name: "Medical Assistant",
                 description: "An AI assistant for medical information processing",
                 prompts: ["prompt_123", "prompt_456"],
+                tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
                 provider: "medplum",
@@ -257,6 +266,7 @@ describe("Agent", () => {
                 name: "Medical Assistant",
                 description: "An AI assistant for medical information processing",
                 prompts: ["prompt_123", "prompt_456"],
+                tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
                 provider: "medplum",
@@ -295,6 +305,65 @@ describe("Agent", () => {
             response: "I'll create a patient record for John Doe with diabetes. Let me process that information...",
             success: true,
             message: "Chat response generated successfully",
+            session_id: "session_123",
+        });
+    });
+
+    test("getChatMessages", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            messages: [
+                {
+                    id: "message_123",
+                    session_id: "session_123",
+                    role: "user",
+                    content: "Hello, how are you?",
+                    created: "2021-01-01T00:00:00Z",
+                    updated: "2021-01-01T00:00:00Z",
+                    user_id: "user_123",
+                    function_name: "get_patient_info",
+                    function_args: { patient_id: "123" },
+                    function_result: { name: "John Doe" },
+                    message_order: 1,
+                },
+            ],
+            total: 10,
+            session_id: "session_123",
+        };
+        server
+            .mockEndpoint()
+            .get("/agent/chat/messages")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.agent.getChatMessages({
+            chat_session_id: "chat_session_id",
+        });
+        expect(response).toEqual({
+            messages: [
+                {
+                    id: "message_123",
+                    session_id: "session_123",
+                    role: "user",
+                    content: "Hello, how are you?",
+                    created: "2021-01-01T00:00:00Z",
+                    updated: "2021-01-01T00:00:00Z",
+                    user_id: "user_123",
+                    function_name: "get_patient_info",
+                    function_args: {
+                        patient_id: "123",
+                    },
+                    function_result: {
+                        name: "John Doe",
+                    },
+                    message_order: 1,
+                },
+            ],
+            total: 10,
             session_id: "session_123",
         });
     });
