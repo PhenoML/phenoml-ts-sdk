@@ -13,7 +13,6 @@ export declare namespace Auth {
         environment?: core.Supplier<environments.phenomlEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
         fetcher?: core.FetchFunction;
@@ -68,7 +67,7 @@ export class Auth {
     ): Promise<core.WithRawResponse<phenoml.authtoken.AuthGenerateTokenResponse>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader(request) }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -83,7 +82,6 @@ export class Auth {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -130,7 +128,21 @@ export class Auth {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(request?: phenoml.authtoken.AuthGenerateTokenRequest): Promise<string> {
+        // Auth token endpoint only uses basic auth with username/password
+        if (!request?.username || !request?.password) {
+            throw new Error("Must provide both 'username' and 'password'");
+        }
+
+        const basicAuthHeader = core.BasicAuth.toAuthorizationHeader({
+            username: request.username,
+            password: request.password
+        });
+        
+        if (!basicAuthHeader) {
+            throw new Error("Failed to create basic auth header from username/password");
+        }
+        
+        return basicAuthHeader;
     }
 }

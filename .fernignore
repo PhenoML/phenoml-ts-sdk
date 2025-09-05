@@ -1,1 +1,9 @@
 # Specify files that shouldn't be modified by Fern
+
+# Manual wrapper client implementation
+src/WrapperClient.ts
+src/index.ts
+
+# Enhanced auth client with basic auth support
+src/api/resources/authtoken/resources/auth/client/Client.ts
+tests/wire/authtoken/auth.test.ts
