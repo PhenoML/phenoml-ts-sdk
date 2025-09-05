@@ -7,3 +7,7 @@ src/index.ts
 # Enhanced auth client with basic auth support
 src/api/resources/authtoken/resources/auth/client/Client.ts
 tests/wire/authtoken/auth.test.ts
+
+# don't modify license or readme
+LICENSE.md
+README.md
