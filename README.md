@@ -22,7 +22,13 @@ Instantiate and use the client with the following:
 ```typescript
 import { phenomlClient } from "phenoml";
 
-const client = new phenomlClient({ token: "YOUR_TOKEN" });
+const client = new PhenoMLClient({
+            username: "your_username",
+            password: "your_password",
+            baseUrl: "https://your-phenoml-instance.com"
+        });
+
+
 await client.agent.create({
     name: "name",
     prompts: ["prompt_123", "prompt_456"],
