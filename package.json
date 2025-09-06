@@ -1,8 +1,8 @@
 {
     "name": "phenoml",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "private": false,
-    "repository": "github:fern-demo/phenoml-ts-sdk",
+    "repository": "github:phenoml/phenoml-ts-sdk",
     "type": "commonjs",
     "main": "./dist/cjs/index.js",
     "module": "./dist/esm/index.mjs",

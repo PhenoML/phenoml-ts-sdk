@@ -13,7 +13,7 @@ npm i -s phenoml
 
 ## Reference
 
-A full reference for this library is available [here](https://github.com/fern-demo/phenoml-ts-sdk/blob/HEAD/./reference.md).
+A full reference for this library is available [here](https://github.com/phenoml/phenoml-ts-sdk/blob/HEAD/./reference.md).
 
 ## Usage
 
