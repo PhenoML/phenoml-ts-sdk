@@ -20,7 +20,7 @@ A full reference for this library is available [here](https://github.com/fern-de
 Instantiate and use the client with the following:
 
 ```typescript
-import { phenomlClient } from "phenoml";
+import { PhenoMLClient } from "phenoml";
 
 const client = new PhenoMLClient({
             username: "your_username",
