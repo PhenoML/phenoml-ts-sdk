@@ -316,7 +316,7 @@ export class Agent {
      * Updates an existing agent's configuration
      *
      * @param {string} id - Agent ID
-     * @param {phenoml.agent.AgentUpdateRequest} request
+     * @param {phenoml.agent.AgentCreateRequest} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.BadRequestError}
@@ -326,11 +326,15 @@ export class Agent {
      * @throws {@link phenoml.agent.InternalServerError}
      *
      * @example
-     *     await client.agent.update("id")
+     *     await client.agent.update("id", {
+     *         name: "name",
+     *         prompts: ["prompt_123", "prompt_456"],
+     *         is_active: true
+     *     })
      */
     public update(
         id: string,
-        request: phenoml.agent.AgentUpdateRequest = {},
+        request: phenoml.agent.AgentCreateRequest,
         requestOptions?: Agent.RequestOptions,
     ): core.HttpResponsePromise<phenoml.agent.AgentResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
@@ -338,7 +342,7 @@ export class Agent {
 
     private async __update(
         id: string,
-        request: phenoml.agent.AgentUpdateRequest = {},
+        request: phenoml.agent.AgentCreateRequest,
         requestOptions?: Agent.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.AgentResponse>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(

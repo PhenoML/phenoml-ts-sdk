@@ -21,8 +21,7 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: { fhir_store_id: "my-fhir-store", instance_name: "sandbox" },
+                provider: "provider",
             },
         };
         server
@@ -50,11 +49,7 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: {
-                    fhir_store_id: "my-fhir-store",
-                    instance_name: "sandbox",
-                },
+                provider: "provider",
             },
         });
     });
@@ -75,8 +70,7 @@ describe("Agent", () => {
                     tools: ["mcp_server_123", "mcp_server_456"],
                     is_active: true,
                     tags: ["medical", "fhir"],
-                    provider: "medplum",
-                    meta: { fhir_store_id: "my-fhir-store", instance_name: "sandbox" },
+                    provider: "provider",
                 },
             ],
         };
@@ -95,11 +89,7 @@ describe("Agent", () => {
                     tools: ["mcp_server_123", "mcp_server_456"],
                     is_active: true,
                     tags: ["medical", "fhir"],
-                    provider: "medplum",
-                    meta: {
-                        fhir_store_id: "my-fhir-store",
-                        instance_name: "sandbox",
-                    },
+                    provider: "provider",
                 },
             ],
         });
@@ -120,8 +110,7 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: { fhir_store_id: "my-fhir-store", instance_name: "sandbox" },
+                provider: "provider",
             },
         };
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
@@ -138,11 +127,7 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: {
-                    fhir_store_id: "my-fhir-store",
-                    instance_name: "sandbox",
-                },
+                provider: "provider",
             },
         });
     });
@@ -150,7 +135,7 @@ describe("Agent", () => {
     test("update", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
+        const rawRequestBody = { name: "name", prompts: ["prompt_123", "prompt_456"], is_active: true };
         const rawResponseBody = {
             success: true,
             message: "Agent created successfully",
@@ -162,8 +147,7 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: { fhir_store_id: "my-fhir-store", instance_name: "sandbox" },
+                provider: "provider",
             },
         };
         server
@@ -175,7 +159,11 @@ describe("Agent", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.agent.update("id");
+        const response = await client.agent.update("id", {
+            name: "name",
+            prompts: ["prompt_123", "prompt_456"],
+            is_active: true,
+        });
         expect(response).toEqual({
             success: true,
             message: "Agent created successfully",
@@ -187,11 +175,7 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: {
-                    fhir_store_id: "my-fhir-store",
-                    instance_name: "sandbox",
-                },
+                provider: "provider",
             },
         });
     });
@@ -229,8 +213,7 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: { fhir_store_id: "my-fhir-store", instance_name: "sandbox" },
+                provider: "provider",
             },
         };
         server
@@ -269,11 +252,7 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: {
-                    fhir_store_id: "my-fhir-store",
-                    instance_name: "sandbox",
-                },
+                provider: "provider",
             },
         });
     });

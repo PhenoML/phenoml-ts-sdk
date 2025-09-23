@@ -257,7 +257,7 @@ export class Tools {
      * @example
      *     await client.tools.analyzeCohort({
      *         text: "female patients over 20 with diabetes but not hypertension",
-     *         provider: "medplum"
+     *         provider: "550e8400-e29b-41d4-a716-446655440000"
      *     })
      */
     public analyzeCohort(
