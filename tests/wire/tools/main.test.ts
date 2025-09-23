@@ -120,7 +120,7 @@ describe("Tools", () => {
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             text: "female patients over 20 with diabetes but not hypertension",
-            provider: "medplum",
+            provider: "550e8400-e29b-41d4-a716-446655440000",
         };
         const rawResponseBody = {
             success: true,
@@ -153,7 +153,7 @@ describe("Tools", () => {
 
         const response = await client.tools.analyzeCohort({
             text: "female patients over 20 with diabetes but not hypertension",
-            provider: "medplum",
+            provider: "550e8400-e29b-41d4-a716-446655440000",
         });
         expect(response).toEqual({
             success: true,
