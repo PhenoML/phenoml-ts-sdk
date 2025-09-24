@@ -11,9 +11,9 @@ export declare namespace Authtoken {
         environment?: core.Supplier<environments.phenomlEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
         fetcher?: core.FetchFunction;
     }
 }
@@ -22,7 +22,7 @@ export class Authtoken {
     protected readonly _options: Authtoken.Options;
     protected _auth: Auth | undefined;
 
-    constructor(_options: Authtoken.Options) {
+    constructor(_options: Authtoken.Options = {}) {
         this._options = _options;
     }
 

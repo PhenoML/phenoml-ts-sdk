@@ -4,9 +4,10 @@
 
 import { mockServerPool } from "../../../mock-server/MockServerPool";
 import { phenomlClient } from "../../../../src/Client";
+import * as phenoml from "../../../../src/api/index";
 
 describe("Tools", () => {
-    test("list", async () => {
+    test("list (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -52,7 +53,61 @@ describe("Tools", () => {
         });
     });
 
-    test("get", async () => {
+    test("list (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/mcp_server_id/list")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.mcpServer.tools.list("mcp_server_id");
+        }).rejects.toThrow(phenoml.tools.UnauthorizedError);
+    });
+
+    test("list (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/mcp_server_id/list")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.mcpServer.tools.list("mcp_server_id");
+        }).rejects.toThrow(phenoml.tools.ForbiddenError);
+    });
+
+    test("list (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/mcp_server_id/list")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.mcpServer.tools.list("mcp_server_id");
+        }).rejects.toThrow(phenoml.tools.InternalServerError);
+    });
+
+    test("get (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -98,7 +153,61 @@ describe("Tools", () => {
         });
     });
 
-    test("delete", async () => {
+    test("get (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.mcpServer.tools.get("mcp_server_tool_id");
+        }).rejects.toThrow(phenoml.tools.UnauthorizedError);
+    });
+
+    test("get (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.mcpServer.tools.get("mcp_server_tool_id");
+        }).rejects.toThrow(phenoml.tools.ForbiddenError);
+    });
+
+    test("get (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.mcpServer.tools.get("mcp_server_tool_id");
+        }).rejects.toThrow(phenoml.tools.InternalServerError);
+    });
+
+    test("delete (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -144,7 +253,61 @@ describe("Tools", () => {
         });
     });
 
-    test("call", async () => {
+    test("delete (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .delete("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
+        }).rejects.toThrow(phenoml.tools.UnauthorizedError);
+    });
+
+    test("delete (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .delete("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
+        }).rejects.toThrow(phenoml.tools.ForbiddenError);
+    });
+
+    test("delete (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .delete("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
+        }).rejects.toThrow(phenoml.tools.InternalServerError);
+    });
+
+    test("call (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { arguments: { title: "PhenoML Agent API" } };
@@ -181,5 +344,105 @@ describe("Tools", () => {
             },
             error: "Failed to call MCP server tool",
         });
+    });
+
+    test("call (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { arguments: { arguments: { key: "value" } } };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/tools/mcp-server/tool/mcp_server_tool_id/call")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+                arguments: {
+                    arguments: {
+                        key: "value",
+                    },
+                },
+            });
+        }).rejects.toThrow(phenoml.tools.BadRequestError);
+    });
+
+    test("call (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { arguments: { arguments: { key: "value" } } };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/tools/mcp-server/tool/mcp_server_tool_id/call")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+                arguments: {
+                    arguments: {
+                        key: "value",
+                    },
+                },
+            });
+        }).rejects.toThrow(phenoml.tools.UnauthorizedError);
+    });
+
+    test("call (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { arguments: { arguments: { key: "value" } } };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/tools/mcp-server/tool/mcp_server_tool_id/call")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+                arguments: {
+                    arguments: {
+                        key: "value",
+                    },
+                },
+            });
+        }).rejects.toThrow(phenoml.tools.ForbiddenError);
+    });
+
+    test("call (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { arguments: { arguments: { key: "value" } } };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/tools/mcp-server/tool/mcp_server_tool_id/call")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+                arguments: {
+                    arguments: {
+                        key: "value",
+                    },
+                },
+            });
+        }).rejects.toThrow(phenoml.tools.InternalServerError);
     });
 });
