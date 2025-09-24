@@ -4,9 +4,10 @@
 
 import { mockServerPool } from "../../mock-server/MockServerPool";
 import { phenomlClient } from "../../../src/Client";
+import * as phenoml from "../../../src/api/index";
 
 describe("Cohort", () => {
-    test("analyze", async () => {
+    test("analyze (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "female patients over 65 with diabetes but not hypertension" };
@@ -46,5 +47,68 @@ describe("Cohort", () => {
                 },
             ],
         });
+    });
+
+    test("analyze (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/cohort")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.cohort.analyze({
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.cohort.BadRequestError);
+    });
+
+    test("analyze (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/cohort")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.cohort.analyze({
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.cohort.UnauthorizedError);
+    });
+
+    test("analyze (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/cohort")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.cohort.analyze({
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.cohort.InternalServerError);
     });
 });
