@@ -16,7 +16,7 @@ export declare namespace Tools {
         baseUrl?: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -30,7 +30,7 @@ export declare namespace Tools {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -257,7 +257,7 @@ export class Tools {
      * @example
      *     await client.tools.analyzeCohort({
      *         text: "female patients over 20 with diabetes but not hypertension",
-     *         provider: "medplum"
+     *         provider: "550e8400-e29b-41d4-a716-446655440000"
      *     })
      */
     public analyzeCohort(

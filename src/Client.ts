@@ -9,6 +9,8 @@ import { Agent } from "./api/resources/agent/client/Client.js";
 import { Authtoken } from "./api/resources/authtoken/client/Client.js";
 import { Cohort } from "./api/resources/cohort/client/Client.js";
 import { Construe } from "./api/resources/construe/client/Client.js";
+import { Fhir } from "./api/resources/fhir/client/Client.js";
+import { FhirProvider } from "./api/resources/fhirProvider/client/Client.js";
 import { Lang2Fhir } from "./api/resources/lang2Fhir/client/Client.js";
 import { Tools } from "./api/resources/tools/client/Client.js";
 
@@ -19,7 +21,7 @@ export declare namespace phenomlClient {
         baseUrl?: core.Supplier<string>;
         token: core.Supplier<core.BearerToken>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -33,7 +35,7 @@ export declare namespace phenomlClient {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -43,6 +45,8 @@ export class phenomlClient {
     protected _authtoken: Authtoken | undefined;
     protected _cohort: Cohort | undefined;
     protected _construe: Construe | undefined;
+    protected _fhir: Fhir | undefined;
+    protected _fhirProvider: FhirProvider | undefined;
     protected _lang2Fhir: Lang2Fhir | undefined;
     protected _tools: Tools | undefined;
 
@@ -53,8 +57,8 @@ export class phenomlClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "phenoml",
-                    "X-Fern-SDK-Version": "0.0.2",
-                    "User-Agent": "phenoml/0.0.2",
+                    "X-Fern-SDK-Version": "0.0.4",
+                    "User-Agent": "phenoml/0.0.4",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -77,6 +81,14 @@ export class phenomlClient {
 
     public get construe(): Construe {
         return (this._construe ??= new Construe(this._options));
+    }
+
+    public get fhir(): Fhir {
+        return (this._fhir ??= new Fhir(this._options));
+    }
+
+    public get fhirProvider(): FhirProvider {
+        return (this._fhirProvider ??= new FhirProvider(this._options));
     }
 
     public get lang2Fhir(): Lang2Fhir {
