@@ -14,7 +14,7 @@ export declare namespace Auth {
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -28,7 +28,7 @@ export declare namespace Auth {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -136,13 +136,13 @@ export class Auth {
 
         const basicAuthHeader = core.BasicAuth.toAuthorizationHeader({
             username: request.username,
-            password: request.password
+            password: request.password,
         });
-        
+
         if (!basicAuthHeader) {
             throw new Error("Failed to create basic auth header from username/password");
         }
-        
+
         return basicAuthHeader;
     }
 }
