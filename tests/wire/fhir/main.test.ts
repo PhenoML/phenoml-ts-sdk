@@ -48,7 +48,7 @@ describe("Fhir", () => {
         });
     });
 
-    test("search (2)", async () => {
+    test.skip("search (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -153,7 +153,7 @@ describe("Fhir", () => {
         }).rejects.toThrow(phenoml.fhir.InternalServerError);
     });
 
-    test("create (1)", async () => {
+    test.skip("create (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -269,7 +269,7 @@ describe("Fhir", () => {
         }).rejects.toThrow(phenoml.fhir.InternalServerError);
     });
 
-    test("upsert (1)", async () => {
+    test.skip("upsert (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {

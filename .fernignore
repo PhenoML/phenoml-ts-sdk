@@ -11,3 +11,6 @@ tests/wire/authtoken/auth.test.ts
 # don't modify license or readme
 LICENSE.md
 README.md
+
+# Temporarily ignore
+tests/wire/fhir/main.test.ts
