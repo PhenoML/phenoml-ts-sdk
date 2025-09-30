@@ -4,9 +4,10 @@
 
 import { mockServerPool } from "../../mock-server/MockServerPool";
 import { phenomlClient } from "../../../src/Client";
+import * as phenoml from "../../../src/api/index";
 
 describe("Lang2Fhir", () => {
-    test("create", async () => {
+    test("create (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -34,7 +35,76 @@ describe("Lang2Fhir", () => {
         });
     });
 
-    test("search", async () => {
+    test("create (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { version: "R4", resource: "auto", text: "text" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.create({
+                version: "R4",
+                resource: "auto",
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.BadRequestError);
+    });
+
+    test("create (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { version: "R4", resource: "auto", text: "text" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.create({
+                version: "R4",
+                resource: "auto",
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.UnauthorizedError);
+    });
+
+    test("create (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { version: "R4", resource: "auto", text: "text" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.create({
+                version: "R4",
+                resource: "auto",
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.InternalServerError);
+    });
+
+    test("search (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "Appointments between March 2-9, 2025" };
@@ -57,7 +127,91 @@ describe("Lang2Fhir", () => {
         });
     });
 
-    test("uploadProfile", async () => {
+    test("search (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/search")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.search({
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.BadRequestError);
+    });
+
+    test("search (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/search")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.search({
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.UnauthorizedError);
+    });
+
+    test("search (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/search")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(424)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.search({
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.FailedDependencyError);
+    });
+
+    test("search (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/search")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.search({
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.InternalServerError);
+    });
+
+    test("uploadProfile (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { version: "version", resource: "custom-patient", profile: "profile" };
@@ -91,7 +245,99 @@ describe("Lang2Fhir", () => {
         });
     });
 
-    test("document", async () => {
+    test("uploadProfile (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { version: "version", resource: "resource", profile: "profile" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/profile/upload")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.uploadProfile({
+                version: "version",
+                resource: "resource",
+                profile: "profile",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.BadRequestError);
+    });
+
+    test("uploadProfile (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { version: "version", resource: "resource", profile: "profile" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/profile/upload")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.uploadProfile({
+                version: "version",
+                resource: "resource",
+                profile: "profile",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.UnauthorizedError);
+    });
+
+    test("uploadProfile (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { version: "version", resource: "resource", profile: "profile" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/profile/upload")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.uploadProfile({
+                version: "version",
+                resource: "resource",
+                profile: "profile",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.ForbiddenError);
+    });
+
+    test("uploadProfile (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { version: "version", resource: "resource", profile: "profile" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/profile/upload")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.uploadProfile({
+                version: "version",
+                resource: "resource",
+                profile: "profile",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.InternalServerError);
+    });
+
+    test("document (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -119,5 +365,92 @@ describe("Lang2Fhir", () => {
         expect(response).toEqual({
             key: "value",
         });
+    });
+
+    test("document (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            version: "version",
+            resource: "questionnaire",
+            content: "content",
+            fileType: "application/pdf",
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/document")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.document({
+                version: "version",
+                resource: "questionnaire",
+                content: "content",
+                fileType: "application/pdf",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.BadRequestError);
+    });
+
+    test("document (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            version: "version",
+            resource: "questionnaire",
+            content: "content",
+            fileType: "application/pdf",
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/document")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.document({
+                version: "version",
+                resource: "questionnaire",
+                content: "content",
+                fileType: "application/pdf",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.UnauthorizedError);
+    });
+
+    test("document (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            version: "version",
+            resource: "questionnaire",
+            content: "content",
+            fileType: "application/pdf",
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/document")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.document({
+                version: "version",
+                resource: "questionnaire",
+                content: "content",
+                fileType: "application/pdf",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.InternalServerError);
     });
 });

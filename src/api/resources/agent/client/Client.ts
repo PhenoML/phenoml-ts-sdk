@@ -14,9 +14,9 @@ export declare namespace Agent {
         environment?: core.Supplier<environments.phenomlEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        token: core.Supplier<core.BearerToken>;
+        token?: core.Supplier<core.BearerToken | undefined>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
         fetcher?: core.FetchFunction;
     }
 
@@ -30,7 +30,7 @@ export declare namespace Agent {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -38,7 +38,7 @@ export class Agent {
     protected readonly _options: Agent.Options;
     protected _prompts: Prompts | undefined;
 
-    constructor(_options: Agent.Options) {
+    constructor(_options: Agent.Options = {}) {
         this._options = _options;
     }
 
@@ -316,7 +316,7 @@ export class Agent {
      * Updates an existing agent's configuration
      *
      * @param {string} id - Agent ID
-     * @param {phenoml.agent.AgentUpdateRequest} request
+     * @param {phenoml.agent.AgentCreateRequest} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.BadRequestError}
@@ -326,11 +326,15 @@ export class Agent {
      * @throws {@link phenoml.agent.InternalServerError}
      *
      * @example
-     *     await client.agent.update("id")
+     *     await client.agent.update("id", {
+     *         name: "name",
+     *         prompts: ["prompt_123", "prompt_456"],
+     *         is_active: true
+     *     })
      */
     public update(
         id: string,
-        request: phenoml.agent.AgentUpdateRequest = {},
+        request: phenoml.agent.AgentCreateRequest,
         requestOptions?: Agent.RequestOptions,
     ): core.HttpResponsePromise<phenoml.agent.AgentResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
@@ -338,7 +342,7 @@ export class Agent {
 
     private async __update(
         id: string,
-        request: phenoml.agent.AgentUpdateRequest = {},
+        request: phenoml.agent.AgentCreateRequest,
         requestOptions?: Agent.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.AgentResponse>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -784,7 +788,12 @@ export class Agent {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

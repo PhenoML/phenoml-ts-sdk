@@ -4,9 +4,10 @@
 
 import { mockServerPool } from "../../mock-server/MockServerPool";
 import { phenomlClient } from "../../../src/Client";
+import * as phenoml from "../../../src/api/index";
 
 describe("Agent", () => {
-    test("create", async () => {
+    test("create (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", prompts: ["prompt_123", "prompt_456"], is_active: true };
@@ -21,8 +22,7 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: { fhir_store_id: "my-fhir-store", instance_name: "sandbox" },
+                provider: "provider",
             },
         };
         server
@@ -50,16 +50,152 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: {
-                    fhir_store_id: "my-fhir-store",
-                    instance_name: "sandbox",
-                },
+                provider: "provider",
             },
         });
     });
 
-    test("list", async () => {
+    test("create (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            name: "name",
+            description: undefined,
+            prompts: ["prompts", "prompts"],
+            tools: undefined,
+            is_active: true,
+            tags: undefined,
+            provider: undefined,
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.create({
+                name: "name",
+                description: undefined,
+                prompts: ["prompts", "prompts"],
+                tools: undefined,
+                is_active: true,
+                tags: undefined,
+                provider: undefined,
+            });
+        }).rejects.toThrow(phenoml.agent.BadRequestError);
+    });
+
+    test("create (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            name: "name",
+            description: undefined,
+            prompts: ["prompts", "prompts"],
+            tools: undefined,
+            is_active: true,
+            tags: undefined,
+            provider: undefined,
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.create({
+                name: "name",
+                description: undefined,
+                prompts: ["prompts", "prompts"],
+                tools: undefined,
+                is_active: true,
+                tags: undefined,
+                provider: undefined,
+            });
+        }).rejects.toThrow(phenoml.agent.UnauthorizedError);
+    });
+
+    test("create (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            name: "name",
+            description: undefined,
+            prompts: ["prompts", "prompts"],
+            tools: undefined,
+            is_active: true,
+            tags: undefined,
+            provider: undefined,
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.create({
+                name: "name",
+                description: undefined,
+                prompts: ["prompts", "prompts"],
+                tools: undefined,
+                is_active: true,
+                tags: undefined,
+                provider: undefined,
+            });
+        }).rejects.toThrow(phenoml.agent.ForbiddenError);
+    });
+
+    test("create (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            name: "name",
+            description: undefined,
+            prompts: ["prompts", "prompts"],
+            tools: undefined,
+            is_active: true,
+            tags: undefined,
+            provider: undefined,
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.create({
+                name: "name",
+                description: undefined,
+                prompts: ["prompts", "prompts"],
+                tools: undefined,
+                is_active: true,
+                tags: undefined,
+                provider: undefined,
+            });
+        }).rejects.toThrow(phenoml.agent.InternalServerError);
+    });
+
+    test("list (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -75,8 +211,7 @@ describe("Agent", () => {
                     tools: ["mcp_server_123", "mcp_server_456"],
                     is_active: true,
                     tags: ["medical", "fhir"],
-                    provider: "medplum",
-                    meta: { fhir_store_id: "my-fhir-store", instance_name: "sandbox" },
+                    provider: "provider",
                 },
             ],
         };
@@ -95,17 +230,49 @@ describe("Agent", () => {
                     tools: ["mcp_server_123", "mcp_server_456"],
                     is_active: true,
                     tags: ["medical", "fhir"],
-                    provider: "medplum",
-                    meta: {
-                        fhir_store_id: "my-fhir-store",
-                        instance_name: "sandbox",
-                    },
+                    provider: "provider",
                 },
             ],
         });
     });
 
-    test("get", async () => {
+    test("list (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().get("/agent/list").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.agent.list();
+        }).rejects.toThrow(phenoml.agent.UnauthorizedError);
+    });
+
+    test("list (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().get("/agent/list").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.agent.list();
+        }).rejects.toThrow(phenoml.agent.ForbiddenError);
+    });
+
+    test("list (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().get("/agent/list").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.agent.list();
+        }).rejects.toThrow(phenoml.agent.InternalServerError);
+    });
+
+    test("get (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -120,8 +287,7 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: { fhir_store_id: "my-fhir-store", instance_name: "sandbox" },
+                provider: "provider",
             },
         };
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
@@ -138,19 +304,63 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: {
-                    fhir_store_id: "my-fhir-store",
-                    instance_name: "sandbox",
-                },
+                provider: "provider",
             },
         });
     });
 
-    test("update", async () => {
+    test("get (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().get("/agent/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.agent.get("id");
+        }).rejects.toThrow(phenoml.agent.UnauthorizedError);
+    });
+
+    test("get (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().get("/agent/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.agent.get("id");
+        }).rejects.toThrow(phenoml.agent.ForbiddenError);
+    });
+
+    test("get (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().get("/agent/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.agent.get("id");
+        }).rejects.toThrow(phenoml.agent.NotFoundError);
+    });
+
+    test("get (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().get("/agent/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.agent.get("id");
+        }).rejects.toThrow(phenoml.agent.InternalServerError);
+    });
+
+    test("update (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { name: "name", prompts: ["prompt_123", "prompt_456"], is_active: true };
         const rawResponseBody = {
             success: true,
             message: "Agent created successfully",
@@ -162,8 +372,7 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: { fhir_store_id: "my-fhir-store", instance_name: "sandbox" },
+                provider: "provider",
             },
         };
         server
@@ -175,7 +384,11 @@ describe("Agent", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.agent.update("id");
+        const response = await client.agent.update("id", {
+            name: "name",
+            prompts: ["prompt_123", "prompt_456"],
+            is_active: true,
+        });
         expect(response).toEqual({
             success: true,
             message: "Agent created successfully",
@@ -187,16 +400,187 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: {
-                    fhir_store_id: "my-fhir-store",
-                    instance_name: "sandbox",
-                },
+                provider: "provider",
             },
         });
     });
 
-    test("delete", async () => {
+    test("update (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            name: "name",
+            description: undefined,
+            prompts: ["prompts", "prompts"],
+            tools: undefined,
+            is_active: true,
+            tags: undefined,
+            provider: undefined,
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .put("/agent/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.update("id", {
+                name: "name",
+                description: undefined,
+                prompts: ["prompts", "prompts"],
+                tools: undefined,
+                is_active: true,
+                tags: undefined,
+                provider: undefined,
+            });
+        }).rejects.toThrow(phenoml.agent.BadRequestError);
+    });
+
+    test("update (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            name: "name",
+            description: undefined,
+            prompts: ["prompts", "prompts"],
+            tools: undefined,
+            is_active: true,
+            tags: undefined,
+            provider: undefined,
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .put("/agent/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.update("id", {
+                name: "name",
+                description: undefined,
+                prompts: ["prompts", "prompts"],
+                tools: undefined,
+                is_active: true,
+                tags: undefined,
+                provider: undefined,
+            });
+        }).rejects.toThrow(phenoml.agent.UnauthorizedError);
+    });
+
+    test("update (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            name: "name",
+            description: undefined,
+            prompts: ["prompts", "prompts"],
+            tools: undefined,
+            is_active: true,
+            tags: undefined,
+            provider: undefined,
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .put("/agent/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.update("id", {
+                name: "name",
+                description: undefined,
+                prompts: ["prompts", "prompts"],
+                tools: undefined,
+                is_active: true,
+                tags: undefined,
+                provider: undefined,
+            });
+        }).rejects.toThrow(phenoml.agent.ForbiddenError);
+    });
+
+    test("update (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            name: "name",
+            description: undefined,
+            prompts: ["prompts", "prompts"],
+            tools: undefined,
+            is_active: true,
+            tags: undefined,
+            provider: undefined,
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .put("/agent/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.update("id", {
+                name: "name",
+                description: undefined,
+                prompts: ["prompts", "prompts"],
+                tools: undefined,
+                is_active: true,
+                tags: undefined,
+                provider: undefined,
+            });
+        }).rejects.toThrow(phenoml.agent.NotFoundError);
+    });
+
+    test("update (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            name: "name",
+            description: undefined,
+            prompts: ["prompts", "prompts"],
+            tools: undefined,
+            is_active: true,
+            tags: undefined,
+            provider: undefined,
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .put("/agent/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.update("id", {
+                name: "name",
+                description: undefined,
+                prompts: ["prompts", "prompts"],
+                tools: undefined,
+                is_active: true,
+                tags: undefined,
+                provider: undefined,
+            });
+        }).rejects.toThrow(phenoml.agent.InternalServerError);
+    });
+
+    test("delete (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -210,7 +594,55 @@ describe("Agent", () => {
         });
     });
 
-    test("patch", async () => {
+    test("delete (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().delete("/agent/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.agent.delete("id");
+        }).rejects.toThrow(phenoml.agent.UnauthorizedError);
+    });
+
+    test("delete (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().delete("/agent/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.agent.delete("id");
+        }).rejects.toThrow(phenoml.agent.ForbiddenError);
+    });
+
+    test("delete (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().delete("/agent/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.agent.delete("id");
+        }).rejects.toThrow(phenoml.agent.NotFoundError);
+    });
+
+    test("delete (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().delete("/agent/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.agent.delete("id");
+        }).rejects.toThrow(phenoml.agent.InternalServerError);
+    });
+
+    test("patch (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = [
@@ -229,8 +661,7 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: { fhir_store_id: "my-fhir-store", instance_name: "sandbox" },
+                provider: "provider",
             },
         };
         server
@@ -269,16 +700,187 @@ describe("Agent", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 is_active: true,
                 tags: ["medical", "fhir"],
-                provider: "medplum",
-                meta: {
-                    fhir_store_id: "my-fhir-store",
-                    instance_name: "sandbox",
-                },
+                provider: "provider",
             },
         });
     });
 
-    test("chat", async () => {
+    test("patch (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = [
+            { op: "add", path: "path", value: undefined, from: undefined },
+            { op: "add", path: "path", value: undefined, from: undefined },
+        ];
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .patch("/agent/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.patch("id", [
+                {
+                    op: "add",
+                    path: "path",
+                    value: undefined,
+                    from: undefined,
+                },
+                {
+                    op: "add",
+                    path: "path",
+                    value: undefined,
+                    from: undefined,
+                },
+            ]);
+        }).rejects.toThrow(phenoml.agent.BadRequestError);
+    });
+
+    test("patch (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = [
+            { op: "add", path: "path", value: undefined, from: undefined },
+            { op: "add", path: "path", value: undefined, from: undefined },
+        ];
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .patch("/agent/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.patch("id", [
+                {
+                    op: "add",
+                    path: "path",
+                    value: undefined,
+                    from: undefined,
+                },
+                {
+                    op: "add",
+                    path: "path",
+                    value: undefined,
+                    from: undefined,
+                },
+            ]);
+        }).rejects.toThrow(phenoml.agent.UnauthorizedError);
+    });
+
+    test("patch (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = [
+            { op: "add", path: "path", value: undefined, from: undefined },
+            { op: "add", path: "path", value: undefined, from: undefined },
+        ];
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .patch("/agent/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.patch("id", [
+                {
+                    op: "add",
+                    path: "path",
+                    value: undefined,
+                    from: undefined,
+                },
+                {
+                    op: "add",
+                    path: "path",
+                    value: undefined,
+                    from: undefined,
+                },
+            ]);
+        }).rejects.toThrow(phenoml.agent.ForbiddenError);
+    });
+
+    test("patch (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = [
+            { op: "add", path: "path", value: undefined, from: undefined },
+            { op: "add", path: "path", value: undefined, from: undefined },
+        ];
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .patch("/agent/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.patch("id", [
+                {
+                    op: "add",
+                    path: "path",
+                    value: undefined,
+                    from: undefined,
+                },
+                {
+                    op: "add",
+                    path: "path",
+                    value: undefined,
+                    from: undefined,
+                },
+            ]);
+        }).rejects.toThrow(phenoml.agent.NotFoundError);
+    });
+
+    test("patch (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = [
+            { op: "add", path: "path", value: undefined, from: undefined },
+            { op: "add", path: "path", value: undefined, from: undefined },
+        ];
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .patch("/agent/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.patch("id", [
+                {
+                    op: "add",
+                    path: "path",
+                    value: undefined,
+                    from: undefined,
+                },
+                {
+                    op: "add",
+                    path: "path",
+                    value: undefined,
+                    from: undefined,
+                },
+            ]);
+        }).rejects.toThrow(phenoml.agent.InternalServerError);
+    });
+
+    test("chat (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { message: "What is the patient's current condition?", agent_id: "agent-123" };
@@ -309,7 +911,103 @@ describe("Agent", () => {
         });
     });
 
-    test("getChatMessages", async () => {
+    test("chat (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { message: "message", context: undefined, session_id: undefined, agent_id: "agent_id" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/chat")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.chat({
+                message: "message",
+                context: undefined,
+                session_id: undefined,
+                agent_id: "agent_id",
+            });
+        }).rejects.toThrow(phenoml.agent.BadRequestError);
+    });
+
+    test("chat (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { message: "message", context: undefined, session_id: undefined, agent_id: "agent_id" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/chat")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.chat({
+                message: "message",
+                context: undefined,
+                session_id: undefined,
+                agent_id: "agent_id",
+            });
+        }).rejects.toThrow(phenoml.agent.UnauthorizedError);
+    });
+
+    test("chat (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { message: "message", context: undefined, session_id: undefined, agent_id: "agent_id" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/chat")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.chat({
+                message: "message",
+                context: undefined,
+                session_id: undefined,
+                agent_id: "agent_id",
+            });
+        }).rejects.toThrow(phenoml.agent.ForbiddenError);
+    });
+
+    test("chat (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { message: "message", context: undefined, session_id: undefined, agent_id: "agent_id" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/chat")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.chat({
+                message: "message",
+                context: undefined,
+                session_id: undefined,
+                agent_id: "agent_id",
+            });
+        }).rejects.toThrow(phenoml.agent.InternalServerError);
+    });
+
+    test("getChatMessages (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -366,5 +1064,65 @@ describe("Agent", () => {
             total: 10,
             session_id: "session_123",
         });
+    });
+
+    test("getChatMessages (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/agent/chat/messages")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.getChatMessages({
+                chat_session_id: "chat_session_id",
+            });
+        }).rejects.toThrow(phenoml.agent.UnauthorizedError);
+    });
+
+    test("getChatMessages (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/agent/chat/messages")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.getChatMessages({
+                chat_session_id: "chat_session_id",
+            });
+        }).rejects.toThrow(phenoml.agent.ForbiddenError);
+    });
+
+    test("getChatMessages (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/agent/chat/messages")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.getChatMessages({
+                chat_session_id: "chat_session_id",
+            });
+        }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
 });
