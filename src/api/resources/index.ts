@@ -6,3 +6,4 @@ export * as fhir from "./fhir/index.js";
 export * as fhirProvider from "./fhirProvider/index.js";
 export * as lang2Fhir from "./lang2Fhir/index.js";
 export * as tools from "./tools/index.js";
+export * as workflows from "./workflows/index.js";

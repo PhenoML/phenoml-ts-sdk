@@ -97,7 +97,10 @@ Retrieves a list of PhenoAgents belonging to the authenticated user
 <dd>
 
 ```typescript
-await client.agent.list();
+await client.agent.list({
+    is_active: true,
+    tags: "tags",
+});
 ```
 
 </dd>
@@ -515,6 +518,9 @@ Retrieves a list of chat messages for a given chat session
 ```typescript
 await client.agent.getChatMessages({
     chat_session_id: "chat_session_id",
+    num_messages: 1,
+    role: "role",
+    order: "asc",
 });
 ```
 
@@ -1481,6 +1487,14 @@ await client.fhir.create("550e8400-e29b-41d4-a716-446655440000", "Patient", {
     "X-Phenoml-On-Behalf-Of": "user@example.com",
     body: {
         resourceType: "Patient",
+        name: [
+            {
+                family: "Doe",
+                given: ["Jane"],
+            },
+        ],
+        gender: "female",
+        birthDate: "1990-01-01",
     },
 });
 ```
@@ -1580,6 +1594,14 @@ await client.fhir.upsert("550e8400-e29b-41d4-a716-446655440000", "Patient", {
     body: {
         resourceType: "Patient",
         id: "123",
+        name: [
+            {
+                family: "Doe",
+                given: ["John", "Updated"],
+            },
+        ],
+        gender: "male",
+        birthDate: "1985-05-15",
     },
 });
 ```
@@ -3397,6 +3419,935 @@ await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
 <dd>
 
 **request:** `phenoml.tools.mcpServer.McpServerToolCallRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Workflows
+
+<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">createFhirResource</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.createFhirResource();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Workflows.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">searchFhirResources</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.searchFhirResources();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Workflows.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">analyzeCohort</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.analyzeCohort();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Workflows.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Workflows Workflows
+
+<details><summary><code>client.workflows.workflows.<a href="/src/api/resources/workflows/resources/workflows/client/Client.ts">list</a>({ ...params }) -> phenoml.ListWorkflowsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves all workflow definitions for the authenticated user
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.workflows.list({
+    verbose: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.workflows.WorkflowsListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Workflows.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workflows.workflows.<a href="/src/api/resources/workflows/resources/workflows/client/Client.ts">create</a>({ ...params }) -> phenoml.CreateWorkflowResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new workflow definition with graph generation from workflow instructions
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.workflows.create({
+    verbose: true,
+    name: "Patient Data Mapping Workflow",
+    workflow_instructions: "Given diagnosis data, find the patient and create condition record",
+    sample_data: {
+        patient_last_name: "Rippin",
+        patient_first_name: "Clay",
+        diagnosis_code: "I10",
+    },
+    fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.workflows.CreateWorkflowRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Workflows.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workflows.workflows.<a href="/src/api/resources/workflows/resources/workflows/client/Client.ts">get</a>(id, { ...params }) -> phenoml.WorkflowsGetResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a workflow definition by its ID
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.workflows.get("id", {
+    verbose: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — ID of the workflow to retrieve
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.workflows.WorkflowsGetRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Workflows.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workflows.workflows.<a href="/src/api/resources/workflows/resources/workflows/client/Client.ts">update</a>(id, { ...params }) -> phenoml.WorkflowsUpdateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates an existing workflow definition
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.workflows.update("id", {
+    verbose: true,
+    name: "Updated Patient Data Mapping Workflow",
+    workflow_instructions: "Given diagnosis data, find the patient and create condition record",
+    sample_data: {
+        patient_last_name: "Smith",
+        patient_first_name: "John",
+        diagnosis_code: "E11",
+    },
+    fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — ID of the workflow to update
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.workflows.UpdateWorkflowRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Workflows.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workflows.workflows.<a href="/src/api/resources/workflows/resources/workflows/client/Client.ts">delete</a>(id) -> phenoml.WorkflowsDeleteResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a workflow definition by its ID
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.workflows.delete("id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — ID of the workflow to delete
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Workflows.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workflows.workflows.<a href="/src/api/resources/workflows/resources/workflows/client/Client.ts">execute</a>(id, { ...params }) -> phenoml.ExecuteWorkflowResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Executes a workflow with provided input data and returns results
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.workflows.execute("id", {
+    input_data: {
+        patient_last_name: "Johnson",
+        patient_first_name: "Mary",
+        diagnosis_code: "M79.3",
+        encounter_date: "2024-01-15",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — ID of the workflow to execute
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.workflows.ExecuteWorkflowRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Workflows.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Workflows McpServer
+
+<details><summary><code>client.workflows.mcpServer.<a href="/src/api/resources/workflows/resources/mcpServer/client/Client.ts">create</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.mcpServer.create();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workflows.mcpServer.<a href="/src/api/resources/workflows/resources/mcpServer/client/Client.ts">list</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.mcpServer.list();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workflows.mcpServer.<a href="/src/api/resources/workflows/resources/mcpServer/client/Client.ts">get</a>(mcpServerId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.mcpServer.get("mcp_server_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcpServerId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workflows.mcpServer.<a href="/src/api/resources/workflows/resources/mcpServer/client/Client.ts">delete</a>(mcpServerId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.mcpServer.delete("mcp_server_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcpServerId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Workflows McpServer Tools
+
+<details><summary><code>client.workflows.mcpServer.tools.<a href="/src/api/resources/workflows/resources/mcpServer/resources/tools/client/Client.ts">list</a>(mcpServerId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.mcpServer.tools.list("mcp_server_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcpServerId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workflows.mcpServer.tools.<a href="/src/api/resources/workflows/resources/mcpServer/resources/tools/client/Client.ts">get</a>(mcpServerToolId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.mcpServer.tools.get("mcp_server_tool_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcpServerToolId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workflows.mcpServer.tools.<a href="/src/api/resources/workflows/resources/mcpServer/resources/tools/client/Client.ts">delete</a>(mcpServerToolId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.mcpServer.tools.delete("mcp_server_tool_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcpServerToolId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.workflows.mcpServer.tools.<a href="/src/api/resources/workflows/resources/mcpServer/resources/tools/client/Client.ts">call</a>(mcpServerToolId) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.workflows.mcpServer.tools.call("mcp_server_tool_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcpServerToolId:** `string`
 
 </dd>
 </dl>
