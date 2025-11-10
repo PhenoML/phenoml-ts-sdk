@@ -3,10 +3,9 @@
 import type { BaseClientOptions, BaseRequestOptions } from "../../../../BaseClient.js";
 import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
+import * as phenoml from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as errors from "../../../../errors/index.js";
-import { Workflows as Workflows_ } from "../resources/workflows/client/Client.js";
-import { McpServer } from "../resources/mcpServer/client/Client.js";
 
 export declare namespace Workflows {
     export interface Options extends BaseClientOptions {}
@@ -16,93 +15,43 @@ export declare namespace Workflows {
 
 export class Workflows {
     protected readonly _options: Workflows.Options;
-    protected _workflows: Workflows_ | undefined;
-    protected _mcpServer: McpServer | undefined;
 
     constructor(_options: Workflows.Options = {}) {
         this._options = _options;
     }
 
-    public get workflows(): Workflows_ {
-        return (this._workflows ??= new Workflows_(this._options));
-    }
-
-    public get mcpServer(): McpServer {
-        return (this._mcpServer ??= new McpServer(this._options));
-    }
-
     /**
+     * Retrieves all workflow definitions for the authenticated user
+     *
+     * @param {phenoml.workflows.WorkflowsListRequest} request
      * @param {Workflows.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @example
-     *     await client.workflows.createFhirResource()
-     */
-    public createFhirResource(requestOptions?: Workflows.RequestOptions): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__createFhirResource(requestOptions));
-    }
-
-    private async __createFhirResource(requestOptions?: Workflows.RequestOptions): Promise<core.WithRawResponse<void>> {
-        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            this._options?.headers,
-            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-            requestOptions?.headers,
-        );
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
-                "tools/lang2fhir-and-create",
-            ),
-            method: "POST",
-            headers: _headers,
-            queryParameters: requestOptions?.queryParams,
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: undefined, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.phenomlError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-                rawResponse: _response.rawResponse,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.phenomlError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /tools/lang2fhir-and-create.");
-            case "unknown":
-                throw new errors.phenomlError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * @param {Workflows.RequestOptions} requestOptions - Request-specific configuration.
+     * @throws {@link phenoml.workflows.UnauthorizedError}
+     * @throws {@link phenoml.workflows.ForbiddenError}
+     * @throws {@link phenoml.workflows.InternalServerError}
      *
      * @example
-     *     await client.workflows.searchFhirResources()
+     *     await client.workflows.list({
+     *         verbose: true
+     *     })
      */
-    public searchFhirResources(requestOptions?: Workflows.RequestOptions): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__searchFhirResources(requestOptions));
-    }
-
-    private async __searchFhirResources(
+    public list(
+        request: phenoml.workflows.WorkflowsListRequest = {},
         requestOptions?: Workflows.RequestOptions,
-    ): Promise<core.WithRawResponse<void>> {
+    ): core.HttpResponsePromise<phenoml.workflows.ListWorkflowsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
+    }
+
+    private async __list(
+        request: phenoml.workflows.WorkflowsListRequest = {},
+        requestOptions?: Workflows.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.workflows.ListWorkflowsResponse>> {
+        const { verbose } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (verbose != null) {
+            _queryParams["verbose"] = verbose.toString();
+        }
+
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -113,25 +62,43 @@ export class Workflows {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                "tools/lang2fhir-and-search",
+                "workflows",
             ),
-            method: "POST",
+            method: "GET",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: undefined, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as phenoml.workflows.ListWorkflowsResponse,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.phenomlError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-                rawResponse: _response.rawResponse,
-            });
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new phenoml.workflows.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new phenoml.workflows.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.workflows.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -142,7 +109,7 @@ export class Workflows {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /tools/lang2fhir-and-search.");
+                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /workflows.");
             case "unknown":
                 throw new errors.phenomlError({
                     message: _response.error.errorMessage,
@@ -152,16 +119,46 @@ export class Workflows {
     }
 
     /**
+     * Creates a new workflow definition with graph generation from workflow instructions
+     *
+     * @param {phenoml.workflows.CreateWorkflowRequest} request
      * @param {Workflows.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link phenoml.workflows.BadRequestError}
+     * @throws {@link phenoml.workflows.UnauthorizedError}
+     * @throws {@link phenoml.workflows.ForbiddenError}
+     * @throws {@link phenoml.workflows.InternalServerError}
+     *
      * @example
-     *     await client.workflows.analyzeCohort()
+     *     await client.workflows.create({
+     *         verbose: true,
+     *         name: "Patient Data Mapping Workflow",
+     *         workflow_instructions: "Given diagnosis data, find the patient and create condition record",
+     *         sample_data: {
+     *             "patient_last_name": "Rippin",
+     *             "patient_first_name": "Clay",
+     *             "diagnosis_code": "I10"
+     *         },
+     *         fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000"
+     *     })
      */
-    public analyzeCohort(requestOptions?: Workflows.RequestOptions): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__analyzeCohort(requestOptions));
+    public create(
+        request: phenoml.workflows.CreateWorkflowRequest,
+        requestOptions?: Workflows.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.workflows.CreateWorkflowResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
-    private async __analyzeCohort(requestOptions?: Workflows.RequestOptions): Promise<core.WithRawResponse<void>> {
+    private async __create(
+        request: phenoml.workflows.CreateWorkflowRequest,
+        requestOptions?: Workflows.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.workflows.CreateWorkflowResponse>> {
+        const { verbose, ..._body } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (verbose != null) {
+            _queryParams["verbose"] = verbose.toString();
+        }
+
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -172,25 +169,48 @@ export class Workflows {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                "tools/cohort",
+                "workflows",
             ),
             method: "POST",
             headers: _headers,
-            queryParameters: requestOptions?.queryParams,
+            contentType: "application/json",
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            requestType: "json",
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: undefined, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as phenoml.workflows.CreateWorkflowResponse,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.phenomlError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-                rawResponse: _response.rawResponse,
-            });
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.workflows.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.workflows.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new phenoml.workflows.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.workflows.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
         }
 
         switch (_response.error.reason) {
@@ -201,7 +221,431 @@ export class Workflows {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /tools/cohort.");
+                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /workflows.");
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Retrieves a workflow definition by its ID
+     *
+     * @param {string} id - ID of the workflow to retrieve
+     * @param {phenoml.workflows.WorkflowsGetRequest} request
+     * @param {Workflows.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.workflows.UnauthorizedError}
+     * @throws {@link phenoml.workflows.ForbiddenError}
+     * @throws {@link phenoml.workflows.NotFoundError}
+     * @throws {@link phenoml.workflows.InternalServerError}
+     *
+     * @example
+     *     await client.workflows.get("id", {
+     *         verbose: true
+     *     })
+     */
+    public get(
+        id: string,
+        request: phenoml.workflows.WorkflowsGetRequest = {},
+        requestOptions?: Workflows.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.workflows.WorkflowsGetResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__get(id, request, requestOptions));
+    }
+
+    private async __get(
+        id: string,
+        request: phenoml.workflows.WorkflowsGetRequest = {},
+        requestOptions?: Workflows.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.workflows.WorkflowsGetResponse>> {
+        const { verbose } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (verbose != null) {
+            _queryParams["verbose"] = verbose.toString();
+        }
+
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `workflows/${encodeURIComponent(id)}`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as phenoml.workflows.WorkflowsGetResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new phenoml.workflows.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new phenoml.workflows.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 404:
+                    throw new phenoml.workflows.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.workflows.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /workflows/{id}.");
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Updates an existing workflow definition
+     *
+     * @param {string} id - ID of the workflow to update
+     * @param {phenoml.workflows.UpdateWorkflowRequest} request
+     * @param {Workflows.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.workflows.BadRequestError}
+     * @throws {@link phenoml.workflows.UnauthorizedError}
+     * @throws {@link phenoml.workflows.ForbiddenError}
+     * @throws {@link phenoml.workflows.NotFoundError}
+     * @throws {@link phenoml.workflows.InternalServerError}
+     *
+     * @example
+     *     await client.workflows.update("id", {
+     *         verbose: true,
+     *         name: "Updated Patient Data Mapping Workflow",
+     *         workflow_instructions: "Given diagnosis data, find the patient and create condition record",
+     *         sample_data: {
+     *             "patient_last_name": "Smith",
+     *             "patient_first_name": "John",
+     *             "diagnosis_code": "E11"
+     *         },
+     *         fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000"
+     *     })
+     */
+    public update(
+        id: string,
+        request: phenoml.workflows.UpdateWorkflowRequest,
+        requestOptions?: Workflows.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.workflows.WorkflowsUpdateResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
+    }
+
+    private async __update(
+        id: string,
+        request: phenoml.workflows.UpdateWorkflowRequest,
+        requestOptions?: Workflows.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.workflows.WorkflowsUpdateResponse>> {
+        const { verbose, ..._body } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (verbose != null) {
+            _queryParams["verbose"] = verbose.toString();
+        }
+
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `workflows/${encodeURIComponent(id)}`,
+            ),
+            method: "PUT",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            requestType: "json",
+            body: _body,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as phenoml.workflows.WorkflowsUpdateResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.workflows.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.workflows.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new phenoml.workflows.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 404:
+                    throw new phenoml.workflows.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.workflows.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError("Timeout exceeded when calling PUT /workflows/{id}.");
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Deletes a workflow definition by its ID
+     *
+     * @param {string} id - ID of the workflow to delete
+     * @param {Workflows.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.workflows.UnauthorizedError}
+     * @throws {@link phenoml.workflows.ForbiddenError}
+     * @throws {@link phenoml.workflows.NotFoundError}
+     * @throws {@link phenoml.workflows.InternalServerError}
+     *
+     * @example
+     *     await client.workflows.delete("id")
+     */
+    public delete(
+        id: string,
+        requestOptions?: Workflows.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.workflows.WorkflowsDeleteResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
+    }
+
+    private async __delete(
+        id: string,
+        requestOptions?: Workflows.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.workflows.WorkflowsDeleteResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `workflows/${encodeURIComponent(id)}`,
+            ),
+            method: "DELETE",
+            headers: _headers,
+            queryParameters: requestOptions?.queryParams,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as phenoml.workflows.WorkflowsDeleteResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new phenoml.workflows.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new phenoml.workflows.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 404:
+                    throw new phenoml.workflows.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.workflows.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError("Timeout exceeded when calling DELETE /workflows/{id}.");
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Executes a workflow with provided input data and returns results
+     *
+     * @param {string} id - ID of the workflow to execute
+     * @param {phenoml.workflows.ExecuteWorkflowRequest} request
+     * @param {Workflows.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.workflows.BadRequestError}
+     * @throws {@link phenoml.workflows.UnauthorizedError}
+     * @throws {@link phenoml.workflows.ForbiddenError}
+     * @throws {@link phenoml.workflows.NotFoundError}
+     * @throws {@link phenoml.workflows.InternalServerError}
+     *
+     * @example
+     *     await client.workflows.execute("id", {
+     *         input_data: {
+     *             "patient_last_name": "Johnson",
+     *             "patient_first_name": "Mary",
+     *             "diagnosis_code": "M79.3",
+     *             "encounter_date": "2024-01-15"
+     *         }
+     *     })
+     */
+    public execute(
+        id: string,
+        request: phenoml.workflows.ExecuteWorkflowRequest,
+        requestOptions?: Workflows.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.workflows.ExecuteWorkflowResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__execute(id, request, requestOptions));
+    }
+
+    private async __execute(
+        id: string,
+        request: phenoml.workflows.ExecuteWorkflowRequest,
+        requestOptions?: Workflows.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.workflows.ExecuteWorkflowResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `workflows/${encodeURIComponent(id)}/execute`,
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: request,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as phenoml.workflows.ExecuteWorkflowResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.workflows.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.workflows.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new phenoml.workflows.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 404:
+                    throw new phenoml.workflows.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.workflows.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /workflows/{id}/execute.");
             case "unknown":
                 throw new errors.phenomlError({
                     message: _response.error.errorMessage,
