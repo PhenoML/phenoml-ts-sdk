@@ -1,3 +1,6 @@
+export * from "./WorkflowsGetResponse.js";
+export * from "./WorkflowsUpdateResponse.js";
+export * from "./WorkflowsDeleteResponse.js";
 export * from "./CreateWorkflowResponse.js";
 export * from "./ExecuteWorkflowResponse.js";
 export * from "./ListWorkflowsResponse.js";
