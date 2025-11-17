@@ -1487,14 +1487,6 @@ await client.fhir.create("550e8400-e29b-41d4-a716-446655440000", "Patient", {
     "X-Phenoml-On-Behalf-Of": "user@example.com",
     body: {
         resourceType: "Patient",
-        name: [
-            {
-                family: "Doe",
-                given: ["Jane"],
-            },
-        ],
-        gender: "female",
-        birthDate: "1990-01-01",
     },
 });
 ```
@@ -1594,14 +1586,6 @@ await client.fhir.upsert("550e8400-e29b-41d4-a716-446655440000", "Patient", {
     body: {
         resourceType: "Patient",
         id: "123",
-        name: [
-            {
-                family: "Doe",
-                given: ["John", "Updated"],
-            },
-        ],
-        gender: "male",
-        birthDate: "1985-05-15",
     },
 });
 ```

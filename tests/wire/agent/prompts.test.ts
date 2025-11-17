@@ -58,7 +58,14 @@ describe("Prompts", () => {
     test("create (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { name: "name", content: "content", is_active: true };
+        const rawRequestBody = {
+            name: "name",
+            description: undefined,
+            content: "content",
+            is_default: undefined,
+            is_active: true,
+            tags: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -72,8 +79,11 @@ describe("Prompts", () => {
         await expect(async () => {
             return await client.agent.prompts.create({
                 name: "name",
+                description: undefined,
                 content: "content",
+                is_default: undefined,
                 is_active: true,
+                tags: undefined,
             });
         }).rejects.toThrow(phenoml.agent.BadRequestError);
     });
@@ -81,7 +91,14 @@ describe("Prompts", () => {
     test("create (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { name: "name", content: "content", is_active: true };
+        const rawRequestBody = {
+            name: "name",
+            description: undefined,
+            content: "content",
+            is_default: undefined,
+            is_active: true,
+            tags: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -95,8 +112,11 @@ describe("Prompts", () => {
         await expect(async () => {
             return await client.agent.prompts.create({
                 name: "name",
+                description: undefined,
                 content: "content",
+                is_default: undefined,
                 is_active: true,
+                tags: undefined,
             });
         }).rejects.toThrow(phenoml.agent.UnauthorizedError);
     });
@@ -104,7 +124,14 @@ describe("Prompts", () => {
     test("create (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { name: "name", content: "content", is_active: true };
+        const rawRequestBody = {
+            name: "name",
+            description: undefined,
+            content: "content",
+            is_default: undefined,
+            is_active: true,
+            tags: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -118,8 +145,11 @@ describe("Prompts", () => {
         await expect(async () => {
             return await client.agent.prompts.create({
                 name: "name",
+                description: undefined,
                 content: "content",
+                is_default: undefined,
                 is_active: true,
+                tags: undefined,
             });
         }).rejects.toThrow(phenoml.agent.ForbiddenError);
     });
@@ -127,7 +157,14 @@ describe("Prompts", () => {
     test("create (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { name: "name", content: "content", is_active: true };
+        const rawRequestBody = {
+            name: "name",
+            description: undefined,
+            content: "content",
+            is_default: undefined,
+            is_active: true,
+            tags: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -141,8 +178,11 @@ describe("Prompts", () => {
         await expect(async () => {
             return await client.agent.prompts.create({
                 name: "name",
+                description: undefined,
                 content: "content",
+                is_default: undefined,
                 is_active: true,
+                tags: undefined,
             });
         }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
@@ -374,7 +414,14 @@ describe("Prompts", () => {
     test("update (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
+        const rawRequestBody = {
+            name: undefined,
+            description: undefined,
+            content: undefined,
+            is_default: undefined,
+            is_active: undefined,
+            tags: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -386,14 +433,28 @@ describe("Prompts", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.prompts.update("id");
+            return await client.agent.prompts.update("id", {
+                name: undefined,
+                description: undefined,
+                content: undefined,
+                is_default: undefined,
+                is_active: undefined,
+                tags: undefined,
+            });
         }).rejects.toThrow(phenoml.agent.BadRequestError);
     });
 
     test("update (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
+        const rawRequestBody = {
+            name: undefined,
+            description: undefined,
+            content: undefined,
+            is_default: undefined,
+            is_active: undefined,
+            tags: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -405,14 +466,28 @@ describe("Prompts", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.prompts.update("id");
+            return await client.agent.prompts.update("id", {
+                name: undefined,
+                description: undefined,
+                content: undefined,
+                is_default: undefined,
+                is_active: undefined,
+                tags: undefined,
+            });
         }).rejects.toThrow(phenoml.agent.UnauthorizedError);
     });
 
     test("update (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
+        const rawRequestBody = {
+            name: undefined,
+            description: undefined,
+            content: undefined,
+            is_default: undefined,
+            is_active: undefined,
+            tags: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -424,14 +499,28 @@ describe("Prompts", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.prompts.update("id");
+            return await client.agent.prompts.update("id", {
+                name: undefined,
+                description: undefined,
+                content: undefined,
+                is_default: undefined,
+                is_active: undefined,
+                tags: undefined,
+            });
         }).rejects.toThrow(phenoml.agent.ForbiddenError);
     });
 
     test("update (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
+        const rawRequestBody = {
+            name: undefined,
+            description: undefined,
+            content: undefined,
+            is_default: undefined,
+            is_active: undefined,
+            tags: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -443,14 +532,28 @@ describe("Prompts", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.prompts.update("id");
+            return await client.agent.prompts.update("id", {
+                name: undefined,
+                description: undefined,
+                content: undefined,
+                is_default: undefined,
+                is_active: undefined,
+                tags: undefined,
+            });
         }).rejects.toThrow(phenoml.agent.NotFoundError);
     });
 
     test("update (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
+        const rawRequestBody = {
+            name: undefined,
+            description: undefined,
+            content: undefined,
+            is_default: undefined,
+            is_active: undefined,
+            tags: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -462,7 +565,14 @@ describe("Prompts", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.prompts.update("id");
+            return await client.agent.prompts.update("id", {
+                name: undefined,
+                description: undefined,
+                content: undefined,
+                is_default: undefined,
+                is_active: undefined,
+                tags: undefined,
+            });
         }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
 
@@ -623,8 +733,8 @@ describe("Prompts", () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = [
-            { op: "add", path: "path" },
-            { op: "add", path: "path" },
+            { op: "add", path: "path", value: undefined, from: undefined },
+            { op: "add", path: "path", value: undefined, from: undefined },
         ];
         const rawResponseBody = { key: "value" };
         server
@@ -641,10 +751,14 @@ describe("Prompts", () => {
                 {
                     op: "add",
                     path: "path",
+                    value: undefined,
+                    from: undefined,
                 },
                 {
                     op: "add",
                     path: "path",
+                    value: undefined,
+                    from: undefined,
                 },
             ]);
         }).rejects.toThrow(phenoml.agent.BadRequestError);
@@ -654,8 +768,8 @@ describe("Prompts", () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = [
-            { op: "add", path: "path" },
-            { op: "add", path: "path" },
+            { op: "add", path: "path", value: undefined, from: undefined },
+            { op: "add", path: "path", value: undefined, from: undefined },
         ];
         const rawResponseBody = { key: "value" };
         server
@@ -672,10 +786,14 @@ describe("Prompts", () => {
                 {
                     op: "add",
                     path: "path",
+                    value: undefined,
+                    from: undefined,
                 },
                 {
                     op: "add",
                     path: "path",
+                    value: undefined,
+                    from: undefined,
                 },
             ]);
         }).rejects.toThrow(phenoml.agent.UnauthorizedError);
@@ -685,8 +803,8 @@ describe("Prompts", () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = [
-            { op: "add", path: "path" },
-            { op: "add", path: "path" },
+            { op: "add", path: "path", value: undefined, from: undefined },
+            { op: "add", path: "path", value: undefined, from: undefined },
         ];
         const rawResponseBody = { key: "value" };
         server
@@ -703,10 +821,14 @@ describe("Prompts", () => {
                 {
                     op: "add",
                     path: "path",
+                    value: undefined,
+                    from: undefined,
                 },
                 {
                     op: "add",
                     path: "path",
+                    value: undefined,
+                    from: undefined,
                 },
             ]);
         }).rejects.toThrow(phenoml.agent.ForbiddenError);
@@ -716,8 +838,8 @@ describe("Prompts", () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = [
-            { op: "add", path: "path" },
-            { op: "add", path: "path" },
+            { op: "add", path: "path", value: undefined, from: undefined },
+            { op: "add", path: "path", value: undefined, from: undefined },
         ];
         const rawResponseBody = { key: "value" };
         server
@@ -734,10 +856,14 @@ describe("Prompts", () => {
                 {
                     op: "add",
                     path: "path",
+                    value: undefined,
+                    from: undefined,
                 },
                 {
                     op: "add",
                     path: "path",
+                    value: undefined,
+                    from: undefined,
                 },
             ]);
         }).rejects.toThrow(phenoml.agent.NotFoundError);
@@ -747,8 +873,8 @@ describe("Prompts", () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = [
-            { op: "add", path: "path" },
-            { op: "add", path: "path" },
+            { op: "add", path: "path", value: undefined, from: undefined },
+            { op: "add", path: "path", value: undefined, from: undefined },
         ];
         const rawResponseBody = { key: "value" };
         server
@@ -765,10 +891,14 @@ describe("Prompts", () => {
                 {
                     op: "add",
                     path: "path",
+                    value: undefined,
+                    from: undefined,
                 },
                 {
                     op: "add",
                     path: "path",
+                    value: undefined,
+                    from: undefined,
                 },
             ]);
         }).rejects.toThrow(phenoml.agent.InternalServerError);
