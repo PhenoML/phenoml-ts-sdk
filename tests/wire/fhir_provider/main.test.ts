@@ -84,9 +84,14 @@ describe("FhirProvider", () => {
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "x",
+            description: undefined,
             provider: "athenahealth",
             auth_method: "client_secret",
             base_url: "base_url",
+            client_id: undefined,
+            client_secret: undefined,
+            service_account_key: undefined,
+            scopes: undefined,
         };
         const rawResponseBody = { key: "value" };
         server
@@ -101,9 +106,14 @@ describe("FhirProvider", () => {
         await expect(async () => {
             return await client.fhirProvider.create({
                 name: "x",
+                description: undefined,
                 provider: "athenahealth",
                 auth_method: "client_secret",
                 base_url: "base_url",
+                client_id: undefined,
+                client_secret: undefined,
+                service_account_key: undefined,
+                scopes: undefined,
             });
         }).rejects.toThrow(phenoml.fhirProvider.BadRequestError);
     });
@@ -113,9 +123,14 @@ describe("FhirProvider", () => {
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "x",
+            description: undefined,
             provider: "athenahealth",
             auth_method: "client_secret",
             base_url: "base_url",
+            client_id: undefined,
+            client_secret: undefined,
+            service_account_key: undefined,
+            scopes: undefined,
         };
         const rawResponseBody = { key: "value" };
         server
@@ -130,9 +145,14 @@ describe("FhirProvider", () => {
         await expect(async () => {
             return await client.fhirProvider.create({
                 name: "x",
+                description: undefined,
                 provider: "athenahealth",
                 auth_method: "client_secret",
                 base_url: "base_url",
+                client_id: undefined,
+                client_secret: undefined,
+                service_account_key: undefined,
+                scopes: undefined,
             });
         }).rejects.toThrow(phenoml.fhirProvider.UnauthorizedError);
     });
@@ -142,9 +162,14 @@ describe("FhirProvider", () => {
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "x",
+            description: undefined,
             provider: "athenahealth",
             auth_method: "client_secret",
             base_url: "base_url",
+            client_id: undefined,
+            client_secret: undefined,
+            service_account_key: undefined,
+            scopes: undefined,
         };
         const rawResponseBody = { key: "value" };
         server
@@ -159,9 +184,14 @@ describe("FhirProvider", () => {
         await expect(async () => {
             return await client.fhirProvider.create({
                 name: "x",
+                description: undefined,
                 provider: "athenahealth",
                 auth_method: "client_secret",
                 base_url: "base_url",
+                client_id: undefined,
+                client_secret: undefined,
+                service_account_key: undefined,
+                scopes: undefined,
             });
         }).rejects.toThrow(phenoml.fhirProvider.ForbiddenError);
     });
@@ -171,9 +201,14 @@ describe("FhirProvider", () => {
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "x",
+            description: undefined,
             provider: "athenahealth",
             auth_method: "client_secret",
             base_url: "base_url",
+            client_id: undefined,
+            client_secret: undefined,
+            service_account_key: undefined,
+            scopes: undefined,
         };
         const rawResponseBody = { key: "value" };
         server
@@ -188,9 +223,14 @@ describe("FhirProvider", () => {
         await expect(async () => {
             return await client.fhirProvider.create({
                 name: "x",
+                description: undefined,
                 provider: "athenahealth",
                 auth_method: "client_secret",
                 base_url: "base_url",
+                client_id: undefined,
+                client_secret: undefined,
+                service_account_key: undefined,
+                scopes: undefined,
             });
         }).rejects.toThrow(phenoml.fhirProvider.InternalServerError);
     });
@@ -612,7 +652,13 @@ describe("FhirProvider", () => {
     test("addAuthConfig (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { auth_method: "client_secret" };
+        const rawRequestBody = {
+            auth_method: "client_secret",
+            client_secret: undefined,
+            service_account_key: undefined,
+            credential_expiry: undefined,
+            scopes: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -626,6 +672,10 @@ describe("FhirProvider", () => {
         await expect(async () => {
             return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
                 auth_method: "client_secret",
+                client_secret: undefined,
+                service_account_key: undefined,
+                credential_expiry: undefined,
+                scopes: undefined,
             });
         }).rejects.toThrow(phenoml.fhirProvider.BadRequestError);
     });
@@ -633,7 +683,13 @@ describe("FhirProvider", () => {
     test("addAuthConfig (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { auth_method: "client_secret" };
+        const rawRequestBody = {
+            auth_method: "client_secret",
+            client_secret: undefined,
+            service_account_key: undefined,
+            credential_expiry: undefined,
+            scopes: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -647,6 +703,10 @@ describe("FhirProvider", () => {
         await expect(async () => {
             return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
                 auth_method: "client_secret",
+                client_secret: undefined,
+                service_account_key: undefined,
+                credential_expiry: undefined,
+                scopes: undefined,
             });
         }).rejects.toThrow(phenoml.fhirProvider.UnauthorizedError);
     });
@@ -654,7 +714,13 @@ describe("FhirProvider", () => {
     test("addAuthConfig (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { auth_method: "client_secret" };
+        const rawRequestBody = {
+            auth_method: "client_secret",
+            client_secret: undefined,
+            service_account_key: undefined,
+            credential_expiry: undefined,
+            scopes: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -668,6 +734,10 @@ describe("FhirProvider", () => {
         await expect(async () => {
             return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
                 auth_method: "client_secret",
+                client_secret: undefined,
+                service_account_key: undefined,
+                credential_expiry: undefined,
+                scopes: undefined,
             });
         }).rejects.toThrow(phenoml.fhirProvider.ForbiddenError);
     });
@@ -675,7 +745,13 @@ describe("FhirProvider", () => {
     test("addAuthConfig (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { auth_method: "client_secret" };
+        const rawRequestBody = {
+            auth_method: "client_secret",
+            client_secret: undefined,
+            service_account_key: undefined,
+            credential_expiry: undefined,
+            scopes: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -689,6 +765,10 @@ describe("FhirProvider", () => {
         await expect(async () => {
             return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
                 auth_method: "client_secret",
+                client_secret: undefined,
+                service_account_key: undefined,
+                credential_expiry: undefined,
+                scopes: undefined,
             });
         }).rejects.toThrow(phenoml.fhirProvider.NotFoundError);
     });
@@ -696,7 +776,13 @@ describe("FhirProvider", () => {
     test("addAuthConfig (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { auth_method: "client_secret" };
+        const rawRequestBody = {
+            auth_method: "client_secret",
+            client_secret: undefined,
+            service_account_key: undefined,
+            credential_expiry: undefined,
+            scopes: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -710,6 +796,10 @@ describe("FhirProvider", () => {
         await expect(async () => {
             return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
                 auth_method: "client_secret",
+                client_secret: undefined,
+                service_account_key: undefined,
+                credential_expiry: undefined,
+                scopes: undefined,
             });
         }).rejects.toThrow(phenoml.fhirProvider.InternalServerError);
     });

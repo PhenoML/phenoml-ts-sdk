@@ -24,7 +24,7 @@ describe("Workflows", () => {
                         patient_first_name: "Clay",
                         patient_last_name: "Rippin",
                     },
-                    config: { dynamic_generation: false },
+                    config: { fhir_provider_ids: ["550e8400-e29b-41d4-a716-446655440000"], dynamic_generation: false },
                     created_at: "2024-01-15T10:30:00Z",
                     updated_at: "2024-01-15T15:45:00Z",
                 },
@@ -41,7 +41,7 @@ describe("Workflows", () => {
                         patient_first_name: "Clay",
                         patient_last_name: "Rippin",
                     },
-                    config: { dynamic_generation: false },
+                    config: { fhir_provider_ids: ["550e8400-e29b-41d4-a716-446655440000"], dynamic_generation: false },
                     created_at: "2024-01-15T10:30:00Z",
                     updated_at: "2024-01-15T15:45:00Z",
                 },
@@ -68,6 +68,7 @@ describe("Workflows", () => {
                         patient_last_name: "Rippin",
                     },
                     config: {
+                        fhir_provider_ids: ["550e8400-e29b-41d4-a716-446655440000"],
                         dynamic_generation: false,
                     },
                     created_at: "2024-01-15T10:30:00Z",
@@ -87,6 +88,7 @@ describe("Workflows", () => {
                         patient_last_name: "Rippin",
                     },
                     config: {
+                        fhir_provider_ids: ["550e8400-e29b-41d4-a716-446655440000"],
                         dynamic_generation: false,
                     },
                     created_at: "2024-01-15T10:30:00Z",
@@ -189,6 +191,7 @@ describe("Workflows", () => {
                             name: "Create Patient Resource",
                             description: "Create a FHIR Patient resource from input data",
                             provider_id: "550e8400-e29b-41d4-a716-446655440000",
+                            dependencies: ["dependencies"],
                             dynamic_generation: false,
                         },
                     ],
@@ -271,6 +274,7 @@ describe("Workflows", () => {
                             name: "Create Patient Resource",
                             description: "Create a FHIR Patient resource from input data",
                             provider_id: "550e8400-e29b-41d4-a716-446655440000",
+                            dependencies: ["dependencies"],
                             dynamic_generation: false,
                         },
                     ],
@@ -289,6 +293,7 @@ describe("Workflows", () => {
             workflow_instructions: "workflow_instructions",
             sample_data: { sample_data: { key: "value" } },
             fhir_provider_id: "fhir_provider_id",
+            dynamic_generation: undefined,
         };
         const rawResponseBody = { key: "value" };
         server
@@ -310,6 +315,7 @@ describe("Workflows", () => {
                     },
                 },
                 fhir_provider_id: "fhir_provider_id",
+                dynamic_generation: undefined,
             });
         }).rejects.toThrow(phenoml.workflows.BadRequestError);
     });
@@ -322,6 +328,7 @@ describe("Workflows", () => {
             workflow_instructions: "workflow_instructions",
             sample_data: { sample_data: { key: "value" } },
             fhir_provider_id: "fhir_provider_id",
+            dynamic_generation: undefined,
         };
         const rawResponseBody = { key: "value" };
         server
@@ -343,6 +350,7 @@ describe("Workflows", () => {
                     },
                 },
                 fhir_provider_id: "fhir_provider_id",
+                dynamic_generation: undefined,
             });
         }).rejects.toThrow(phenoml.workflows.UnauthorizedError);
     });
@@ -355,6 +363,7 @@ describe("Workflows", () => {
             workflow_instructions: "workflow_instructions",
             sample_data: { sample_data: { key: "value" } },
             fhir_provider_id: "fhir_provider_id",
+            dynamic_generation: undefined,
         };
         const rawResponseBody = { key: "value" };
         server
@@ -376,6 +385,7 @@ describe("Workflows", () => {
                     },
                 },
                 fhir_provider_id: "fhir_provider_id",
+                dynamic_generation: undefined,
             });
         }).rejects.toThrow(phenoml.workflows.ForbiddenError);
     });
@@ -388,6 +398,7 @@ describe("Workflows", () => {
             workflow_instructions: "workflow_instructions",
             sample_data: { sample_data: { key: "value" } },
             fhir_provider_id: "fhir_provider_id",
+            dynamic_generation: undefined,
         };
         const rawResponseBody = { key: "value" };
         server
@@ -409,6 +420,7 @@ describe("Workflows", () => {
                     },
                 },
                 fhir_provider_id: "fhir_provider_id",
+                dynamic_generation: undefined,
             });
         }).rejects.toThrow(phenoml.workflows.InternalServerError);
     });
@@ -463,6 +475,7 @@ describe("Workflows", () => {
                             name: "Create Patient Resource",
                             description: "Create a FHIR Patient resource from input data",
                             provider_id: "550e8400-e29b-41d4-a716-446655440000",
+                            dependencies: ["dependencies"],
                             dynamic_generation: false,
                         },
                     ],
@@ -528,6 +541,7 @@ describe("Workflows", () => {
                             name: "Create Patient Resource",
                             description: "Create a FHIR Patient resource from input data",
                             provider_id: "550e8400-e29b-41d4-a716-446655440000",
+                            dependencies: ["dependencies"],
                             dynamic_generation: false,
                         },
                     ],
@@ -642,6 +656,7 @@ describe("Workflows", () => {
                             name: "Create Patient Resource",
                             description: "Create a FHIR Patient resource from input data",
                             provider_id: "550e8400-e29b-41d4-a716-446655440000",
+                            dependencies: ["dependencies"],
                             dynamic_generation: false,
                         },
                     ],
@@ -723,6 +738,7 @@ describe("Workflows", () => {
                             name: "Create Patient Resource",
                             description: "Create a FHIR Patient resource from input data",
                             provider_id: "550e8400-e29b-41d4-a716-446655440000",
+                            dependencies: ["dependencies"],
                             dynamic_generation: false,
                         },
                     ],
@@ -741,6 +757,7 @@ describe("Workflows", () => {
             workflow_instructions: "workflow_instructions",
             sample_data: { sample_data: { key: "value" } },
             fhir_provider_id: "fhir_provider_id",
+            dynamic_generation: undefined,
         };
         const rawResponseBody = { key: "value" };
         server
@@ -762,6 +779,7 @@ describe("Workflows", () => {
                     },
                 },
                 fhir_provider_id: "fhir_provider_id",
+                dynamic_generation: undefined,
             });
         }).rejects.toThrow(phenoml.workflows.BadRequestError);
     });
@@ -774,6 +792,7 @@ describe("Workflows", () => {
             workflow_instructions: "workflow_instructions",
             sample_data: { sample_data: { key: "value" } },
             fhir_provider_id: "fhir_provider_id",
+            dynamic_generation: undefined,
         };
         const rawResponseBody = { key: "value" };
         server
@@ -795,6 +814,7 @@ describe("Workflows", () => {
                     },
                 },
                 fhir_provider_id: "fhir_provider_id",
+                dynamic_generation: undefined,
             });
         }).rejects.toThrow(phenoml.workflows.UnauthorizedError);
     });
@@ -807,6 +827,7 @@ describe("Workflows", () => {
             workflow_instructions: "workflow_instructions",
             sample_data: { sample_data: { key: "value" } },
             fhir_provider_id: "fhir_provider_id",
+            dynamic_generation: undefined,
         };
         const rawResponseBody = { key: "value" };
         server
@@ -828,6 +849,7 @@ describe("Workflows", () => {
                     },
                 },
                 fhir_provider_id: "fhir_provider_id",
+                dynamic_generation: undefined,
             });
         }).rejects.toThrow(phenoml.workflows.ForbiddenError);
     });
@@ -840,6 +862,7 @@ describe("Workflows", () => {
             workflow_instructions: "workflow_instructions",
             sample_data: { sample_data: { key: "value" } },
             fhir_provider_id: "fhir_provider_id",
+            dynamic_generation: undefined,
         };
         const rawResponseBody = { key: "value" };
         server
@@ -861,6 +884,7 @@ describe("Workflows", () => {
                     },
                 },
                 fhir_provider_id: "fhir_provider_id",
+                dynamic_generation: undefined,
             });
         }).rejects.toThrow(phenoml.workflows.NotFoundError);
     });
@@ -873,6 +897,7 @@ describe("Workflows", () => {
             workflow_instructions: "workflow_instructions",
             sample_data: { sample_data: { key: "value" } },
             fhir_provider_id: "fhir_provider_id",
+            dynamic_generation: undefined,
         };
         const rawResponseBody = { key: "value" };
         server
@@ -894,6 +919,7 @@ describe("Workflows", () => {
                     },
                 },
                 fhir_provider_id: "fhir_provider_id",
+                dynamic_generation: undefined,
             });
         }).rejects.toThrow(phenoml.workflows.InternalServerError);
     });

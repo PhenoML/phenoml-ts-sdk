@@ -60,7 +60,7 @@ describe("Tools", () => {
     test("createFhirResource (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { resource: "auto", text: "text" };
+        const rawRequestBody = { resource: "auto", text: "text", provider: undefined };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -75,6 +75,7 @@ describe("Tools", () => {
             return await client.tools.createFhirResource({
                 resource: "auto",
                 text: "text",
+                provider: undefined,
             });
         }).rejects.toThrow(phenoml.tools.BadRequestError);
     });
@@ -82,7 +83,7 @@ describe("Tools", () => {
     test("createFhirResource (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { resource: "auto", text: "text" };
+        const rawRequestBody = { resource: "auto", text: "text", provider: undefined };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -97,6 +98,7 @@ describe("Tools", () => {
             return await client.tools.createFhirResource({
                 resource: "auto",
                 text: "text",
+                provider: undefined,
             });
         }).rejects.toThrow(phenoml.tools.UnauthorizedError);
     });
@@ -104,7 +106,7 @@ describe("Tools", () => {
     test("createFhirResource (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { resource: "auto", text: "text" };
+        const rawRequestBody = { resource: "auto", text: "text", provider: undefined };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -119,6 +121,7 @@ describe("Tools", () => {
             return await client.tools.createFhirResource({
                 resource: "auto",
                 text: "text",
+                provider: undefined,
             });
         }).rejects.toThrow(phenoml.tools.ForbiddenError);
     });
@@ -126,7 +129,7 @@ describe("Tools", () => {
     test("createFhirResource (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { resource: "auto", text: "text" };
+        const rawRequestBody = { resource: "auto", text: "text", provider: undefined };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -141,6 +144,7 @@ describe("Tools", () => {
             return await client.tools.createFhirResource({
                 resource: "auto",
                 text: "text",
+                provider: undefined,
             });
         }).rejects.toThrow(phenoml.tools.FailedDependencyError);
     });
@@ -148,7 +152,7 @@ describe("Tools", () => {
     test("createFhirResource (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { resource: "auto", text: "text" };
+        const rawRequestBody = { resource: "auto", text: "text", provider: undefined };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -163,6 +167,7 @@ describe("Tools", () => {
             return await client.tools.createFhirResource({
                 resource: "auto",
                 text: "text",
+                provider: undefined,
             });
         }).rejects.toThrow(phenoml.tools.InternalServerError);
     });
@@ -227,7 +232,13 @@ describe("Tools", () => {
     test("searchFhirResources (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { text: "text" };
+        const rawRequestBody = {
+            text: "text",
+            patient_id: undefined,
+            practitioner_id: undefined,
+            count: undefined,
+            provider: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -241,6 +252,10 @@ describe("Tools", () => {
         await expect(async () => {
             return await client.tools.searchFhirResources({
                 text: "text",
+                patient_id: undefined,
+                practitioner_id: undefined,
+                count: undefined,
+                provider: undefined,
             });
         }).rejects.toThrow(phenoml.tools.BadRequestError);
     });
@@ -248,7 +263,13 @@ describe("Tools", () => {
     test("searchFhirResources (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { text: "text" };
+        const rawRequestBody = {
+            text: "text",
+            patient_id: undefined,
+            practitioner_id: undefined,
+            count: undefined,
+            provider: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -262,6 +283,10 @@ describe("Tools", () => {
         await expect(async () => {
             return await client.tools.searchFhirResources({
                 text: "text",
+                patient_id: undefined,
+                practitioner_id: undefined,
+                count: undefined,
+                provider: undefined,
             });
         }).rejects.toThrow(phenoml.tools.UnauthorizedError);
     });
@@ -269,7 +294,13 @@ describe("Tools", () => {
     test("searchFhirResources (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { text: "text" };
+        const rawRequestBody = {
+            text: "text",
+            patient_id: undefined,
+            practitioner_id: undefined,
+            count: undefined,
+            provider: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -283,6 +314,10 @@ describe("Tools", () => {
         await expect(async () => {
             return await client.tools.searchFhirResources({
                 text: "text",
+                patient_id: undefined,
+                practitioner_id: undefined,
+                count: undefined,
+                provider: undefined,
             });
         }).rejects.toThrow(phenoml.tools.ForbiddenError);
     });
@@ -290,7 +325,13 @@ describe("Tools", () => {
     test("searchFhirResources (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { text: "text" };
+        const rawRequestBody = {
+            text: "text",
+            patient_id: undefined,
+            practitioner_id: undefined,
+            count: undefined,
+            provider: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -304,6 +345,10 @@ describe("Tools", () => {
         await expect(async () => {
             return await client.tools.searchFhirResources({
                 text: "text",
+                patient_id: undefined,
+                practitioner_id: undefined,
+                count: undefined,
+                provider: undefined,
             });
         }).rejects.toThrow(phenoml.tools.FailedDependencyError);
     });
@@ -311,7 +356,13 @@ describe("Tools", () => {
     test("searchFhirResources (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { text: "text" };
+        const rawRequestBody = {
+            text: "text",
+            patient_id: undefined,
+            practitioner_id: undefined,
+            count: undefined,
+            provider: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -325,6 +376,10 @@ describe("Tools", () => {
         await expect(async () => {
             return await client.tools.searchFhirResources({
                 text: "text",
+                patient_id: undefined,
+                practitioner_id: undefined,
+                count: undefined,
+                provider: undefined,
             });
         }).rejects.toThrow(phenoml.tools.InternalServerError);
     });

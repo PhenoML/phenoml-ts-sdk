@@ -8,18 +8,7 @@ import * as phenoml from "../../../../index.js";
  *         "X-Phenoml-On-Behalf-Of": "user@example.com",
  *         body: {
  *             resourceType: "Patient",
- *             id: "123",
- *             name: [
- *                 {
- *                     "family": "Doe",
- *                     "given": [
- *                         "John",
- *                         "Updated"
- *                     ]
- *                 }
- *             ],
- *             gender: "male",
- *             birthDate: "1985-05-15"
+ *             id: "123"
  *         }
  *     }
  */

@@ -33,7 +33,16 @@ describe("Construe", () => {
     test("uploadCodeSystem (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { name: "name", version: "version", format: "json", file: "file" };
+        const rawRequestBody = {
+            name: "name",
+            version: "version",
+            revision: undefined,
+            format: "json",
+            file: "file",
+            code_col: undefined,
+            desc_col: undefined,
+            defn_col: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -48,8 +57,12 @@ describe("Construe", () => {
             return await client.construe.uploadCodeSystem({
                 name: "name",
                 version: "version",
+                revision: undefined,
                 format: "json",
                 file: "file",
+                code_col: undefined,
+                desc_col: undefined,
+                defn_col: undefined,
             });
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
@@ -57,7 +70,16 @@ describe("Construe", () => {
     test("uploadCodeSystem (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { name: "name", version: "version", format: "json", file: "file" };
+        const rawRequestBody = {
+            name: "name",
+            version: "version",
+            revision: undefined,
+            format: "json",
+            file: "file",
+            code_col: undefined,
+            desc_col: undefined,
+            defn_col: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -72,8 +94,12 @@ describe("Construe", () => {
             return await client.construe.uploadCodeSystem({
                 name: "name",
                 version: "version",
+                revision: undefined,
                 format: "json",
                 file: "file",
+                code_col: undefined,
+                desc_col: undefined,
+                defn_col: undefined,
             });
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
@@ -81,7 +107,16 @@ describe("Construe", () => {
     test("uploadCodeSystem (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { name: "name", version: "version", format: "json", file: "file" };
+        const rawRequestBody = {
+            name: "name",
+            version: "version",
+            revision: undefined,
+            format: "json",
+            file: "file",
+            code_col: undefined,
+            desc_col: undefined,
+            defn_col: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -96,8 +131,12 @@ describe("Construe", () => {
             return await client.construe.uploadCodeSystem({
                 name: "name",
                 version: "version",
+                revision: undefined,
                 format: "json",
                 file: "file",
+                code_col: undefined,
+                desc_col: undefined,
+                defn_col: undefined,
             });
         }).rejects.toThrow(phenoml.construe.ConflictError);
     });
@@ -105,7 +144,16 @@ describe("Construe", () => {
     test("uploadCodeSystem (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { name: "name", version: "version", format: "json", file: "file" };
+        const rawRequestBody = {
+            name: "name",
+            version: "version",
+            revision: undefined,
+            format: "json",
+            file: "file",
+            code_col: undefined,
+            desc_col: undefined,
+            defn_col: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -120,8 +168,12 @@ describe("Construe", () => {
             return await client.construe.uploadCodeSystem({
                 name: "name",
                 version: "version",
+                revision: undefined,
                 format: "json",
                 file: "file",
+                code_col: undefined,
+                desc_col: undefined,
+                defn_col: undefined,
             });
         }).rejects.toThrow(phenoml.construe.FailedDependencyError);
     });
@@ -129,7 +181,16 @@ describe("Construe", () => {
     test("uploadCodeSystem (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { name: "name", version: "version", format: "json", file: "file" };
+        const rawRequestBody = {
+            name: "name",
+            version: "version",
+            revision: undefined,
+            format: "json",
+            file: "file",
+            code_col: undefined,
+            desc_col: undefined,
+            defn_col: undefined,
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -144,8 +205,12 @@ describe("Construe", () => {
             return await client.construe.uploadCodeSystem({
                 name: "name",
                 version: "version",
+                revision: undefined,
                 format: "json",
                 file: "file",
+                code_col: undefined,
+                desc_col: undefined,
+                defn_col: undefined,
             });
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
@@ -198,7 +263,7 @@ describe("Construe", () => {
     test("extractCodes (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { text: "text" };
+        const rawRequestBody = { text: "text", system: undefined, config: undefined };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -212,6 +277,8 @@ describe("Construe", () => {
         await expect(async () => {
             return await client.construe.extractCodes({
                 text: "text",
+                system: undefined,
+                config: undefined,
             });
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
@@ -219,7 +286,7 @@ describe("Construe", () => {
     test("extractCodes (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { text: "text" };
+        const rawRequestBody = { text: "text", system: undefined, config: undefined };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -233,6 +300,8 @@ describe("Construe", () => {
         await expect(async () => {
             return await client.construe.extractCodes({
                 text: "text",
+                system: undefined,
+                config: undefined,
             });
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
@@ -240,7 +309,7 @@ describe("Construe", () => {
     test("extractCodes (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { text: "text" };
+        const rawRequestBody = { text: "text", system: undefined, config: undefined };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -254,6 +323,8 @@ describe("Construe", () => {
         await expect(async () => {
             return await client.construe.extractCodes({
                 text: "text",
+                system: undefined,
+                config: undefined,
             });
         }).rejects.toThrow(phenoml.construe.FailedDependencyError);
     });
@@ -261,7 +332,7 @@ describe("Construe", () => {
     test("extractCodes (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { text: "text" };
+        const rawRequestBody = { text: "text", system: undefined, config: undefined };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -275,6 +346,8 @@ describe("Construe", () => {
         await expect(async () => {
             return await client.construe.extractCodes({
                 text: "text",
+                system: undefined,
+                config: undefined,
             });
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
@@ -326,7 +399,7 @@ describe("Construe", () => {
     test("cohort (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { text: "text" };
+        const rawRequestBody = { config: undefined, text: "text" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -339,6 +412,7 @@ describe("Construe", () => {
 
         await expect(async () => {
             return await client.construe.cohort({
+                config: undefined,
                 text: "text",
             });
         }).rejects.toThrow(phenoml.construe.BadRequestError);
@@ -347,7 +421,7 @@ describe("Construe", () => {
     test("cohort (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { text: "text" };
+        const rawRequestBody = { config: undefined, text: "text" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -360,6 +434,7 @@ describe("Construe", () => {
 
         await expect(async () => {
             return await client.construe.cohort({
+                config: undefined,
                 text: "text",
             });
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
@@ -368,7 +443,7 @@ describe("Construe", () => {
     test("cohort (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { text: "text" };
+        const rawRequestBody = { config: undefined, text: "text" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -381,6 +456,7 @@ describe("Construe", () => {
 
         await expect(async () => {
             return await client.construe.cohort({
+                config: undefined,
                 text: "text",
             });
         }).rejects.toThrow(phenoml.construe.InternalServerError);
