@@ -16,7 +16,7 @@ export declare namespace Tools {
 export class Tools {
     protected readonly _options: Tools.Options;
 
-    constructor(_options: Tools.Options = {}) {
+    constructor(_options: Tools.Options) {
         this._options = _options;
     }
 
@@ -368,12 +368,7 @@ export class Tools {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

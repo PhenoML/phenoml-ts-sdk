@@ -16,7 +16,7 @@ export declare namespace Construe {
 export class Construe {
     protected readonly _options: Construe.Options;
 
-    constructor(_options: Construe.Options = {}) {
+    constructor(_options: Construe.Options) {
         this._options = _options;
     }
 
@@ -323,12 +323,7 @@ export class Construe {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }
