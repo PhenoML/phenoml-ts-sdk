@@ -1,1 +1,1 @@
-export { type McpServerCreateRequest } from "./McpServerCreateRequest.js";
+export type { McpServerCreateRequest } from "./McpServerCreateRequest.js";
