@@ -4,10 +4,10 @@ import * as phenoml from "../../../src/api/index";
 import { phenomlClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
 
-describe("CohortClient", () => {
+describe("Cohort", () => {
     test("analyze (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "female patients over 65 with diabetes but not hypertension" };
         const rawResponseBody = {
             success: true,
@@ -49,7 +49,7 @@ describe("CohortClient", () => {
 
     test("analyze (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -70,7 +70,7 @@ describe("CohortClient", () => {
 
     test("analyze (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -91,7 +91,7 @@ describe("CohortClient", () => {
 
     test("analyze (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server

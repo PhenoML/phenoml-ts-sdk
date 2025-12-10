@@ -4,10 +4,10 @@ import * as phenoml from "../../../src/api/index";
 import { phenomlClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
 
-describe("ConstrueClient", () => {
+describe("Construe", () => {
     test("uploadCodeSystem (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "CUSTOM_CODES", version: "1.0", format: "json", file: "file" };
         const rawResponseBody = { status: "success" };
         server
@@ -32,7 +32,7 @@ describe("ConstrueClient", () => {
 
     test("uploadCodeSystem (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", version: "version", format: "json", file: "file" };
         const rawResponseBody = { key: "value" };
         server
@@ -56,7 +56,7 @@ describe("ConstrueClient", () => {
 
     test("uploadCodeSystem (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", version: "version", format: "json", file: "file" };
         const rawResponseBody = { key: "value" };
         server
@@ -80,7 +80,7 @@ describe("ConstrueClient", () => {
 
     test("uploadCodeSystem (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", version: "version", format: "json", file: "file" };
         const rawResponseBody = { key: "value" };
         server
@@ -104,7 +104,7 @@ describe("ConstrueClient", () => {
 
     test("uploadCodeSystem (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", version: "version", format: "json", file: "file" };
         const rawResponseBody = { key: "value" };
         server
@@ -128,7 +128,7 @@ describe("ConstrueClient", () => {
 
     test("uploadCodeSystem (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", version: "version", format: "json", file: "file" };
         const rawResponseBody = { key: "value" };
         server
@@ -152,7 +152,7 @@ describe("ConstrueClient", () => {
 
     test("extractCodes (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney",
         };
@@ -197,7 +197,7 @@ describe("ConstrueClient", () => {
 
     test("extractCodes (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -218,7 +218,7 @@ describe("ConstrueClient", () => {
 
     test("extractCodes (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -239,7 +239,7 @@ describe("ConstrueClient", () => {
 
     test("extractCodes (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -260,7 +260,7 @@ describe("ConstrueClient", () => {
 
     test("extractCodes (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -281,7 +281,7 @@ describe("ConstrueClient", () => {
 
     test("cohort (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "Between 20 and 40 years old with hyperlipidemia" };
         const rawResponseBody = {
             queries: [
@@ -325,7 +325,7 @@ describe("ConstrueClient", () => {
 
     test("cohort (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -346,7 +346,7 @@ describe("ConstrueClient", () => {
 
     test("cohort (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -367,7 +367,7 @@ describe("ConstrueClient", () => {
 
     test("cohort (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
