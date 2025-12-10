@@ -3,5 +3,5 @@
 export interface UnauthorizedErrorBody {
     code?: number;
     message?: string;
-    data?: Record<string, unknown>;
+    data?: Record<string, unknown> | null;
 }

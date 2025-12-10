@@ -3,7 +3,7 @@
 /**
  * @example
  *     {
- *         verbose: true,
+ *         id: "id",
  *         name: "Updated Patient Data Mapping Workflow",
  *         workflow_instructions: "Given diagnosis data, find the patient and create condition record",
  *         sample_data: {
@@ -15,6 +15,8 @@
  *     }
  */
 export interface UpdateWorkflowRequest {
+    /** ID of the workflow to update */
+    id: string;
     /** If true, includes full workflow implementation details in workflow_details field */
     verbose?: boolean;
     /** Human-readable name for the workflow */

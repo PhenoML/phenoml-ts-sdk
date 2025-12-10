@@ -5,10 +5,13 @@ import type * as phenoml from "../../../../index.js";
 /**
  * @example
  *     {
+ *         fhir_provider_id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
  *         auth_method: "client_secret"
  *     }
  */
 export interface FhirProviderAddAuthConfigRequest {
+    /** ID of the FHIR provider to add auth config to */
+    fhir_provider_id: string;
     auth_method: phenoml.fhirProvider.AuthMethod;
     /** OAuth client secret (required for client_secret and on_behalf_of auth methods) */
     client_secret?: string;

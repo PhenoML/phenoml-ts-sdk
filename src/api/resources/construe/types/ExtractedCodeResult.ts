@@ -6,7 +6,7 @@ export interface ExtractedCodeResult {
     /** Short description of the code */
     description: string;
     /** Long description of the code */
-    longDescription?: string;
+    longDescription?: string | null;
     /** Explanation for why this code was extracted (if include_rationale is true) */
-    rationale?: string;
+    rationale?: string | null;
 }

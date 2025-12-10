@@ -3,10 +3,13 @@
 /**
  * @example
  *     {
+ *         fhir_provider_id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
  *         auth_config_id: "auth-config-123"
  *     }
  */
 export interface FhirProviderRemoveAuthConfigRequest {
+    /** ID of the FHIR provider */
+    fhir_provider_id: string;
     /** ID of the auth configuration to remove */
     auth_config_id: string;
 }

@@ -4,10 +4,10 @@ import * as phenoml from "../../../../src/api/index";
 import { phenomlClient } from "../../../../src/Client";
 import { mockServerPool } from "../../../mock-server/MockServerPool";
 
-describe("Tools", () => {
+describe("ToolsClient", () => {
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -31,7 +31,9 @@ describe("Tools", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tools.mcpServer.tools.list("mcp_server_id");
+        const response = await client.tools.mcpServer.tools.list({
+            mcp_server_id: "mcp_server_id",
+        });
         expect(response).toEqual({
             success: true,
             message: "MCP server tool created successfully",
@@ -53,7 +55,7 @@ describe("Tools", () => {
 
     test("list (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -65,13 +67,15 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.list("mcp_server_id");
+            return await client.tools.mcpServer.tools.list({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.UnauthorizedError);
     });
 
     test("list (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -83,13 +87,15 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.list("mcp_server_id");
+            return await client.tools.mcpServer.tools.list({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.ForbiddenError);
     });
 
     test("list (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -101,13 +107,15 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.list("mcp_server_id");
+            return await client.tools.mcpServer.tools.list({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.InternalServerError);
     });
 
     test("get (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -131,7 +139,9 @@ describe("Tools", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tools.mcpServer.tools.get("mcp_server_tool_id");
+        const response = await client.tools.mcpServer.tools.get({
+            mcp_server_tool_id: "mcp_server_tool_id",
+        });
         expect(response).toEqual({
             success: true,
             message: "MCP server tool created successfully",
@@ -153,7 +163,7 @@ describe("Tools", () => {
 
     test("get (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -165,13 +175,15 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.get("mcp_server_tool_id");
+            return await client.tools.mcpServer.tools.get({
+                mcp_server_tool_id: "mcp_server_tool_id",
+            });
         }).rejects.toThrow(phenoml.tools.UnauthorizedError);
     });
 
     test("get (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -183,13 +195,15 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.get("mcp_server_tool_id");
+            return await client.tools.mcpServer.tools.get({
+                mcp_server_tool_id: "mcp_server_tool_id",
+            });
         }).rejects.toThrow(phenoml.tools.ForbiddenError);
     });
 
     test("get (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -201,13 +215,15 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.get("mcp_server_tool_id");
+            return await client.tools.mcpServer.tools.get({
+                mcp_server_tool_id: "mcp_server_tool_id",
+            });
         }).rejects.toThrow(phenoml.tools.InternalServerError);
     });
 
     test("delete (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -231,7 +247,9 @@ describe("Tools", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
+        const response = await client.tools.mcpServer.tools.delete({
+            mcp_server_tool_id: "mcp_server_tool_id",
+        });
         expect(response).toEqual({
             success: true,
             message: "MCP server tool created successfully",
@@ -253,7 +271,7 @@ describe("Tools", () => {
 
     test("delete (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -265,13 +283,15 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
+            return await client.tools.mcpServer.tools.delete({
+                mcp_server_tool_id: "mcp_server_tool_id",
+            });
         }).rejects.toThrow(phenoml.tools.UnauthorizedError);
     });
 
     test("delete (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -283,13 +303,15 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
+            return await client.tools.mcpServer.tools.delete({
+                mcp_server_tool_id: "mcp_server_tool_id",
+            });
         }).rejects.toThrow(phenoml.tools.ForbiddenError);
     });
 
     test("delete (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -301,13 +323,15 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
+            return await client.tools.mcpServer.tools.delete({
+                mcp_server_tool_id: "mcp_server_tool_id",
+            });
         }).rejects.toThrow(phenoml.tools.InternalServerError);
     });
 
     test("call (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { arguments: { title: "PhenoML Agent API" } };
         const rawResponseBody = {
             success: true,
@@ -324,7 +348,8 @@ describe("Tools", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+        const response = await client.tools.mcpServer.tools.call({
+            mcp_server_tool_id: "mcp_server_tool_id",
             arguments: {
                 title: "PhenoML Agent API",
             },
@@ -346,7 +371,7 @@ describe("Tools", () => {
 
     test("call (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { arguments: { arguments: { key: "value" } } };
         const rawResponseBody = { key: "value" };
         server
@@ -359,7 +384,8 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+            return await client.tools.mcpServer.tools.call({
+                mcp_server_tool_id: "mcp_server_tool_id",
                 arguments: {
                     arguments: {
                         key: "value",
@@ -371,7 +397,7 @@ describe("Tools", () => {
 
     test("call (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { arguments: { arguments: { key: "value" } } };
         const rawResponseBody = { key: "value" };
         server
@@ -384,7 +410,8 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+            return await client.tools.mcpServer.tools.call({
+                mcp_server_tool_id: "mcp_server_tool_id",
                 arguments: {
                     arguments: {
                         key: "value",
@@ -396,7 +423,7 @@ describe("Tools", () => {
 
     test("call (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { arguments: { arguments: { key: "value" } } };
         const rawResponseBody = { key: "value" };
         server
@@ -409,7 +436,8 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+            return await client.tools.mcpServer.tools.call({
+                mcp_server_tool_id: "mcp_server_tool_id",
                 arguments: {
                     arguments: {
                         key: "value",
@@ -421,7 +449,7 @@ describe("Tools", () => {
 
     test("call (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { arguments: { arguments: { key: "value" } } };
         const rawResponseBody = { key: "value" };
         server
@@ -434,7 +462,8 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+            return await client.tools.mcpServer.tools.call({
+                mcp_server_tool_id: "mcp_server_tool_id",
                 arguments: {
                     arguments: {
                         key: "value",

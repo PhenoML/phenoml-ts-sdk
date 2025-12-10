@@ -2,9 +2,13 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         id: "id"
+ *     }
  */
 export interface AgentPromptsUpdateRequest {
+    /** Prompt ID */
+    id: string;
     /** Prompt name */
     name?: string;
     /** Prompt description */

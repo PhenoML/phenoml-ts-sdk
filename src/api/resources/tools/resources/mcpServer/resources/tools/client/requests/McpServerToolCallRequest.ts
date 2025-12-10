@@ -3,12 +3,15 @@
 /**
  * @example
  *     {
+ *         mcp_server_tool_id: "mcp_server_tool_id",
  *         arguments: {
  *             "title": "PhenoML Agent API"
  *         }
  *     }
  */
 export interface McpServerToolCallRequest {
+    /** ID of the MCP server tool to call */
+    mcp_server_tool_id: string;
     /** Arguments to pass to the MCP server tool */
     arguments: Record<string, unknown>;
 }

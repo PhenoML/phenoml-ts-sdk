@@ -6,7 +6,7 @@
  */
 export interface FhirBundle {
     /** Always "Bundle" for bundle resources */
-    resourceType: "Bundle";
+    resourceType: FhirBundle.ResourceType;
     /**
      * Total number of resources that match the search criteria.
      * Optional field as not all FHIR servers include it (e.g., Medplum).
@@ -17,6 +17,11 @@ export interface FhirBundle {
 }
 
 export namespace FhirBundle {
+    /** Always "Bundle" for bundle resources */
+    export const ResourceType = {
+        Bundle: "Bundle",
+    } as const;
+    export type ResourceType = (typeof ResourceType)[keyof typeof ResourceType];
     export type Entry = Entry.Item[];
 
     export namespace Entry {

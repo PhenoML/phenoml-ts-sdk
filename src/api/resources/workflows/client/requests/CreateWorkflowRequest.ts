@@ -3,7 +3,6 @@
 /**
  * @example
  *     {
- *         verbose: true,
  *         name: "Patient Data Mapping Workflow",
  *         workflow_instructions: "Given diagnosis data, find the patient and create condition record",
  *         sample_data: {

@@ -4,10 +4,10 @@ import * as phenoml from "../../../src/api/index";
 import { phenomlClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
 
-describe("Summary", () => {
+describe("SummaryClient", () => {
     test("listTemplates (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -58,7 +58,7 @@ describe("Summary", () => {
 
     test("listTemplates (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -76,7 +76,7 @@ describe("Summary", () => {
 
     test("listTemplates (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -94,7 +94,7 @@ describe("Summary", () => {
 
     test("createTemplate (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             example_summary: "Patient John Doe, age 45, presents with hypertension diagnosed on 2024-01-15.",
@@ -156,7 +156,7 @@ describe("Summary", () => {
 
     test("createTemplate (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             example_summary: "example_summary",
@@ -185,7 +185,7 @@ describe("Summary", () => {
 
     test("createTemplate (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             example_summary: "example_summary",
@@ -214,7 +214,7 @@ describe("Summary", () => {
 
     test("createTemplate (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             example_summary: "example_summary",
@@ -243,7 +243,7 @@ describe("Summary", () => {
 
     test("getTemplate (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -268,7 +268,9 @@ describe("Summary", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.summary.getTemplate("id");
+        const response = await client.summary.getTemplate({
+            id: "id",
+        });
         expect(response).toEqual({
             success: true,
             template: {
@@ -290,7 +292,7 @@ describe("Summary", () => {
 
     test("getTemplate (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -302,13 +304,15 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.getTemplate("id");
+            return await client.summary.getTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.UnauthorizedError);
     });
 
     test("getTemplate (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -320,13 +324,15 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.getTemplate("id");
+            return await client.summary.getTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.ForbiddenError);
     });
 
     test("getTemplate (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -338,13 +344,15 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.getTemplate("id");
+            return await client.summary.getTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.NotFoundError);
     });
 
     test("getTemplate (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -356,13 +364,15 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.getTemplate("id");
+            return await client.summary.getTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.InternalServerError);
     });
 
     test("updateTemplate (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             template: "template",
@@ -394,7 +404,8 @@ describe("Summary", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.summary.updateTemplate("id", {
+        const response = await client.summary.updateTemplate({
+            id: "id",
             name: "name",
             template: "template",
             target_resources: ["target_resources"],
@@ -422,7 +433,7 @@ describe("Summary", () => {
 
     test("updateTemplate (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             template: "template",
@@ -440,7 +451,8 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.updateTemplate("id", {
+            return await client.summary.updateTemplate({
+                id: "id",
                 name: "name",
                 template: "template",
                 target_resources: ["target_resources", "target_resources"],
@@ -451,7 +463,7 @@ describe("Summary", () => {
 
     test("updateTemplate (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             template: "template",
@@ -469,7 +481,8 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.updateTemplate("id", {
+            return await client.summary.updateTemplate({
+                id: "id",
                 name: "name",
                 template: "template",
                 target_resources: ["target_resources", "target_resources"],
@@ -480,7 +493,7 @@ describe("Summary", () => {
 
     test("updateTemplate (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             template: "template",
@@ -498,7 +511,8 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.updateTemplate("id", {
+            return await client.summary.updateTemplate({
+                id: "id",
                 name: "name",
                 template: "template",
                 target_resources: ["target_resources", "target_resources"],
@@ -509,7 +523,7 @@ describe("Summary", () => {
 
     test("updateTemplate (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             template: "template",
@@ -527,7 +541,8 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.updateTemplate("id", {
+            return await client.summary.updateTemplate({
+                id: "id",
                 name: "name",
                 template: "template",
                 target_resources: ["target_resources", "target_resources"],
@@ -538,7 +553,7 @@ describe("Summary", () => {
 
     test("updateTemplate (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             template: "template",
@@ -556,7 +571,8 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.updateTemplate("id", {
+            return await client.summary.updateTemplate({
+                id: "id",
                 name: "name",
                 template: "template",
                 target_resources: ["target_resources", "target_resources"],
@@ -567,7 +583,7 @@ describe("Summary", () => {
 
     test("deleteTemplate (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { success: true, message: "message" };
         server
@@ -578,7 +594,9 @@ describe("Summary", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.summary.deleteTemplate("id");
+        const response = await client.summary.deleteTemplate({
+            id: "id",
+        });
         expect(response).toEqual({
             success: true,
             message: "message",
@@ -587,7 +605,7 @@ describe("Summary", () => {
 
     test("deleteTemplate (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -599,13 +617,15 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.deleteTemplate("id");
+            return await client.summary.deleteTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.UnauthorizedError);
     });
 
     test("deleteTemplate (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -617,13 +637,15 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.deleteTemplate("id");
+            return await client.summary.deleteTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.ForbiddenError);
     });
 
     test("deleteTemplate (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -635,13 +657,15 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.deleteTemplate("id");
+            return await client.summary.deleteTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.NotFoundError);
     });
 
     test("deleteTemplate (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -653,13 +677,15 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.deleteTemplate("id");
+            return await client.summary.deleteTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.InternalServerError);
     });
 
     test("create (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
         const rawResponseBody = { success: true, message: "message", summary: "summary", warnings: ["warnings"] };
         server
@@ -686,7 +712,7 @@ describe("Summary", () => {
 
     test("create (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
         const rawResponseBody = { key: "value" };
         server
@@ -709,7 +735,7 @@ describe("Summary", () => {
 
     test("create (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
         const rawResponseBody = { key: "value" };
         server
@@ -732,7 +758,7 @@ describe("Summary", () => {
 
     test("create (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
         const rawResponseBody = { key: "value" };
         server
@@ -755,7 +781,7 @@ describe("Summary", () => {
 
     test("create (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
         const rawResponseBody = { key: "value" };
         server
@@ -778,7 +804,7 @@ describe("Summary", () => {
 
     test("create (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
         const rawResponseBody = { key: "value" };
         server

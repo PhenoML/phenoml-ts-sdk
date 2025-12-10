@@ -4,10 +4,10 @@ import * as phenoml from "../../../src/api/index";
 import { phenomlClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
 
-describe("McpServer", () => {
+describe("McpServerClient", () => {
     test("create (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "My MCP Server", mcp_server_url: "https://mcp.example.com" };
         const rawResponseBody = {
             success: true,
@@ -50,7 +50,7 @@ describe("McpServer", () => {
 
     test("create (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", mcp_server_url: "mcp_server_url" };
         const rawResponseBody = { key: "value" };
         server
@@ -72,7 +72,7 @@ describe("McpServer", () => {
 
     test("create (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", mcp_server_url: "mcp_server_url" };
         const rawResponseBody = { key: "value" };
         server
@@ -94,7 +94,7 @@ describe("McpServer", () => {
 
     test("create (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", mcp_server_url: "mcp_server_url" };
         const rawResponseBody = { key: "value" };
         server
@@ -116,7 +116,7 @@ describe("McpServer", () => {
 
     test("create (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", mcp_server_url: "mcp_server_url" };
         const rawResponseBody = { key: "value" };
         server
@@ -138,7 +138,7 @@ describe("McpServer", () => {
 
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -177,7 +177,7 @@ describe("McpServer", () => {
 
     test("list (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -195,7 +195,7 @@ describe("McpServer", () => {
 
     test("list (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -213,7 +213,7 @@ describe("McpServer", () => {
 
     test("list (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -231,7 +231,7 @@ describe("McpServer", () => {
 
     test("get (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -253,7 +253,9 @@ describe("McpServer", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tools.mcpServer.get("mcp_server_id");
+        const response = await client.tools.mcpServer.get({
+            mcp_server_id: "mcp_server_id",
+        });
         expect(response).toEqual({
             success: true,
             message: "MCP server created successfully",
@@ -270,7 +272,7 @@ describe("McpServer", () => {
 
     test("get (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -282,13 +284,15 @@ describe("McpServer", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.get("mcp_server_id");
+            return await client.tools.mcpServer.get({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.UnauthorizedError);
     });
 
     test("get (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -300,13 +304,15 @@ describe("McpServer", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.get("mcp_server_id");
+            return await client.tools.mcpServer.get({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.ForbiddenError);
     });
 
     test("get (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -318,13 +324,15 @@ describe("McpServer", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.get("mcp_server_id");
+            return await client.tools.mcpServer.get({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.InternalServerError);
     });
 
     test("delete (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -346,7 +354,9 @@ describe("McpServer", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tools.mcpServer.delete("mcp_server_id");
+        const response = await client.tools.mcpServer.delete({
+            mcp_server_id: "mcp_server_id",
+        });
         expect(response).toEqual({
             success: true,
             message: "MCP server created successfully",
@@ -363,7 +373,7 @@ describe("McpServer", () => {
 
     test("delete (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -375,13 +385,15 @@ describe("McpServer", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.delete("mcp_server_id");
+            return await client.tools.mcpServer.delete({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.UnauthorizedError);
     });
 
     test("delete (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -393,13 +405,15 @@ describe("McpServer", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.delete("mcp_server_id");
+            return await client.tools.mcpServer.delete({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.ForbiddenError);
     });
 
     test("delete (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -411,7 +425,9 @@ describe("McpServer", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.delete("mcp_server_id");
+            return await client.tools.mcpServer.delete({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.InternalServerError);
     });
 });
