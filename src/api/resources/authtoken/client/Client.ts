@@ -11,7 +11,7 @@ export class Authtoken {
     protected readonly _options: Authtoken.Options;
     protected _auth: Auth | undefined;
 
-    constructor(_options: Authtoken.Options = {}) {
+    constructor(_options: Authtoken.Options) {
         this._options = _options;
     }
 

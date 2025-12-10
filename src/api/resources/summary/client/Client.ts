@@ -16,7 +16,7 @@ export declare namespace Summary {
 export class Summary {
     protected readonly _options: Summary.Options;
 
-    constructor(_options: Summary.Options = {}) {
+    constructor(_options: Summary.Options) {
         this._options = _options;
     }
 
@@ -584,12 +584,7 @@ export class Summary {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

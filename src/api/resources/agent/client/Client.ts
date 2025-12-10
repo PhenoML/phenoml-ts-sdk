@@ -18,7 +18,7 @@ export class Agent {
     protected readonly _options: Agent.Options;
     protected _prompts: Prompts | undefined;
 
-    constructor(_options: Agent.Options = {}) {
+    constructor(_options: Agent.Options) {
         this._options = _options;
     }
 
@@ -774,12 +774,7 @@ export class Agent {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

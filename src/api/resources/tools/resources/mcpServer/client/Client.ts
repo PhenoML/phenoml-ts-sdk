@@ -18,7 +18,7 @@ export class McpServer {
     protected readonly _options: McpServer.Options;
     protected _tools: Tools | undefined;
 
-    constructor(_options: McpServer.Options = {}) {
+    constructor(_options: McpServer.Options) {
         this._options = _options;
     }
 
@@ -358,12 +358,7 @@ export class McpServer {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

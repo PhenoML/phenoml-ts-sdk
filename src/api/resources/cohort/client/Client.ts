@@ -16,7 +16,7 @@ export declare namespace Cohort {
 export class Cohort {
     protected readonly _options: Cohort.Options;
 
-    constructor(_options: Cohort.Options = {}) {
+    constructor(_options: Cohort.Options) {
         this._options = _options;
     }
 
@@ -109,12 +109,7 @@ export class Cohort {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }
