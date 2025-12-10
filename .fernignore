@@ -14,3 +14,6 @@ README.md
 
 # Temporarily ignore
 tests/wire/fhir/main.test.ts
+
+# CI workflow with OIDC fixes (until generator is updated)
+.github/workflows/ci.yml
