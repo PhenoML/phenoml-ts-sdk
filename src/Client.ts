@@ -33,7 +33,7 @@ export class phenomlClient {
     protected _tools: Tools | undefined;
     protected _workflows: Workflows | undefined;
 
-    constructor(_options: phenomlClient.Options = {}) {
+    constructor(_options: phenomlClient.Options) {
         this._options = {
             ..._options,
             headers: mergeHeaders(
