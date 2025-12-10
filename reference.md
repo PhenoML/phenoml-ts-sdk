@@ -1,7 +1,5 @@
 # Reference
-
 ## Agent
-
 <details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">create</a>({ ...params }) -> phenoml.AgentResponse</code></summary>
 <dl>
 <dd>
@@ -15,7 +13,6 @@
 <dd>
 
 Creates a new PhenoAgent with specified configuration
-
 </dd>
 </dl>
 </dd>
@@ -33,10 +30,10 @@ Creates a new PhenoAgent with specified configuration
 await client.agent.create({
     name: "name",
     prompts: ["prompt_123", "prompt_456"],
-    is_active: true,
+    is_active: true
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -50,20 +47,21 @@ await client.agent.create({
 <dl>
 <dd>
 
-**request:** `phenoml.AgentCreateRequest`
-
+**request:** `phenoml.AgentCreateRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions`
+**requestOptions:** `Agent.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -82,7 +80,6 @@ await client.agent.create({
 <dd>
 
 Retrieves a list of PhenoAgents belonging to the authenticated user
-
 </dd>
 </dl>
 </dd>
@@ -99,10 +96,10 @@ Retrieves a list of PhenoAgents belonging to the authenticated user
 ```typescript
 await client.agent.list({
     is_active: true,
-    tags: "tags",
+    tags: "tags"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -116,20 +113,21 @@ await client.agent.list({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentListRequest`
-
+**request:** `phenoml.agent.AgentListRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions`
+**requestOptions:** `Agent.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -148,7 +146,6 @@ await client.agent.list({
 <dd>
 
 Retrieves a specific agent by its ID
-
 </dd>
 </dl>
 </dd>
@@ -164,8 +161,8 @@ Retrieves a specific agent by its ID
 
 ```typescript
 await client.agent.get("id");
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -180,19 +177,20 @@ await client.agent.get("id");
 <dd>
 
 **id:** `string` — Agent ID
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions`
+**requestOptions:** `Agent.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -211,7 +209,6 @@ await client.agent.get("id");
 <dd>
 
 Updates an existing agent's configuration
-
 </dd>
 </dl>
 </dd>
@@ -229,10 +226,10 @@ Updates an existing agent's configuration
 await client.agent.update("id", {
     name: "name",
     prompts: ["prompt_123", "prompt_456"],
-    is_active: true,
+    is_active: true
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -247,27 +244,28 @@ await client.agent.update("id", {
 <dd>
 
 **id:** `string` — Agent ID
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.AgentCreateRequest`
-
+**request:** `phenoml.AgentCreateRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions`
+**requestOptions:** `Agent.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -286,7 +284,6 @@ await client.agent.update("id", {
 <dd>
 
 Deletes an existing agent
-
 </dd>
 </dl>
 </dd>
@@ -302,8 +299,8 @@ Deletes an existing agent
 
 ```typescript
 await client.agent.delete("id");
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -318,19 +315,20 @@ await client.agent.delete("id");
 <dd>
 
 **id:** `string` — Agent ID
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions`
+**requestOptions:** `Agent.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -349,7 +347,6 @@ await client.agent.delete("id");
 <dd>
 
 Patches an existing agent's configuration
-
 </dd>
 </dl>
 </dd>
@@ -364,24 +361,20 @@ Patches an existing agent's configuration
 <dd>
 
 ```typescript
-await client.agent.patch("id", [
-    {
+await client.agent.patch("id", [{
         op: "replace",
         path: "/name",
-        value: "Updated Agent Name",
-    },
-    {
+        value: "Updated Agent Name"
+    }, {
         op: "add",
         path: "/tags/-",
-        value: "new-tag",
-    },
-    {
+        value: "new-tag"
+    }, {
         op: "remove",
-        path: "/description",
-    },
-]);
-```
+        path: "/description"
+    }]);
 
+```
 </dd>
 </dl>
 </dd>
@@ -396,27 +389,28 @@ await client.agent.patch("id", [
 <dd>
 
 **id:** `string` — Agent ID
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.JsonPatch`
-
+**request:** `phenoml.JsonPatch` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions`
+**requestOptions:** `Agent.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -435,7 +429,6 @@ await client.agent.patch("id", [
 <dd>
 
 Send a message to an agent and receive a response
-
 </dd>
 </dl>
 </dd>
@@ -452,10 +445,10 @@ Send a message to an agent and receive a response
 ```typescript
 await client.agent.chat({
     message: "What is the patient's current condition?",
-    agent_id: "agent-123",
+    agent_id: "agent-123"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -469,20 +462,21 @@ await client.agent.chat({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentChatRequest`
-
+**request:** `phenoml.agent.AgentChatRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions`
+**requestOptions:** `Agent.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -501,7 +495,6 @@ await client.agent.chat({
 <dd>
 
 Retrieves a list of chat messages for a given chat session
-
 </dd>
 </dl>
 </dd>
@@ -520,10 +513,10 @@ await client.agent.getChatMessages({
     chat_session_id: "chat_session_id",
     num_messages: 1,
     role: "role",
-    order: "asc",
+    order: "asc"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -537,27 +530,27 @@ await client.agent.getChatMessages({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentGetChatMessagesRequest`
-
+**request:** `phenoml.agent.AgentGetChatMessagesRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions`
+**requestOptions:** `Agent.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Agent Prompts
-
 <details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">create</a>({ ...params }) -> phenoml.AgentPromptsResponse</code></summary>
 <dl>
 <dd>
@@ -571,7 +564,6 @@ await client.agent.getChatMessages({
 <dd>
 
 Creates a new agent prompt
-
 </dd>
 </dl>
 </dd>
@@ -589,10 +581,10 @@ Creates a new agent prompt
 await client.agent.prompts.create({
     name: "Medical Assistant System Prompt",
     content: "You are a helpful medical assistant specialized in FHIR data processing...",
-    is_active: true,
+    is_active: true
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -606,20 +598,21 @@ await client.agent.prompts.create({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentPromptsCreateRequest`
-
+**request:** `phenoml.agent.AgentPromptsCreateRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions`
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -638,7 +631,6 @@ await client.agent.prompts.create({
 <dd>
 
 Retrieves a list of agent prompts belonging to the authenticated user
-
 </dd>
 </dl>
 </dd>
@@ -654,8 +646,8 @@ Retrieves a list of agent prompts belonging to the authenticated user
 
 ```typescript
 await client.agent.prompts.list();
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -669,12 +661,13 @@ await client.agent.prompts.list();
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions`
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -693,7 +686,6 @@ await client.agent.prompts.list();
 <dd>
 
 Retrieves a specific prompt by its ID
-
 </dd>
 </dl>
 </dd>
@@ -709,8 +701,8 @@ Retrieves a specific prompt by its ID
 
 ```typescript
 await client.agent.prompts.get("id");
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -725,19 +717,20 @@ await client.agent.prompts.get("id");
 <dd>
 
 **id:** `string` — Prompt ID
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions`
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -756,7 +749,6 @@ await client.agent.prompts.get("id");
 <dd>
 
 Updates an existing prompt
-
 </dd>
 </dl>
 </dd>
@@ -772,8 +764,8 @@ Updates an existing prompt
 
 ```typescript
 await client.agent.prompts.update("id");
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -788,27 +780,28 @@ await client.agent.prompts.update("id");
 <dd>
 
 **id:** `string` — Prompt ID
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentPromptsUpdateRequest`
-
+**request:** `phenoml.agent.AgentPromptsUpdateRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions`
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -827,7 +820,6 @@ await client.agent.prompts.update("id");
 <dd>
 
 Soft deletes a prompt by setting is_active to false
-
 </dd>
 </dl>
 </dd>
@@ -843,8 +835,8 @@ Soft deletes a prompt by setting is_active to false
 
 ```typescript
 await client.agent.prompts.delete("id");
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -859,19 +851,20 @@ await client.agent.prompts.delete("id");
 <dd>
 
 **id:** `string` — Prompt ID
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions`
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -890,7 +883,6 @@ await client.agent.prompts.delete("id");
 <dd>
 
 Patches an existing prompt
-
 </dd>
 </dl>
 </dd>
@@ -905,24 +897,20 @@ Patches an existing prompt
 <dd>
 
 ```typescript
-await client.agent.prompts.patch("id", [
-    {
+await client.agent.prompts.patch("id", [{
         op: "replace",
         path: "/name",
-        value: "Updated Agent Name",
-    },
-    {
+        value: "Updated Agent Name"
+    }, {
         op: "add",
         path: "/tags/-",
-        value: "new-tag",
-    },
-    {
+        value: "new-tag"
+    }, {
         op: "remove",
-        path: "/description",
-    },
-]);
-```
+        path: "/description"
+    }]);
 
+```
 </dd>
 </dl>
 </dd>
@@ -937,27 +925,28 @@ await client.agent.prompts.patch("id", [
 <dd>
 
 **id:** `string` — Agent Prompt ID
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.JsonPatch`
-
+**request:** `phenoml.JsonPatch` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions`
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -976,7 +965,6 @@ await client.agent.prompts.patch("id", [
 <dd>
 
 Loads default agent prompts for the authenticated user
-
 </dd>
 </dl>
 </dd>
@@ -992,8 +980,8 @@ Loads default agent prompts for the authenticated user
 
 ```typescript
 await client.agent.prompts.loadDefaults();
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -1007,19 +995,19 @@ await client.agent.prompts.loadDefaults();
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions`
+**requestOptions:** `Prompts.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Authtoken Auth
-
 <details><summary><code>client.authtoken.auth.<a href="/src/api/resources/authtoken/resources/auth/client/Client.ts">generateToken</a>({ ...params }) -> phenoml.AuthGenerateTokenResponse</code></summary>
 <dl>
 <dd>
@@ -1033,7 +1021,6 @@ await client.agent.prompts.loadDefaults();
 <dd>
 
 Obtain an access token using client credentials
-
 </dd>
 </dl>
 </dd>
@@ -1050,10 +1037,10 @@ Obtain an access token using client credentials
 ```typescript
 await client.authtoken.auth.generateToken({
     username: "username",
-    password: "password",
+    password: "password"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -1067,27 +1054,27 @@ await client.authtoken.auth.generateToken({
 <dl>
 <dd>
 
-**request:** `phenoml.authtoken.AuthGenerateTokenRequest`
-
+**request:** `phenoml.authtoken.AuthGenerateTokenRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Auth.RequestOptions`
+**requestOptions:** `Auth.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Cohort
-
 <details><summary><code>client.cohort.<a href="/src/api/resources/cohort/client/Client.ts">analyze</a>({ ...params }) -> phenoml.CohortResponse</code></summary>
 <dl>
 <dd>
@@ -1101,7 +1088,6 @@ await client.authtoken.auth.generateToken({
 <dd>
 
 Converts natural language text into structured FHIR search queries for patient cohort analysis
-
 </dd>
 </dl>
 </dd>
@@ -1117,10 +1103,10 @@ Converts natural language text into structured FHIR search queries for patient c
 
 ```typescript
 await client.cohort.analyze({
-    text: "female patients over 65 with diabetes but not hypertension",
+    text: "female patients over 65 with diabetes but not hypertension"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -1134,27 +1120,27 @@ await client.cohort.analyze({
 <dl>
 <dd>
 
-**request:** `phenoml.cohort.CohortRequest`
-
+**request:** `phenoml.cohort.CohortRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Cohort.RequestOptions`
+**requestOptions:** `Cohort.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Construe
-
 <details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">uploadCodeSystem</a>({ ...params }) -> phenoml.ConstrueUploadCodeSystemResponse</code></summary>
 <dl>
 <dd>
@@ -1170,7 +1156,6 @@ await client.cohort.analyze({
 Upload a custom medical code system with codes and descriptions for use in code extraction.
 Upon upload, construe generates embeddings for all of the codes in the code system and stores them in the vector database so you can
 subsequently use the code system for construe/extract and lang2fhir/create (coming soon!)
-
 </dd>
 </dl>
 </dd>
@@ -1189,10 +1174,10 @@ await client.construe.uploadCodeSystem({
     name: "CUSTOM_CODES",
     version: "1.0",
     format: "json",
-    file: "file",
+    file: "file"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -1206,20 +1191,21 @@ await client.construe.uploadCodeSystem({
 <dl>
 <dd>
 
-**request:** `phenoml.construe.UploadRequest`
-
+**request:** `phenoml.construe.UploadRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions`
+**requestOptions:** `Construe.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -1238,7 +1224,6 @@ await client.construe.uploadCodeSystem({
 <dd>
 
 Converts natural language text into structured medical codes
-
 </dd>
 </dl>
 </dd>
@@ -1254,10 +1239,10 @@ Converts natural language text into structured medical codes
 
 ```typescript
 await client.construe.extractCodes({
-    text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney",
+    text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -1271,20 +1256,21 @@ await client.construe.extractCodes({
 <dl>
 <dd>
 
-**request:** `phenoml.construe.ExtractRequest`
-
+**request:** `phenoml.construe.ExtractRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions`
+**requestOptions:** `Construe.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -1304,7 +1290,6 @@ await client.construe.extractCodes({
 
 Creates a patient cohort based on a natural language description.
 Translates the description into FHIR search queries and optional SQL queries.
-
 </dd>
 </dl>
 </dd>
@@ -1320,10 +1305,10 @@ Translates the description into FHIR search queries and optional SQL queries.
 
 ```typescript
 await client.construe.cohort({
-    text: "Between 20 and 40 years old with hyperlipidemia",
+    text: "Between 20 and 40 years old with hyperlipidemia"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -1337,27 +1322,27 @@ await client.construe.cohort({
 <dl>
 <dd>
 
-**request:** `phenoml.construe.ConstrueCohortRequest`
-
+**request:** `phenoml.construe.ConstrueCohortRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions`
+**requestOptions:** `Construe.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Fhir
-
 <details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">search</a>(fhirProviderId, fhirPath, { ...params }) -> phenoml.FhirSearchResponse</code></summary>
 <dl>
 <dd>
@@ -1373,7 +1358,6 @@ await client.construe.cohort({
 Retrieves FHIR resources from the specified provider. Supports both individual resource retrieval and search operations based on the FHIR path and query parameters.
 
 The request is proxied to the configured FHIR server with appropriate authentication headers.
-
 </dd>
 </dl>
 </dd>
@@ -1389,10 +1373,10 @@ The request is proxied to the configured FHIR server with appropriate authentica
 
 ```typescript
 await client.fhir.search("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-    "X-Phenoml-On-Behalf-Of": "user@example.com",
+    "X-Phenoml-On-Behalf-Of": "user@example.com"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -1406,48 +1390,47 @@ await client.fhir.search("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhirProviderId:** `string`
+**fhirProviderId:** `string` 
 
 The ID of the FHIR provider to use. Can be either:
-
 - A UUID representing the provider ID
 - A provider name (legacy support - will just use the most recently updated provider with this name)
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**fhirPath:** `string`
+**fhirPath:** `string` 
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
-
 - "Patient" (for resource type operations)
 - "Patient/123" (for specific resource operations)
-- "Patient/123/\_history" (for history operations)
-
+- "Patient/123/_history" (for history operations)
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirSearchRequest`
-
+**request:** `phenoml.fhir.FhirSearchRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions`
+**requestOptions:** `Fhir.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -1468,7 +1451,6 @@ Examples:
 Creates a new FHIR resource on the specified provider. The request body should contain a valid FHIR resource in JSON format.
 
 The request is proxied to the configured FHIR server with appropriate authentication headers.
-
 </dd>
 </dl>
 </dd>
@@ -1489,16 +1471,18 @@ await client.fhir.create("550e8400-e29b-41d4-a716-446655440000", "Patient", {
         resourceType: "Patient",
         name: [
             {
-                family: "Doe",
-                given: ["Jane"],
-            },
+                "family": "Doe",
+                "given": [
+                    "Jane"
+                ]
+            }
         ],
         gender: "female",
-        birthDate: "1990-01-01",
-    },
+        birthDate: "1990-01-01"
+    }
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -1512,48 +1496,47 @@ await client.fhir.create("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhirProviderId:** `string`
+**fhirProviderId:** `string` 
 
 The ID of the FHIR provider to use. Can be either:
-
 - A UUID representing the provider ID
 - A provider name (legacy support - will just use the most recently updated provider with this name)
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**fhirPath:** `string`
+**fhirPath:** `string` 
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
-
 - "Patient" (for resource type operations)
 - "Patient/123" (for specific resource operations)
-- "Patient/123/\_history" (for history operations)
-
+- "Patient/123/_history" (for history operations)
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirCreateRequest`
-
+**request:** `phenoml.fhir.FhirCreateRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions`
+**requestOptions:** `Fhir.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -1574,7 +1557,6 @@ Examples:
 Creates or updates a FHIR resource on the specified provider. If the resource exists, it will be updated; otherwise, it will be created.
 
 The request is proxied to the configured FHIR server with appropriate authentication headers.
-
 </dd>
 </dl>
 </dd>
@@ -1596,16 +1578,19 @@ await client.fhir.upsert("550e8400-e29b-41d4-a716-446655440000", "Patient", {
         id: "123",
         name: [
             {
-                family: "Doe",
-                given: ["John", "Updated"],
-            },
+                "family": "Doe",
+                "given": [
+                    "John",
+                    "Updated"
+                ]
+            }
         ],
         gender: "male",
-        birthDate: "1985-05-15",
-    },
+        birthDate: "1985-05-15"
+    }
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -1619,48 +1604,47 @@ await client.fhir.upsert("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhirProviderId:** `string`
+**fhirProviderId:** `string` 
 
 The ID of the FHIR provider to use. Can be either:
-
 - A UUID representing the provider ID
 - A provider name (legacy support - will just use the most recently updated provider with this name)
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**fhirPath:** `string`
+**fhirPath:** `string` 
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
-
 - "Patient" (for resource type operations)
 - "Patient/123" (for specific resource operations)
-- "Patient/123/\_history" (for history operations)
-
+- "Patient/123/_history" (for history operations)
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirUpsertRequest`
-
+**request:** `phenoml.fhir.FhirUpsertRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions`
+**requestOptions:** `Fhir.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -1681,7 +1665,6 @@ Examples:
 Deletes a FHIR resource from the specified provider.
 
 The request is proxied to the configured FHIR server with appropriate authentication headers.
-
 </dd>
 </dl>
 </dd>
@@ -1697,10 +1680,10 @@ The request is proxied to the configured FHIR server with appropriate authentica
 
 ```typescript
 await client.fhir.delete("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-    "X-Phenoml-On-Behalf-Of": "user@example.com",
+    "X-Phenoml-On-Behalf-Of": "user@example.com"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -1714,48 +1697,47 @@ await client.fhir.delete("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhirProviderId:** `string`
+**fhirProviderId:** `string` 
 
 The ID of the FHIR provider to use. Can be either:
-
 - A UUID representing the provider ID
 - A provider name (legacy support - will just use the most recently updated provider with this name)
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**fhirPath:** `string`
+**fhirPath:** `string` 
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
-
 - "Patient" (for resource type operations)
 - "Patient/123" (for specific resource operations)
-- "Patient/123/\_history" (for history operations)
-
+- "Patient/123/_history" (for history operations)
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirDeleteRequest`
-
+**request:** `phenoml.fhir.FhirDeleteRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions`
+**requestOptions:** `Fhir.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -1776,13 +1758,11 @@ Examples:
 Partially updates a FHIR resource on the specified provider using JSON Patch operations as defined in RFC 6902.
 
 The request body should contain an array of JSON Patch operations. Each operation specifies:
-
 - `op`: The operation type (add, remove, replace, move, copy, test)
 - `path`: JSON Pointer to the target location in the resource
 - `value`: The value to use (required for add, replace, and test operations)
 
 The request is proxied to the configured FHIR server with appropriate authentication headers.
-
 </dd>
 </dl>
 </dd>
@@ -1799,16 +1779,14 @@ The request is proxied to the configured FHIR server with appropriate authentica
 ```typescript
 await client.fhir.patch("550e8400-e29b-41d4-a716-446655440000", "Patient", {
     "X-Phenoml-On-Behalf-Of": "user@example.com",
-    body: [
-        {
+    body: [{
             op: "replace",
             path: "/name/0/family",
-            value: "NewFamilyName",
-        },
-    ],
+            value: "NewFamilyName"
+        }]
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -1822,48 +1800,47 @@ await client.fhir.patch("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhirProviderId:** `string`
+**fhirProviderId:** `string` 
 
 The ID of the FHIR provider to use. Can be either:
-
 - A UUID representing the provider ID
 - A provider name (legacy support - will just use the most recently updated provider with this name)
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**fhirPath:** `string`
+**fhirPath:** `string` 
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
-
 - "Patient" (for resource type operations)
 - "Patient/123" (for specific resource operations)
-- "Patient/123/\_history" (for history operations)
-
+- "Patient/123/_history" (for history operations)
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirPatchRequest`
-
+**request:** `phenoml.fhir.FhirPatchRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions`
+**requestOptions:** `Fhir.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -1886,7 +1863,6 @@ Executes a FHIR Bundle transaction or batch operation on the specified provider.
 The request body should contain a valid FHIR Bundle resource with transaction or batch type.
 
 The request is proxied to the configured FHIR server with appropriate authentication headers.
-
 </dd>
 </dl>
 </dd>
@@ -1905,40 +1881,39 @@ await client.fhir.executeBundle("550e8400-e29b-41d4-a716-446655440000", {
     "X-Phenoml-On-Behalf-Of": "user@example.com",
     body: {
         resourceType: "Bundle",
-        entry: [
-            {
+        entry: [{
                 resource: {
-                    resourceType: "Patient",
-                    name: [
+                    "resourceType": "Patient",
+                    "name": [
                         {
-                            family: "Doe",
-                            given: ["John"],
-                        },
-                    ],
+                            "family": "Doe",
+                            "given": [
+                                "John"
+                            ]
+                        }
+                    ]
                 },
                 request: {
                     method: "POST",
-                    url: "Patient",
-                },
-            },
-            {
+                    url: "Patient"
+                }
+            }, {
                 resource: {
-                    resourceType: "Observation",
-                    status: "final",
-                    subject: {
-                        reference: "Patient/123",
-                    },
+                    "resourceType": "Observation",
+                    "status": "final",
+                    "subject": {
+                        "reference": "Patient/123"
+                    }
                 },
                 request: {
                     method: "POST",
-                    url: "Observation",
-                },
-            },
-        ],
-    },
+                    url: "Observation"
+                }
+            }]
+    }
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -1952,40 +1927,39 @@ await client.fhir.executeBundle("550e8400-e29b-41d4-a716-446655440000", {
 <dl>
 <dd>
 
-**fhirProviderId:** `string`
+**fhirProviderId:** `string` 
 
 The ID of the FHIR provider to use. Can be either:
-
 - A UUID representing the provider ID
 - A provider name (legacy support - will just use the most recently updated provider with this name)
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirExecuteBundleRequest`
-
+**request:** `phenoml.fhir.FhirExecuteBundleRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions`
+**requestOptions:** `Fhir.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## FhirProvider
-
 <details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">create</a>({ ...params }) -> phenoml.FhirProviderResponse</code></summary>
 <dl>
 <dd>
@@ -1999,7 +1973,6 @@ The ID of the FHIR provider to use. Can be either:
 <dd>
 
 Creates a new FHIR provider configuration with authentication credentials
-
 </dd>
 </dl>
 </dd>
@@ -2018,10 +1991,10 @@ await client.fhirProvider.create({
     name: "Epic Sandbox",
     provider: "athenahealth",
     auth_method: "client_secret",
-    base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
+    base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2035,20 +2008,21 @@ await client.fhirProvider.create({
 <dl>
 <dd>
 
-**request:** `phenoml.fhirProvider.FhirProviderCreateRequest`
-
+**request:** `phenoml.fhirProvider.FhirProviderCreateRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions`
+**requestOptions:** `FhirProvider.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -2067,7 +2041,6 @@ await client.fhirProvider.create({
 <dd>
 
 Retrieves a list of all active FHIR providers for the authenticated user
-
 </dd>
 </dl>
 </dd>
@@ -2083,8 +2056,8 @@ Retrieves a list of all active FHIR providers for the authenticated user
 
 ```typescript
 await client.fhirProvider.list();
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2098,12 +2071,13 @@ await client.fhirProvider.list();
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions`
+**requestOptions:** `FhirProvider.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -2122,7 +2096,6 @@ await client.fhirProvider.list();
 <dd>
 
 Retrieves a specific FHIR provider configuration by its ID
-
 </dd>
 </dl>
 </dd>
@@ -2138,8 +2111,8 @@ Retrieves a specific FHIR provider configuration by its ID
 
 ```typescript
 await client.fhirProvider.get("fhir_provider_id");
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2154,19 +2127,20 @@ await client.fhirProvider.get("fhir_provider_id");
 <dd>
 
 **fhirProviderId:** `string` — ID of the FHIR provider to retrieve
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions`
+**requestOptions:** `FhirProvider.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -2185,7 +2159,6 @@ await client.fhirProvider.get("fhir_provider_id");
 <dd>
 
 Soft deletes a FHIR provider by setting is_active to false
-
 </dd>
 </dl>
 </dd>
@@ -2201,8 +2174,8 @@ Soft deletes a FHIR provider by setting is_active to false
 
 ```typescript
 await client.fhirProvider.delete("fhir_provider_id");
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2217,19 +2190,20 @@ await client.fhirProvider.delete("fhir_provider_id");
 <dd>
 
 **fhirProviderId:** `string` — ID of the FHIR provider to delete
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions`
+**requestOptions:** `FhirProvider.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -2248,7 +2222,6 @@ await client.fhirProvider.delete("fhir_provider_id");
 <dd>
 
 Adds a new authentication configuration to an existing FHIR provider. This enables key rotation and multiple auth configurations per provider.
-
 </dd>
 </dl>
 </dd>
@@ -2264,10 +2237,10 @@ Adds a new authentication configuration to an existing FHIR provider. This enabl
 
 ```typescript
 await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-    auth_method: "client_secret",
+    auth_method: "client_secret"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2282,27 +2255,28 @@ await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", 
 <dd>
 
 **fhirProviderId:** `string` — ID of the FHIR provider to add auth config to
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhirProvider.FhirProviderAddAuthConfigRequest`
-
+**request:** `phenoml.fhirProvider.FhirProviderAddAuthConfigRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions`
+**requestOptions:** `FhirProvider.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -2321,7 +2295,6 @@ await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", 
 <dd>
 
 Sets which authentication configuration should be active for a FHIR provider. Only one auth config can be active at a time.
-
 </dd>
 </dl>
 </dd>
@@ -2337,10 +2310,10 @@ Sets which authentication configuration should be active for a FHIR provider. On
 
 ```typescript
 await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-    auth_config_id: "auth-config-123",
+    auth_config_id: "auth-config-123"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2355,27 +2328,28 @@ await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e
 <dd>
 
 **fhirProviderId:** `string` — ID of the FHIR provider
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhirProvider.FhirProviderSetActiveAuthConfigRequest`
-
+**request:** `phenoml.fhirProvider.FhirProviderSetActiveAuthConfigRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions`
+**requestOptions:** `FhirProvider.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -2394,7 +2368,6 @@ await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e
 <dd>
 
 Removes an authentication configuration from a FHIR provider. Cannot remove the currently active auth configuration.
-
 </dd>
 </dl>
 </dd>
@@ -2410,10 +2383,10 @@ Removes an authentication configuration from a FHIR provider. Cannot remove the 
 
 ```typescript
 await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-    auth_config_id: "auth-config-123",
+    auth_config_id: "auth-config-123"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2428,34 +2401,34 @@ await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad
 <dd>
 
 **fhirProviderId:** `string` — ID of the FHIR provider
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhirProvider.FhirProviderRemoveAuthConfigRequest`
-
+**request:** `phenoml.fhirProvider.FhirProviderRemoveAuthConfigRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions`
+**requestOptions:** `FhirProvider.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Lang2Fhir
-
 <details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">create</a>({ ...params }) -> phenoml.FhirResource</code></summary>
 <dl>
 <dd>
@@ -2469,7 +2442,6 @@ await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad
 <dd>
 
 Converts natural language text into a structured FHIR resource
-
 </dd>
 </dl>
 </dd>
@@ -2487,10 +2459,10 @@ Converts natural language text into a structured FHIR resource
 await client.lang2Fhir.create({
     version: "R4",
     resource: "auto",
-    text: "Patient has severe asthma with acute exacerbation",
+    text: "Patient has severe asthma with acute exacerbation"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2504,20 +2476,21 @@ await client.lang2Fhir.create({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.CreateRequest`
-
+**request:** `phenoml.lang2Fhir.CreateRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions`
+**requestOptions:** `Lang2Fhir.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -2536,7 +2509,6 @@ await client.lang2Fhir.create({
 <dd>
 
 Converts natural language text into FHIR search parameters
-
 </dd>
 </dl>
 </dd>
@@ -2552,10 +2524,10 @@ Converts natural language text into FHIR search parameters
 
 ```typescript
 await client.lang2Fhir.search({
-    text: "Appointments between March 2-9, 2025",
+    text: "Appointments between March 2-9, 2025"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2569,20 +2541,21 @@ await client.lang2Fhir.search({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.SearchRequest`
-
+**request:** `phenoml.lang2Fhir.SearchRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions`
+**requestOptions:** `Lang2Fhir.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -2601,7 +2574,6 @@ await client.lang2Fhir.search({
 <dd>
 
 Upload a custom FHIR StructureDefinition profile for use with the lang2fhir service
-
 </dd>
 </dl>
 </dd>
@@ -2619,10 +2591,10 @@ Upload a custom FHIR StructureDefinition profile for use with the lang2fhir serv
 await client.lang2Fhir.uploadProfile({
     version: "version",
     resource: "custom-patient",
-    profile: "profile",
+    profile: "profile"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2636,20 +2608,21 @@ await client.lang2Fhir.uploadProfile({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.ProfileUploadRequest`
-
+**request:** `phenoml.lang2Fhir.ProfileUploadRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions`
+**requestOptions:** `Lang2Fhir.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -2668,7 +2641,6 @@ await client.lang2Fhir.uploadProfile({
 <dd>
 
 Extracts text from a document (PDF or image) and converts it into a structured FHIR resource
-
 </dd>
 </dl>
 </dd>
@@ -2687,10 +2659,10 @@ await client.lang2Fhir.document({
     version: "R4",
     resource: "questionnaire",
     content: "content",
-    fileType: "application/pdf",
+    fileType: "application/pdf"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2704,27 +2676,422 @@ await client.lang2Fhir.document({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.DocumentRequest`
-
+**request:** `phenoml.lang2Fhir.DocumentRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions`
+**requestOptions:** `Lang2Fhir.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
 
 </dd>
 </dl>
+</details>
+
+## Summary
+<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">listTemplates</a>() -> phenoml.SummaryListTemplatesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves all summary templates for the authenticated user
 </dd>
 </dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.summary.listTemplates();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `Summary.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">createTemplate</a>({ ...params }) -> phenoml.CreateSummaryTemplateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a summary template from an example using LLM function calling
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.summary.createTemplate({
+    name: "name",
+    example_summary: "Patient John Doe, age 45, presents with hypertension diagnosed on 2024-01-15.",
+    target_resources: ["Patient", "Condition", "Observation"],
+    mode: "mode"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.summary.CreateSummaryTemplateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Summary.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">getTemplate</a>(id) -> phenoml.SummaryGetTemplateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a specific summary template
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.summary.getTemplate("id");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Template ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Summary.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">updateTemplate</a>(id, { ...params }) -> phenoml.SummaryUpdateTemplateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates an existing summary template
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.summary.updateTemplate("id", {
+    name: "name",
+    template: "template",
+    target_resources: ["target_resources"],
+    mode: "mode"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Template ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.summary.UpdateSummaryTemplateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Summary.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">deleteTemplate</a>(id) -> phenoml.SummaryDeleteTemplateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a summary template
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.summary.deleteTemplate("id");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Template ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Summary.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">create</a>({ ...params }) -> phenoml.CreateSummaryResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a summary from FHIR resources using one of two modes:
+- **narrative**: Uses a template to substitute FHIR data into placeholders (requires template_id)
+- **flatten**: Flattens FHIR resources into a searchable format for RAG/search (no template needed)
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.summary.create({
+    fhir_resources: {
+        resourceType: "resourceType"
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.summary.CreateSummaryRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Summary.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
 
 </dd>
 </dl>
 </details>
 
 ## Tools
-
 <details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">createFhirResource</a>({ ...params }) -> phenoml.Lang2FhirAndCreateResponse</code></summary>
 <dl>
 <dd>
@@ -2738,7 +3105,6 @@ await client.lang2Fhir.document({
 <dd>
 
 Converts natural language to FHIR resource and optionally stores it in a FHIR server
-
 </dd>
 </dl>
 </dd>
@@ -2755,10 +3121,10 @@ Converts natural language to FHIR resource and optionally stores it in a FHIR se
 ```typescript
 await client.tools.createFhirResource({
     resource: "auto",
-    text: "Patient John Doe has severe asthma with acute exacerbation",
+    text: "Patient John Doe has severe asthma with acute exacerbation"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2772,20 +3138,21 @@ await client.tools.createFhirResource({
 <dl>
 <dd>
 
-**request:** `phenoml.tools.Lang2FhirAndCreateRequest`
-
+**request:** `phenoml.tools.Lang2FhirAndCreateRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions`
+**requestOptions:** `Tools.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -2804,7 +3171,6 @@ await client.tools.createFhirResource({
 <dd>
 
 Converts natural language to FHIR search parameters and executes search in FHIR server
-
 </dd>
 </dl>
 </dd>
@@ -2820,10 +3186,10 @@ Converts natural language to FHIR search parameters and executes search in FHIR 
 
 ```typescript
 await client.tools.searchFhirResources({
-    text: "Find all appointments for patient John Doe next week",
+    text: "Find all appointments for patient John Doe next week"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2837,20 +3203,21 @@ await client.tools.searchFhirResources({
 <dl>
 <dd>
 
-**request:** `phenoml.tools.Lang2FhirAndSearchRequest`
-
+**request:** `phenoml.tools.Lang2FhirAndSearchRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions`
+**requestOptions:** `Tools.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -2869,7 +3236,6 @@ await client.tools.searchFhirResources({
 <dd>
 
 Uses LLM to extract search concepts from natural language and builds patient cohorts with inclusion/exclusion criteria
-
 </dd>
 </dl>
 </dd>
@@ -2886,10 +3252,10 @@ Uses LLM to extract search concepts from natural language and builds patient coh
 ```typescript
 await client.tools.analyzeCohort({
     text: "female patients over 20 with diabetes but not hypertension",
-    provider: "550e8400-e29b-41d4-a716-446655440000",
+    provider: "550e8400-e29b-41d4-a716-446655440000"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2903,27 +3269,27 @@ await client.tools.analyzeCohort({
 <dl>
 <dd>
 
-**request:** `phenoml.tools.CohortRequest`
-
+**request:** `phenoml.tools.CohortRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions`
+**requestOptions:** `Tools.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Tools McpServer
-
 <details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">create</a>({ ...params }) -> phenoml.McpServerResponse</code></summary>
 <dl>
 <dd>
@@ -2937,7 +3303,6 @@ await client.tools.analyzeCohort({
 <dd>
 
 Creates a new MCP server
-
 </dd>
 </dl>
 </dd>
@@ -2954,10 +3319,10 @@ Creates a new MCP server
 ```typescript
 await client.tools.mcpServer.create({
     name: "My MCP Server",
-    mcp_server_url: "https://mcp.example.com",
+    mcp_server_url: "https://mcp.example.com"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2971,20 +3336,21 @@ await client.tools.mcpServer.create({
 <dl>
 <dd>
 
-**request:** `phenoml.tools.McpServerCreateRequest`
-
+**request:** `phenoml.tools.McpServerCreateRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `McpServer.RequestOptions`
+**requestOptions:** `McpServer.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -3003,7 +3369,6 @@ await client.tools.mcpServer.create({
 <dd>
 
 Lists all MCP servers for a specific user
-
 </dd>
 </dl>
 </dd>
@@ -3019,8 +3384,8 @@ Lists all MCP servers for a specific user
 
 ```typescript
 await client.tools.mcpServer.list();
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -3034,12 +3399,13 @@ await client.tools.mcpServer.list();
 <dl>
 <dd>
 
-**requestOptions:** `McpServer.RequestOptions`
+**requestOptions:** `McpServer.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -3058,7 +3424,6 @@ await client.tools.mcpServer.list();
 <dd>
 
 Gets a MCP server by ID
-
 </dd>
 </dl>
 </dd>
@@ -3074,8 +3439,8 @@ Gets a MCP server by ID
 
 ```typescript
 await client.tools.mcpServer.get("mcp_server_id");
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -3090,19 +3455,20 @@ await client.tools.mcpServer.get("mcp_server_id");
 <dd>
 
 **mcpServerId:** `string` — ID of the MCP server to retrieve
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `McpServer.RequestOptions`
+**requestOptions:** `McpServer.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -3121,7 +3487,6 @@ await client.tools.mcpServer.get("mcp_server_id");
 <dd>
 
 Deletes a MCP server by ID
-
 </dd>
 </dl>
 </dd>
@@ -3137,8 +3502,8 @@ Deletes a MCP server by ID
 
 ```typescript
 await client.tools.mcpServer.delete("mcp_server_id");
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -3153,26 +3518,26 @@ await client.tools.mcpServer.delete("mcp_server_id");
 <dd>
 
 **mcpServerId:** `string` — ID of the MCP server to delete
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `McpServer.RequestOptions`
+**requestOptions:** `McpServer.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Tools McpServer Tools
-
 <details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">list</a>(mcpServerId) -> phenoml.McpServerToolResponse</code></summary>
 <dl>
 <dd>
@@ -3186,7 +3551,6 @@ await client.tools.mcpServer.delete("mcp_server_id");
 <dd>
 
 Lists all MCP server tools for a specific MCP server
-
 </dd>
 </dl>
 </dd>
@@ -3202,8 +3566,8 @@ Lists all MCP server tools for a specific MCP server
 
 ```typescript
 await client.tools.mcpServer.tools.list("mcp_server_id");
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -3218,19 +3582,20 @@ await client.tools.mcpServer.tools.list("mcp_server_id");
 <dd>
 
 **mcpServerId:** `string` — ID of the MCP server to list tools for
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions`
+**requestOptions:** `Tools.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -3249,7 +3614,6 @@ await client.tools.mcpServer.tools.list("mcp_server_id");
 <dd>
 
 Gets a MCP server tool by ID
-
 </dd>
 </dl>
 </dd>
@@ -3265,8 +3629,8 @@ Gets a MCP server tool by ID
 
 ```typescript
 await client.tools.mcpServer.tools.get("mcp_server_tool_id");
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -3281,19 +3645,20 @@ await client.tools.mcpServer.tools.get("mcp_server_tool_id");
 <dd>
 
 **mcpServerToolId:** `string` — ID of the MCP server tool to retrieve
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions`
+**requestOptions:** `Tools.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -3312,7 +3677,6 @@ await client.tools.mcpServer.tools.get("mcp_server_tool_id");
 <dd>
 
 Deletes a MCP server tool by ID
-
 </dd>
 </dl>
 </dd>
@@ -3328,8 +3692,8 @@ Deletes a MCP server tool by ID
 
 ```typescript
 await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -3344,19 +3708,20 @@ await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
 <dd>
 
 **mcpServerToolId:** `string` — ID of the MCP server tool to delete
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions`
+**requestOptions:** `Tools.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -3375,7 +3740,6 @@ await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
 <dd>
 
 Calls a MCP server tool
-
 </dd>
 </dl>
 </dd>
@@ -3392,11 +3756,11 @@ Calls a MCP server tool
 ```typescript
 await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
     arguments: {
-        title: "PhenoML Agent API",
-    },
+        "title": "PhenoML Agent API"
+    }
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -3411,34 +3775,34 @@ await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
 <dd>
 
 **mcpServerToolId:** `string` — ID of the MCP server tool to call
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.tools.mcpServer.McpServerToolCallRequest`
-
+**request:** `phenoml.tools.mcpServer.McpServerToolCallRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions`
+**requestOptions:** `Tools.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Workflows
-
 <details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">list</a>({ ...params }) -> phenoml.ListWorkflowsResponse</code></summary>
 <dl>
 <dd>
@@ -3452,7 +3816,6 @@ await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
 <dd>
 
 Retrieves all workflow definitions for the authenticated user
-
 </dd>
 </dl>
 </dd>
@@ -3468,10 +3831,10 @@ Retrieves all workflow definitions for the authenticated user
 
 ```typescript
 await client.workflows.list({
-    verbose: true,
+    verbose: true
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -3485,20 +3848,21 @@ await client.workflows.list({
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.WorkflowsListRequest`
-
+**request:** `phenoml.workflows.WorkflowsListRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions`
+**requestOptions:** `Workflows.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -3517,7 +3881,6 @@ await client.workflows.list({
 <dd>
 
 Creates a new workflow definition with graph generation from workflow instructions
-
 </dd>
 </dl>
 </dd>
@@ -3537,14 +3900,14 @@ await client.workflows.create({
     name: "Patient Data Mapping Workflow",
     workflow_instructions: "Given diagnosis data, find the patient and create condition record",
     sample_data: {
-        patient_last_name: "Rippin",
-        patient_first_name: "Clay",
-        diagnosis_code: "I10",
+        "patient_last_name": "Rippin",
+        "patient_first_name": "Clay",
+        "diagnosis_code": "I10"
     },
-    fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000",
+    fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -3558,20 +3921,21 @@ await client.workflows.create({
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.CreateWorkflowRequest`
-
+**request:** `phenoml.workflows.CreateWorkflowRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions`
+**requestOptions:** `Workflows.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -3590,7 +3954,6 @@ await client.workflows.create({
 <dd>
 
 Retrieves a workflow definition by its ID
-
 </dd>
 </dl>
 </dd>
@@ -3606,10 +3969,10 @@ Retrieves a workflow definition by its ID
 
 ```typescript
 await client.workflows.get("id", {
-    verbose: true,
+    verbose: true
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -3624,27 +3987,28 @@ await client.workflows.get("id", {
 <dd>
 
 **id:** `string` — ID of the workflow to retrieve
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.WorkflowsGetRequest`
-
+**request:** `phenoml.workflows.WorkflowsGetRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions`
+**requestOptions:** `Workflows.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -3663,7 +4027,6 @@ await client.workflows.get("id", {
 <dd>
 
 Updates an existing workflow definition
-
 </dd>
 </dl>
 </dd>
@@ -3683,14 +4046,14 @@ await client.workflows.update("id", {
     name: "Updated Patient Data Mapping Workflow",
     workflow_instructions: "Given diagnosis data, find the patient and create condition record",
     sample_data: {
-        patient_last_name: "Smith",
-        patient_first_name: "John",
-        diagnosis_code: "E11",
+        "patient_last_name": "Smith",
+        "patient_first_name": "John",
+        "diagnosis_code": "E11"
     },
-    fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000",
+    fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -3705,27 +4068,28 @@ await client.workflows.update("id", {
 <dd>
 
 **id:** `string` — ID of the workflow to update
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.UpdateWorkflowRequest`
-
+**request:** `phenoml.workflows.UpdateWorkflowRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions`
+**requestOptions:** `Workflows.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -3744,7 +4108,6 @@ await client.workflows.update("id", {
 <dd>
 
 Deletes a workflow definition by its ID
-
 </dd>
 </dl>
 </dd>
@@ -3760,8 +4123,8 @@ Deletes a workflow definition by its ID
 
 ```typescript
 await client.workflows.delete("id");
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -3776,19 +4139,20 @@ await client.workflows.delete("id");
 <dd>
 
 **id:** `string` — ID of the workflow to delete
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions`
+**requestOptions:** `Workflows.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -3807,7 +4171,6 @@ await client.workflows.delete("id");
 <dd>
 
 Executes a workflow with provided input data and returns results
-
 </dd>
 </dl>
 </dd>
@@ -3824,14 +4187,14 @@ Executes a workflow with provided input data and returns results
 ```typescript
 await client.workflows.execute("id", {
     input_data: {
-        patient_last_name: "Johnson",
-        patient_first_name: "Mary",
-        diagnosis_code: "M79.3",
-        encounter_date: "2024-01-15",
-    },
+        "patient_last_name": "Johnson",
+        "patient_first_name": "Mary",
+        "diagnosis_code": "M79.3",
+        "encounter_date": "2024-01-15"
+    }
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -3846,27 +4209,28 @@ await client.workflows.execute("id", {
 <dd>
 
 **id:** `string` — ID of the workflow to execute
-
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.ExecuteWorkflowRequest`
-
+**request:** `phenoml.workflows.ExecuteWorkflowRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions`
+**requestOptions:** `Workflows.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>

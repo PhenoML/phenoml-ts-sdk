@@ -1,1 +1,1 @@
-export { type CohortRequest } from "./CohortRequest.js";
+export type { CohortRequest } from "./CohortRequest.js";
