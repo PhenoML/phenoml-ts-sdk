@@ -18,7 +18,7 @@ export class McpServer {
     protected readonly _options: McpServer.Options;
     protected _tools: Tools | undefined;
 
-    constructor(_options: McpServer.Options = {}) {
+    constructor(_options: McpServer.Options) {
         this._options = _options;
     }
 
@@ -195,7 +195,7 @@ export class McpServer {
     /**
      * Gets a MCP server by ID
      *
-     * @param {string} mcpServerId - ID of the MCP server to retrieve
+     * @param {phenoml.tools.GetMcpServerRequest} request
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.tools.UnauthorizedError}
@@ -203,19 +203,22 @@ export class McpServer {
      * @throws {@link phenoml.tools.InternalServerError}
      *
      * @example
-     *     await client.tools.mcpServer.get("mcp_server_id")
+     *     await client.tools.mcpServer.get({
+     *         mcp_server_id: "mcp_server_id"
+     *     })
      */
     public get(
-        mcpServerId: string,
+        request: phenoml.tools.GetMcpServerRequest,
         requestOptions?: McpServer.RequestOptions,
     ): core.HttpResponsePromise<phenoml.tools.McpServerResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__get(mcpServerId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        mcpServerId: string,
+        request: phenoml.tools.GetMcpServerRequest,
         requestOptions?: McpServer.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.McpServerResponse>> {
+        const { mcp_server_id: mcpServerId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -278,7 +281,7 @@ export class McpServer {
     /**
      * Deletes a MCP server by ID
      *
-     * @param {string} mcpServerId - ID of the MCP server to delete
+     * @param {phenoml.tools.DeleteMcpServerRequest} request
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.tools.UnauthorizedError}
@@ -286,19 +289,22 @@ export class McpServer {
      * @throws {@link phenoml.tools.InternalServerError}
      *
      * @example
-     *     await client.tools.mcpServer.delete("mcp_server_id")
+     *     await client.tools.mcpServer.delete({
+     *         mcp_server_id: "mcp_server_id"
+     *     })
      */
     public delete(
-        mcpServerId: string,
+        request: phenoml.tools.DeleteMcpServerRequest,
         requestOptions?: McpServer.RequestOptions,
     ): core.HttpResponsePromise<phenoml.tools.McpServerResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(mcpServerId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
     }
 
     private async __delete(
-        mcpServerId: string,
+        request: phenoml.tools.DeleteMcpServerRequest,
         requestOptions?: McpServer.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.McpServerResponse>> {
+        const { mcp_server_id: mcpServerId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -358,12 +364,7 @@ export class McpServer {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

@@ -268,7 +268,9 @@ describe("Summary", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.summary.getTemplate("id");
+        const response = await client.summary.getTemplate({
+            id: "id",
+        });
         expect(response).toEqual({
             success: true,
             template: {
@@ -302,7 +304,9 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.getTemplate("id");
+            return await client.summary.getTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.UnauthorizedError);
     });
 
@@ -320,7 +324,9 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.getTemplate("id");
+            return await client.summary.getTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.ForbiddenError);
     });
 
@@ -338,7 +344,9 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.getTemplate("id");
+            return await client.summary.getTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.NotFoundError);
     });
 
@@ -356,7 +364,9 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.getTemplate("id");
+            return await client.summary.getTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.InternalServerError);
     });
 
@@ -394,7 +404,8 @@ describe("Summary", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.summary.updateTemplate("id", {
+        const response = await client.summary.updateTemplate({
+            id: "id",
             name: "name",
             template: "template",
             target_resources: ["target_resources"],
@@ -440,7 +451,8 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.updateTemplate("id", {
+            return await client.summary.updateTemplate({
+                id: "id",
                 name: "name",
                 template: "template",
                 target_resources: ["target_resources", "target_resources"],
@@ -469,7 +481,8 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.updateTemplate("id", {
+            return await client.summary.updateTemplate({
+                id: "id",
                 name: "name",
                 template: "template",
                 target_resources: ["target_resources", "target_resources"],
@@ -498,7 +511,8 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.updateTemplate("id", {
+            return await client.summary.updateTemplate({
+                id: "id",
                 name: "name",
                 template: "template",
                 target_resources: ["target_resources", "target_resources"],
@@ -527,7 +541,8 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.updateTemplate("id", {
+            return await client.summary.updateTemplate({
+                id: "id",
                 name: "name",
                 template: "template",
                 target_resources: ["target_resources", "target_resources"],
@@ -556,7 +571,8 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.updateTemplate("id", {
+            return await client.summary.updateTemplate({
+                id: "id",
                 name: "name",
                 template: "template",
                 target_resources: ["target_resources", "target_resources"],
@@ -578,7 +594,9 @@ describe("Summary", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.summary.deleteTemplate("id");
+        const response = await client.summary.deleteTemplate({
+            id: "id",
+        });
         expect(response).toEqual({
             success: true,
             message: "message",
@@ -599,7 +617,9 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.deleteTemplate("id");
+            return await client.summary.deleteTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.UnauthorizedError);
     });
 
@@ -617,7 +637,9 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.deleteTemplate("id");
+            return await client.summary.deleteTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.ForbiddenError);
     });
 
@@ -635,7 +657,9 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.deleteTemplate("id");
+            return await client.summary.deleteTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.NotFoundError);
     });
 
@@ -653,7 +677,9 @@ describe("Summary", () => {
             .build();
 
         await expect(async () => {
-            return await client.summary.deleteTemplate("id");
+            return await client.summary.deleteTemplate({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.summary.InternalServerError);
     });
 

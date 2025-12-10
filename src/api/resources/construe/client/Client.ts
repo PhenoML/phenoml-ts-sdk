@@ -16,7 +16,7 @@ export declare namespace Construe {
 export class Construe {
     protected readonly _options: Construe.Options;
 
-    constructor(_options: Construe.Options = {}) {
+    constructor(_options: Construe.Options) {
         this._options = _options;
     }
 
@@ -45,14 +45,14 @@ export class Construe {
     public uploadCodeSystem(
         request: phenoml.construe.UploadRequest,
         requestOptions?: Construe.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.construe.ConstrueUploadCodeSystemResponse> {
+    ): core.HttpResponsePromise<phenoml.construe.UploadCodeSystemConstrueResponse> {
         return core.HttpResponsePromise.fromPromise(this.__uploadCodeSystem(request, requestOptions));
     }
 
     private async __uploadCodeSystem(
         request: phenoml.construe.UploadRequest,
         requestOptions?: Construe.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.construe.ConstrueUploadCodeSystemResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.construe.UploadCodeSystemConstrueResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -77,7 +77,7 @@ export class Construe {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.construe.ConstrueUploadCodeSystemResponse,
+                data: _response.body as phenoml.construe.UploadCodeSystemConstrueResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -231,7 +231,7 @@ export class Construe {
      * Creates a patient cohort based on a natural language description.
      * Translates the description into FHIR search queries and optional SQL queries.
      *
-     * @param {phenoml.construe.ConstrueCohortRequest} request
+     * @param {phenoml.construe.CohortConstrueRequest} request
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.construe.BadRequestError}
@@ -244,16 +244,16 @@ export class Construe {
      *     })
      */
     public cohort(
-        request: phenoml.construe.ConstrueCohortRequest,
+        request: phenoml.construe.CohortConstrueRequest,
         requestOptions?: Construe.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.construe.ConstrueCohortResponse> {
+    ): core.HttpResponsePromise<phenoml.construe.CohortConstrueResponse> {
         return core.HttpResponsePromise.fromPromise(this.__cohort(request, requestOptions));
     }
 
     private async __cohort(
-        request: phenoml.construe.ConstrueCohortRequest,
+        request: phenoml.construe.CohortConstrueRequest,
         requestOptions?: Construe.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.construe.ConstrueCohortResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.construe.CohortConstrueResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -278,7 +278,7 @@ export class Construe {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.construe.ConstrueCohortResponse,
+                data: _response.body as phenoml.construe.CohortConstrueResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -323,12 +323,7 @@ export class Construe {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

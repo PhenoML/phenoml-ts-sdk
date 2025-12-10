@@ -16,14 +16,14 @@ export declare namespace Tools {
 export class Tools {
     protected readonly _options: Tools.Options;
 
-    constructor(_options: Tools.Options = {}) {
+    constructor(_options: Tools.Options) {
         this._options = _options;
     }
 
     /**
      * Lists all MCP server tools for a specific MCP server
      *
-     * @param {string} mcpServerId - ID of the MCP server to list tools for
+     * @param {phenoml.tools.mcpServer.ListToolsRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.tools.UnauthorizedError}
@@ -31,19 +31,22 @@ export class Tools {
      * @throws {@link phenoml.tools.InternalServerError}
      *
      * @example
-     *     await client.tools.mcpServer.tools.list("mcp_server_id")
+     *     await client.tools.mcpServer.tools.list({
+     *         mcp_server_id: "mcp_server_id"
+     *     })
      */
     public list(
-        mcpServerId: string,
+        request: phenoml.tools.mcpServer.ListToolsRequest,
         requestOptions?: Tools.RequestOptions,
     ): core.HttpResponsePromise<phenoml.tools.McpServerToolResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__list(mcpServerId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
-        mcpServerId: string,
+        request: phenoml.tools.mcpServer.ListToolsRequest,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.McpServerToolResponse>> {
+        const { mcp_server_id: mcpServerId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -106,7 +109,7 @@ export class Tools {
     /**
      * Gets a MCP server tool by ID
      *
-     * @param {string} mcpServerToolId - ID of the MCP server tool to retrieve
+     * @param {phenoml.tools.mcpServer.GetToolsRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.tools.UnauthorizedError}
@@ -114,19 +117,22 @@ export class Tools {
      * @throws {@link phenoml.tools.InternalServerError}
      *
      * @example
-     *     await client.tools.mcpServer.tools.get("mcp_server_tool_id")
+     *     await client.tools.mcpServer.tools.get({
+     *         mcp_server_tool_id: "mcp_server_tool_id"
+     *     })
      */
     public get(
-        mcpServerToolId: string,
+        request: phenoml.tools.mcpServer.GetToolsRequest,
         requestOptions?: Tools.RequestOptions,
     ): core.HttpResponsePromise<phenoml.tools.McpServerToolResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__get(mcpServerToolId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        mcpServerToolId: string,
+        request: phenoml.tools.mcpServer.GetToolsRequest,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.McpServerToolResponse>> {
+        const { mcp_server_tool_id: mcpServerToolId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -189,7 +195,7 @@ export class Tools {
     /**
      * Deletes a MCP server tool by ID
      *
-     * @param {string} mcpServerToolId - ID of the MCP server tool to delete
+     * @param {phenoml.tools.mcpServer.DeleteToolsRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.tools.UnauthorizedError}
@@ -197,19 +203,22 @@ export class Tools {
      * @throws {@link phenoml.tools.InternalServerError}
      *
      * @example
-     *     await client.tools.mcpServer.tools.delete("mcp_server_tool_id")
+     *     await client.tools.mcpServer.tools.delete({
+     *         mcp_server_tool_id: "mcp_server_tool_id"
+     *     })
      */
     public delete(
-        mcpServerToolId: string,
+        request: phenoml.tools.mcpServer.DeleteToolsRequest,
         requestOptions?: Tools.RequestOptions,
     ): core.HttpResponsePromise<phenoml.tools.McpServerToolResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(mcpServerToolId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
     }
 
     private async __delete(
-        mcpServerToolId: string,
+        request: phenoml.tools.mcpServer.DeleteToolsRequest,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.McpServerToolResponse>> {
+        const { mcp_server_tool_id: mcpServerToolId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -272,7 +281,6 @@ export class Tools {
     /**
      * Calls a MCP server tool
      *
-     * @param {string} mcpServerToolId - ID of the MCP server tool to call
      * @param {phenoml.tools.mcpServer.McpServerToolCallRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -282,25 +290,25 @@ export class Tools {
      * @throws {@link phenoml.tools.InternalServerError}
      *
      * @example
-     *     await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+     *     await client.tools.mcpServer.tools.call({
+     *         mcp_server_tool_id: "mcp_server_tool_id",
      *         arguments: {
      *             "title": "PhenoML Agent API"
      *         }
      *     })
      */
     public call(
-        mcpServerToolId: string,
         request: phenoml.tools.mcpServer.McpServerToolCallRequest,
         requestOptions?: Tools.RequestOptions,
     ): core.HttpResponsePromise<phenoml.tools.McpServerToolCallResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__call(mcpServerToolId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__call(request, requestOptions));
     }
 
     private async __call(
-        mcpServerToolId: string,
         request: phenoml.tools.mcpServer.McpServerToolCallRequest,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.McpServerToolCallResponse>> {
+        const { mcp_server_tool_id: mcpServerToolId, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -318,7 +326,7 @@ export class Tools {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -368,12 +376,7 @@ export class Tools {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

@@ -31,7 +31,9 @@ describe("Tools", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tools.mcpServer.tools.list("mcp_server_id");
+        const response = await client.tools.mcpServer.tools.list({
+            mcp_server_id: "mcp_server_id",
+        });
         expect(response).toEqual({
             success: true,
             message: "MCP server tool created successfully",
@@ -65,7 +67,9 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.list("mcp_server_id");
+            return await client.tools.mcpServer.tools.list({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.UnauthorizedError);
     });
 
@@ -83,7 +87,9 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.list("mcp_server_id");
+            return await client.tools.mcpServer.tools.list({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.ForbiddenError);
     });
 
@@ -101,7 +107,9 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.list("mcp_server_id");
+            return await client.tools.mcpServer.tools.list({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.InternalServerError);
     });
 
@@ -131,7 +139,9 @@ describe("Tools", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tools.mcpServer.tools.get("mcp_server_tool_id");
+        const response = await client.tools.mcpServer.tools.get({
+            mcp_server_tool_id: "mcp_server_tool_id",
+        });
         expect(response).toEqual({
             success: true,
             message: "MCP server tool created successfully",
@@ -165,7 +175,9 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.get("mcp_server_tool_id");
+            return await client.tools.mcpServer.tools.get({
+                mcp_server_tool_id: "mcp_server_tool_id",
+            });
         }).rejects.toThrow(phenoml.tools.UnauthorizedError);
     });
 
@@ -183,7 +195,9 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.get("mcp_server_tool_id");
+            return await client.tools.mcpServer.tools.get({
+                mcp_server_tool_id: "mcp_server_tool_id",
+            });
         }).rejects.toThrow(phenoml.tools.ForbiddenError);
     });
 
@@ -201,7 +215,9 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.get("mcp_server_tool_id");
+            return await client.tools.mcpServer.tools.get({
+                mcp_server_tool_id: "mcp_server_tool_id",
+            });
         }).rejects.toThrow(phenoml.tools.InternalServerError);
     });
 
@@ -231,7 +247,9 @@ describe("Tools", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
+        const response = await client.tools.mcpServer.tools.delete({
+            mcp_server_tool_id: "mcp_server_tool_id",
+        });
         expect(response).toEqual({
             success: true,
             message: "MCP server tool created successfully",
@@ -265,7 +283,9 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
+            return await client.tools.mcpServer.tools.delete({
+                mcp_server_tool_id: "mcp_server_tool_id",
+            });
         }).rejects.toThrow(phenoml.tools.UnauthorizedError);
     });
 
@@ -283,7 +303,9 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
+            return await client.tools.mcpServer.tools.delete({
+                mcp_server_tool_id: "mcp_server_tool_id",
+            });
         }).rejects.toThrow(phenoml.tools.ForbiddenError);
     });
 
@@ -301,7 +323,9 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
+            return await client.tools.mcpServer.tools.delete({
+                mcp_server_tool_id: "mcp_server_tool_id",
+            });
         }).rejects.toThrow(phenoml.tools.InternalServerError);
     });
 
@@ -324,7 +348,8 @@ describe("Tools", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+        const response = await client.tools.mcpServer.tools.call({
+            mcp_server_tool_id: "mcp_server_tool_id",
             arguments: {
                 title: "PhenoML Agent API",
             },
@@ -359,7 +384,8 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+            return await client.tools.mcpServer.tools.call({
+                mcp_server_tool_id: "mcp_server_tool_id",
                 arguments: {
                     arguments: {
                         key: "value",
@@ -384,7 +410,8 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+            return await client.tools.mcpServer.tools.call({
+                mcp_server_tool_id: "mcp_server_tool_id",
                 arguments: {
                     arguments: {
                         key: "value",
@@ -409,7 +436,8 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+            return await client.tools.mcpServer.tools.call({
+                mcp_server_tool_id: "mcp_server_tool_id",
                 arguments: {
                     arguments: {
                         key: "value",
@@ -434,7 +462,8 @@ describe("Tools", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
+            return await client.tools.mcpServer.tools.call({
+                mcp_server_tool_id: "mcp_server_tool_id",
                 arguments: {
                     arguments: {
                         key: "value",

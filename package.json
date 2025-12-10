@@ -2,7 +2,7 @@
     "name": "phenoml",
     "version": "0.0.8",
     "private": false,
-    "repository": "github:phenoml/phenoml-ts-sdk",
+    "repository": "github:PhenoML/phenoml-ts-sdk",
     "type": "commonjs",
     "main": "./dist/cjs/index.js",
     "module": "./dist/esm/index.mjs",

@@ -167,10 +167,7 @@ describe("Agent", () => {
         };
         server.mockEndpoint().get("/agent/list").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.agent.list({
-            is_active: true,
-            tags: "tags",
-        });
+        const response = await client.agent.list();
         expect(response).toEqual({
             success: true,
             message: "Agents retrieved successfully",
@@ -245,7 +242,9 @@ describe("Agent", () => {
         };
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.agent.get("id");
+        const response = await client.agent.get({
+            id: "id",
+        });
         expect(response).toEqual({
             success: true,
             message: "Agent created successfully",
@@ -270,7 +269,9 @@ describe("Agent", () => {
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.agent.get("id");
+            return await client.agent.get({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.agent.UnauthorizedError);
     });
 
@@ -282,7 +283,9 @@ describe("Agent", () => {
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.agent.get("id");
+            return await client.agent.get({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.agent.ForbiddenError);
     });
 
@@ -294,7 +297,9 @@ describe("Agent", () => {
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.agent.get("id");
+            return await client.agent.get({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.agent.NotFoundError);
     });
 
@@ -306,7 +311,9 @@ describe("Agent", () => {
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.agent.get("id");
+            return await client.agent.get({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
 
@@ -337,10 +344,13 @@ describe("Agent", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.agent.update("id", {
-            name: "name",
-            prompts: ["prompt_123", "prompt_456"],
-            is_active: true,
+        const response = await client.agent.update({
+            id: "id",
+            body: {
+                name: "name",
+                prompts: ["prompt_123", "prompt_456"],
+                is_active: true,
+            },
         });
         expect(response).toEqual({
             success: true,
@@ -373,10 +383,13 @@ describe("Agent", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.update("id", {
-                name: "name",
-                prompts: ["prompts", "prompts"],
-                is_active: true,
+            return await client.agent.update({
+                id: "id",
+                body: {
+                    name: "name",
+                    prompts: ["prompts", "prompts"],
+                    is_active: true,
+                },
             });
         }).rejects.toThrow(phenoml.agent.BadRequestError);
     });
@@ -396,10 +409,13 @@ describe("Agent", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.update("id", {
-                name: "name",
-                prompts: ["prompts", "prompts"],
-                is_active: true,
+            return await client.agent.update({
+                id: "id",
+                body: {
+                    name: "name",
+                    prompts: ["prompts", "prompts"],
+                    is_active: true,
+                },
             });
         }).rejects.toThrow(phenoml.agent.UnauthorizedError);
     });
@@ -419,10 +435,13 @@ describe("Agent", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.update("id", {
-                name: "name",
-                prompts: ["prompts", "prompts"],
-                is_active: true,
+            return await client.agent.update({
+                id: "id",
+                body: {
+                    name: "name",
+                    prompts: ["prompts", "prompts"],
+                    is_active: true,
+                },
             });
         }).rejects.toThrow(phenoml.agent.ForbiddenError);
     });
@@ -442,10 +461,13 @@ describe("Agent", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.update("id", {
-                name: "name",
-                prompts: ["prompts", "prompts"],
-                is_active: true,
+            return await client.agent.update({
+                id: "id",
+                body: {
+                    name: "name",
+                    prompts: ["prompts", "prompts"],
+                    is_active: true,
+                },
             });
         }).rejects.toThrow(phenoml.agent.NotFoundError);
     });
@@ -465,10 +487,13 @@ describe("Agent", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.update("id", {
-                name: "name",
-                prompts: ["prompts", "prompts"],
-                is_active: true,
+            return await client.agent.update({
+                id: "id",
+                body: {
+                    name: "name",
+                    prompts: ["prompts", "prompts"],
+                    is_active: true,
+                },
             });
         }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
@@ -480,7 +505,9 @@ describe("Agent", () => {
         const rawResponseBody = { success: true, message: "Agent deleted successfully" };
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.agent.delete("id");
+        const response = await client.agent.delete({
+            id: "id",
+        });
         expect(response).toEqual({
             success: true,
             message: "Agent deleted successfully",
@@ -495,7 +522,9 @@ describe("Agent", () => {
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.agent.delete("id");
+            return await client.agent.delete({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.agent.UnauthorizedError);
     });
 
@@ -507,7 +536,9 @@ describe("Agent", () => {
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.agent.delete("id");
+            return await client.agent.delete({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.agent.ForbiddenError);
     });
 
@@ -519,7 +550,9 @@ describe("Agent", () => {
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.agent.delete("id");
+            return await client.agent.delete({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.agent.NotFoundError);
     });
 
@@ -531,7 +564,9 @@ describe("Agent", () => {
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.agent.delete("id");
+            return await client.agent.delete({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
 
@@ -566,22 +601,25 @@ describe("Agent", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.agent.patch("id", [
-            {
-                op: "replace",
-                path: "/name",
-                value: "Updated Agent Name",
-            },
-            {
-                op: "add",
-                path: "/tags/-",
-                value: "new-tag",
-            },
-            {
-                op: "remove",
-                path: "/description",
-            },
-        ]);
+        const response = await client.agent.patch({
+            id: "id",
+            body: [
+                {
+                    op: "replace",
+                    path: "/name",
+                    value: "Updated Agent Name",
+                },
+                {
+                    op: "add",
+                    path: "/tags/-",
+                    value: "new-tag",
+                },
+                {
+                    op: "remove",
+                    path: "/description",
+                },
+            ],
+        });
         expect(response).toEqual({
             success: true,
             message: "Agent created successfully",
@@ -616,16 +654,19 @@ describe("Agent", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.patch("id", [
-                {
-                    op: "add",
-                    path: "path",
-                },
-                {
-                    op: "add",
-                    path: "path",
-                },
-            ]);
+            return await client.agent.patch({
+                id: "id",
+                body: [
+                    {
+                        op: "add",
+                        path: "path",
+                    },
+                    {
+                        op: "add",
+                        path: "path",
+                    },
+                ],
+            });
         }).rejects.toThrow(phenoml.agent.BadRequestError);
     });
 
@@ -647,16 +688,19 @@ describe("Agent", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.patch("id", [
-                {
-                    op: "add",
-                    path: "path",
-                },
-                {
-                    op: "add",
-                    path: "path",
-                },
-            ]);
+            return await client.agent.patch({
+                id: "id",
+                body: [
+                    {
+                        op: "add",
+                        path: "path",
+                    },
+                    {
+                        op: "add",
+                        path: "path",
+                    },
+                ],
+            });
         }).rejects.toThrow(phenoml.agent.UnauthorizedError);
     });
 
@@ -678,16 +722,19 @@ describe("Agent", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.patch("id", [
-                {
-                    op: "add",
-                    path: "path",
-                },
-                {
-                    op: "add",
-                    path: "path",
-                },
-            ]);
+            return await client.agent.patch({
+                id: "id",
+                body: [
+                    {
+                        op: "add",
+                        path: "path",
+                    },
+                    {
+                        op: "add",
+                        path: "path",
+                    },
+                ],
+            });
         }).rejects.toThrow(phenoml.agent.ForbiddenError);
     });
 
@@ -709,16 +756,19 @@ describe("Agent", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.patch("id", [
-                {
-                    op: "add",
-                    path: "path",
-                },
-                {
-                    op: "add",
-                    path: "path",
-                },
-            ]);
+            return await client.agent.patch({
+                id: "id",
+                body: [
+                    {
+                        op: "add",
+                        path: "path",
+                    },
+                    {
+                        op: "add",
+                        path: "path",
+                    },
+                ],
+            });
         }).rejects.toThrow(phenoml.agent.NotFoundError);
     });
 
@@ -740,16 +790,19 @@ describe("Agent", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.patch("id", [
-                {
-                    op: "add",
-                    path: "path",
-                },
-                {
-                    op: "add",
-                    path: "path",
-                },
-            ]);
+            return await client.agent.patch({
+                id: "id",
+                body: [
+                    {
+                        op: "add",
+                        path: "path",
+                    },
+                    {
+                        op: "add",
+                        path: "path",
+                    },
+                ],
+            });
         }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
 
@@ -905,9 +958,6 @@ describe("Agent", () => {
 
         const response = await client.agent.getChatMessages({
             chat_session_id: "chat_session_id",
-            num_messages: 1,
-            role: "role",
-            order: "asc",
         });
         expect(response).toEqual({
             messages: [

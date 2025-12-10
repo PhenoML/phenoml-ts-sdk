@@ -352,7 +352,9 @@ describe("FhirProvider", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.fhirProvider.get("fhir_provider_id");
+        const response = await client.fhirProvider.get({
+            fhir_provider_id: "fhir_provider_id",
+        });
         expect(response).toEqual({
             success: true,
             message: "Fhir provider created successfully",
@@ -393,7 +395,9 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.get("fhir_provider_id");
+            return await client.fhirProvider.get({
+                fhir_provider_id: "fhir_provider_id",
+            });
         }).rejects.toThrow(phenoml.fhirProvider.UnauthorizedError);
     });
 
@@ -411,7 +415,9 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.get("fhir_provider_id");
+            return await client.fhirProvider.get({
+                fhir_provider_id: "fhir_provider_id",
+            });
         }).rejects.toThrow(phenoml.fhirProvider.ForbiddenError);
     });
 
@@ -429,7 +435,9 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.get("fhir_provider_id");
+            return await client.fhirProvider.get({
+                fhir_provider_id: "fhir_provider_id",
+            });
         }).rejects.toThrow(phenoml.fhirProvider.NotFoundError);
     });
 
@@ -447,7 +455,9 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.get("fhir_provider_id");
+            return await client.fhirProvider.get({
+                fhir_provider_id: "fhir_provider_id",
+            });
         }).rejects.toThrow(phenoml.fhirProvider.InternalServerError);
     });
 
@@ -464,7 +474,9 @@ describe("FhirProvider", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.fhirProvider.delete("fhir_provider_id");
+        const response = await client.fhirProvider.delete({
+            fhir_provider_id: "fhir_provider_id",
+        });
         expect(response).toEqual({
             success: true,
             message: "Fhir provider deleted successfully",
@@ -485,7 +497,9 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.delete("fhir_provider_id");
+            return await client.fhirProvider.delete({
+                fhir_provider_id: "fhir_provider_id",
+            });
         }).rejects.toThrow(phenoml.fhirProvider.UnauthorizedError);
     });
 
@@ -503,7 +517,9 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.delete("fhir_provider_id");
+            return await client.fhirProvider.delete({
+                fhir_provider_id: "fhir_provider_id",
+            });
         }).rejects.toThrow(phenoml.fhirProvider.ForbiddenError);
     });
 
@@ -521,7 +537,9 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.delete("fhir_provider_id");
+            return await client.fhirProvider.delete({
+                fhir_provider_id: "fhir_provider_id",
+            });
         }).rejects.toThrow(phenoml.fhirProvider.NotFoundError);
     });
 
@@ -539,7 +557,9 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.delete("fhir_provider_id");
+            return await client.fhirProvider.delete({
+                fhir_provider_id: "fhir_provider_id",
+            });
         }).rejects.toThrow(phenoml.fhirProvider.InternalServerError);
     });
 
@@ -580,7 +600,8 @@ describe("FhirProvider", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
+        const response = await client.fhirProvider.addAuthConfig({
+            fhir_provider_id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
             auth_method: "client_secret",
         });
         expect(response).toEqual({
@@ -624,7 +645,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.addAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_method: "client_secret",
             });
         }).rejects.toThrow(phenoml.fhirProvider.BadRequestError);
@@ -645,7 +667,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.addAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_method: "client_secret",
             });
         }).rejects.toThrow(phenoml.fhirProvider.UnauthorizedError);
@@ -666,7 +689,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.addAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_method: "client_secret",
             });
         }).rejects.toThrow(phenoml.fhirProvider.ForbiddenError);
@@ -687,7 +711,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.addAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_method: "client_secret",
             });
         }).rejects.toThrow(phenoml.fhirProvider.NotFoundError);
@@ -708,7 +733,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.addAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_method: "client_secret",
             });
         }).rejects.toThrow(phenoml.fhirProvider.InternalServerError);
@@ -751,7 +777,8 @@ describe("FhirProvider", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
+        const response = await client.fhirProvider.setActiveAuthConfig({
+            fhir_provider_id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
             auth_config_id: "auth-config-123",
         });
         expect(response).toEqual({
@@ -795,7 +822,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.setActiveAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.setActiveAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_config_id: "auth_config_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.BadRequestError);
@@ -816,7 +844,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.setActiveAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.setActiveAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_config_id: "auth_config_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.UnauthorizedError);
@@ -837,7 +866,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.setActiveAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.setActiveAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_config_id: "auth_config_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.ForbiddenError);
@@ -858,7 +888,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.setActiveAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.setActiveAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_config_id: "auth_config_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.NotFoundError);
@@ -879,7 +910,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.setActiveAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.setActiveAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_config_id: "auth_config_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.InternalServerError);
@@ -922,7 +954,8 @@ describe("FhirProvider", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
+        const response = await client.fhirProvider.removeAuthConfig({
+            fhir_provider_id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
             auth_config_id: "auth-config-123",
         });
         expect(response).toEqual({
@@ -966,7 +999,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.removeAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.removeAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_config_id: "auth_config_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.BadRequestError);
@@ -987,7 +1021,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.removeAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.removeAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_config_id: "auth_config_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.UnauthorizedError);
@@ -1008,7 +1043,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.removeAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.removeAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_config_id: "auth_config_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.ForbiddenError);
@@ -1029,7 +1065,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.removeAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.removeAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_config_id: "auth_config_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.NotFoundError);
@@ -1050,7 +1087,8 @@ describe("FhirProvider", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhirProvider.removeAuthConfig("fhir_provider_id", {
+            return await client.fhirProvider.removeAuthConfig({
+                fhir_provider_id: "fhir_provider_id",
                 auth_config_id: "auth_config_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.InternalServerError);

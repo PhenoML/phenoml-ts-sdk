@@ -16,7 +16,7 @@ export declare namespace Prompts {
 export class Prompts {
     protected readonly _options: Prompts.Options;
 
-    constructor(_options: Prompts.Options = {}) {
+    constructor(_options: Prompts.Options) {
         this._options = _options;
     }
 
@@ -123,13 +123,13 @@ export class Prompts {
      * @example
      *     await client.agent.prompts.list()
      */
-    public list(requestOptions?: Prompts.RequestOptions): core.HttpResponsePromise<phenoml.agent.PromptsListResponse> {
+    public list(requestOptions?: Prompts.RequestOptions): core.HttpResponsePromise<phenoml.agent.ListPromptsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
     }
 
     private async __list(
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.PromptsListResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.ListPromptsResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -150,7 +150,7 @@ export class Prompts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.PromptsListResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.agent.ListPromptsResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -190,7 +190,7 @@ export class Prompts {
     /**
      * Retrieves a specific prompt by its ID
      *
-     * @param {string} id - Prompt ID
+     * @param {phenoml.agent.GetPromptsRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.UnauthorizedError}
@@ -199,19 +199,22 @@ export class Prompts {
      * @throws {@link phenoml.agent.InternalServerError}
      *
      * @example
-     *     await client.agent.prompts.get("id")
+     *     await client.agent.prompts.get({
+     *         id: "id"
+     *     })
      */
     public get(
-        id: string,
+        request: phenoml.agent.GetPromptsRequest,
         requestOptions?: Prompts.RequestOptions,
     ): core.HttpResponsePromise<phenoml.agent.AgentPromptsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        id: string,
+        request: phenoml.agent.GetPromptsRequest,
         requestOptions?: Prompts.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
+        const { id } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -274,7 +277,6 @@ export class Prompts {
     /**
      * Updates an existing prompt
      *
-     * @param {string} id - Prompt ID
      * @param {phenoml.agent.AgentPromptsUpdateRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -285,21 +287,22 @@ export class Prompts {
      * @throws {@link phenoml.agent.InternalServerError}
      *
      * @example
-     *     await client.agent.prompts.update("id")
+     *     await client.agent.prompts.update({
+     *         id: "id"
+     *     })
      */
     public update(
-        id: string,
-        request: phenoml.agent.AgentPromptsUpdateRequest = {},
+        request: phenoml.agent.AgentPromptsUpdateRequest,
         requestOptions?: Prompts.RequestOptions,
     ): core.HttpResponsePromise<phenoml.agent.AgentPromptsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
     }
 
     private async __update(
-        id: string,
-        request: phenoml.agent.AgentPromptsUpdateRequest = {},
+        request: phenoml.agent.AgentPromptsUpdateRequest,
         requestOptions?: Prompts.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
+        const { id, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -317,7 +320,7 @@ export class Prompts {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -367,7 +370,7 @@ export class Prompts {
     /**
      * Soft deletes a prompt by setting is_active to false
      *
-     * @param {string} id - Prompt ID
+     * @param {phenoml.agent.DeletePromptsRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.UnauthorizedError}
@@ -376,19 +379,22 @@ export class Prompts {
      * @throws {@link phenoml.agent.InternalServerError}
      *
      * @example
-     *     await client.agent.prompts.delete("id")
+     *     await client.agent.prompts.delete({
+     *         id: "id"
+     *     })
      */
     public delete(
-        id: string,
+        request: phenoml.agent.DeletePromptsRequest,
         requestOptions?: Prompts.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.PromptsDeleteResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
+    ): core.HttpResponsePromise<phenoml.agent.DeletePromptsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
     }
 
     private async __delete(
-        id: string,
+        request: phenoml.agent.DeletePromptsRequest,
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.PromptsDeleteResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.DeletePromptsResponse>> {
+        const { id } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -409,7 +415,7 @@ export class Prompts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.PromptsDeleteResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.agent.DeletePromptsResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -451,8 +457,7 @@ export class Prompts {
     /**
      * Patches an existing prompt
      *
-     * @param {string} id - Agent Prompt ID
-     * @param {phenoml.agent.JsonPatch} request
+     * @param {phenoml.agent.PatchPromptsRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.BadRequestError}
@@ -462,32 +467,34 @@ export class Prompts {
      * @throws {@link phenoml.agent.InternalServerError}
      *
      * @example
-     *     await client.agent.prompts.patch("id", [{
-     *             op: "replace",
-     *             path: "/name",
-     *             value: "Updated Agent Name"
-     *         }, {
-     *             op: "add",
-     *             path: "/tags/-",
-     *             value: "new-tag"
-     *         }, {
-     *             op: "remove",
-     *             path: "/description"
-     *         }])
+     *     await client.agent.prompts.patch({
+     *         id: "id",
+     *         body: [{
+     *                 op: "replace",
+     *                 path: "/name",
+     *                 value: "Updated Agent Name"
+     *             }, {
+     *                 op: "add",
+     *                 path: "/tags/-",
+     *                 value: "new-tag"
+     *             }, {
+     *                 op: "remove",
+     *                 path: "/description"
+     *             }]
+     *     })
      */
     public patch(
-        id: string,
-        request: phenoml.agent.JsonPatch,
+        request: phenoml.agent.PatchPromptsRequest,
         requestOptions?: Prompts.RequestOptions,
     ): core.HttpResponsePromise<phenoml.agent.AgentPromptsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__patch(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__patch(request, requestOptions));
     }
 
     private async __patch(
-        id: string,
-        request: phenoml.agent.JsonPatch,
+        request: phenoml.agent.PatchPromptsRequest,
         requestOptions?: Prompts.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
+        const { id, body: _body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -505,7 +512,7 @@ export class Prompts {
             contentType: "application/json+patch",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -632,12 +639,7 @@ export class Prompts {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

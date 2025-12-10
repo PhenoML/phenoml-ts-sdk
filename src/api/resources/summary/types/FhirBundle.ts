@@ -3,11 +3,15 @@
 import type * as phenoml from "../../../index.js";
 
 export interface FhirBundle {
-    resourceType: "Bundle";
+    resourceType: FhirBundle.ResourceType;
     entry: FhirBundle.Entry.Item[];
 }
 
 export namespace FhirBundle {
+    export const ResourceType = {
+        Bundle: "Bundle",
+    } as const;
+    export type ResourceType = (typeof ResourceType)[keyof typeof ResourceType];
     export type Entry = Entry.Item[];
 
     export namespace Entry {

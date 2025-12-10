@@ -16,7 +16,7 @@ export declare namespace FhirProvider {
 export class FhirProvider {
     protected readonly _options: FhirProvider.Options;
 
-    constructor(_options: FhirProvider.Options = {}) {
+    constructor(_options: FhirProvider.Options) {
         this._options = _options;
     }
 
@@ -141,13 +141,13 @@ export class FhirProvider {
      */
     public list(
         requestOptions?: FhirProvider.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderListResponse> {
+    ): core.HttpResponsePromise<phenoml.fhirProvider.ListFhirProviderResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
     }
 
     private async __list(
         requestOptions?: FhirProvider.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderListResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.fhirProvider.ListFhirProviderResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -169,7 +169,7 @@ export class FhirProvider {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.fhirProvider.FhirProviderListResponse,
+                data: _response.body as phenoml.fhirProvider.ListFhirProviderResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -220,7 +220,7 @@ export class FhirProvider {
     /**
      * Retrieves a specific FHIR provider configuration by its ID
      *
-     * @param {string} fhirProviderId - ID of the FHIR provider to retrieve
+     * @param {phenoml.fhirProvider.GetFhirProviderRequest} request
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.fhirProvider.UnauthorizedError}
@@ -229,19 +229,22 @@ export class FhirProvider {
      * @throws {@link phenoml.fhirProvider.InternalServerError}
      *
      * @example
-     *     await client.fhirProvider.get("fhir_provider_id")
+     *     await client.fhirProvider.get({
+     *         fhir_provider_id: "fhir_provider_id"
+     *     })
      */
     public get(
-        fhirProviderId: string,
+        request: phenoml.fhirProvider.GetFhirProviderRequest,
         requestOptions?: FhirProvider.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__get(fhirProviderId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        fhirProviderId: string,
+        request: phenoml.fhirProvider.GetFhirProviderRequest,
         requestOptions?: FhirProvider.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderResponse>> {
+        const { fhir_provider_id: fhirProviderId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -321,7 +324,7 @@ export class FhirProvider {
     /**
      * Soft deletes a FHIR provider by setting is_active to false
      *
-     * @param {string} fhirProviderId - ID of the FHIR provider to delete
+     * @param {phenoml.fhirProvider.DeleteFhirProviderRequest} request
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.fhirProvider.UnauthorizedError}
@@ -330,19 +333,22 @@ export class FhirProvider {
      * @throws {@link phenoml.fhirProvider.InternalServerError}
      *
      * @example
-     *     await client.fhirProvider.delete("fhir_provider_id")
+     *     await client.fhirProvider.delete({
+     *         fhir_provider_id: "fhir_provider_id"
+     *     })
      */
     public delete(
-        fhirProviderId: string,
+        request: phenoml.fhirProvider.DeleteFhirProviderRequest,
         requestOptions?: FhirProvider.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderDeleteResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(fhirProviderId, requestOptions));
+    ): core.HttpResponsePromise<phenoml.fhirProvider.DeleteFhirProviderResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
     }
 
     private async __delete(
-        fhirProviderId: string,
+        request: phenoml.fhirProvider.DeleteFhirProviderRequest,
         requestOptions?: FhirProvider.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderDeleteResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.fhirProvider.DeleteFhirProviderResponse>> {
+        const { fhir_provider_id: fhirProviderId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -364,7 +370,7 @@ export class FhirProvider {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.fhirProvider.FhirProviderDeleteResponse,
+                data: _response.body as phenoml.fhirProvider.DeleteFhirProviderResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -422,7 +428,6 @@ export class FhirProvider {
     /**
      * Adds a new authentication configuration to an existing FHIR provider. This enables key rotation and multiple auth configurations per provider.
      *
-     * @param {string} fhirProviderId - ID of the FHIR provider to add auth config to
      * @param {phenoml.fhirProvider.FhirProviderAddAuthConfigRequest} request
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -433,23 +438,23 @@ export class FhirProvider {
      * @throws {@link phenoml.fhirProvider.InternalServerError}
      *
      * @example
-     *     await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
+     *     await client.fhirProvider.addAuthConfig({
+     *         fhir_provider_id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
      *         auth_method: "client_secret"
      *     })
      */
     public addAuthConfig(
-        fhirProviderId: string,
         request: phenoml.fhirProvider.FhirProviderAddAuthConfigRequest,
         requestOptions?: FhirProvider.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__addAuthConfig(fhirProviderId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__addAuthConfig(request, requestOptions));
     }
 
     private async __addAuthConfig(
-        fhirProviderId: string,
         request: phenoml.fhirProvider.FhirProviderAddAuthConfigRequest,
         requestOptions?: FhirProvider.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderResponse>> {
+        const { fhir_provider_id: fhirProviderId, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -467,7 +472,7 @@ export class FhirProvider {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -537,7 +542,6 @@ export class FhirProvider {
     /**
      * Sets which authentication configuration should be active for a FHIR provider. Only one auth config can be active at a time.
      *
-     * @param {string} fhirProviderId - ID of the FHIR provider
      * @param {phenoml.fhirProvider.FhirProviderSetActiveAuthConfigRequest} request
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -548,25 +552,23 @@ export class FhirProvider {
      * @throws {@link phenoml.fhirProvider.InternalServerError}
      *
      * @example
-     *     await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
+     *     await client.fhirProvider.setActiveAuthConfig({
+     *         fhir_provider_id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
      *         auth_config_id: "auth-config-123"
      *     })
      */
     public setActiveAuthConfig(
-        fhirProviderId: string,
         request: phenoml.fhirProvider.FhirProviderSetActiveAuthConfigRequest,
         requestOptions?: FhirProvider.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderSetActiveAuthConfigResponse> {
-        return core.HttpResponsePromise.fromPromise(
-            this.__setActiveAuthConfig(fhirProviderId, request, requestOptions),
-        );
+    ): core.HttpResponsePromise<phenoml.fhirProvider.SetActiveAuthConfigFhirProviderResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__setActiveAuthConfig(request, requestOptions));
     }
 
     private async __setActiveAuthConfig(
-        fhirProviderId: string,
         request: phenoml.fhirProvider.FhirProviderSetActiveAuthConfigRequest,
         requestOptions?: FhirProvider.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderSetActiveAuthConfigResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.fhirProvider.SetActiveAuthConfigFhirProviderResponse>> {
+        const { fhir_provider_id: fhirProviderId, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -584,14 +586,14 @@ export class FhirProvider {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.fhirProvider.FhirProviderSetActiveAuthConfigResponse,
+                data: _response.body as phenoml.fhirProvider.SetActiveAuthConfigFhirProviderResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -654,7 +656,6 @@ export class FhirProvider {
     /**
      * Removes an authentication configuration from a FHIR provider. Cannot remove the currently active auth configuration.
      *
-     * @param {string} fhirProviderId - ID of the FHIR provider
      * @param {phenoml.fhirProvider.FhirProviderRemoveAuthConfigRequest} request
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -665,23 +666,23 @@ export class FhirProvider {
      * @throws {@link phenoml.fhirProvider.InternalServerError}
      *
      * @example
-     *     await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
+     *     await client.fhirProvider.removeAuthConfig({
+     *         fhir_provider_id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
      *         auth_config_id: "auth-config-123"
      *     })
      */
     public removeAuthConfig(
-        fhirProviderId: string,
         request: phenoml.fhirProvider.FhirProviderRemoveAuthConfigRequest,
         requestOptions?: FhirProvider.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderRemoveAuthConfigResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__removeAuthConfig(fhirProviderId, request, requestOptions));
+    ): core.HttpResponsePromise<phenoml.fhirProvider.RemoveAuthConfigFhirProviderResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__removeAuthConfig(request, requestOptions));
     }
 
     private async __removeAuthConfig(
-        fhirProviderId: string,
         request: phenoml.fhirProvider.FhirProviderRemoveAuthConfigRequest,
         requestOptions?: FhirProvider.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderRemoveAuthConfigResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.fhirProvider.RemoveAuthConfigFhirProviderResponse>> {
+        const { fhir_provider_id: fhirProviderId, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -699,14 +700,14 @@ export class FhirProvider {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.fhirProvider.FhirProviderRemoveAuthConfigResponse,
+                data: _response.body as phenoml.fhirProvider.RemoveAuthConfigFhirProviderResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -766,12 +767,7 @@ export class FhirProvider {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

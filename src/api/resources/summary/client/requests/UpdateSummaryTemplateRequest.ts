@@ -3,6 +3,7 @@
 /**
  * @example
  *     {
+ *         id: "id",
  *         name: "name",
  *         template: "template",
  *         target_resources: ["target_resources"],
@@ -10,6 +11,8 @@
  *     }
  */
 export interface UpdateSummaryTemplateRequest {
+    /** Template ID */
+    id: string;
     name: string;
     description?: string;
     /** Updated template with placeholders */

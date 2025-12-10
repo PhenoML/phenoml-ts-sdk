@@ -49,9 +49,7 @@ describe("Workflows", () => {
         };
         server.mockEndpoint().get("/workflows").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.workflows.list({
-            verbose: true,
-        });
+        const response = await client.workflows.list();
         expect(response).toEqual({
             success: true,
             message: "Workflows retrieved successfully",
@@ -210,7 +208,6 @@ describe("Workflows", () => {
             .build();
 
         const response = await client.workflows.create({
-            verbose: true,
             name: "Patient Data Mapping Workflow",
             workflow_instructions: "Given diagnosis data, find the patient and create condition record",
             sample_data: {
@@ -478,8 +475,8 @@ describe("Workflows", () => {
         };
         server.mockEndpoint().get("/workflows/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.workflows.get("id", {
-            verbose: true,
+        const response = await client.workflows.get({
+            id: "id",
         });
         expect(response).toEqual({
             success: true,
@@ -552,7 +549,9 @@ describe("Workflows", () => {
         server.mockEndpoint().get("/workflows/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.workflows.get("id");
+            return await client.workflows.get({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.workflows.UnauthorizedError);
     });
 
@@ -564,7 +563,9 @@ describe("Workflows", () => {
         server.mockEndpoint().get("/workflows/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.workflows.get("id");
+            return await client.workflows.get({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.workflows.ForbiddenError);
     });
 
@@ -576,7 +577,9 @@ describe("Workflows", () => {
         server.mockEndpoint().get("/workflows/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.workflows.get("id");
+            return await client.workflows.get({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.workflows.NotFoundError);
     });
 
@@ -588,7 +591,9 @@ describe("Workflows", () => {
         server.mockEndpoint().get("/workflows/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.workflows.get("id");
+            return await client.workflows.get({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.workflows.InternalServerError);
     });
 
@@ -666,8 +671,8 @@ describe("Workflows", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.workflows.update("id", {
-            verbose: true,
+        const response = await client.workflows.update({
+            id: "id",
             name: "Updated Patient Data Mapping Workflow",
             workflow_instructions: "Given diagnosis data, find the patient and create condition record",
             sample_data: {
@@ -761,7 +766,8 @@ describe("Workflows", () => {
             .build();
 
         await expect(async () => {
-            return await client.workflows.update("id", {
+            return await client.workflows.update({
+                id: "id",
                 name: "name",
                 workflow_instructions: "workflow_instructions",
                 sample_data: {
@@ -794,7 +800,8 @@ describe("Workflows", () => {
             .build();
 
         await expect(async () => {
-            return await client.workflows.update("id", {
+            return await client.workflows.update({
+                id: "id",
                 name: "name",
                 workflow_instructions: "workflow_instructions",
                 sample_data: {
@@ -827,7 +834,8 @@ describe("Workflows", () => {
             .build();
 
         await expect(async () => {
-            return await client.workflows.update("id", {
+            return await client.workflows.update({
+                id: "id",
                 name: "name",
                 workflow_instructions: "workflow_instructions",
                 sample_data: {
@@ -860,7 +868,8 @@ describe("Workflows", () => {
             .build();
 
         await expect(async () => {
-            return await client.workflows.update("id", {
+            return await client.workflows.update({
+                id: "id",
                 name: "name",
                 workflow_instructions: "workflow_instructions",
                 sample_data: {
@@ -893,7 +902,8 @@ describe("Workflows", () => {
             .build();
 
         await expect(async () => {
-            return await client.workflows.update("id", {
+            return await client.workflows.update({
+                id: "id",
                 name: "name",
                 workflow_instructions: "workflow_instructions",
                 sample_data: {
@@ -913,7 +923,9 @@ describe("Workflows", () => {
         const rawResponseBody = { success: true, message: "Workflow deleted successfully" };
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.workflows.delete("id");
+        const response = await client.workflows.delete({
+            id: "id",
+        });
         expect(response).toEqual({
             success: true,
             message: "Workflow deleted successfully",
@@ -928,7 +940,9 @@ describe("Workflows", () => {
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.workflows.delete("id");
+            return await client.workflows.delete({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.workflows.UnauthorizedError);
     });
 
@@ -940,7 +954,9 @@ describe("Workflows", () => {
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.workflows.delete("id");
+            return await client.workflows.delete({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.workflows.ForbiddenError);
     });
 
@@ -952,7 +968,9 @@ describe("Workflows", () => {
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.workflows.delete("id");
+            return await client.workflows.delete({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.workflows.NotFoundError);
     });
 
@@ -964,7 +982,9 @@ describe("Workflows", () => {
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.workflows.delete("id");
+            return await client.workflows.delete({
+                id: "id",
+            });
         }).rejects.toThrow(phenoml.workflows.InternalServerError);
     });
 
@@ -993,7 +1013,8 @@ describe("Workflows", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.workflows.execute("id", {
+        const response = await client.workflows.execute({
+            id: "id",
             input_data: {
                 patient_last_name: "Johnson",
                 patient_first_name: "Mary",
@@ -1027,7 +1048,8 @@ describe("Workflows", () => {
             .build();
 
         await expect(async () => {
-            return await client.workflows.execute("id", {
+            return await client.workflows.execute({
+                id: "id",
                 input_data: {
                     input_data: {
                         key: "value",
@@ -1052,7 +1074,8 @@ describe("Workflows", () => {
             .build();
 
         await expect(async () => {
-            return await client.workflows.execute("id", {
+            return await client.workflows.execute({
+                id: "id",
                 input_data: {
                     input_data: {
                         key: "value",
@@ -1077,7 +1100,8 @@ describe("Workflows", () => {
             .build();
 
         await expect(async () => {
-            return await client.workflows.execute("id", {
+            return await client.workflows.execute({
+                id: "id",
                 input_data: {
                     input_data: {
                         key: "value",
@@ -1102,7 +1126,8 @@ describe("Workflows", () => {
             .build();
 
         await expect(async () => {
-            return await client.workflows.execute("id", {
+            return await client.workflows.execute({
+                id: "id",
                 input_data: {
                     input_data: {
                         key: "value",
@@ -1127,7 +1152,8 @@ describe("Workflows", () => {
             .build();
 
         await expect(async () => {
-            return await client.workflows.execute("id", {
+            return await client.workflows.execute({
+                id: "id",
                 input_data: {
                     input_data: {
                         key: "value",

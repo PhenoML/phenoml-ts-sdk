@@ -3,6 +3,7 @@
 /**
  * @example
  *     {
+ *         id: "id",
  *         input_data: {
  *             "patient_last_name": "Johnson",
  *             "patient_first_name": "Mary",
@@ -12,6 +13,8 @@
  *     }
  */
 export interface ExecuteWorkflowRequest {
+    /** ID of the workflow to execute */
+    id: string;
     /** Input data for workflow execution */
     input_data: Record<string, unknown>;
 }

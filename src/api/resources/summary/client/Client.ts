@@ -16,7 +16,7 @@ export declare namespace Summary {
 export class Summary {
     protected readonly _options: Summary.Options;
 
-    constructor(_options: Summary.Options = {}) {
+    constructor(_options: Summary.Options) {
         this._options = _options;
     }
 
@@ -33,13 +33,13 @@ export class Summary {
      */
     public listTemplates(
         requestOptions?: Summary.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.SummaryListTemplatesResponse> {
+    ): core.HttpResponsePromise<phenoml.summary.ListTemplatesSummaryResponse> {
         return core.HttpResponsePromise.fromPromise(this.__listTemplates(requestOptions));
     }
 
     private async __listTemplates(
         requestOptions?: Summary.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.SummaryListTemplatesResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.summary.ListTemplatesSummaryResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -61,7 +61,7 @@ export class Summary {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.summary.SummaryListTemplatesResponse,
+                data: _response.body as phenoml.summary.ListTemplatesSummaryResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -199,7 +199,7 @@ export class Summary {
     /**
      * Retrieves a specific summary template
      *
-     * @param {string} id - Template ID
+     * @param {phenoml.summary.GetTemplateSummaryRequest} request
      * @param {Summary.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.summary.UnauthorizedError}
@@ -208,19 +208,22 @@ export class Summary {
      * @throws {@link phenoml.summary.InternalServerError}
      *
      * @example
-     *     await client.summary.getTemplate("id")
+     *     await client.summary.getTemplate({
+     *         id: "id"
+     *     })
      */
     public getTemplate(
-        id: string,
+        request: phenoml.summary.GetTemplateSummaryRequest,
         requestOptions?: Summary.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.SummaryGetTemplateResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getTemplate(id, requestOptions));
+    ): core.HttpResponsePromise<phenoml.summary.GetTemplateSummaryResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getTemplate(request, requestOptions));
     }
 
     private async __getTemplate(
-        id: string,
+        request: phenoml.summary.GetTemplateSummaryRequest,
         requestOptions?: Summary.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.SummaryGetTemplateResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.summary.GetTemplateSummaryResponse>> {
+        const { id } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -242,7 +245,7 @@ export class Summary {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.summary.SummaryGetTemplateResponse,
+                data: _response.body as phenoml.summary.GetTemplateSummaryResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -289,7 +292,6 @@ export class Summary {
     /**
      * Updates an existing summary template
      *
-     * @param {string} id - Template ID
      * @param {phenoml.summary.UpdateSummaryTemplateRequest} request
      * @param {Summary.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -300,7 +302,8 @@ export class Summary {
      * @throws {@link phenoml.summary.InternalServerError}
      *
      * @example
-     *     await client.summary.updateTemplate("id", {
+     *     await client.summary.updateTemplate({
+     *         id: "id",
      *         name: "name",
      *         template: "template",
      *         target_resources: ["target_resources"],
@@ -308,18 +311,17 @@ export class Summary {
      *     })
      */
     public updateTemplate(
-        id: string,
         request: phenoml.summary.UpdateSummaryTemplateRequest,
         requestOptions?: Summary.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.SummaryUpdateTemplateResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__updateTemplate(id, request, requestOptions));
+    ): core.HttpResponsePromise<phenoml.summary.UpdateTemplateSummaryResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__updateTemplate(request, requestOptions));
     }
 
     private async __updateTemplate(
-        id: string,
         request: phenoml.summary.UpdateSummaryTemplateRequest,
         requestOptions?: Summary.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.SummaryUpdateTemplateResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.summary.UpdateTemplateSummaryResponse>> {
+        const { id, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -337,14 +339,14 @@ export class Summary {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.summary.SummaryUpdateTemplateResponse,
+                data: _response.body as phenoml.summary.UpdateTemplateSummaryResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -393,7 +395,7 @@ export class Summary {
     /**
      * Deletes a summary template
      *
-     * @param {string} id - Template ID
+     * @param {phenoml.summary.DeleteTemplateSummaryRequest} request
      * @param {Summary.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.summary.UnauthorizedError}
@@ -402,19 +404,22 @@ export class Summary {
      * @throws {@link phenoml.summary.InternalServerError}
      *
      * @example
-     *     await client.summary.deleteTemplate("id")
+     *     await client.summary.deleteTemplate({
+     *         id: "id"
+     *     })
      */
     public deleteTemplate(
-        id: string,
+        request: phenoml.summary.DeleteTemplateSummaryRequest,
         requestOptions?: Summary.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.SummaryDeleteTemplateResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteTemplate(id, requestOptions));
+    ): core.HttpResponsePromise<phenoml.summary.DeleteTemplateSummaryResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteTemplate(request, requestOptions));
     }
 
     private async __deleteTemplate(
-        id: string,
+        request: phenoml.summary.DeleteTemplateSummaryRequest,
         requestOptions?: Summary.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.SummaryDeleteTemplateResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.summary.DeleteTemplateSummaryResponse>> {
+        const { id } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -436,7 +441,7 @@ export class Summary {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.summary.SummaryDeleteTemplateResponse,
+                data: _response.body as phenoml.summary.DeleteTemplateSummaryResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -584,12 +589,7 @@ export class Summary {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

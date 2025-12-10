@@ -18,7 +18,7 @@ export class Agent {
     protected readonly _options: Agent.Options;
     protected _prompts: Prompts | undefined;
 
-    constructor(_options: Agent.Options = {}) {
+    constructor(_options: Agent.Options) {
         this._options = _options;
     }
 
@@ -120,7 +120,7 @@ export class Agent {
     /**
      * Retrieves a list of PhenoAgents belonging to the authenticated user
      *
-     * @param {phenoml.agent.AgentListRequest} request
+     * @param {phenoml.agent.ListAgentRequest} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.UnauthorizedError}
@@ -128,22 +128,19 @@ export class Agent {
      * @throws {@link phenoml.agent.InternalServerError}
      *
      * @example
-     *     await client.agent.list({
-     *         is_active: true,
-     *         tags: "tags"
-     *     })
+     *     await client.agent.list()
      */
     public list(
-        request: phenoml.agent.AgentListRequest = {},
+        request: phenoml.agent.ListAgentRequest = {},
         requestOptions?: Agent.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentListResponse> {
+    ): core.HttpResponsePromise<phenoml.agent.ListAgentResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
-        request: phenoml.agent.AgentListRequest = {},
+        request: phenoml.agent.ListAgentRequest = {},
         requestOptions?: Agent.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentListResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.ListAgentResponse>> {
         const { is_active: isActive, tags } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (isActive != null) {
@@ -174,7 +171,7 @@ export class Agent {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentListResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.agent.ListAgentResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -214,7 +211,7 @@ export class Agent {
     /**
      * Retrieves a specific agent by its ID
      *
-     * @param {string} id - Agent ID
+     * @param {phenoml.agent.GetAgentRequest} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.UnauthorizedError}
@@ -223,19 +220,22 @@ export class Agent {
      * @throws {@link phenoml.agent.InternalServerError}
      *
      * @example
-     *     await client.agent.get("id")
+     *     await client.agent.get({
+     *         id: "id"
+     *     })
      */
     public get(
-        id: string,
+        request: phenoml.agent.GetAgentRequest,
         requestOptions?: Agent.RequestOptions,
     ): core.HttpResponsePromise<phenoml.agent.AgentResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        id: string,
+        request: phenoml.agent.GetAgentRequest,
         requestOptions?: Agent.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.AgentResponse>> {
+        const { id } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -298,8 +298,7 @@ export class Agent {
     /**
      * Updates an existing agent's configuration
      *
-     * @param {string} id - Agent ID
-     * @param {phenoml.agent.AgentCreateRequest} request
+     * @param {phenoml.agent.UpdateAgentRequest} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.BadRequestError}
@@ -309,25 +308,27 @@ export class Agent {
      * @throws {@link phenoml.agent.InternalServerError}
      *
      * @example
-     *     await client.agent.update("id", {
-     *         name: "name",
-     *         prompts: ["prompt_123", "prompt_456"],
-     *         is_active: true
+     *     await client.agent.update({
+     *         id: "id",
+     *         body: {
+     *             name: "name",
+     *             prompts: ["prompt_123", "prompt_456"],
+     *             is_active: true
+     *         }
      *     })
      */
     public update(
-        id: string,
-        request: phenoml.agent.AgentCreateRequest,
+        request: phenoml.agent.UpdateAgentRequest,
         requestOptions?: Agent.RequestOptions,
     ): core.HttpResponsePromise<phenoml.agent.AgentResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
     }
 
     private async __update(
-        id: string,
-        request: phenoml.agent.AgentCreateRequest,
+        request: phenoml.agent.UpdateAgentRequest,
         requestOptions?: Agent.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.AgentResponse>> {
+        const { id, body: _body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -345,7 +346,7 @@ export class Agent {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -395,7 +396,7 @@ export class Agent {
     /**
      * Deletes an existing agent
      *
-     * @param {string} id - Agent ID
+     * @param {phenoml.agent.DeleteAgentRequest} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.UnauthorizedError}
@@ -404,19 +405,22 @@ export class Agent {
      * @throws {@link phenoml.agent.InternalServerError}
      *
      * @example
-     *     await client.agent.delete("id")
+     *     await client.agent.delete({
+     *         id: "id"
+     *     })
      */
     public delete(
-        id: string,
+        request: phenoml.agent.DeleteAgentRequest,
         requestOptions?: Agent.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentDeleteResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
+    ): core.HttpResponsePromise<phenoml.agent.DeleteAgentResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
     }
 
     private async __delete(
-        id: string,
+        request: phenoml.agent.DeleteAgentRequest,
         requestOptions?: Agent.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentDeleteResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.DeleteAgentResponse>> {
+        const { id } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -437,7 +441,7 @@ export class Agent {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentDeleteResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.agent.DeleteAgentResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -479,8 +483,7 @@ export class Agent {
     /**
      * Patches an existing agent's configuration
      *
-     * @param {string} id - Agent ID
-     * @param {phenoml.agent.JsonPatch} request
+     * @param {phenoml.agent.PatchAgentRequest} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.BadRequestError}
@@ -490,32 +493,34 @@ export class Agent {
      * @throws {@link phenoml.agent.InternalServerError}
      *
      * @example
-     *     await client.agent.patch("id", [{
-     *             op: "replace",
-     *             path: "/name",
-     *             value: "Updated Agent Name"
-     *         }, {
-     *             op: "add",
-     *             path: "/tags/-",
-     *             value: "new-tag"
-     *         }, {
-     *             op: "remove",
-     *             path: "/description"
-     *         }])
+     *     await client.agent.patch({
+     *         id: "id",
+     *         body: [{
+     *                 op: "replace",
+     *                 path: "/name",
+     *                 value: "Updated Agent Name"
+     *             }, {
+     *                 op: "add",
+     *                 path: "/tags/-",
+     *                 value: "new-tag"
+     *             }, {
+     *                 op: "remove",
+     *                 path: "/description"
+     *             }]
+     *     })
      */
     public patch(
-        id: string,
-        request: phenoml.agent.JsonPatch,
+        request: phenoml.agent.PatchAgentRequest,
         requestOptions?: Agent.RequestOptions,
     ): core.HttpResponsePromise<phenoml.agent.AgentResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__patch(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__patch(request, requestOptions));
     }
 
     private async __patch(
-        id: string,
-        request: phenoml.agent.JsonPatch,
+        request: phenoml.agent.PatchAgentRequest,
         requestOptions?: Agent.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.AgentResponse>> {
+        const { id, body: _body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -533,7 +538,7 @@ export class Agent {
             contentType: "application/json+patch",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -673,7 +678,7 @@ export class Agent {
     /**
      * Retrieves a list of chat messages for a given chat session
      *
-     * @param {phenoml.agent.AgentGetChatMessagesRequest} request
+     * @param {phenoml.agent.GetChatMessagesAgentRequest} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.UnauthorizedError}
@@ -682,23 +687,20 @@ export class Agent {
      *
      * @example
      *     await client.agent.getChatMessages({
-     *         chat_session_id: "chat_session_id",
-     *         num_messages: 1,
-     *         role: "role",
-     *         order: "asc"
+     *         chat_session_id: "chat_session_id"
      *     })
      */
     public getChatMessages(
-        request: phenoml.agent.AgentGetChatMessagesRequest,
+        request: phenoml.agent.GetChatMessagesAgentRequest,
         requestOptions?: Agent.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentGetChatMessagesResponse> {
+    ): core.HttpResponsePromise<phenoml.agent.GetChatMessagesAgentResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getChatMessages(request, requestOptions));
     }
 
     private async __getChatMessages(
-        request: phenoml.agent.AgentGetChatMessagesRequest,
+        request: phenoml.agent.GetChatMessagesAgentRequest,
         requestOptions?: Agent.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentGetChatMessagesResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.GetChatMessagesAgentResponse>> {
         const { chat_session_id: chatSessionId, num_messages: numMessages, role, order } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams.chat_session_id = chatSessionId;
@@ -735,7 +737,7 @@ export class Agent {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.agent.AgentGetChatMessagesResponse,
+                data: _response.body as phenoml.agent.GetChatMessagesAgentResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -774,12 +776,7 @@ export class Agent {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

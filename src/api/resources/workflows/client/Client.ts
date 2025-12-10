@@ -16,14 +16,14 @@ export declare namespace Workflows {
 export class Workflows {
     protected readonly _options: Workflows.Options;
 
-    constructor(_options: Workflows.Options = {}) {
+    constructor(_options: Workflows.Options) {
         this._options = _options;
     }
 
     /**
      * Retrieves all workflow definitions for the authenticated user
      *
-     * @param {phenoml.workflows.WorkflowsListRequest} request
+     * @param {phenoml.workflows.ListWorkflowsRequest} request
      * @param {Workflows.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.workflows.UnauthorizedError}
@@ -31,19 +31,17 @@ export class Workflows {
      * @throws {@link phenoml.workflows.InternalServerError}
      *
      * @example
-     *     await client.workflows.list({
-     *         verbose: true
-     *     })
+     *     await client.workflows.list()
      */
     public list(
-        request: phenoml.workflows.WorkflowsListRequest = {},
+        request: phenoml.workflows.ListWorkflowsRequest = {},
         requestOptions?: Workflows.RequestOptions,
     ): core.HttpResponsePromise<phenoml.workflows.ListWorkflowsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
-        request: phenoml.workflows.WorkflowsListRequest = {},
+        request: phenoml.workflows.ListWorkflowsRequest = {},
         requestOptions?: Workflows.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.workflows.ListWorkflowsResponse>> {
         const { verbose } = request;
@@ -131,7 +129,6 @@ export class Workflows {
      *
      * @example
      *     await client.workflows.create({
-     *         verbose: true,
      *         name: "Patient Data Mapping Workflow",
      *         workflow_instructions: "Given diagnosis data, find the patient and create condition record",
      *         sample_data: {
@@ -233,8 +230,7 @@ export class Workflows {
     /**
      * Retrieves a workflow definition by its ID
      *
-     * @param {string} id - ID of the workflow to retrieve
-     * @param {phenoml.workflows.WorkflowsGetRequest} request
+     * @param {phenoml.workflows.GetWorkflowsRequest} request
      * @param {Workflows.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.workflows.UnauthorizedError}
@@ -243,24 +239,22 @@ export class Workflows {
      * @throws {@link phenoml.workflows.InternalServerError}
      *
      * @example
-     *     await client.workflows.get("id", {
-     *         verbose: true
+     *     await client.workflows.get({
+     *         id: "id"
      *     })
      */
     public get(
-        id: string,
-        request: phenoml.workflows.WorkflowsGetRequest = {},
+        request: phenoml.workflows.GetWorkflowsRequest,
         requestOptions?: Workflows.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.workflows.WorkflowsGetResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__get(id, request, requestOptions));
+    ): core.HttpResponsePromise<phenoml.workflows.GetWorkflowsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        id: string,
-        request: phenoml.workflows.WorkflowsGetRequest = {},
+        request: phenoml.workflows.GetWorkflowsRequest,
         requestOptions?: Workflows.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.workflows.WorkflowsGetResponse>> {
-        const { verbose } = request;
+    ): Promise<core.WithRawResponse<phenoml.workflows.GetWorkflowsResponse>> {
+        const { id, verbose } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (verbose != null) {
             _queryParams.verbose = verbose.toString();
@@ -287,7 +281,7 @@ export class Workflows {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.workflows.WorkflowsGetResponse,
+                data: _response.body as phenoml.workflows.GetWorkflowsResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -337,7 +331,6 @@ export class Workflows {
     /**
      * Updates an existing workflow definition
      *
-     * @param {string} id - ID of the workflow to update
      * @param {phenoml.workflows.UpdateWorkflowRequest} request
      * @param {Workflows.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -348,8 +341,8 @@ export class Workflows {
      * @throws {@link phenoml.workflows.InternalServerError}
      *
      * @example
-     *     await client.workflows.update("id", {
-     *         verbose: true,
+     *     await client.workflows.update({
+     *         id: "id",
      *         name: "Updated Patient Data Mapping Workflow",
      *         workflow_instructions: "Given diagnosis data, find the patient and create condition record",
      *         sample_data: {
@@ -361,19 +354,17 @@ export class Workflows {
      *     })
      */
     public update(
-        id: string,
         request: phenoml.workflows.UpdateWorkflowRequest,
         requestOptions?: Workflows.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.workflows.WorkflowsUpdateResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
+    ): core.HttpResponsePromise<phenoml.workflows.UpdateWorkflowsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
     }
 
     private async __update(
-        id: string,
         request: phenoml.workflows.UpdateWorkflowRequest,
         requestOptions?: Workflows.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.workflows.WorkflowsUpdateResponse>> {
-        const { verbose, ..._body } = request;
+    ): Promise<core.WithRawResponse<phenoml.workflows.UpdateWorkflowsResponse>> {
+        const { id, verbose, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (verbose != null) {
             _queryParams.verbose = verbose.toString();
@@ -403,7 +394,7 @@ export class Workflows {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.workflows.WorkflowsUpdateResponse,
+                data: _response.body as phenoml.workflows.UpdateWorkflowsResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -455,7 +446,7 @@ export class Workflows {
     /**
      * Deletes a workflow definition by its ID
      *
-     * @param {string} id - ID of the workflow to delete
+     * @param {phenoml.workflows.DeleteWorkflowsRequest} request
      * @param {Workflows.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.workflows.UnauthorizedError}
@@ -464,19 +455,22 @@ export class Workflows {
      * @throws {@link phenoml.workflows.InternalServerError}
      *
      * @example
-     *     await client.workflows.delete("id")
+     *     await client.workflows.delete({
+     *         id: "id"
+     *     })
      */
     public delete(
-        id: string,
+        request: phenoml.workflows.DeleteWorkflowsRequest,
         requestOptions?: Workflows.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.workflows.WorkflowsDeleteResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
+    ): core.HttpResponsePromise<phenoml.workflows.DeleteWorkflowsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
     }
 
     private async __delete(
-        id: string,
+        request: phenoml.workflows.DeleteWorkflowsRequest,
         requestOptions?: Workflows.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.workflows.WorkflowsDeleteResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.workflows.DeleteWorkflowsResponse>> {
+        const { id } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -498,7 +492,7 @@ export class Workflows {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.workflows.WorkflowsDeleteResponse,
+                data: _response.body as phenoml.workflows.DeleteWorkflowsResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -548,7 +542,6 @@ export class Workflows {
     /**
      * Executes a workflow with provided input data and returns results
      *
-     * @param {string} id - ID of the workflow to execute
      * @param {phenoml.workflows.ExecuteWorkflowRequest} request
      * @param {Workflows.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -559,7 +552,8 @@ export class Workflows {
      * @throws {@link phenoml.workflows.InternalServerError}
      *
      * @example
-     *     await client.workflows.execute("id", {
+     *     await client.workflows.execute({
+     *         id: "id",
      *         input_data: {
      *             "patient_last_name": "Johnson",
      *             "patient_first_name": "Mary",
@@ -569,18 +563,17 @@ export class Workflows {
      *     })
      */
     public execute(
-        id: string,
         request: phenoml.workflows.ExecuteWorkflowRequest,
         requestOptions?: Workflows.RequestOptions,
     ): core.HttpResponsePromise<phenoml.workflows.ExecuteWorkflowResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__execute(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__execute(request, requestOptions));
     }
 
     private async __execute(
-        id: string,
         request: phenoml.workflows.ExecuteWorkflowRequest,
         requestOptions?: Workflows.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.workflows.ExecuteWorkflowResponse>> {
+        const { id, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -598,7 +591,7 @@ export class Workflows {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -654,12 +647,7 @@ export class Workflows {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string | undefined> {
-        const bearer = await core.Supplier.get(this._options.token);
-        if (bearer != null) {
-            return `Bearer ${bearer}`;
-        }
-
-        return undefined;
+    protected async _getAuthorizationHeader(): Promise<string> {
+        return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
 }

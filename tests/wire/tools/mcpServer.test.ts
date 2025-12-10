@@ -253,7 +253,9 @@ describe("McpServer", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tools.mcpServer.get("mcp_server_id");
+        const response = await client.tools.mcpServer.get({
+            mcp_server_id: "mcp_server_id",
+        });
         expect(response).toEqual({
             success: true,
             message: "MCP server created successfully",
@@ -282,7 +284,9 @@ describe("McpServer", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.get("mcp_server_id");
+            return await client.tools.mcpServer.get({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.UnauthorizedError);
     });
 
@@ -300,7 +304,9 @@ describe("McpServer", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.get("mcp_server_id");
+            return await client.tools.mcpServer.get({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.ForbiddenError);
     });
 
@@ -318,7 +324,9 @@ describe("McpServer", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.get("mcp_server_id");
+            return await client.tools.mcpServer.get({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.InternalServerError);
     });
 
@@ -346,7 +354,9 @@ describe("McpServer", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tools.mcpServer.delete("mcp_server_id");
+        const response = await client.tools.mcpServer.delete({
+            mcp_server_id: "mcp_server_id",
+        });
         expect(response).toEqual({
             success: true,
             message: "MCP server created successfully",
@@ -375,7 +385,9 @@ describe("McpServer", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.delete("mcp_server_id");
+            return await client.tools.mcpServer.delete({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.UnauthorizedError);
     });
 
@@ -393,7 +405,9 @@ describe("McpServer", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.delete("mcp_server_id");
+            return await client.tools.mcpServer.delete({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.ForbiddenError);
     });
 
@@ -411,7 +425,9 @@ describe("McpServer", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.mcpServer.delete("mcp_server_id");
+            return await client.tools.mcpServer.delete({
+                mcp_server_id: "mcp_server_id",
+            });
         }).rejects.toThrow(phenoml.tools.InternalServerError);
     });
 });
