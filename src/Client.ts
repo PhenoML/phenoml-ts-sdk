@@ -40,7 +40,7 @@ export class phenomlClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "phenoml",
-                    "X-Fern-SDK-Version": "0.0.9",
+                    "X-Fern-SDK-Version": "0.0.10",
                     "User-Agent": "phenoml/AUTO",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
