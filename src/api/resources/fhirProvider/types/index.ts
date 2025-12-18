@@ -9,5 +9,6 @@ export * from "./FhirProviderTemplate.js";
 export * from "./FhirQueryResponse.js";
 export * from "./JsonWebKey.js";
 export * from "./Provider.js";
+export * from "./Role.js";
 export * from "./ServiceAccountKey.js";
 export * from "./SmartConfiguration.js";

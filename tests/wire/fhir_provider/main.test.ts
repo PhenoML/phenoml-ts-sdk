@@ -40,7 +40,7 @@ describe("FhirProvider", () => {
         };
         server
             .mockEndpoint()
-            .post("/fhir-provider/create")
+            .post("/fhir-provider")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -91,7 +91,7 @@ describe("FhirProvider", () => {
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .post("/fhir-provider/create")
+            .post("/fhir-provider")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -120,7 +120,7 @@ describe("FhirProvider", () => {
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .post("/fhir-provider/create")
+            .post("/fhir-provider")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -149,7 +149,7 @@ describe("FhirProvider", () => {
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .post("/fhir-provider/create")
+            .post("/fhir-provider")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(403)
@@ -178,7 +178,7 @@ describe("FhirProvider", () => {
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .post("/fhir-provider/create")
+            .post("/fhir-provider")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)

@@ -3,10 +3,22 @@
 /**
  * @example
  *     {
+ *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+ *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
  *         text: "Find all appointments for patient John Doe next week"
  *     }
  */
 export interface Lang2FhirAndSearchRequest {
+    /**
+     * Optional header for on-behalf-of authentication. Used when making requests on behalf of another user or entity.
+     * Must be in the format: Patient/{uuid} or Practitioner/{uuid}
+     */
+    "X-Phenoml-On-Behalf-Of"?: string;
+    /**
+     * Optional header for FHIR provider authentication. Contains credentials in the format {fhir_provider_id}:{oauth2_token}.
+     * Multiple FHIR provider integrations can be provided as comma-separated values.
+     */
+    "X-Phenoml-Fhir-Provider"?: string;
     /** Natural language text to convert to FHIR search parameters */
     text: string;
     /** Patient ID to filter results */

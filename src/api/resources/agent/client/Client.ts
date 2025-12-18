@@ -593,6 +593,8 @@ export class Agent {
      *
      * @example
      *     await client.agent.chat({
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         message: "What is the patient's current condition?",
      *         agent_id: "agent-123"
      *     })
@@ -608,9 +610,18 @@ export class Agent {
         request: phenoml.agent.AgentChatRequest,
         requestOptions?: Agent.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.AgentChatResponse>> {
+        const {
+            "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
+            "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
+            ..._body
+        } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            mergeOnlyDefinedHeaders({
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf != null ? phenomlOnBehalfOf : undefined,
+                "X-Phenoml-Fhir-Provider": phenomlFhirProvider != null ? phenomlFhirProvider : undefined,
+            }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -625,7 +636,7 @@ export class Agent {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

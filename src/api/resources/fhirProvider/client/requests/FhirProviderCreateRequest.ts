@@ -25,6 +25,7 @@ export interface FhirProviderCreateRequest {
     /** OAuth client secret (required for client_secret and on_behalf_of auth methods) */
     client_secret?: string;
     service_account_key?: phenoml.fhirProvider.ServiceAccountKey;
-    /** OAuth scopes to request */
+    role?: phenoml.fhirProvider.Role;
+    /** OAuth scopes to request. Cannot be specified with role. If neither role nor scopes are specified, the provider-specific default role will be used. You are solely responsible for ensuring the scopes are valid options for the provider being created or updated. */
     scopes?: string;
 }

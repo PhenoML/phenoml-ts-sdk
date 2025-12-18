@@ -5,7 +5,8 @@ import type * as phenoml from "../../../../index.js";
 /**
  * @example
  *     {
- *         "X-Phenoml-On-Behalf-Of": "user@example.com",
+ *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+ *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
  *         body: [{
  *                 op: "replace",
  *                 path: "/name/0/family",
@@ -15,7 +16,8 @@ import type * as phenoml from "../../../../index.js";
  *
  * @example
  *     {
- *         "X-Phenoml-On-Behalf-Of": "user@example.com",
+ *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+ *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
  *         body: [{
  *                 op: "add",
  *                 path: "/telecom/-",
@@ -29,7 +31,8 @@ import type * as phenoml from "../../../../index.js";
  *
  * @example
  *     {
- *         "X-Phenoml-On-Behalf-Of": "user@example.com",
+ *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+ *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
  *         body: [{
  *                 op: "replace",
  *                 path: "/name/0/family",
@@ -49,7 +52,8 @@ import type * as phenoml from "../../../../index.js";
  *
  * @example
  *     {
- *         "X-Phenoml-On-Behalf-Of": "user@example.com",
+ *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+ *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
  *         body: [{
  *                 op: "test",
  *                 path: "/gender",
@@ -62,8 +66,16 @@ import type * as phenoml from "../../../../index.js";
  *     }
  */
 export interface FhirPatchRequest {
-    /** Optional header for on-behalf-of authentication. Used when making requests on behalf of another user or entity. */
+    /**
+     * Optional header for on-behalf-of authentication. Used when making requests on behalf of another user or entity.
+     * Must be in the format: Patient/{uuid} or Practitioner/{uuid}
+     */
     "X-Phenoml-On-Behalf-Of"?: string;
+    /**
+     * Optional header for FHIR provider authentication. Contains credentials in the format {fhir_provider_id}:{oauth2_token}.
+     * Multiple FHIR provider integrations can be provided as comma-separated values.
+     */
+    "X-Phenoml-Fhir-Provider"?: string;
     /** Array of JSON Patch operations following RFC 6902 */
     body: phenoml.fhir.FhirPatchRequestBodyItem[];
 }

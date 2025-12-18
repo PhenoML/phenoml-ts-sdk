@@ -60,7 +60,7 @@ export class FhirProvider {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                "fhir-provider/create",
+                "fhir-provider",
             ),
             method: "POST",
             headers: _headers,
@@ -118,7 +118,7 @@ export class FhirProvider {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /fhir-provider/create.");
+                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /fhir-provider.");
             case "unknown":
                 throw new errors.phenomlError({
                     message: _response.error.errorMessage,

@@ -3,11 +3,23 @@
 /**
  * @example
  *     {
+ *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+ *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
  *         resource: "auto",
  *         text: "Patient John Doe has severe asthma with acute exacerbation"
  *     }
  */
 export interface Lang2FhirAndCreateRequest {
+    /**
+     * Optional header for on-behalf-of authentication. Used when making requests on behalf of another user or entity.
+     * Must be in the format: Patient/{uuid} or Practitioner/{uuid}
+     */
+    "X-Phenoml-On-Behalf-Of"?: string;
+    /**
+     * Optional header for FHIR provider authentication. Contains credentials in the format {fhir_provider_id}:{oauth2_token}.
+     * Multiple FHIR provider integrations can be provided as comma-separated values.
+     */
+    "X-Phenoml-Fhir-Provider"?: string;
     /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported US Core profile. */
     resource: Lang2FhirAndCreateRequest.Resource;
     /** Natural language text to convert to FHIR resource */

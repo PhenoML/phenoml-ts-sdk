@@ -44,7 +44,8 @@ export class Fhir {
      *
      * @example
      *     await client.fhir.search("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-     *         "X-Phenoml-On-Behalf-Of": "user@example.com"
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c..."
      *     })
      */
     public search(
@@ -62,7 +63,11 @@ export class Fhir {
         request: phenoml.fhir.FhirSearchRequest = {},
         requestOptions?: Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhir.FhirSearchResponse>> {
-        const { query_parameters: queryParameters, "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf } = request;
+        const {
+            query_parameters: queryParameters,
+            "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
+            "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
+        } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (queryParameters != null) {
             _queryParams.query_parameters = toJson(queryParameters);
@@ -73,6 +78,7 @@ export class Fhir {
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf != null ? phenomlOnBehalfOf : undefined,
+                "X-Phenoml-Fhir-Provider": phenomlFhirProvider != null ? phenomlFhirProvider : undefined,
             }),
             requestOptions?.headers,
         );
@@ -154,7 +160,8 @@ export class Fhir {
      *
      * @example
      *     await client.fhir.create("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-     *         "X-Phenoml-On-Behalf-Of": "user@example.com",
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         body: {
      *             resourceType: "Patient",
      *             name: [
@@ -185,12 +192,17 @@ export class Fhir {
         request: phenoml.fhir.FhirCreateRequest,
         requestOptions?: Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhir.FhirResource>> {
-        const { "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf, body: _body } = request;
+        const {
+            "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
+            "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
+            body: _body,
+        } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf != null ? phenomlOnBehalfOf : undefined,
+                "X-Phenoml-Fhir-Provider": phenomlFhirProvider != null ? phenomlFhirProvider : undefined,
             }),
             requestOptions?.headers,
         );
@@ -273,7 +285,8 @@ export class Fhir {
      *
      * @example
      *     await client.fhir.upsert("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-     *         "X-Phenoml-On-Behalf-Of": "user@example.com",
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         body: {
      *             resourceType: "Patient",
      *             id: "123",
@@ -306,12 +319,17 @@ export class Fhir {
         request: phenoml.fhir.FhirUpsertRequest,
         requestOptions?: Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhir.FhirResource>> {
-        const { "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf, body: _body } = request;
+        const {
+            "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
+            "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
+            body: _body,
+        } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf != null ? phenomlOnBehalfOf : undefined,
+                "X-Phenoml-Fhir-Provider": phenomlFhirProvider != null ? phenomlFhirProvider : undefined,
             }),
             requestOptions?.headers,
         );
@@ -395,7 +413,8 @@ export class Fhir {
      *
      * @example
      *     await client.fhir.delete("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-     *         "X-Phenoml-On-Behalf-Of": "user@example.com"
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c..."
      *     })
      */
     public delete(
@@ -413,12 +432,13 @@ export class Fhir {
         request: phenoml.fhir.FhirDeleteRequest = {},
         requestOptions?: Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<Record<string, unknown>>> {
-        const { "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf } = request;
+        const { "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf, "X-Phenoml-Fhir-Provider": phenomlFhirProvider } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf != null ? phenomlOnBehalfOf : undefined,
+                "X-Phenoml-Fhir-Provider": phenomlFhirProvider != null ? phenomlFhirProvider : undefined,
             }),
             requestOptions?.headers,
         );
@@ -506,7 +526,8 @@ export class Fhir {
      *
      * @example
      *     await client.fhir.patch("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-     *         "X-Phenoml-On-Behalf-Of": "user@example.com",
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         body: [{
      *                 op: "replace",
      *                 path: "/name/0/family",
@@ -516,7 +537,8 @@ export class Fhir {
      *
      * @example
      *     await client.fhir.patch("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-     *         "X-Phenoml-On-Behalf-Of": "user@example.com",
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         body: [{
      *                 op: "add",
      *                 path: "/telecom/-",
@@ -530,7 +552,8 @@ export class Fhir {
      *
      * @example
      *     await client.fhir.patch("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-     *         "X-Phenoml-On-Behalf-Of": "user@example.com",
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         body: [{
      *                 op: "replace",
      *                 path: "/name/0/family",
@@ -550,7 +573,8 @@ export class Fhir {
      *
      * @example
      *     await client.fhir.patch("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-     *         "X-Phenoml-On-Behalf-Of": "user@example.com",
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         body: [{
      *                 op: "test",
      *                 path: "/gender",
@@ -577,12 +601,17 @@ export class Fhir {
         request: phenoml.fhir.FhirPatchRequest,
         requestOptions?: Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhir.FhirResource>> {
-        const { "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf, body: _body } = request;
+        const {
+            "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
+            "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
+            body: _body,
+        } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf != null ? phenomlOnBehalfOf : undefined,
+                "X-Phenoml-Fhir-Provider": phenomlFhirProvider != null ? phenomlFhirProvider : undefined,
             }),
             requestOptions?.headers,
         );
@@ -664,7 +693,8 @@ export class Fhir {
      *
      * @example
      *     await client.fhir.executeBundle("550e8400-e29b-41d4-a716-446655440000", {
-     *         "X-Phenoml-On-Behalf-Of": "user@example.com",
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         body: {
      *             resourceType: "Bundle",
      *             entry: [{
@@ -712,12 +742,17 @@ export class Fhir {
         request: phenoml.fhir.FhirExecuteBundleRequest,
         requestOptions?: Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhir.FhirBundle>> {
-        const { "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf, body: _body } = request;
+        const {
+            "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
+            "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
+            body: _body,
+        } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
                 Authorization: await this._getAuthorizationHeader(),
                 "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf != null ? phenomlOnBehalfOf : undefined,
+                "X-Phenoml-Fhir-Provider": phenomlFhirProvider != null ? phenomlFhirProvider : undefined,
             }),
             requestOptions?.headers,
         );

@@ -23,6 +23,11 @@ describe("Tools", () => {
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-create")
+            .header("X-Phenoml-On-Behalf-Of", "Patient/550e8400-e29b-41d4-a716-446655440000")
+            .header(
+                "X-Phenoml-Fhir-Provider",
+                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+            )
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -30,6 +35,9 @@ describe("Tools", () => {
             .build();
 
         const response = await client.tools.createFhirResource({
+            "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+            "X-Phenoml-Fhir-Provider":
+                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
             resource: "auto",
             text: "Patient John Doe has severe asthma with acute exacerbation",
         });
@@ -190,6 +198,11 @@ describe("Tools", () => {
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-search")
+            .header("X-Phenoml-On-Behalf-Of", "Patient/550e8400-e29b-41d4-a716-446655440000")
+            .header(
+                "X-Phenoml-Fhir-Provider",
+                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+            )
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -197,6 +210,9 @@ describe("Tools", () => {
             .build();
 
         const response = await client.tools.searchFhirResources({
+            "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+            "X-Phenoml-Fhir-Provider":
+                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
             text: "Find all appointments for patient John Doe next week",
         });
         expect(response).toEqual({
@@ -359,6 +375,11 @@ describe("Tools", () => {
         server
             .mockEndpoint()
             .post("/tools/cohort")
+            .header("X-Phenoml-On-Behalf-Of", "Patient/550e8400-e29b-41d4-a716-446655440000")
+            .header(
+                "X-Phenoml-Fhir-Provider",
+                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+            )
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -366,6 +387,9 @@ describe("Tools", () => {
             .build();
 
         const response = await client.tools.analyzeCohort({
+            "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+            "X-Phenoml-Fhir-Provider":
+                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
             text: "female patients over 20 with diabetes but not hypertension",
             provider: "550e8400-e29b-41d4-a716-446655440000",
         });

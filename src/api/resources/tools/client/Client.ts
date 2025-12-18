@@ -40,6 +40,8 @@ export class Tools {
      *
      * @example
      *     await client.tools.createFhirResource({
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         resource: "auto",
      *         text: "Patient John Doe has severe asthma with acute exacerbation"
      *     })
@@ -55,9 +57,18 @@ export class Tools {
         request: phenoml.tools.Lang2FhirAndCreateRequest,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.Lang2FhirAndCreateResponse>> {
+        const {
+            "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
+            "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
+            ..._body
+        } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            mergeOnlyDefinedHeaders({
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf != null ? phenomlOnBehalfOf : undefined,
+                "X-Phenoml-Fhir-Provider": phenomlFhirProvider != null ? phenomlFhirProvider : undefined,
+            }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -72,7 +83,7 @@ export class Tools {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -139,6 +150,8 @@ export class Tools {
      *
      * @example
      *     await client.tools.searchFhirResources({
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         text: "Find all appointments for patient John Doe next week"
      *     })
      */
@@ -153,9 +166,18 @@ export class Tools {
         request: phenoml.tools.Lang2FhirAndSearchRequest,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.Lang2FhirAndSearchResponse>> {
+        const {
+            "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
+            "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
+            ..._body
+        } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            mergeOnlyDefinedHeaders({
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf != null ? phenomlOnBehalfOf : undefined,
+                "X-Phenoml-Fhir-Provider": phenomlFhirProvider != null ? phenomlFhirProvider : undefined,
+            }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -170,7 +192,7 @@ export class Tools {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -236,6 +258,8 @@ export class Tools {
      *
      * @example
      *     await client.tools.analyzeCohort({
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         text: "female patients over 20 with diabetes but not hypertension",
      *         provider: "550e8400-e29b-41d4-a716-446655440000"
      *     })
@@ -251,9 +275,18 @@ export class Tools {
         request: phenoml.tools.CohortRequest,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.CohortResponse>> {
+        const {
+            "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
+            "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
+            ..._body
+        } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            mergeOnlyDefinedHeaders({
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf != null ? phenomlOnBehalfOf : undefined,
+                "X-Phenoml-Fhir-Provider": phenomlFhirProvider != null ? phenomlFhirProvider : undefined,
+            }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -268,7 +301,7 @@ export class Tools {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: request,
+            body: _body,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

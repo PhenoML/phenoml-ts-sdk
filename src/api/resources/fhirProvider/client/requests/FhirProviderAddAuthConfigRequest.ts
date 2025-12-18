@@ -15,6 +15,7 @@ export interface FhirProviderAddAuthConfigRequest {
     service_account_key?: phenoml.fhirProvider.ServiceAccountKey;
     /** Expiry time for JWT credentials (only applicable for JWT auth method) */
     credential_expiry?: string;
-    /** OAuth scopes to request */
+    role?: phenoml.fhirProvider.Role;
+    /** OAuth scopes to request. Cannot be specified with role. If neither role nor scopes are specified, the provider-specific default role will be used. You are solely responsible for ensuring the scopes are valid options for the provider being created or updated. */
     scopes?: string;
 }

@@ -444,6 +444,8 @@ Send a message to an agent and receive a response
 
 ```typescript
 await client.agent.chat({
+    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     message: "What is the patient's current condition?",
     agent_id: "agent-123"
 });
@@ -1276,72 +1278,6 @@ await client.construe.extractCodes({
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">cohort</a>({ ...params }) -> phenoml.ConstrueCohortResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a patient cohort based on a natural language description.
-Translates the description into FHIR search queries and optional SQL queries.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.construe.cohort({
-    text: "Between 20 and 40 years old with hyperlipidemia"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `phenoml.construe.ConstrueCohortRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Construe.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Fhir
 <details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">search</a>(fhirProviderId, fhirPath, { ...params }) -> phenoml.FhirSearchResponse</code></summary>
 <dl>
@@ -1373,7 +1309,8 @@ The request is proxied to the configured FHIR server with appropriate authentica
 
 ```typescript
 await client.fhir.search("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-    "X-Phenoml-On-Behalf-Of": "user@example.com"
+    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c..."
 });
 
 ```
@@ -1466,7 +1403,8 @@ The request is proxied to the configured FHIR server with appropriate authentica
 
 ```typescript
 await client.fhir.create("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-    "X-Phenoml-On-Behalf-Of": "user@example.com",
+    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     body: {
         resourceType: "Patient",
         name: [
@@ -1572,7 +1510,8 @@ The request is proxied to the configured FHIR server with appropriate authentica
 
 ```typescript
 await client.fhir.upsert("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-    "X-Phenoml-On-Behalf-Of": "user@example.com",
+    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     body: {
         resourceType: "Patient",
         id: "123",
@@ -1680,7 +1619,8 @@ The request is proxied to the configured FHIR server with appropriate authentica
 
 ```typescript
 await client.fhir.delete("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-    "X-Phenoml-On-Behalf-Of": "user@example.com"
+    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c..."
 });
 
 ```
@@ -1778,7 +1718,8 @@ The request is proxied to the configured FHIR server with appropriate authentica
 
 ```typescript
 await client.fhir.patch("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-    "X-Phenoml-On-Behalf-Of": "user@example.com",
+    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     body: [{
             op: "replace",
             path: "/name/0/family",
@@ -1878,7 +1819,8 @@ The request is proxied to the configured FHIR server with appropriate authentica
 
 ```typescript
 await client.fhir.executeBundle("550e8400-e29b-41d4-a716-446655440000", {
-    "X-Phenoml-On-Behalf-Of": "user@example.com",
+    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     body: {
         resourceType: "Bundle",
         entry: [{
@@ -3120,6 +3062,8 @@ Converts natural language to FHIR resource and optionally stores it in a FHIR se
 
 ```typescript
 await client.tools.createFhirResource({
+    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     resource: "auto",
     text: "Patient John Doe has severe asthma with acute exacerbation"
 });
@@ -3186,6 +3130,8 @@ Converts natural language to FHIR search parameters and executes search in FHIR 
 
 ```typescript
 await client.tools.searchFhirResources({
+    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     text: "Find all appointments for patient John Doe next week"
 });
 
@@ -3251,6 +3197,8 @@ Uses LLM to extract search concepts from natural language and builds patient coh
 
 ```typescript
 await client.tools.analyzeCohort({
+    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     text: "female patients over 20 with diabetes but not hypertension",
     provider: "550e8400-e29b-41d4-a716-446655440000"
 });
