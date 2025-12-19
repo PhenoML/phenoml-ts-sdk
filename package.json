@@ -1,6 +1,6 @@
 {
     "name": "phenoml",
-    "version": "0.0.13",
+    "version": "0.0.14",
     "private": false,
     "repository": "github:PhenoML/phenoml-ts-sdk",
     "type": "commonjs",
