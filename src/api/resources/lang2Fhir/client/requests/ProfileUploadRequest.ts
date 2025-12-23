@@ -3,9 +3,9 @@
 /**
  * @example
  *     {
- *         version: "version",
- *         resource: "custom-patient",
- *         profile: "profile"
+ *         version: "R4",
+ *         resource: "condition-encounter-diagnosis",
+ *         profile: "(base64 encoded JSON string of the FHIR profile)"
  *     }
  */
 export interface ProfileUploadRequest {

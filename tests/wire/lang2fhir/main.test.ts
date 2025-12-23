@@ -212,7 +212,11 @@ describe("Lang2Fhir", () => {
     test("uploadProfile (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { version: "version", resource: "custom-patient", profile: "profile" };
+        const rawRequestBody = {
+            version: "R4",
+            resource: "condition-encounter-diagnosis",
+            profile: "(base64 encoded JSON string of the FHIR profile)",
+        };
         const rawResponseBody = {
             message: "Profile uploaded successfully",
             id: "0ofoiy2o7a3pvwj",
@@ -230,9 +234,9 @@ describe("Lang2Fhir", () => {
             .build();
 
         const response = await client.lang2Fhir.uploadProfile({
-            version: "version",
-            resource: "custom-patient",
-            profile: "profile",
+            version: "R4",
+            resource: "condition-encounter-diagnosis",
+            profile: "(base64 encoded JSON string of the FHIR profile)",
         });
         expect(response).toEqual({
             message: "Profile uploaded successfully",

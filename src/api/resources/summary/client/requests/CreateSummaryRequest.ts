@@ -15,11 +15,18 @@ export interface CreateSummaryRequest {
      * Summary generation mode:
      * - narrative: Substitute FHIR data into a template (requires template_id)
      * - flatten: Flatten FHIR resources for RAG/search (no template needed)
+     * - ips: Generate International Patient Summary (IPS) narrative per ISO 27269/HL7 FHIR IPS IG
      */
     mode?: CreateSummaryRequest.Mode;
     /** ID of the template to use (required for narrative mode) */
     template_id?: string;
-    /** FHIR resources (single resource or Bundle) */
+    /**
+     * FHIR resources (single resource or Bundle).
+     * For IPS mode, must be a Bundle containing exactly one Patient resource with at least one
+     * identifier (id, fullUrl, or identifier field). Returns an error if no Patient is found,
+     * if multiple Patients are present, or if the Patient has no identifiers. Resources are
+     * automatically filtered to only include those referencing the patient.
+     */
     fhir_resources: CreateSummaryRequest.FhirResources;
 }
 
@@ -28,14 +35,20 @@ export namespace CreateSummaryRequest {
      * Summary generation mode:
      * - narrative: Substitute FHIR data into a template (requires template_id)
      * - flatten: Flatten FHIR resources for RAG/search (no template needed)
+     * - ips: Generate International Patient Summary (IPS) narrative per ISO 27269/HL7 FHIR IPS IG
      */
     export const Mode = {
         Narrative: "narrative",
         Flatten: "flatten",
+        Ips: "ips",
     } as const;
     export type Mode = (typeof Mode)[keyof typeof Mode];
     /**
-     * FHIR resources (single resource or Bundle)
+     * FHIR resources (single resource or Bundle).
+     * For IPS mode, must be a Bundle containing exactly one Patient resource with at least one
+     * identifier (id, fullUrl, or identifier field). Returns an error if no Patient is found,
+     * if multiple Patients are present, or if the Patient has no identifiers. Resources are
+     * automatically filtered to only include those referencing the patient.
      */
     export type FhirResources = phenoml.summary.FhirResource | phenoml.summary.FhirBundle;
 }
