@@ -1,4 +1,5 @@
 export * from "./CohortResponse.js";
+export * from "./Lang2FhirAndCreateMultiResponse.js";
 export * from "./Lang2FhirAndCreateResponse.js";
 export * from "./Lang2FhirAndSearchResponse.js";
 export * from "./McpServerResponse.js";

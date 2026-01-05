@@ -2438,6 +2438,73 @@ await client.lang2Fhir.create({
 </dl>
 </details>
 
+<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">createMulti</a>({ ...params }) -> phenoml.CreateMultiResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Analyzes natural language text and extracts multiple FHIR resources, returning them as a transaction Bundle.
+Automatically detects Patient, Condition, MedicationRequest, Observation, and other resource types from the text.
+Resources are linked with proper references (e.g., Conditions reference the Patient).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.lang2Fhir.createMulti({
+    text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily."
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.lang2Fhir.CreateMultiRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Lang2Fhir.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">search</a>({ ...params }) -> phenoml.SearchResponse</code></summary>
 <dl>
 <dd>
@@ -3084,6 +3151,78 @@ await client.tools.createFhirResource({
 <dd>
 
 **request:** `phenoml.tools.Lang2FhirAndCreateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Tools.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">createFhirResourcesMulti</a>({ ...params }) -> phenoml.Lang2FhirAndCreateMultiResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Extracts multiple FHIR resources from natural language text and stores them in a FHIR server.
+Automatically detects Patient, Condition, MedicationRequest, Observation, and other resource types.
+Resources are linked with proper references and submitted as a transaction bundle.
+For FHIR servers that don't auto-resolve urn:uuid references, this endpoint will automatically
+resolve them via PUT requests after the initial bundle creation.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.createFhirResourcesMulti({
+    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+    text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
+    provider: "medplum"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.tools.Lang2FhirAndCreateMultiRequest` 
     
 </dd>
 </dl>

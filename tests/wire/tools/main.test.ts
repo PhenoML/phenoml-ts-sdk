@@ -175,6 +175,178 @@ describe("Tools", () => {
         }).rejects.toThrow(phenoml.tools.InternalServerError);
     });
 
+    test("createFhirResourcesMulti (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
+            provider: "medplum",
+        };
+        const rawResponseBody = {
+            success: true,
+            message: "Created 3 resources",
+            response_bundle: { resourceType: "Bundle", type: "transaction-response", entry: [{ key: "value" }] },
+            resource_info: [
+                {
+                    tempId: "urn:uuid:patient-abc123",
+                    resourceType: "Patient",
+                    description: "John Smith, 45-year-old male",
+                },
+            ],
+        };
+        server
+            .mockEndpoint()
+            .post("/tools/lang2fhir-and-create-multi")
+            .header("X-Phenoml-On-Behalf-Of", "Patient/550e8400-e29b-41d4-a716-446655440000")
+            .header(
+                "X-Phenoml-Fhir-Provider",
+                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+            )
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.tools.createFhirResourcesMulti({
+            "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+            "X-Phenoml-Fhir-Provider":
+                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+            text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
+            provider: "medplum",
+        });
+        expect(response).toEqual({
+            success: true,
+            message: "Created 3 resources",
+            response_bundle: {
+                resourceType: "Bundle",
+                type: "transaction-response",
+                entry: [
+                    {
+                        key: "value",
+                    },
+                ],
+            },
+            resource_info: [
+                {
+                    tempId: "urn:uuid:patient-abc123",
+                    resourceType: "Patient",
+                    description: "John Smith, 45-year-old male",
+                },
+            ],
+        });
+    });
+
+    test("createFhirResourcesMulti (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text", provider: "provider" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/tools/lang2fhir-and-create-multi")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.createFhirResourcesMulti({
+                text: "text",
+                provider: "provider",
+            });
+        }).rejects.toThrow(phenoml.tools.BadRequestError);
+    });
+
+    test("createFhirResourcesMulti (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text", provider: "provider" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/tools/lang2fhir-and-create-multi")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.createFhirResourcesMulti({
+                text: "text",
+                provider: "provider",
+            });
+        }).rejects.toThrow(phenoml.tools.UnauthorizedError);
+    });
+
+    test("createFhirResourcesMulti (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text", provider: "provider" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/tools/lang2fhir-and-create-multi")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.createFhirResourcesMulti({
+                text: "text",
+                provider: "provider",
+            });
+        }).rejects.toThrow(phenoml.tools.ForbiddenError);
+    });
+
+    test("createFhirResourcesMulti (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text", provider: "provider" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/tools/lang2fhir-and-create-multi")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(424)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.createFhirResourcesMulti({
+                text: "text",
+                provider: "provider",
+            });
+        }).rejects.toThrow(phenoml.tools.FailedDependencyError);
+    });
+
+    test("createFhirResourcesMulti (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text", provider: "provider" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/tools/lang2fhir-and-create-multi")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.createFhirResourcesMulti({
+                text: "text",
+                provider: "provider",
+            });
+        }).rejects.toThrow(phenoml.tools.InternalServerError);
+    });
+
     test("searchFhirResources (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });

@@ -137,6 +137,122 @@ export class Tools {
     }
 
     /**
+     * Extracts multiple FHIR resources from natural language text and stores them in a FHIR server.
+     * Automatically detects Patient, Condition, MedicationRequest, Observation, and other resource types.
+     * Resources are linked with proper references and submitted as a transaction bundle.
+     * For FHIR servers that don't auto-resolve urn:uuid references, this endpoint will automatically
+     * resolve them via PUT requests after the initial bundle creation.
+     *
+     * @param {phenoml.tools.Lang2FhirAndCreateMultiRequest} request
+     * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.tools.BadRequestError}
+     * @throws {@link phenoml.tools.UnauthorizedError}
+     * @throws {@link phenoml.tools.ForbiddenError}
+     * @throws {@link phenoml.tools.FailedDependencyError}
+     * @throws {@link phenoml.tools.InternalServerError}
+     *
+     * @example
+     *     await client.tools.createFhirResourcesMulti({
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+     *         text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
+     *         provider: "medplum"
+     *     })
+     */
+    public createFhirResourcesMulti(
+        request: phenoml.tools.Lang2FhirAndCreateMultiRequest,
+        requestOptions?: Tools.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.tools.Lang2FhirAndCreateMultiResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createFhirResourcesMulti(request, requestOptions));
+    }
+
+    private async __createFhirResourcesMulti(
+        request: phenoml.tools.Lang2FhirAndCreateMultiRequest,
+        requestOptions?: Tools.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.tools.Lang2FhirAndCreateMultiResponse>> {
+        const {
+            "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
+            "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
+            ..._body
+        } = request;
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf != null ? phenomlOnBehalfOf : undefined,
+                "X-Phenoml-Fhir-Provider": phenomlFhirProvider != null ? phenomlFhirProvider : undefined,
+            }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                "tools/lang2fhir-and-create-multi",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: _body,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as phenoml.tools.Lang2FhirAndCreateMultiResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.tools.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                case 403:
+                    throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 424:
+                    throw new phenoml.tools.FailedDependencyError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError(
+                    "Timeout exceeded when calling POST /tools/lang2fhir-and-create-multi.",
+                );
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Converts natural language to FHIR search parameters and executes search in FHIR server
      *
      * @param {phenoml.tools.Lang2FhirAndSearchRequest} request

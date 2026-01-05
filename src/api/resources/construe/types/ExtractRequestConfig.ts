@@ -3,7 +3,12 @@
 export interface ExtractRequestConfig {
     /** Method for splitting input text into chunks before code extraction */
     chunking_method?: ExtractRequestConfig.ChunkingMethod;
-    /** Maximum number of codes to extract per chunk */
+    /**
+     * Maximum number of codes to extract per chunk. If not specified, uses system-specific defaults:
+     * * SNOMED: 10
+     * * LOINC, HPO, RXNORM: 20
+     * * All other systems: 5
+     */
     max_codes_per_chunk?: number;
     /** Threshold for filtering similar codes (0.0-1.0) */
     code_similarity_filter?: number;

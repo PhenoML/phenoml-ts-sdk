@@ -102,6 +102,121 @@ describe("Lang2Fhir", () => {
         }).rejects.toThrow(phenoml.lang2Fhir.InternalServerError);
     });
 
+    test("createMulti (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
+        };
+        const rawResponseBody = {
+            success: true,
+            message: "Successfully extracted 3 resources",
+            bundle: { resourceType: "Bundle", type: "transaction", entry: [{ fullUrl: "urn:uuid:patient-abc123" }] },
+            resources: [
+                {
+                    tempId: "urn:uuid:patient-abc123",
+                    resourceType: "Patient",
+                    description: "John Smith, 45-year-old male",
+                },
+            ],
+        };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/create/multi")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.lang2Fhir.createMulti({
+            text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
+        });
+        expect(response).toEqual({
+            success: true,
+            message: "Successfully extracted 3 resources",
+            bundle: {
+                resourceType: "Bundle",
+                type: "transaction",
+                entry: [
+                    {
+                        fullUrl: "urn:uuid:patient-abc123",
+                    },
+                ],
+            },
+            resources: [
+                {
+                    tempId: "urn:uuid:patient-abc123",
+                    resourceType: "Patient",
+                    description: "John Smith, 45-year-old male",
+                },
+            ],
+        });
+    });
+
+    test("createMulti (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/create/multi")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.createMulti({
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.BadRequestError);
+    });
+
+    test("createMulti (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/create/multi")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.createMulti({
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.UnauthorizedError);
+    });
+
+    test("createMulti (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/create/multi")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.createMulti({
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.InternalServerError);
+    });
+
     test("search (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
