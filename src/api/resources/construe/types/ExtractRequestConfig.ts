@@ -23,6 +23,8 @@ export interface ExtractRequestConfig {
     include_rationale?: boolean;
     /** Whether to include ancestor/parent codes in the results */
     include_ancestors?: boolean;
+    /** Whether to include codes that failed validation in the results */
+    include_invalid?: boolean;
 }
 
 export namespace ExtractRequestConfig {

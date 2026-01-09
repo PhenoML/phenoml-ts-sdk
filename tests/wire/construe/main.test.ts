@@ -162,6 +162,7 @@ describe("Construe", () => {
                 {
                     code: "195967001",
                     description: "Asthma",
+                    valid: true,
                     longDescription: "longDescription",
                     rationale: "rationale",
                 },
@@ -188,6 +189,7 @@ describe("Construe", () => {
                 {
                     code: "195967001",
                     description: "Asthma",
+                    valid: true,
                     longDescription: "longDescription",
                     rationale: "rationale",
                 },

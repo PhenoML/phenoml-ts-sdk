@@ -5,6 +5,8 @@ export interface ExtractedCodeResult {
     code: string;
     /** Short description of the code */
     description: string;
+    /** Whether the code passed validation. Always true unless include_invalid is set to true, in which case invalid codes will have this set to false. */
+    valid: boolean;
     /** Long description of the code */
     longDescription?: string;
     /** Explanation for why this code was extracted (if include_rationale is true) */
