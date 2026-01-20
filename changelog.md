@@ -1,3 +1,12 @@
+## 1.0.1 - 2026-01-20
+* refactor: remove User-Agent header from client configuration
+* Remove the hardcoded User-Agent header from the default headers configuration in the phenomlClient. This simplifies the client setup by reducing the number of predefined headers while maintaining the essential Fern SDK identification headers.
+* Key changes:
+* Remove User-Agent header from default client headers
+* Retain X-Fern SDK identification headers
+* Simplify client configuration
+* 🌿 Generated with Fern
+
 ## 1.0.0 - 2026-01-20
 * refactor: remove deprecated is_active parameter from agent API
 * Remove the is_active parameter from agent create, update, and list operations to simplify the API interface. This parameter was no longer needed and its removal streamlines agent management operations.
