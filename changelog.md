@@ -1,3 +1,12 @@
+## 1.0.2 - 2026-01-20
+* refactor: remove User-Agent header from default client headers
+* Remove the hardcoded User-Agent header from the default headers configuration in the phenomlClient class. This simplifies the header setup and removes a potentially outdated version reference.
+* Key changes:
+* Remove User-Agent header with hardcoded version from default headers
+* Maintain other Fern-specific headers for SDK identification
+* Simplify client configuration by reducing header complexity
+* 🌿 Generated with Fern
+
 ## 1.0.1 - 2026-01-20
 * refactor: remove User-Agent header from client configuration
 * Remove the hardcoded User-Agent header from the default headers configuration in the phenomlClient. This simplifies the client setup by reducing the number of predefined headers while maintaining the essential Fern SDK identification headers.
