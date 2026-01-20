@@ -3,13 +3,10 @@
 /**
  * @example
  *     {
- *         is_active: true,
  *         tags: "tags"
  *     }
  */
 export interface AgentListRequest {
-    /** Filter by active status */
-    is_active?: boolean;
     /** Filter by tags */
     tags?: string;
 }

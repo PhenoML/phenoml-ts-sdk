@@ -29,8 +29,7 @@ Creates a new PhenoAgent with specified configuration
 ```typescript
 await client.agent.create({
     name: "name",
-    prompts: ["prompt_123", "prompt_456"],
-    is_active: true
+    prompts: ["prompt_123", "prompt_456"]
 });
 
 ```
@@ -95,7 +94,6 @@ Retrieves a list of PhenoAgents belonging to the authenticated user
 
 ```typescript
 await client.agent.list({
-    is_active: true,
     tags: "tags"
 });
 
@@ -225,8 +223,7 @@ Updates an existing agent's configuration
 ```typescript
 await client.agent.update("id", {
     name: "name",
-    prompts: ["prompt_123", "prompt_456"],
-    is_active: true
+    prompts: ["prompt_123", "prompt_456"]
 });
 
 ```

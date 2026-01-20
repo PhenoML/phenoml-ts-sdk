@@ -40,8 +40,7 @@ export class Agent {
      * @example
      *     await client.agent.create({
      *         name: "name",
-     *         prompts: ["prompt_123", "prompt_456"],
-     *         is_active: true
+     *         prompts: ["prompt_123", "prompt_456"]
      *     })
      */
     public create(
@@ -129,7 +128,6 @@ export class Agent {
      *
      * @example
      *     await client.agent.list({
-     *         is_active: true,
      *         tags: "tags"
      *     })
      */
@@ -144,12 +142,8 @@ export class Agent {
         request: phenoml.agent.AgentListRequest = {},
         requestOptions?: Agent.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.agent.AgentListResponse>> {
-        const { is_active: isActive, tags } = request;
+        const { tags } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (isActive != null) {
-            _queryParams.is_active = isActive.toString();
-        }
-
         if (tags != null) {
             _queryParams.tags = tags;
         }
@@ -311,8 +305,7 @@ export class Agent {
      * @example
      *     await client.agent.update("id", {
      *         name: "name",
-     *         prompts: ["prompt_123", "prompt_456"],
-     *         is_active: true
+     *         prompts: ["prompt_123", "prompt_456"]
      *     })
      */
     public update(
