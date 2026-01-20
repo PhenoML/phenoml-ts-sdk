@@ -1,3 +1,15 @@
+## 1.0.2 - 2026-01-20
+* refactor: remove User-Agent header from default headers
+* The User-Agent header has been removed from the default headers configuration
+* in the client initialization. This streamlines the header setup by removing
+* redundant user agent information that may have been conflicting with or
+* duplicating headers set elsewhere in the SDK.
+* Key changes:
+* Remove User-Agent header from default client headers
+* Maintain other Fern-specific headers for SDK identification
+* Simplify header configuration in client setup
+* 🌿 Generated with Fern
+
 ## 1.0.1 - 2026-01-20
 * refactor: remove User-Agent header from client configuration
 * Remove the hardcoded User-Agent header from the default headers configuration in the phenomlClient. This simplifies the client setup by reducing the number of predefined headers while maintaining the essential Fern SDK identification headers.
