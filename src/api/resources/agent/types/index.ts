@@ -2,6 +2,7 @@ export * from "./AgentChatResponse.js";
 export * from "./AgentCreateRequest.js";
 export * from "./AgentDeleteResponse.js";
 export * from "./AgentGetChatMessagesRequestOrder.js";
+export * from "./AgentGetChatMessagesRequestRole.js";
 export * from "./AgentGetChatMessagesResponse.js";
 export * from "./AgentListResponse.js";
 export * from "./AgentPromptsResponse.js";

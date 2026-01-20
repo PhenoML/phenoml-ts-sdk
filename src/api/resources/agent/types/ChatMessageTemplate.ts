@@ -5,8 +5,14 @@ export interface ChatMessageTemplate {
     id?: string;
     /** Chat session ID */
     session_id?: string;
-    /** Message role */
-    role?: string;
+    /**
+     * Message role indicating the source/type of the message:
+     * - `user` - Messages from the user
+     * - `assistant` - Text responses from the AI assistant
+     * - `model` - Function/tool call requests to the model
+     * - `function` - Function/tool call results
+     */
+    role?: ChatMessageTemplate.Role;
     /** Message content */
     content?: string;
     /** Message created time */
@@ -23,4 +29,21 @@ export interface ChatMessageTemplate {
     function_result?: Record<string, unknown>;
     /** Message order */
     message_order?: number;
+}
+
+export namespace ChatMessageTemplate {
+    /**
+     * Message role indicating the source/type of the message:
+     * - `user` - Messages from the user
+     * - `assistant` - Text responses from the AI assistant
+     * - `model` - Function/tool call requests to the model
+     * - `function` - Function/tool call results
+     */
+    export const Role = {
+        User: "user",
+        Assistant: "assistant",
+        Model: "model",
+        Function: "function",
+    } as const;
+    export type Role = (typeof Role)[keyof typeof Role];
 }

@@ -21,7 +21,9 @@ export class FhirProvider {
     }
 
     /**
-     * Creates a new FHIR provider configuration with authentication credentials
+     * Creates a new FHIR provider configuration with authentication credentials.
+     *
+     * Note: The "sandbox" provider type cannot be created via this API - it is managed internally.
      *
      * @param {phenoml.fhirProvider.FhirProviderCreateRequest} request
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
@@ -128,12 +130,14 @@ export class FhirProvider {
     }
 
     /**
-     * Retrieves a list of all active FHIR providers for the authenticated user
+     * Retrieves a list of all active FHIR providers for the authenticated user.
+     *
+     * On shared instances, only sandbox providers are returned.
+     * Sandbox providers return FhirProviderSandboxInfo.
      *
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.fhirProvider.UnauthorizedError}
-     * @throws {@link phenoml.fhirProvider.ForbiddenError}
      * @throws {@link phenoml.fhirProvider.InternalServerError}
      *
      * @example
@@ -181,11 +185,6 @@ export class FhirProvider {
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
-                case 403:
-                    throw new phenoml.fhirProvider.ForbiddenError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
                 case 500:
                     throw new phenoml.fhirProvider.InternalServerError(
                         _response.error.body as unknown,
@@ -218,7 +217,10 @@ export class FhirProvider {
     }
 
     /**
-     * Retrieves a specific FHIR provider configuration by its ID
+     * Retrieves a specific FHIR provider configuration by its ID.
+     *
+     * Sandbox providers return FhirProviderSandboxInfo.
+     * On shared instances, only sandbox providers can be accessed.
      *
      * @param {string} fhirProviderId - ID of the FHIR provider to retrieve
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
@@ -319,7 +321,9 @@ export class FhirProvider {
     }
 
     /**
-     * Soft deletes a FHIR provider by setting is_active to false
+     * Soft deletes a FHIR provider by setting is_active to false.
+     *
+     * Note: Sandbox providers cannot be deleted.
      *
      * @param {string} fhirProviderId - ID of the FHIR provider to delete
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
@@ -420,7 +424,10 @@ export class FhirProvider {
     }
 
     /**
-     * Adds a new authentication configuration to an existing FHIR provider. This enables key rotation and multiple auth configurations per provider.
+     * Adds a new authentication configuration to an existing FHIR provider.
+     * This enables key rotation and multiple auth configurations per provider.
+     *
+     * Note: Sandbox providers cannot be modified.
      *
      * @param {string} fhirProviderId - ID of the FHIR provider to add auth config to
      * @param {phenoml.fhirProvider.FhirProviderAddAuthConfigRequest} request
@@ -535,7 +542,13 @@ export class FhirProvider {
     }
 
     /**
-     * Sets which authentication configuration should be active for a FHIR provider. Only one auth config can be active at a time.
+     * Sets which authentication configuration should be active for a FHIR provider.
+     * Only one auth config can be active at a time.
+     *
+     * If the specified auth config is already active, the request succeeds without
+     * making any changes and returns a message indicating the config is already active.
+     *
+     * Note: Sandbox providers cannot be modified.
      *
      * @param {string} fhirProviderId - ID of the FHIR provider
      * @param {phenoml.fhirProvider.FhirProviderSetActiveAuthConfigRequest} request
@@ -556,7 +569,7 @@ export class FhirProvider {
         fhirProviderId: string,
         request: phenoml.fhirProvider.FhirProviderSetActiveAuthConfigRequest,
         requestOptions?: FhirProvider.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderSetActiveAuthConfigResponse> {
+    ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderResponse> {
         return core.HttpResponsePromise.fromPromise(
             this.__setActiveAuthConfig(fhirProviderId, request, requestOptions),
         );
@@ -566,7 +579,7 @@ export class FhirProvider {
         fhirProviderId: string,
         request: phenoml.fhirProvider.FhirProviderSetActiveAuthConfigRequest,
         requestOptions?: FhirProvider.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderSetActiveAuthConfigResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -591,7 +604,7 @@ export class FhirProvider {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.fhirProvider.FhirProviderSetActiveAuthConfigResponse,
+                data: _response.body as phenoml.fhirProvider.FhirProviderResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -652,7 +665,10 @@ export class FhirProvider {
     }
 
     /**
-     * Removes an authentication configuration from a FHIR provider. Cannot remove the currently active auth configuration.
+     * Removes an authentication configuration from a FHIR provider.
+     * Cannot remove the currently active auth configuration.
+     *
+     * Note: Sandbox providers cannot be modified.
      *
      * @param {string} fhirProviderId - ID of the FHIR provider
      * @param {phenoml.fhirProvider.FhirProviderRemoveAuthConfigRequest} request

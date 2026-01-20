@@ -29,6 +29,8 @@ describe("FhirProvider", () => {
                     key: {
                         auth_config_id: "auth-config-123",
                         is_active_auth_config: true,
+                        created_at: "2024-01-15T10:30:00Z",
+                        updated_at: "2024-01-15T14:45:00Z",
                         public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                         credential_expiry: "2024-12-31T23:59:59Z",
                         scopes: "system/Patient.read system/Observation.read",
@@ -68,6 +70,8 @@ describe("FhirProvider", () => {
                     key: {
                         auth_config_id: "auth-config-123",
                         is_active_auth_config: true,
+                        created_at: "2024-01-15T10:30:00Z",
+                        updated_at: "2024-01-15T14:45:00Z",
                         public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                         credential_expiry: "2024-12-31T23:59:59Z",
                         scopes: "system/Patient.read system/Observation.read",
@@ -215,6 +219,8 @@ describe("FhirProvider", () => {
                         key: {
                             auth_config_id: "auth-config-123",
                             is_active_auth_config: true,
+                            created_at: "2024-01-15T10:30:00Z",
+                            updated_at: "2024-01-15T14:45:00Z",
                             public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                             credential_expiry: "2024-12-31T23:59:59Z",
                             scopes: "system/Patient.read system/Observation.read",
@@ -250,6 +256,8 @@ describe("FhirProvider", () => {
                         key: {
                             auth_config_id: "auth-config-123",
                             is_active_auth_config: true,
+                            created_at: "2024-01-15T10:30:00Z",
+                            updated_at: "2024-01-15T14:45:00Z",
                             public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                             credential_expiry: "2024-12-31T23:59:59Z",
                             scopes: "system/Patient.read system/Observation.read",
@@ -289,24 +297,6 @@ describe("FhirProvider", () => {
             .mockEndpoint()
             .get("/fhir-provider/list")
             .respondWith()
-            .statusCode(403)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.fhirProvider.list();
-        }).rejects.toThrow(phenoml.fhirProvider.ForbiddenError);
-    });
-
-    test("list (4)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { key: "value" };
-        server
-            .mockEndpoint()
-            .get("/fhir-provider/list")
-            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -335,6 +325,8 @@ describe("FhirProvider", () => {
                     key: {
                         auth_config_id: "auth-config-123",
                         is_active_auth_config: true,
+                        created_at: "2024-01-15T10:30:00Z",
+                        updated_at: "2024-01-15T14:45:00Z",
                         public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                         credential_expiry: "2024-12-31T23:59:59Z",
                         scopes: "system/Patient.read system/Observation.read",
@@ -368,6 +360,8 @@ describe("FhirProvider", () => {
                     key: {
                         auth_config_id: "auth-config-123",
                         is_active_auth_config: true,
+                        created_at: "2024-01-15T10:30:00Z",
+                        updated_at: "2024-01-15T14:45:00Z",
                         public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                         credential_expiry: "2024-12-31T23:59:59Z",
                         scopes: "system/Patient.read system/Observation.read",
@@ -562,6 +556,8 @@ describe("FhirProvider", () => {
                     key: {
                         auth_config_id: "auth-config-123",
                         is_active_auth_config: true,
+                        created_at: "2024-01-15T10:30:00Z",
+                        updated_at: "2024-01-15T14:45:00Z",
                         public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                         credential_expiry: "2024-12-31T23:59:59Z",
                         scopes: "system/Patient.read system/Observation.read",
@@ -598,6 +594,8 @@ describe("FhirProvider", () => {
                     key: {
                         auth_config_id: "auth-config-123",
                         is_active_auth_config: true,
+                        created_at: "2024-01-15T10:30:00Z",
+                        updated_at: "2024-01-15T14:45:00Z",
                         public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                         credential_expiry: "2024-12-31T23:59:59Z",
                         scopes: "system/Patient.read system/Observation.read",
@@ -720,7 +718,7 @@ describe("FhirProvider", () => {
         const rawRequestBody = { auth_config_id: "auth-config-123" };
         const rawResponseBody = {
             success: true,
-            message: "FHIR provider auth config set as active successfully",
+            message: "Fhir provider created successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
                 user_id: "user-123",
@@ -733,6 +731,8 @@ describe("FhirProvider", () => {
                     key: {
                         auth_config_id: "auth-config-123",
                         is_active_auth_config: true,
+                        created_at: "2024-01-15T10:30:00Z",
+                        updated_at: "2024-01-15T14:45:00Z",
                         public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                         credential_expiry: "2024-12-31T23:59:59Z",
                         scopes: "system/Patient.read system/Observation.read",
@@ -756,7 +756,7 @@ describe("FhirProvider", () => {
         });
         expect(response).toEqual({
             success: true,
-            message: "FHIR provider auth config set as active successfully",
+            message: "Fhir provider created successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
                 user_id: "user-123",
@@ -769,6 +769,8 @@ describe("FhirProvider", () => {
                     key: {
                         auth_config_id: "auth-config-123",
                         is_active_auth_config: true,
+                        created_at: "2024-01-15T10:30:00Z",
+                        updated_at: "2024-01-15T14:45:00Z",
                         public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                         credential_expiry: "2024-12-31T23:59:59Z",
                         scopes: "system/Patient.read system/Observation.read",
@@ -904,6 +906,8 @@ describe("FhirProvider", () => {
                     key: {
                         auth_config_id: "auth-config-123",
                         is_active_auth_config: true,
+                        created_at: "2024-01-15T10:30:00Z",
+                        updated_at: "2024-01-15T14:45:00Z",
                         public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                         credential_expiry: "2024-12-31T23:59:59Z",
                         scopes: "system/Patient.read system/Observation.read",
@@ -940,6 +944,8 @@ describe("FhirProvider", () => {
                     key: {
                         auth_config_id: "auth-config-123",
                         is_active_auth_config: true,
+                        created_at: "2024-01-15T10:30:00Z",
+                        updated_at: "2024-01-15T14:45:00Z",
                         public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                         credential_expiry: "2024-12-31T23:59:59Z",
                         scopes: "system/Patient.read system/Observation.read",

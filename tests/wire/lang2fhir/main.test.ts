@@ -221,7 +221,10 @@ describe("Lang2Fhir", () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "Appointments between March 2-9, 2025" };
-        const rawResponseBody = { resourceType: "Appointment", searchParams: "date=ge2025-03-02&date=le2025-03-09" };
+        const rawResponseBody = {
+            resourceType: "AllergyIntolerance",
+            searchParams: "date=ge2025-03-02&date=le2025-03-09",
+        };
         server
             .mockEndpoint()
             .post("/lang2fhir/search")
@@ -235,7 +238,7 @@ describe("Lang2Fhir", () => {
             text: "Appointments between March 2-9, 2025",
         });
         expect(response).toEqual({
-            resourceType: "Appointment",
+            resourceType: "AllergyIntolerance",
             searchParams: "date=ge2025-03-02&date=le2025-03-09",
         });
     });

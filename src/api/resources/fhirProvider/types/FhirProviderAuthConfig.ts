@@ -11,12 +11,17 @@ export interface FhirProviderAuthConfig {
     auth_method?: phenoml.fhirProvider.AuthMethod;
     /** Whether this auth configuration is currently active */
     is_active_auth_config?: boolean;
+    /** Timestamp when this auth configuration was created */
+    created_at?: string;
+    /** Timestamp when this auth configuration was last updated */
+    updated_at?: string;
     /** Public key certificate in PEM format (visible for JWT auth) */
     public_key_cert_pem?: string;
     json_web_key?: phenoml.fhirProvider.JsonWebKey;
     /** Expiry time for credentials (JWT auth only) */
     credential_expiry?: string;
     smart_configuration?: phenoml.fhirProvider.SmartConfiguration;
+    service_account_metadata?: phenoml.fhirProvider.ServiceAccountMetadata;
     /** OAuth scopes */
     scopes?: string;
 }

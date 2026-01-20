@@ -212,7 +212,14 @@ export class Lang2Fhir {
     }
 
     /**
-     * Converts natural language text into FHIR search parameters
+     * Converts natural language text into FHIR search parameters.
+     * Automatically identifies the appropriate FHIR resource type and generates valid search query parameters.
+     *
+     * Supported resource types include: AllergyIntolerance, Appointment, CarePlan, CareTeam, Condition,
+     * Coverage, Device, DiagnosticReport, DocumentReference, Encounter, Goal, Immunization, Location,
+     * Medication, MedicationRequest, Observation, Organization, Patient, PlanDefinition, Practitioner,
+     * PractitionerRole, Procedure, Provenance, Questionnaire, QuestionnaireResponse, RelatedPerson,
+     * Schedule, ServiceRequest, Slot, and Specimen.
      *
      * @param {phenoml.lang2Fhir.SearchRequest} request
      * @param {Lang2Fhir.RequestOptions} requestOptions - Request-specific configuration.

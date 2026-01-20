@@ -2,7 +2,48 @@
 
 export interface SearchResponse {
     /** The FHIR resource type identified for the search */
-    resourceType?: string;
-    /** FHIR search parameters in standard format */
+    resourceType?: SearchResponse.ResourceType;
+    /**
+     * FHIR search parameters in standard query string format.
+     * Parameters are formatted according to the FHIR specification with appropriate operators.
+     * Code parameters are resolved to standard terminology codes (SNOMED CT, LOINC, RxNorm, ICD-10-CM).
+     */
     searchParams?: string;
+}
+
+export namespace SearchResponse {
+    /** The FHIR resource type identified for the search */
+    export const ResourceType = {
+        AllergyIntolerance: "AllergyIntolerance",
+        Appointment: "Appointment",
+        CarePlan: "CarePlan",
+        CareTeam: "CareTeam",
+        Condition: "Condition",
+        Coverage: "Coverage",
+        Device: "Device",
+        DiagnosticReport: "DiagnosticReport",
+        DocumentReference: "DocumentReference",
+        Encounter: "Encounter",
+        Goal: "Goal",
+        Immunization: "Immunization",
+        Location: "Location",
+        Medication: "Medication",
+        MedicationRequest: "MedicationRequest",
+        Observation: "Observation",
+        Organization: "Organization",
+        Patient: "Patient",
+        PlanDefinition: "PlanDefinition",
+        Practitioner: "Practitioner",
+        PractitionerRole: "PractitionerRole",
+        Procedure: "Procedure",
+        Provenance: "Provenance",
+        Questionnaire: "Questionnaire",
+        QuestionnaireResponse: "QuestionnaireResponse",
+        RelatedPerson: "RelatedPerson",
+        Schedule: "Schedule",
+        ServiceRequest: "ServiceRequest",
+        Slot: "Slot",
+        Specimen: "Specimen",
+    } as const;
+    export type ResourceType = (typeof ResourceType)[keyof typeof ResourceType];
 }

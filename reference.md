@@ -514,7 +514,7 @@ Retrieves a list of chat messages for a given chat session
 await client.agent.getChatMessages({
     chat_session_id: "chat_session_id",
     num_messages: 1,
-    role: "role",
+    role: "user",
     order: "asc"
 });
 
@@ -1589,7 +1589,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">delete</a>(fhirProviderId, fhirPath, { ...params }) -> Record<string, unknown></code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">delete</a>(fhirProviderId, fhirPath, { ...params }) -> Record&lt;string, unknown&gt;</code></summary>
 <dl>
 <dd>
 
@@ -1914,7 +1914,9 @@ The ID of the FHIR provider to use. Can be either:
 <dl>
 <dd>
 
-Creates a new FHIR provider configuration with authentication credentials
+Creates a new FHIR provider configuration with authentication credentials.
+
+Note: The "sandbox" provider type cannot be created via this API - it is managed internally.
 </dd>
 </dl>
 </dd>
@@ -1982,7 +1984,10 @@ await client.fhirProvider.create({
 <dl>
 <dd>
 
-Retrieves a list of all active FHIR providers for the authenticated user
+Retrieves a list of all active FHIR providers for the authenticated user.
+
+On shared instances, only sandbox providers are returned.
+Sandbox providers return FhirProviderSandboxInfo.
 </dd>
 </dl>
 </dd>
@@ -2037,7 +2042,10 @@ await client.fhirProvider.list();
 <dl>
 <dd>
 
-Retrieves a specific FHIR provider configuration by its ID
+Retrieves a specific FHIR provider configuration by its ID.
+
+Sandbox providers return FhirProviderSandboxInfo.
+On shared instances, only sandbox providers can be accessed.
 </dd>
 </dl>
 </dd>
@@ -2100,7 +2108,9 @@ await client.fhirProvider.get("fhir_provider_id");
 <dl>
 <dd>
 
-Soft deletes a FHIR provider by setting is_active to false
+Soft deletes a FHIR provider by setting is_active to false.
+
+Note: Sandbox providers cannot be deleted.
 </dd>
 </dl>
 </dd>
@@ -2163,7 +2173,10 @@ await client.fhirProvider.delete("fhir_provider_id");
 <dl>
 <dd>
 
-Adds a new authentication configuration to an existing FHIR provider. This enables key rotation and multiple auth configurations per provider.
+Adds a new authentication configuration to an existing FHIR provider.
+This enables key rotation and multiple auth configurations per provider.
+
+Note: Sandbox providers cannot be modified.
 </dd>
 </dl>
 </dd>
@@ -2224,7 +2237,7 @@ await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", 
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">setActiveAuthConfig</a>(fhirProviderId, { ...params }) -> phenoml.FhirProviderSetActiveAuthConfigResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">setActiveAuthConfig</a>(fhirProviderId, { ...params }) -> phenoml.FhirProviderResponse</code></summary>
 <dl>
 <dd>
 
@@ -2236,7 +2249,13 @@ await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", 
 <dl>
 <dd>
 
-Sets which authentication configuration should be active for a FHIR provider. Only one auth config can be active at a time.
+Sets which authentication configuration should be active for a FHIR provider.
+Only one auth config can be active at a time.
+
+If the specified auth config is already active, the request succeeds without
+making any changes and returns a message indicating the config is already active.
+
+Note: Sandbox providers cannot be modified.
 </dd>
 </dl>
 </dd>
@@ -2309,7 +2328,10 @@ await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e
 <dl>
 <dd>
 
-Removes an authentication configuration from a FHIR provider. Cannot remove the currently active auth configuration.
+Removes an authentication configuration from a FHIR provider.
+Cannot remove the currently active auth configuration.
+
+Note: Sandbox providers cannot be modified.
 </dd>
 </dl>
 </dd>
@@ -2517,7 +2539,14 @@ await client.lang2Fhir.createMulti({
 <dl>
 <dd>
 
-Converts natural language text into FHIR search parameters
+Converts natural language text into FHIR search parameters.
+Automatically identifies the appropriate FHIR resource type and generates valid search query parameters.
+
+Supported resource types include: AllergyIntolerance, Appointment, CarePlan, CareTeam, Condition,
+Coverage, Device, DiagnosticReport, DocumentReference, Encounter, Goal, Immunization, Location,
+Medication, MedicationRequest, Observation, Organization, Patient, PlanDefinition, Practitioner,
+PractitionerRole, Procedure, Provenance, Questionnaire, QuestionnaireResponse, RelatedPerson,
+Schedule, ServiceRequest, Slot, and Specimen.
 </dd>
 </dl>
 </dd>

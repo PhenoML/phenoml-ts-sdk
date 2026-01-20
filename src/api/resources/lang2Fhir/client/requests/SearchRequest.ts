@@ -7,6 +7,16 @@
  *     }
  */
 export interface SearchRequest {
-    /** Natural language text to convert into FHIR search parameters */
+    /**
+     * Natural language text to convert into FHIR search parameters.
+     * The system will automatically identify the appropriate resource type and generate valid search parameters.
+     *
+     * Examples:
+     * - "Appointments between March 2-9, 2025" → Appointment search with date range
+     * - "Patients with diabetes" → Condition search with code parameter
+     * - "Active medication requests for metformin" → MedicationRequest search
+     * - "Lab results for creatinine" → DiagnosticReport search
+     * - "Dr. Smith's schedule" → Practitioner or Schedule search
+     */
     text: string;
 }

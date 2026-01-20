@@ -695,7 +695,7 @@ export class Agent {
      *     await client.agent.getChatMessages({
      *         chat_session_id: "chat_session_id",
      *         num_messages: 1,
-     *         role: "role",
+     *         role: "user",
      *         order: "asc"
      *     })
      */

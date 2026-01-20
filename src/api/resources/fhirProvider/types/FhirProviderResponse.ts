@@ -2,8 +2,19 @@
 
 import type * as phenoml from "../../../index.js";
 
+/**
+ * Response payload for a single FHIR Provider operation.
+ */
 export interface FhirProviderResponse {
     success?: boolean;
     message?: string;
-    data?: phenoml.fhirProvider.FhirProviderTemplate;
+    /** Provider details. Sandbox providers return FhirProviderSandboxInfo. */
+    data?: FhirProviderResponse.Data;
+}
+
+export namespace FhirProviderResponse {
+    /**
+     * Provider details. Sandbox providers return FhirProviderSandboxInfo.
+     */
+    export type Data = phenoml.fhirProvider.FhirProviderTemplate | phenoml.fhirProvider.FhirProviderSandboxInfo;
 }

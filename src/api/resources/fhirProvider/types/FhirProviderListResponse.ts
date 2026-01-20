@@ -2,8 +2,25 @@
 
 import type * as phenoml from "../../../index.js";
 
+/**
+ * Response payload for listing FHIR Providers.
+ * On shared instances, only sandbox providers are returned (as FhirProviderSandboxInfo).
+ * On dedicated instances, full provider details are returned (as FhirProviderTemplate).
+ */
 export interface FhirProviderListResponse {
     success?: boolean;
     message?: string;
-    fhir_providers?: phenoml.fhirProvider.FhirProviderTemplate[];
+    /**
+     * List of FHIR providers. Sandbox providers return FhirProviderSandboxInfo,
+     * other providers return FhirProviderTemplate.
+     */
+    fhir_providers?: FhirProviderListResponse.FhirProviders.Item[];
+}
+
+export namespace FhirProviderListResponse {
+    export type FhirProviders = FhirProviders.Item[];
+
+    export namespace FhirProviders {
+        export type Item = phenoml.fhirProvider.FhirProviderTemplate | phenoml.fhirProvider.FhirProviderSandboxInfo;
+    }
 }

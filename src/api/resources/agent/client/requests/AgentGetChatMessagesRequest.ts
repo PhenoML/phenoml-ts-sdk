@@ -7,7 +7,7 @@ import type * as phenoml from "../../../../index.js";
  *     {
  *         chat_session_id: "chat_session_id",
  *         num_messages: 1,
- *         role: "role",
+ *         role: "user",
  *         order: "asc"
  *     }
  */
@@ -16,8 +16,17 @@ export interface AgentGetChatMessagesRequest {
     chat_session_id: string;
     /** Number of messages to return */
     num_messages?: number;
-    /** Filter by role */
-    role?: string;
+    /**
+     * Filter by one or more message roles. Multiple roles can be specified as a comma-separated string.
+     * If not specified, messages with all roles are returned.
+     *
+     * **Available roles:**
+     * - `user` - Messages from the user
+     * - `assistant` - Text responses from the AI assistant
+     * - `model` - Function/tool call requests from the model
+     * - `function` - Function/tool call results
+     */
+    role?: phenoml.agent.AgentGetChatMessagesRequestRole;
     /** Order of messages */
     order?: phenoml.agent.AgentGetChatMessagesRequestOrder;
 }
