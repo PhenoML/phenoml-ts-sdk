@@ -4,8 +4,7 @@
  * @example
  *     {
  *         name: "Medical Assistant System Prompt",
- *         content: "You are a helpful medical assistant specialized in FHIR data processing...",
- *         is_active: true
+ *         content: "You are a helpful medical assistant specialized in FHIR data processing..."
  *     }
  */
 export interface AgentPromptsCreateRequest {
@@ -17,8 +16,6 @@ export interface AgentPromptsCreateRequest {
     content: string;
     /** Whether this is a default prompt */
     is_default?: boolean;
-    /** Whether the prompt is active */
-    is_active: boolean;
     /** Tags for categorizing the prompt */
     tags?: string[];
 }

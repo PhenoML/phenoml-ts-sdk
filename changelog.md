@@ -1,3 +1,18 @@
+## 2.0.0 - 2026-01-21
+* feat: remove is_active field from agent prompts API
+* Remove the is_active field from agent prompt models and API endpoints to simplify
+* prompt management. This change affects both create and update operations, as well
+* as the underlying data types and test fixtures. The delete operation now performs
+* actual deletion rather than soft deletion.
+* Key changes:
+* Remove is_active field from AgentPromptsCreateRequest and AgentPromptsUpdateRequest
+* Remove is_active field from PromptTemplate and AgentTemplate types
+* Update prompt deletion to perform hard delete instead of soft delete
+* Remove User-Agent header from client configuration
+* Update documentation and examples to reflect simplified API
+* Update all test fixtures to remove is_active references
+* 🌿 Generated with Fern
+
 ## 1.1.0 - 2026-01-21
 * feat: add code system management and search endpoints to Construe API
 * This update adds comprehensive code system management and search capabilities to the Construe API client, enabling users to browse available code systems and perform different types of code searches.

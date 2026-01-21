@@ -13,8 +13,6 @@ export interface AgentPromptsUpdateRequest {
     content?: string;
     /** Whether this is a default prompt */
     is_default?: boolean;
-    /** Whether the prompt is active */
-    is_active?: boolean;
     /** Tags for categorizing the prompt */
     tags?: string[];
 }
