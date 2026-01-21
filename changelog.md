@@ -1,3 +1,12 @@
+## 2.0.1 - 2026-01-21
+* refactor: remove User-Agent header from default client headers
+* Removed the hardcoded User-Agent header from the default HTTP headers configuration in the phenoml client. This change allows for more flexible user agent management and eliminates the need to maintain version-specific user agent strings in the client configuration.
+* Key changes:
+* Remove "User-Agent": "phenoml/2.0.0" from default headers object
+* Maintain other Fern SDK identification headers (X-Fern-Language, X-Fern-SDK-Name, X-Fern-Runtime, X-Fern-Runtime-Version)
+* Simplify client header configuration
+* 🌿 Generated with Fern
+
 ## 2.0.0 - 2026-01-21
 * feat: remove is_active field from agent prompts API
 * Remove the is_active field from agent prompt models and API endpoints to simplify
