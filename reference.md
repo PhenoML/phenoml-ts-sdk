@@ -579,8 +579,7 @@ Creates a new agent prompt
 ```typescript
 await client.agent.prompts.create({
     name: "Medical Assistant System Prompt",
-    content: "You are a helpful medical assistant specialized in FHIR data processing...",
-    is_active: true
+    content: "You are a helpful medical assistant specialized in FHIR data processing..."
 });
 
 ```
@@ -818,7 +817,7 @@ await client.agent.prompts.update("id");
 <dl>
 <dd>
 
-Soft deletes a prompt by setting is_active to false
+Deletes a prompt
 </dd>
 </dl>
 </dd>

@@ -11,8 +11,6 @@ export interface AgentTemplate {
     prompts?: string[];
     /** Array of MCP server tool IDs used by this agent */
     tools?: string[];
-    /** Whether the agent is active */
-    is_active?: boolean;
     /** Tags for categorizing the agent */
     tags?: string[];
     /** FHIR provider ID(s) - must be valid UUIDs from existing FHIR providers */

@@ -1,3 +1,14 @@
+## 2.0.0 - 2026-01-21
+* refactor: remove is_active field from agent prompts and templates
+* Remove the is_active field from agent prompt and template interfaces across the SDK to simplify the data model. This change affects API request/response types, client methods, and test data.
+* Key changes:
+* Remove is_active field from AgentPromptsCreateRequest and AgentPromptsUpdateRequest
+* Remove is_active field from AgentTemplate and PromptTemplate types
+* Update delete method documentation to indicate hard deletion instead of soft deletion
+* Remove User-Agent header from client initialization
+* Update all test cases to exclude is_active field
+* 🌿 Generated with Fern
+
 ## 1.1.0 - 2026-01-21
 * feat: add code system management and search endpoints to Construe API
 * This update adds comprehensive code system management and search capabilities to the Construe API client, enabling users to browse available code systems and perform different types of code searches.
