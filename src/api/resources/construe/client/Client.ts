@@ -227,6 +227,577 @@ export class Construe {
         }
     }
 
+    /**
+     * Returns metadata about all available code systems including built-in and custom systems.
+     *
+     * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.construe.UnauthorizedError}
+     * @throws {@link phenoml.construe.InternalServerError}
+     *
+     * @example
+     *     await client.construe.listAvailableCodeSystems()
+     */
+    public listAvailableCodeSystems(
+        requestOptions?: Construe.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.construe.ListCodeSystemsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listAvailableCodeSystems(requestOptions));
+    }
+
+    private async __listAvailableCodeSystems(
+        requestOptions?: Construe.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.construe.ListCodeSystemsResponse>> {
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                "construe/codes/systems",
+            ),
+            method: "GET",
+            headers: _headers,
+            queryParameters: requestOptions?.queryParams,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as phenoml.construe.ListCodeSystemsResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new phenoml.construe.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new phenoml.construe.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /construe/codes/systems.");
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Returns a paginated list of all codes in the specified code system.
+     *
+     * @param {string} codesystem - Code system name (e.g., "ICD-10-CM", "SNOMED_CT_US_LITE")
+     * @param {phenoml.construe.GetConstrueCodesCodesystemRequest} request
+     * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.construe.BadRequestError}
+     * @throws {@link phenoml.construe.UnauthorizedError}
+     * @throws {@link phenoml.construe.NotFoundError}
+     * @throws {@link phenoml.construe.InternalServerError}
+     *
+     * @example
+     *     await client.construe.listCodesInACodeSystem("ICD-10-CM", {
+     *         version: "2025",
+     *         cursor: "cursor",
+     *         limit: 1
+     *     })
+     */
+    public listCodesInACodeSystem(
+        codesystem: string,
+        request: phenoml.construe.GetConstrueCodesCodesystemRequest = {},
+        requestOptions?: Construe.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.construe.ListCodesResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listCodesInACodeSystem(codesystem, request, requestOptions));
+    }
+
+    private async __listCodesInACodeSystem(
+        codesystem: string,
+        request: phenoml.construe.GetConstrueCodesCodesystemRequest = {},
+        requestOptions?: Construe.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.construe.ListCodesResponse>> {
+        const { version, cursor, limit } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (version != null) {
+            _queryParams.version = version;
+        }
+
+        if (cursor != null) {
+            _queryParams.cursor = cursor;
+        }
+
+        if (limit != null) {
+            _queryParams.limit = limit.toString();
+        }
+
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `construe/codes/${core.url.encodePathParam(codesystem)}`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as phenoml.construe.ListCodesResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.construe.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.construe.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /construe/codes/{codesystem}.");
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Returns details for a specific code within a code system.
+     *
+     * @param {string} codesystem - Code system name
+     * @param {string} codeId - The code identifier
+     * @param {phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest} request
+     * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.construe.BadRequestError}
+     * @throws {@link phenoml.construe.UnauthorizedError}
+     * @throws {@link phenoml.construe.NotFoundError}
+     * @throws {@link phenoml.construe.InternalServerError}
+     *
+     * @example
+     *     await client.construe.getASpecificCode("ICD-10-CM", "E11.65", {
+     *         version: "version"
+     *     })
+     */
+    public getASpecificCode(
+        codesystem: string,
+        codeId: string,
+        request: phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest = {},
+        requestOptions?: Construe.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.construe.GetCodeResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__getASpecificCode(codesystem, codeId, request, requestOptions),
+        );
+    }
+
+    private async __getASpecificCode(
+        codesystem: string,
+        codeId: string,
+        request: phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest = {},
+        requestOptions?: Construe.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.construe.GetCodeResponse>> {
+        const { version } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (version != null) {
+            _queryParams.version = version;
+        }
+
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `construe/codes/${core.url.encodePathParam(codesystem)}/${core.url.encodePathParam(codeId)}`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as phenoml.construe.GetCodeResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.construe.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.construe.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError(
+                    "Timeout exceeded when calling GET /construe/codes/{codesystem}/{codeID}.",
+                );
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Performs semantic similarity search using vector embeddings.
+     *
+     * **When to use**: Best for natural language queries where you want to find conceptually
+     * related codes, even when different terminology is used. The search understands meaning,
+     * not just keywords.
+     *
+     * **Examples**:
+     * - Query "trouble breathing at night" finds codes like "Sleep apnea", "Orthopnea",
+     *   "Nocturnal dyspnea" — semantically related but no exact keyword matches
+     * - Query "heart problems" finds "Myocardial infarction", "Cardiac arrest", "Arrhythmia"
+     *
+     * **Trade-offs**: Slower than text search (requires embedding generation), but finds
+     * conceptually similar results that keyword search would miss.
+     *
+     * See also: `/search/text` for faster keyword-based lookup with typo tolerance.
+     *
+     * @param {string} codesystem - Code system name
+     * @param {phenoml.construe.GetConstrueCodesCodesystemSearchSemanticRequest} request
+     * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.construe.BadRequestError}
+     * @throws {@link phenoml.construe.UnauthorizedError}
+     * @throws {@link phenoml.construe.NotFoundError}
+     * @throws {@link phenoml.construe.InternalServerError}
+     *
+     * @example
+     *     await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
+     *         text: "patient has trouble breathing at night and wakes up gasping",
+     *         version: "version",
+     *         limit: 1
+     *     })
+     */
+    public semanticSearchEmbeddingBased(
+        codesystem: string,
+        request: phenoml.construe.GetConstrueCodesCodesystemSearchSemanticRequest,
+        requestOptions?: Construe.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.construe.SemanticSearchResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__semanticSearchEmbeddingBased(codesystem, request, requestOptions),
+        );
+    }
+
+    private async __semanticSearchEmbeddingBased(
+        codesystem: string,
+        request: phenoml.construe.GetConstrueCodesCodesystemSearchSemanticRequest,
+        requestOptions?: Construe.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.construe.SemanticSearchResponse>> {
+        const { text, version, limit } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams.text = text;
+        if (version != null) {
+            _queryParams.version = version;
+        }
+
+        if (limit != null) {
+            _queryParams.limit = limit.toString();
+        }
+
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `construe/codes/${core.url.encodePathParam(codesystem)}/search/semantic`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as phenoml.construe.SemanticSearchResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.construe.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.construe.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError(
+                    "Timeout exceeded when calling GET /construe/codes/{codesystem}/search/semantic.",
+                );
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Performs fast full-text search over code IDs and descriptions.
+     *
+     * **When to use**: Best for autocomplete UIs, code lookup, or when users know part of
+     * the code ID or specific keywords. Fast response times suitable for typeahead interfaces.
+     *
+     * **Features**:
+     * - Substring matching on code IDs (e.g., "11.65" finds "E11.65")
+     * - Typo tolerance on descriptions (not on code IDs)
+     * - Fast response times (~10-50ms)
+     *
+     * **Examples**:
+     * - Query "E11" finds all codes starting with E11 (diabetes codes)
+     * - Query "diabtes" (typo) still finds "diabetes" codes
+     *
+     * **Trade-offs**: Faster than semantic search, but only matches keywords/substrings.
+     * Won't find conceptually related codes with different terminology.
+     *
+     * See also: `/search/semantic` for finding conceptually similar codes.
+     *
+     * @param {string} codesystem - Code system name
+     * @param {phenoml.construe.GetConstrueCodesCodesystemSearchTextRequest} request
+     * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.construe.BadRequestError}
+     * @throws {@link phenoml.construe.UnauthorizedError}
+     * @throws {@link phenoml.construe.NotFoundError}
+     * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link phenoml.construe.NotImplementedError}
+     * @throws {@link phenoml.construe.ServiceUnavailableError}
+     *
+     * @example
+     *     await client.construe.textSearchKeywordBased("ICD-10-CM", {
+     *         q: "E11.65",
+     *         version: "version",
+     *         limit: 1
+     *     })
+     */
+    public textSearchKeywordBased(
+        codesystem: string,
+        request: phenoml.construe.GetConstrueCodesCodesystemSearchTextRequest,
+        requestOptions?: Construe.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.construe.TextSearchResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__textSearchKeywordBased(codesystem, request, requestOptions));
+    }
+
+    private async __textSearchKeywordBased(
+        codesystem: string,
+        request: phenoml.construe.GetConstrueCodesCodesystemSearchTextRequest,
+        requestOptions?: Construe.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.construe.TextSearchResponse>> {
+        const { q, version, limit } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams.q = q;
+        if (version != null) {
+            _queryParams.version = version;
+        }
+
+        if (limit != null) {
+            _queryParams.limit = limit.toString();
+        }
+
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `construe/codes/${core.url.encodePathParam(codesystem)}/search/text`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as phenoml.construe.TextSearchResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.construe.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.construe.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 501:
+                    throw new phenoml.construe.NotImplementedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 503:
+                    throw new phenoml.construe.ServiceUnavailableError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError(
+                    "Timeout exceeded when calling GET /construe/codes/{codesystem}/search/text.",
+                );
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
     protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
