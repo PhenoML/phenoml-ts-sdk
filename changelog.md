@@ -1,3 +1,12 @@
+## 2.0.1 - 2026-01-21
+* chore: remove User-Agent header from SDK client requests
+* Remove the hardcoded User-Agent header from the default request headers in the phenomlClient. This change streamlines the header configuration by removing a static header that may no longer be needed in the current implementation.
+* Key changes:
+* Remove User-Agent header from default client headers
+* Retain other SDK identification headers (X-Fern-Language, X-Fern-SDK-Name, etc.)
+* Maintain runtime information headers for debugging and analytics
+* 🌿 Generated with Fern
+
 ## 2.0.0 - 2026-01-21
 * feat: remove is_active field from agent prompts API
 * Remove the is_active field from agent prompt models and API endpoints to simplify
