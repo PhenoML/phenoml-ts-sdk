@@ -34,8 +34,7 @@ export class Prompts {
      * @example
      *     await client.agent.prompts.create({
      *         name: "Medical Assistant System Prompt",
-     *         content: "You are a helpful medical assistant specialized in FHIR data processing...",
-     *         is_active: true
+     *         content: "You are a helpful medical assistant specialized in FHIR data processing..."
      *     })
      */
     public create(
@@ -365,7 +364,7 @@ export class Prompts {
     }
 
     /**
-     * Soft deletes a prompt by setting is_active to false
+     * Deletes a prompt
      *
      * @param {string} id - Prompt ID
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.

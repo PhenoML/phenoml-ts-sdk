@@ -11,7 +11,6 @@ describe("Prompts", () => {
         const rawRequestBody = {
             name: "Medical Assistant System Prompt",
             content: "You are a helpful medical assistant specialized in FHIR data processing...",
-            is_active: true,
         };
         const rawResponseBody = {
             success: true,
@@ -22,7 +21,6 @@ describe("Prompts", () => {
                 description: "System prompt for medical assistant agent",
                 content: "You are a helpful medical assistant...",
                 is_default: false,
-                is_active: true,
                 tags: ["medical", "system"],
             },
         };
@@ -38,7 +36,6 @@ describe("Prompts", () => {
         const response = await client.agent.prompts.create({
             name: "Medical Assistant System Prompt",
             content: "You are a helpful medical assistant specialized in FHIR data processing...",
-            is_active: true,
         });
         expect(response).toEqual({
             success: true,
@@ -49,7 +46,6 @@ describe("Prompts", () => {
                 description: "System prompt for medical assistant agent",
                 content: "You are a helpful medical assistant...",
                 is_default: false,
-                is_active: true,
                 tags: ["medical", "system"],
             },
         });
@@ -58,7 +54,7 @@ describe("Prompts", () => {
     test("create (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { name: "name", content: "content", is_active: true };
+        const rawRequestBody = { name: "name", content: "content" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -73,7 +69,6 @@ describe("Prompts", () => {
             return await client.agent.prompts.create({
                 name: "name",
                 content: "content",
-                is_active: true,
             });
         }).rejects.toThrow(phenoml.agent.BadRequestError);
     });
@@ -81,7 +76,7 @@ describe("Prompts", () => {
     test("create (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { name: "name", content: "content", is_active: true };
+        const rawRequestBody = { name: "name", content: "content" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -96,7 +91,6 @@ describe("Prompts", () => {
             return await client.agent.prompts.create({
                 name: "name",
                 content: "content",
-                is_active: true,
             });
         }).rejects.toThrow(phenoml.agent.UnauthorizedError);
     });
@@ -104,7 +98,7 @@ describe("Prompts", () => {
     test("create (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { name: "name", content: "content", is_active: true };
+        const rawRequestBody = { name: "name", content: "content" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -119,7 +113,6 @@ describe("Prompts", () => {
             return await client.agent.prompts.create({
                 name: "name",
                 content: "content",
-                is_active: true,
             });
         }).rejects.toThrow(phenoml.agent.ForbiddenError);
     });
@@ -127,7 +120,7 @@ describe("Prompts", () => {
     test("create (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { name: "name", content: "content", is_active: true };
+        const rawRequestBody = { name: "name", content: "content" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -142,7 +135,6 @@ describe("Prompts", () => {
             return await client.agent.prompts.create({
                 name: "name",
                 content: "content",
-                is_active: true,
             });
         }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
@@ -161,7 +153,6 @@ describe("Prompts", () => {
                     description: "System prompt for medical assistant agent",
                     content: "You are a helpful medical assistant...",
                     is_default: false,
-                    is_active: true,
                     tags: ["medical", "system"],
                 },
             ],
@@ -185,7 +176,6 @@ describe("Prompts", () => {
                     description: "System prompt for medical assistant agent",
                     content: "You are a helpful medical assistant...",
                     is_default: false,
-                    is_active: true,
                     tags: ["medical", "system"],
                 },
             ],
@@ -259,7 +249,6 @@ describe("Prompts", () => {
                 description: "System prompt for medical assistant agent",
                 content: "You are a helpful medical assistant...",
                 is_default: false,
-                is_active: true,
                 tags: ["medical", "system"],
             },
         };
@@ -275,7 +264,6 @@ describe("Prompts", () => {
                 description: "System prompt for medical assistant agent",
                 content: "You are a helpful medical assistant...",
                 is_default: false,
-                is_active: true,
                 tags: ["medical", "system"],
             },
         });
@@ -342,7 +330,6 @@ describe("Prompts", () => {
                 description: "System prompt for medical assistant agent",
                 content: "You are a helpful medical assistant...",
                 is_default: false,
-                is_active: true,
                 tags: ["medical", "system"],
             },
         };
@@ -365,7 +352,6 @@ describe("Prompts", () => {
                 description: "System prompt for medical assistant agent",
                 content: "You are a helpful medical assistant...",
                 is_default: false,
-                is_active: true,
                 tags: ["medical", "system"],
             },
         });
@@ -575,7 +561,6 @@ describe("Prompts", () => {
                 description: "System prompt for medical assistant agent",
                 content: "You are a helpful medical assistant...",
                 is_default: false,
-                is_active: true,
                 tags: ["medical", "system"],
             },
         };
@@ -613,7 +598,6 @@ describe("Prompts", () => {
                 description: "System prompt for medical assistant agent",
                 content: "You are a helpful medical assistant...",
                 is_default: false,
-                is_active: true,
                 tags: ["medical", "system"],
             },
         });
