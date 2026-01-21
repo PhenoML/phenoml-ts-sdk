@@ -1,3 +1,15 @@
+## 3.0.0 - 2026-01-21
+* feat: make provider parameter required for agent operations
+* This change makes the provider parameter required for agent create and update operations,
+* ensuring that all agents must specify a FHIR provider. In shared/experiment environments,
+* the default sandbox provider will be used if a different provider is not explicitly specified.
+* Key changes:
+* Change provider parameter from optional to required in AgentCreateRequest
+* Update provider documentation to clarify requirement and default behavior
+* Update all test cases to include required provider parameter
+* Update client documentation and examples with provider parameter
+* 🌿 Generated with Fern
+
 ## 2.0.0 - 2026-01-21
 * feat: remove is_active field from agent prompts API
 * Remove the is_active field from agent prompt models and API endpoints to simplify

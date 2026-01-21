@@ -29,7 +29,8 @@ Creates a new PhenoAgent with specified configuration
 ```typescript
 await client.agent.create({
     name: "name",
-    prompts: ["prompt_123", "prompt_456"]
+    prompts: ["prompt_123", "prompt_456"],
+    provider: "provider"
 });
 
 ```
@@ -223,7 +224,8 @@ Updates an existing agent's configuration
 ```typescript
 await client.agent.update("id", {
     name: "name",
-    prompts: ["prompt_123", "prompt_456"]
+    prompts: ["prompt_123", "prompt_456"],
+    provider: "provider"
 });
 
 ```

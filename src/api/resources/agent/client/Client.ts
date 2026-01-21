@@ -40,7 +40,8 @@ export class Agent {
      * @example
      *     await client.agent.create({
      *         name: "name",
-     *         prompts: ["prompt_123", "prompt_456"]
+     *         prompts: ["prompt_123", "prompt_456"],
+     *         provider: "provider"
      *     })
      */
     public create(
@@ -305,7 +306,8 @@ export class Agent {
      * @example
      *     await client.agent.update("id", {
      *         name: "name",
-     *         prompts: ["prompt_123", "prompt_456"]
+     *         prompts: ["prompt_123", "prompt_456"],
+     *         provider: "provider"
      *     })
      */
     public update(
