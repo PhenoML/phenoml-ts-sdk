@@ -280,4 +280,560 @@ describe("Construe", () => {
             });
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
+
+    test("listAvailableCodeSystems (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { systems: [{ name: "ICD-10-CM", version: "2025", code_count: 72750, builtin: true }] };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.listAvailableCodeSystems();
+        expect(response).toEqual({
+            systems: [
+                {
+                    name: "ICD-10-CM",
+                    version: "2025",
+                    code_count: 72750,
+                    builtin: true,
+                },
+            ],
+        });
+    });
+
+    test("listAvailableCodeSystems (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.listAvailableCodeSystems();
+        }).rejects.toThrow(phenoml.construe.UnauthorizedError);
+    });
+
+    test("listAvailableCodeSystems (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.listAvailableCodeSystems();
+        }).rejects.toThrow(phenoml.construe.InternalServerError);
+    });
+
+    test("listCodesInACodeSystem (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            system: { name: "ICD-10-CM", version: "2025" },
+            codes: [
+                {
+                    code: "E11.65",
+                    description: "Type 2 diabetes mellitus with hyperglycemia",
+                    definition: "definition",
+                },
+            ],
+            next_cursor: "next_cursor",
+            has_more: true,
+        };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/ICD-10-CM")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.listCodesInACodeSystem("ICD-10-CM", {
+            version: "2025",
+            cursor: "cursor",
+            limit: 1,
+        });
+        expect(response).toEqual({
+            system: {
+                name: "ICD-10-CM",
+                version: "2025",
+            },
+            codes: [
+                {
+                    code: "E11.65",
+                    description: "Type 2 diabetes mellitus with hyperglycemia",
+                    definition: "definition",
+                },
+            ],
+            next_cursor: "next_cursor",
+            has_more: true,
+        });
+    });
+
+    test("listCodesInACodeSystem (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.listCodesInACodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.BadRequestError);
+    });
+
+    test("listCodesInACodeSystem (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.listCodesInACodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.UnauthorizedError);
+    });
+
+    test("listCodesInACodeSystem (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.listCodesInACodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.NotFoundError);
+    });
+
+    test("listCodesInACodeSystem (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.listCodesInACodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.InternalServerError);
+    });
+
+    test("getASpecificCode (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            system: { name: "ICD-10-CM", version: "2025" },
+            code: "E11.65",
+            description: "Type 2 diabetes mellitus with hyperglycemia",
+            definition: "definition",
+        };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/ICD-10-CM/E11.65")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.getASpecificCode("ICD-10-CM", "E11.65", {
+            version: "version",
+        });
+        expect(response).toEqual({
+            system: {
+                name: "ICD-10-CM",
+                version: "2025",
+            },
+            code: "E11.65",
+            description: "Type 2 diabetes mellitus with hyperglycemia",
+            definition: "definition",
+        });
+    });
+
+    test("getASpecificCode (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem/codeID")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.getASpecificCode("codesystem", "codeID");
+        }).rejects.toThrow(phenoml.construe.BadRequestError);
+    });
+
+    test("getASpecificCode (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem/codeID")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.getASpecificCode("codesystem", "codeID");
+        }).rejects.toThrow(phenoml.construe.UnauthorizedError);
+    });
+
+    test("getASpecificCode (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem/codeID")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.getASpecificCode("codesystem", "codeID");
+        }).rejects.toThrow(phenoml.construe.NotFoundError);
+    });
+
+    test("getASpecificCode (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem/codeID")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.getASpecificCode("codesystem", "codeID");
+        }).rejects.toThrow(phenoml.construe.InternalServerError);
+    });
+
+    test("semanticSearchEmbeddingBased (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            system: { name: "ICD-10-CM", version: "2025" },
+            results: [{ code: "E11.65", description: "Type 2 diabetes mellitus with hyperglycemia" }],
+        };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/ICD-10-CM/search/semantic")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
+            text: "patient has trouble breathing at night and wakes up gasping",
+            version: "version",
+            limit: 1,
+        });
+        expect(response).toEqual({
+            system: {
+                name: "ICD-10-CM",
+                version: "2025",
+            },
+            results: [
+                {
+                    code: "E11.65",
+                    description: "Type 2 diabetes mellitus with hyperglycemia",
+                },
+            ],
+        });
+    });
+
+    test("semanticSearchEmbeddingBased (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem/search/semantic")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.semanticSearchEmbeddingBased("codesystem", {
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.construe.BadRequestError);
+    });
+
+    test("semanticSearchEmbeddingBased (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem/search/semantic")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.semanticSearchEmbeddingBased("codesystem", {
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.construe.UnauthorizedError);
+    });
+
+    test("semanticSearchEmbeddingBased (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem/search/semantic")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.semanticSearchEmbeddingBased("codesystem", {
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.construe.NotFoundError);
+    });
+
+    test("semanticSearchEmbeddingBased (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem/search/semantic")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.semanticSearchEmbeddingBased("codesystem", {
+                text: "text",
+            });
+        }).rejects.toThrow(phenoml.construe.InternalServerError);
+    });
+
+    test("textSearchKeywordBased (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            system: { name: "ICD-10-CM", version: "2025" },
+            results: [{ code: "E11.65", description: "Type 2 diabetes mellitus with hyperglycemia" }],
+            found: 150,
+        };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/ICD-10-CM/search/text")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.textSearchKeywordBased("ICD-10-CM", {
+            q: "E11.65",
+            version: "version",
+            limit: 1,
+        });
+        expect(response).toEqual({
+            system: {
+                name: "ICD-10-CM",
+                version: "2025",
+            },
+            results: [
+                {
+                    code: "E11.65",
+                    description: "Type 2 diabetes mellitus with hyperglycemia",
+                },
+            ],
+            found: 150,
+        });
+    });
+
+    test("textSearchKeywordBased (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem/search/text")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.textSearchKeywordBased("codesystem", {
+                q: "q",
+            });
+        }).rejects.toThrow(phenoml.construe.BadRequestError);
+    });
+
+    test("textSearchKeywordBased (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem/search/text")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.textSearchKeywordBased("codesystem", {
+                q: "q",
+            });
+        }).rejects.toThrow(phenoml.construe.UnauthorizedError);
+    });
+
+    test("textSearchKeywordBased (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem/search/text")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.textSearchKeywordBased("codesystem", {
+                q: "q",
+            });
+        }).rejects.toThrow(phenoml.construe.NotFoundError);
+    });
+
+    test("textSearchKeywordBased (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem/search/text")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.textSearchKeywordBased("codesystem", {
+                q: "q",
+            });
+        }).rejects.toThrow(phenoml.construe.InternalServerError);
+    });
+
+    test("textSearchKeywordBased (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem/search/text")
+            .respondWith()
+            .statusCode(501)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.textSearchKeywordBased("codesystem", {
+                q: "q",
+            });
+        }).rejects.toThrow(phenoml.construe.NotImplementedError);
+    });
+
+    test("textSearchKeywordBased (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/codesystem/search/text")
+            .respondWith()
+            .statusCode(503)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.textSearchKeywordBased("codesystem", {
+                q: "q",
+            });
+        }).rejects.toThrow(phenoml.construe.ServiceUnavailableError);
+    });
 });

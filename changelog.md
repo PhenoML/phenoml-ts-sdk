@@ -1,3 +1,18 @@
+## 1.1.0 - 2026-01-21
+* feat: add code system management and search endpoints to Construe API
+* This update adds comprehensive code system management and search capabilities to the Construe API client, enabling users to browse available code systems and perform different types of code searches.
+* Key changes:
+* Add listAvailableCodeSystems() method to retrieve metadata about all available code systems
+* Add listCodesInACodeSystem() method for paginated browsing of codes within a specific system
+* Add getASpecificCode() method to retrieve detailed information about individual codes
+* Add semanticSearchEmbeddingBased() method for natural language queries using vector embeddings
+* Add textSearchKeywordBased() method for fast keyword-based search with typo tolerance
+* Add comprehensive error handling with new error types (NotFoundError, NotImplementedError, ServiceUnavailableError)
+* Add corresponding request/response types and documentation for all new endpoints
+* Remove User-Agent header from default client configuration
+* Update reference documentation with detailed usage examples and API descriptions
+* 🌿 Generated with Fern
+
 ## 1.0.1 - 2026-01-20
 * refactor: remove User-Agent header from client configuration
 * Remove the hardcoded User-Agent header from the default headers configuration in the phenomlClient. This simplifies the client setup by reducing the number of predefined headers while maintaining the essential Fern SDK identification headers.
