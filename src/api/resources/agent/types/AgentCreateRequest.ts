@@ -11,13 +11,17 @@ export interface AgentCreateRequest {
     tools?: string[];
     /** Tags for categorizing the agent */
     tags?: string[];
-    /** FHIR provider ID(s) - must be valid UUIDs from existing FHIR providers */
-    provider?: AgentCreateRequest.Provider;
+    /**
+     * FHIR provider ID(s) for this agent. Required.
+     * In shared/experiment environments, the default sandbox provider is used if a different provider is not explicitly specified.
+     */
+    provider: AgentCreateRequest.Provider;
 }
 
 export namespace AgentCreateRequest {
     /**
-     * FHIR provider ID(s) - must be valid UUIDs from existing FHIR providers
+     * FHIR provider ID(s) for this agent. Required.
+     * In shared/experiment environments, the default sandbox provider is used if a different provider is not explicitly specified.
      */
     export type Provider =
         /**
