@@ -1,3 +1,14 @@
+## 3.1.0 - 2026-01-22
+* feat: add CPT usage requirements and bad gateway error handling
+* Add comprehensive compliance messaging for CPT code system usage across all API endpoints and documentation. Introduce new BadGatewayError exception handling to improve error management in FHIR operations.
+* Key changes:
+* Add AMA compliance notices for all CPT-related endpoints in construe module
+* Update documentation to clarify paid plan requirement for custom code systems
+* Implement BadGatewayError exception class for FHIR client operations
+* Add 502 error handling across all FHIR API methods (search, create, upsert, delete, patch, executeBundle)
+* Enhance API documentation with proper usage requirements and legal compliance information
+* 🌿 Generated with Fern
+
 ## 3.0.0 - 2026-01-21
 * feat: make provider parameter required for agent operations
 * This change makes the provider parameter required for agent create and update operations,
