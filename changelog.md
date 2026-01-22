@@ -1,3 +1,13 @@
+## 3.0.1 - 2026-01-22
+* docs: update API documentation with usage requirements and notices
+* Update documentation across multiple endpoints to clarify usage requirements and legal notices for medical code systems.
+* Key changes:
+* Add paid plan requirement notice for custom code system uploads
+* Include AMA licensing requirements for CPT usage across all relevant endpoints
+* Update ExtractRequestSystem documentation to reflect paid plan requirements for custom systems
+* Improve documentation clarity with proper punctuation and formatting
+* 🌿 Generated with Fern
+
 ## 3.0.0 - 2026-01-21
 * feat: make provider parameter required for agent operations
 * This change makes the provider parameter required for agent create and update operations,
