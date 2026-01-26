@@ -1,3 +1,15 @@
+## 4.0.0 - 2026-01-26
+* refactor: update API terminology and add CPT compliance documentation
+* Refined API documentation and method naming to better reflect the underlying terminology server architecture and added required compliance notices for CPT usage.
+* Key changes:
+* Renamed textSearchKeywordBased method to terminologyServerTextSearch for clarity
+* Enhanced documentation strings to mention "terminology server" for consistency
+* Added CPT compliance notices referencing AMA requirements across all relevant methods
+* Updated custom system documentation to clarify paid plan requirement
+* Added BadGatewayError handling to FHIR client methods
+* Updated all corresponding test files to use new method name
+* 🌿 Generated with Fern
+
 ## 3.0.0 - 2026-01-21
 * feat: make provider parameter required for agent operations
 * This change makes the provider parameter required for agent create and update operations,
