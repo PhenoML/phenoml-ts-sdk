@@ -1,3 +1,15 @@
+## 4.0.0 - 2026-01-26
+* refactor: rename textSearchKeywordBased to terminologyServerTextSearch and improve documentation
+* Update method naming and documentation across the construe API to better reflect terminology server functionality. Enhanced documentation with compliance notes and more descriptive text for all code system operations.
+* Key changes:
+* Rename textSearchKeywordBased method to terminologyServerTextSearch for clarity
+* Add CPT usage compliance notices throughout API documentation
+* Update custom code system documentation to reference paid plan requirement
+* Improve method descriptions to emphasize terminology server integration
+* Add BadGatewayError handling to FHIR client operations
+* Update all test files to use new method naming
+* 🌿 Generated with Fern
+
 ## 3.0.0 - 2026-01-21
 * feat: make provider parameter required for agent operations
 * This change makes the provider parameter required for agent create and update operations,
