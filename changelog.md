@@ -1,3 +1,14 @@
+## 4.0.0 - 2026-01-27
+* refactor: rename and enhance Construe terminology server methods
+* Update method naming to better reflect terminology server functionality and enhance documentation with compliance requirements. The textSearchKeywordBased method is renamed to terminologyServerTextSearch for clarity.
+* Key changes:
+* Rename textSearchKeywordBased to terminologyServerTextSearch method
+* Add CPT usage compliance disclaimers across all relevant endpoints
+* Enhance documentation for terminology server operations with clearer descriptions
+* Add BadGatewayError handling for FHIR client operations
+* Update test suite to reflect renamed method
+* 🌿 Generated with Fern
+
 ## 3.0.0 - 2026-01-21
 * feat: make provider parameter required for agent operations
 * This change makes the provider parameter required for agent create and update operations,
