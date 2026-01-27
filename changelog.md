@@ -1,3 +1,15 @@
+## 3.1.0 - 2026-01-27
+* feat: add terminology server improvements and error handling
+* Enhance the PhenoML SDK with significant improvements to the terminology server functionality and error handling capabilities.
+* Key changes:
+* Rename textSearchKeywordBased to terminologyServerTextSearch for better clarity
+* Add comprehensive AMA CPT usage requirement notices across all relevant methods
+* Improve API documentation with more descriptive and accurate descriptions
+* Add BadGatewayError handling for 502 responses in FHIR client operations
+* Update custom code system documentation to clarify paid plan requirements
+* Enhance error coverage across search, create, upsert, delete, patch, and bundle operations
+* 🌿 Generated with Fern
+
 ## 3.0.0 - 2026-01-21
 * feat: make provider parameter required for agent operations
 * This change makes the provider parameter required for agent create and update operations,
