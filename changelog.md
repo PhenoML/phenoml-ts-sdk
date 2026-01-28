@@ -1,3 +1,14 @@
+## 4.0.0 - 2026-01-28
+* refactor: rename textSearchKeywordBased to terminologyServerTextSearch and improve documentation
+* This change improves the API naming consistency and clarifies the functionality of medical code system operations. The renaming better reflects the method's purpose as a terminology server search operation, while enhanced documentation provides clearer guidance on CPT usage requirements and feature availability.
+* Key changes:
+* Rename textSearchKeywordBased method to terminologyServerTextSearch across all client code and tests
+* Add CPT usage disclaimers and AMA requirements to all relevant method documentation
+* Update code system upload documentation to specify paid plan requirement
+* Enhance method descriptions with more specific terminology (e.g., "terminology server's catalog")
+* Add new BadGatewayError exception handling for FHIR operations
+* 🌿 Generated with Fern
+
 ## 3.0.0 - 2026-01-21
 * feat: make provider parameter required for agent operations
 * This change makes the provider parameter required for agent create and update operations,
