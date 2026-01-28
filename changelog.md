@@ -1,3 +1,17 @@
+## 4.0.0 - 2026-01-28
+* refactor: rename textSearchKeywordBased to terminologyServerTextSearch
+* Improves API clarity by renaming the text search method to better reflect its
+* functionality as a terminology server search. Also updates documentation
+* to include required compliance notices and clearer descriptions.
+* Key changes:
+* Rename textSearchKeywordBased method to terminologyServerTextSearch
+* Update method documentation to clarify terminology server usage
+* Add CPT usage compliance notices per AMA requirements
+* Add BadGatewayError (502) error handling to FHIR client methods
+* Update test names to reflect new method naming
+* Enhance descriptions for code system operations with terminology server context
+* 🌿 Generated with Fern
+
 ## 3.0.0 - 2026-01-21
 * feat: make provider parameter required for agent operations
 * This change makes the provider parameter required for agent create and update operations,
