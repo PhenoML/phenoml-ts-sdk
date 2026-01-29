@@ -1,3 +1,15 @@
+## 3.1.0 - 2026-01-29
+* feat: add citation support and rename text search method
+* Adds source text citation functionality to code extraction and renames the text search method for better clarity. Citations provide exact text spans with character offsets showing where each code was found in the source text, enabling precise traceability.
+* Key changes:
+* Add Citation interface with text spans and character offsets
+* Add include_citations option to ExtractRequestConfig for sentence-based chunking
+* Add is_ancestor and citations fields to ExtractedCodeResult
+* Rename textSearchKeywordBased to terminologyServerTextSearch for clarity
+* Add CPT usage disclaimers and paid plan requirements to documentation
+* Add BadGatewayError (502) error handling to FHIR client methods
+* 🌿 Generated with Fern
+
 ## 3.0.0 - 2026-01-21
 * feat: make provider parameter required for agent operations
 * This change makes the provider parameter required for agent create and update operations,
