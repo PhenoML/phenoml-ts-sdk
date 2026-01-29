@@ -25,6 +25,14 @@ export interface ExtractRequestConfig {
     include_ancestors?: boolean;
     /** Whether to include codes that failed validation in the results */
     include_invalid?: boolean;
+    /**
+     * Whether to include source text citations for each extracted code.
+     * Citations show the exact text spans (with character offsets) that led to each code.
+     * Only available when using chunking_method: "sentences".
+     * The "none" method returns full text as one chunk (not useful for citations).
+     * LLM-based chunking (paragraphs, topics) does not support citations.
+     */
+    include_citations?: boolean;
 }
 
 export namespace ExtractRequestConfig {

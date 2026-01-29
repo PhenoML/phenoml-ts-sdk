@@ -165,6 +165,8 @@ describe("Construe", () => {
                     valid: true,
                     longDescription: "longDescription",
                     rationale: "rationale",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
                 },
             ],
         };
@@ -192,6 +194,14 @@ describe("Construe", () => {
                     valid: true,
                     longDescription: "longDescription",
                     rationale: "rationale",
+                    is_ancestor: true,
+                    citations: [
+                        {
+                            text: "Patient has type 2 diabetes",
+                            begin_offset: 0,
+                            end_offset: 27,
+                        },
+                    ],
                 },
             ],
         });
@@ -680,7 +690,7 @@ describe("Construe", () => {
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
-    test("textSearchKeywordBased (1)", async () => {
+    test("terminologyServerTextSearch (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -697,7 +707,7 @@ describe("Construe", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.textSearchKeywordBased("ICD-10-CM", {
+        const response = await client.construe.terminologyServerTextSearch("ICD-10-CM", {
             q: "E11.65",
             version: "version",
             limit: 1,
@@ -717,7 +727,7 @@ describe("Construe", () => {
         });
     });
 
-    test("textSearchKeywordBased (2)", async () => {
+    test("terminologyServerTextSearch (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -731,13 +741,13 @@ describe("Construe", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.textSearchKeywordBased("codesystem", {
+            return await client.construe.terminologyServerTextSearch("codesystem", {
                 q: "q",
             });
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("textSearchKeywordBased (3)", async () => {
+    test("terminologyServerTextSearch (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -751,13 +761,13 @@ describe("Construe", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.textSearchKeywordBased("codesystem", {
+            return await client.construe.terminologyServerTextSearch("codesystem", {
                 q: "q",
             });
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("textSearchKeywordBased (4)", async () => {
+    test("terminologyServerTextSearch (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -771,13 +781,13 @@ describe("Construe", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.textSearchKeywordBased("codesystem", {
+            return await client.construe.terminologyServerTextSearch("codesystem", {
                 q: "q",
             });
         }).rejects.toThrow(phenoml.construe.NotFoundError);
     });
 
-    test("textSearchKeywordBased (5)", async () => {
+    test("terminologyServerTextSearch (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -791,13 +801,13 @@ describe("Construe", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.textSearchKeywordBased("codesystem", {
+            return await client.construe.terminologyServerTextSearch("codesystem", {
                 q: "q",
             });
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
-    test("textSearchKeywordBased (6)", async () => {
+    test("terminologyServerTextSearch (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -811,13 +821,13 @@ describe("Construe", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.textSearchKeywordBased("codesystem", {
+            return await client.construe.terminologyServerTextSearch("codesystem", {
                 q: "q",
             });
         }).rejects.toThrow(phenoml.construe.NotImplementedError);
     });
 
-    test("textSearchKeywordBased (7)", async () => {
+    test("terminologyServerTextSearch (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 
@@ -831,7 +841,7 @@ describe("Construe", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.textSearchKeywordBased("codesystem", {
+            return await client.construe.terminologyServerTextSearch("codesystem", {
                 q: "q",
             });
         }).rejects.toThrow(phenoml.construe.ServiceUnavailableError);
