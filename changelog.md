@@ -1,3 +1,16 @@
+## 4.0.0 - 2026-02-03
+* refactor: simplify document API by removing fileType parameter
+* The Lang2Fhir document endpoint now auto-detects file types from content magic bytes,
+* eliminating the need for manual MIME type specification. This change streamlines the
+* API interface while maintaining support for PDF, PNG, and JPEG file formats.
+* Key changes:
+* Remove fileType parameter from DocumentRequest interface
+* Update content parameter documentation to specify supported formats
+* Remove FileType enum and associated type definitions
+* Update all code examples and tests to use simplified API
+* Maintain backward compatibility for file type detection
+* 🌿 Generated with Fern
+
 ## 3.1.0 - 2026-01-29
 * feat: add citation support and rename text search method
 * Adds source text citation functionality to code extraction and renames the text search method for better clarity. Citations provide exact text spans with character offsets showing where each code was found in the source text, enabling precise traceability.
