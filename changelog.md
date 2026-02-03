@@ -1,3 +1,15 @@
+## 4.0.0 - 2026-02-03
+* refactor: simplify document API by removing fileType parameter
+* The document API now auto-detects file types from content magic bytes instead of requiring an explicit fileType parameter. This simplifies the API while maintaining the same functionality for PDF, PNG, and JPEG files.
+* The fileType parameter has been completely removed from the DocumentRequest interface, making the API more user-friendly by eliminating the need for developers to specify the MIME type manually.
+* Key changes:
+* Remove fileType parameter from DocumentRequest interface
+* Remove FileType enum with application/pdf, image/png, image/jpeg, image/jpg values
+* Update content parameter documentation to specify auto-detection behavior
+* Simplify all example usage in documentation and tests
+* Update test cases to remove fileType from request bodies
+* 🌿 Generated with Fern
+
 ## 3.1.0 - 2026-01-29
 * feat: add citation support and rename text search method
 * Adds source text citation functionality to code extraction and renames the text search method for better clarity. Citations provide exact text spans with character offsets showing where each code was found in the source text, enabling precise traceability.

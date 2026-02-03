@@ -460,12 +460,7 @@ describe("Lang2Fhir", () => {
     test("document (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            version: "R4",
-            resource: "questionnaire",
-            content: "content",
-            fileType: "application/pdf",
-        };
+        const rawRequestBody = { version: "R4", resource: "questionnaire", content: "content" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -480,7 +475,6 @@ describe("Lang2Fhir", () => {
             version: "R4",
             resource: "questionnaire",
             content: "content",
-            fileType: "application/pdf",
         });
         expect(response).toEqual({
             key: "value",
@@ -490,12 +484,7 @@ describe("Lang2Fhir", () => {
     test("document (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            version: "version",
-            resource: "questionnaire",
-            content: "content",
-            fileType: "application/pdf",
-        };
+        const rawRequestBody = { version: "version", resource: "questionnaire", content: "content" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -511,7 +500,6 @@ describe("Lang2Fhir", () => {
                 version: "version",
                 resource: "questionnaire",
                 content: "content",
-                fileType: "application/pdf",
             });
         }).rejects.toThrow(phenoml.lang2Fhir.BadRequestError);
     });
@@ -519,12 +507,7 @@ describe("Lang2Fhir", () => {
     test("document (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            version: "version",
-            resource: "questionnaire",
-            content: "content",
-            fileType: "application/pdf",
-        };
+        const rawRequestBody = { version: "version", resource: "questionnaire", content: "content" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -540,7 +523,6 @@ describe("Lang2Fhir", () => {
                 version: "version",
                 resource: "questionnaire",
                 content: "content",
-                fileType: "application/pdf",
             });
         }).rejects.toThrow(phenoml.lang2Fhir.UnauthorizedError);
     });
@@ -548,12 +530,7 @@ describe("Lang2Fhir", () => {
     test("document (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            version: "version",
-            resource: "questionnaire",
-            content: "content",
-            fileType: "application/pdf",
-        };
+        const rawRequestBody = { version: "version", resource: "questionnaire", content: "content" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -569,7 +546,6 @@ describe("Lang2Fhir", () => {
                 version: "version",
                 resource: "questionnaire",
                 content: "content",
-                fileType: "application/pdf",
             });
         }).rejects.toThrow(phenoml.lang2Fhir.InternalServerError);
     });
