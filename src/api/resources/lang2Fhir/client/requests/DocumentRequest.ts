@@ -5,8 +5,7 @@
  *     {
  *         version: "R4",
  *         resource: "questionnaire",
- *         content: "content",
- *         fileType: "application/pdf"
+ *         content: "content"
  *     }
  */
 export interface DocumentRequest {
@@ -14,10 +13,12 @@ export interface DocumentRequest {
     version: string;
     /** Type of FHIR resource to create (questionnaire and US Core questionnaireresponse profiles currently supported) */
     resource: DocumentRequest.Resource;
-    /** Base64 encoded file content */
+    /**
+     * Base64 encoded file content.
+     * Supported file types: PDF (application/pdf), PNG (image/png), JPEG (image/jpeg).
+     * File type is auto-detected from content magic bytes.
+     */
     content: string;
-    /** MIME type of the file */
-    fileType: DocumentRequest.FileType;
 }
 
 export namespace DocumentRequest {
@@ -27,12 +28,4 @@ export namespace DocumentRequest {
         Questionnaireresponse: "questionnaireresponse",
     } as const;
     export type Resource = (typeof Resource)[keyof typeof Resource];
-    /** MIME type of the file */
-    export const FileType = {
-        ApplicationPdf: "application/pdf",
-        ImagePng: "image/png",
-        ImageJpeg: "image/jpeg",
-        ImageJpg: "image/jpg",
-    } as const;
-    export type FileType = (typeof FileType)[keyof typeof FileType];
 }

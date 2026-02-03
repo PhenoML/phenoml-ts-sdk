@@ -430,8 +430,7 @@ export class Lang2Fhir {
      *     await client.lang2Fhir.document({
      *         version: "R4",
      *         resource: "questionnaire",
-     *         content: "content",
-     *         fileType: "application/pdf"
+     *         content: "content"
      *     })
      */
     public document(
