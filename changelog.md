@@ -1,3 +1,14 @@
+## 5.0.0 - 2026-02-06
+* refactor: simplify FHIR profile upload API
+* Streamlined the lang2fhir profile upload mechanism to automatically derive metadata from the StructureDefinition JSON itself. This change reduces the API surface and eliminates redundant parameters while improving usability.
+* Key changes:
+* Remove version and resource parameters from ProfileUploadRequest
+* Derive profile metadata from StructureDefinition JSON (id, url, type)
+* Update response type to include type field instead of resource/version
+* Enhanced documentation with clear validation rules and usage examples
+* Updated all test cases to reflect simplified API
+* 🌿 Generated with Fern
+
 ## 4.0.0 - 2026-02-03
 * refactor: simplify document API by removing fileType parameter
 * The Lang2Fhir document endpoint now auto-detects file types from content magic bytes,

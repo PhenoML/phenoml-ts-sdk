@@ -3011,7 +3011,16 @@ await client.lang2Fhir.search({
 <dl>
 <dd>
 
-Upload a custom FHIR StructureDefinition profile for use with the lang2fhir service
+Upload a custom FHIR StructureDefinition profile for use with the lang2fhir service.
+
+All metadata is derived from the StructureDefinition JSON itself. The lowercase `id` field
+from the StructureDefinition is used as the profile's unique identifier and lookup key.
+To use the uploaded profile with `/lang2fhir/create`, pass this id as the `resource` parameter.
+
+Uploads will be rejected if:
+- A built-in US Core or R4 base profile already exists with the same id
+- A custom profile with the same id has already been uploaded
+- A custom profile with the same url has already been uploaded
 </dd>
 </dl>
 </dd>
@@ -3027,9 +3036,7 @@ Upload a custom FHIR StructureDefinition profile for use with the lang2fhir serv
 
 ```typescript
 await client.lang2Fhir.uploadProfile({
-    version: "R4",
-    resource: "condition-encounter-diagnosis",
-    profile: "(base64 encoded JSON string of the FHIR profile)"
+    profile: "(base64 encoded FHIR StructureDefinition JSON)"
 });
 
 ```
