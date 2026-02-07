@@ -3,16 +3,10 @@
 /**
  * @example
  *     {
- *         version: "R4",
- *         resource: "condition-encounter-diagnosis",
- *         profile: "(base64 encoded JSON string of the FHIR profile)"
+ *         profile: "(base64 encoded FHIR StructureDefinition JSON)"
  *     }
  */
 export interface ProfileUploadRequest {
-    /** FHIR version that this profile implements */
-    version: string;
-    /** Name for the custom resource profile (will be converted to lowercase) */
-    resource: string;
-    /** Base64 encoded JSON string of the FHIR StructureDefinition profile */
+    /** Base64 encoded JSON string of a FHIR StructureDefinition. The profile must include id, url, type, and a snapshot with elements. All metadata (version, resource type, identifier) is derived from the StructureDefinition itself. The lowercase id from the StructureDefinition becomes the profile's lookup key. */
     profile: string;
 }
