@@ -9,6 +9,8 @@ export interface AgentCreateRequest {
     prompts: string[];
     /** Array of MCP server tool IDs to use for this agent */
     tools?: string[];
+    /** Array of workflow IDs to expose as tools for this agent */
+    workflows?: string[];
     /** Tags for categorizing the agent */
     tags?: string[];
     /**

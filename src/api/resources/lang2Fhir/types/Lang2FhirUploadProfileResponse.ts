@@ -2,8 +2,10 @@
 
 export interface Lang2FhirUploadProfileResponse {
     message?: string;
+    /** The lowercase StructureDefinition id, used as the profile's unique identifier and lookup key. Pass this value as the `resource` parameter to `/lang2fhir/create` or `/lang2fhir/profile/json/:version/:resource` to use this profile. */
     id?: string;
-    resource?: string;
-    version?: string;
+    /** The FHIR resource type from the StructureDefinition */
+    type?: string;
+    /** The canonical URL from the StructureDefinition */
     url?: string;
 }

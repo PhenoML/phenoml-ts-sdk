@@ -330,16 +330,11 @@ describe("Lang2Fhir", () => {
     test("uploadProfile (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            version: "R4",
-            resource: "condition-encounter-diagnosis",
-            profile: "(base64 encoded JSON string of the FHIR profile)",
-        };
+        const rawRequestBody = { profile: "(base64 encoded FHIR StructureDefinition JSON)" };
         const rawResponseBody = {
             message: "Profile uploaded successfully",
-            id: "0ofoiy2o7a3pvwj",
-            resource: "custom-patient",
-            version: "4.0.1",
+            id: "custom-patient",
+            type: "Patient",
             url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
         };
         server
@@ -352,15 +347,12 @@ describe("Lang2Fhir", () => {
             .build();
 
         const response = await client.lang2Fhir.uploadProfile({
-            version: "R4",
-            resource: "condition-encounter-diagnosis",
-            profile: "(base64 encoded JSON string of the FHIR profile)",
+            profile: "(base64 encoded FHIR StructureDefinition JSON)",
         });
         expect(response).toEqual({
             message: "Profile uploaded successfully",
-            id: "0ofoiy2o7a3pvwj",
-            resource: "custom-patient",
-            version: "4.0.1",
+            id: "custom-patient",
+            type: "Patient",
             url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
         });
     });
@@ -368,7 +360,7 @@ describe("Lang2Fhir", () => {
     test("uploadProfile (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { version: "version", resource: "resource", profile: "profile" };
+        const rawRequestBody = { profile: "profile" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -381,8 +373,6 @@ describe("Lang2Fhir", () => {
 
         await expect(async () => {
             return await client.lang2Fhir.uploadProfile({
-                version: "version",
-                resource: "resource",
                 profile: "profile",
             });
         }).rejects.toThrow(phenoml.lang2Fhir.BadRequestError);
@@ -391,7 +381,7 @@ describe("Lang2Fhir", () => {
     test("uploadProfile (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { version: "version", resource: "resource", profile: "profile" };
+        const rawRequestBody = { profile: "profile" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -404,8 +394,6 @@ describe("Lang2Fhir", () => {
 
         await expect(async () => {
             return await client.lang2Fhir.uploadProfile({
-                version: "version",
-                resource: "resource",
                 profile: "profile",
             });
         }).rejects.toThrow(phenoml.lang2Fhir.UnauthorizedError);
@@ -414,7 +402,7 @@ describe("Lang2Fhir", () => {
     test("uploadProfile (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { version: "version", resource: "resource", profile: "profile" };
+        const rawRequestBody = { profile: "profile" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -427,8 +415,6 @@ describe("Lang2Fhir", () => {
 
         await expect(async () => {
             return await client.lang2Fhir.uploadProfile({
-                version: "version",
-                resource: "resource",
                 profile: "profile",
             });
         }).rejects.toThrow(phenoml.lang2Fhir.ForbiddenError);
@@ -437,7 +423,7 @@ describe("Lang2Fhir", () => {
     test("uploadProfile (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { version: "version", resource: "resource", profile: "profile" };
+        const rawRequestBody = { profile: "profile" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -450,8 +436,6 @@ describe("Lang2Fhir", () => {
 
         await expect(async () => {
             return await client.lang2Fhir.uploadProfile({
-                version: "version",
-                resource: "resource",
                 profile: "profile",
             });
         }).rejects.toThrow(phenoml.lang2Fhir.InternalServerError);
