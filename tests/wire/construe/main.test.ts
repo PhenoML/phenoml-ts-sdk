@@ -88,6 +88,30 @@ describe("Construe", () => {
             .post("/construe/upload")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.uploadCodeSystem({
+                name: "name",
+                version: "version",
+                format: "json",
+                file: "file",
+            });
+        }).rejects.toThrow(phenoml.construe.ForbiddenError);
+    });
+
+    test("uploadCodeSystem (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { name: "name", version: "version", format: "json", file: "file" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/construe/upload")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(409)
             .jsonBody(rawResponseBody)
             .build();
@@ -102,7 +126,7 @@ describe("Construe", () => {
         }).rejects.toThrow(phenoml.construe.ConflictError);
     });
 
-    test("uploadCodeSystem (5)", async () => {
+    test("uploadCodeSystem (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", version: "version", format: "json", file: "file" };
@@ -126,7 +150,7 @@ describe("Construe", () => {
         }).rejects.toThrow(phenoml.construe.FailedDependencyError);
     });
 
-    test("uploadCodeSystem (6)", async () => {
+    test("uploadCodeSystem (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
         const rawRequestBody = { name: "name", version: "version", format: "json", file: "file" };
@@ -350,6 +374,224 @@ describe("Construe", () => {
 
         await expect(async () => {
             return await client.construe.listAvailableCodeSystems();
+        }).rejects.toThrow(phenoml.construe.InternalServerError);
+    });
+
+    test("getCodeSystemDetail (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            name: "ICD-10-CM",
+            version: "2025",
+            code_count: 72750,
+            builtin: true,
+            status: "ready",
+            created_at: "2024-01-15T09:30:00Z",
+            updated_at: "2024-01-15T09:30:00Z",
+        };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems/ICD-10-CM")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.getCodeSystemDetail("ICD-10-CM", {
+            version: "2025",
+        });
+        expect(response).toEqual({
+            name: "ICD-10-CM",
+            version: "2025",
+            code_count: 72750,
+            builtin: true,
+            status: "ready",
+            created_at: "2024-01-15T09:30:00Z",
+            updated_at: "2024-01-15T09:30:00Z",
+        });
+    });
+
+    test("getCodeSystemDetail (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems/codesystem")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.getCodeSystemDetail("codesystem");
+        }).rejects.toThrow(phenoml.construe.BadRequestError);
+    });
+
+    test("getCodeSystemDetail (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems/codesystem")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.getCodeSystemDetail("codesystem");
+        }).rejects.toThrow(phenoml.construe.UnauthorizedError);
+    });
+
+    test("getCodeSystemDetail (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems/codesystem")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.getCodeSystemDetail("codesystem");
+        }).rejects.toThrow(phenoml.construe.NotFoundError);
+    });
+
+    test("getCodeSystemDetail (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems/codesystem")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.getCodeSystemDetail("codesystem");
+        }).rejects.toThrow(phenoml.construe.InternalServerError);
+    });
+
+    test("deleteCustomCodeSystem (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { message: "code system deleted successfully" };
+        server
+            .mockEndpoint()
+            .delete("/construe/codes/systems/CUSTOM_CODES")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
+            version: "version",
+        });
+        expect(response).toEqual({
+            message: "code system deleted successfully",
+        });
+    });
+
+    test("deleteCustomCodeSystem (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .delete("/construe/codes/systems/codesystem")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.deleteCustomCodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.BadRequestError);
+    });
+
+    test("deleteCustomCodeSystem (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .delete("/construe/codes/systems/codesystem")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.deleteCustomCodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.UnauthorizedError);
+    });
+
+    test("deleteCustomCodeSystem (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .delete("/construe/codes/systems/codesystem")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.deleteCustomCodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.ForbiddenError);
+    });
+
+    test("deleteCustomCodeSystem (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .delete("/construe/codes/systems/codesystem")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.deleteCustomCodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.NotFoundError);
+    });
+
+    test("deleteCustomCodeSystem (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .delete("/construe/codes/systems/codesystem")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.deleteCustomCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 

@@ -1,3 +1,17 @@
+## 5.1.0 - 2026-02-08
+* feat: add code system detail retrieval and deletion methods
+* Add comprehensive code system management capabilities with two new API methods for
+* retrieving detailed metadata and deleting custom code systems. Include enhanced
+* error handling and documentation updates for better API availability clarity.
+* Key changes:
+* Add `getCodeSystemDetail()` method to retrieve full metadata including timestamps and builtin status
+* Add `deleteCustomCodeSystem()` method to remove custom code systems with proper restrictions
+* Introduce ForbiddenError class for HTTP 403 responses with validation against builtin systems
+* Update upload request interface with replace option and enhanced validation documentation
+* Enhance search method documentation with availability notes for built-in vs custom systems
+* Add comprehensive test coverage for all new endpoints and error scenarios
+* 🌿 Generated with Fern
+
 ## 5.0.0 - 2026-02-07
 * feat: add workflow support to agents and simplify FHIR profile uploads
 * This release adds workflow integration capabilities for agents and streamlines

@@ -30,6 +30,7 @@ export class Construe {
      *
      * @throws {@link phenoml.construe.BadRequestError}
      * @throws {@link phenoml.construe.UnauthorizedError}
+     * @throws {@link phenoml.construe.ForbiddenError}
      * @throws {@link phenoml.construe.ConflictError}
      * @throws {@link phenoml.construe.FailedDependencyError}
      * @throws {@link phenoml.construe.InternalServerError}
@@ -91,6 +92,8 @@ export class Construe {
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new phenoml.construe.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 409:
                     throw new phenoml.construe.ConflictError(_response.error.body as unknown, _response.rawResponse);
                 case 424:
@@ -305,6 +308,222 @@ export class Construe {
                 });
             case "timeout":
                 throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /construe/codes/systems.");
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Returns full metadata for a single code system, including timestamps and builtin status.
+     *
+     * @param {string} codesystem - Code system name (e.g., "ICD-10-CM", "SNOMED_CT_US_LITE")
+     * @param {phenoml.construe.GetConstrueCodesSystemsCodesystemRequest} request
+     * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.construe.BadRequestError}
+     * @throws {@link phenoml.construe.UnauthorizedError}
+     * @throws {@link phenoml.construe.NotFoundError}
+     * @throws {@link phenoml.construe.InternalServerError}
+     *
+     * @example
+     *     await client.construe.getCodeSystemDetail("ICD-10-CM", {
+     *         version: "2025"
+     *     })
+     */
+    public getCodeSystemDetail(
+        codesystem: string,
+        request: phenoml.construe.GetConstrueCodesSystemsCodesystemRequest = {},
+        requestOptions?: Construe.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.construe.GetCodeSystemDetailResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getCodeSystemDetail(codesystem, request, requestOptions));
+    }
+
+    private async __getCodeSystemDetail(
+        codesystem: string,
+        request: phenoml.construe.GetConstrueCodesSystemsCodesystemRequest = {},
+        requestOptions?: Construe.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.construe.GetCodeSystemDetailResponse>> {
+        const { version } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (version != null) {
+            _queryParams.version = version;
+        }
+
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `construe/codes/systems/${core.url.encodePathParam(codesystem)}`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as phenoml.construe.GetCodeSystemDetailResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.construe.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.construe.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError(
+                    "Timeout exceeded when calling GET /construe/codes/systems/{codesystem}.",
+                );
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Deletes a custom (non-builtin) code system and all its codes. Builtin systems cannot be deleted.
+     * Only available on dedicated instances. Large systems may take up to a minute to delete.
+     *
+     * @param {string} codesystem - Code system name
+     * @param {phenoml.construe.DeleteConstrueCodesSystemsCodesystemRequest} request
+     * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.construe.BadRequestError}
+     * @throws {@link phenoml.construe.UnauthorizedError}
+     * @throws {@link phenoml.construe.ForbiddenError}
+     * @throws {@link phenoml.construe.NotFoundError}
+     * @throws {@link phenoml.construe.InternalServerError}
+     *
+     * @example
+     *     await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
+     *         version: "version"
+     *     })
+     */
+    public deleteCustomCodeSystem(
+        codesystem: string,
+        request: phenoml.construe.DeleteConstrueCodesSystemsCodesystemRequest = {},
+        requestOptions?: Construe.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.construe.DeleteCodeSystemResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteCustomCodeSystem(codesystem, request, requestOptions));
+    }
+
+    private async __deleteCustomCodeSystem(
+        codesystem: string,
+        request: phenoml.construe.DeleteConstrueCodesSystemsCodesystemRequest = {},
+        requestOptions?: Construe.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.construe.DeleteCodeSystemResponse>> {
+        const { version } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (version != null) {
+            _queryParams.version = version;
+        }
+
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `construe/codes/systems/${core.url.encodePathParam(codesystem)}`,
+            ),
+            method: "DELETE",
+            headers: _headers,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as phenoml.construe.DeleteCodeSystemResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.construe.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new phenoml.construe.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 404:
+                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.construe.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError(
+                    "Timeout exceeded when calling DELETE /construe/codes/systems/{codesystem}.",
+                );
             case "unknown":
                 throw new errors.phenomlError({
                     message: _response.error.errorMessage,
@@ -539,6 +758,8 @@ export class Construe {
     /**
      * Performs semantic similarity search using vector embeddings.
      *
+     * **Availability**: This endpoint works for both **built-in and custom** code systems.
+     *
      * **When to use**: Best for natural language queries where you want to find conceptually
      * related codes, even when different terminology is used. The search understands meaning,
      * not just keywords.
@@ -669,6 +890,10 @@ export class Construe {
 
     /**
      * Performs fast full-text search over code IDs and descriptions.
+     *
+     * **Availability**: This endpoint is only available for **built-in code systems**.
+     * Custom code systems uploaded via `/construe/upload` are not indexed for full-text search
+     * and will return empty results. Use `/search/semantic` to search custom code systems.
      *
      * **When to use**: Best for autocomplete UIs, code lookup, or when users know part of
      * the code ID or specific keywords. Fast response times suitable for typeahead interfaces.
