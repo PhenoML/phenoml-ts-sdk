@@ -1333,6 +1333,153 @@ await client.construe.listAvailableCodeSystems();
 </dl>
 </details>
 
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">getCodeSystemDetail</a>(codesystem, { ...params }) -> phenoml.GetCodeSystemDetailResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns full metadata for a single code system, including timestamps and builtin status.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.getCodeSystemDetail("ICD-10-CM", {
+    version: "2025"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**codesystem:** `string` — Code system name (e.g., "ICD-10-CM", "SNOMED_CT_US_LITE")
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.construe.GetConstrueCodesSystemsCodesystemRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Construe.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">deleteCustomCodeSystem</a>(codesystem, { ...params }) -> phenoml.DeleteCodeSystemResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a custom (non-builtin) code system and all its codes. Builtin systems cannot be deleted.
+Only available on dedicated instances. Large systems may take up to a minute to delete.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
+    version: "version"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**codesystem:** `string` — Code system name
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.construe.DeleteConstrueCodesSystemsCodesystemRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Construe.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">listCodesInACodeSystem</a>(codesystem, { ...params }) -> phenoml.ListCodesResponse</code></summary>
 <dl>
 <dd>
@@ -1507,6 +1654,8 @@ await client.construe.getASpecificCode("ICD-10-CM", "E11.65", {
 
 Performs semantic similarity search using vector embeddings.
 
+**Availability**: This endpoint works for both **built-in and custom** code systems.
+
 **When to use**: Best for natural language queries where you want to find conceptually
 related codes, even when different terminology is used. The search understands meaning,
 not just keywords.
@@ -1597,6 +1746,10 @@ await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
 <dd>
 
 Performs fast full-text search over code IDs and descriptions.
+
+**Availability**: This endpoint is only available for **built-in code systems**.
+Custom code systems uploaded via `/construe/upload` are not indexed for full-text search
+and will return empty results. Use `/search/semantic` to search custom code systems.
 
 **When to use**: Best for autocomplete UIs, code lookup, or when users know part of
 the code ID or specific keywords. Fast response times suitable for typeahead interfaces.

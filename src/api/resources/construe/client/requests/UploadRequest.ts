@@ -10,7 +10,11 @@
  *     }
  */
 export interface UploadRequest {
-    /** Name of the code system */
+    /**
+     * Name of the code system. Names are case-insensitive and stored uppercase.
+     * Builtin system names (e.g. ICD-10-CM, SNOMED_CT_US_LITE, LOINC, CPT, etc.) are
+     * reserved and cannot be used for custom uploads; attempts return HTTP 403 Forbidden.
+     */
     name: string;
     /** Version of the code system */
     version: string;
@@ -26,6 +30,12 @@ export interface UploadRequest {
     desc_col?: string;
     /** Optional column name containing long definitions (for CSV format) */
     defn_col?: string;
+    /**
+     * If true, replaces an existing code system with the same name and version.
+     * Builtin systems cannot be replaced; attempts to do so return HTTP 403 Forbidden.
+     * When false (default), uploading a duplicate returns 409 Conflict.
+     */
+    replace?: boolean;
 }
 
 export namespace UploadRequest {
