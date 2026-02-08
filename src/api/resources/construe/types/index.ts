@@ -16,3 +16,6 @@ export * from "./SemanticSearchResponse.js";
 export * from "./SemanticSearchResult.js";
 export * from "./TextSearchResponse.js";
 export * from "./TextSearchResult.js";
+export * from "./UploadRequest.js";
+export * from "./UploadRequestCsv.js";
+export * from "./UploadRequestJson.js";
