@@ -1,3 +1,15 @@
+## 6.0.0 - 2026-02-08
+* feat: update UploadRequest API to support multiple formats and async processing
+* This major refactor enhances the upload functionality to support both CSV and JSON formats with better type safety and introduces asynchronous processing capabilities. The API now properly handles different upload formats through discriminated unions and provides better status tracking for code system processing.
+* Key changes:
+* Restructure UploadRequest as discriminated union supporting CSV and JSON formats
+* Add required code_col and desc_col parameters for CSV uploads
+* Introduce async processing support with new status tracking (processing, ready, failed)
+* Move UploadRequest types from client/requests to types directory for better organization
+* Update examples and tests to use CSV format as the primary example
+* Add proper type exports at the API root level
+* 🌿 Generated with Fern
+
 ## 5.1.0 - 2026-02-08
 * feat: add code system detail retrieval and deletion methods
 * Add comprehensive code system management capabilities with two new API methods for
