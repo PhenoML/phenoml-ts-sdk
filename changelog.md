@@ -1,3 +1,15 @@
+## 6.0.0 - 2026-02-08
+* refactor: enhance upload code system API with discriminated union types
+* Restructure the uploadCodeSystem API to use discriminated union types for better type safety and clarity. The API now properly differentiates between CSV and JSON upload formats with format-specific required parameters.
+* Key changes:
+* Refactor UploadRequest to use discriminated union with CSV and JSON variants
+* Move UploadRequest from client requests to types for better organization
+* Add UploadRequestCsv type with required code_col and desc_col parameters
+* Export types from main API index for improved accessibility
+* Update all test cases to use new CSV format structure
+* Modify documentation examples to reflect new API structure
+* 🌿 Generated with Fern
+
 ## 5.1.0 - 2026-02-08
 * feat: add code system detail retrieval and deletion methods
 * Add comprehensive code system management capabilities with two new API methods for

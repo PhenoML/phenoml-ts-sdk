@@ -5,4 +5,3 @@ export type { GetConstrueCodesCodesystemRequest } from "./GetConstrueCodesCodesy
 export type { GetConstrueCodesCodesystemSearchSemanticRequest } from "./GetConstrueCodesCodesystemSearchSemanticRequest.js";
 export type { GetConstrueCodesCodesystemSearchTextRequest } from "./GetConstrueCodesCodesystemSearchTextRequest.js";
 export type { GetConstrueCodesSystemsCodesystemRequest } from "./GetConstrueCodesSystemsCodesystemRequest.js";
-export type { UploadRequest } from "./UploadRequest.js";
