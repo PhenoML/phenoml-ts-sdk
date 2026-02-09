@@ -1,3 +1,18 @@
+## 6.0.0 - 2026-02-09
+* refactor: remove user_id field from multiple type interfaces
+* Remove the user_id field from various template and response interfaces across the codebase to streamline the API structure. This affects ChatMessageTemplate, ChatSessionTemplate, FhirProviderTemplate, SummaryTemplate, McpServerResponse, McpServerToolResponse, WorkflowDefinition, and WorkflowResponse interfaces.
+* Key changes:
+* Remove user_id field from ChatMessageTemplate interface
+* Remove user_id field from ChatSessionTemplate interface
+* Remove user_id field from FhirProviderTemplate interface
+* Remove user_id field from SummaryTemplate interface
+* Remove user_id field from McpServerResponse.Data interface
+* Remove user_id field from McpServerToolResponse.Data interface
+* Remove user_id field from WorkflowDefinition interface
+* Remove user_id field from WorkflowResponse interface
+* Update corresponding test fixtures to match new interface structure
+* 🌿 Generated with Fern
+
 ## 5.3.0 - 2026-02-09
 * feat: add custom code system export endpoint
 * Add new exportCustomCodeSystem method to the construe client that allows exporting custom (non-builtin) code systems as JSON files. This feature enables users to backup and transfer code systems between instances.
