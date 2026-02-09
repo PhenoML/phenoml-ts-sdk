@@ -2,7 +2,6 @@
 
 export interface SummaryTemplate {
     id?: string;
-    user_id?: string;
     name?: string;
     description?: string;
     /** Template with {{resource.field}} placeholders */

@@ -19,8 +19,6 @@ export interface ChatMessageTemplate {
     created?: string;
     /** Message updated time */
     updated?: string;
-    /** User ID */
-    user_id?: string;
     /** Function name */
     function_name?: string;
     /** Function arguments */
