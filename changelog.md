@@ -1,3 +1,14 @@
+## 5.3.0 - 2026-02-09
+* feat: add custom code system export endpoint
+* Add new exportCustomCodeSystem method to the construe client that allows exporting custom (non-builtin) code systems as JSON files. This feature enables users to backup and transfer code systems between instances.
+* Key changes:
+* Add exportCustomCodeSystem method to Construe client with GET endpoint
+* Create ExportCodeSystemResponse type definition for structured export data
+* Add GetConstrueCodesSystemsCodesystemExportRequest for version parameter
+* Include comprehensive test coverage for all HTTP response codes
+* Remove ForbiddenError from fhirProvider.get method and related tests
+* 🌿 Generated with Fern
+
 ## 5.2.0 - 2026-02-08
 * feat: refactor upload request structure with format-specific types
 * Refactor the upload code system functionality to use a discriminated union approach with format-specific request types. This improves type safety and API clarity by separating CSV and JSON upload requirements.

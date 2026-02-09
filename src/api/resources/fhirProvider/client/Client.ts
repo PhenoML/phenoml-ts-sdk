@@ -226,7 +226,6 @@ export class FhirProvider {
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.fhirProvider.UnauthorizedError}
-     * @throws {@link phenoml.fhirProvider.ForbiddenError}
      * @throws {@link phenoml.fhirProvider.NotFoundError}
      * @throws {@link phenoml.fhirProvider.InternalServerError}
      *
@@ -274,11 +273,6 @@ export class FhirProvider {
             switch (_response.error.statusCode) {
                 case 401:
                     throw new phenoml.fhirProvider.UnauthorizedError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                case 403:
-                    throw new phenoml.fhirProvider.ForbiddenError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );

@@ -4,4 +4,5 @@ export type { GetConstrueCodesCodesystemCodeIdRequest } from "./GetConstrueCodes
 export type { GetConstrueCodesCodesystemRequest } from "./GetConstrueCodesCodesystemRequest.js";
 export type { GetConstrueCodesCodesystemSearchSemanticRequest } from "./GetConstrueCodesCodesystemSearchSemanticRequest.js";
 export type { GetConstrueCodesCodesystemSearchTextRequest } from "./GetConstrueCodesCodesystemSearchTextRequest.js";
+export type { GetConstrueCodesSystemsCodesystemExportRequest } from "./GetConstrueCodesSystemsCodesystemExportRequest.js";
 export type { GetConstrueCodesSystemsCodesystemRequest } from "./GetConstrueCodesSystemsCodesystemRequest.js";

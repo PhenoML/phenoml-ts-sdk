@@ -4,6 +4,7 @@ export * from "./CodeSystemDetails.js";
 export * from "./CodeSystemInfo.js";
 export * from "./ConstrueUploadCodeSystemResponse.js";
 export * from "./DeleteCodeSystemResponse.js";
+export * from "./ExportCodeSystemResponse.js";
 export * from "./ExtractCodesResult.js";
 export * from "./ExtractedCodeResult.js";
 export * from "./ExtractRequestConfig.js";

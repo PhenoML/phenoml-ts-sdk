@@ -535,6 +535,126 @@ export class Construe {
     }
 
     /**
+     * Exports a custom (non-builtin) code system as a JSON file compatible with the upload format.
+     * The exported file can be re-uploaded directly via POST /construe/upload with format "json".
+     * Only available on dedicated instances. Builtin systems cannot be exported.
+     *
+     * @param {string} codesystem - Code system name
+     * @param {phenoml.construe.GetConstrueCodesSystemsCodesystemExportRequest} request
+     * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.construe.BadRequestError}
+     * @throws {@link phenoml.construe.UnauthorizedError}
+     * @throws {@link phenoml.construe.ForbiddenError}
+     * @throws {@link phenoml.construe.NotFoundError}
+     * @throws {@link phenoml.construe.ConflictError}
+     * @throws {@link phenoml.construe.FailedDependencyError}
+     * @throws {@link phenoml.construe.InternalServerError}
+     *
+     * @example
+     *     await client.construe.exportCustomCodeSystem("CUSTOM_CODES", {
+     *         version: "version"
+     *     })
+     */
+    public exportCustomCodeSystem(
+        codesystem: string,
+        request: phenoml.construe.GetConstrueCodesSystemsCodesystemExportRequest = {},
+        requestOptions?: Construe.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.construe.ExportCodeSystemResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__exportCustomCodeSystem(codesystem, request, requestOptions));
+    }
+
+    private async __exportCustomCodeSystem(
+        codesystem: string,
+        request: phenoml.construe.GetConstrueCodesSystemsCodesystemExportRequest = {},
+        requestOptions?: Construe.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.construe.ExportCodeSystemResponse>> {
+        const { version } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (version != null) {
+            _queryParams.version = version;
+        }
+
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `construe/codes/systems/${core.url.encodePathParam(codesystem)}/export`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as phenoml.construe.ExportCodeSystemResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.construe.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new phenoml.construe.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 404:
+                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 409:
+                    throw new phenoml.construe.ConflictError(_response.error.body as unknown, _response.rawResponse);
+                case 424:
+                    throw new phenoml.construe.FailedDependencyError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new phenoml.construe.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError(
+                    "Timeout exceeded when calling GET /construe/codes/systems/{codesystem}/export.",
+                );
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Returns a paginated list of all codes in the specified code system from the terminology server.
      *
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
