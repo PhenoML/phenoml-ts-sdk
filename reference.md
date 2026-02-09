@@ -1482,6 +1482,81 @@ await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
 </dl>
 </details>
 
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">exportCustomCodeSystem</a>(codesystem, { ...params }) -> phenoml.ExportCodeSystemResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Exports a custom (non-builtin) code system as a JSON file compatible with the upload format.
+The exported file can be re-uploaded directly via POST /construe/upload with format "json".
+Only available on dedicated instances. Builtin systems cannot be exported.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.exportCustomCodeSystem("CUSTOM_CODES", {
+    version: "version"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**codesystem:** `string` — Code system name
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.construe.GetConstrueCodesSystemsCodesystemExportRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Construe.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">listCodesInACodeSystem</a>(codesystem, { ...params }) -> phenoml.ListCodesResponse</code></summary>
 <dl>
 <dd>

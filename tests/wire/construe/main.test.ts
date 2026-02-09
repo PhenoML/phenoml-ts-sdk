@@ -658,6 +658,173 @@ describe("Construe", () => {
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
+    test("exportCustomCodeSystem (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            name: "CUSTOM_CODES",
+            version: "1.0",
+            format: "json",
+            codes: [
+                {
+                    code: "E11.65",
+                    description: "Type 2 diabetes mellitus with hyperglycemia",
+                    definition: "definition",
+                },
+            ],
+        };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems/CUSTOM_CODES/export")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.exportCustomCodeSystem("CUSTOM_CODES", {
+            version: "version",
+        });
+        expect(response).toEqual({
+            name: "CUSTOM_CODES",
+            version: "1.0",
+            format: "json",
+            codes: [
+                {
+                    code: "E11.65",
+                    description: "Type 2 diabetes mellitus with hyperglycemia",
+                    definition: "definition",
+                },
+            ],
+        });
+    });
+
+    test("exportCustomCodeSystem (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems/codesystem/export")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.exportCustomCodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.BadRequestError);
+    });
+
+    test("exportCustomCodeSystem (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems/codesystem/export")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.exportCustomCodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.UnauthorizedError);
+    });
+
+    test("exportCustomCodeSystem (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems/codesystem/export")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.exportCustomCodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.ForbiddenError);
+    });
+
+    test("exportCustomCodeSystem (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems/codesystem/export")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.exportCustomCodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.NotFoundError);
+    });
+
+    test("exportCustomCodeSystem (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems/codesystem/export")
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.exportCustomCodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.ConflictError);
+    });
+
+    test("exportCustomCodeSystem (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems/codesystem/export")
+            .respondWith()
+            .statusCode(424)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.exportCustomCodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.FailedDependencyError);
+    });
+
+    test("exportCustomCodeSystem (8)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/construe/codes/systems/codesystem/export")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.exportCustomCodeSystem("codesystem");
+        }).rejects.toThrow(phenoml.construe.InternalServerError);
+    });
+
     test("listCodesInACodeSystem (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
