@@ -55,7 +55,7 @@ await client.agent.create({
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -120,7 +120,7 @@ await client.agent.list({
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -183,7 +183,7 @@ await client.agent.get("id");
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -258,7 +258,7 @@ await client.agent.update("id", {
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -321,7 +321,7 @@ await client.agent.delete("id");
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -403,7 +403,7 @@ await client.agent.patch("id", [{
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -471,7 +471,7 @@ await client.agent.chat({
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -539,7 +539,7 @@ await client.agent.getChatMessages({
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -606,7 +606,7 @@ await client.agent.prompts.create({
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `PromptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -661,7 +661,7 @@ await client.agent.prompts.list();
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `PromptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -724,7 +724,7 @@ await client.agent.prompts.get("id");
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `PromptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -795,7 +795,7 @@ await client.agent.prompts.update("id");
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `PromptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -858,7 +858,7 @@ await client.agent.prompts.delete("id");
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `PromptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -940,7 +940,7 @@ await client.agent.prompts.patch("id", [{
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `PromptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -995,7 +995,7 @@ await client.agent.prompts.loadDefaults();
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `PromptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1062,7 +1062,7 @@ await client.authtoken.auth.generateToken({
 <dl>
 <dd>
 
-**requestOptions:** `Auth.RequestOptions` 
+**requestOptions:** `AuthClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1128,7 +1128,7 @@ await client.cohort.analyze({
 <dl>
 <dd>
 
-**requestOptions:** `Cohort.RequestOptions` 
+**requestOptions:** `CohortClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1171,12 +1171,9 @@ subsequently use the code system for construe/extract and lang2fhir/create (comi
 
 ```typescript
 await client.construe.uploadCodeSystem({
-    format: "csv",
     name: "CUSTOM_CODES",
     version: "1.0",
-    file: "file",
-    code_col: "code",
-    desc_col: "description"
+    format: "csv"
 });
 
 ```
@@ -1193,7 +1190,7 @@ await client.construe.uploadCodeSystem({
 <dl>
 <dd>
 
-**request:** `phenoml.UploadRequest` 
+**request:** `phenoml.construe.UploadRequest` 
     
 </dd>
 </dl>
@@ -1201,7 +1198,7 @@ await client.construe.uploadCodeSystem({
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1268,7 +1265,7 @@ await client.construe.extractCodes({
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1323,7 +1320,7 @@ await client.construe.listAvailableCodeSystems();
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1396,7 +1393,7 @@ await client.construe.getCodeSystemDetail("ICD-10-CM", {
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1470,7 +1467,7 @@ await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1545,7 +1542,7 @@ await client.construe.exportCustomCodeSystem("CUSTOM_CODES", {
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1622,7 +1619,7 @@ await client.construe.listCodesInACodeSystem("ICD-10-CM", {
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1634,7 +1631,7 @@ await client.construe.listCodesInACodeSystem("ICD-10-CM", {
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">getASpecificCode</a>(codesystem, codeId, { ...params }) -> phenoml.GetCodeResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">getASpecificCode</a>(codesystem, codeID, { ...params }) -> phenoml.GetCodeResponse</code></summary>
 <dl>
 <dd>
 
@@ -1689,7 +1686,7 @@ await client.construe.getASpecificCode("ICD-10-CM", "E11.65", {
 <dl>
 <dd>
 
-**codeId:** `string` — The code identifier
+**codeID:** `string` — The code identifier
     
 </dd>
 </dl>
@@ -1705,7 +1702,7 @@ await client.construe.getASpecificCode("ICD-10-CM", "E11.65", {
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1798,7 +1795,7 @@ await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1896,7 +1893,7 @@ await client.construe.terminologyServerTextSearch("ICD-10-CM", {
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1909,7 +1906,7 @@ await client.construe.terminologyServerTextSearch("ICD-10-CM", {
 </details>
 
 ## Fhir
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">search</a>(fhirProviderId, fhirPath, { ...params }) -> phenoml.FhirSearchResponse</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">search</a>(fhir_provider_id, fhir_path, { ...params }) -> phenoml.FhirSearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -1957,7 +1954,7 @@ await client.fhir.search("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhirProviderId:** `string` 
+**fhir_provider_id:** `string` 
 
 The ID of the FHIR provider to use. Can be either:
 - A UUID representing the provider ID
@@ -1969,7 +1966,7 @@ The ID of the FHIR provider to use. Can be either:
 <dl>
 <dd>
 
-**fhirPath:** `string` 
+**fhir_path:** `string` 
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
@@ -1991,7 +1988,7 @@ Examples:
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions` 
+**requestOptions:** `FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2003,7 +2000,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">create</a>(fhirProviderId, fhirPath, { ...params }) -> phenoml.FhirResource</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">create</a>(fhir_provider_id, fhir_path, { ...params }) -> phenoml.FhirResource</code></summary>
 <dl>
 <dd>
 
@@ -2064,7 +2061,7 @@ await client.fhir.create("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhirProviderId:** `string` 
+**fhir_provider_id:** `string` 
 
 The ID of the FHIR provider to use. Can be either:
 - A UUID representing the provider ID
@@ -2076,7 +2073,7 @@ The ID of the FHIR provider to use. Can be either:
 <dl>
 <dd>
 
-**fhirPath:** `string` 
+**fhir_path:** `string` 
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
@@ -2098,7 +2095,7 @@ Examples:
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions` 
+**requestOptions:** `FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2110,7 +2107,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">upsert</a>(fhirProviderId, fhirPath, { ...params }) -> phenoml.FhirResource</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">upsert</a>(fhir_provider_id, fhir_path, { ...params }) -> phenoml.FhirResource</code></summary>
 <dl>
 <dd>
 
@@ -2173,7 +2170,7 @@ await client.fhir.upsert("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhirProviderId:** `string` 
+**fhir_provider_id:** `string` 
 
 The ID of the FHIR provider to use. Can be either:
 - A UUID representing the provider ID
@@ -2185,7 +2182,7 @@ The ID of the FHIR provider to use. Can be either:
 <dl>
 <dd>
 
-**fhirPath:** `string` 
+**fhir_path:** `string` 
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
@@ -2207,7 +2204,7 @@ Examples:
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions` 
+**requestOptions:** `FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2219,7 +2216,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">delete</a>(fhirProviderId, fhirPath, { ...params }) -> Record&lt;string, unknown&gt;</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">delete</a>(fhir_provider_id, fhir_path, { ...params }) -> Record&lt;string, unknown&gt;</code></summary>
 <dl>
 <dd>
 
@@ -2267,7 +2264,7 @@ await client.fhir.delete("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhirProviderId:** `string` 
+**fhir_provider_id:** `string` 
 
 The ID of the FHIR provider to use. Can be either:
 - A UUID representing the provider ID
@@ -2279,7 +2276,7 @@ The ID of the FHIR provider to use. Can be either:
 <dl>
 <dd>
 
-**fhirPath:** `string` 
+**fhir_path:** `string` 
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
@@ -2301,7 +2298,7 @@ Examples:
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions` 
+**requestOptions:** `FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2313,7 +2310,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">patch</a>(fhirProviderId, fhirPath, { ...params }) -> phenoml.FhirResource</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">patch</a>(fhir_provider_id, fhir_path, { ...params }) -> phenoml.FhirResource</code></summary>
 <dl>
 <dd>
 
@@ -2371,7 +2368,7 @@ await client.fhir.patch("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhirProviderId:** `string` 
+**fhir_provider_id:** `string` 
 
 The ID of the FHIR provider to use. Can be either:
 - A UUID representing the provider ID
@@ -2383,7 +2380,7 @@ The ID of the FHIR provider to use. Can be either:
 <dl>
 <dd>
 
-**fhirPath:** `string` 
+**fhir_path:** `string` 
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
@@ -2405,7 +2402,7 @@ Examples:
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions` 
+**requestOptions:** `FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2417,7 +2414,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">executeBundle</a>(fhirProviderId, { ...params }) -> phenoml.FhirBundle</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">executeBundle</a>(fhir_provider_id, { ...params }) -> phenoml.FhirBundle</code></summary>
 <dl>
 <dd>
 
@@ -2499,7 +2496,7 @@ await client.fhir.executeBundle("550e8400-e29b-41d4-a716-446655440000", {
 <dl>
 <dd>
 
-**fhirProviderId:** `string` 
+**fhir_provider_id:** `string` 
 
 The ID of the FHIR provider to use. Can be either:
 - A UUID representing the provider ID
@@ -2519,7 +2516,7 @@ The ID of the FHIR provider to use. Can be either:
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions` 
+**requestOptions:** `FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2590,7 +2587,7 @@ await client.fhirProvider.create({
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions` 
+**requestOptions:** `FhirProviderClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2648,7 +2645,7 @@ await client.fhirProvider.list();
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions` 
+**requestOptions:** `FhirProviderClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2660,7 +2657,7 @@ await client.fhirProvider.list();
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">get</a>(fhirProviderId) -> phenoml.FhirProviderResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">get</a>(fhir_provider_id) -> phenoml.FhirProviderResponse</code></summary>
 <dl>
 <dd>
 
@@ -2706,7 +2703,7 @@ await client.fhirProvider.get("fhir_provider_id");
 <dl>
 <dd>
 
-**fhirProviderId:** `string` — ID of the FHIR provider to retrieve
+**fhir_provider_id:** `string` — ID of the FHIR provider to retrieve
     
 </dd>
 </dl>
@@ -2714,7 +2711,7 @@ await client.fhirProvider.get("fhir_provider_id");
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions` 
+**requestOptions:** `FhirProviderClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2726,7 +2723,7 @@ await client.fhirProvider.get("fhir_provider_id");
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">delete</a>(fhirProviderId) -> phenoml.FhirProviderDeleteResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">delete</a>(fhir_provider_id) -> phenoml.FhirProviderDeleteResponse</code></summary>
 <dl>
 <dd>
 
@@ -2771,7 +2768,7 @@ await client.fhirProvider.delete("fhir_provider_id");
 <dl>
 <dd>
 
-**fhirProviderId:** `string` — ID of the FHIR provider to delete
+**fhir_provider_id:** `string` — ID of the FHIR provider to delete
     
 </dd>
 </dl>
@@ -2779,7 +2776,7 @@ await client.fhirProvider.delete("fhir_provider_id");
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions` 
+**requestOptions:** `FhirProviderClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2791,7 +2788,7 @@ await client.fhirProvider.delete("fhir_provider_id");
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">addAuthConfig</a>(fhirProviderId, { ...params }) -> phenoml.FhirProviderResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">addAuthConfig</a>(fhir_provider_id, { ...params }) -> phenoml.FhirProviderResponse</code></summary>
 <dl>
 <dd>
 
@@ -2839,7 +2836,7 @@ await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", 
 <dl>
 <dd>
 
-**fhirProviderId:** `string` — ID of the FHIR provider to add auth config to
+**fhir_provider_id:** `string` — ID of the FHIR provider to add auth config to
     
 </dd>
 </dl>
@@ -2855,7 +2852,7 @@ await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", 
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions` 
+**requestOptions:** `FhirProviderClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2867,7 +2864,7 @@ await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", 
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">setActiveAuthConfig</a>(fhirProviderId, { ...params }) -> phenoml.FhirProviderResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">setActiveAuthConfig</a>(fhir_provider_id, { ...params }) -> phenoml.FhirProviderResponse</code></summary>
 <dl>
 <dd>
 
@@ -2918,7 +2915,7 @@ await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e
 <dl>
 <dd>
 
-**fhirProviderId:** `string` — ID of the FHIR provider
+**fhir_provider_id:** `string` — ID of the FHIR provider
     
 </dd>
 </dl>
@@ -2934,7 +2931,7 @@ await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions` 
+**requestOptions:** `FhirProviderClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2946,7 +2943,7 @@ await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">removeAuthConfig</a>(fhirProviderId, { ...params }) -> phenoml.FhirProviderRemoveAuthConfigResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">removeAuthConfig</a>(fhir_provider_id, { ...params }) -> phenoml.FhirProviderRemoveAuthConfigResponse</code></summary>
 <dl>
 <dd>
 
@@ -2994,7 +2991,7 @@ await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad
 <dl>
 <dd>
 
-**fhirProviderId:** `string` — ID of the FHIR provider
+**fhir_provider_id:** `string` — ID of the FHIR provider
     
 </dd>
 </dl>
@@ -3010,7 +3007,7 @@ await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions` 
+**requestOptions:** `FhirProviderClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3078,7 +3075,7 @@ await client.lang2Fhir.create({
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions` 
+**requestOptions:** `Lang2FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3145,7 +3142,7 @@ await client.lang2Fhir.createMulti({
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions` 
+**requestOptions:** `Lang2FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3217,7 +3214,7 @@ await client.lang2Fhir.search({
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions` 
+**requestOptions:** `Lang2FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3291,7 +3288,7 @@ await client.lang2Fhir.uploadProfile({
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions` 
+**requestOptions:** `Lang2FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3358,7 +3355,7 @@ await client.lang2Fhir.document({
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions` 
+**requestOptions:** `Lang2FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3414,7 +3411,7 @@ await client.summary.listTemplates();
 <dl>
 <dd>
 
-**requestOptions:** `Summary.RequestOptions` 
+**requestOptions:** `SummaryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3482,7 +3479,7 @@ await client.summary.createTemplate({
 <dl>
 <dd>
 
-**requestOptions:** `Summary.RequestOptions` 
+**requestOptions:** `SummaryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3545,7 +3542,7 @@ await client.summary.getTemplate("id");
 <dl>
 <dd>
 
-**requestOptions:** `Summary.RequestOptions` 
+**requestOptions:** `SummaryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3621,7 +3618,7 @@ await client.summary.updateTemplate("id", {
 <dl>
 <dd>
 
-**requestOptions:** `Summary.RequestOptions` 
+**requestOptions:** `SummaryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3684,7 +3681,7 @@ await client.summary.deleteTemplate("id");
 <dl>
 <dd>
 
-**requestOptions:** `Summary.RequestOptions` 
+**requestOptions:** `SummaryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3754,7 +3751,7 @@ await client.summary.create({
 <dl>
 <dd>
 
-**requestOptions:** `Summary.RequestOptions` 
+**requestOptions:** `SummaryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3823,7 +3820,7 @@ await client.tools.createFhirResource({
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3895,7 +3892,7 @@ await client.tools.createFhirResourcesMulti({
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3962,7 +3959,7 @@ await client.tools.searchFhirResources({
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4030,7 +4027,7 @@ await client.tools.analyzeCohort({
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4097,7 +4094,7 @@ await client.tools.mcpServer.create({
 <dl>
 <dd>
 
-**requestOptions:** `McpServer.RequestOptions` 
+**requestOptions:** `McpServerClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4152,7 +4149,7 @@ await client.tools.mcpServer.list();
 <dl>
 <dd>
 
-**requestOptions:** `McpServer.RequestOptions` 
+**requestOptions:** `McpServerClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4164,7 +4161,7 @@ await client.tools.mcpServer.list();
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">get</a>(mcpServerId) -> phenoml.McpServerResponse</code></summary>
+<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">get</a>(mcp_server_id) -> phenoml.McpServerResponse</code></summary>
 <dl>
 <dd>
 
@@ -4207,7 +4204,7 @@ await client.tools.mcpServer.get("mcp_server_id");
 <dl>
 <dd>
 
-**mcpServerId:** `string` — ID of the MCP server to retrieve
+**mcp_server_id:** `string` — ID of the MCP server to retrieve
     
 </dd>
 </dl>
@@ -4215,7 +4212,7 @@ await client.tools.mcpServer.get("mcp_server_id");
 <dl>
 <dd>
 
-**requestOptions:** `McpServer.RequestOptions` 
+**requestOptions:** `McpServerClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4227,7 +4224,7 @@ await client.tools.mcpServer.get("mcp_server_id");
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">delete</a>(mcpServerId) -> phenoml.McpServerResponse</code></summary>
+<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">delete</a>(mcp_server_id) -> phenoml.McpServerResponse</code></summary>
 <dl>
 <dd>
 
@@ -4270,7 +4267,7 @@ await client.tools.mcpServer.delete("mcp_server_id");
 <dl>
 <dd>
 
-**mcpServerId:** `string` — ID of the MCP server to delete
+**mcp_server_id:** `string` — ID of the MCP server to delete
     
 </dd>
 </dl>
@@ -4278,7 +4275,7 @@ await client.tools.mcpServer.delete("mcp_server_id");
 <dl>
 <dd>
 
-**requestOptions:** `McpServer.RequestOptions` 
+**requestOptions:** `McpServerClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4291,7 +4288,7 @@ await client.tools.mcpServer.delete("mcp_server_id");
 </details>
 
 ## Tools McpServer Tools
-<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">list</a>(mcpServerId) -> phenoml.McpServerToolResponse</code></summary>
+<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">list</a>(mcp_server_id) -> phenoml.McpServerToolResponse</code></summary>
 <dl>
 <dd>
 
@@ -4334,7 +4331,7 @@ await client.tools.mcpServer.tools.list("mcp_server_id");
 <dl>
 <dd>
 
-**mcpServerId:** `string` — ID of the MCP server to list tools for
+**mcp_server_id:** `string` — ID of the MCP server to list tools for
     
 </dd>
 </dl>
@@ -4342,7 +4339,7 @@ await client.tools.mcpServer.tools.list("mcp_server_id");
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4354,7 +4351,7 @@ await client.tools.mcpServer.tools.list("mcp_server_id");
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">get</a>(mcpServerToolId) -> phenoml.McpServerToolResponse</code></summary>
+<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">get</a>(mcp_server_tool_id) -> phenoml.McpServerToolResponse</code></summary>
 <dl>
 <dd>
 
@@ -4397,7 +4394,7 @@ await client.tools.mcpServer.tools.get("mcp_server_tool_id");
 <dl>
 <dd>
 
-**mcpServerToolId:** `string` — ID of the MCP server tool to retrieve
+**mcp_server_tool_id:** `string` — ID of the MCP server tool to retrieve
     
 </dd>
 </dl>
@@ -4405,7 +4402,7 @@ await client.tools.mcpServer.tools.get("mcp_server_tool_id");
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4417,7 +4414,7 @@ await client.tools.mcpServer.tools.get("mcp_server_tool_id");
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">delete</a>(mcpServerToolId) -> phenoml.McpServerToolResponse</code></summary>
+<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">delete</a>(mcp_server_tool_id) -> phenoml.McpServerToolResponse</code></summary>
 <dl>
 <dd>
 
@@ -4460,7 +4457,7 @@ await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
 <dl>
 <dd>
 
-**mcpServerToolId:** `string` — ID of the MCP server tool to delete
+**mcp_server_tool_id:** `string` — ID of the MCP server tool to delete
     
 </dd>
 </dl>
@@ -4468,7 +4465,7 @@ await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4480,7 +4477,7 @@ await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">call</a>(mcpServerToolId, { ...params }) -> phenoml.McpServerToolCallResponse</code></summary>
+<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">call</a>(mcp_server_tool_id, { ...params }) -> phenoml.McpServerToolCallResponse</code></summary>
 <dl>
 <dd>
 
@@ -4527,7 +4524,7 @@ await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
 <dl>
 <dd>
 
-**mcpServerToolId:** `string` — ID of the MCP server tool to call
+**mcp_server_tool_id:** `string` — ID of the MCP server tool to call
     
 </dd>
 </dl>
@@ -4543,7 +4540,7 @@ await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4609,7 +4606,7 @@ await client.workflows.list({
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions` 
+**requestOptions:** `WorkflowsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4682,7 +4679,7 @@ await client.workflows.create({
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions` 
+**requestOptions:** `WorkflowsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4755,7 +4752,7 @@ await client.workflows.get("id", {
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions` 
+**requestOptions:** `WorkflowsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4836,7 +4833,7 @@ await client.workflows.update("id", {
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions` 
+**requestOptions:** `WorkflowsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4899,7 +4896,7 @@ await client.workflows.delete("id");
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions` 
+**requestOptions:** `WorkflowsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4977,7 +4974,7 @@ await client.workflows.execute("id", {
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions` 
+**requestOptions:** `WorkflowsClient.RequestOptions` 
     
 </dd>
 </dl>
