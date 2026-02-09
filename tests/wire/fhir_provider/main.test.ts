@@ -400,24 +400,6 @@ describe("FhirProvider", () => {
             .mockEndpoint()
             .get("/fhir-provider/fhir_provider_id")
             .respondWith()
-            .statusCode(403)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.fhirProvider.get("fhir_provider_id");
-        }).rejects.toThrow(phenoml.fhirProvider.ForbiddenError);
-    });
-
-    test("get (4)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { key: "value" };
-        server
-            .mockEndpoint()
-            .get("/fhir-provider/fhir_provider_id")
-            .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
@@ -427,7 +409,7 @@ describe("FhirProvider", () => {
         }).rejects.toThrow(phenoml.fhirProvider.NotFoundError);
     });
 
-    test("get (5)", async () => {
+    test("get (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
 

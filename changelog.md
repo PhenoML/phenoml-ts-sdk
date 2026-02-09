@@ -1,3 +1,13 @@
+## 6.0.0 - 2026-02-09
+* fix: remove ForbiddenError handling from FHIR provider client
+* Remove ForbiddenError exception handling and associated test cases from the FHIR provider client. This change simplifies error handling by eliminating the 403 status code case, which was no longer needed in the API specification.
+* Key changes:
+* Remove ForbiddenError exception from JSDoc throws annotation
+* Remove 403 status code handling and ForbiddenError throwing logic
+* Delete test case for ForbiddenError scenario
+* Update remaining test numbering to maintain sequence
+* 🌿 Generated with Fern
+
 ## 5.2.0 - 2026-02-08
 * feat: refactor upload request structure with format-specific types
 * Refactor the upload code system functionality to use a discriminated union approach with format-specific request types. This improves type safety and API clarity by separating CSV and JSON upload requirements.
