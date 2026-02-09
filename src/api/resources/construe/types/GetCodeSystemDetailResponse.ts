@@ -9,10 +9,30 @@ export interface GetCodeSystemDetailResponse {
     code_count: number;
     /** Whether this is a built-in system (vs custom uploaded) */
     builtin: boolean;
-    /** Processing status of the code system. Currently always "ready". */
-    status: "ready";
+    /**
+     * Processing status of the code system.
+     * - "processing": embeddings are being generated (async upload in progress)
+     * - "ready": code system is ready for use
+     * - "failed": async processing failed (re-upload with replace=true to retry)
+     */
+    status: GetCodeSystemDetailResponse.Status;
     /** When the code system was created */
     created_at: string;
     /** When the code system was last updated */
     updated_at: string;
+}
+
+export namespace GetCodeSystemDetailResponse {
+    /**
+     * Processing status of the code system.
+     * - "processing": embeddings are being generated (async upload in progress)
+     * - "ready": code system is ready for use
+     * - "failed": async processing failed (re-upload with replace=true to retry)
+     */
+    export const Status = {
+        Processing: "processing",
+        Ready: "ready",
+        Failed: "failed",
+    } as const;
+    export type Status = (typeof Status)[keyof typeof Status];
 }

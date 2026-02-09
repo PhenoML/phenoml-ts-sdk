@@ -1,3 +1,14 @@
+## 5.2.0 - 2026-02-08
+* feat: refactor upload request structure with format-specific types
+* Refactor the upload code system functionality to use a discriminated union approach with format-specific request types. This improves type safety and API clarity by separating CSV and JSON upload requirements.
+* Key changes:
+* Split UploadRequest into format-specific types (UploadRequestCsv and UploadRequestJson)
+* Make CSV format parameters (code_col, desc_col) required for CSV uploads
+* Add async processing support with new status values ("processing", "failed")
+* Update code system status to include processing states beyond just "ready"
+* Restructure type exports and remove legacy request type from construe client
+* 🌿 Generated with Fern
+
 ## 5.1.0 - 2026-02-08
 * feat: add code system detail retrieval and deletion methods
 * Add comprehensive code system management capabilities with two new API methods for
