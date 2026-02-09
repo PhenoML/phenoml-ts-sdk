@@ -3,8 +3,6 @@
 export interface ChatSessionTemplate {
     /** Chat session ID */
     id?: string;
-    /** User ID */
-    user_id?: string;
     /** Chat session ID */
     session_id?: string;
     /** Chat session status */
