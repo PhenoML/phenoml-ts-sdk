@@ -1,3 +1,16 @@
+## 6.0.0 - 2026-02-10
+* refactor: simplify upload request structure and remove user_id fields
+* Refactor the code upload request interface to use a single unified structure instead
+* of separate CSV and JSON variants. Remove user_id fields from multiple template types
+* to simplify the data model and improve API consistency.
+* Key changes:
+* Consolidate UploadRequest from discriminated union to single interface with format field
+* Remove user_id fields from ChatMessageTemplate, ChatSessionTemplate, and other templates
+* Move UploadRequest from types to client/requests directory
+* Update documentation and test fixtures to reflect simplified structure
+* Maintain backward compatibility for upload functionality
+* 🌿 Generated with Fern
+
 ## 5.3.0 - 2026-02-09
 * feat: add custom code system export endpoint
 * Add new exportCustomCodeSystem method to the construe client that allows exporting custom (non-builtin) code systems as JSON files. This feature enables users to backup and transfer code systems between instances.

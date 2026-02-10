@@ -37,12 +37,9 @@ export class Construe {
      *
      * @example
      *     await client.construe.uploadCodeSystem({
-     *         format: "csv",
      *         name: "CUSTOM_CODES",
      *         version: "1.0",
-     *         file: "file",
-     *         code_col: "code",
-     *         desc_col: "description"
+     *         format: "csv"
      *     })
      */
     public uploadCodeSystem(
