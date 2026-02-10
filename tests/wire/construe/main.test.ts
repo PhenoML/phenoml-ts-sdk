@@ -8,14 +8,7 @@ describe("Construe", () => {
     test("uploadCodeSystem (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            format: "csv",
-            name: "CUSTOM_CODES",
-            version: "1.0",
-            file: "file",
-            code_col: "code",
-            desc_col: "description",
-        };
+        const rawRequestBody = { name: "CUSTOM_CODES", version: "1.0", format: "csv" };
         const rawResponseBody = { status: "success" };
         server
             .mockEndpoint()
@@ -27,12 +20,9 @@ describe("Construe", () => {
             .build();
 
         const response = await client.construe.uploadCodeSystem({
-            format: "csv",
             name: "CUSTOM_CODES",
             version: "1.0",
-            file: "file",
-            code_col: "code",
-            desc_col: "description",
+            format: "csv",
         });
         expect(response).toEqual({
             status: "success",
@@ -42,14 +32,7 @@ describe("Construe", () => {
     test("uploadCodeSystem (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            format: "csv",
-            name: "name",
-            version: "version",
-            file: "file",
-            code_col: "code_col",
-            desc_col: "desc_col",
-        };
+        const rawRequestBody = { name: "name", version: "version", format: "csv" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -62,12 +45,9 @@ describe("Construe", () => {
 
         await expect(async () => {
             return await client.construe.uploadCodeSystem({
-                format: "csv",
                 name: "name",
                 version: "version",
-                file: "file",
-                code_col: "code_col",
-                desc_col: "desc_col",
+                format: "csv",
             });
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
@@ -75,14 +55,7 @@ describe("Construe", () => {
     test("uploadCodeSystem (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            format: "csv",
-            name: "name",
-            version: "version",
-            file: "file",
-            code_col: "code_col",
-            desc_col: "desc_col",
-        };
+        const rawRequestBody = { name: "name", version: "version", format: "csv" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -95,12 +68,9 @@ describe("Construe", () => {
 
         await expect(async () => {
             return await client.construe.uploadCodeSystem({
-                format: "csv",
                 name: "name",
                 version: "version",
-                file: "file",
-                code_col: "code_col",
-                desc_col: "desc_col",
+                format: "csv",
             });
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
@@ -108,14 +78,7 @@ describe("Construe", () => {
     test("uploadCodeSystem (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            format: "csv",
-            name: "name",
-            version: "version",
-            file: "file",
-            code_col: "code_col",
-            desc_col: "desc_col",
-        };
+        const rawRequestBody = { name: "name", version: "version", format: "csv" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -128,12 +91,9 @@ describe("Construe", () => {
 
         await expect(async () => {
             return await client.construe.uploadCodeSystem({
-                format: "csv",
                 name: "name",
                 version: "version",
-                file: "file",
-                code_col: "code_col",
-                desc_col: "desc_col",
+                format: "csv",
             });
         }).rejects.toThrow(phenoml.construe.ForbiddenError);
     });
@@ -141,14 +101,7 @@ describe("Construe", () => {
     test("uploadCodeSystem (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            format: "csv",
-            name: "name",
-            version: "version",
-            file: "file",
-            code_col: "code_col",
-            desc_col: "desc_col",
-        };
+        const rawRequestBody = { name: "name", version: "version", format: "csv" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -161,12 +114,9 @@ describe("Construe", () => {
 
         await expect(async () => {
             return await client.construe.uploadCodeSystem({
-                format: "csv",
                 name: "name",
                 version: "version",
-                file: "file",
-                code_col: "code_col",
-                desc_col: "desc_col",
+                format: "csv",
             });
         }).rejects.toThrow(phenoml.construe.ConflictError);
     });
@@ -174,14 +124,7 @@ describe("Construe", () => {
     test("uploadCodeSystem (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            format: "csv",
-            name: "name",
-            version: "version",
-            file: "file",
-            code_col: "code_col",
-            desc_col: "desc_col",
-        };
+        const rawRequestBody = { name: "name", version: "version", format: "csv" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -194,12 +137,9 @@ describe("Construe", () => {
 
         await expect(async () => {
             return await client.construe.uploadCodeSystem({
-                format: "csv",
                 name: "name",
                 version: "version",
-                file: "file",
-                code_col: "code_col",
-                desc_col: "desc_col",
+                format: "csv",
             });
         }).rejects.toThrow(phenoml.construe.FailedDependencyError);
     });
@@ -207,14 +147,7 @@ describe("Construe", () => {
     test("uploadCodeSystem (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            format: "csv",
-            name: "name",
-            version: "version",
-            file: "file",
-            code_col: "code_col",
-            desc_col: "desc_col",
-        };
+        const rawRequestBody = { name: "name", version: "version", format: "csv" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -227,12 +160,9 @@ describe("Construe", () => {
 
         await expect(async () => {
             return await client.construe.uploadCodeSystem({
-                format: "csv",
                 name: "name",
                 version: "version",
-                file: "file",
-                code_col: "code_col",
-                desc_col: "desc_col",
+                format: "csv",
             });
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });

@@ -19,7 +19,6 @@ describe("FhirProvider", () => {
             message: "Fhir provider created successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                user_id: "user-123",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
                 provider: "athenahealth",
@@ -60,7 +59,6 @@ describe("FhirProvider", () => {
             message: "Fhir provider created successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                user_id: "user-123",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
                 provider: "athenahealth",
@@ -209,7 +207,6 @@ describe("FhirProvider", () => {
             fhir_providers: [
                 {
                     id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                    user_id: "user-123",
                     name: "Epic Sandbox",
                     description: "Epic sandbox environment for testing",
                     provider: "athenahealth",
@@ -246,7 +243,6 @@ describe("FhirProvider", () => {
             fhir_providers: [
                 {
                     id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                    user_id: "user-123",
                     name: "Epic Sandbox",
                     description: "Epic sandbox environment for testing",
                     provider: "athenahealth",
@@ -315,7 +311,6 @@ describe("FhirProvider", () => {
             message: "Fhir provider created successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                user_id: "user-123",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
                 provider: "athenahealth",
@@ -350,7 +345,6 @@ describe("FhirProvider", () => {
             message: "Fhir provider created successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                user_id: "user-123",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
                 provider: "athenahealth",
@@ -528,7 +522,6 @@ describe("FhirProvider", () => {
             message: "Fhir provider created successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                user_id: "user-123",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
                 provider: "athenahealth",
@@ -566,7 +559,6 @@ describe("FhirProvider", () => {
             message: "Fhir provider created successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                user_id: "user-123",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
                 provider: "athenahealth",
@@ -703,7 +695,6 @@ describe("FhirProvider", () => {
             message: "Fhir provider created successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                user_id: "user-123",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
                 provider: "athenahealth",
@@ -741,7 +732,6 @@ describe("FhirProvider", () => {
             message: "Fhir provider created successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                user_id: "user-123",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
                 provider: "athenahealth",
@@ -878,7 +868,6 @@ describe("FhirProvider", () => {
             message: "Auth configuration removed successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                user_id: "user-123",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
                 provider: "athenahealth",
@@ -916,7 +905,6 @@ describe("FhirProvider", () => {
             message: "Auth configuration removed successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                user_id: "user-123",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
                 provider: "athenahealth",

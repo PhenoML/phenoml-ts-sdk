@@ -1,3 +1,15 @@
+## 6.0.0 - 2026-02-10
+* refactor: simplify upload request type structure for construe API
+* Refactored the construe upload request type structure from discriminated union to single interface with enum format field. Also removed user_id fields from various template types and updated all related tests and documentation to match the simplified structure.
+* Key changes:
+* Merged UploadRequestCsv and UploadRequestJson into single UploadRequest interface
+* Changed from discriminated union to enum-based format field
+* Removed user_id fields from ChatMessageTemplate, ChatSessionTemplate, FhirProviderTemplate, SummaryTemplate, McpServerResponse, McpServerToolResponse, WorkflowDefinition, and WorkflowResponse
+* Moved UploadRequest from types to client/requests directory
+* Updated all test cases and examples to use simplified interface
+* Updated documentation and type references throughout codebase
+* 🌿 Generated with Fern
+
 ## 5.3.0 - 2026-02-09
 * feat: add custom code system export endpoint
 * Add new exportCustomCodeSystem method to the construe client that allows exporting custom (non-builtin) code systems as JSON files. This feature enables users to backup and transfer code systems between instances.

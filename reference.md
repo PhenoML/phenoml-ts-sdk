@@ -1171,12 +1171,9 @@ subsequently use the code system for construe/extract and lang2fhir/create (comi
 
 ```typescript
 await client.construe.uploadCodeSystem({
-    format: "csv",
     name: "CUSTOM_CODES",
     version: "1.0",
-    file: "file",
-    code_col: "code",
-    desc_col: "description"
+    format: "csv"
 });
 
 ```
@@ -1193,7 +1190,7 @@ await client.construe.uploadCodeSystem({
 <dl>
 <dd>
 
-**request:** `phenoml.UploadRequest` 
+**request:** `phenoml.construe.UploadRequest` 
     
 </dd>
 </dl>
