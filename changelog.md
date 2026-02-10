@@ -1,3 +1,16 @@
+## 6.0.0 - 2026-02-09
+* Breaking changes:
+* Flatten `uploadCodeSystem()` — replaces the `UploadRequest.Csv`/`UploadRequest.Json` discriminated union with a flat `UploadRequest` interface that takes `name`, `version`, `format`, and optional fields directly. Removes `UploadRequestCsv` and `UploadRequestJson` types.
+* Remove `user_id` field from `ChatMessageTemplate`, `ChatSessionTemplate`, `FhirProviderTemplate`, `SummaryTemplate`, `McpServerResponse.Data`, `McpServerToolResponse.Data`, `WorkflowDefinition`, `WorkflowResponse`
+* Remove `PhenoMLClient` export from main entry point — use `phenomlClient` directly
+* Auth client options simplified to use `BaseClientOptions`/`BaseRequestOptions`; auth token endpoint now uses bearer token instead of basic auth
+* Remove `X-Fern-SDK-Name`, `X-Fern-SDK-Version`, `User-Agent` from default request headers
+* New features:
+* Export `BaseClientOptions`, `BaseRequestOptions` types from main entry point
+* Add configurable logging support via `LogConfig` option
+* Add `fetch` option to `BaseClientOptions` for custom fetch implementations
+* Export `BearerAuthProvider` for advanced auth customization
+
 ## 5.3.0 - 2026-02-09
 * feat: add custom code system export endpoint
 * Add new exportCustomCodeSystem method to the construe client that allows exporting custom (non-builtin) code systems as JSON files. This feature enables users to backup and transfer code systems between instances.

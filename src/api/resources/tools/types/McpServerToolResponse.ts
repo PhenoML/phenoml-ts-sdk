@@ -16,8 +16,6 @@ export namespace McpServerToolResponse {
     export interface Data {
         /** ID of the MCP server tool */
         id?: string;
-        /** ID of the user who created the MCP server tool */
-        user_id?: string;
         /** Name of the MCP server tool */
         name?: string;
         /** Description of the MCP server tool */
