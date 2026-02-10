@@ -14,7 +14,6 @@ describe("Summary", () => {
             templates: [
                 {
                     id: "id",
-                    user_id: "user_id",
                     name: "name",
                     description: "description",
                     template: "template",
@@ -40,7 +39,6 @@ describe("Summary", () => {
             templates: [
                 {
                     id: "id",
-                    user_id: "user_id",
                     name: "name",
                     description: "description",
                     template: "template",
@@ -107,7 +105,6 @@ describe("Summary", () => {
             template_id: "template_id",
             template: {
                 id: "id",
-                user_id: "user_id",
                 name: "name",
                 description: "description",
                 template: "template",
@@ -139,7 +136,6 @@ describe("Summary", () => {
             template_id: "template_id",
             template: {
                 id: "id",
-                user_id: "user_id",
                 name: "name",
                 description: "description",
                 template: "template",
@@ -249,7 +245,6 @@ describe("Summary", () => {
             success: true,
             template: {
                 id: "id",
-                user_id: "user_id",
                 name: "name",
                 description: "description",
                 template: "template",
@@ -273,7 +268,6 @@ describe("Summary", () => {
             success: true,
             template: {
                 id: "id",
-                user_id: "user_id",
                 name: "name",
                 description: "description",
                 template: "template",
@@ -374,7 +368,6 @@ describe("Summary", () => {
             message: "message",
             template: {
                 id: "id",
-                user_id: "user_id",
                 name: "name",
                 description: "description",
                 template: "template",
@@ -405,7 +398,6 @@ describe("Summary", () => {
             message: "message",
             template: {
                 id: "id",
-                user_id: "user_id",
                 name: "name",
                 description: "description",
                 template: "template",

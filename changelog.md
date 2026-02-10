@@ -1,3 +1,14 @@
+## 6.0.0 - 2026-02-10
+* refactor: simplify upload code system API and remove user_id fields
+* Major refactoring of the upload code system API to simplify the interface and improve consistency. The upload request structure has been consolidated and user ID references have been removed from multiple templates to support a more streamlined architecture.
+* Key changes:
+* Unified upload request structure with simplified parameter handling
+* Removed user_id fields from chat, workflow, FHIR provider, and other templates
+* Updated upload code system to return asynchronous processing status
+* Consolidated upload request types into a single interface
+* Improved documentation for asynchronous processing workflow
+* 🌿 Generated with Fern
+
 ## 5.3.0 - 2026-02-09
 * feat: add custom code system export endpoint
 * Add new exportCustomCodeSystem method to the construe client that allows exporting custom (non-builtin) code systems as JSON files. This feature enables users to backup and transfer code systems between instances.
