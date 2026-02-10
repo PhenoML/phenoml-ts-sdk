@@ -1,3 +1,15 @@
+## 6.0.0 - 2026-02-10
+* refactor: remove user_id fields from API types and simplify upload interface
+* This refactoring removes user_id fields from various API response types across the codebase and simplifies the construe code system upload interface. These changes improve API consistency and reduce unnecessary data exposure.
+* Key changes:
+* Remove user_id fields from ChatMessageTemplate, ChatSessionTemplate, FhirProviderTemplate, and other response types
+* Simplify construe upload interface by consolidating UploadRequest types and removing discriminated union
+* Update upload API documentation to clarify asynchronous processing behavior
+* Remove async parameter from upload requests (now always asynchronous)
+* Add name and version fields to ConstrueUploadCodeSystemResponse for better tracking
+* Update all test cases to reflect the simplified interface and removed fields
+* 🌿 Generated with Fern
+
 ## 5.3.0 - 2026-02-09
 * feat: add custom code system export endpoint
 * Add new exportCustomCodeSystem method to the construe client that allows exporting custom (non-builtin) code systems as JSON files. This feature enables users to backup and transfer code systems between instances.
