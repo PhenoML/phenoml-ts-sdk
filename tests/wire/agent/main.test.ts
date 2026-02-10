@@ -892,7 +892,6 @@ describe("Agent", () => {
                     content: "Hello, how are you?",
                     created: "2021-01-01T00:00:00Z",
                     updated: "2021-01-01T00:00:00Z",
-                    user_id: "user_123",
                     function_name: "get_patient_info",
                     function_args: { patient_id: "123" },
                     function_result: { name: "John Doe" },
@@ -925,7 +924,6 @@ describe("Agent", () => {
                     content: "Hello, how are you?",
                     created: "2021-01-01T00:00:00Z",
                     updated: "2021-01-01T00:00:00Z",
-                    user_id: "user_123",
                     function_name: "get_patient_info",
                     function_args: {
                         patient_id: "123",

@@ -14,7 +14,6 @@ describe("Tools", () => {
             message: "MCP server tool created successfully",
             data: {
                 id: "123",
-                user_id: "123",
                 name: "My MCP Server Tool",
                 description: "My MCP Server Tool is a tool that provides MCP services",
                 input_schema: { name: "string", age: "number" },
@@ -37,7 +36,6 @@ describe("Tools", () => {
             message: "MCP server tool created successfully",
             data: {
                 id: "123",
-                user_id: "123",
                 name: "My MCP Server Tool",
                 description: "My MCP Server Tool is a tool that provides MCP services",
                 input_schema: {
@@ -114,7 +112,6 @@ describe("Tools", () => {
             message: "MCP server tool created successfully",
             data: {
                 id: "123",
-                user_id: "123",
                 name: "My MCP Server Tool",
                 description: "My MCP Server Tool is a tool that provides MCP services",
                 input_schema: { name: "string", age: "number" },
@@ -137,7 +134,6 @@ describe("Tools", () => {
             message: "MCP server tool created successfully",
             data: {
                 id: "123",
-                user_id: "123",
                 name: "My MCP Server Tool",
                 description: "My MCP Server Tool is a tool that provides MCP services",
                 input_schema: {
@@ -214,7 +210,6 @@ describe("Tools", () => {
             message: "MCP server tool created successfully",
             data: {
                 id: "123",
-                user_id: "123",
                 name: "My MCP Server Tool",
                 description: "My MCP Server Tool is a tool that provides MCP services",
                 input_schema: { name: "string", age: "number" },
@@ -237,7 +232,6 @@ describe("Tools", () => {
             message: "MCP server tool created successfully",
             data: {
                 id: "123",
-                user_id: "123",
                 name: "My MCP Server Tool",
                 description: "My MCP Server Tool is a tool that provides MCP services",
                 input_schema: {
