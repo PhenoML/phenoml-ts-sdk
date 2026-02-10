@@ -16,8 +16,6 @@ export namespace McpServerResponse {
     export interface Data {
         /** ID of the MCP server */
         id?: string;
-        /** ID of the user who created the MCP server */
-        user_id?: string;
         /** Name of the MCP server */
         name?: string;
         /** Description of the MCP server */
