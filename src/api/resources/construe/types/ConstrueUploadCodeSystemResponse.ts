@@ -2,4 +2,6 @@
 
 export interface ConstrueUploadCodeSystemResponse {
     status?: string;
+    name?: string;
+    version?: string;
 }

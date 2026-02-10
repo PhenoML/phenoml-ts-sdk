@@ -14,7 +14,6 @@ describe("McpServer", () => {
             message: "MCP server created successfully",
             data: {
                 id: "123",
-                user_id: "123",
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
@@ -39,7 +38,6 @@ describe("McpServer", () => {
             message: "MCP server created successfully",
             data: {
                 id: "123",
-                user_id: "123",
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
@@ -145,7 +143,6 @@ describe("McpServer", () => {
             message: "MCP server created successfully",
             data: {
                 id: "123",
-                user_id: "123",
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
@@ -166,7 +163,6 @@ describe("McpServer", () => {
             message: "MCP server created successfully",
             data: {
                 id: "123",
-                user_id: "123",
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
@@ -238,7 +234,6 @@ describe("McpServer", () => {
             message: "MCP server created successfully",
             data: {
                 id: "123",
-                user_id: "123",
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
@@ -259,7 +254,6 @@ describe("McpServer", () => {
             message: "MCP server created successfully",
             data: {
                 id: "123",
-                user_id: "123",
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
@@ -331,7 +325,6 @@ describe("McpServer", () => {
             message: "MCP server created successfully",
             data: {
                 id: "123",
-                user_id: "123",
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
@@ -352,7 +345,6 @@ describe("McpServer", () => {
             message: "MCP server created successfully",
             data: {
                 id: "123",
-                user_id: "123",
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
