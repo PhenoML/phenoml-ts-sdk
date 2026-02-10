@@ -22,8 +22,9 @@ export class Construe {
 
     /**
      * Upload a custom medical code system with codes and descriptions for use in code extraction. Requires a paid plan.
-     * Upon upload, construe generates embeddings for all of the codes in the code system and stores them in the vector database so you can
-     * subsequently use the code system for construe/extract and lang2fhir/create (coming soon!)
+     * Returns 202 immediately; embedding generation runs asynchronously. Poll
+     * GET /construe/codes/systems/{codesystem}?version={version} to check when status
+     * transitions from "processing" to "ready" or "failed".
      *
      * @param {phenoml.construe.UploadRequest} request
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
@@ -37,12 +38,9 @@ export class Construe {
      *
      * @example
      *     await client.construe.uploadCodeSystem({
-     *         format: "csv",
      *         name: "CUSTOM_CODES",
      *         version: "1.0",
-     *         file: "file",
-     *         code_col: "code",
-     *         desc_col: "description"
+     *         format: "csv"
      *     })
      */
     public uploadCodeSystem(

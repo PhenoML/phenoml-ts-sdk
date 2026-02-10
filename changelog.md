@@ -1,3 +1,15 @@
+## 6.0.0 - 2026-02-10
+* refactor: simplify upload API and remove user_id fields
+* Updated the construe upload code system API to streamline the interface and improve usability. The API now returns 202 immediately with embedding generation running asynchronously, requiring users to poll the status endpoint to check completion.
+* Key changes:
+* Simplified uploadCodeSystem API interface with required format parameter and optional file/column parameters
+* Updated API to return 202 immediately with asynchronous processing behavior
+* Removed user_id fields from all template types across agent, fhir provider, summary, tools, and workflow modules
+* Reorganized construe upload request types from discriminated union to single interface
+* Updated documentation to reflect asynchronous processing workflow
+* Modified test cases to match new simplified API interface
+* 🌿 Generated with Fern
+
 ## 5.3.0 - 2026-02-09
 * feat: add custom code system export endpoint
 * Add new exportCustomCodeSystem method to the construe client that allows exporting custom (non-builtin) code systems as JSON files. This feature enables users to backup and transfer code systems between instances.
