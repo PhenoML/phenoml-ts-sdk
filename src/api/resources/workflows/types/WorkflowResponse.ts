@@ -8,8 +8,6 @@ import type * as phenoml from "../../../index.js";
 export interface WorkflowResponse {
     /** Unique identifier for the workflow */
     id?: string;
-    /** ID of the user who created the workflow */
-    user_id?: string;
     /** Human-readable name for the workflow */
     name?: string;
     /** Natural language instructions that define the workflow logic */

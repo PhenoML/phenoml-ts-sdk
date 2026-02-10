@@ -5,8 +5,6 @@ import type * as phenoml from "../../../index.js";
 export interface FhirProviderTemplate {
     /** Unique identifier for the FHIR provider */
     id?: string;
-    /** ID of the user who owns this FHIR provider */
-    user_id?: string;
     /** Display name for the FHIR provider */
     name?: string;
     /** Optional description of the FHIR provider */

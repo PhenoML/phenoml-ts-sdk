@@ -15,7 +15,6 @@ describe("Workflows", () => {
             workflows: [
                 {
                     id: "550e8400-e29b-41d4-a716-446655440001",
-                    user_id: "29m7ffyr88m0mv8",
                     name: "Patient Data Mapping Workflow",
                     workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                     sample_data: {
@@ -32,7 +31,6 @@ describe("Workflows", () => {
             workflow_details: [
                 {
                     id: "550e8400-e29b-41d4-a716-446655440001",
-                    user_id: "29m7ffyr88m0mv8",
                     name: "Patient Data Mapping Workflow",
                     workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                     sample_data: {
@@ -58,7 +56,6 @@ describe("Workflows", () => {
             workflows: [
                 {
                     id: "550e8400-e29b-41d4-a716-446655440001",
-                    user_id: "29m7ffyr88m0mv8",
                     name: "Patient Data Mapping Workflow",
                     workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                     sample_data: {
@@ -78,7 +75,6 @@ describe("Workflows", () => {
             workflow_details: [
                 {
                     id: "550e8400-e29b-41d4-a716-446655440001",
-                    user_id: "29m7ffyr88m0mv8",
                     name: "Patient Data Mapping Workflow",
                     workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                     sample_data: {
@@ -149,7 +145,6 @@ describe("Workflows", () => {
             workflow_id: "550e8400-e29b-41d4-a716-446655440001",
             workflow: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
-                user_id: "29m7ffyr88m0mv8",
                 name: "Patient Data Mapping Workflow",
                 workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                 sample_data: {
@@ -174,7 +169,6 @@ describe("Workflows", () => {
             },
             workflow_details: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
-                user_id: "29m7ffyr88m0mv8",
                 name: "Patient Data Mapping Workflow",
                 workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                 sample_data: {
@@ -226,7 +220,6 @@ describe("Workflows", () => {
             workflow_id: "550e8400-e29b-41d4-a716-446655440001",
             workflow: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
-                user_id: "29m7ffyr88m0mv8",
                 name: "Patient Data Mapping Workflow",
                 workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                 sample_data: {
@@ -254,7 +247,6 @@ describe("Workflows", () => {
             },
             workflow_details: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
-                user_id: "29m7ffyr88m0mv8",
                 name: "Patient Data Mapping Workflow",
                 workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                 sample_data: {
@@ -425,7 +417,6 @@ describe("Workflows", () => {
             success: true,
             workflow: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
-                user_id: "29m7ffyr88m0mv8",
                 name: "Patient Data Mapping Workflow",
                 workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                 sample_data: {
@@ -450,7 +441,6 @@ describe("Workflows", () => {
             },
             workflow_details: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
-                user_id: "29m7ffyr88m0mv8",
                 name: "Patient Data Mapping Workflow",
                 workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                 sample_data: {
@@ -485,7 +475,6 @@ describe("Workflows", () => {
             success: true,
             workflow: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
-                user_id: "29m7ffyr88m0mv8",
                 name: "Patient Data Mapping Workflow",
                 workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                 sample_data: {
@@ -513,7 +502,6 @@ describe("Workflows", () => {
             },
             workflow_details: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
-                user_id: "29m7ffyr88m0mv8",
                 name: "Patient Data Mapping Workflow",
                 workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                 sample_data: {
@@ -606,7 +594,6 @@ describe("Workflows", () => {
             message: "Workflow updated successfully",
             workflow: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
-                user_id: "29m7ffyr88m0mv8",
                 name: "Patient Data Mapping Workflow",
                 workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                 sample_data: {
@@ -631,7 +618,6 @@ describe("Workflows", () => {
             },
             workflow_details: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
-                user_id: "29m7ffyr88m0mv8",
                 name: "Patient Data Mapping Workflow",
                 workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                 sample_data: {
@@ -682,7 +668,6 @@ describe("Workflows", () => {
             message: "Workflow updated successfully",
             workflow: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
-                user_id: "29m7ffyr88m0mv8",
                 name: "Patient Data Mapping Workflow",
                 workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                 sample_data: {
@@ -710,7 +695,6 @@ describe("Workflows", () => {
             },
             workflow_details: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
-                user_id: "29m7ffyr88m0mv8",
                 name: "Patient Data Mapping Workflow",
                 workflow_instructions: "Given diagnosis data, find the patient and create condition record",
                 sample_data: {
