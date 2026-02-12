@@ -1,3 +1,15 @@
+## 6.0.0 - 2026-02-12
+* refactor: simplify upload request structure and remove user_id from templates
+* This refactor streamlines the construe upload API by consolidating separate CSV and JSON request types into a single unified UploadRequest type. The changes also remove user_id fields across multiple template types to simplify the data model.
+* Key changes:
+* Consolidate UploadRequestCsv and UploadRequestJson into single UploadRequest type
+* Move UploadRequest from types to client/requests directory for better organization
+* Remove user_id field from ChatMessageTemplate, ChatSessionTemplate, FhirProviderTemplate, SummaryTemplate, McpServerResponse.Data, McpServerToolResponse.Data, WorkflowDefinition, and WorkflowResponse
+* Update upload response to include name and version fields for better tracking
+* Simplify construe upload examples and documentation to reflect new structure
+* Update all test cases to use new simplified request format
+* 🌿 Generated with Fern
+
 ## 5.3.0 - 2026-02-09
 * feat: add custom code system export endpoint
 * Add new exportCustomCodeSystem method to the construe client that allows exporting custom (non-builtin) code systems as JSON files. This feature enables users to backup and transfer code systems between instances.
