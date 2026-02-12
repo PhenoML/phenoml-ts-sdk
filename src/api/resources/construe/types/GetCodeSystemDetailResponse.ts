@@ -11,9 +11,9 @@ export interface GetCodeSystemDetailResponse {
     builtin: boolean;
     /**
      * Processing status of the code system.
-     * - "processing": embeddings are being generated (async upload in progress)
+     * - "processing": embeddings are being generated
      * - "ready": code system is ready for use
-     * - "failed": async processing failed (re-upload with replace=true to retry)
+     * - "failed": processing failed (re-upload with replace=true to retry)
      */
     status: GetCodeSystemDetailResponse.Status;
     /** When the code system was created */
@@ -25,9 +25,9 @@ export interface GetCodeSystemDetailResponse {
 export namespace GetCodeSystemDetailResponse {
     /**
      * Processing status of the code system.
-     * - "processing": embeddings are being generated (async upload in progress)
+     * - "processing": embeddings are being generated
      * - "ready": code system is ready for use
-     * - "failed": async processing failed (re-upload with replace=true to retry)
+     * - "failed": processing failed (re-upload with replace=true to retry)
      */
     export const Status = {
         Processing: "processing",

@@ -1,3 +1,16 @@
+## 6.0.0 - 2026-02-12
+* refactor: remove user_id fields and simplify code upload API
+* Major refactoring across multiple domains to remove user_id fields from response templates and significantly simplify the code system upload API. The upload process now returns 202 immediately and runs asynchronously by default.
+* Key changes:
+* Remove user_id fields from all template types (ChatMessage, ChatSession, FhirProvider, Summary, MCP Server, Workflow)
+* Simplify construe upload API by consolidating CSV and JSON formats into single UploadRequest type
+* Update upload process to be asynchronous by default with 202 response and background processing
+* Replace rationale field with reason in ExtractedCodeResult and remove longDescription
+* Add new error types: GatewayTimeoutError and enhanced ServiceUnavailableError handling
+* Update error handling for extractCodes endpoint (424 → 404, added 503/504 support)
+* Consolidate upload request types and move to client/requests directory
+* 🌿 Generated with Fern
+
 ## 5.3.0 - 2026-02-09
 * feat: add custom code system export endpoint
 * Add new exportCustomCodeSystem method to the construe client that allows exporting custom (non-builtin) code systems as JSON files. This feature enables users to backup and transfer code systems between instances.
