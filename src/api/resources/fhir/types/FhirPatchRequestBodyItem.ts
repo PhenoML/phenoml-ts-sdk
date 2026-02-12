@@ -6,9 +6,9 @@ export interface FhirPatchRequestBodyItem {
     /** JSON Pointer to the target location */
     path: string;
     /** The value to use (required for add, replace, test operations) */
-    value?: unknown;
+    value?: unknown | undefined;
     /** Source location for move and copy operations (JSON Pointer) */
-    from?: string;
+    from?: string | undefined;
 }
 
 export namespace FhirPatchRequestBodyItem {

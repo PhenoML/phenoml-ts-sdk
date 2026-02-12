@@ -4,20 +4,20 @@ import type * as phenoml from "../../../index.js";
 
 export interface WorkflowStep {
     /** Unique identifier for the step */
-    id?: string;
+    id?: string | undefined;
     /** Human-readable name for the step */
-    name?: string;
+    name?: string | undefined;
     /** Detailed description of what the step does */
-    description?: string;
+    description?: string | undefined;
     /** Type of operation this step performs */
-    type?: WorkflowStep.Type;
-    operation?: phenoml.workflows.StepOperation;
+    type?: WorkflowStep.Type | undefined;
+    operation?: phenoml.workflows.StepOperation | undefined;
     /** Selected FHIR provider ID for this step */
-    provider_id?: string;
+    provider_id?: string | undefined;
     /** IDs of steps this step depends on */
-    dependencies?: string[];
+    dependencies?: string[] | undefined;
     /** Whether to use dynamic lang2fhir generation for this step */
-    dynamic_generation?: boolean;
+    dynamic_generation?: boolean | undefined;
 }
 
 export namespace WorkflowStep {

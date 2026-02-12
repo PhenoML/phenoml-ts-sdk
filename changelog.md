@@ -1,3 +1,7 @@
+## 5.3.1 - 2026-02-12
+* SDK regeneration
+* Unable to analyze changes with AI, incrementing PATCH version.
+
 ## 5.3.0 - 2026-02-09
 * feat: add custom code system export endpoint
 * Add new exportCustomCodeSystem method to the construe client that allows exporting custom (non-builtin) code systems as JSON files. This feature enables users to backup and transfer code systems between instances.

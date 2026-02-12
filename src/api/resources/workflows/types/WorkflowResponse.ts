@@ -7,26 +7,24 @@ import type * as phenoml from "../../../index.js";
  */
 export interface WorkflowResponse {
     /** Unique identifier for the workflow */
-    id?: string;
-    /** ID of the user who created the workflow */
-    user_id?: string;
+    id?: string | undefined;
     /** Human-readable name for the workflow */
-    name?: string;
+    name?: string | undefined;
     /** Natural language instructions that define the workflow logic */
-    workflow_instructions?: string;
+    workflow_instructions?: string | undefined;
     /** Sample data used for workflow graph generation */
-    sample_data?: Record<string, unknown>;
-    config?: phenoml.workflows.WorkflowConfig;
-    graph?: WorkflowResponse.Graph;
+    sample_data?: Record<string, unknown> | undefined;
+    config?: phenoml.workflows.WorkflowConfig | undefined;
+    graph?: WorkflowResponse.Graph | undefined;
     /** Timestamp when the workflow was created */
-    created_at?: string;
+    created_at?: string | undefined;
     /** Timestamp when the workflow was last updated */
-    updated_at?: string;
+    updated_at?: string | undefined;
 }
 
 export namespace WorkflowResponse {
     export interface Graph {
         /** Simplified list of workflow steps without operation details */
-        steps?: phenoml.workflows.WorkflowStepSummary[];
+        steps?: phenoml.workflows.WorkflowStepSummary[] | undefined;
     }
 }

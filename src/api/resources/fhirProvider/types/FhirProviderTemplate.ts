@@ -4,22 +4,20 @@ import type * as phenoml from "../../../index.js";
 
 export interface FhirProviderTemplate {
     /** Unique identifier for the FHIR provider */
-    id?: string;
-    /** ID of the user who owns this FHIR provider */
-    user_id?: string;
+    id?: string | undefined;
     /** Display name for the FHIR provider */
-    name?: string;
+    name?: string | undefined;
     /** Optional description of the FHIR provider */
-    description?: string;
-    provider?: phenoml.fhirProvider.Provider;
+    description?: string | undefined;
+    provider?: phenoml.fhirProvider.Provider | undefined;
     /** Base URL of the FHIR server */
-    base_url?: string;
+    base_url?: string | undefined;
     /** OAuth client ID */
-    client_id?: string;
+    client_id?: string | undefined;
     /** Map of authentication configurations (key is auth_config_id) */
-    auth_configs?: Record<string, phenoml.fhirProvider.FhirProviderAuthConfig>;
+    auth_configs?: Record<string, phenoml.fhirProvider.FhirProviderAuthConfig> | undefined;
     /** Whether the FHIR provider is active */
-    is_active?: boolean;
+    is_active?: boolean | undefined;
     /** Timestamp when the provider was last updated */
-    last_updated?: string;
+    last_updated?: string | undefined;
 }

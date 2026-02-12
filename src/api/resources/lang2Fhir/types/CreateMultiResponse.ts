@@ -2,13 +2,13 @@
 
 export interface CreateMultiResponse {
     /** Whether extraction was successful */
-    success?: boolean;
+    success?: boolean | undefined;
     /** Status message */
-    message?: string;
+    message?: string | undefined;
     /** FHIR transaction Bundle containing all extracted resources */
-    bundle?: CreateMultiResponse.Bundle;
+    bundle?: CreateMultiResponse.Bundle | undefined;
     /** Summary of extracted resources */
-    resources?: CreateMultiResponse.Resources.Item[];
+    resources?: CreateMultiResponse.Resources.Item[] | undefined;
 }
 
 export namespace CreateMultiResponse {
@@ -16,9 +16,9 @@ export namespace CreateMultiResponse {
      * FHIR transaction Bundle containing all extracted resources
      */
     export interface Bundle {
-        resourceType?: string;
-        type?: string;
-        entry?: Bundle.Entry.Item[];
+        resourceType?: string | undefined;
+        type?: string | undefined;
+        entry?: Bundle.Entry.Item[] | undefined;
     }
 
     export namespace Bundle {
@@ -26,15 +26,15 @@ export namespace CreateMultiResponse {
 
         export namespace Entry {
             export interface Item {
-                fullUrl?: string;
-                resource?: Record<string, unknown>;
-                request?: Item.Request;
+                fullUrl?: string | undefined;
+                resource?: Record<string, unknown> | undefined;
+                request?: Item.Request | undefined;
             }
 
             export namespace Item {
                 export interface Request {
-                    method?: string;
-                    url?: string;
+                    method?: string | undefined;
+                    url?: string | undefined;
                 }
             }
         }
@@ -45,11 +45,11 @@ export namespace CreateMultiResponse {
     export namespace Resources {
         export interface Item {
             /** Temporary UUID for the resource */
-            tempId?: string;
+            tempId?: string | undefined;
             /** FHIR resource type */
-            resourceType?: string;
+            resourceType?: string | undefined;
             /** Text excerpt this resource was extracted from */
-            description?: string;
+            description?: string | undefined;
         }
     }
 }
