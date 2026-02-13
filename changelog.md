@@ -1,3 +1,15 @@
+## 6.3.1 - 2026-02-13
+* chore: update SDK generator version to 3.29.0
+* Updates the TypeScript SDK generator from version 3.28.6 to 3.29.0. This update modernizes the SDK's HTTP request handling by migrating from plain objects to the native Headers API for better standards compliance and improved header management.
+* Key changes:
+* Update generator version to 3.29.0 in metadata
+* Remove `.npmignore` file
+* Modernize fetcher implementation to use native Headers API
+* Update parameter naming from camelCase to snake_case
+* Add comprehensive test setup for header validation
+* Update package lock file with latest dependency versions
+* 🌿 Generated with Fern
+
 ## 6.3.0 - 2026-02-13
 * feat: improve HTTP logging, redaction, and test infrastructure
 * Enhance fetcher with response header logging and improved sensitive header redaction
