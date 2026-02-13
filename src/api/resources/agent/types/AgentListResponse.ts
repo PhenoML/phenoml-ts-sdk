@@ -3,7 +3,7 @@
 import type * as phenoml from "../../../index.js";
 
 export interface AgentListResponse {
-    success?: boolean;
-    message?: string;
-    agents?: phenoml.agent.AgentTemplate[];
+    success?: boolean | undefined;
+    message?: string | undefined;
+    agents?: phenoml.agent.AgentTemplate[] | undefined;
 }

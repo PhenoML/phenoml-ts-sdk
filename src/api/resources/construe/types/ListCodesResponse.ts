@@ -6,7 +6,7 @@ export interface ListCodesResponse {
     system: phenoml.construe.CodeSystemInfo;
     codes: phenoml.construe.CodeResponse[];
     /** Cursor for fetching the next page (null if no more results) */
-    next_cursor?: string;
+    next_cursor?: string | undefined;
     /** Whether there are more results available */
     has_more: boolean;
 }

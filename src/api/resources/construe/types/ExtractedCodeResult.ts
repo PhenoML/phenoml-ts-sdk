@@ -9,19 +9,17 @@ export interface ExtractedCodeResult {
     description: string;
     /** Whether the code passed validation. Always true unless include_invalid is set to true, in which case invalid codes will have this set to false. */
     valid: boolean;
-    /** Long description of the code */
-    longDescription?: string;
     /** Explanation for why this code was extracted (if include_rationale is true) */
-    rationale?: string;
+    reason?: string | undefined;
     /**
      * Whether this code is an ancestor (parent) of an extracted code rather than directly extracted.
      * Only present when include_ancestors is true.
      */
-    is_ancestor?: boolean;
+    is_ancestor?: boolean | undefined;
     /**
      * Source text references showing where this code was found in the input.
      * Only present when include_citations is true and chunking method supports it.
      * Ancestor codes do not receive citations.
      */
-    citations?: phenoml.construe.Citation[];
+    citations?: phenoml.construe.Citation[] | undefined;
 }

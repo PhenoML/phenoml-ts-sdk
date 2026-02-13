@@ -3,7 +3,7 @@
 import type * as phenoml from "../../../index.js";
 
 export interface AgentGetChatMessagesResponse {
-    messages?: phenoml.agent.ChatMessageTemplate[];
-    total?: number;
-    session_id?: string;
+    messages?: phenoml.agent.ChatMessageTemplate[] | undefined;
+    total?: number | undefined;
+    session_id?: string | undefined;
 }

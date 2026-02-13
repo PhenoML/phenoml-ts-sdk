@@ -2,23 +2,21 @@
 
 export interface ChatSessionTemplate {
     /** Chat session ID */
-    id?: string;
-    /** User ID */
-    user_id?: string;
+    id?: string | undefined;
     /** Chat session ID */
-    session_id?: string;
+    session_id?: string | undefined;
     /** Chat session status */
-    status?: string;
+    status?: string | undefined;
     /** System prompt */
-    system_prompt?: string;
+    system_prompt?: string | undefined;
     /** Chat session title */
-    title?: string;
+    title?: string | undefined;
     /** Agent ID */
-    agent_id?: string;
+    agent_id?: string | undefined;
     /** Chat session created time */
-    created?: string;
+    created?: string | undefined;
     /** Chat session last message time */
-    last_message_at?: string;
+    last_message_at?: string | undefined;
     /** Chat session updated time */
-    updated?: string;
+    updated?: string | undefined;
 }
