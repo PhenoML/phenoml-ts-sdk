@@ -1,3 +1,11 @@
+## 6.3.0 - 2026-02-13
+* feat: improve HTTP logging, redaction, and test infrastructure
+* Enhance fetcher with response header logging and improved sensitive header redaction
+* Fix Logger.shouldLog() level comparison logic for correct log filtering
+* Improve URL credential redaction to handle multiple @ characters
+* Add comprehensive test suites for logging integration and redaction edge cases
+* Refactor existing unit tests to table-driven style for better maintainability
+
 ## 6.2.0 - 2026-02-13
 * feat: add comprehensive logging support to SDK
 * Add configurable logging capabilities to the PhenoML TypeScript SDK, providing developers with detailed request/response visibility and debugging capabilities.
