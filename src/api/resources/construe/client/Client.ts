@@ -76,6 +76,7 @@ export class Construe {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return {
@@ -186,6 +187,7 @@ export class Construe {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.construe.ExtractCodesResult, rawResponse: _response.rawResponse };
@@ -282,6 +284,7 @@ export class Construe {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return {
@@ -383,6 +386,7 @@ export class Construe {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return {
@@ -492,6 +496,7 @@ export class Construe {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return {
@@ -606,6 +611,7 @@ export class Construe {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return {
@@ -734,6 +740,7 @@ export class Construe {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.construe.ListCodesResponse, rawResponse: _response.rawResponse };
@@ -787,7 +794,7 @@ export class Construe {
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
      *
      * @param {string} codesystem - Code system name
-     * @param {string} codeId - The code identifier
+     * @param {string} codeID - The code identifier
      * @param {phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest} request
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -803,18 +810,18 @@ export class Construe {
      */
     public getASpecificCode(
         codesystem: string,
-        codeId: string,
+        codeID: string,
         request: phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest = {},
         requestOptions?: Construe.RequestOptions,
     ): core.HttpResponsePromise<phenoml.construe.GetCodeResponse> {
         return core.HttpResponsePromise.fromPromise(
-            this.__getASpecificCode(codesystem, codeId, request, requestOptions),
+            this.__getASpecificCode(codesystem, codeID, request, requestOptions),
         );
     }
 
     private async __getASpecificCode(
         codesystem: string,
-        codeId: string,
+        codeID: string,
         request: phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest = {},
         requestOptions?: Construe.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.construe.GetCodeResponse>> {
@@ -834,7 +841,7 @@ export class Construe {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `construe/codes/${core.url.encodePathParam(codesystem)}/${core.url.encodePathParam(codeId)}`,
+                `construe/codes/${core.url.encodePathParam(codesystem)}/${core.url.encodePathParam(codeID)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -843,6 +850,7 @@ export class Construe {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.construe.GetCodeResponse, rawResponse: _response.rawResponse };
@@ -974,6 +982,7 @@ export class Construe {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return {
@@ -1114,6 +1123,7 @@ export class Construe {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.construe.TextSearchResponse, rawResponse: _response.rawResponse };

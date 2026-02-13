@@ -1,3 +1,7 @@
+## 6.1.1 - 2026-02-13
+* SDK regeneration
+* Unable to analyze changes with AI, incrementing PATCH version.
+
 ## 6.1.0 - 2026-02-13
 * feat: add custom fetch function support and improve client configuration
 * Add support for custom fetch implementations through a new fetch option in BaseClientOptions.

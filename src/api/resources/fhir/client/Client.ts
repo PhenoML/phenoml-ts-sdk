@@ -26,14 +26,14 @@ export class Fhir {
      *
      * The request is proxied to the configured FHIR server with appropriate authentication headers.
      *
-     * @param {string} fhirProviderId - The ID of the FHIR provider to use. Can be either:
-     *                                  - A UUID representing the provider ID
-     *                                  - A provider name (legacy support - will just use the most recently updated provider with this name)
-     * @param {string} fhirPath - The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
-     *                            Examples:
-     *                            - "Patient" (for resource type operations)
-     *                            - "Patient/123" (for specific resource operations)
-     *                            - "Patient/123/_history" (for history operations)
+     * @param {string} fhir_provider_id - The ID of the FHIR provider to use. Can be either:
+     *                                    - A UUID representing the provider ID
+     *                                    - A provider name (legacy support - will just use the most recently updated provider with this name)
+     * @param {string} fhir_path - The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
+     *                             Examples:
+     *                             - "Patient" (for resource type operations)
+     *                             - "Patient/123" (for specific resource operations)
+     *                             - "Patient/123/_history" (for history operations)
      * @param {phenoml.fhir.FhirSearchRequest} request
      * @param {Fhir.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -50,17 +50,19 @@ export class Fhir {
      *     })
      */
     public search(
-        fhirProviderId: string,
-        fhirPath: string,
+        fhir_provider_id: string,
+        fhir_path: string,
         request: phenoml.fhir.FhirSearchRequest = {},
         requestOptions?: Fhir.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhir.FhirSearchResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__search(fhirProviderId, fhirPath, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(
+            this.__search(fhir_provider_id, fhir_path, request, requestOptions),
+        );
     }
 
     private async __search(
-        fhirProviderId: string,
-        fhirPath: string,
+        fhir_provider_id: string,
+        fhir_path: string,
         request: phenoml.fhir.FhirSearchRequest = {},
         requestOptions?: Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhir.FhirSearchResponse>> {
@@ -88,7 +90,7 @@ export class Fhir {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhirProviderId)}/fhir/${core.url.encodePathParam(fhirPath)}`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}/fhir/${core.url.encodePathParam(fhir_path)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -97,6 +99,7 @@ export class Fhir {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.fhir.FhirSearchResponse, rawResponse: _response.rawResponse };
@@ -150,14 +153,14 @@ export class Fhir {
      *
      * The request is proxied to the configured FHIR server with appropriate authentication headers.
      *
-     * @param {string} fhirProviderId - The ID of the FHIR provider to use. Can be either:
-     *                                  - A UUID representing the provider ID
-     *                                  - A provider name (legacy support - will just use the most recently updated provider with this name)
-     * @param {string} fhirPath - The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
-     *                            Examples:
-     *                            - "Patient" (for resource type operations)
-     *                            - "Patient/123" (for specific resource operations)
-     *                            - "Patient/123/_history" (for history operations)
+     * @param {string} fhir_provider_id - The ID of the FHIR provider to use. Can be either:
+     *                                    - A UUID representing the provider ID
+     *                                    - A provider name (legacy support - will just use the most recently updated provider with this name)
+     * @param {string} fhir_path - The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
+     *                             Examples:
+     *                             - "Patient" (for resource type operations)
+     *                             - "Patient/123" (for specific resource operations)
+     *                             - "Patient/123/_history" (for history operations)
      * @param {phenoml.fhir.FhirCreateRequest} request
      * @param {Fhir.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -186,17 +189,19 @@ export class Fhir {
      *     })
      */
     public create(
-        fhirProviderId: string,
-        fhirPath: string,
+        fhir_provider_id: string,
+        fhir_path: string,
         request: phenoml.fhir.FhirCreateRequest,
         requestOptions?: Fhir.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhir.FhirResource> {
-        return core.HttpResponsePromise.fromPromise(this.__create(fhirProviderId, fhirPath, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(
+            this.__create(fhir_provider_id, fhir_path, request, requestOptions),
+        );
     }
 
     private async __create(
-        fhirProviderId: string,
-        fhirPath: string,
+        fhir_provider_id: string,
+        fhir_path: string,
         request: phenoml.fhir.FhirCreateRequest,
         requestOptions?: Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhir.FhirResource>> {
@@ -219,7 +224,7 @@ export class Fhir {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhirProviderId)}/fhir/${core.url.encodePathParam(fhirPath)}`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}/fhir/${core.url.encodePathParam(fhir_path)}`,
             ),
             method: "POST",
             headers: _headers,
@@ -231,6 +236,7 @@ export class Fhir {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.fhir.FhirResource, rawResponse: _response.rawResponse };
@@ -282,14 +288,14 @@ export class Fhir {
      *
      * The request is proxied to the configured FHIR server with appropriate authentication headers.
      *
-     * @param {string} fhirProviderId - The ID of the FHIR provider to use. Can be either:
-     *                                  - A UUID representing the provider ID
-     *                                  - A provider name (legacy support - will just use the most recently updated provider with this name)
-     * @param {string} fhirPath - The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
-     *                            Examples:
-     *                            - "Patient" (for resource type operations)
-     *                            - "Patient/123" (for specific resource operations)
-     *                            - "Patient/123/_history" (for history operations)
+     * @param {string} fhir_provider_id - The ID of the FHIR provider to use. Can be either:
+     *                                    - A UUID representing the provider ID
+     *                                    - A provider name (legacy support - will just use the most recently updated provider with this name)
+     * @param {string} fhir_path - The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
+     *                             Examples:
+     *                             - "Patient" (for resource type operations)
+     *                             - "Patient/123" (for specific resource operations)
+     *                             - "Patient/123/_history" (for history operations)
      * @param {phenoml.fhir.FhirUpsertRequest} request
      * @param {Fhir.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -320,17 +326,19 @@ export class Fhir {
      *     })
      */
     public upsert(
-        fhirProviderId: string,
-        fhirPath: string,
+        fhir_provider_id: string,
+        fhir_path: string,
         request: phenoml.fhir.FhirUpsertRequest,
         requestOptions?: Fhir.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhir.FhirResource> {
-        return core.HttpResponsePromise.fromPromise(this.__upsert(fhirProviderId, fhirPath, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(
+            this.__upsert(fhir_provider_id, fhir_path, request, requestOptions),
+        );
     }
 
     private async __upsert(
-        fhirProviderId: string,
-        fhirPath: string,
+        fhir_provider_id: string,
+        fhir_path: string,
         request: phenoml.fhir.FhirUpsertRequest,
         requestOptions?: Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhir.FhirResource>> {
@@ -353,7 +361,7 @@ export class Fhir {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhirProviderId)}/fhir/${core.url.encodePathParam(fhirPath)}`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}/fhir/${core.url.encodePathParam(fhir_path)}`,
             ),
             method: "PUT",
             headers: _headers,
@@ -365,6 +373,7 @@ export class Fhir {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.fhir.FhirResource, rawResponse: _response.rawResponse };
@@ -416,14 +425,14 @@ export class Fhir {
      *
      * The request is proxied to the configured FHIR server with appropriate authentication headers.
      *
-     * @param {string} fhirProviderId - The ID of the FHIR provider to use. Can be either:
-     *                                  - A UUID representing the provider ID
-     *                                  - A provider name (legacy support - will just use the most recently updated provider with this name)
-     * @param {string} fhirPath - The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
-     *                            Examples:
-     *                            - "Patient" (for resource type operations)
-     *                            - "Patient/123" (for specific resource operations)
-     *                            - "Patient/123/_history" (for history operations)
+     * @param {string} fhir_provider_id - The ID of the FHIR provider to use. Can be either:
+     *                                    - A UUID representing the provider ID
+     *                                    - A provider name (legacy support - will just use the most recently updated provider with this name)
+     * @param {string} fhir_path - The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
+     *                             Examples:
+     *                             - "Patient" (for resource type operations)
+     *                             - "Patient/123" (for specific resource operations)
+     *                             - "Patient/123/_history" (for history operations)
      * @param {phenoml.fhir.FhirDeleteRequest} request
      * @param {Fhir.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -440,17 +449,19 @@ export class Fhir {
      *     })
      */
     public delete(
-        fhirProviderId: string,
-        fhirPath: string,
+        fhir_provider_id: string,
+        fhir_path: string,
         request: phenoml.fhir.FhirDeleteRequest = {},
         requestOptions?: Fhir.RequestOptions,
     ): core.HttpResponsePromise<Record<string, unknown>> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(fhirProviderId, fhirPath, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(
+            this.__delete(fhir_provider_id, fhir_path, request, requestOptions),
+        );
     }
 
     private async __delete(
-        fhirProviderId: string,
-        fhirPath: string,
+        fhir_provider_id: string,
+        fhir_path: string,
         request: phenoml.fhir.FhirDeleteRequest = {},
         requestOptions?: Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<Record<string, unknown>>> {
@@ -469,7 +480,7 @@ export class Fhir {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhirProviderId)}/fhir/${core.url.encodePathParam(fhirPath)}`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}/fhir/${core.url.encodePathParam(fhir_path)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -478,6 +489,7 @@ export class Fhir {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as Record<string, unknown>, rawResponse: _response.rawResponse };
@@ -536,14 +548,14 @@ export class Fhir {
      *
      * The request is proxied to the configured FHIR server with appropriate authentication headers.
      *
-     * @param {string} fhirProviderId - The ID of the FHIR provider to use. Can be either:
-     *                                  - A UUID representing the provider ID
-     *                                  - A provider name (legacy support - will just use the most recently updated provider with this name)
-     * @param {string} fhirPath - The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
-     *                            Examples:
-     *                            - "Patient" (for resource type operations)
-     *                            - "Patient/123" (for specific resource operations)
-     *                            - "Patient/123/_history" (for history operations)
+     * @param {string} fhir_provider_id - The ID of the FHIR provider to use. Can be either:
+     *                                    - A UUID representing the provider ID
+     *                                    - A provider name (legacy support - will just use the most recently updated provider with this name)
+     * @param {string} fhir_path - The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
+     *                             Examples:
+     *                             - "Patient" (for resource type operations)
+     *                             - "Patient/123" (for specific resource operations)
+     *                             - "Patient/123/_history" (for history operations)
      * @param {phenoml.fhir.FhirPatchRequest} request
      * @param {Fhir.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -616,17 +628,17 @@ export class Fhir {
      *     })
      */
     public patch(
-        fhirProviderId: string,
-        fhirPath: string,
+        fhir_provider_id: string,
+        fhir_path: string,
         request: phenoml.fhir.FhirPatchRequest,
         requestOptions?: Fhir.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhir.FhirResource> {
-        return core.HttpResponsePromise.fromPromise(this.__patch(fhirProviderId, fhirPath, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__patch(fhir_provider_id, fhir_path, request, requestOptions));
     }
 
     private async __patch(
-        fhirProviderId: string,
-        fhirPath: string,
+        fhir_provider_id: string,
+        fhir_path: string,
         request: phenoml.fhir.FhirPatchRequest,
         requestOptions?: Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhir.FhirResource>> {
@@ -649,7 +661,7 @@ export class Fhir {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhirProviderId)}/fhir/${core.url.encodePathParam(fhirPath)}`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}/fhir/${core.url.encodePathParam(fhir_path)}`,
             ),
             method: "PATCH",
             headers: _headers,
@@ -661,6 +673,7 @@ export class Fhir {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.fhir.FhirResource, rawResponse: _response.rawResponse };
@@ -716,9 +729,9 @@ export class Fhir {
      *
      * The request is proxied to the configured FHIR server with appropriate authentication headers.
      *
-     * @param {string} fhirProviderId - The ID of the FHIR provider to use. Can be either:
-     *                                  - A UUID representing the provider ID
-     *                                  - A provider name (legacy support - will just use the most recently updated provider with this name)
+     * @param {string} fhir_provider_id - The ID of the FHIR provider to use. Can be either:
+     *                                    - A UUID representing the provider ID
+     *                                    - A provider name (legacy support - will just use the most recently updated provider with this name)
      * @param {phenoml.fhir.FhirExecuteBundleRequest} request
      * @param {Fhir.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -766,15 +779,15 @@ export class Fhir {
      *     })
      */
     public executeBundle(
-        fhirProviderId: string,
+        fhir_provider_id: string,
         request: phenoml.fhir.FhirExecuteBundleRequest,
         requestOptions?: Fhir.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhir.FhirBundle> {
-        return core.HttpResponsePromise.fromPromise(this.__executeBundle(fhirProviderId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__executeBundle(fhir_provider_id, request, requestOptions));
     }
 
     private async __executeBundle(
-        fhirProviderId: string,
+        fhir_provider_id: string,
         request: phenoml.fhir.FhirExecuteBundleRequest,
         requestOptions?: Fhir.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhir.FhirBundle>> {
@@ -797,7 +810,7 @@ export class Fhir {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhirProviderId)}/fhir`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}/fhir`,
             ),
             method: "POST",
             headers: _headers,
@@ -809,6 +822,7 @@ export class Fhir {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.fhir.FhirBundle, rawResponse: _response.rawResponse };

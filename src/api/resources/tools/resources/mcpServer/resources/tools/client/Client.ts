@@ -23,7 +23,7 @@ export class Tools {
     /**
      * Lists all MCP server tools for a specific MCP server
      *
-     * @param {string} mcpServerId - ID of the MCP server to list tools for
+     * @param {string} mcp_server_id - ID of the MCP server to list tools for
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.tools.UnauthorizedError}
@@ -34,14 +34,14 @@ export class Tools {
      *     await client.tools.mcpServer.tools.list("mcp_server_id")
      */
     public list(
-        mcpServerId: string,
+        mcp_server_id: string,
         requestOptions?: Tools.RequestOptions,
     ): core.HttpResponsePromise<phenoml.tools.McpServerToolResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__list(mcpServerId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__list(mcp_server_id, requestOptions));
     }
 
     private async __list(
-        mcpServerId: string,
+        mcp_server_id: string,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.McpServerToolResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -54,7 +54,7 @@ export class Tools {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `tools/mcp-server/${core.url.encodePathParam(mcpServerId)}/list`,
+                `tools/mcp-server/${core.url.encodePathParam(mcp_server_id)}/list`,
             ),
             method: "GET",
             headers: _headers,
@@ -63,6 +63,7 @@ export class Tools {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.tools.McpServerToolResponse, rawResponse: _response.rawResponse };
@@ -107,7 +108,7 @@ export class Tools {
     /**
      * Gets a MCP server tool by ID
      *
-     * @param {string} mcpServerToolId - ID of the MCP server tool to retrieve
+     * @param {string} mcp_server_tool_id - ID of the MCP server tool to retrieve
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.tools.UnauthorizedError}
@@ -118,14 +119,14 @@ export class Tools {
      *     await client.tools.mcpServer.tools.get("mcp_server_tool_id")
      */
     public get(
-        mcpServerToolId: string,
+        mcp_server_tool_id: string,
         requestOptions?: Tools.RequestOptions,
     ): core.HttpResponsePromise<phenoml.tools.McpServerToolResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__get(mcpServerToolId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(mcp_server_tool_id, requestOptions));
     }
 
     private async __get(
-        mcpServerToolId: string,
+        mcp_server_tool_id: string,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.McpServerToolResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -138,7 +139,7 @@ export class Tools {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `tools/mcp-server/tool/${core.url.encodePathParam(mcpServerToolId)}`,
+                `tools/mcp-server/tool/${core.url.encodePathParam(mcp_server_tool_id)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -147,6 +148,7 @@ export class Tools {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.tools.McpServerToolResponse, rawResponse: _response.rawResponse };
@@ -191,7 +193,7 @@ export class Tools {
     /**
      * Deletes a MCP server tool by ID
      *
-     * @param {string} mcpServerToolId - ID of the MCP server tool to delete
+     * @param {string} mcp_server_tool_id - ID of the MCP server tool to delete
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.tools.UnauthorizedError}
@@ -202,14 +204,14 @@ export class Tools {
      *     await client.tools.mcpServer.tools.delete("mcp_server_tool_id")
      */
     public delete(
-        mcpServerToolId: string,
+        mcp_server_tool_id: string,
         requestOptions?: Tools.RequestOptions,
     ): core.HttpResponsePromise<phenoml.tools.McpServerToolResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(mcpServerToolId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__delete(mcp_server_tool_id, requestOptions));
     }
 
     private async __delete(
-        mcpServerToolId: string,
+        mcp_server_tool_id: string,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.McpServerToolResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -222,7 +224,7 @@ export class Tools {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `tools/mcp-server/tool/${core.url.encodePathParam(mcpServerToolId)}`,
+                `tools/mcp-server/tool/${core.url.encodePathParam(mcp_server_tool_id)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -231,6 +233,7 @@ export class Tools {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.tools.McpServerToolResponse, rawResponse: _response.rawResponse };
@@ -275,7 +278,7 @@ export class Tools {
     /**
      * Calls a MCP server tool
      *
-     * @param {string} mcpServerToolId - ID of the MCP server tool to call
+     * @param {string} mcp_server_tool_id - ID of the MCP server tool to call
      * @param {phenoml.tools.mcpServer.McpServerToolCallRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -292,15 +295,15 @@ export class Tools {
      *     })
      */
     public call(
-        mcpServerToolId: string,
+        mcp_server_tool_id: string,
         request: phenoml.tools.mcpServer.McpServerToolCallRequest,
         requestOptions?: Tools.RequestOptions,
     ): core.HttpResponsePromise<phenoml.tools.McpServerToolCallResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__call(mcpServerToolId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__call(mcp_server_tool_id, request, requestOptions));
     }
 
     private async __call(
-        mcpServerToolId: string,
+        mcp_server_tool_id: string,
         request: phenoml.tools.mcpServer.McpServerToolCallRequest,
         requestOptions?: Tools.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.tools.McpServerToolCallResponse>> {
@@ -314,7 +317,7 @@ export class Tools {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `tools/mcp-server/tool/${core.url.encodePathParam(mcpServerToolId)}/call`,
+                `tools/mcp-server/tool/${core.url.encodePathParam(mcp_server_tool_id)}/call`,
             ),
             method: "POST",
             headers: _headers,
@@ -326,6 +329,7 @@ export class Tools {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return {

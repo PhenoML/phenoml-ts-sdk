@@ -74,6 +74,7 @@ export class FhirProvider {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return {
@@ -172,6 +173,7 @@ export class FhirProvider {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return {
@@ -224,7 +226,7 @@ export class FhirProvider {
      * Sandbox providers return FhirProviderSandboxInfo.
      * On shared instances, only sandbox providers can be accessed.
      *
-     * @param {string} fhirProviderId - ID of the FHIR provider to retrieve
+     * @param {string} fhir_provider_id - ID of the FHIR provider to retrieve
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.fhirProvider.UnauthorizedError}
@@ -235,14 +237,14 @@ export class FhirProvider {
      *     await client.fhirProvider.get("fhir_provider_id")
      */
     public get(
-        fhirProviderId: string,
+        fhir_provider_id: string,
         requestOptions?: FhirProvider.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__get(fhirProviderId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(fhir_provider_id, requestOptions));
     }
 
     private async __get(
-        fhirProviderId: string,
+        fhir_provider_id: string,
         requestOptions?: FhirProvider.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -255,7 +257,7 @@ export class FhirProvider {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhirProviderId)}`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -264,6 +266,7 @@ export class FhirProvider {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return {
@@ -322,7 +325,7 @@ export class FhirProvider {
      *
      * Note: Sandbox providers cannot be deleted.
      *
-     * @param {string} fhirProviderId - ID of the FHIR provider to delete
+     * @param {string} fhir_provider_id - ID of the FHIR provider to delete
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.fhirProvider.UnauthorizedError}
@@ -334,14 +337,14 @@ export class FhirProvider {
      *     await client.fhirProvider.delete("fhir_provider_id")
      */
     public delete(
-        fhirProviderId: string,
+        fhir_provider_id: string,
         requestOptions?: FhirProvider.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderDeleteResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(fhirProviderId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__delete(fhir_provider_id, requestOptions));
     }
 
     private async __delete(
-        fhirProviderId: string,
+        fhir_provider_id: string,
         requestOptions?: FhirProvider.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderDeleteResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -354,7 +357,7 @@ export class FhirProvider {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhirProviderId)}`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -363,6 +366,7 @@ export class FhirProvider {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return {
@@ -427,7 +431,7 @@ export class FhirProvider {
      *
      * Note: Sandbox providers cannot be modified.
      *
-     * @param {string} fhirProviderId - ID of the FHIR provider to add auth config to
+     * @param {string} fhir_provider_id - ID of the FHIR provider to add auth config to
      * @param {phenoml.fhirProvider.FhirProviderAddAuthConfigRequest} request
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -443,15 +447,15 @@ export class FhirProvider {
      *     })
      */
     public addAuthConfig(
-        fhirProviderId: string,
+        fhir_provider_id: string,
         request: phenoml.fhirProvider.FhirProviderAddAuthConfigRequest,
         requestOptions?: FhirProvider.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__addAuthConfig(fhirProviderId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__addAuthConfig(fhir_provider_id, request, requestOptions));
     }
 
     private async __addAuthConfig(
-        fhirProviderId: string,
+        fhir_provider_id: string,
         request: phenoml.fhirProvider.FhirProviderAddAuthConfigRequest,
         requestOptions?: FhirProvider.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderResponse>> {
@@ -465,7 +469,7 @@ export class FhirProvider {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhirProviderId)}/add-auth-config`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}/add-auth-config`,
             ),
             method: "PATCH",
             headers: _headers,
@@ -477,6 +481,7 @@ export class FhirProvider {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return {
@@ -549,7 +554,7 @@ export class FhirProvider {
      *
      * Note: Sandbox providers cannot be modified.
      *
-     * @param {string} fhirProviderId - ID of the FHIR provider
+     * @param {string} fhir_provider_id - ID of the FHIR provider
      * @param {phenoml.fhirProvider.FhirProviderSetActiveAuthConfigRequest} request
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -565,17 +570,17 @@ export class FhirProvider {
      *     })
      */
     public setActiveAuthConfig(
-        fhirProviderId: string,
+        fhir_provider_id: string,
         request: phenoml.fhirProvider.FhirProviderSetActiveAuthConfigRequest,
         requestOptions?: FhirProvider.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderResponse> {
         return core.HttpResponsePromise.fromPromise(
-            this.__setActiveAuthConfig(fhirProviderId, request, requestOptions),
+            this.__setActiveAuthConfig(fhir_provider_id, request, requestOptions),
         );
     }
 
     private async __setActiveAuthConfig(
-        fhirProviderId: string,
+        fhir_provider_id: string,
         request: phenoml.fhirProvider.FhirProviderSetActiveAuthConfigRequest,
         requestOptions?: FhirProvider.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderResponse>> {
@@ -589,7 +594,7 @@ export class FhirProvider {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhirProviderId)}/set-active-auth-config`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}/set-active-auth-config`,
             ),
             method: "PATCH",
             headers: _headers,
@@ -601,6 +606,7 @@ export class FhirProvider {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return {
@@ -670,7 +676,7 @@ export class FhirProvider {
      *
      * Note: Sandbox providers cannot be modified.
      *
-     * @param {string} fhirProviderId - ID of the FHIR provider
+     * @param {string} fhir_provider_id - ID of the FHIR provider
      * @param {phenoml.fhirProvider.FhirProviderRemoveAuthConfigRequest} request
      * @param {FhirProvider.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -686,15 +692,15 @@ export class FhirProvider {
      *     })
      */
     public removeAuthConfig(
-        fhirProviderId: string,
+        fhir_provider_id: string,
         request: phenoml.fhirProvider.FhirProviderRemoveAuthConfigRequest,
         requestOptions?: FhirProvider.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderRemoveAuthConfigResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__removeAuthConfig(fhirProviderId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__removeAuthConfig(fhir_provider_id, request, requestOptions));
     }
 
     private async __removeAuthConfig(
-        fhirProviderId: string,
+        fhir_provider_id: string,
         request: phenoml.fhirProvider.FhirProviderRemoveAuthConfigRequest,
         requestOptions?: FhirProvider.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderRemoveAuthConfigResponse>> {
@@ -708,7 +714,7 @@ export class FhirProvider {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhirProviderId)}/remove-auth-config`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}/remove-auth-config`,
             ),
             method: "PATCH",
             headers: _headers,
@@ -720,6 +726,7 @@ export class FhirProvider {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return {

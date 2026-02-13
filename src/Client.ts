@@ -36,12 +36,13 @@ export class phenomlClient {
     constructor(_options: phenomlClient.Options) {
         this._options = {
             ..._options,
+            logging: core.logging.createLogger(_options?.logging),
             headers: mergeHeaders(
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "phenoml",
-                    "X-Fern-SDK-Version": "6.1.0",
-                    "User-Agent": "phenoml/6.1.0",
+                    "X-Fern-SDK-Version": "6.1.1",
+                    "User-Agent": "phenoml/6.1.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
