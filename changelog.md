@@ -1,3 +1,18 @@
+## 6.1.0 - 2026-02-13
+* feat: add custom fetch function support and improve client configuration
+* Add support for custom fetch implementations through a new fetch option in BaseClientOptions.
+* This enhancement enables better platform compatibility and allows users to provide their own
+* fetch implementation when the built-in fetch is not available or when custom behavior is needed.
+* Key changes:
+* Add fetch option to BaseClientOptions interface for custom fetch implementations
+* Remove hardcoded User-Agent header from client initialization
+* Update all API client methods to pass custom fetch function to core fetcher
+* Improve header handling with case-insensitive key processing in mergeOnlyDefinedHeaders
+* Add comprehensive form-urlencoded body serialization support with nested object handling
+* Add CONTRIBUTING.md with detailed guidelines for SDK customization and development workflow
+* Update package manager to pnpm 10.20.0 and refresh dependency lock file
+* 🌿 Generated with Fern
+
 ## 6.0.0 - 2026-02-13
 * refactor: restructure construe upload API and remove user_id fields
 * Refactored the construe upload code system API to simplify the request structure and improved overall type safety across multiple modules. The upload functionality now uses a unified request format with better error handling and asynchronous processing support.
