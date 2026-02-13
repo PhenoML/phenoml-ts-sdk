@@ -1,6 +1,6 @@
 {
     "name": "phenoml",
-    "version": "5.3.0",
+    "version": "5.3.1",
     "private": false,
     "repository": "github:PhenoML/phenoml-ts-sdk",
     "type": "commonjs",
@@ -57,7 +57,7 @@
         "path": false,
         "stream": false
     },
-    "packageManager": "pnpm@10.14.0",
+    "packageManager": "pnpm@10.20.0",
     "engines": {
         "node": ">=18.0.0"
     },
