@@ -9,10 +9,8 @@ export interface ExtractedCodeResult {
     description: string;
     /** Whether the code passed validation. Always true unless include_invalid is set to true, in which case invalid codes will have this set to false. */
     valid: boolean;
-    /** Long description of the code */
-    longDescription?: string;
     /** Explanation for why this code was extracted (if include_rationale is true) */
-    rationale?: string;
+    reason?: string;
     /**
      * Whether this code is an ancestor (parent) of an extracted code rather than directly extracted.
      * Only present when include_ancestors is true.

@@ -1,3 +1,15 @@
+## 6.0.0 - 2026-02-13
+* refactor: restructure construe upload API and remove user_id fields
+* Refactored the construe upload code system API to simplify the request structure and improved overall type safety across multiple modules. The upload functionality now uses a unified request format with better error handling and asynchronous processing support.
+* Key changes:
+* Simplified construe upload API to use unified UploadRequest structure
+* Removed user_id fields from all templates (agent, workflows, tools, etc.)
+* Updated error handling with new GatewayTimeoutError and improved status codes
+* Changed ExtractedCodeResult field from 'rationale' to 'reason' and removed 'longDescription'
+* Updated User-Agent header from specific version to dynamic 'auto' versioning
+* Enhanced upload response to include name and version fields
+* 🌿 Generated with Fern
+
 ## 5.3.0 - 2026-02-09
 * feat: add custom code system export endpoint
 * Add new exportCustomCodeSystem method to the construe client that allows exporting custom (non-builtin) code systems as JSON files. This feature enables users to backup and transfer code systems between instances.

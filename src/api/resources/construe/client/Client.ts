@@ -22,8 +22,9 @@ export class Construe {
 
     /**
      * Upload a custom medical code system with codes and descriptions for use in code extraction. Requires a paid plan.
-     * Upon upload, construe generates embeddings for all of the codes in the code system and stores them in the vector database so you can
-     * subsequently use the code system for construe/extract and lang2fhir/create (coming soon!)
+     * Returns 202 immediately; embedding generation runs asynchronously. Poll
+     * GET /construe/codes/systems/{codesystem}?version={version} to check when status
+     * transitions from "processing" to "ready" or "failed".
      *
      * @param {phenoml.construe.UploadRequest} request
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
@@ -37,12 +38,9 @@ export class Construe {
      *
      * @example
      *     await client.construe.uploadCodeSystem({
-     *         format: "csv",
      *         name: "CUSTOM_CODES",
      *         version: "1.0",
-     *         file: "file",
-     *         code_col: "code",
-     *         desc_col: "description"
+     *         format: "csv"
      *     })
      */
     public uploadCodeSystem(
@@ -144,8 +142,10 @@ export class Construe {
      *
      * @throws {@link phenoml.construe.BadRequestError}
      * @throws {@link phenoml.construe.UnauthorizedError}
-     * @throws {@link phenoml.construe.FailedDependencyError}
+     * @throws {@link phenoml.construe.NotFoundError}
      * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link phenoml.construe.ServiceUnavailableError}
+     * @throws {@link phenoml.construe.GatewayTimeoutError}
      *
      * @example
      *     await client.construe.extractCodes({
@@ -198,13 +198,20 @@ export class Construe {
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
-                case 424:
-                    throw new phenoml.construe.FailedDependencyError(
+                case 404:
+                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.construe.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
-                case 500:
-                    throw new phenoml.construe.InternalServerError(
+                case 503:
+                    throw new phenoml.construe.ServiceUnavailableError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 504:
+                    throw new phenoml.construe.GatewayTimeoutError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
@@ -1045,7 +1052,6 @@ export class Construe {
      * @throws {@link phenoml.construe.NotFoundError}
      * @throws {@link phenoml.construe.InternalServerError}
      * @throws {@link phenoml.construe.NotImplementedError}
-     * @throws {@link phenoml.construe.ServiceUnavailableError}
      *
      * @example
      *     await client.construe.terminologyServerTextSearch("ICD-10-CM", {
@@ -1121,11 +1127,6 @@ export class Construe {
                     );
                 case 501:
                     throw new phenoml.construe.NotImplementedError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                case 503:
-                    throw new phenoml.construe.ServiceUnavailableError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
