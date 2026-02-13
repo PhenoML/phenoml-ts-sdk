@@ -2217,7 +2217,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">delete</a>(fhirProviderId, fhirPath, { ...params }) -> Record&lt;string, unknown&gt;</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">delete</a>(fhirProviderId, fhirPath, { ...params }) -> Record<string, unknown></code></summary>
 <dl>
 <dd>
 

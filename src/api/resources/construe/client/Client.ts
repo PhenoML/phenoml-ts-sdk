@@ -75,6 +75,7 @@ export class Construe {
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
@@ -184,6 +185,7 @@ export class Construe {
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.construe.ExtractCodesResult, rawResponse: _response.rawResponse };
@@ -279,6 +281,7 @@ export class Construe {
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
@@ -379,6 +382,7 @@ export class Construe {
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
@@ -487,6 +491,7 @@ export class Construe {
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
@@ -600,6 +605,7 @@ export class Construe {
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
@@ -727,6 +733,7 @@ export class Construe {
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.construe.ListCodesResponse, rawResponse: _response.rawResponse };
@@ -835,6 +842,7 @@ export class Construe {
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.construe.GetCodeResponse, rawResponse: _response.rawResponse };
@@ -965,6 +973,7 @@ export class Construe {
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return {
@@ -1104,6 +1113,7 @@ export class Construe {
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.construe.TextSearchResponse, rawResponse: _response.rawResponse };

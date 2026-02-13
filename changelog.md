@@ -1,3 +1,17 @@
+## 6.1.0 - 2026-02-13
+* chore: add contributing guidelines and package updates
+* Add comprehensive contributing guidelines to help developers understand how to contribute to the SDK project. The guide covers getting started, building, testing, linting, and explains the distinction between generated and custom code. Also includes information about using .fernignore for custom code preservation.
+* Key changes:
+* Add CONTRIBUTING.md with detailed development setup and contribution workflow
+* Update package manager from pnpm@10.14.0 to pnpm@10.20.0
+* Update various dev dependencies to latest versions (esbuild, browserslist, graphql, etc.)
+* Add fetchFn parameter support to all API client methods for custom fetch implementations
+* Add form-urlencoded request body support with proper serialization
+* Remove hardcoded User-Agent header and improve header handling
+* Add test utilities for form-urlencoded body matching in mock server
+* Update reference documentation formatting
+* 🌿 Generated with Fern
+
 ## 6.0.0 - 2026-02-13
 * refactor: restructure construe upload API and remove user_id fields
 * Refactored the construe upload code system API to simplify the request structure and improved overall type safety across multiple modules. The upload functionality now uses a unified request format with better error handling and asynchronous processing support.
