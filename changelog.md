@@ -6,6 +6,18 @@
 * Add comprehensive test suites for logging integration and redaction edge cases
 * Refactor existing unit tests to table-driven style for better maintainability
 
+## 6.2.0 - 2026-02-13
+* feat: add comprehensive logging support to SDK
+* Add configurable logging capabilities to the PhenoML TypeScript SDK, providing developers with detailed request/response visibility and debugging capabilities.
+* Key changes:
+* Add logging configuration to BaseClientOptions with LogConfig or Logger support
+* Implement comprehensive HTTP request/response logging in fetcher
+* Add smart credential redaction for headers, query parameters, and URLs
+* Create modular logging system with ConsoleLogger and customizable implementations
+* Add dependency management and update package lockfile
+* Pass logging configuration through all API client methods
+* 🌿 Generated with Fern
+
 ## 6.1.0 - 2026-02-13
 * feat: add custom fetch function support and improve client configuration
 * Add support for custom fetch implementations through a new fetch option in BaseClientOptions.
