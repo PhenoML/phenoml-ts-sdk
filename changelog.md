@@ -1,3 +1,7 @@
+## 6.2.1 - 2026-02-13
+* SDK regeneration
+* Unable to analyze changes with AI, incrementing PATCH version.
+
 ## 6.2.0 - 2026-02-13
 * feat: add comprehensive logging support to SDK
 * Add configurable logging capabilities to the PhenoML TypeScript SDK, providing developers with detailed request/response visibility and debugging capabilities.
