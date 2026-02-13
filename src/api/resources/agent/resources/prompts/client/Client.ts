@@ -70,6 +70,7 @@ export class Prompts {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
@@ -149,6 +150,7 @@ export class Prompts {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.agent.PromptsListResponse, rawResponse: _response.rawResponse };
@@ -232,6 +234,7 @@ export class Prompts {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
@@ -324,6 +327,7 @@ export class Prompts {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
@@ -411,6 +415,7 @@ export class Prompts {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.agent.PromptsDeleteResponse, rawResponse: _response.rawResponse };
@@ -514,6 +519,7 @@ export class Prompts {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
@@ -597,6 +603,7 @@ export class Prompts {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.agent.SuccessResponse, rawResponse: _response.rawResponse };

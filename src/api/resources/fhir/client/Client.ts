@@ -97,6 +97,7 @@ export class Fhir {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.fhir.FhirSearchResponse, rawResponse: _response.rawResponse };
@@ -231,6 +232,7 @@ export class Fhir {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.fhir.FhirResource, rawResponse: _response.rawResponse };
@@ -365,6 +367,7 @@ export class Fhir {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.fhir.FhirResource, rawResponse: _response.rawResponse };
@@ -478,6 +481,7 @@ export class Fhir {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as Record<string, unknown>, rawResponse: _response.rawResponse };
@@ -661,6 +665,7 @@ export class Fhir {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.fhir.FhirResource, rawResponse: _response.rawResponse };
@@ -809,6 +814,7 @@ export class Fhir {
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
             fetchFn: this._options?.fetch,
+            logging: this._options.logging,
         });
         if (_response.ok) {
             return { data: _response.body as phenoml.fhir.FhirBundle, rawResponse: _response.rawResponse };
