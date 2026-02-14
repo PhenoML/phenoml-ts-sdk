@@ -1,6 +1,12 @@
-## 6.3.1 - 2026-02-14
-* SDK regeneration
-* Unable to analyze changes with AI, incrementing PATCH version.
+## 6.4.0 - 2026-02-14
+* feat: refactor auth architecture and improve error handling infrastructure
+* Introduce BearerAuthProvider and NoOpAuthProvider for cleaner authentication separation
+* Add centralized error handling with handleNonStatusCodeError() and new BodyIsNullError type
+* Migrate HTTP headers to native Headers class for better standards compliance
+* Rename resource client classes with Client suffix (e.g. Agent → AgentClient)
+* Add client option normalization through normalizeClientOptions() utilities
+* Improve error prototypes with proper stack trace capture
+* Update to Biome 2.3.11 and modernize build configuration
 
 ## 6.3.0 - 2026-02-13
 * feat: improve HTTP logging, redaction, and test infrastructure
