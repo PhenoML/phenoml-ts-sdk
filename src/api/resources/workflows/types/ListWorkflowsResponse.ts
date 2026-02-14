@@ -4,11 +4,11 @@ import type * as phenoml from "../../../index.js";
 
 export interface ListWorkflowsResponse {
     /** Whether the workflow list was retrieved successfully */
-    success?: boolean;
+    success?: boolean | undefined;
     /** Status message */
-    message?: string;
+    message?: string | undefined;
     /** Array of simplified workflow responses for the authenticated user */
-    workflows?: phenoml.workflows.WorkflowResponse[];
+    workflows?: phenoml.workflows.WorkflowResponse[] | undefined;
     /** Only included when verbose=true - contains full implementation details for all workflows */
-    workflow_details?: phenoml.workflows.WorkflowDefinition[];
+    workflow_details?: phenoml.workflows.WorkflowDefinition[] | undefined;
 }

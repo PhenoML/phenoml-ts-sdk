@@ -2,11 +2,11 @@
 
 export interface Lang2FhirCreateDefinition {
     /** Original natural language description */
-    original_description?: string;
+    original_description?: string | undefined;
     /** FHIR resource type to create */
-    resource_type?: string;
+    resource_type?: string | undefined;
     /** Prepared FHIR resource template */
-    resource_template?: Record<string, unknown>;
+    resource_template?: Record<string, unknown> | undefined;
     /** Maps placeholder tokens to their input data paths */
-    runtime_placeholders?: Record<string, string>;
+    runtime_placeholders?: Record<string, string> | undefined;
 }

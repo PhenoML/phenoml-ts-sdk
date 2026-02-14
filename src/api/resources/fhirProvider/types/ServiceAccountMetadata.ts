@@ -5,11 +5,11 @@
  */
 export interface ServiceAccountMetadata {
     /** Account type (always "service_account") */
-    type?: string;
+    type?: string | undefined;
     /** Google Cloud project ID */
-    project_id?: string;
+    project_id?: string | undefined;
     /** Service account email address */
-    client_email?: string;
+    client_email?: string | undefined;
     /** Service account client ID */
-    client_id?: string;
+    client_id?: string | undefined;
 }

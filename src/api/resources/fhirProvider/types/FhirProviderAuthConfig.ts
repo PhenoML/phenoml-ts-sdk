@@ -7,21 +7,21 @@ import type * as phenoml from "../../../index.js";
  */
 export interface FhirProviderAuthConfig {
     /** Unique identifier for this auth configuration */
-    auth_config_id?: string;
-    auth_method?: phenoml.fhirProvider.AuthMethod;
+    auth_config_id?: string | undefined;
+    auth_method?: phenoml.fhirProvider.AuthMethod | undefined;
     /** Whether this auth configuration is currently active */
-    is_active_auth_config?: boolean;
+    is_active_auth_config?: boolean | undefined;
     /** Timestamp when this auth configuration was created */
-    created_at?: string;
+    created_at?: string | undefined;
     /** Timestamp when this auth configuration was last updated */
-    updated_at?: string;
+    updated_at?: string | undefined;
     /** Public key certificate in PEM format (visible for JWT auth) */
-    public_key_cert_pem?: string;
-    json_web_key?: phenoml.fhirProvider.JsonWebKey;
+    public_key_cert_pem?: string | undefined;
+    json_web_key?: phenoml.fhirProvider.JsonWebKey | undefined;
     /** Expiry time for credentials (JWT auth only) */
-    credential_expiry?: string;
-    smart_configuration?: phenoml.fhirProvider.SmartConfiguration;
-    service_account_metadata?: phenoml.fhirProvider.ServiceAccountMetadata;
+    credential_expiry?: string | undefined;
+    smart_configuration?: phenoml.fhirProvider.SmartConfiguration | undefined;
+    service_account_metadata?: phenoml.fhirProvider.ServiceAccountMetadata | undefined;
     /** OAuth scopes */
-    scopes?: string;
+    scopes?: string | undefined;
 }

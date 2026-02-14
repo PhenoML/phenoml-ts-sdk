@@ -5,13 +5,13 @@
  */
 export interface SmartConfiguration {
     /** OAuth2 authorization endpoint */
-    authorization_endpoint?: string;
+    authorization_endpoint?: string | undefined;
     /** OAuth2 token endpoint */
-    token_endpoint?: string;
+    token_endpoint?: string | undefined;
     /** OIDC issuer URL */
-    issuer?: string;
+    issuer?: string | undefined;
     /** JSON Web Key Set URI */
-    jwks_uri?: string;
+    jwks_uri?: string | undefined;
     /** List of supported scopes */
-    scopes_supported?: string[];
+    scopes_supported?: string[] | undefined;
 }

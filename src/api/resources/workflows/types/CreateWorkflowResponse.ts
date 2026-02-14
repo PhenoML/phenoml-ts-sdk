@@ -4,13 +4,13 @@ import type * as phenoml from "../../../index.js";
 
 export interface CreateWorkflowResponse {
     /** Whether the workflow was created successfully */
-    success?: boolean;
+    success?: boolean | undefined;
     /** Status message */
-    message?: string;
+    message?: string | undefined;
     /** ID of the created workflow */
-    workflow_id?: string;
+    workflow_id?: string | undefined;
     /** Simplified workflow response with only essential step information */
-    workflow?: phenoml.workflows.WorkflowResponse;
+    workflow?: phenoml.workflows.WorkflowResponse | undefined;
     /** Only included when verbose=true - contains full implementation details including operation definitions and placeholders */
-    workflow_details?: phenoml.workflows.WorkflowDefinition;
+    workflow_details?: phenoml.workflows.WorkflowDefinition | undefined;
 }

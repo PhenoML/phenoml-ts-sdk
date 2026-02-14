@@ -1,11 +1,12 @@
 {
     "cliVersion": "3.74.1",
     "generatorName": "fernapi/fern-typescript-sdk",
-    "generatorVersion": "3.28.6",
+    "generatorVersion": "3.48.2",
     "generatorConfig": {
         "namespaceExport": "phenoml",
         "allowCustomFetcher": true,
         "packageManager": "pnpm",
         "testFramework": "vitest"
-    }
+    },
+    "sdkVersion": "6.4.0"
 }

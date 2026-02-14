@@ -7,8 +7,9 @@ import * as core from "../../../../../../core/index.js";
 import * as phenoml from "../../../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
 import * as errors from "../../../../../../errors/index.js";
+import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStatusCodeError.js";
 
-export declare namespace Auth {
+export declare namespace AuthClient {
     export interface Options {
         environment?: core.Supplier<environments.phenomlEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
@@ -32,10 +33,10 @@ export declare namespace Auth {
     }
 }
 
-export class Auth {
-    protected readonly _options: Auth.Options;
+export class AuthClient {
+    protected readonly _options: AuthClient.Options;
 
-    constructor(_options: Auth.Options) {
+    constructor(_options: AuthClient.Options) {
         this._options = _options;
     }
 
@@ -43,7 +44,7 @@ export class Auth {
      * Obtain an access token using client credentials
      *
      * @param {phenoml.authtoken.AuthGenerateTokenRequest} request
-     * @param {Auth.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {AuthClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.authtoken.BadRequestError}
      * @throws {@link phenoml.authtoken.UnauthorizedError}
@@ -56,14 +57,14 @@ export class Auth {
      */
     public generateToken(
         request: phenoml.authtoken.AuthGenerateTokenRequest,
-        requestOptions?: Auth.RequestOptions,
+        requestOptions?: AuthClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.authtoken.AuthGenerateTokenResponse> {
         return core.HttpResponsePromise.fromPromise(this.__generateToken(request, requestOptions));
     }
 
     private async __generateToken(
         request: phenoml.authtoken.AuthGenerateTokenRequest,
-        requestOptions?: Auth.RequestOptions,
+        requestOptions?: AuthClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.authtoken.AuthGenerateTokenResponse>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
@@ -111,21 +112,7 @@ export class Auth {
             }
         }
 
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.phenomlError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /auth/token.");
-            case "unknown":
-                throw new errors.phenomlError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "auth/token");
     }
 
     protected async _getAuthorizationHeader(request?: phenoml.authtoken.AuthGenerateTokenRequest): Promise<string> {
