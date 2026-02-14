@@ -6,7 +6,7 @@
 import * as environments from "./environments.js";
 import * as core from "./core/index.js";
 import { phenomlClient } from "./Client.js";
-import { Auth } from "./api/resources/authtoken/resources/auth/client/Client.js";
+import { AuthClient } from "./api/resources/authtoken/resources/auth/client/Client.js";
 
 export declare namespace PhenoMLClient {
     export interface Options {
@@ -52,7 +52,7 @@ class TokenSupplier {
     }
 
     private async _generateToken(): Promise<string> {
-        const authClient = new Auth({
+        const authClient = new AuthClient({
             baseUrl: this._baseUrl,
             fetcher: this._fetcher,
         });
