@@ -8,9 +8,9 @@ export interface FhirResource {
     /** The type of FHIR resource (e.g., Patient, Observation, etc.) */
     resourceType: string;
     /** Logical ID of the resource */
-    id?: string;
+    id?: string | undefined;
     /** Metadata about the resource */
-    meta?: FhirResource.Meta;
+    meta?: FhirResource.Meta | undefined;
     /** Accepts any additional properties */
     [key: string]: any;
 }
@@ -20,8 +20,8 @@ export namespace FhirResource {
      * Metadata about the resource
      */
     export interface Meta {
-        versionId?: string;
-        lastUpdated?: string;
-        profile?: string[];
+        versionId?: string | undefined;
+        lastUpdated?: string | undefined;
+        profile?: string[] | undefined;
     }
 }

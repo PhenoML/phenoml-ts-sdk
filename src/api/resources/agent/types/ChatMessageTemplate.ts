@@ -2,9 +2,9 @@
 
 export interface ChatMessageTemplate {
     /** Chat message ID */
-    id?: string;
+    id?: string | undefined;
     /** Chat session ID */
-    session_id?: string;
+    session_id?: string | undefined;
     /**
      * Message role indicating the source/type of the message:
      * - `user` - Messages from the user
@@ -12,21 +12,21 @@ export interface ChatMessageTemplate {
      * - `model` - Function/tool call requests to the model
      * - `function` - Function/tool call results
      */
-    role?: ChatMessageTemplate.Role;
+    role?: ChatMessageTemplate.Role | undefined;
     /** Message content */
-    content?: string;
+    content?: string | undefined;
     /** Message created time */
-    created?: string;
+    created?: string | undefined;
     /** Message updated time */
-    updated?: string;
+    updated?: string | undefined;
     /** Function name */
-    function_name?: string;
+    function_name?: string | undefined;
     /** Function arguments */
-    function_args?: Record<string, unknown>;
+    function_args?: Record<string, unknown> | undefined;
     /** Function result */
-    function_result?: Record<string, unknown>;
+    function_result?: Record<string, unknown> | undefined;
     /** Message order */
-    message_order?: number;
+    message_order?: number | undefined;
 }
 
 export namespace ChatMessageTemplate {

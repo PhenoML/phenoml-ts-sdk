@@ -2,13 +2,13 @@
 
 export interface SearchResponse {
     /** The FHIR resource type identified for the search */
-    resourceType?: SearchResponse.ResourceType;
+    resourceType?: SearchResponse.ResourceType | undefined;
     /**
      * FHIR search parameters in standard query string format.
      * Parameters are formatted according to the FHIR specification with appropriate operators.
      * Code parameters are resolved to standard terminology codes (SNOMED CT, LOINC, RxNorm, ICD-10-CM).
      */
-    searchParams?: string;
+    searchParams?: string | undefined;
 }
 
 export namespace SearchResponse {

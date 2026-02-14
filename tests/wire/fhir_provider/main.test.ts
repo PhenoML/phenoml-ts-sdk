@@ -4,10 +4,10 @@ import * as phenoml from "../../../src/api/index";
 import { phenomlClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
 
-describe("FhirProvider", () => {
+describe("FhirProviderClient", () => {
     test("create (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "Epic Sandbox",
             provider: "athenahealth",
@@ -83,7 +83,7 @@ describe("FhirProvider", () => {
 
     test("create (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "x",
             provider: "athenahealth",
@@ -112,7 +112,7 @@ describe("FhirProvider", () => {
 
     test("create (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "x",
             provider: "athenahealth",
@@ -141,7 +141,7 @@ describe("FhirProvider", () => {
 
     test("create (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "x",
             provider: "athenahealth",
@@ -170,7 +170,7 @@ describe("FhirProvider", () => {
 
     test("create (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "x",
             provider: "athenahealth",
@@ -199,7 +199,7 @@ describe("FhirProvider", () => {
 
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -268,7 +268,7 @@ describe("FhirProvider", () => {
 
     test("list (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -286,7 +286,7 @@ describe("FhirProvider", () => {
 
     test("list (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -304,7 +304,7 @@ describe("FhirProvider", () => {
 
     test("get (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -369,7 +369,7 @@ describe("FhirProvider", () => {
 
     test("get (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -387,7 +387,7 @@ describe("FhirProvider", () => {
 
     test("get (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -405,7 +405,7 @@ describe("FhirProvider", () => {
 
     test("get (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -423,7 +423,7 @@ describe("FhirProvider", () => {
 
     test("delete (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { success: true, message: "Fhir provider deleted successfully" };
         server
@@ -443,7 +443,7 @@ describe("FhirProvider", () => {
 
     test("delete (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -461,7 +461,7 @@ describe("FhirProvider", () => {
 
     test("delete (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -479,7 +479,7 @@ describe("FhirProvider", () => {
 
     test("delete (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -497,7 +497,7 @@ describe("FhirProvider", () => {
 
     test("delete (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
@@ -515,7 +515,7 @@ describe("FhirProvider", () => {
 
     test("addAuthConfig (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_method: "client_secret" };
         const rawResponseBody = {
             success: true,
@@ -583,7 +583,7 @@ describe("FhirProvider", () => {
 
     test("addAuthConfig (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_method: "client_secret" };
         const rawResponseBody = { key: "value" };
         server
@@ -604,7 +604,7 @@ describe("FhirProvider", () => {
 
     test("addAuthConfig (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_method: "client_secret" };
         const rawResponseBody = { key: "value" };
         server
@@ -625,7 +625,7 @@ describe("FhirProvider", () => {
 
     test("addAuthConfig (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_method: "client_secret" };
         const rawResponseBody = { key: "value" };
         server
@@ -646,7 +646,7 @@ describe("FhirProvider", () => {
 
     test("addAuthConfig (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_method: "client_secret" };
         const rawResponseBody = { key: "value" };
         server
@@ -667,7 +667,7 @@ describe("FhirProvider", () => {
 
     test("addAuthConfig (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_method: "client_secret" };
         const rawResponseBody = { key: "value" };
         server
@@ -688,7 +688,7 @@ describe("FhirProvider", () => {
 
     test("setActiveAuthConfig (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_config_id: "auth-config-123" };
         const rawResponseBody = {
             success: true,
@@ -756,7 +756,7 @@ describe("FhirProvider", () => {
 
     test("setActiveAuthConfig (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
         server
@@ -777,7 +777,7 @@ describe("FhirProvider", () => {
 
     test("setActiveAuthConfig (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
         server
@@ -798,7 +798,7 @@ describe("FhirProvider", () => {
 
     test("setActiveAuthConfig (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
         server
@@ -819,7 +819,7 @@ describe("FhirProvider", () => {
 
     test("setActiveAuthConfig (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
         server
@@ -840,7 +840,7 @@ describe("FhirProvider", () => {
 
     test("setActiveAuthConfig (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
         server
@@ -861,7 +861,7 @@ describe("FhirProvider", () => {
 
     test("removeAuthConfig (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_config_id: "auth-config-123" };
         const rawResponseBody = {
             success: true,
@@ -929,7 +929,7 @@ describe("FhirProvider", () => {
 
     test("removeAuthConfig (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
         server
@@ -950,7 +950,7 @@ describe("FhirProvider", () => {
 
     test("removeAuthConfig (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
         server
@@ -971,7 +971,7 @@ describe("FhirProvider", () => {
 
     test("removeAuthConfig (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
         server
@@ -992,7 +992,7 @@ describe("FhirProvider", () => {
 
     test("removeAuthConfig (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
         server
@@ -1013,7 +1013,7 @@ describe("FhirProvider", () => {
 
     test("removeAuthConfig (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
         server

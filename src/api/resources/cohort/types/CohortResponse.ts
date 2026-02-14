@@ -4,9 +4,9 @@ import type * as phenoml from "../../../index.js";
 
 export interface CohortResponse {
     /** Whether the cohort analysis was successful */
-    success?: boolean;
+    success?: boolean | undefined;
     /** Human-readable message about the analysis result */
-    message?: string;
+    message?: string | undefined;
     /** Array of search concepts converted to FHIR search queries */
-    queries?: phenoml.cohort.SearchConcept[];
+    queries?: phenoml.cohort.SearchConcept[] | undefined;
 }

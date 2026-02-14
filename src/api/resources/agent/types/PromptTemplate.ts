@@ -2,15 +2,15 @@
 
 export interface PromptTemplate {
     /** Prompt ID */
-    id?: string;
+    id?: string | undefined;
     /** Prompt name */
-    name?: string;
+    name?: string | undefined;
     /** Prompt description */
-    description?: string;
+    description?: string | undefined;
     /** Prompt content */
-    content?: string;
+    content?: string | undefined;
     /** Whether this is a default prompt */
-    is_default?: boolean;
+    is_default?: boolean | undefined;
     /** Tags for categorizing the prompt */
-    tags?: string[];
+    tags?: string[] | undefined;
 }

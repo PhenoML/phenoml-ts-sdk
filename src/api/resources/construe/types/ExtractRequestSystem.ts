@@ -18,7 +18,7 @@ export interface ExtractRequestSystem {
      *
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
      */
-    name?: string;
+    name?: string | undefined;
     /** Code system version. Must match the version available in your environment. */
-    version?: string;
+    version?: string | undefined;
 }
