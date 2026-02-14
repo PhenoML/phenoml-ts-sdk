@@ -6,4 +6,4 @@ export type { GetConstrueCodesCodesystemSearchSemanticRequest } from "./GetConst
 export type { GetConstrueCodesCodesystemSearchTextRequest } from "./GetConstrueCodesCodesystemSearchTextRequest.js";
 export type { GetConstrueCodesSystemsCodesystemExportRequest } from "./GetConstrueCodesSystemsCodesystemExportRequest.js";
 export type { GetConstrueCodesSystemsCodesystemRequest } from "./GetConstrueCodesSystemsCodesystemRequest.js";
-export type { UploadRequest } from "./UploadRequest.js";
+export { UploadRequest } from "./UploadRequest.js";

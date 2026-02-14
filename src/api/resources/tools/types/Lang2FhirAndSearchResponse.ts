@@ -2,12 +2,12 @@
 
 export interface Lang2FhirAndSearchResponse {
     /** The FHIR resource type identified for the search */
-    resource_type?: string;
+    resource_type?: string | undefined;
     /** FHIR search parameters in standard format */
-    search_params?: string;
+    search_params?: string | undefined;
     /** Array of FHIR resources returned from the search */
-    fhir_results?: Record<string, unknown>[];
-    success?: boolean;
+    fhir_results?: Record<string, unknown>[] | undefined;
+    success?: boolean | undefined;
     /** Status message */
-    message?: string;
+    message?: string | undefined;
 }

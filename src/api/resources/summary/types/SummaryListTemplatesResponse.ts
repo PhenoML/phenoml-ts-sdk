@@ -3,6 +3,6 @@
 import type * as phenoml from "../../../index.js";
 
 export interface SummaryListTemplatesResponse {
-    success?: boolean;
-    templates?: phenoml.summary.SummaryTemplate[];
+    success?: boolean | undefined;
+    templates?: phenoml.summary.SummaryTemplate[] | undefined;
 }

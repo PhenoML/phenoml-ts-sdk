@@ -1,3 +1,7 @@
+## 6.3.1 - 2026-02-14
+* SDK regeneration
+* Unable to analyze changes with AI, incrementing PATCH version.
+
 ## 6.3.0 - 2026-02-13
 * feat: improve HTTP logging, redaction, and test infrastructure
 * Enhance fetcher with response header logging and improved sensitive header redaction

@@ -2,11 +2,11 @@
 
 export interface McpServerToolCallResponse {
     /** Whether the MCP server tool was called successfully */
-    success?: boolean;
+    success?: boolean | undefined;
     /** Status message */
-    message?: string;
+    message?: string | undefined;
     /** Result of the MCP server tool call */
-    result?: Record<string, unknown>;
+    result?: Record<string, unknown> | undefined;
     /** Error message if the call failed */
-    error?: string;
+    error?: string | undefined;
 }

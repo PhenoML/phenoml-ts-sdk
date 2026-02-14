@@ -2,13 +2,13 @@
 
 export interface Lang2FhirAndCreateMultiResponse {
     /** Whether the resources were created successfully */
-    success?: boolean;
+    success?: boolean | undefined;
     /** Status message */
-    message?: string;
+    message?: string | undefined;
     /** FHIR transaction-response Bundle from the server with resolved resource IDs */
-    response_bundle?: Lang2FhirAndCreateMultiResponse.ResponseBundle;
+    response_bundle?: Lang2FhirAndCreateMultiResponse.ResponseBundle | undefined;
     /** Metadata about created resources (temp IDs, types, descriptions) */
-    resource_info?: Lang2FhirAndCreateMultiResponse.ResourceInfo.Item[];
+    resource_info?: Lang2FhirAndCreateMultiResponse.ResourceInfo.Item[] | undefined;
 }
 
 export namespace Lang2FhirAndCreateMultiResponse {
@@ -16,9 +16,9 @@ export namespace Lang2FhirAndCreateMultiResponse {
      * FHIR transaction-response Bundle from the server with resolved resource IDs
      */
     export interface ResponseBundle {
-        resourceType?: string;
-        type?: string;
-        entry?: Record<string, unknown>[];
+        resourceType?: string | undefined;
+        type?: string | undefined;
+        entry?: Record<string, unknown>[] | undefined;
     }
 
     export type ResourceInfo = ResourceInfo.Item[];
@@ -26,11 +26,11 @@ export namespace Lang2FhirAndCreateMultiResponse {
     export namespace ResourceInfo {
         export interface Item {
             /** Original temporary UUID */
-            tempId?: string;
+            tempId?: string | undefined;
             /** FHIR resource type */
-            resourceType?: string;
+            resourceType?: string | undefined;
             /** Text excerpt this resource was extracted from */
-            description?: string;
+            description?: string | undefined;
         }
     }
 }

@@ -2,11 +2,11 @@
 
 export interface McpServerToolResponse {
     /** Whether the MCP server tool was created successfully */
-    success?: boolean;
+    success?: boolean | undefined;
     /** Status message */
-    message?: string;
+    message?: string | undefined;
     /** MCP server tool data */
-    data?: McpServerToolResponse.Data;
+    data?: McpServerToolResponse.Data | undefined;
 }
 
 export namespace McpServerToolResponse {
@@ -15,18 +15,18 @@ export namespace McpServerToolResponse {
      */
     export interface Data {
         /** ID of the MCP server tool */
-        id?: string;
+        id?: string | undefined;
         /** Name of the MCP server tool */
-        name?: string;
+        name?: string | undefined;
         /** Description of the MCP server tool */
-        description?: string;
+        description?: string | undefined;
         /** Input schema of the MCP server tool */
-        input_schema?: Record<string, unknown>;
+        input_schema?: Record<string, unknown> | undefined;
         /** ID of the MCP server that the tool belongs to */
-        mcp_server_id?: string;
+        mcp_server_id?: string | undefined;
         /** URL of the MCP server */
-        mcp_server_url?: string;
+        mcp_server_url?: string | undefined;
         /** Whether the MCP server tool is active */
-        is_active?: boolean;
+        is_active?: boolean | undefined;
     }
 }

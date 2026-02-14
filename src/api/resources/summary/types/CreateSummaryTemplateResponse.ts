@@ -3,8 +3,8 @@
 import type * as phenoml from "../../../index.js";
 
 export interface CreateSummaryTemplateResponse {
-    success?: boolean;
-    message?: string;
-    template_id?: string;
-    template?: phenoml.summary.SummaryTemplate;
+    success?: boolean | undefined;
+    message?: string | undefined;
+    template_id?: string | undefined;
+    template?: phenoml.summary.SummaryTemplate | undefined;
 }
