@@ -4,13 +4,13 @@ import type * as phenoml from "../../../index.js";
 
 export interface CohortResponse {
     /** Whether the cohort analysis was successful */
-    success?: boolean;
+    success?: boolean | undefined;
     /** Status message with details about the analysis */
-    message?: string;
+    message?: string | undefined;
     /** Array of patient IDs that match the cohort criteria */
-    patientIds?: string[];
+    patientIds?: string[] | undefined;
     /** Total number of patients in the cohort */
-    patientCount?: number;
+    patientCount?: number | undefined;
     /** Individual search concepts that were identified and executed */
-    queries?: phenoml.tools.SearchConcept[];
+    queries?: phenoml.tools.SearchConcept[] | undefined;
 }

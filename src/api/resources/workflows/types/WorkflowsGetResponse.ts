@@ -3,8 +3,8 @@
 import type * as phenoml from "../../../index.js";
 
 export interface WorkflowsGetResponse {
-    success?: boolean;
-    workflow?: phenoml.workflows.WorkflowResponse;
+    success?: boolean | undefined;
+    workflow?: phenoml.workflows.WorkflowResponse | undefined;
     /** Only included when verbose=true - contains full implementation details */
-    workflow_details?: phenoml.workflows.WorkflowDefinition;
+    workflow_details?: phenoml.workflows.WorkflowDefinition | undefined;
 }

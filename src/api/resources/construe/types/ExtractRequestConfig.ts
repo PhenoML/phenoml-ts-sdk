@@ -2,29 +2,29 @@
 
 export interface ExtractRequestConfig {
     /** Method for splitting input text into chunks before code extraction */
-    chunking_method?: ExtractRequestConfig.ChunkingMethod;
+    chunking_method?: ExtractRequestConfig.ChunkingMethod | undefined;
     /**
      * Maximum number of codes to extract per chunk. If not specified, uses system-specific defaults:
      * * SNOMED: 10
      * * LOINC, HPO, RXNORM: 20
      * * All other systems: 5
      */
-    max_codes_per_chunk?: number;
+    max_codes_per_chunk?: number | undefined;
     /** Threshold for filtering similar codes (0.0-1.0) */
-    code_similarity_filter?: number;
+    code_similarity_filter?: number | undefined;
     /**
      * Method for validating extracted codes:
      * * none - No validation, returns all candidate codes
      * * simple - LLM-based validation
      * * medication_search - LLM-based validation tailored for medication concepts
      */
-    validation_method?: ExtractRequestConfig.ValidationMethod;
+    validation_method?: ExtractRequestConfig.ValidationMethod | undefined;
     /** Whether to include explanations for why each code was extracted */
-    include_rationale?: boolean;
+    include_rationale?: boolean | undefined;
     /** Whether to include ancestor/parent codes in the results */
-    include_ancestors?: boolean;
+    include_ancestors?: boolean | undefined;
     /** Whether to include codes that failed validation in the results */
-    include_invalid?: boolean;
+    include_invalid?: boolean | undefined;
     /**
      * Whether to include source text citations for each extracted code.
      * Citations show the exact text spans (with character offsets) that led to each code.
@@ -32,7 +32,7 @@ export interface ExtractRequestConfig {
      * The "none" method returns full text as one chunk (not useful for citations).
      * LLM-based chunking (paragraphs, topics) does not support citations.
      */
-    include_citations?: boolean;
+    include_citations?: boolean | undefined;
 }
 
 export namespace ExtractRequestConfig {

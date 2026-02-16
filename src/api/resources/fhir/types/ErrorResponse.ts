@@ -7,7 +7,7 @@ export interface ErrorResponse {
     /** Human-readable error message */
     message: string;
     /** HTTP status code */
-    code?: number;
+    code?: number | undefined;
     /** Additional error details */
-    data?: Record<string, unknown>;
+    data?: Record<string, unknown> | undefined;
 }

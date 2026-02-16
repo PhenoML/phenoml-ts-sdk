@@ -4,10 +4,10 @@ import * as phenoml from "../../../src/api/index";
 import { phenomlClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
 
-describe("Workflows", () => {
+describe("WorkflowsClient", () => {
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -96,7 +96,7 @@ describe("Workflows", () => {
 
     test("list (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/workflows").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
@@ -108,7 +108,7 @@ describe("Workflows", () => {
 
     test("list (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/workflows").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
@@ -120,7 +120,7 @@ describe("Workflows", () => {
 
     test("list (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/workflows").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
@@ -132,7 +132,7 @@ describe("Workflows", () => {
 
     test("create (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "Patient Data Mapping Workflow",
             workflow_instructions: "Given diagnosis data, find the patient and create condition record",
@@ -279,7 +279,7 @@ describe("Workflows", () => {
 
     test("create (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             workflow_instructions: "workflow_instructions",
@@ -312,7 +312,7 @@ describe("Workflows", () => {
 
     test("create (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             workflow_instructions: "workflow_instructions",
@@ -345,7 +345,7 @@ describe("Workflows", () => {
 
     test("create (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             workflow_instructions: "workflow_instructions",
@@ -378,7 +378,7 @@ describe("Workflows", () => {
 
     test("create (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             workflow_instructions: "workflow_instructions",
@@ -411,7 +411,7 @@ describe("Workflows", () => {
 
     test("get (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             success: true,
@@ -534,7 +534,7 @@ describe("Workflows", () => {
 
     test("get (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/workflows/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
@@ -546,7 +546,7 @@ describe("Workflows", () => {
 
     test("get (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/workflows/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
@@ -558,7 +558,7 @@ describe("Workflows", () => {
 
     test("get (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/workflows/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
@@ -570,7 +570,7 @@ describe("Workflows", () => {
 
     test("get (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/workflows/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
@@ -582,7 +582,7 @@ describe("Workflows", () => {
 
     test("update (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "Updated Patient Data Mapping Workflow",
             workflow_instructions: "Given diagnosis data, find the patient and create condition record",
@@ -727,7 +727,7 @@ describe("Workflows", () => {
 
     test("update (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             workflow_instructions: "workflow_instructions",
@@ -760,7 +760,7 @@ describe("Workflows", () => {
 
     test("update (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             workflow_instructions: "workflow_instructions",
@@ -793,7 +793,7 @@ describe("Workflows", () => {
 
     test("update (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             workflow_instructions: "workflow_instructions",
@@ -826,7 +826,7 @@ describe("Workflows", () => {
 
     test("update (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             workflow_instructions: "workflow_instructions",
@@ -859,7 +859,7 @@ describe("Workflows", () => {
 
     test("update (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             name: "name",
             workflow_instructions: "workflow_instructions",
@@ -892,7 +892,7 @@ describe("Workflows", () => {
 
     test("delete (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { success: true, message: "Workflow deleted successfully" };
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
@@ -906,7 +906,7 @@ describe("Workflows", () => {
 
     test("delete (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
@@ -918,7 +918,7 @@ describe("Workflows", () => {
 
     test("delete (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
@@ -930,7 +930,7 @@ describe("Workflows", () => {
 
     test("delete (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
@@ -942,7 +942,7 @@ describe("Workflows", () => {
 
     test("delete (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
@@ -954,7 +954,7 @@ describe("Workflows", () => {
 
     test("execute (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = {
             input_data: {
                 patient_last_name: "Johnson",
@@ -998,7 +998,7 @@ describe("Workflows", () => {
 
     test("execute (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };
         const rawResponseBody = { key: "value" };
         server
@@ -1023,7 +1023,7 @@ describe("Workflows", () => {
 
     test("execute (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };
         const rawResponseBody = { key: "value" };
         server
@@ -1048,7 +1048,7 @@ describe("Workflows", () => {
 
     test("execute (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };
         const rawResponseBody = { key: "value" };
         server
@@ -1073,7 +1073,7 @@ describe("Workflows", () => {
 
     test("execute (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };
         const rawResponseBody = { key: "value" };
         server
@@ -1098,7 +1098,7 @@ describe("Workflows", () => {
 
     test("execute (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const client = new phenomlClient({ maxRetries: 0, token: "test", environment: server.baseUrl });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };
         const rawResponseBody = { key: "value" };
         server

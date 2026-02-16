@@ -4,5 +4,5 @@ import type * as phenoml from "../../../index.js";
 
 export interface WorkflowGraph {
     /** Ordered list of workflow execution steps */
-    steps?: phenoml.workflows.WorkflowStep[];
+    steps?: phenoml.workflows.WorkflowStep[] | undefined;
 }

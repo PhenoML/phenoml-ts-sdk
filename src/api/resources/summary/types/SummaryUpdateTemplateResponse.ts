@@ -3,7 +3,7 @@
 import type * as phenoml from "../../../index.js";
 
 export interface SummaryUpdateTemplateResponse {
-    success?: boolean;
-    message?: string;
-    template?: phenoml.summary.SummaryTemplate;
+    success?: boolean | undefined;
+    message?: string | undefined;
+    template?: phenoml.summary.SummaryTemplate | undefined;
 }

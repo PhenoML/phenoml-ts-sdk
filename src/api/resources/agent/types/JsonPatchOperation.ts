@@ -6,9 +6,9 @@ export interface JsonPatchOperation {
     /** A JSON Pointer string specifying a location within the target document */
     path: string;
     /** The value to be used within the operations */
-    value?: unknown;
+    value?: unknown | undefined;
     /** A JSON Pointer string specifying the location in the target document to move the value from (used with move and copy operations) */
-    from?: string;
+    from?: string | undefined;
 }
 
 export namespace JsonPatchOperation {

@@ -4,15 +4,15 @@ export interface AgentCreateRequest {
     /** Agent name */
     name: string;
     /** Agent description */
-    description?: string;
+    description?: string | undefined;
     /** Array of prompt IDs to use for this agent */
     prompts: string[];
     /** Array of MCP server tool IDs to use for this agent */
-    tools?: string[];
+    tools?: string[] | undefined;
     /** Array of workflow IDs to expose as tools for this agent */
-    workflows?: string[];
+    workflows?: string[] | undefined;
     /** Tags for categorizing the agent */
-    tags?: string[];
+    tags?: string[] | undefined;
     /**
      * FHIR provider ID(s) for this agent. Required.
      * In shared/experiment environments, the default sandbox provider is used if a different provider is not explicitly specified.

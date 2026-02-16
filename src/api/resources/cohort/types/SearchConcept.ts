@@ -2,11 +2,11 @@
 
 export interface SearchConcept {
     /** The FHIR resource type for this search concept */
-    resource_type?: string;
+    resource_type?: string | undefined;
     /** FHIR search parameters in standard format */
-    search_params?: string;
+    search_params?: string | undefined;
     /** The original concept description */
-    concept?: string;
+    concept?: string | undefined;
     /** Whether this concept should be excluded from the search */
-    exclude?: boolean;
+    exclude?: boolean | undefined;
 }

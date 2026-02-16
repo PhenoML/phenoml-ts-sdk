@@ -6,10 +6,10 @@ import type * as phenoml from "../../../index.js";
  * Response payload for a single FHIR Provider operation.
  */
 export interface FhirProviderResponse {
-    success?: boolean;
-    message?: string;
+    success?: boolean | undefined;
+    message?: string | undefined;
     /** Provider details. Sandbox providers return FhirProviderSandboxInfo. */
-    data?: FhirProviderResponse.Data;
+    data?: FhirProviderResponse.Data | undefined;
 }
 
 export namespace FhirProviderResponse {

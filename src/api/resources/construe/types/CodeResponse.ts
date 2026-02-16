@@ -6,5 +6,5 @@ export interface CodeResponse {
     /** Short description of the code */
     description: string;
     /** Extended definition of the code (if available) */
-    definition?: string;
+    definition?: string | undefined;
 }
