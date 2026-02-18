@@ -1,3 +1,16 @@
+## 6.3.1 - 2026-02-17
+* chore: update SDK generator and refactor parameter naming
+* This commit updates the Fern TypeScript SDK generator from version 3.28.6 to 3.29.0, bringing improvements to code generation and internal SDK structure. Additionally, the change standardizes parameter naming conventions across the codebase for better consistency.
+* Key changes:
+* Update Fern generator version from 3.28.6 to 3.29.0
+* Remove deprecated .npmignore file from package structure
+* Standardize parameter naming from camelCase to snake_case in API method signatures
+* Remove User-Agent header from default SDK headers
+* Add Accept header handling in HTTP request processing
+* Enhance test infrastructure with custom header matching utilities
+* Update dependency versions across the lockfile for improved stability
+* 🌿 Generated with Fern
+
 ## 6.3.0 - 2026-02-13
 * feat: improve HTTP logging, redaction, and test infrastructure
 * Enhance fetcher with response header logging and improved sensitive header redaction
