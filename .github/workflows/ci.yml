@@ -25,7 +25,6 @@ jobs:
         run: pnpm build
 
   test:
-    needs: [compile]
     runs-on: ubuntu-latest
 
     steps:
