@@ -1,6 +1,8 @@
 name: ci
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   compile:
@@ -41,13 +43,51 @@ jobs:
       - name: Test
         run: pnpm test
 
-  publish:
+  tag:
     needs: [compile, test]
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
-      contents: read # Required for checkout
-      id-token: write # Required for OIDC
+      contents: write
+    outputs:
+      should_publish: ${{ steps.check.outputs.should_publish }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version and check tag
+        id: check
+        run: |
+          VERSION=$(jq -r .version package.json)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          if git ls-remote --tags origin "refs/tags/$VERSION" | grep -q .; then
+            echo "Tag $VERSION already exists, skipping"
+            echo "should_publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_publish=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create tag and GitHub release
+        if: steps.check.outputs.should_publish == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.check.outputs.version }}" \
+            --target "${{ github.sha }}" \
+            --title "${{ steps.check.outputs.version }}" \
+            --generate-notes
+
+  publish:
+    needs: [compile, test, tag]
+    if: needs.tag.outputs.should_publish == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -71,9 +111,10 @@ jobs:
           publish() {  # use latest npm to ensure OIDC support
             npx -y npm@latest publish "$@"
           }
-          if [[ ${GITHUB_REF} == *alpha* ]]; then
+          VERSION=$(jq -r .version package.json)
+          if [[ $VERSION == *alpha* ]]; then
             publish --access public --tag alpha
-          elif [[ ${GITHUB_REF} == *beta* ]]; then
+          elif [[ $VERSION == *beta* ]]; then
             publish --access public --tag beta
           else
             publish --access public
