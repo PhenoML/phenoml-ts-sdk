@@ -64,7 +64,7 @@ jobs:
         run: |
           VERSION=$(jq -r .version package.json)
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          if git ls-remote --tags origin | grep -q "refs/tags/$VERSION"; then
+          if git ls-remote --tags origin "refs/tags/$VERSION" | grep -q .; then
             echo "Tag $VERSION already exists, skipping"
             echo "should_publish=false" >> "$GITHUB_OUTPUT"
           else
