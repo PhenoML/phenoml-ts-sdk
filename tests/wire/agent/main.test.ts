@@ -879,6 +879,122 @@ describe("Agent", () => {
         }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
 
+    test("streamChat (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { message: "What is the patient's current condition?", agent_id: "agent-123" };
+
+        server
+            .mockEndpoint()
+            .post("/agent/stream-chat")
+            .header("X-Phenoml-On-Behalf-Of", "Patient/550e8400-e29b-41d4-a716-446655440000")
+            .header(
+                "X-Phenoml-Fhir-Provider",
+                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+            )
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .build();
+
+        const response = await client.agent.streamChat({
+            "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+            "X-Phenoml-Fhir-Provider":
+                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+            message: "What is the patient's current condition?",
+            agent_id: "agent-123",
+        });
+        expect(response).toEqual(undefined);
+    });
+
+    test("streamChat (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { message: "message", agent_id: "agent_id" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/stream-chat")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.streamChat({
+                message: "message",
+                agent_id: "agent_id",
+            });
+        }).rejects.toThrow(phenoml.agent.BadRequestError);
+    });
+
+    test("streamChat (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { message: "message", agent_id: "agent_id" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/stream-chat")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.streamChat({
+                message: "message",
+                agent_id: "agent_id",
+            });
+        }).rejects.toThrow(phenoml.agent.UnauthorizedError);
+    });
+
+    test("streamChat (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { message: "message", agent_id: "agent_id" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/stream-chat")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.streamChat({
+                message: "message",
+                agent_id: "agent_id",
+            });
+        }).rejects.toThrow(phenoml.agent.ForbiddenError);
+    });
+
+    test("streamChat (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = { message: "message", agent_id: "agent_id" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/stream-chat")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.streamChat({
+                message: "message",
+                agent_id: "agent_id",
+            });
+        }).rejects.toThrow(phenoml.agent.InternalServerError);
+    });
+
     test("getChatMessages (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
