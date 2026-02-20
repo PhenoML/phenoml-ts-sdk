@@ -132,6 +132,24 @@ describe("Stream", () => {
             expect(messages).toEqual([{ value: 1 }]);
         });
 
+        it("should not stop when stream terminator appears inside JSON content", async () => {
+            const mockStream = createReadableStream([
+                'data: {"content": "Task is [DONE] now"}\ndata: {"content": "second message"}\ndata: [DONE]\ndata: {"content": "should not appear"}\n',
+            ]);
+            const stream = new Stream({
+                stream: mockStream,
+                parse: async (val: unknown) => val as { content: string },
+                eventShape: { type: "sse", streamTerminator: "[DONE]" },
+            });
+
+            const messages: unknown[] = [];
+            for await (const message of stream) {
+                messages.push(message);
+            }
+
+            expect(messages).toEqual([{ content: "Task is [DONE] now" }, { content: "second message" }]);
+        });
+
         it("should skip lines without data prefix", async () => {
             const mockStream = createReadableStream([
                 'event: message\ndata: {"value": 1}\nid: 123\ndata: {"value": 2}\n',

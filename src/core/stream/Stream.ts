@@ -99,7 +99,7 @@ export class Stream<T> implements AsyncIterable<T> {
                     line = line.slice(prefixIndex + this.prefix.length);
                 }
 
-                if (this.streamTerminator != null && line.includes(this.streamTerminator)) {
+                if (this.streamTerminator != null && line.trim() === this.streamTerminator) {
                     return;
                 }
                 const message = await this.parse(JSON.parse(line));
