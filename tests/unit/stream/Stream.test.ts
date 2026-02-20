@@ -232,7 +232,7 @@ describe("Stream", () => {
     });
 
     describe("abort signal", () => {
-        it("should handle abort signal", async () => {
+        it("should stop iteration when abort signal is triggered", async () => {
             const controller = new AbortController();
             const mockStream = createReadableStream(['{"value": 1}\n{"value": 2}\n{"value": 3}\n']);
             const stream = new Stream({
@@ -243,17 +243,34 @@ describe("Stream", () => {
             });
 
             const messages: unknown[] = [];
-            let count = 0;
             for await (const message of stream) {
                 messages.push(message);
-                count++;
-                if (count === 2) {
+                if (messages.length === 2) {
                     controller.abort();
-                    break;
+                    // No break here - abort signal should stop iteration
                 }
             }
 
             expect(messages.length).toBe(2);
+        });
+
+        it("should stop iteration when signal is already aborted", async () => {
+            const controller = new AbortController();
+            controller.abort(); // Abort before iteration starts
+            const mockStream = createReadableStream(['{"value": 1}\n{"value": 2}\n']);
+            const stream = new Stream({
+                stream: mockStream,
+                parse: async (val: unknown) => val as { value: number },
+                eventShape: { type: "json", messageTerminator: "\n" },
+                signal: controller.signal,
+            });
+
+            const messages: unknown[] = [];
+            for await (const message of stream) {
+                messages.push(message);
+            }
+
+            expect(messages.length).toBe(0);
         });
     });
 
