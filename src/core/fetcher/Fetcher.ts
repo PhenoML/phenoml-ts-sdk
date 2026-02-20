@@ -213,11 +213,7 @@ async function getHeaders(args: Fetcher.Args): Promise<Headers> {
 
     newHeaders.set(
         "Accept",
-        args.responseType === "json" || args.responseType == null
-            ? "application/json"
-            : args.responseType === "text"
-              ? "text/plain"
-              : "*/*",
+        args.responseType === "json" ? "application/json" : args.responseType === "text" ? "text/plain" : "*/*",
     );
     if (args.body !== undefined && args.contentType != null) {
         newHeaders.set("Content-Type", args.contentType);
@@ -301,7 +297,7 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
                     method: args.method,
                     url: redactUrl(url),
                     statusCode: response.status,
-                    responseHeaders: redactHeaders(response.headers),
+                    responseHeaders: redactHeaders(Object.fromEntries(response.headers.entries())),
                 };
                 logger.error("HTTP request failed with error status", metadata);
             }

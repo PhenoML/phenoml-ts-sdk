@@ -15,6 +15,7 @@ export const Provider = {
     GoogleHealthcare: "google_healthcare",
     Hapi: "hapi",
     Medplum: "medplum",
+    Phenostore: "phenostore",
     Sandbox: "sandbox",
 } as const;
 export type Provider = (typeof Provider)[keyof typeof Provider];

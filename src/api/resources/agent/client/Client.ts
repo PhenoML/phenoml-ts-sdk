@@ -588,7 +588,7 @@ export class Agent {
     }
 
     /**
-     * Send a message to an agent and receive a response
+     * Send a message to an agent and receive a JSON response.
      *
      * @param {phenoml.agent.AgentChatRequest} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
@@ -682,6 +682,107 @@ export class Agent {
                 });
             case "timeout":
                 throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /agent/chat.");
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Send a message to an agent and receive the response as a Server-Sent Events
+     * (SSE) stream. Events include message_start, content_delta, tool_use,
+     * tool_result, message_end, and error.
+     */
+    public streamChat(
+        request: phenoml.agent.AgentStreamChatRequest,
+        requestOptions?: Agent.RequestOptions,
+    ): core.HttpResponsePromise<core.Stream<phenoml.agent.AgentChatStreamEvent>> {
+        return core.HttpResponsePromise.fromPromise(this.__streamChat(request, requestOptions));
+    }
+
+    private async __streamChat(
+        request: phenoml.agent.AgentStreamChatRequest,
+        requestOptions?: Agent.RequestOptions,
+    ): Promise<core.WithRawResponse<core.Stream<phenoml.agent.AgentChatStreamEvent>>> {
+        const {
+            "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
+            "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
+            ..._body
+        } = request;
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({
+                Authorization: await this._getAuthorizationHeader(),
+                "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf != null ? phenomlOnBehalfOf : undefined,
+                "X-Phenoml-Fhir-Provider": phenomlFhirProvider != null ? phenomlFhirProvider : undefined,
+            }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)<ReadableStream>({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                "agent/stream-chat",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: _body,
+            responseType: "sse",
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: new core.Stream({
+                    stream: _response.body,
+                    parse: (data) => data as any,
+                    signal: requestOptions?.abortSignal,
+                    eventShape: {
+                        type: "sse",
+                        streamTerminator: "[DONE]",
+                    },
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                case 403:
+                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /agent/stream-chat.");
             case "unknown":
                 throw new errors.phenomlError({
                     message: _response.error.errorMessage,

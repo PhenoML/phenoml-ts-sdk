@@ -427,7 +427,7 @@ await client.agent.patch("id", [{
 <dl>
 <dd>
 
-Send a message to an agent and receive a response
+Send a message to an agent and receive a JSON response.
 </dd>
 </dl>
 </dd>
@@ -464,6 +464,79 @@ await client.agent.chat({
 <dd>
 
 **request:** `phenoml.agent.AgentChatRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Agent.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">streamChat</a>({ ...params }) -> core.Stream<phenoml.AgentChatStreamEvent></code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send a message to an agent and receive the response as a Server-Sent Events
+(SSE) stream. Events include message_start, content_delta, tool_use,
+tool_result, message_end, and error.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const response = await client.agent.streamChat({
+    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+    message: "What is the patient's current condition?",
+    agent_id: "agent-123"
+});
+for await (const item of response) {
+    console.log(item);
+}
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.agent.AgentStreamChatRequest` 
     
 </dd>
 </dl>
