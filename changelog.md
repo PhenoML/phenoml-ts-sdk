@@ -1,3 +1,17 @@
+## 6.4.0 - 2026-02-20
+* feat: add streaming chat support for agent interactions
+* This update introduces real-time streaming capabilities to the agent chat API, enabling server-sent events (SSE) for live chat interactions. The new streaming functionality provides a more responsive user experience for agent conversations.
+* Key changes:
+* Add streamChat method to agent client with SSE streaming support
+* Implement AgentStreamChatRequest interface for streaming chat parameters
+* Create AgentChatStreamEvent type system for handling stream events
+* Add comprehensive Stream class with support for JSON and SSE event formats
+* Include enhanced reasoning option for improved response quality
+* Update existing chat method documentation for clarity
+* Add Phenostore provider support in FHIR provider types
+* Improve HTTP response header handling in fetcher
+* 🌿 Generated with Fern
+
 ## 6.3.1 - 2026-02-17
 * chore: update SDK generator and refactor parameter naming
 * This commit updates the Fern TypeScript SDK generator from version 3.28.6 to 3.29.0, bringing improvements to code generation and internal SDK structure. Additionally, the change standardizes parameter naming conventions across the codebase for better consistency.

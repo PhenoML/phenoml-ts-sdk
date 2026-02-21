@@ -301,7 +301,7 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
                     method: args.method,
                     url: redactUrl(url),
                     statusCode: response.status,
-                    responseHeaders: redactHeaders(response.headers),
+                    responseHeaders: redactHeaders(Object.fromEntries(response.headers.entries())),
                 };
                 logger.error("HTTP request failed with error status", metadata);
             }
