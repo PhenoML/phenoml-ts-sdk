@@ -19,7 +19,6 @@ describe("Tools", () => {
                 input_schema: { name: "string", age: "number" },
                 mcp_server_id: "123",
                 mcp_server_url: "https://mcp.example.com",
-                is_active: true,
             },
         };
         server
@@ -44,7 +43,6 @@ describe("Tools", () => {
                 },
                 mcp_server_id: "123",
                 mcp_server_url: "https://mcp.example.com",
-                is_active: true,
             },
         });
     });
@@ -117,7 +115,6 @@ describe("Tools", () => {
                 input_schema: { name: "string", age: "number" },
                 mcp_server_id: "123",
                 mcp_server_url: "https://mcp.example.com",
-                is_active: true,
             },
         };
         server
@@ -142,7 +139,6 @@ describe("Tools", () => {
                 },
                 mcp_server_id: "123",
                 mcp_server_url: "https://mcp.example.com",
-                is_active: true,
             },
         });
     });
@@ -215,7 +211,6 @@ describe("Tools", () => {
                 input_schema: { name: "string", age: "number" },
                 mcp_server_id: "123",
                 mcp_server_url: "https://mcp.example.com",
-                is_active: true,
             },
         };
         server
@@ -240,7 +235,6 @@ describe("Tools", () => {
                 },
                 mcp_server_id: "123",
                 mcp_server_url: "https://mcp.example.com",
-                is_active: true,
             },
         });
     });

@@ -12,6 +12,4 @@ export interface FhirProviderSandboxInfo {
     description?: string;
     /** Provider type (always "sandbox" for this schema) */
     provider?: "sandbox";
-    /** Whether the FHIR provider is active */
-    is_active?: boolean;
 }

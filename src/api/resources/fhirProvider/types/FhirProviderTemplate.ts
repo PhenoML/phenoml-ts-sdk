@@ -16,8 +16,6 @@ export interface FhirProviderTemplate {
     client_id?: string;
     /** Map of authentication configurations (key is auth_config_id) */
     auth_configs?: Record<string, phenoml.fhirProvider.FhirProviderAuthConfig>;
-    /** Whether the FHIR provider is active */
-    is_active?: boolean;
     /** Timestamp when the provider was last updated */
     last_updated?: string;
 }

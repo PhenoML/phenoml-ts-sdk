@@ -1,3 +1,12 @@
+## 7.0.0 - 2026-02-23
+* refactor: remove is_active field from API types and update deletion behavior
+* This change removes the is_active field from multiple API types and updates the FHIR provider deletion behavior from soft delete to hard delete. The API now uses proper deletion semantics instead of status flags.
+* Key changes:
+* Remove is_active field from FhirProviderSandboxInfo, FhirProviderTemplate, McpServerResponse, and McpServerToolResponse types
+* Update FHIR provider delete operation description from "soft deletes" to "deletes"
+* Remove is_active references from all test files to maintain compatibility
+* 🌿 Generated with Fern
+
 ## 6.5.0 - 2026-02-23
 * feat: improve FHIR provider authentication configuration and documentation
 * Enhance FHIR provider authentication with clearer scoping behavior, simplified role definitions, and improved documentation. The changes make authentication configuration more intuitive while maintaining backward compatibility.
