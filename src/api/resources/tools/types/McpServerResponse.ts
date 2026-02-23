@@ -22,7 +22,5 @@ export namespace McpServerResponse {
         description?: string;
         /** URL of the MCP server */
         mcp_server_url?: string;
-        /** Whether the MCP server is active */
-        is_active?: boolean;
     }
 }

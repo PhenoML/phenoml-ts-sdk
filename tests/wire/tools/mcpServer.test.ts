@@ -17,7 +17,6 @@ describe("McpServer", () => {
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
-                is_active: true,
             },
         };
         server
@@ -41,7 +40,6 @@ describe("McpServer", () => {
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
-                is_active: true,
             },
         });
     });
@@ -146,7 +144,6 @@ describe("McpServer", () => {
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
-                is_active: true,
             },
         };
         server
@@ -166,7 +163,6 @@ describe("McpServer", () => {
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
-                is_active: true,
             },
         });
     });
@@ -237,7 +233,6 @@ describe("McpServer", () => {
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
-                is_active: true,
             },
         };
         server
@@ -257,7 +252,6 @@ describe("McpServer", () => {
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
-                is_active: true,
             },
         });
     });
@@ -328,7 +322,6 @@ describe("McpServer", () => {
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
-                is_active: true,
             },
         };
         server
@@ -348,7 +341,6 @@ describe("McpServer", () => {
                 name: "My MCP Server",
                 description: "My MCP Server is a server that provides MCP services",
                 mcp_server_url: "https://mcp.example.com",
-                is_active: true,
             },
         });
     });

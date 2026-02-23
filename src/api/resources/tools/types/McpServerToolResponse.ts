@@ -26,7 +26,5 @@ export namespace McpServerToolResponse {
         mcp_server_id?: string;
         /** URL of the MCP server */
         mcp_server_url?: string;
-        /** Whether the MCP server tool is active */
-        is_active?: boolean;
     }
 }

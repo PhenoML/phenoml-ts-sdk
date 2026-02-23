@@ -35,7 +35,6 @@ describe("FhirProvider", () => {
                         scopes: "system/Patient.read system/Observation.read",
                     },
                 },
-                is_active: true,
                 last_updated: "2024-01-15T10:30:00Z",
             },
         };
@@ -75,7 +74,6 @@ describe("FhirProvider", () => {
                         scopes: "system/Patient.read system/Observation.read",
                     },
                 },
-                is_active: true,
                 last_updated: "2024-01-15T10:30:00Z",
             },
         });
@@ -223,7 +221,6 @@ describe("FhirProvider", () => {
                             scopes: "system/Patient.read system/Observation.read",
                         },
                     },
-                    is_active: true,
                     last_updated: "2024-01-15T10:30:00Z",
                 },
             ],
@@ -259,7 +256,6 @@ describe("FhirProvider", () => {
                             scopes: "system/Patient.read system/Observation.read",
                         },
                     },
-                    is_active: true,
                     last_updated: "2024-01-15T10:30:00Z",
                 },
             ],
@@ -327,7 +323,6 @@ describe("FhirProvider", () => {
                         scopes: "system/Patient.read system/Observation.read",
                     },
                 },
-                is_active: true,
                 last_updated: "2024-01-15T10:30:00Z",
             },
         };
@@ -361,7 +356,6 @@ describe("FhirProvider", () => {
                         scopes: "system/Patient.read system/Observation.read",
                     },
                 },
-                is_active: true,
                 last_updated: "2024-01-15T10:30:00Z",
             },
         });
@@ -538,7 +532,6 @@ describe("FhirProvider", () => {
                         scopes: "system/Patient.read system/Observation.read",
                     },
                 },
-                is_active: true,
                 last_updated: "2024-01-15T10:30:00Z",
             },
         };
@@ -575,7 +568,6 @@ describe("FhirProvider", () => {
                         scopes: "system/Patient.read system/Observation.read",
                     },
                 },
-                is_active: true,
                 last_updated: "2024-01-15T10:30:00Z",
             },
         });
@@ -711,7 +703,6 @@ describe("FhirProvider", () => {
                         scopes: "system/Patient.read system/Observation.read",
                     },
                 },
-                is_active: true,
                 last_updated: "2024-01-15T10:30:00Z",
             },
         };
@@ -748,7 +739,6 @@ describe("FhirProvider", () => {
                         scopes: "system/Patient.read system/Observation.read",
                     },
                 },
-                is_active: true,
                 last_updated: "2024-01-15T10:30:00Z",
             },
         });
@@ -884,7 +874,6 @@ describe("FhirProvider", () => {
                         scopes: "system/Patient.read system/Observation.read",
                     },
                 },
-                is_active: true,
                 last_updated: "2024-01-15T10:30:00Z",
             },
         };
@@ -921,7 +910,6 @@ describe("FhirProvider", () => {
                         scopes: "system/Patient.read system/Observation.read",
                     },
                 },
-                is_active: true,
                 last_updated: "2024-01-15T10:30:00Z",
             },
         });

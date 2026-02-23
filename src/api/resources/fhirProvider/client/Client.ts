@@ -321,7 +321,7 @@ export class FhirProvider {
     }
 
     /**
-     * Soft deletes a FHIR provider by setting is_active to false.
+     * Deletes a FHIR provider.
      *
      * Note: Sandbox providers cannot be deleted.
      *
