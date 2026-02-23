@@ -64,14 +64,11 @@ export class Stream<T> implements AsyncIterable<T> {
     }
 
     private async *iterMessages(): AsyncGenerator<T, void> {
-        const signal = this.controller.signal;
+        this.controller.signal;
         const stream = readableStreamAsyncIterable<any>(this.stream);
         let buf = "";
         let prefixSeen = false;
         for await (const chunk of stream) {
-            if (signal.aborted) {
-                break;
-            }
             buf += this.decodeChunk(chunk);
 
             let terminatorIndex: number;

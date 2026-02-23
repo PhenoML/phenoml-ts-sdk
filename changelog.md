@@ -1,3 +1,15 @@
+## 6.5.0 - 2026-02-23
+* feat: add provider-specific roles and improve auth method documentation
+* Enhanced the FHIR provider configuration system by adding dedicated role types for different providers and improving authentication method documentation. This enables better provider-specific role validation and clearer guidance on scope behavior.
+* Key changes:
+* Add provider-specific role types (Epic, Cerner, AthenaHealth, Medplum, Elation, Phenostore)
+* Refactor Role type to use discriminated union of provider-specific roles
+* Improve AuthMethod documentation with detailed scope behavior explanations
+* Add credential_expiry field to FhirProviderCreateRequest
+* Update field documentation with clearer auth method applicability
+* Clean up unused variables in Stream and Fetcher modules
+* 🌿 Generated with Fern
+
 ## 6.4.0 - 2026-02-20
 * feat: add streaming chat support for agent interactions
 * This update introduces real-time streaming capabilities to the agent chat API, enabling server-sent events (SSE) for live chat interactions. The new streaming functionality provides a more responsive user experience for agent conversations.

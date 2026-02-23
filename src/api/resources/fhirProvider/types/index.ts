@@ -1,4 +1,8 @@
+export * from "./AthenaHealthRole.js";
 export * from "./AuthMethod.js";
+export * from "./CernerRole.js";
+export * from "./ElationRole.js";
+export * from "./EpicRole.js";
 export * from "./FhirProviderAuthConfig.js";
 export * from "./FhirProviderDeleteResponse.js";
 export * from "./FhirProviderListResponse.js";
@@ -8,6 +12,8 @@ export * from "./FhirProviderSandboxInfo.js";
 export * from "./FhirProviderTemplate.js";
 export * from "./FhirQueryResponse.js";
 export * from "./JsonWebKey.js";
+export * from "./MedplumRole.js";
+export * from "./PhenostoreRole.js";
 export * from "./Provider.js";
 export * from "./Role.js";
 export * from "./ServiceAccountKey.js";
