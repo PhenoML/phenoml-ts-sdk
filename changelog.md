@@ -1,3 +1,14 @@
+## 6.5.0 - 2026-02-23
+* feat: improve FHIR provider authentication configuration and documentation
+* Enhance FHIR provider authentication with clearer scoping behavior, simplified role definitions, and improved documentation. The changes make authentication configuration more intuitive while maintaining backward compatibility.
+* Key changes:
+* Add comprehensive documentation for AuthMethod enum explaining scope behavior for each auth method
+* Simplify Role enum from provider-specific roles to generic admin/read/write access levels
+* Update field documentation to clarify auth method requirements and default behaviors
+* Add credential_expiry field to FhirProviderCreateRequest for JWT authentication
+* Refactor code formatting in Fetcher and Stream modules for better readability
+* 🌿 Generated with Fern
+
 ## 6.4.0 - 2026-02-20
 * feat: add streaming chat support for agent interactions
 * This update introduces real-time streaming capabilities to the agent chat API, enabling server-sent events (SSE) for live chat interactions. The new streaming functionality provides a more responsive user experience for agent conversations.
