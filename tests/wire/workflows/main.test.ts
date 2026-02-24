@@ -24,6 +24,16 @@ describe("Workflows", () => {
                         patient_last_name: "Rippin",
                     },
                     config: { fhir_provider_ids: ["550e8400-e29b-41d4-a716-446655440000"], dynamic_generation: false },
+                    graph: {
+                        steps: [
+                            {
+                                id: "step_1_id",
+                                name: "Find Patient",
+                                description: "Search for an existing patient by first name and last name",
+                                provider_id: "550e8400-e29b-41d4-a716-446655440000",
+                            },
+                        ],
+                    },
                     created_at: "2024-01-15T10:30:00Z",
                     updated_at: "2024-01-15T15:45:00Z",
                 },
@@ -40,6 +50,78 @@ describe("Workflows", () => {
                         patient_last_name: "Rippin",
                     },
                     config: { fhir_provider_ids: ["550e8400-e29b-41d4-a716-446655440000"], dynamic_generation: false },
+                    graph: {
+                        steps: [
+                            {
+                                id: "1",
+                                name: "Create Patient Resource",
+                                description: "Create a FHIR Patient resource from input data",
+                                operation: {
+                                    search_definition: {
+                                        original_query:
+                                            "find patient {{patient_first_name}} {{patient_last_name}} by first name and last name",
+                                        resource_type: "Patient",
+                                        search_parameters: {
+                                            family: "{{patient_last_name}}",
+                                            given: "{{patient_first_name}}",
+                                        },
+                                        required_fields: ["id", "name", "identifier"],
+                                        runtime_placeholders: {
+                                            "{{patient_first_name}}": "input.patient_first_name",
+                                            "{{patient_last_name}}": "input.patient_last_name",
+                                        },
+                                    },
+                                    create_definition: {
+                                        original_description:
+                                            "create condition with diagnosis code {{diagnosis_code}} and diagnosis date 2025-01-01",
+                                        resource_type: "Condition",
+                                        resource_template: {
+                                            resourceType: "Condition",
+                                            code: {
+                                                coding: [
+                                                    {
+                                                        code: "{{diagnosis_code}}",
+                                                        system: "http://hl7.org/fhir/sid/icd-10",
+                                                    },
+                                                ],
+                                            },
+                                            subject: { reference: "Patient/{{step_1_id}}" },
+                                        },
+                                        runtime_placeholders: {
+                                            "{{diagnosis_code}}": "input.diagnosis_code",
+                                            "{{diagnosis_date}}": "input.diagnosis_date",
+                                        },
+                                    },
+                                    workflow_definition: {
+                                        workflow_id: "550e8400-e29b-41d4-a716-446655440002",
+                                        input: {
+                                            patient_id: "{{step_1_id}}",
+                                            additional_context: "laboratory_results",
+                                        },
+                                        runtime_placeholders: {
+                                            "{{step_1_id}}": "step_1.result.id",
+                                            "{{patient_data}}": "input.patient_data",
+                                        },
+                                    },
+                                    decision_definition: {
+                                        expression: "input.patient_age >= 18",
+                                        paths: {
+                                            true: "step_adult_workflow",
+                                            false: "step_pediatric_workflow",
+                                            default: "step_error_handler",
+                                        },
+                                        runtime_placeholders: {
+                                            "{{patient_age}}": "input.patient_age",
+                                            "{{diagnosis_type}}": "step_2.result.diagnosis_category",
+                                        },
+                                    },
+                                },
+                                provider_id: "550e8400-e29b-41d4-a716-446655440000",
+                                dependencies: ["dependencies"],
+                                dynamic_generation: false,
+                            },
+                        ],
+                    },
                     created_at: "2024-01-15T10:30:00Z",
                     updated_at: "2024-01-15T15:45:00Z",
                 },
@@ -68,6 +150,16 @@ describe("Workflows", () => {
                         fhir_provider_ids: ["550e8400-e29b-41d4-a716-446655440000"],
                         dynamic_generation: false,
                     },
+                    graph: {
+                        steps: [
+                            {
+                                id: "step_1_id",
+                                name: "Find Patient",
+                                description: "Search for an existing patient by first name and last name",
+                                provider_id: "550e8400-e29b-41d4-a716-446655440000",
+                            },
+                        ],
+                    },
                     created_at: "2024-01-15T10:30:00Z",
                     updated_at: "2024-01-15T15:45:00Z",
                 },
@@ -86,6 +178,80 @@ describe("Workflows", () => {
                     config: {
                         fhir_provider_ids: ["550e8400-e29b-41d4-a716-446655440000"],
                         dynamic_generation: false,
+                    },
+                    graph: {
+                        steps: [
+                            {
+                                id: "1",
+                                name: "Create Patient Resource",
+                                description: "Create a FHIR Patient resource from input data",
+                                operation: {
+                                    search_definition: {
+                                        original_query:
+                                            "find patient {{patient_first_name}} {{patient_last_name}} by first name and last name",
+                                        resource_type: "Patient",
+                                        search_parameters: {
+                                            family: "{{patient_last_name}}",
+                                            given: "{{patient_first_name}}",
+                                        },
+                                        required_fields: ["id", "name", "identifier"],
+                                        runtime_placeholders: {
+                                            "{{patient_first_name}}": "input.patient_first_name",
+                                            "{{patient_last_name}}": "input.patient_last_name",
+                                        },
+                                    },
+                                    create_definition: {
+                                        original_description:
+                                            "create condition with diagnosis code {{diagnosis_code}} and diagnosis date 2025-01-01",
+                                        resource_type: "Condition",
+                                        resource_template: {
+                                            resourceType: "Condition",
+                                            code: {
+                                                coding: [
+                                                    {
+                                                        code: "{{diagnosis_code}}",
+                                                        system: "http://hl7.org/fhir/sid/icd-10",
+                                                    },
+                                                ],
+                                            },
+                                            subject: {
+                                                reference: "Patient/{{step_1_id}}",
+                                            },
+                                        },
+                                        runtime_placeholders: {
+                                            "{{diagnosis_code}}": "input.diagnosis_code",
+                                            "{{diagnosis_date}}": "input.diagnosis_date",
+                                        },
+                                    },
+                                    workflow_definition: {
+                                        workflow_id: "550e8400-e29b-41d4-a716-446655440002",
+                                        input: {
+                                            patient_id: "{{step_1_id}}",
+                                            additional_context: "laboratory_results",
+                                        },
+                                        runtime_placeholders: {
+                                            "{{step_1_id}}": "step_1.result.id",
+                                            "{{patient_data}}": "input.patient_data",
+                                        },
+                                    },
+                                    decision_definition: {
+                                        expression: "input.patient_age >= 18",
+                                        paths: {
+                                            true: "step_adult_workflow",
+                                            false: "step_pediatric_workflow",
+                                            default: "step_error_handler",
+                                        },
+                                        runtime_placeholders: {
+                                            "{{patient_age}}": "input.patient_age",
+                                            "{{diagnosis_type}}": "step_2.result.diagnosis_category",
+                                        },
+                                    },
+                                },
+                                provider_id: "550e8400-e29b-41d4-a716-446655440000",
+                                dependencies: ["dependencies"],
+                                dynamic_generation: false,
+                            },
+                        ],
                     },
                     created_at: "2024-01-15T10:30:00Z",
                     updated_at: "2024-01-15T15:45:00Z",
@@ -184,6 +350,63 @@ describe("Workflows", () => {
                             id: "1",
                             name: "Create Patient Resource",
                             description: "Create a FHIR Patient resource from input data",
+                            operation: {
+                                search_definition: {
+                                    original_query:
+                                        "find patient {{patient_first_name}} {{patient_last_name}} by first name and last name",
+                                    resource_type: "Patient",
+                                    search_parameters: {
+                                        family: "{{patient_last_name}}",
+                                        given: "{{patient_first_name}}",
+                                    },
+                                    required_fields: ["id", "name", "identifier"],
+                                    runtime_placeholders: {
+                                        "{{patient_first_name}}": "input.patient_first_name",
+                                        "{{patient_last_name}}": "input.patient_last_name",
+                                    },
+                                },
+                                create_definition: {
+                                    original_description:
+                                        "create condition with diagnosis code {{diagnosis_code}} and diagnosis date 2025-01-01",
+                                    resource_type: "Condition",
+                                    resource_template: {
+                                        resourceType: "Condition",
+                                        code: {
+                                            coding: [
+                                                {
+                                                    code: "{{diagnosis_code}}",
+                                                    system: "http://hl7.org/fhir/sid/icd-10",
+                                                },
+                                            ],
+                                        },
+                                        subject: { reference: "Patient/{{step_1_id}}" },
+                                    },
+                                    runtime_placeholders: {
+                                        "{{diagnosis_code}}": "input.diagnosis_code",
+                                        "{{diagnosis_date}}": "input.diagnosis_date",
+                                    },
+                                },
+                                workflow_definition: {
+                                    workflow_id: "550e8400-e29b-41d4-a716-446655440002",
+                                    input: { patient_id: "{{step_1_id}}", additional_context: "laboratory_results" },
+                                    runtime_placeholders: {
+                                        "{{step_1_id}}": "step_1.result.id",
+                                        "{{patient_data}}": "input.patient_data",
+                                    },
+                                },
+                                decision_definition: {
+                                    expression: "input.patient_age >= 18",
+                                    paths: {
+                                        true: "step_adult_workflow",
+                                        false: "step_pediatric_workflow",
+                                        default: "step_error_handler",
+                                    },
+                                    runtime_placeholders: {
+                                        "{{patient_age}}": "input.patient_age",
+                                        "{{diagnosis_type}}": "step_2.result.diagnosis_category",
+                                    },
+                                },
+                            },
                             provider_id: "550e8400-e29b-41d4-a716-446655440000",
                             dependencies: ["dependencies"],
                             dynamic_generation: false,
@@ -265,6 +488,68 @@ describe("Workflows", () => {
                             id: "1",
                             name: "Create Patient Resource",
                             description: "Create a FHIR Patient resource from input data",
+                            operation: {
+                                search_definition: {
+                                    original_query:
+                                        "find patient {{patient_first_name}} {{patient_last_name}} by first name and last name",
+                                    resource_type: "Patient",
+                                    search_parameters: {
+                                        family: "{{patient_last_name}}",
+                                        given: "{{patient_first_name}}",
+                                    },
+                                    required_fields: ["id", "name", "identifier"],
+                                    runtime_placeholders: {
+                                        "{{patient_first_name}}": "input.patient_first_name",
+                                        "{{patient_last_name}}": "input.patient_last_name",
+                                    },
+                                },
+                                create_definition: {
+                                    original_description:
+                                        "create condition with diagnosis code {{diagnosis_code}} and diagnosis date 2025-01-01",
+                                    resource_type: "Condition",
+                                    resource_template: {
+                                        resourceType: "Condition",
+                                        code: {
+                                            coding: [
+                                                {
+                                                    code: "{{diagnosis_code}}",
+                                                    system: "http://hl7.org/fhir/sid/icd-10",
+                                                },
+                                            ],
+                                        },
+                                        subject: {
+                                            reference: "Patient/{{step_1_id}}",
+                                        },
+                                    },
+                                    runtime_placeholders: {
+                                        "{{diagnosis_code}}": "input.diagnosis_code",
+                                        "{{diagnosis_date}}": "input.diagnosis_date",
+                                    },
+                                },
+                                workflow_definition: {
+                                    workflow_id: "550e8400-e29b-41d4-a716-446655440002",
+                                    input: {
+                                        patient_id: "{{step_1_id}}",
+                                        additional_context: "laboratory_results",
+                                    },
+                                    runtime_placeholders: {
+                                        "{{step_1_id}}": "step_1.result.id",
+                                        "{{patient_data}}": "input.patient_data",
+                                    },
+                                },
+                                decision_definition: {
+                                    expression: "input.patient_age >= 18",
+                                    paths: {
+                                        true: "step_adult_workflow",
+                                        false: "step_pediatric_workflow",
+                                        default: "step_error_handler",
+                                    },
+                                    runtime_placeholders: {
+                                        "{{patient_age}}": "input.patient_age",
+                                        "{{diagnosis_type}}": "step_2.result.diagnosis_category",
+                                    },
+                                },
+                            },
                             provider_id: "550e8400-e29b-41d4-a716-446655440000",
                             dependencies: ["dependencies"],
                             dynamic_generation: false,
@@ -456,6 +741,63 @@ describe("Workflows", () => {
                             id: "1",
                             name: "Create Patient Resource",
                             description: "Create a FHIR Patient resource from input data",
+                            operation: {
+                                search_definition: {
+                                    original_query:
+                                        "find patient {{patient_first_name}} {{patient_last_name}} by first name and last name",
+                                    resource_type: "Patient",
+                                    search_parameters: {
+                                        family: "{{patient_last_name}}",
+                                        given: "{{patient_first_name}}",
+                                    },
+                                    required_fields: ["id", "name", "identifier"],
+                                    runtime_placeholders: {
+                                        "{{patient_first_name}}": "input.patient_first_name",
+                                        "{{patient_last_name}}": "input.patient_last_name",
+                                    },
+                                },
+                                create_definition: {
+                                    original_description:
+                                        "create condition with diagnosis code {{diagnosis_code}} and diagnosis date 2025-01-01",
+                                    resource_type: "Condition",
+                                    resource_template: {
+                                        resourceType: "Condition",
+                                        code: {
+                                            coding: [
+                                                {
+                                                    code: "{{diagnosis_code}}",
+                                                    system: "http://hl7.org/fhir/sid/icd-10",
+                                                },
+                                            ],
+                                        },
+                                        subject: { reference: "Patient/{{step_1_id}}" },
+                                    },
+                                    runtime_placeholders: {
+                                        "{{diagnosis_code}}": "input.diagnosis_code",
+                                        "{{diagnosis_date}}": "input.diagnosis_date",
+                                    },
+                                },
+                                workflow_definition: {
+                                    workflow_id: "550e8400-e29b-41d4-a716-446655440002",
+                                    input: { patient_id: "{{step_1_id}}", additional_context: "laboratory_results" },
+                                    runtime_placeholders: {
+                                        "{{step_1_id}}": "step_1.result.id",
+                                        "{{patient_data}}": "input.patient_data",
+                                    },
+                                },
+                                decision_definition: {
+                                    expression: "input.patient_age >= 18",
+                                    paths: {
+                                        true: "step_adult_workflow",
+                                        false: "step_pediatric_workflow",
+                                        default: "step_error_handler",
+                                    },
+                                    runtime_placeholders: {
+                                        "{{patient_age}}": "input.patient_age",
+                                        "{{diagnosis_type}}": "step_2.result.diagnosis_category",
+                                    },
+                                },
+                            },
                             provider_id: "550e8400-e29b-41d4-a716-446655440000",
                             dependencies: ["dependencies"],
                             dynamic_generation: false,
@@ -520,6 +862,68 @@ describe("Workflows", () => {
                             id: "1",
                             name: "Create Patient Resource",
                             description: "Create a FHIR Patient resource from input data",
+                            operation: {
+                                search_definition: {
+                                    original_query:
+                                        "find patient {{patient_first_name}} {{patient_last_name}} by first name and last name",
+                                    resource_type: "Patient",
+                                    search_parameters: {
+                                        family: "{{patient_last_name}}",
+                                        given: "{{patient_first_name}}",
+                                    },
+                                    required_fields: ["id", "name", "identifier"],
+                                    runtime_placeholders: {
+                                        "{{patient_first_name}}": "input.patient_first_name",
+                                        "{{patient_last_name}}": "input.patient_last_name",
+                                    },
+                                },
+                                create_definition: {
+                                    original_description:
+                                        "create condition with diagnosis code {{diagnosis_code}} and diagnosis date 2025-01-01",
+                                    resource_type: "Condition",
+                                    resource_template: {
+                                        resourceType: "Condition",
+                                        code: {
+                                            coding: [
+                                                {
+                                                    code: "{{diagnosis_code}}",
+                                                    system: "http://hl7.org/fhir/sid/icd-10",
+                                                },
+                                            ],
+                                        },
+                                        subject: {
+                                            reference: "Patient/{{step_1_id}}",
+                                        },
+                                    },
+                                    runtime_placeholders: {
+                                        "{{diagnosis_code}}": "input.diagnosis_code",
+                                        "{{diagnosis_date}}": "input.diagnosis_date",
+                                    },
+                                },
+                                workflow_definition: {
+                                    workflow_id: "550e8400-e29b-41d4-a716-446655440002",
+                                    input: {
+                                        patient_id: "{{step_1_id}}",
+                                        additional_context: "laboratory_results",
+                                    },
+                                    runtime_placeholders: {
+                                        "{{step_1_id}}": "step_1.result.id",
+                                        "{{patient_data}}": "input.patient_data",
+                                    },
+                                },
+                                decision_definition: {
+                                    expression: "input.patient_age >= 18",
+                                    paths: {
+                                        true: "step_adult_workflow",
+                                        false: "step_pediatric_workflow",
+                                        default: "step_error_handler",
+                                    },
+                                    runtime_placeholders: {
+                                        "{{patient_age}}": "input.patient_age",
+                                        "{{diagnosis_type}}": "step_2.result.diagnosis_category",
+                                    },
+                                },
+                            },
                             provider_id: "550e8400-e29b-41d4-a716-446655440000",
                             dependencies: ["dependencies"],
                             dynamic_generation: false,
@@ -633,6 +1037,63 @@ describe("Workflows", () => {
                             id: "1",
                             name: "Create Patient Resource",
                             description: "Create a FHIR Patient resource from input data",
+                            operation: {
+                                search_definition: {
+                                    original_query:
+                                        "find patient {{patient_first_name}} {{patient_last_name}} by first name and last name",
+                                    resource_type: "Patient",
+                                    search_parameters: {
+                                        family: "{{patient_last_name}}",
+                                        given: "{{patient_first_name}}",
+                                    },
+                                    required_fields: ["id", "name", "identifier"],
+                                    runtime_placeholders: {
+                                        "{{patient_first_name}}": "input.patient_first_name",
+                                        "{{patient_last_name}}": "input.patient_last_name",
+                                    },
+                                },
+                                create_definition: {
+                                    original_description:
+                                        "create condition with diagnosis code {{diagnosis_code}} and diagnosis date 2025-01-01",
+                                    resource_type: "Condition",
+                                    resource_template: {
+                                        resourceType: "Condition",
+                                        code: {
+                                            coding: [
+                                                {
+                                                    code: "{{diagnosis_code}}",
+                                                    system: "http://hl7.org/fhir/sid/icd-10",
+                                                },
+                                            ],
+                                        },
+                                        subject: { reference: "Patient/{{step_1_id}}" },
+                                    },
+                                    runtime_placeholders: {
+                                        "{{diagnosis_code}}": "input.diagnosis_code",
+                                        "{{diagnosis_date}}": "input.diagnosis_date",
+                                    },
+                                },
+                                workflow_definition: {
+                                    workflow_id: "550e8400-e29b-41d4-a716-446655440002",
+                                    input: { patient_id: "{{step_1_id}}", additional_context: "laboratory_results" },
+                                    runtime_placeholders: {
+                                        "{{step_1_id}}": "step_1.result.id",
+                                        "{{patient_data}}": "input.patient_data",
+                                    },
+                                },
+                                decision_definition: {
+                                    expression: "input.patient_age >= 18",
+                                    paths: {
+                                        true: "step_adult_workflow",
+                                        false: "step_pediatric_workflow",
+                                        default: "step_error_handler",
+                                    },
+                                    runtime_placeholders: {
+                                        "{{patient_age}}": "input.patient_age",
+                                        "{{diagnosis_type}}": "step_2.result.diagnosis_category",
+                                    },
+                                },
+                            },
                             provider_id: "550e8400-e29b-41d4-a716-446655440000",
                             dependencies: ["dependencies"],
                             dynamic_generation: false,
@@ -713,6 +1174,68 @@ describe("Workflows", () => {
                             id: "1",
                             name: "Create Patient Resource",
                             description: "Create a FHIR Patient resource from input data",
+                            operation: {
+                                search_definition: {
+                                    original_query:
+                                        "find patient {{patient_first_name}} {{patient_last_name}} by first name and last name",
+                                    resource_type: "Patient",
+                                    search_parameters: {
+                                        family: "{{patient_last_name}}",
+                                        given: "{{patient_first_name}}",
+                                    },
+                                    required_fields: ["id", "name", "identifier"],
+                                    runtime_placeholders: {
+                                        "{{patient_first_name}}": "input.patient_first_name",
+                                        "{{patient_last_name}}": "input.patient_last_name",
+                                    },
+                                },
+                                create_definition: {
+                                    original_description:
+                                        "create condition with diagnosis code {{diagnosis_code}} and diagnosis date 2025-01-01",
+                                    resource_type: "Condition",
+                                    resource_template: {
+                                        resourceType: "Condition",
+                                        code: {
+                                            coding: [
+                                                {
+                                                    code: "{{diagnosis_code}}",
+                                                    system: "http://hl7.org/fhir/sid/icd-10",
+                                                },
+                                            ],
+                                        },
+                                        subject: {
+                                            reference: "Patient/{{step_1_id}}",
+                                        },
+                                    },
+                                    runtime_placeholders: {
+                                        "{{diagnosis_code}}": "input.diagnosis_code",
+                                        "{{diagnosis_date}}": "input.diagnosis_date",
+                                    },
+                                },
+                                workflow_definition: {
+                                    workflow_id: "550e8400-e29b-41d4-a716-446655440002",
+                                    input: {
+                                        patient_id: "{{step_1_id}}",
+                                        additional_context: "laboratory_results",
+                                    },
+                                    runtime_placeholders: {
+                                        "{{step_1_id}}": "step_1.result.id",
+                                        "{{patient_data}}": "input.patient_data",
+                                    },
+                                },
+                                decision_definition: {
+                                    expression: "input.patient_age >= 18",
+                                    paths: {
+                                        true: "step_adult_workflow",
+                                        false: "step_pediatric_workflow",
+                                        default: "step_error_handler",
+                                    },
+                                    runtime_placeholders: {
+                                        "{{patient_age}}": "input.patient_age",
+                                        "{{diagnosis_type}}": "step_2.result.diagnosis_category",
+                                    },
+                                },
+                            },
                             provider_id: "550e8400-e29b-41d4-a716-446655440000",
                             dependencies: ["dependencies"],
                             dynamic_generation: false,

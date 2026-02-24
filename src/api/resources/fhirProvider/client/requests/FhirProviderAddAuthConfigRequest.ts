@@ -10,6 +10,8 @@ import type * as phenoml from "../../../../index.js";
  */
 export interface FhirProviderAddAuthConfigRequest {
     auth_method: phenoml.fhirProvider.AuthMethod;
+    /** OAuth client ID for this auth configuration. Required for jwt, client_secret, and on_behalf_of auth methods if the provider does not already have a client_id set. */
+    client_id?: string;
     /** OAuth client secret (required for client_secret and on_behalf_of auth methods) */
     client_secret?: string;
     service_account_key?: phenoml.fhirProvider.ServiceAccountKey;

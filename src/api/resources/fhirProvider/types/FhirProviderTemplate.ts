@@ -12,7 +12,7 @@ export interface FhirProviderTemplate {
     provider?: phenoml.fhirProvider.Provider;
     /** Base URL of the FHIR server */
     base_url?: string;
-    /** OAuth client ID */
+    /** OAuth client ID. Deprecated: use client_id on FhirProviderAuthConfig instead. Retained for backward compatibility with existing providers. */
     client_id?: string;
     /** Map of authentication configurations (key is auth_config_id) */
     auth_configs?: Record<string, phenoml.fhirProvider.FhirProviderAuthConfig>;

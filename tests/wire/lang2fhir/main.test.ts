@@ -111,7 +111,11 @@ describe("Lang2Fhir", () => {
         const rawResponseBody = {
             success: true,
             message: "Successfully extracted 3 resources",
-            bundle: { resourceType: "Bundle", type: "transaction", entry: [{ fullUrl: "urn:uuid:patient-abc123" }] },
+            bundle: {
+                resourceType: "Bundle",
+                type: "transaction",
+                entry: [{ fullUrl: "urn:uuid:patient-abc123", request: { method: "POST", url: "Patient" } }],
+            },
             resources: [
                 {
                     tempId: "urn:uuid:patient-abc123",
@@ -141,6 +145,10 @@ describe("Lang2Fhir", () => {
                 entry: [
                     {
                         fullUrl: "urn:uuid:patient-abc123",
+                        request: {
+                            method: "POST",
+                            url: "Patient",
+                        },
                     },
                 ],
             },

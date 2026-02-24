@@ -24,4 +24,6 @@ export interface FhirProviderAuthConfig {
     service_account_metadata?: phenoml.fhirProvider.ServiceAccountMetadata;
     /** OAuth scopes */
     scopes?: string;
+    /** OAuth client ID for this auth configuration. When set, takes precedence over the provider-level client_id. */
+    client_id?: string;
 }
