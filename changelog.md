@@ -1,3 +1,15 @@
+## 7.1.0 - 2026-02-24
+* feat: add OAuth client ID configuration support for FHIR auth
+* Add support for OAuth client ID at auth configuration level while maintaining backward compatibility with provider-level client IDs. This enables more granular control over authentication credentials for different OAuth methods.
+* Key changes:
+* Add optional client_id field to FhirProviderAddAuthConfigRequest
+* Add client_id field to FhirProviderAuthConfig with precedence over provider-level setting
+* Deprecate client_id field in FhirProviderTemplate with backward compatibility
+* Update test fixtures with new client_id configurations
+* Add comprehensive test data for JSON web keys, SMART configurations, and service account metadata
+* Update CLI version from 3.76.0 to 3.85.2
+* 🌿 Generated with Fern
+
 ## 7.0.0 - 2026-02-23
 * refactor: remove is_active field from API types and update deletion behavior
 * This change removes the is_active field from multiple API types and updates the FHIR provider deletion behavior from soft delete to hard delete. The API now uses proper deletion semantics instead of status flags.
