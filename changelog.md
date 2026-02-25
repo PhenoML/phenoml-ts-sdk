@@ -1,3 +1,12 @@
+## 7.2.0 - 2026-02-25
+* feat: add support for ServiceRequest resource type
+* Enhanced the SDK to support ServiceRequest as a new resource type in both Lang2Fhir and tools endpoints. This expands the available FHIR resource types that can be processed and created through the API, enabling users to work with service request data.
+* Key changes:
+* Add "Servicerequest" option to CreateRequest ResourceType enum
+* Add "Servicerequest" option to Lang2FhirAndCreateRequest ResourceType enum
+* Update CLI version from 3.85.2 to 3.88.1
+* 🌿 Generated with Fern
+
 ## 7.1.0 - 2026-02-24
 * feat: add OAuth client ID configuration support for FHIR auth
 * Add support for OAuth client ID at auth configuration level while maintaining backward compatibility with provider-level client IDs. This enables more granular control over authentication credentials for different OAuth methods.
