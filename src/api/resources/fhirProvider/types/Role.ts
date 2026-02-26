@@ -5,13 +5,28 @@
  * Cannot be specified together with `scopes`. Only applicable to
  * `client_secret`, `jwt`, and `on_behalf_of` auth methods.
  *
- * The server resolves each role to the appropriate scopes for the provider:
- * - `admin`: Full CRUD access (create, read, update, delete, search)
- * - `read`: Read and search access only
- * - `write`: Create, update, and delete access (no read)
+ * Roles apply across **all FHIR resource types** (e.g., Patient, Observation,
+ * Condition, etc.) — they are not limited to a single resource. The server
+ * resolves each role to the appropriate system-level scopes for the provider:
+ * - `admin`: Full CRUD access (create, read, update, delete, search) on all resources
+ * - `read`: Read and search access on all resources
+ * - `write`: Create, update, and delete access on all resources (no read)
+ *
+ * **The exact scopes generated depend on the provider**, because each EHR uses a
+ * different SMART on FHIR version or scope format:
+ * - **Epic**: SMART v2 scopes (e.g., `system/*.cruds` for admin)
+ * - **Cerner**: Cerner-specific SMART v2 scopes with per-resource grants for the
+ *   subset of resources Cerner supports
+ * - **Athenahealth**: USCDI SMART v2 scopes with explicit per-resource grants
+ *   (e.g., `system/Patient.rs`, `system/Observation.rs`, etc.)
+ * - **Elation**: SMART v1 scopes (e.g., `system/*.read` for read)
+ * - **Medplum, Phenostore**: SMART v2 scopes
  *
  * If neither `role` nor `scopes` is specified, the provider-specific default
  * role is used (typically `read`; `admin` for Medplum/sandbox).
+ *
+ * If the generated scopes don't match what your EHR expects, use the `scopes`
+ * field to specify exact scopes instead.
  *
  * Canvas does not support system-level roles — use `scopes` directly.
  * Google Healthcare, HAPI, and `none`/`token_passthrough` auth methods

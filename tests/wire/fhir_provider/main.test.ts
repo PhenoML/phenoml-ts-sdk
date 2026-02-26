@@ -11,8 +11,8 @@ describe("FhirProvider", () => {
         const rawRequestBody = {
             name: "Epic Sandbox",
             provider: "athenahealth",
-            auth_method: "client_secret",
             base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
+            auth: { auth_method: "jwt", client_id: "your-client-id" },
         };
         const rawResponseBody = {
             success: true,
@@ -71,8 +71,11 @@ describe("FhirProvider", () => {
         const response = await client.fhirProvider.create({
             name: "Epic Sandbox",
             provider: "athenahealth",
-            auth_method: "client_secret",
             base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
+            auth: {
+                auth_method: "jwt",
+                client_id: "your-client-id",
+            },
         });
         expect(response).toEqual({
             success: true,
@@ -127,8 +130,8 @@ describe("FhirProvider", () => {
         const rawRequestBody = {
             name: "x",
             provider: "athenahealth",
-            auth_method: "client_secret",
             base_url: "base_url",
+            auth: { auth_method: "jwt", client_id: "client_id" },
         };
         const rawResponseBody = { key: "value" };
         server
@@ -144,8 +147,11 @@ describe("FhirProvider", () => {
             return await client.fhirProvider.create({
                 name: "x",
                 provider: "athenahealth",
-                auth_method: "client_secret",
                 base_url: "base_url",
+                auth: {
+                    auth_method: "jwt",
+                    client_id: "client_id",
+                },
             });
         }).rejects.toThrow(phenoml.fhirProvider.BadRequestError);
     });
@@ -156,8 +162,8 @@ describe("FhirProvider", () => {
         const rawRequestBody = {
             name: "x",
             provider: "athenahealth",
-            auth_method: "client_secret",
             base_url: "base_url",
+            auth: { auth_method: "jwt", client_id: "client_id" },
         };
         const rawResponseBody = { key: "value" };
         server
@@ -173,8 +179,11 @@ describe("FhirProvider", () => {
             return await client.fhirProvider.create({
                 name: "x",
                 provider: "athenahealth",
-                auth_method: "client_secret",
                 base_url: "base_url",
+                auth: {
+                    auth_method: "jwt",
+                    client_id: "client_id",
+                },
             });
         }).rejects.toThrow(phenoml.fhirProvider.UnauthorizedError);
     });
@@ -185,8 +194,8 @@ describe("FhirProvider", () => {
         const rawRequestBody = {
             name: "x",
             provider: "athenahealth",
-            auth_method: "client_secret",
             base_url: "base_url",
+            auth: { auth_method: "jwt", client_id: "client_id" },
         };
         const rawResponseBody = { key: "value" };
         server
@@ -202,8 +211,11 @@ describe("FhirProvider", () => {
             return await client.fhirProvider.create({
                 name: "x",
                 provider: "athenahealth",
-                auth_method: "client_secret",
                 base_url: "base_url",
+                auth: {
+                    auth_method: "jwt",
+                    client_id: "client_id",
+                },
             });
         }).rejects.toThrow(phenoml.fhirProvider.ForbiddenError);
     });
@@ -214,8 +226,8 @@ describe("FhirProvider", () => {
         const rawRequestBody = {
             name: "x",
             provider: "athenahealth",
-            auth_method: "client_secret",
             base_url: "base_url",
+            auth: { auth_method: "jwt", client_id: "client_id" },
         };
         const rawResponseBody = { key: "value" };
         server
@@ -231,8 +243,11 @@ describe("FhirProvider", () => {
             return await client.fhirProvider.create({
                 name: "x",
                 provider: "athenahealth",
-                auth_method: "client_secret",
                 base_url: "base_url",
+                auth: {
+                    auth_method: "jwt",
+                    client_id: "client_id",
+                },
             });
         }).rejects.toThrow(phenoml.fhirProvider.InternalServerError);
     });
@@ -638,7 +653,7 @@ describe("FhirProvider", () => {
     test("addAuthConfig (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { auth_method: "client_secret" };
+        const rawRequestBody = { auth_method: "jwt", client_id: "your-client-id" };
         const rawResponseBody = {
             success: true,
             message: "Fhir provider created successfully",
@@ -694,7 +709,8 @@ describe("FhirProvider", () => {
             .build();
 
         const response = await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-            auth_method: "client_secret",
+            auth_method: "jwt",
+            client_id: "your-client-id",
         });
         expect(response).toEqual({
             success: true,
@@ -746,7 +762,7 @@ describe("FhirProvider", () => {
     test("addAuthConfig (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { auth_method: "client_secret" };
+        const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -759,7 +775,8 @@ describe("FhirProvider", () => {
 
         await expect(async () => {
             return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
-                auth_method: "client_secret",
+                auth_method: "jwt",
+                client_id: "client_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.BadRequestError);
     });
@@ -767,7 +784,7 @@ describe("FhirProvider", () => {
     test("addAuthConfig (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { auth_method: "client_secret" };
+        const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -780,7 +797,8 @@ describe("FhirProvider", () => {
 
         await expect(async () => {
             return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
-                auth_method: "client_secret",
+                auth_method: "jwt",
+                client_id: "client_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.UnauthorizedError);
     });
@@ -788,7 +806,7 @@ describe("FhirProvider", () => {
     test("addAuthConfig (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { auth_method: "client_secret" };
+        const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -801,7 +819,8 @@ describe("FhirProvider", () => {
 
         await expect(async () => {
             return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
-                auth_method: "client_secret",
+                auth_method: "jwt",
+                client_id: "client_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.ForbiddenError);
     });
@@ -809,7 +828,7 @@ describe("FhirProvider", () => {
     test("addAuthConfig (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { auth_method: "client_secret" };
+        const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -822,7 +841,8 @@ describe("FhirProvider", () => {
 
         await expect(async () => {
             return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
-                auth_method: "client_secret",
+                auth_method: "jwt",
+                client_id: "client_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.NotFoundError);
     });
@@ -830,7 +850,7 @@ describe("FhirProvider", () => {
     test("addAuthConfig (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
-        const rawRequestBody = { auth_method: "client_secret" };
+        const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -843,7 +863,8 @@ describe("FhirProvider", () => {
 
         await expect(async () => {
             return await client.fhirProvider.addAuthConfig("fhir_provider_id", {
-                auth_method: "client_secret",
+                auth_method: "jwt",
+                client_id: "client_id",
             });
         }).rejects.toThrow(phenoml.fhirProvider.InternalServerError);
     });

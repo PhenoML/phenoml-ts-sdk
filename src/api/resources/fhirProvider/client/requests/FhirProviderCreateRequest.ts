@@ -7,8 +7,11 @@ import type * as phenoml from "../../../../index.js";
  *     {
  *         name: "Epic Sandbox",
  *         provider: "athenahealth",
- *         auth_method: "client_secret",
- *         base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4"
+ *         base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
+ *         auth: {
+ *             auth_method: "jwt",
+ *             client_id: "your-client-id"
+ *         }
  *     }
  */
 export interface FhirProviderCreateRequest {
@@ -17,17 +20,7 @@ export interface FhirProviderCreateRequest {
     /** Optional description of the FHIR provider */
     description?: string;
     provider: phenoml.fhirProvider.Provider;
-    auth_method: phenoml.fhirProvider.AuthMethod;
     /** Base URL of the FHIR server */
     base_url: string;
-    /** OAuth client ID (required for jwt, client_secret, and on_behalf_of auth methods) */
-    client_id?: string;
-    /** OAuth client secret (required for client_secret and on_behalf_of auth methods) */
-    client_secret?: string;
-    service_account_key?: phenoml.fhirProvider.ServiceAccountKey;
-    /** Expiry time for JWT credentials (only applicable for JWT auth method). If omitted, a default expiry is used. */
-    credential_expiry?: string;
-    role?: phenoml.fhirProvider.Role;
-    /** OAuth scopes to request. Cannot be specified with role. If neither role nor scopes are specified, the provider-specific default role will be used. Only applicable to `client_secret`, `jwt`, and `on_behalf_of` auth methods; specifying scopes for other auth methods will return an error. Make sure the scopes you specify are appropriate for the auth config and provider you are using. */
-    scopes?: string;
+    auth: phenoml.fhirProvider.FhirProviderCreateRequestAuth;
 }

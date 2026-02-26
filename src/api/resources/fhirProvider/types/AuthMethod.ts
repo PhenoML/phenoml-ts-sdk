@@ -7,7 +7,8 @@
  * **Scope behavior by auth method:**
  * - `client_secret`, `jwt`, `on_behalf_of`: Scopes are included in the OAuth token request.
  *   They can be configured using the `role` or `scopes` field. If neither is specified, provider-specific
- *   default scopes derived from a default role are used.
+ *   default scopes derived from a default role are used. Roles grant access across all FHIR resource
+ *   types, but the exact scope format varies by EHR — see the `Role` schema for details.
  * - `google_healthcare`: Uses a fixed Google Cloud Healthcare scope. Specifying `role` or `scopes` will
  *   return an error.
  * - `token_passthrough`: The caller provides their own bearer token via the X-Phenoml-Fhir-Provider header

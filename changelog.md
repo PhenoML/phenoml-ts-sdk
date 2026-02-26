@@ -1,3 +1,17 @@
+## 8.0.0 - 2026-02-26
+* feat: restructure FHIR provider authentication configuration
+* Refactor the FHIR provider authentication system to use a more structured and type-safe approach. The authentication configuration is now organized into specific auth types with dedicated interfaces, replacing the previous flat structure with embedded auth properties.
+* Key changes:
+* Replace flat auth properties with structured auth object in FhirProviderCreateRequest
+* Convert FhirProviderAddAuthConfigRequest to discriminated union type pattern
+* Add dedicated auth type interfaces: JwtAuth, ClientSecretAuth, OnBehalfOfAuth, GoogleHealthcareAuth, TokenPassthroughAuth, NoAuth
+* Remove redundant FhirProviderAddAuthConfigRequest from client/requests directory
+* Add ServiceRequest support to Lang2Fhir resource types
+* Update CLI version to 3.88.4
+* Enhance Role documentation with provider-specific scope details
+* Update all test cases to use new structured auth configuration
+* 🌿 Generated with Fern
+
 ## 7.1.0 - 2026-02-24
 * feat: add OAuth client ID configuration support for FHIR auth
 * Add support for OAuth client ID at auth configuration level while maintaining backward compatibility with provider-level client IDs. This enables more granular control over authentication credentials for different OAuth methods.
