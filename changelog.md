@@ -1,3 +1,15 @@
+## 8.0.0 - 2026-02-26
+* refactor: restructure FHIR provider authentication with typed union types
+* This change refactors the FHIR provider authentication system to use strongly-typed union types instead of flat authentication parameters. The update improves type safety and API structure while maintaining backward compatibility.
+* Key changes:
+* Replace flat auth parameters with structured `auth` object in provider creation
+* Convert FhirProviderAddAuthConfigRequest to discriminated union type based on auth_method
+* Add individual auth type interfaces (JwtAuth, ClientSecretAuth, OnBehalfOfAuth, etc.)
+* Update Role enum documentation with detailed provider-specific scope information
+* Add "servicerequest" resource type to Lang2Fhir operations
+* Update all test cases to use new structured authentication format
+* 🌿 Generated with Fern
+
 ## 7.1.0 - 2026-02-24
 * feat: add OAuth client ID configuration support for FHIR auth
 * Add support for OAuth client ID at auth configuration level while maintaining backward compatibility with provider-level client IDs. This enables more granular control over authentication credentials for different OAuth methods.
