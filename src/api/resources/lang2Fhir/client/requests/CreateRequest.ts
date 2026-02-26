@@ -34,6 +34,7 @@ export namespace CreateRequest {
         Procedure: "procedure",
         Questionnaire: "questionnaire",
         Questionnaireresponse: "questionnaireresponse",
+        Servicerequest: "servicerequest",
         SimpleObservation: "simple-observation",
         VitalSigns: "vital-signs",
     } as const;

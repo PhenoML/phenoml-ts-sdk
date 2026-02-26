@@ -37,8 +37,11 @@ export class FhirProvider {
      *     await client.fhirProvider.create({
      *         name: "Epic Sandbox",
      *         provider: "athenahealth",
-     *         auth_method: "client_secret",
-     *         base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4"
+     *         base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
+     *         auth: {
+     *             auth_method: "jwt",
+     *             client_id: "your-client-id"
+     *         }
      *     })
      */
     public create(
@@ -443,7 +446,8 @@ export class FhirProvider {
      *
      * @example
      *     await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-     *         auth_method: "client_secret"
+     *         auth_method: "jwt",
+     *         client_id: "your-client-id"
      *     })
      */
     public addAuthConfig(
