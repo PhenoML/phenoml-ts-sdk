@@ -1,3 +1,13 @@
+## 9.0.0 - 2026-03-02
+* feat: expand DocumentRequest resource parameter to accept any FHIR resource type
+* Change the DocumentRequest.resource parameter from a constrained enum to a flexible string type, enabling support for any FHIR resource type or US Core profile name instead of being limited to questionnaire and questionnaireresponse.
+* Key changes:
+* Replace DocumentRequest.Resource enum with string type for resource parameter
+* Update parameter documentation to reflect expanded support for all FHIR resource types
+* Remove ResourceType namespace and constants definition
+* Update test fixtures to use generic resource values
+* 🌿 Generated with Fern
+
 ## 8.0.0 - 2026-02-26
 * feat: restructure FHIR provider authentication configuration
 * Refactor the FHIR provider authentication system to use a more structured and type-safe approach. The authentication configuration is now organized into specific auth types with dedicated interfaces, replacing the previous flat structure with embedded auth properties.

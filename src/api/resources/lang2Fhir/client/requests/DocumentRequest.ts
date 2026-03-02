@@ -11,21 +11,12 @@
 export interface DocumentRequest {
     /** FHIR version to use */
     version: string;
-    /** Type of FHIR resource to create (questionnaire and US Core questionnaireresponse profiles currently supported) */
-    resource: DocumentRequest.Resource;
+    /** Type of FHIR resource to create. Accepts any FHIR resource type or US Core profile name. */
+    resource: string;
     /**
      * Base64 encoded file content.
      * Supported file types: PDF (application/pdf), PNG (image/png), JPEG (image/jpeg).
      * File type is auto-detected from content magic bytes.
      */
     content: string;
-}
-
-export namespace DocumentRequest {
-    /** Type of FHIR resource to create (questionnaire and US Core questionnaireresponse profiles currently supported) */
-    export const Resource = {
-        Questionnaire: "questionnaire",
-        Questionnaireresponse: "questionnaireresponse",
-    } as const;
-    export type Resource = (typeof Resource)[keyof typeof Resource];
 }
