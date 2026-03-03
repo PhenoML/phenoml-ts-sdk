@@ -527,6 +527,115 @@ export class Lang2Fhir {
         }
     }
 
+    /**
+     * Extracts text from a document (PDF or image) and converts it into multiple FHIR resources,
+     * returned as a transaction Bundle. Combines document text extraction with multi-resource detection.
+     * Automatically detects Patient, Condition, MedicationRequest, Observation, and other resource types.
+     * Resources are linked with proper references (e.g., Conditions reference the Patient).
+     *
+     * @param {phenoml.lang2Fhir.DocumentMultiRequest} request
+     * @param {Lang2Fhir.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.lang2Fhir.BadRequestError}
+     * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
+     * @throws {@link phenoml.lang2Fhir.UnprocessableEntityError}
+     * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     *
+     * @example
+     *     await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
+     *         version: "R4",
+     *         content: "content"
+     *     })
+     */
+    public extractMultipleFhirResourcesFromADocument(
+        request: phenoml.lang2Fhir.DocumentMultiRequest,
+        requestOptions?: Lang2Fhir.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.lang2Fhir.CreateMultiResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__extractMultipleFhirResourcesFromADocument(request, requestOptions),
+        );
+    }
+
+    private async __extractMultipleFhirResourcesFromADocument(
+        request: phenoml.lang2Fhir.DocumentMultiRequest,
+        requestOptions?: Lang2Fhir.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.lang2Fhir.CreateMultiResponse>> {
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                "lang2fhir/document/multi",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: request,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as phenoml.lang2Fhir.CreateMultiResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.lang2Fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.lang2Fhir.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 422:
+                    throw new phenoml.lang2Fhir.UnprocessableEntityError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new phenoml.lang2Fhir.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /lang2fhir/document/multi.");
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
     protected async _getAuthorizationHeader(): Promise<string> {
         return `Bearer ${await core.Supplier.get(this._options.token)}`;
     }
