@@ -3527,6 +3527,75 @@ await client.lang2Fhir.document({
 </dl>
 </details>
 
+<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">extractMultipleFhirResourcesFromADocument</a>({ ...params }) -> phenoml.CreateMultiResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Extracts text from a document (PDF or image) and converts it into multiple FHIR resources,
+returned as a transaction Bundle. Combines document text extraction with multi-resource detection.
+Automatically detects Patient, Condition, MedicationRequest, Observation, and other resource types.
+Resources are linked with proper references (e.g., Conditions reference the Patient).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
+    version: "R4",
+    content: "content"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.lang2Fhir.DocumentMultiRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Lang2Fhir.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Summary
 <details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">listTemplates</a>() -> phenoml.SummaryListTemplatesResponse</code></summary>
 <dl>
