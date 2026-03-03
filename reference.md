@@ -1881,6 +1881,88 @@ await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
 </dl>
 </details>
 
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">submitFeedbackOnExtractionResults</a>({ ...params }) -> phenoml.FeedbackResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submits user feedback on results from the Construe extraction endpoint.
+Feedback includes the full extraction result received and the result the user expected.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.submitFeedbackOnExtractionResults({
+    text: "Patient has type 2 diabetes with hyperglycemia",
+    received_result: {
+        system: {},
+        codes: [{
+                code: "195967001",
+                description: "Asthma",
+                valid: true
+            }]
+    },
+    expected_result: {
+        system: {},
+        codes: [{
+                code: "195967001",
+                description: "Asthma",
+                valid: true
+            }]
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.construe.FeedbackRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Construe.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">terminologyServerTextSearch</a>(codesystem, { ...params }) -> phenoml.TextSearchResponse</code></summary>
 <dl>
 <dd>

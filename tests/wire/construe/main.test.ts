@@ -1134,6 +1134,320 @@ describe("Construe", () => {
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
+    test("submitFeedbackOnExtractionResults (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            text: "Patient has type 2 diabetes with hyperglycemia",
+            received_result: { system: {}, codes: [{ code: "195967001", description: "Asthma", valid: true }] },
+            expected_result: { system: {}, codes: [{ code: "195967001", description: "Asthma", valid: true }] },
+        };
+        const rawResponseBody = { id: "abc123def456" };
+        server
+            .mockEndpoint()
+            .post("/construe/feedback")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.submitFeedbackOnExtractionResults({
+            text: "Patient has type 2 diabetes with hyperglycemia",
+            received_result: {
+                system: {},
+                codes: [
+                    {
+                        code: "195967001",
+                        description: "Asthma",
+                        valid: true,
+                    },
+                ],
+            },
+            expected_result: {
+                system: {},
+                codes: [
+                    {
+                        code: "195967001",
+                        description: "Asthma",
+                        valid: true,
+                    },
+                ],
+            },
+        });
+        expect(response).toEqual({
+            id: "abc123def456",
+        });
+    });
+
+    test("submitFeedbackOnExtractionResults (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            text: "text",
+            received_result: {
+                system: {},
+                codes: [
+                    { code: "code", description: "description", valid: true },
+                    { code: "code", description: "description", valid: true },
+                ],
+            },
+            expected_result: {
+                system: {},
+                codes: [
+                    { code: "code", description: "description", valid: true },
+                    { code: "code", description: "description", valid: true },
+                ],
+            },
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/construe/feedback")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.submitFeedbackOnExtractionResults({
+                text: "text",
+                received_result: {
+                    system: {},
+                    codes: [
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                    ],
+                },
+                expected_result: {
+                    system: {},
+                    codes: [
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                    ],
+                },
+            });
+        }).rejects.toThrow(phenoml.construe.BadRequestError);
+    });
+
+    test("submitFeedbackOnExtractionResults (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            text: "text",
+            received_result: {
+                system: {},
+                codes: [
+                    { code: "code", description: "description", valid: true },
+                    { code: "code", description: "description", valid: true },
+                ],
+            },
+            expected_result: {
+                system: {},
+                codes: [
+                    { code: "code", description: "description", valid: true },
+                    { code: "code", description: "description", valid: true },
+                ],
+            },
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/construe/feedback")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.submitFeedbackOnExtractionResults({
+                text: "text",
+                received_result: {
+                    system: {},
+                    codes: [
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                    ],
+                },
+                expected_result: {
+                    system: {},
+                    codes: [
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                    ],
+                },
+            });
+        }).rejects.toThrow(phenoml.construe.UnauthorizedError);
+    });
+
+    test("submitFeedbackOnExtractionResults (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            text: "text",
+            received_result: {
+                system: {},
+                codes: [
+                    { code: "code", description: "description", valid: true },
+                    { code: "code", description: "description", valid: true },
+                ],
+            },
+            expected_result: {
+                system: {},
+                codes: [
+                    { code: "code", description: "description", valid: true },
+                    { code: "code", description: "description", valid: true },
+                ],
+            },
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/construe/feedback")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.submitFeedbackOnExtractionResults({
+                text: "text",
+                received_result: {
+                    system: {},
+                    codes: [
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                    ],
+                },
+                expected_result: {
+                    system: {},
+                    codes: [
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                    ],
+                },
+            });
+        }).rejects.toThrow(phenoml.construe.InternalServerError);
+    });
+
+    test("submitFeedbackOnExtractionResults (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            text: "text",
+            received_result: {
+                system: {},
+                codes: [
+                    { code: "code", description: "description", valid: true },
+                    { code: "code", description: "description", valid: true },
+                ],
+            },
+            expected_result: {
+                system: {},
+                codes: [
+                    { code: "code", description: "description", valid: true },
+                    { code: "code", description: "description", valid: true },
+                ],
+            },
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/construe/feedback")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(503)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.submitFeedbackOnExtractionResults({
+                text: "text",
+                received_result: {
+                    system: {},
+                    codes: [
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                    ],
+                },
+                expected_result: {
+                    system: {},
+                    codes: [
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                        {
+                            code: "code",
+                            description: "description",
+                            valid: true,
+                        },
+                    ],
+                },
+            });
+        }).rejects.toThrow(phenoml.construe.ServiceUnavailableError);
+    });
+
     test("terminologyServerTextSearch (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new phenomlClient({ token: "test", environment: server.baseUrl });
