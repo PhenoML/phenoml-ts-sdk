@@ -1036,6 +1036,123 @@ export class Construe {
     }
 
     /**
+     * Submits user feedback on results from the Construe extraction endpoint.
+     * Feedback includes the full extraction result received and the result the user expected.
+     *
+     * @param {phenoml.construe.FeedbackRequest} request
+     * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.construe.BadRequestError}
+     * @throws {@link phenoml.construe.UnauthorizedError}
+     * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link phenoml.construe.ServiceUnavailableError}
+     *
+     * @example
+     *     await client.construe.submitFeedbackOnExtractionResults({
+     *         text: "Patient has type 2 diabetes with hyperglycemia",
+     *         received_result: {
+     *             system: {},
+     *             codes: [{
+     *                     code: "195967001",
+     *                     description: "Asthma",
+     *                     valid: true
+     *                 }]
+     *         },
+     *         expected_result: {
+     *             system: {},
+     *             codes: [{
+     *                     code: "195967001",
+     *                     description: "Asthma",
+     *                     valid: true
+     *                 }]
+     *         }
+     *     })
+     */
+    public submitFeedbackOnExtractionResults(
+        request: phenoml.construe.FeedbackRequest,
+        requestOptions?: Construe.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.construe.FeedbackResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__submitFeedbackOnExtractionResults(request, requestOptions));
+    }
+
+    private async __submitFeedbackOnExtractionResults(
+        request: phenoml.construe.FeedbackRequest,
+        requestOptions?: Construe.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.construe.FeedbackResponse>> {
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                "construe/feedback",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: request,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as phenoml.construe.FeedbackResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.construe.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new phenoml.construe.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 503:
+                    throw new phenoml.construe.ServiceUnavailableError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /construe/feedback.");
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Performs fast full-text search over code IDs and descriptions.
      *
      * **Availability**: This endpoint is only available for **built-in code systems**.

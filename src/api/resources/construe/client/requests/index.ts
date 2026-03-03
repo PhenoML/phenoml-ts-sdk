@@ -1,5 +1,6 @@
 export type { DeleteConstrueCodesSystemsCodesystemRequest } from "./DeleteConstrueCodesSystemsCodesystemRequest.js";
 export type { ExtractRequest } from "./ExtractRequest.js";
+export type { FeedbackRequest } from "./FeedbackRequest.js";
 export type { GetConstrueCodesCodesystemCodeIdRequest } from "./GetConstrueCodesCodesystemCodeIdRequest.js";
 export type { GetConstrueCodesCodesystemRequest } from "./GetConstrueCodesCodesystemRequest.js";
 export type { GetConstrueCodesCodesystemSearchSemanticRequest } from "./GetConstrueCodesCodesystemSearchSemanticRequest.js";

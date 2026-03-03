@@ -1,3 +1,14 @@
+## 9.1.0 - 2026-03-03
+* feat: add user feedback endpoint for extraction results
+* Implement a comprehensive feedback system that allows users to submit feedback on results from the Construe extraction endpoint. The new functionality enables collection of both received and expected results to improve the extraction quality over time.
+* Key changes:
+* Add submitFeedbackOnExtractionResults method to Construe client with complete error handling
+* Create FeedbackRequest interface accepting text, received_result, expected_result, and optional detail
+* Implement FeedbackResponse interface returning feedback ID for tracking
+* Add comprehensive test suite with success and error scenarios (400, 401, 500, 503)
+* Update API documentation with usage examples and parameter descriptions
+* 🌿 Generated with Fern
+
 ## 9.0.0 - 2026-03-02
 * feat: expand DocumentRequest resource parameter to accept any FHIR resource type
 * Change the DocumentRequest.resource parameter from a constrained enum to a flexible string type, enabling support for any FHIR resource type or US Core profile name instead of being limited to questionnaire and questionnaireresponse.
