@@ -3,7 +3,7 @@
 import type * as phenoml from "../../../index.js";
 
 export interface FhirProviderRemoveAuthConfigResponse {
-    success?: boolean;
-    message?: string;
-    data?: phenoml.fhirProvider.FhirProviderTemplate;
+    success?: boolean | undefined;
+    message?: string | undefined;
+    data?: phenoml.fhirProvider.FhirProviderTemplate | undefined;
 }

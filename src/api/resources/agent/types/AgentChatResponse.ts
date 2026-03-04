@@ -2,10 +2,10 @@
 
 export interface AgentChatResponse {
     /** Agent's response */
-    response?: string;
-    success?: boolean;
+    response?: string | undefined;
+    success?: boolean | undefined;
     /** Status message */
-    message?: string;
+    message?: string | undefined;
     /** Chat session ID */
-    session_id?: string;
+    session_id?: string | undefined;
 }

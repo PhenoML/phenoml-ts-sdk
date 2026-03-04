@@ -1,3 +1,60 @@
+## 10.0.0 - 2026-03-04
+
+### Breaking Changes
+
+- **Authentication**: Replaced username/password authentication with OAuth 2.0 client credentials. The client now accepts `clientId` and `clientSecret` options (defaulting to `PHENOML_CLIENT_ID` and `PHENOML_CLIENT_SECRET` environment variables). Tokens are automatically obtained and refreshed via the `/v2/auth/token` endpoint. A `token` option is still supported for pre-existing tokens.
+- **Client renamed**: The main exported client class is now `phenomlClient` (was `PhenoMLClient`).
+- **Wrapper client removed**: The custom `WrapperClient` has been removed. Use `phenomlClient` directly.
+
+### Migration Guide
+
+**Authentication** — replace username/password with client credentials:
+```ts
+// Before
+import { PhenoMLClient } from "phenoml";
+const client = new PhenoMLClient({
+  username: "user",
+  password: "pass",
+  baseUrl: "https://yourinstance.app.pheno.ml",
+});
+
+// After (option 1: env vars PHENOML_CLIENT_ID and PHENOML_CLIENT_SECRET)
+import { phenomlClient } from "phenoml";
+const client = new phenomlClient({
+  baseUrl: "https://yourinstance.app.pheno.ml",
+});
+
+// After (option 2: explicit credentials)
+import { phenomlClient } from "phenoml";
+const client = new phenomlClient({
+  clientId: "YOUR_CLIENT_ID",
+  clientSecret: "YOUR_CLIENT_SECRET",
+  baseUrl: "https://yourinstance.app.pheno.ml",
+});
+
+// After (option 3: pre-existing token)
+import { phenomlClient } from "phenoml";
+const client = new phenomlClient({
+  token: "YOUR_TOKEN",
+  baseUrl: "https://yourinstance.app.pheno.ml",
+});
+```
+
+**Import updates:**
+```ts
+// Before
+import { PhenoMLClient } from "phenoml";
+
+// After
+import { phenomlClient } from "phenoml";
+```
+
+### Added
+
+- New `/v2/auth/token` OAuth 2.0 client credentials endpoint with `TokenResponse` and `OAuthError` types.
+- `BaseClient.ts` with centralized client options normalization and auth provider integration.
+- Per-resource `exports.ts` modules for cleaner imports.
+
 ## 9.2.0 - 2026-03-03
 * feat: add document multi-resource extraction endpoint
 * Adds a new API endpoint for extracting multiple FHIR resources from documents (PDF or images).

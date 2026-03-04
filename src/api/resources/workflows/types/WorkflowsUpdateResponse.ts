@@ -3,10 +3,10 @@
 import type * as phenoml from "../../../index.js";
 
 export interface WorkflowsUpdateResponse {
-    success?: boolean;
-    message?: string;
+    success?: boolean | undefined;
+    message?: string | undefined;
     /** Simplified workflow response with only essential step information */
-    workflow?: phenoml.workflows.WorkflowResponse;
+    workflow?: phenoml.workflows.WorkflowResponse | undefined;
     /** Only included when verbose=true - contains full implementation details */
-    workflow_details?: phenoml.workflows.WorkflowDefinition;
+    workflow_details?: phenoml.workflows.WorkflowDefinition | undefined;
 }

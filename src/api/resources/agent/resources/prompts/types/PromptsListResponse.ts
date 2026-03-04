@@ -3,7 +3,7 @@
 import type * as phenoml from "../../../../../index.js";
 
 export interface PromptsListResponse {
-    success?: boolean;
-    message?: string;
-    prompts?: phenoml.agent.PromptTemplate[];
+    success?: boolean | undefined;
+    message?: string | undefined;
+    prompts?: phenoml.agent.PromptTemplate[] | undefined;
 }

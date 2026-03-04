@@ -8,21 +8,21 @@
  */
 export interface AgentChatStreamEvent {
     /** The event type */
-    type?: AgentChatStreamEvent.Type;
+    type?: AgentChatStreamEvent.Type | undefined;
     /** Chat session ID */
-    session_id?: string;
+    session_id?: string | undefined;
     /** Incremental text content (present in content_delta events) */
-    content?: string;
+    content?: string | undefined;
     /** Whether the operation was successful */
-    success?: boolean;
+    success?: boolean | undefined;
     /** Status message */
-    message?: string;
+    message?: string | undefined;
     /** Tool/function name (present in tool_use and tool_result events) */
-    function_name?: string;
+    function_name?: string | undefined;
     /** Tool arguments (present in tool_use events) */
-    function_args?: Record<string, unknown>;
+    function_args?: Record<string, unknown> | undefined;
     /** Tool execution result (present in tool_result events) */
-    function_result?: Record<string, unknown>;
+    function_result?: Record<string, unknown> | undefined;
 }
 
 export namespace AgentChatStreamEvent {

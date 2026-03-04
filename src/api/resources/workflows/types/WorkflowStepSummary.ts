@@ -5,15 +5,15 @@
  */
 export interface WorkflowStepSummary {
     /** Unique identifier for the step */
-    id?: string;
+    id?: string | undefined;
     /** Human-readable name for the step */
-    name?: string;
+    name?: string | undefined;
     /** Detailed description of what the step does */
-    description?: string;
+    description?: string | undefined;
     /** Type of operation this step performs */
-    type?: WorkflowStepSummary.Type;
+    type?: WorkflowStepSummary.Type | undefined;
     /** Selected FHIR provider ID for this step */
-    provider_id?: string;
+    provider_id?: string | undefined;
 }
 
 export namespace WorkflowStepSummary {

@@ -3,8 +3,8 @@
 import type * as phenoml from "../../../index.js";
 
 export interface StepOperation {
-    search_definition?: phenoml.workflows.Lang2FhirSearchDefinition;
-    create_definition?: phenoml.workflows.Lang2FhirCreateDefinition;
-    workflow_definition?: phenoml.workflows.SubWorkflowDefinition;
-    decision_definition?: phenoml.workflows.DecisionNodeDefinition;
+    search_definition?: phenoml.workflows.Lang2FhirSearchDefinition | undefined;
+    create_definition?: phenoml.workflows.Lang2FhirCreateDefinition | undefined;
+    workflow_definition?: phenoml.workflows.SubWorkflowDefinition | undefined;
+    decision_definition?: phenoml.workflows.DecisionNodeDefinition | undefined;
 }

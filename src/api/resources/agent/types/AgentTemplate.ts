@@ -2,21 +2,21 @@
 
 export interface AgentTemplate {
     /** Agent ID */
-    id?: string;
+    id?: string | undefined;
     /** Agent name */
-    name?: string;
+    name?: string | undefined;
     /** Agent description */
-    description?: string;
+    description?: string | undefined;
     /** Array of prompt IDs used by this agent */
-    prompts?: string[];
+    prompts?: string[] | undefined;
     /** Array of MCP server tool IDs used by this agent */
-    tools?: string[];
+    tools?: string[] | undefined;
     /** Array of workflow IDs exposed as tools by this agent */
-    workflows?: string[];
+    workflows?: string[] | undefined;
     /** Tags for categorizing the agent */
-    tags?: string[];
+    tags?: string[] | undefined;
     /** FHIR provider ID(s) - must be valid UUIDs from existing FHIR providers */
-    provider?: AgentTemplate.Provider;
+    provider?: AgentTemplate.Provider | undefined;
 }
 
 export namespace AgentTemplate {
