@@ -7,6 +7,3 @@ README.md
 # CI workflow with OIDC fixes (until generator is updated)
 .github/workflows/ci.yml
 changelog.md
-
-# Skipped SSE error tests (Fern generator bug v3.51.0+)
-tests/wire/agent/main.test.ts
