@@ -17,6 +17,8 @@ import * as core from "./core/index.js";
 
 export declare namespace phenomlClient {
     export interface Options extends BaseClientOptions {
+        /** Provide a token directly to bypass OAuth. When set, clientId/clientSecret are not required. */
+        token?: core.Supplier<string>;
         clientId?: core.Supplier<string | undefined>;
         clientSecret?: core.Supplier<string | undefined>;
     }
@@ -26,7 +28,8 @@ export declare namespace phenomlClient {
 
 export class phenomlClient {
     protected readonly _options: phenomlClient.Options;
-    private readonly _oauthTokenProvider: core.OAuthTokenProvider;
+    private readonly _oauthTokenProvider: core.OAuthTokenProvider | undefined;
+    private readonly _tokenOverride: core.Supplier<string> | undefined;
     protected _agent: Agent | undefined;
     protected _authtoken: Authtoken | undefined;
     protected _cohort: Cohort | undefined;
@@ -55,98 +58,108 @@ export class phenomlClient {
             ),
         };
 
-        const clientId = this._options.clientId ?? process.env.PHENOML_CLIENT_ID;
-        if (clientId == null) {
-            throw new Error(
-                "clientId is required; either pass it as an argument or set the PHENOML_CLIENT_ID environment variable",
-            );
+        if (_options.token != null) {
+            this._tokenOverride = _options.token;
+        } else {
+            const clientId = this._options.clientId ?? process.env.PHENOML_CLIENT_ID;
+            if (clientId == null) {
+                throw new Error(
+                    "clientId is required; either pass it as an argument or set the PHENOML_CLIENT_ID environment variable",
+                );
+            }
+
+            const clientSecret = this._options.clientSecret ?? process.env.PHENOML_CLIENT_SECRET;
+            if (clientSecret == null) {
+                throw new Error(
+                    "clientSecret is required; either pass it as an argument or set the PHENOML_CLIENT_SECRET environment variable",
+                );
+            }
+
+            this._oauthTokenProvider = new core.OAuthTokenProvider({
+                clientId,
+                clientSecret,
+                authClient: new Auth({
+                    ...this._options,
+                    environment: this._options.environment,
+                }),
+            });
         }
+    }
 
-        const clientSecret = this._options.clientSecret ?? process.env.PHENOML_CLIENT_SECRET;
-        if (clientSecret == null) {
-            throw new Error(
-                "clientSecret is required; either pass it as an argument or set the PHENOML_CLIENT_SECRET environment variable",
-            );
+    private async _getToken(): Promise<string> {
+        if (this._tokenOverride != null) {
+            return typeof this._tokenOverride === "function" ? await this._tokenOverride() : this._tokenOverride;
         }
-
-        this._oauthTokenProvider = new core.OAuthTokenProvider({
-            clientId,
-
-            clientSecret,
-            authClient: new Auth({
-                ...this._options,
-                environment: this._options.environment,
-            }),
-        });
+        return this._oauthTokenProvider!.getToken();
     }
 
     public get agent(): Agent {
         return (this._agent ??= new Agent({
             ...this._options,
-            token: async () => await this._oauthTokenProvider.getToken(),
+            token: async () => await this._getToken(),
         }));
     }
 
     public get authtoken(): Authtoken {
         return (this._authtoken ??= new Authtoken({
             ...this._options,
-            token: async () => await this._oauthTokenProvider.getToken(),
+            token: async () => await this._getToken(),
         }));
     }
 
     public get cohort(): Cohort {
         return (this._cohort ??= new Cohort({
             ...this._options,
-            token: async () => await this._oauthTokenProvider.getToken(),
+            token: async () => await this._getToken(),
         }));
     }
 
     public get construe(): Construe {
         return (this._construe ??= new Construe({
             ...this._options,
-            token: async () => await this._oauthTokenProvider.getToken(),
+            token: async () => await this._getToken(),
         }));
     }
 
     public get fhir(): Fhir {
         return (this._fhir ??= new Fhir({
             ...this._options,
-            token: async () => await this._oauthTokenProvider.getToken(),
+            token: async () => await this._getToken(),
         }));
     }
 
     public get fhirProvider(): FhirProvider {
         return (this._fhirProvider ??= new FhirProvider({
             ...this._options,
-            token: async () => await this._oauthTokenProvider.getToken(),
+            token: async () => await this._getToken(),
         }));
     }
 
     public get lang2Fhir(): Lang2Fhir {
         return (this._lang2Fhir ??= new Lang2Fhir({
             ...this._options,
-            token: async () => await this._oauthTokenProvider.getToken(),
+            token: async () => await this._getToken(),
         }));
     }
 
     public get summary(): Summary {
         return (this._summary ??= new Summary({
             ...this._options,
-            token: async () => await this._oauthTokenProvider.getToken(),
+            token: async () => await this._getToken(),
         }));
     }
 
     public get tools(): Tools {
         return (this._tools ??= new Tools({
             ...this._options,
-            token: async () => await this._oauthTokenProvider.getToken(),
+            token: async () => await this._getToken(),
         }));
     }
 
     public get workflows(): Workflows {
         return (this._workflows ??= new Workflows({
             ...this._options,
-            token: async () => await this._oauthTokenProvider.getToken(),
+            token: async () => await this._getToken(),
         }));
     }
 }
