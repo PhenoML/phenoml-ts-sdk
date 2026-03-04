@@ -12,22 +12,32 @@
 ```ts
 // Before
 import { PhenoMLClient } from "phenoml";
-const client = new PhenoMLClient({ username: "user", password: "pass" });
+const client = new PhenoMLClient({
+  username: "user",
+  password: "pass",
+  baseUrl: "https://yourinstance.app.pheno.ml",
+});
 
 // After (option 1: env vars PHENOML_CLIENT_ID and PHENOML_CLIENT_SECRET)
 import { phenomlClient } from "phenoml";
-const client = new phenomlClient();
+const client = new phenomlClient({
+  baseUrl: "https://yourinstance.app.pheno.ml",
+});
 
 // After (option 2: explicit credentials)
 import { phenomlClient } from "phenoml";
 const client = new phenomlClient({
   clientId: "YOUR_CLIENT_ID",
   clientSecret: "YOUR_CLIENT_SECRET",
+  baseUrl: "https://yourinstance.app.pheno.ml",
 });
 
 // After (option 3: pre-existing token)
 import { phenomlClient } from "phenoml";
-const client = new phenomlClient({ token: "YOUR_TOKEN" });
+const client = new phenomlClient({
+  token: "YOUR_TOKEN",
+  baseUrl: "https://yourinstance.app.pheno.ml",
+});
 ```
 
 **Import updates:**
