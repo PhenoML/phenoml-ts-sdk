@@ -5,11 +5,13 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.
 import * as core from "../../../../core/index.js";
 import * as environments from "../../../../environments.js";
 import * as errors from "../../../../errors/index.js";
-import * as phenoml from "../../../index.js";
+import * as PhenoML from "../../../index.js";
 import { Prompts } from "../resources/prompts/client/Client.js";
 
 export declare namespace Agent {
-    export interface Options extends BaseClientOptions {}
+    export interface Options extends BaseClientOptions {
+        token?: core.Supplier<core.BearerToken>;
+    }
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -18,7 +20,7 @@ export class Agent {
     protected readonly _options: Agent.Options;
     protected _prompts: Prompts | undefined;
 
-    constructor(_options: Agent.Options) {
+    constructor(_options: Agent.Options = {}) {
         this._options = _options;
     }
 
@@ -29,13 +31,13 @@ export class Agent {
     /**
      * Creates a new PhenoAgent with specified configuration
      *
-     * @param {phenoml.agent.AgentCreateRequest} request
+     * @param {PhenoML.agent.AgentCreateRequest} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.BadRequestError}
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.BadRequestError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.create({
@@ -45,16 +47,16 @@ export class Agent {
      *     })
      */
     public create(
-        request: phenoml.agent.AgentCreateRequest,
+        request: PhenoML.agent.AgentCreateRequest,
         requestOptions?: Agent.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentResponse> {
+    ): core.HttpResponsePromise<PhenoML.agent.AgentResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: phenoml.agent.AgentCreateRequest,
+        request: PhenoML.agent.AgentCreateRequest,
         requestOptions?: Agent.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.AgentResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -64,7 +66,7 @@ export class Agent {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "agent/create",
             ),
             method: "POST",
@@ -80,21 +82,21 @@ export class Agent {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.agent.AgentResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -104,15 +106,15 @@ export class Agent {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /agent/create.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /agent/create.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -122,12 +124,12 @@ export class Agent {
     /**
      * Retrieves a list of PhenoAgents belonging to the authenticated user
      *
-     * @param {phenoml.agent.AgentListRequest} request
+     * @param {PhenoML.agent.AgentListRequest} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.list({
@@ -135,16 +137,16 @@ export class Agent {
      *     })
      */
     public list(
-        request: phenoml.agent.AgentListRequest = {},
+        request: PhenoML.agent.AgentListRequest = {},
         requestOptions?: Agent.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentListResponse> {
+    ): core.HttpResponsePromise<PhenoML.agent.AgentListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
-        request: phenoml.agent.AgentListRequest = {},
+        request: PhenoML.agent.AgentListRequest = {},
         requestOptions?: Agent.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentListResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.AgentListResponse>> {
         const { tags } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (tags != null) {
@@ -160,7 +162,7 @@ export class Agent {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "agent/list",
             ),
             method: "GET",
@@ -173,19 +175,19 @@ export class Agent {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentListResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.agent.AgentListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -195,15 +197,15 @@ export class Agent {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /agent/list.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling GET /agent/list.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -216,10 +218,10 @@ export class Agent {
      * @param {string} id - Agent ID
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.NotFoundError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.NotFoundError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.get("id")
@@ -227,14 +229,14 @@ export class Agent {
     public get(
         id: string,
         requestOptions?: Agent.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentResponse> {
+    ): core.HttpResponsePromise<PhenoML.agent.AgentResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
     }
 
     private async __get(
         id: string,
         requestOptions?: Agent.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.AgentResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -244,7 +246,7 @@ export class Agent {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `agent/${core.url.encodePathParam(id)}`,
             ),
             method: "GET",
@@ -257,21 +259,21 @@ export class Agent {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.agent.AgentResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
-                    throw new phenoml.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -281,15 +283,15 @@ export class Agent {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /agent/{id}.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling GET /agent/{id}.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -300,14 +302,14 @@ export class Agent {
      * Updates an existing agent's configuration
      *
      * @param {string} id - Agent ID
-     * @param {phenoml.agent.AgentCreateRequest} request
+     * @param {PhenoML.agent.AgentCreateRequest} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.BadRequestError}
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.NotFoundError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.BadRequestError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.NotFoundError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.update("id", {
@@ -318,17 +320,17 @@ export class Agent {
      */
     public update(
         id: string,
-        request: phenoml.agent.AgentCreateRequest,
+        request: PhenoML.agent.AgentCreateRequest,
         requestOptions?: Agent.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentResponse> {
+    ): core.HttpResponsePromise<PhenoML.agent.AgentResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
     }
 
     private async __update(
         id: string,
-        request: phenoml.agent.AgentCreateRequest,
+        request: PhenoML.agent.AgentCreateRequest,
         requestOptions?: Agent.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.AgentResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -338,7 +340,7 @@ export class Agent {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `agent/${core.url.encodePathParam(id)}`,
             ),
             method: "PUT",
@@ -354,23 +356,23 @@ export class Agent {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.agent.AgentResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
-                    throw new phenoml.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -380,15 +382,15 @@ export class Agent {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling PUT /agent/{id}.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling PUT /agent/{id}.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -401,10 +403,10 @@ export class Agent {
      * @param {string} id - Agent ID
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.NotFoundError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.NotFoundError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.delete("id")
@@ -412,14 +414,14 @@ export class Agent {
     public delete(
         id: string,
         requestOptions?: Agent.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentDeleteResponse> {
+    ): core.HttpResponsePromise<PhenoML.agent.AgentDeleteResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
     }
 
     private async __delete(
         id: string,
         requestOptions?: Agent.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentDeleteResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.AgentDeleteResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -429,7 +431,7 @@ export class Agent {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `agent/${core.url.encodePathParam(id)}`,
             ),
             method: "DELETE",
@@ -442,21 +444,21 @@ export class Agent {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentDeleteResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.agent.AgentDeleteResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
-                    throw new phenoml.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -466,15 +468,15 @@ export class Agent {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling DELETE /agent/{id}.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling DELETE /agent/{id}.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -485,14 +487,14 @@ export class Agent {
      * Patches an existing agent's configuration
      *
      * @param {string} id - Agent ID
-     * @param {phenoml.agent.JsonPatch} request
+     * @param {PhenoML.agent.JsonPatch} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.BadRequestError}
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.NotFoundError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.BadRequestError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.NotFoundError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.patch("id", [{
@@ -510,17 +512,17 @@ export class Agent {
      */
     public patch(
         id: string,
-        request: phenoml.agent.JsonPatch,
+        request: PhenoML.agent.JsonPatch,
         requestOptions?: Agent.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentResponse> {
+    ): core.HttpResponsePromise<PhenoML.agent.AgentResponse> {
         return core.HttpResponsePromise.fromPromise(this.__patch(id, request, requestOptions));
     }
 
     private async __patch(
         id: string,
-        request: phenoml.agent.JsonPatch,
+        request: PhenoML.agent.JsonPatch,
         requestOptions?: Agent.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.AgentResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -530,7 +532,7 @@ export class Agent {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `agent/${core.url.encodePathParam(id)}`,
             ),
             method: "PATCH",
@@ -546,23 +548,23 @@ export class Agent {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.agent.AgentResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
-                    throw new phenoml.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -572,15 +574,15 @@ export class Agent {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling PATCH /agent/{id}.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling PATCH /agent/{id}.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -590,13 +592,13 @@ export class Agent {
     /**
      * Send a message to an agent and receive a JSON response.
      *
-     * @param {phenoml.agent.AgentChatRequest} request
+     * @param {PhenoML.agent.AgentChatRequest} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.BadRequestError}
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.BadRequestError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.chat({
@@ -607,16 +609,16 @@ export class Agent {
      *     })
      */
     public chat(
-        request: phenoml.agent.AgentChatRequest,
+        request: PhenoML.agent.AgentChatRequest,
         requestOptions?: Agent.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentChatResponse> {
+    ): core.HttpResponsePromise<PhenoML.agent.AgentChatResponse> {
         return core.HttpResponsePromise.fromPromise(this.__chat(request, requestOptions));
     }
 
     private async __chat(
-        request: phenoml.agent.AgentChatRequest,
+        request: PhenoML.agent.AgentChatRequest,
         requestOptions?: Agent.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentChatResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.AgentChatResponse>> {
         const {
             "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
             "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
@@ -635,7 +637,7 @@ export class Agent {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "agent/chat",
             ),
             method: "POST",
@@ -651,21 +653,21 @@ export class Agent {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentChatResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.agent.AgentChatResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -675,15 +677,15 @@ export class Agent {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /agent/chat.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /agent/chat.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -696,16 +698,16 @@ export class Agent {
      * tool_result, message_end, and error.
      */
     public streamChat(
-        request: phenoml.agent.AgentStreamChatRequest,
+        request: PhenoML.agent.AgentStreamChatRequest,
         requestOptions?: Agent.RequestOptions,
-    ): core.HttpResponsePromise<core.Stream<phenoml.agent.AgentChatStreamEvent>> {
+    ): core.HttpResponsePromise<core.Stream<PhenoML.agent.AgentChatStreamEvent>> {
         return core.HttpResponsePromise.fromPromise(this.__streamChat(request, requestOptions));
     }
 
     private async __streamChat(
-        request: phenoml.agent.AgentStreamChatRequest,
+        request: PhenoML.agent.AgentStreamChatRequest,
         requestOptions?: Agent.RequestOptions,
-    ): Promise<core.WithRawResponse<core.Stream<phenoml.agent.AgentChatStreamEvent>>> {
+    ): Promise<core.WithRawResponse<core.Stream<PhenoML.agent.AgentChatStreamEvent>>> {
         const {
             "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
             "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
@@ -724,7 +726,7 @@ export class Agent {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "agent/stream-chat",
             ),
             method: "POST",
@@ -758,15 +760,15 @@ export class Agent {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -776,15 +778,15 @@ export class Agent {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /agent/stream-chat.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /agent/stream-chat.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -794,12 +796,12 @@ export class Agent {
     /**
      * Retrieves a list of chat messages for a given chat session
      *
-     * @param {phenoml.agent.AgentGetChatMessagesRequest} request
+     * @param {PhenoML.agent.AgentGetChatMessagesRequest} request
      * @param {Agent.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.getChatMessages({
@@ -810,16 +812,16 @@ export class Agent {
      *     })
      */
     public getChatMessages(
-        request: phenoml.agent.AgentGetChatMessagesRequest,
+        request: PhenoML.agent.AgentGetChatMessagesRequest,
         requestOptions?: Agent.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentGetChatMessagesResponse> {
+    ): core.HttpResponsePromise<PhenoML.agent.AgentGetChatMessagesResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getChatMessages(request, requestOptions));
     }
 
     private async __getChatMessages(
-        request: phenoml.agent.AgentGetChatMessagesRequest,
+        request: PhenoML.agent.AgentGetChatMessagesRequest,
         requestOptions?: Agent.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentGetChatMessagesResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.AgentGetChatMessagesResponse>> {
         const { chat_session_id: chatSessionId, num_messages: numMessages, role, order } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams.chat_session_id = chatSessionId;
@@ -844,7 +846,7 @@ export class Agent {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "agent/chat/messages",
             ),
             method: "GET",
@@ -858,7 +860,7 @@ export class Agent {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.agent.AgentGetChatMessagesResponse,
+                data: _response.body as PhenoML.agent.AgentGetChatMessagesResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -866,13 +868,13 @@ export class Agent {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -882,22 +884,27 @@ export class Agent {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /agent/chat/messages.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling GET /agent/chat/messages.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

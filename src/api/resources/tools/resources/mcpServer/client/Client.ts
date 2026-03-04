@@ -5,11 +5,13 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/he
 import * as core from "../../../../../../core/index.js";
 import * as environments from "../../../../../../environments.js";
 import * as errors from "../../../../../../errors/index.js";
-import * as phenoml from "../../../../../index.js";
+import * as PhenoML from "../../../../../index.js";
 import { Tools } from "../resources/tools/client/Client.js";
 
 export declare namespace McpServer {
-    export interface Options extends BaseClientOptions {}
+    export interface Options extends BaseClientOptions {
+        token?: core.Supplier<core.BearerToken>;
+    }
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -18,7 +20,7 @@ export class McpServer {
     protected readonly _options: McpServer.Options;
     protected _tools: Tools | undefined;
 
-    constructor(_options: McpServer.Options) {
+    constructor(_options: McpServer.Options = {}) {
         this._options = _options;
     }
 
@@ -29,13 +31,13 @@ export class McpServer {
     /**
      * Creates a new MCP server
      *
-     * @param {phenoml.tools.McpServerCreateRequest} request
+     * @param {PhenoML.tools.McpServerCreateRequest} request
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.tools.BadRequestError}
-     * @throws {@link phenoml.tools.UnauthorizedError}
-     * @throws {@link phenoml.tools.ForbiddenError}
-     * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link PhenoML.tools.BadRequestError}
+     * @throws {@link PhenoML.tools.UnauthorizedError}
+     * @throws {@link PhenoML.tools.ForbiddenError}
+     * @throws {@link PhenoML.tools.InternalServerError}
      *
      * @example
      *     await client.tools.mcpServer.create({
@@ -44,16 +46,16 @@ export class McpServer {
      *     })
      */
     public create(
-        request: phenoml.tools.McpServerCreateRequest,
+        request: PhenoML.tools.McpServerCreateRequest,
         requestOptions?: McpServer.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.tools.McpServerResponse> {
+    ): core.HttpResponsePromise<PhenoML.tools.McpServerResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: phenoml.tools.McpServerCreateRequest,
+        request: PhenoML.tools.McpServerCreateRequest,
         requestOptions?: McpServer.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.tools.McpServerResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.tools.McpServerResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -63,7 +65,7 @@ export class McpServer {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "tools/mcp-server/create",
             ),
             method: "POST",
@@ -79,21 +81,21 @@ export class McpServer {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.tools.McpServerResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.tools.McpServerResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.tools.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -103,15 +105,15 @@ export class McpServer {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /tools/mcp-server/create.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /tools/mcp-server/create.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -123,20 +125,20 @@ export class McpServer {
      *
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.tools.UnauthorizedError}
-     * @throws {@link phenoml.tools.ForbiddenError}
-     * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link PhenoML.tools.UnauthorizedError}
+     * @throws {@link PhenoML.tools.ForbiddenError}
+     * @throws {@link PhenoML.tools.InternalServerError}
      *
      * @example
      *     await client.tools.mcpServer.list()
      */
-    public list(requestOptions?: McpServer.RequestOptions): core.HttpResponsePromise<phenoml.tools.McpServerResponse> {
+    public list(requestOptions?: McpServer.RequestOptions): core.HttpResponsePromise<PhenoML.tools.McpServerResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
     }
 
     private async __list(
         requestOptions?: McpServer.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.tools.McpServerResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.tools.McpServerResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -146,7 +148,7 @@ export class McpServer {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "tools/mcp-server/list",
             ),
             method: "GET",
@@ -159,19 +161,19 @@ export class McpServer {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.tools.McpServerResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.tools.McpServerResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -181,15 +183,15 @@ export class McpServer {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /tools/mcp-server/list.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling GET /tools/mcp-server/list.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -202,9 +204,9 @@ export class McpServer {
      * @param {string} mcp_server_id - ID of the MCP server to retrieve
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.tools.UnauthorizedError}
-     * @throws {@link phenoml.tools.ForbiddenError}
-     * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link PhenoML.tools.UnauthorizedError}
+     * @throws {@link PhenoML.tools.ForbiddenError}
+     * @throws {@link PhenoML.tools.InternalServerError}
      *
      * @example
      *     await client.tools.mcpServer.get("mcp_server_id")
@@ -212,14 +214,14 @@ export class McpServer {
     public get(
         mcp_server_id: string,
         requestOptions?: McpServer.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.tools.McpServerResponse> {
+    ): core.HttpResponsePromise<PhenoML.tools.McpServerResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(mcp_server_id, requestOptions));
     }
 
     private async __get(
         mcp_server_id: string,
         requestOptions?: McpServer.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.tools.McpServerResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.tools.McpServerResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -229,7 +231,7 @@ export class McpServer {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `tools/mcp-server/${core.url.encodePathParam(mcp_server_id)}`,
             ),
             method: "GET",
@@ -242,19 +244,19 @@ export class McpServer {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.tools.McpServerResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.tools.McpServerResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -264,17 +266,17 @@ export class McpServer {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError(
+                throw new errors.PhenoMLTimeoutError(
                     "Timeout exceeded when calling GET /tools/mcp-server/{mcp_server_id}.",
                 );
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -287,9 +289,9 @@ export class McpServer {
      * @param {string} mcp_server_id - ID of the MCP server to delete
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.tools.UnauthorizedError}
-     * @throws {@link phenoml.tools.ForbiddenError}
-     * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link PhenoML.tools.UnauthorizedError}
+     * @throws {@link PhenoML.tools.ForbiddenError}
+     * @throws {@link PhenoML.tools.InternalServerError}
      *
      * @example
      *     await client.tools.mcpServer.delete("mcp_server_id")
@@ -297,14 +299,14 @@ export class McpServer {
     public delete(
         mcp_server_id: string,
         requestOptions?: McpServer.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.tools.McpServerResponse> {
+    ): core.HttpResponsePromise<PhenoML.tools.McpServerResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(mcp_server_id, requestOptions));
     }
 
     private async __delete(
         mcp_server_id: string,
         requestOptions?: McpServer.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.tools.McpServerResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.tools.McpServerResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -314,7 +316,7 @@ export class McpServer {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `tools/mcp-server/${core.url.encodePathParam(mcp_server_id)}`,
             ),
             method: "DELETE",
@@ -327,19 +329,19 @@ export class McpServer {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.tools.McpServerResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.tools.McpServerResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -349,24 +351,29 @@ export class McpServer {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError(
+                throw new errors.PhenoMLTimeoutError(
                     "Timeout exceeded when calling DELETE /tools/mcp-server/{mcp_server_id}.",
                 );
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

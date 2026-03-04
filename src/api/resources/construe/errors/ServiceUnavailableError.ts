@@ -3,7 +3,7 @@
 import type * as core from "../../../../core/index.js";
 import * as errors from "../../../../errors/index.js";
 
-export class ServiceUnavailableError extends errors.phenomlError {
+export class ServiceUnavailableError extends errors.PhenoMLError {
     constructor(body?: unknown, rawResponse?: core.RawResponse) {
         super({
             message: "ServiceUnavailableError",

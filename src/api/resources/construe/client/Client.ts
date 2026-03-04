@@ -5,10 +5,12 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.
 import * as core from "../../../../core/index.js";
 import * as environments from "../../../../environments.js";
 import * as errors from "../../../../errors/index.js";
-import * as phenoml from "../../../index.js";
+import * as PhenoML from "../../../index.js";
 
 export declare namespace Construe {
-    export interface Options extends BaseClientOptions {}
+    export interface Options extends BaseClientOptions {
+        token?: core.Supplier<core.BearerToken>;
+    }
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -16,7 +18,7 @@ export declare namespace Construe {
 export class Construe {
     protected readonly _options: Construe.Options;
 
-    constructor(_options: Construe.Options) {
+    constructor(_options: Construe.Options = {}) {
         this._options = _options;
     }
 
@@ -26,15 +28,15 @@ export class Construe {
      * GET /construe/codes/systems/{codesystem}?version={version} to check when status
      * transitions from "processing" to "ready" or "failed".
      *
-     * @param {phenoml.construe.UploadRequest} request
+     * @param {PhenoML.construe.UploadRequest} request
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.construe.BadRequestError}
-     * @throws {@link phenoml.construe.UnauthorizedError}
-     * @throws {@link phenoml.construe.ForbiddenError}
-     * @throws {@link phenoml.construe.ConflictError}
-     * @throws {@link phenoml.construe.FailedDependencyError}
-     * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link PhenoML.construe.BadRequestError}
+     * @throws {@link PhenoML.construe.UnauthorizedError}
+     * @throws {@link PhenoML.construe.ForbiddenError}
+     * @throws {@link PhenoML.construe.ConflictError}
+     * @throws {@link PhenoML.construe.FailedDependencyError}
+     * @throws {@link PhenoML.construe.InternalServerError}
      *
      * @example
      *     await client.construe.uploadCodeSystem({
@@ -44,16 +46,16 @@ export class Construe {
      *     })
      */
     public uploadCodeSystem(
-        request: phenoml.construe.UploadRequest,
+        request: PhenoML.construe.UploadRequest,
         requestOptions?: Construe.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.construe.ConstrueUploadCodeSystemResponse> {
+    ): core.HttpResponsePromise<PhenoML.construe.ConstrueUploadCodeSystemResponse> {
         return core.HttpResponsePromise.fromPromise(this.__uploadCodeSystem(request, requestOptions));
     }
 
     private async __uploadCodeSystem(
-        request: phenoml.construe.UploadRequest,
+        request: PhenoML.construe.UploadRequest,
         requestOptions?: Construe.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.construe.ConstrueUploadCodeSystemResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.construe.ConstrueUploadCodeSystemResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -63,7 +65,7 @@ export class Construe {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "construe/upload",
             ),
             method: "POST",
@@ -80,7 +82,7 @@ export class Construe {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.construe.ConstrueUploadCodeSystemResponse,
+                data: _response.body as PhenoML.construe.ConstrueUploadCodeSystemResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -88,28 +90,28 @@ export class Construe {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.construe.UnauthorizedError(
+                    throw new PhenoML.construe.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new phenoml.construe.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 409:
-                    throw new phenoml.construe.ConflictError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.ConflictError(_response.error.body as unknown, _response.rawResponse);
                 case 424:
-                    throw new phenoml.construe.FailedDependencyError(
+                    throw new PhenoML.construe.FailedDependencyError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 500:
-                    throw new phenoml.construe.InternalServerError(
+                    throw new PhenoML.construe.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -119,15 +121,15 @@ export class Construe {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /construe/upload.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /construe/upload.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -139,15 +141,15 @@ export class Construe {
      *
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
      *
-     * @param {phenoml.construe.ExtractRequest} request
+     * @param {PhenoML.construe.ExtractRequest} request
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.construe.BadRequestError}
-     * @throws {@link phenoml.construe.UnauthorizedError}
-     * @throws {@link phenoml.construe.NotFoundError}
-     * @throws {@link phenoml.construe.InternalServerError}
-     * @throws {@link phenoml.construe.ServiceUnavailableError}
-     * @throws {@link phenoml.construe.GatewayTimeoutError}
+     * @throws {@link PhenoML.construe.BadRequestError}
+     * @throws {@link PhenoML.construe.UnauthorizedError}
+     * @throws {@link PhenoML.construe.NotFoundError}
+     * @throws {@link PhenoML.construe.InternalServerError}
+     * @throws {@link PhenoML.construe.ServiceUnavailableError}
+     * @throws {@link PhenoML.construe.GatewayTimeoutError}
      *
      * @example
      *     await client.construe.extractCodes({
@@ -155,16 +157,16 @@ export class Construe {
      *     })
      */
     public extractCodes(
-        request: phenoml.construe.ExtractRequest,
+        request: PhenoML.construe.ExtractRequest,
         requestOptions?: Construe.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.construe.ExtractCodesResult> {
+    ): core.HttpResponsePromise<PhenoML.construe.ExtractCodesResult> {
         return core.HttpResponsePromise.fromPromise(this.__extractCodes(request, requestOptions));
     }
 
     private async __extractCodes(
-        request: phenoml.construe.ExtractRequest,
+        request: PhenoML.construe.ExtractRequest,
         requestOptions?: Construe.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.construe.ExtractCodesResult>> {
+    ): Promise<core.WithRawResponse<PhenoML.construe.ExtractCodesResult>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -174,7 +176,7 @@ export class Construe {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "construe/extract",
             ),
             method: "POST",
@@ -190,37 +192,37 @@ export class Construe {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.construe.ExtractCodesResult, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.construe.ExtractCodesResult, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.construe.UnauthorizedError(
+                    throw new PhenoML.construe.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.construe.InternalServerError(
+                    throw new PhenoML.construe.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 503:
-                    throw new phenoml.construe.ServiceUnavailableError(
+                    throw new PhenoML.construe.ServiceUnavailableError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 504:
-                    throw new phenoml.construe.GatewayTimeoutError(
+                    throw new PhenoML.construe.GatewayTimeoutError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -230,15 +232,15 @@ export class Construe {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /construe/extract.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /construe/extract.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -250,21 +252,21 @@ export class Construe {
      *
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.construe.UnauthorizedError}
-     * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link PhenoML.construe.UnauthorizedError}
+     * @throws {@link PhenoML.construe.InternalServerError}
      *
      * @example
      *     await client.construe.listAvailableCodeSystems()
      */
     public listAvailableCodeSystems(
         requestOptions?: Construe.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.construe.ListCodeSystemsResponse> {
+    ): core.HttpResponsePromise<PhenoML.construe.ListCodeSystemsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__listAvailableCodeSystems(requestOptions));
     }
 
     private async __listAvailableCodeSystems(
         requestOptions?: Construe.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.construe.ListCodeSystemsResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.construe.ListCodeSystemsResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -274,7 +276,7 @@ export class Construe {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "construe/codes/systems",
             ),
             method: "GET",
@@ -288,7 +290,7 @@ export class Construe {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.construe.ListCodeSystemsResponse,
+                data: _response.body as PhenoML.construe.ListCodeSystemsResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -296,17 +298,17 @@ export class Construe {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.construe.UnauthorizedError(
+                    throw new PhenoML.construe.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 500:
-                    throw new phenoml.construe.InternalServerError(
+                    throw new PhenoML.construe.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -316,15 +318,15 @@ export class Construe {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /construe/codes/systems.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling GET /construe/codes/systems.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -335,13 +337,13 @@ export class Construe {
      * Returns full metadata for a single code system, including timestamps and builtin status.
      *
      * @param {string} codesystem - Code system name (e.g., "ICD-10-CM", "SNOMED_CT_US_LITE")
-     * @param {phenoml.construe.GetConstrueCodesSystemsCodesystemRequest} request
+     * @param {PhenoML.construe.GetConstrueCodesSystemsCodesystemRequest} request
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.construe.BadRequestError}
-     * @throws {@link phenoml.construe.UnauthorizedError}
-     * @throws {@link phenoml.construe.NotFoundError}
-     * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link PhenoML.construe.BadRequestError}
+     * @throws {@link PhenoML.construe.UnauthorizedError}
+     * @throws {@link PhenoML.construe.NotFoundError}
+     * @throws {@link PhenoML.construe.InternalServerError}
      *
      * @example
      *     await client.construe.getCodeSystemDetail("ICD-10-CM", {
@@ -350,17 +352,17 @@ export class Construe {
      */
     public getCodeSystemDetail(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesSystemsCodesystemRequest = {},
+        request: PhenoML.construe.GetConstrueCodesSystemsCodesystemRequest = {},
         requestOptions?: Construe.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.construe.GetCodeSystemDetailResponse> {
+    ): core.HttpResponsePromise<PhenoML.construe.GetCodeSystemDetailResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getCodeSystemDetail(codesystem, request, requestOptions));
     }
 
     private async __getCodeSystemDetail(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesSystemsCodesystemRequest = {},
+        request: PhenoML.construe.GetConstrueCodesSystemsCodesystemRequest = {},
         requestOptions?: Construe.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.construe.GetCodeSystemDetailResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.construe.GetCodeSystemDetailResponse>> {
         const { version } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (version != null) {
@@ -376,7 +378,7 @@ export class Construe {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `construe/codes/systems/${core.url.encodePathParam(codesystem)}`,
             ),
             method: "GET",
@@ -390,7 +392,7 @@ export class Construe {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.construe.GetCodeSystemDetailResponse,
+                data: _response.body as PhenoML.construe.GetCodeSystemDetailResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -398,21 +400,21 @@ export class Construe {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.construe.UnauthorizedError(
+                    throw new PhenoML.construe.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.construe.InternalServerError(
+                    throw new PhenoML.construe.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -422,17 +424,17 @@ export class Construe {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError(
+                throw new errors.PhenoMLTimeoutError(
                     "Timeout exceeded when calling GET /construe/codes/systems/{codesystem}.",
                 );
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -444,14 +446,14 @@ export class Construe {
      * Only available on dedicated instances. Large systems may take up to a minute to delete.
      *
      * @param {string} codesystem - Code system name
-     * @param {phenoml.construe.DeleteConstrueCodesSystemsCodesystemRequest} request
+     * @param {PhenoML.construe.DeleteConstrueCodesSystemsCodesystemRequest} request
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.construe.BadRequestError}
-     * @throws {@link phenoml.construe.UnauthorizedError}
-     * @throws {@link phenoml.construe.ForbiddenError}
-     * @throws {@link phenoml.construe.NotFoundError}
-     * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link PhenoML.construe.BadRequestError}
+     * @throws {@link PhenoML.construe.UnauthorizedError}
+     * @throws {@link PhenoML.construe.ForbiddenError}
+     * @throws {@link PhenoML.construe.NotFoundError}
+     * @throws {@link PhenoML.construe.InternalServerError}
      *
      * @example
      *     await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
@@ -460,17 +462,17 @@ export class Construe {
      */
     public deleteCustomCodeSystem(
         codesystem: string,
-        request: phenoml.construe.DeleteConstrueCodesSystemsCodesystemRequest = {},
+        request: PhenoML.construe.DeleteConstrueCodesSystemsCodesystemRequest = {},
         requestOptions?: Construe.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.construe.DeleteCodeSystemResponse> {
+    ): core.HttpResponsePromise<PhenoML.construe.DeleteCodeSystemResponse> {
         return core.HttpResponsePromise.fromPromise(this.__deleteCustomCodeSystem(codesystem, request, requestOptions));
     }
 
     private async __deleteCustomCodeSystem(
         codesystem: string,
-        request: phenoml.construe.DeleteConstrueCodesSystemsCodesystemRequest = {},
+        request: PhenoML.construe.DeleteConstrueCodesSystemsCodesystemRequest = {},
         requestOptions?: Construe.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.construe.DeleteCodeSystemResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.construe.DeleteCodeSystemResponse>> {
         const { version } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (version != null) {
@@ -486,7 +488,7 @@ export class Construe {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `construe/codes/systems/${core.url.encodePathParam(codesystem)}`,
             ),
             method: "DELETE",
@@ -500,7 +502,7 @@ export class Construe {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.construe.DeleteCodeSystemResponse,
+                data: _response.body as PhenoML.construe.DeleteCodeSystemResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -508,23 +510,23 @@ export class Construe {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.construe.UnauthorizedError(
+                    throw new PhenoML.construe.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new phenoml.construe.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
-                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.construe.InternalServerError(
+                    throw new PhenoML.construe.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -534,17 +536,17 @@ export class Construe {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError(
+                throw new errors.PhenoMLTimeoutError(
                     "Timeout exceeded when calling DELETE /construe/codes/systems/{codesystem}.",
                 );
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -557,16 +559,16 @@ export class Construe {
      * Only available on dedicated instances. Builtin systems cannot be exported.
      *
      * @param {string} codesystem - Code system name
-     * @param {phenoml.construe.GetConstrueCodesSystemsCodesystemExportRequest} request
+     * @param {PhenoML.construe.GetConstrueCodesSystemsCodesystemExportRequest} request
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.construe.BadRequestError}
-     * @throws {@link phenoml.construe.UnauthorizedError}
-     * @throws {@link phenoml.construe.ForbiddenError}
-     * @throws {@link phenoml.construe.NotFoundError}
-     * @throws {@link phenoml.construe.ConflictError}
-     * @throws {@link phenoml.construe.FailedDependencyError}
-     * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link PhenoML.construe.BadRequestError}
+     * @throws {@link PhenoML.construe.UnauthorizedError}
+     * @throws {@link PhenoML.construe.ForbiddenError}
+     * @throws {@link PhenoML.construe.NotFoundError}
+     * @throws {@link PhenoML.construe.ConflictError}
+     * @throws {@link PhenoML.construe.FailedDependencyError}
+     * @throws {@link PhenoML.construe.InternalServerError}
      *
      * @example
      *     await client.construe.exportCustomCodeSystem("CUSTOM_CODES", {
@@ -575,17 +577,17 @@ export class Construe {
      */
     public exportCustomCodeSystem(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesSystemsCodesystemExportRequest = {},
+        request: PhenoML.construe.GetConstrueCodesSystemsCodesystemExportRequest = {},
         requestOptions?: Construe.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.construe.ExportCodeSystemResponse> {
+    ): core.HttpResponsePromise<PhenoML.construe.ExportCodeSystemResponse> {
         return core.HttpResponsePromise.fromPromise(this.__exportCustomCodeSystem(codesystem, request, requestOptions));
     }
 
     private async __exportCustomCodeSystem(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesSystemsCodesystemExportRequest = {},
+        request: PhenoML.construe.GetConstrueCodesSystemsCodesystemExportRequest = {},
         requestOptions?: Construe.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.construe.ExportCodeSystemResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.construe.ExportCodeSystemResponse>> {
         const { version } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (version != null) {
@@ -601,7 +603,7 @@ export class Construe {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `construe/codes/systems/${core.url.encodePathParam(codesystem)}/export`,
             ),
             method: "GET",
@@ -615,7 +617,7 @@ export class Construe {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.construe.ExportCodeSystemResponse,
+                data: _response.body as PhenoML.construe.ExportCodeSystemResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -623,30 +625,30 @@ export class Construe {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.construe.UnauthorizedError(
+                    throw new PhenoML.construe.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new phenoml.construe.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
-                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 409:
-                    throw new phenoml.construe.ConflictError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.ConflictError(_response.error.body as unknown, _response.rawResponse);
                 case 424:
-                    throw new phenoml.construe.FailedDependencyError(
+                    throw new PhenoML.construe.FailedDependencyError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 500:
-                    throw new phenoml.construe.InternalServerError(
+                    throw new PhenoML.construe.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -656,17 +658,17 @@ export class Construe {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError(
+                throw new errors.PhenoMLTimeoutError(
                     "Timeout exceeded when calling GET /construe/codes/systems/{codesystem}/export.",
                 );
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -679,13 +681,13 @@ export class Construe {
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
      *
      * @param {string} codesystem - Code system name (e.g., "ICD-10-CM", "SNOMED_CT_US_LITE")
-     * @param {phenoml.construe.GetConstrueCodesCodesystemRequest} request
+     * @param {PhenoML.construe.GetConstrueCodesCodesystemRequest} request
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.construe.BadRequestError}
-     * @throws {@link phenoml.construe.UnauthorizedError}
-     * @throws {@link phenoml.construe.NotFoundError}
-     * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link PhenoML.construe.BadRequestError}
+     * @throws {@link PhenoML.construe.UnauthorizedError}
+     * @throws {@link PhenoML.construe.NotFoundError}
+     * @throws {@link PhenoML.construe.InternalServerError}
      *
      * @example
      *     await client.construe.listCodesInACodeSystem("ICD-10-CM", {
@@ -696,17 +698,17 @@ export class Construe {
      */
     public listCodesInACodeSystem(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemRequest = {},
+        request: PhenoML.construe.GetConstrueCodesCodesystemRequest = {},
         requestOptions?: Construe.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.construe.ListCodesResponse> {
+    ): core.HttpResponsePromise<PhenoML.construe.ListCodesResponse> {
         return core.HttpResponsePromise.fromPromise(this.__listCodesInACodeSystem(codesystem, request, requestOptions));
     }
 
     private async __listCodesInACodeSystem(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemRequest = {},
+        request: PhenoML.construe.GetConstrueCodesCodesystemRequest = {},
         requestOptions?: Construe.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.construe.ListCodesResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.construe.ListCodesResponse>> {
         const { version, cursor, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (version != null) {
@@ -730,7 +732,7 @@ export class Construe {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `construe/codes/${core.url.encodePathParam(codesystem)}`,
             ),
             method: "GET",
@@ -743,27 +745,27 @@ export class Construe {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.construe.ListCodesResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.construe.ListCodesResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.construe.UnauthorizedError(
+                    throw new PhenoML.construe.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.construe.InternalServerError(
+                    throw new PhenoML.construe.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -773,15 +775,15 @@ export class Construe {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /construe/codes/{codesystem}.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling GET /construe/codes/{codesystem}.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -795,13 +797,13 @@ export class Construe {
      *
      * @param {string} codesystem - Code system name
      * @param {string} codeID - The code identifier
-     * @param {phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest} request
+     * @param {PhenoML.construe.GetConstrueCodesCodesystemCodeIdRequest} request
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.construe.BadRequestError}
-     * @throws {@link phenoml.construe.UnauthorizedError}
-     * @throws {@link phenoml.construe.NotFoundError}
-     * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link PhenoML.construe.BadRequestError}
+     * @throws {@link PhenoML.construe.UnauthorizedError}
+     * @throws {@link PhenoML.construe.NotFoundError}
+     * @throws {@link PhenoML.construe.InternalServerError}
      *
      * @example
      *     await client.construe.getASpecificCode("ICD-10-CM", "E11.65", {
@@ -811,9 +813,9 @@ export class Construe {
     public getASpecificCode(
         codesystem: string,
         codeID: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest = {},
+        request: PhenoML.construe.GetConstrueCodesCodesystemCodeIdRequest = {},
         requestOptions?: Construe.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.construe.GetCodeResponse> {
+    ): core.HttpResponsePromise<PhenoML.construe.GetCodeResponse> {
         return core.HttpResponsePromise.fromPromise(
             this.__getASpecificCode(codesystem, codeID, request, requestOptions),
         );
@@ -822,9 +824,9 @@ export class Construe {
     private async __getASpecificCode(
         codesystem: string,
         codeID: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest = {},
+        request: PhenoML.construe.GetConstrueCodesCodesystemCodeIdRequest = {},
         requestOptions?: Construe.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.construe.GetCodeResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.construe.GetCodeResponse>> {
         const { version } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (version != null) {
@@ -840,7 +842,7 @@ export class Construe {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `construe/codes/${core.url.encodePathParam(codesystem)}/${core.url.encodePathParam(codeID)}`,
             ),
             method: "GET",
@@ -853,27 +855,27 @@ export class Construe {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.construe.GetCodeResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.construe.GetCodeResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.construe.UnauthorizedError(
+                    throw new PhenoML.construe.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.construe.InternalServerError(
+                    throw new PhenoML.construe.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -883,17 +885,17 @@ export class Construe {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError(
+                throw new errors.PhenoMLTimeoutError(
                     "Timeout exceeded when calling GET /construe/codes/{codesystem}/{codeID}.",
                 );
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -922,13 +924,13 @@ export class Construe {
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
      *
      * @param {string} codesystem - Code system name
-     * @param {phenoml.construe.GetConstrueCodesCodesystemSearchSemanticRequest} request
+     * @param {PhenoML.construe.GetConstrueCodesCodesystemSearchSemanticRequest} request
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.construe.BadRequestError}
-     * @throws {@link phenoml.construe.UnauthorizedError}
-     * @throws {@link phenoml.construe.NotFoundError}
-     * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link PhenoML.construe.BadRequestError}
+     * @throws {@link PhenoML.construe.UnauthorizedError}
+     * @throws {@link PhenoML.construe.NotFoundError}
+     * @throws {@link PhenoML.construe.InternalServerError}
      *
      * @example
      *     await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
@@ -939,9 +941,9 @@ export class Construe {
      */
     public semanticSearchEmbeddingBased(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemSearchSemanticRequest,
+        request: PhenoML.construe.GetConstrueCodesCodesystemSearchSemanticRequest,
         requestOptions?: Construe.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.construe.SemanticSearchResponse> {
+    ): core.HttpResponsePromise<PhenoML.construe.SemanticSearchResponse> {
         return core.HttpResponsePromise.fromPromise(
             this.__semanticSearchEmbeddingBased(codesystem, request, requestOptions),
         );
@@ -949,9 +951,9 @@ export class Construe {
 
     private async __semanticSearchEmbeddingBased(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemSearchSemanticRequest,
+        request: PhenoML.construe.GetConstrueCodesCodesystemSearchSemanticRequest,
         requestOptions?: Construe.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.construe.SemanticSearchResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.construe.SemanticSearchResponse>> {
         const { text, version, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams.text = text;
@@ -972,7 +974,7 @@ export class Construe {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `construe/codes/${core.url.encodePathParam(codesystem)}/search/semantic`,
             ),
             method: "GET",
@@ -986,7 +988,7 @@ export class Construe {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.construe.SemanticSearchResponse,
+                data: _response.body as PhenoML.construe.SemanticSearchResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -994,21 +996,21 @@ export class Construe {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.construe.UnauthorizedError(
+                    throw new PhenoML.construe.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.construe.InternalServerError(
+                    throw new PhenoML.construe.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -1018,17 +1020,17 @@ export class Construe {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError(
+                throw new errors.PhenoMLTimeoutError(
                     "Timeout exceeded when calling GET /construe/codes/{codesystem}/search/semantic.",
                 );
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -1039,13 +1041,13 @@ export class Construe {
      * Submits user feedback on results from the Construe extraction endpoint.
      * Feedback includes the full extraction result received and the result the user expected.
      *
-     * @param {phenoml.construe.FeedbackRequest} request
+     * @param {PhenoML.construe.FeedbackRequest} request
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.construe.BadRequestError}
-     * @throws {@link phenoml.construe.UnauthorizedError}
-     * @throws {@link phenoml.construe.InternalServerError}
-     * @throws {@link phenoml.construe.ServiceUnavailableError}
+     * @throws {@link PhenoML.construe.BadRequestError}
+     * @throws {@link PhenoML.construe.UnauthorizedError}
+     * @throws {@link PhenoML.construe.InternalServerError}
+     * @throws {@link PhenoML.construe.ServiceUnavailableError}
      *
      * @example
      *     await client.construe.submitFeedbackOnExtractionResults({
@@ -1069,16 +1071,16 @@ export class Construe {
      *     })
      */
     public submitFeedbackOnExtractionResults(
-        request: phenoml.construe.FeedbackRequest,
+        request: PhenoML.construe.FeedbackRequest,
         requestOptions?: Construe.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.construe.FeedbackResponse> {
+    ): core.HttpResponsePromise<PhenoML.construe.FeedbackResponse> {
         return core.HttpResponsePromise.fromPromise(this.__submitFeedbackOnExtractionResults(request, requestOptions));
     }
 
     private async __submitFeedbackOnExtractionResults(
-        request: phenoml.construe.FeedbackRequest,
+        request: PhenoML.construe.FeedbackRequest,
         requestOptions?: Construe.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.construe.FeedbackResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.construe.FeedbackResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -1088,7 +1090,7 @@ export class Construe {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "construe/feedback",
             ),
             method: "POST",
@@ -1104,30 +1106,30 @@ export class Construe {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.construe.FeedbackResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.construe.FeedbackResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.construe.UnauthorizedError(
+                    throw new PhenoML.construe.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 500:
-                    throw new phenoml.construe.InternalServerError(
+                    throw new PhenoML.construe.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 503:
-                    throw new phenoml.construe.ServiceUnavailableError(
+                    throw new PhenoML.construe.ServiceUnavailableError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -1137,15 +1139,15 @@ export class Construe {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /construe/feedback.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /construe/feedback.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -1179,14 +1181,14 @@ export class Construe {
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
      *
      * @param {string} codesystem - Code system name
-     * @param {phenoml.construe.GetConstrueCodesCodesystemSearchTextRequest} request
+     * @param {PhenoML.construe.GetConstrueCodesCodesystemSearchTextRequest} request
      * @param {Construe.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.construe.BadRequestError}
-     * @throws {@link phenoml.construe.UnauthorizedError}
-     * @throws {@link phenoml.construe.NotFoundError}
-     * @throws {@link phenoml.construe.InternalServerError}
-     * @throws {@link phenoml.construe.NotImplementedError}
+     * @throws {@link PhenoML.construe.BadRequestError}
+     * @throws {@link PhenoML.construe.UnauthorizedError}
+     * @throws {@link PhenoML.construe.NotFoundError}
+     * @throws {@link PhenoML.construe.InternalServerError}
+     * @throws {@link PhenoML.construe.NotImplementedError}
      *
      * @example
      *     await client.construe.terminologyServerTextSearch("ICD-10-CM", {
@@ -1197,9 +1199,9 @@ export class Construe {
      */
     public terminologyServerTextSearch(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemSearchTextRequest,
+        request: PhenoML.construe.GetConstrueCodesCodesystemSearchTextRequest,
         requestOptions?: Construe.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.construe.TextSearchResponse> {
+    ): core.HttpResponsePromise<PhenoML.construe.TextSearchResponse> {
         return core.HttpResponsePromise.fromPromise(
             this.__terminologyServerTextSearch(codesystem, request, requestOptions),
         );
@@ -1207,9 +1209,9 @@ export class Construe {
 
     private async __terminologyServerTextSearch(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemSearchTextRequest,
+        request: PhenoML.construe.GetConstrueCodesCodesystemSearchTextRequest,
         requestOptions?: Construe.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.construe.TextSearchResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.construe.TextSearchResponse>> {
         const { q, version, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams.q = q;
@@ -1230,7 +1232,7 @@ export class Construe {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `construe/codes/${core.url.encodePathParam(codesystem)}/search/text`,
             ),
             method: "GET",
@@ -1243,32 +1245,32 @@ export class Construe {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.construe.TextSearchResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.construe.TextSearchResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.construe.UnauthorizedError(
+                    throw new PhenoML.construe.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.construe.InternalServerError(
+                    throw new PhenoML.construe.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 501:
-                    throw new phenoml.construe.NotImplementedError(
+                    throw new PhenoML.construe.NotImplementedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -1278,24 +1280,29 @@ export class Construe {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError(
+                throw new errors.PhenoMLTimeoutError(
                     "Timeout exceeded when calling GET /construe/codes/{codesystem}/search/text.",
                 );
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

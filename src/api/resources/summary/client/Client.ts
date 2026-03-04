@@ -5,10 +5,12 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.
 import * as core from "../../../../core/index.js";
 import * as environments from "../../../../environments.js";
 import * as errors from "../../../../errors/index.js";
-import * as phenoml from "../../../index.js";
+import * as PhenoML from "../../../index.js";
 
 export declare namespace Summary {
-    export interface Options extends BaseClientOptions {}
+    export interface Options extends BaseClientOptions {
+        token?: core.Supplier<core.BearerToken>;
+    }
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -16,7 +18,7 @@ export declare namespace Summary {
 export class Summary {
     protected readonly _options: Summary.Options;
 
-    constructor(_options: Summary.Options) {
+    constructor(_options: Summary.Options = {}) {
         this._options = _options;
     }
 
@@ -25,21 +27,21 @@ export class Summary {
      *
      * @param {Summary.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.summary.UnauthorizedError}
-     * @throws {@link phenoml.summary.InternalServerError}
+     * @throws {@link PhenoML.summary.UnauthorizedError}
+     * @throws {@link PhenoML.summary.InternalServerError}
      *
      * @example
      *     await client.summary.listTemplates()
      */
     public listTemplates(
         requestOptions?: Summary.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.SummaryListTemplatesResponse> {
+    ): core.HttpResponsePromise<PhenoML.summary.SummaryListTemplatesResponse> {
         return core.HttpResponsePromise.fromPromise(this.__listTemplates(requestOptions));
     }
 
     private async __listTemplates(
         requestOptions?: Summary.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.SummaryListTemplatesResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.summary.SummaryListTemplatesResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -49,7 +51,7 @@ export class Summary {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "fhir2summary/templates",
             ),
             method: "GET",
@@ -63,7 +65,7 @@ export class Summary {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.summary.SummaryListTemplatesResponse,
+                data: _response.body as PhenoML.summary.SummaryListTemplatesResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -71,14 +73,14 @@ export class Summary {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.summary.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.summary.InternalServerError(
+                    throw new PhenoML.summary.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -88,15 +90,15 @@ export class Summary {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /fhir2summary/templates.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling GET /fhir2summary/templates.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -106,12 +108,12 @@ export class Summary {
     /**
      * Creates a summary template from an example using LLM function calling
      *
-     * @param {phenoml.summary.CreateSummaryTemplateRequest} request
+     * @param {PhenoML.summary.CreateSummaryTemplateRequest} request
      * @param {Summary.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.summary.BadRequestError}
-     * @throws {@link phenoml.summary.UnauthorizedError}
-     * @throws {@link phenoml.summary.InternalServerError}
+     * @throws {@link PhenoML.summary.BadRequestError}
+     * @throws {@link PhenoML.summary.UnauthorizedError}
+     * @throws {@link PhenoML.summary.InternalServerError}
      *
      * @example
      *     await client.summary.createTemplate({
@@ -122,16 +124,16 @@ export class Summary {
      *     })
      */
     public createTemplate(
-        request: phenoml.summary.CreateSummaryTemplateRequest,
+        request: PhenoML.summary.CreateSummaryTemplateRequest,
         requestOptions?: Summary.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.CreateSummaryTemplateResponse> {
+    ): core.HttpResponsePromise<PhenoML.summary.CreateSummaryTemplateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__createTemplate(request, requestOptions));
     }
 
     private async __createTemplate(
-        request: phenoml.summary.CreateSummaryTemplateRequest,
+        request: PhenoML.summary.CreateSummaryTemplateRequest,
         requestOptions?: Summary.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.CreateSummaryTemplateResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.summary.CreateSummaryTemplateResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -141,7 +143,7 @@ export class Summary {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "fhir2summary/template",
             ),
             method: "POST",
@@ -158,7 +160,7 @@ export class Summary {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.summary.CreateSummaryTemplateResponse,
+                data: _response.body as PhenoML.summary.CreateSummaryTemplateResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -166,16 +168,16 @@ export class Summary {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.summary.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.summary.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.summary.InternalServerError(
+                    throw new PhenoML.summary.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -185,15 +187,15 @@ export class Summary {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /fhir2summary/template.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /fhir2summary/template.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -206,10 +208,10 @@ export class Summary {
      * @param {string} id - Template ID
      * @param {Summary.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.summary.UnauthorizedError}
-     * @throws {@link phenoml.summary.ForbiddenError}
-     * @throws {@link phenoml.summary.NotFoundError}
-     * @throws {@link phenoml.summary.InternalServerError}
+     * @throws {@link PhenoML.summary.UnauthorizedError}
+     * @throws {@link PhenoML.summary.ForbiddenError}
+     * @throws {@link PhenoML.summary.NotFoundError}
+     * @throws {@link PhenoML.summary.InternalServerError}
      *
      * @example
      *     await client.summary.getTemplate("id")
@@ -217,14 +219,14 @@ export class Summary {
     public getTemplate(
         id: string,
         requestOptions?: Summary.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.SummaryGetTemplateResponse> {
+    ): core.HttpResponsePromise<PhenoML.summary.SummaryGetTemplateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getTemplate(id, requestOptions));
     }
 
     private async __getTemplate(
         id: string,
         requestOptions?: Summary.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.SummaryGetTemplateResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.summary.SummaryGetTemplateResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -234,7 +236,7 @@ export class Summary {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `fhir2summary/template/${core.url.encodePathParam(id)}`,
             ),
             method: "GET",
@@ -248,7 +250,7 @@ export class Summary {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.summary.SummaryGetTemplateResponse,
+                data: _response.body as PhenoML.summary.SummaryGetTemplateResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -256,18 +258,18 @@ export class Summary {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.summary.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.summary.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
-                    throw new phenoml.summary.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.summary.InternalServerError(
+                    throw new PhenoML.summary.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -277,15 +279,15 @@ export class Summary {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /fhir2summary/template/{id}.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling GET /fhir2summary/template/{id}.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -296,14 +298,14 @@ export class Summary {
      * Updates an existing summary template
      *
      * @param {string} id - Template ID
-     * @param {phenoml.summary.UpdateSummaryTemplateRequest} request
+     * @param {PhenoML.summary.UpdateSummaryTemplateRequest} request
      * @param {Summary.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.summary.BadRequestError}
-     * @throws {@link phenoml.summary.UnauthorizedError}
-     * @throws {@link phenoml.summary.ForbiddenError}
-     * @throws {@link phenoml.summary.NotFoundError}
-     * @throws {@link phenoml.summary.InternalServerError}
+     * @throws {@link PhenoML.summary.BadRequestError}
+     * @throws {@link PhenoML.summary.UnauthorizedError}
+     * @throws {@link PhenoML.summary.ForbiddenError}
+     * @throws {@link PhenoML.summary.NotFoundError}
+     * @throws {@link PhenoML.summary.InternalServerError}
      *
      * @example
      *     await client.summary.updateTemplate("id", {
@@ -315,17 +317,17 @@ export class Summary {
      */
     public updateTemplate(
         id: string,
-        request: phenoml.summary.UpdateSummaryTemplateRequest,
+        request: PhenoML.summary.UpdateSummaryTemplateRequest,
         requestOptions?: Summary.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.SummaryUpdateTemplateResponse> {
+    ): core.HttpResponsePromise<PhenoML.summary.SummaryUpdateTemplateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__updateTemplate(id, request, requestOptions));
     }
 
     private async __updateTemplate(
         id: string,
-        request: phenoml.summary.UpdateSummaryTemplateRequest,
+        request: PhenoML.summary.UpdateSummaryTemplateRequest,
         requestOptions?: Summary.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.SummaryUpdateTemplateResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.summary.SummaryUpdateTemplateResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -335,7 +337,7 @@ export class Summary {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `fhir2summary/template/${core.url.encodePathParam(id)}`,
             ),
             method: "PUT",
@@ -352,7 +354,7 @@ export class Summary {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.summary.SummaryUpdateTemplateResponse,
+                data: _response.body as PhenoML.summary.SummaryUpdateTemplateResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -360,20 +362,20 @@ export class Summary {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.summary.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.summary.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.summary.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
-                    throw new phenoml.summary.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.summary.InternalServerError(
+                    throw new PhenoML.summary.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -383,15 +385,15 @@ export class Summary {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling PUT /fhir2summary/template/{id}.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling PUT /fhir2summary/template/{id}.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -404,10 +406,10 @@ export class Summary {
      * @param {string} id - Template ID
      * @param {Summary.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.summary.UnauthorizedError}
-     * @throws {@link phenoml.summary.ForbiddenError}
-     * @throws {@link phenoml.summary.NotFoundError}
-     * @throws {@link phenoml.summary.InternalServerError}
+     * @throws {@link PhenoML.summary.UnauthorizedError}
+     * @throws {@link PhenoML.summary.ForbiddenError}
+     * @throws {@link PhenoML.summary.NotFoundError}
+     * @throws {@link PhenoML.summary.InternalServerError}
      *
      * @example
      *     await client.summary.deleteTemplate("id")
@@ -415,14 +417,14 @@ export class Summary {
     public deleteTemplate(
         id: string,
         requestOptions?: Summary.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.SummaryDeleteTemplateResponse> {
+    ): core.HttpResponsePromise<PhenoML.summary.SummaryDeleteTemplateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__deleteTemplate(id, requestOptions));
     }
 
     private async __deleteTemplate(
         id: string,
         requestOptions?: Summary.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.SummaryDeleteTemplateResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.summary.SummaryDeleteTemplateResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -432,7 +434,7 @@ export class Summary {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `fhir2summary/template/${core.url.encodePathParam(id)}`,
             ),
             method: "DELETE",
@@ -446,7 +448,7 @@ export class Summary {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.summary.SummaryDeleteTemplateResponse,
+                data: _response.body as PhenoML.summary.SummaryDeleteTemplateResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -454,18 +456,18 @@ export class Summary {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.summary.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.summary.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
-                    throw new phenoml.summary.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.summary.InternalServerError(
+                    throw new PhenoML.summary.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -475,17 +477,17 @@ export class Summary {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError(
+                throw new errors.PhenoMLTimeoutError(
                     "Timeout exceeded when calling DELETE /fhir2summary/template/{id}.",
                 );
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -498,14 +500,14 @@ export class Summary {
      * - **flatten**: Flattens FHIR resources into a searchable format for RAG/search (no template needed)
      * - **ips**: Generates an International Patient Summary (IPS) narrative per ISO 27269/HL7 FHIR IPS IG. Requires a Bundle with exactly one Patient resource (returns 400 error if no Patient or multiple Patients are present). Automatically filters resources to those referencing the patient and generates sections for allergies, medications, problems, immunizations, procedures, and vital signs.
      *
-     * @param {phenoml.summary.CreateSummaryRequest} request
+     * @param {PhenoML.summary.CreateSummaryRequest} request
      * @param {Summary.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.summary.BadRequestError}
-     * @throws {@link phenoml.summary.UnauthorizedError}
-     * @throws {@link phenoml.summary.ForbiddenError}
-     * @throws {@link phenoml.summary.NotFoundError}
-     * @throws {@link phenoml.summary.InternalServerError}
+     * @throws {@link PhenoML.summary.BadRequestError}
+     * @throws {@link PhenoML.summary.UnauthorizedError}
+     * @throws {@link PhenoML.summary.ForbiddenError}
+     * @throws {@link PhenoML.summary.NotFoundError}
+     * @throws {@link PhenoML.summary.InternalServerError}
      *
      * @example
      *     await client.summary.create({
@@ -515,16 +517,16 @@ export class Summary {
      *     })
      */
     public create(
-        request: phenoml.summary.CreateSummaryRequest,
+        request: PhenoML.summary.CreateSummaryRequest,
         requestOptions?: Summary.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.CreateSummaryResponse> {
+    ): core.HttpResponsePromise<PhenoML.summary.CreateSummaryResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: phenoml.summary.CreateSummaryRequest,
+        request: PhenoML.summary.CreateSummaryRequest,
         requestOptions?: Summary.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.CreateSummaryResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.summary.CreateSummaryResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -534,7 +536,7 @@ export class Summary {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "fhir2summary/create",
             ),
             method: "POST",
@@ -551,7 +553,7 @@ export class Summary {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.summary.CreateSummaryResponse,
+                data: _response.body as PhenoML.summary.CreateSummaryResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -559,20 +561,20 @@ export class Summary {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.summary.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.summary.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.summary.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
-                    throw new phenoml.summary.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.summary.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.summary.InternalServerError(
+                    throw new PhenoML.summary.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -582,22 +584,27 @@ export class Summary {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /fhir2summary/create.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /fhir2summary/create.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

@@ -5,11 +5,13 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.
 import * as core from "../../../../core/index.js";
 import * as environments from "../../../../environments.js";
 import * as errors from "../../../../errors/index.js";
-import * as phenoml from "../../../index.js";
+import * as PhenoML from "../../../index.js";
 import { McpServer } from "../resources/mcpServer/client/Client.js";
 
 export declare namespace Tools {
-    export interface Options extends BaseClientOptions {}
+    export interface Options extends BaseClientOptions {
+        token?: core.Supplier<core.BearerToken>;
+    }
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -18,7 +20,7 @@ export class Tools {
     protected readonly _options: Tools.Options;
     protected _mcpServer: McpServer | undefined;
 
-    constructor(_options: Tools.Options) {
+    constructor(_options: Tools.Options = {}) {
         this._options = _options;
     }
 
@@ -29,14 +31,14 @@ export class Tools {
     /**
      * Converts natural language to FHIR resource and optionally stores it in a FHIR server
      *
-     * @param {phenoml.tools.Lang2FhirAndCreateRequest} request
+     * @param {PhenoML.tools.Lang2FhirAndCreateRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.tools.BadRequestError}
-     * @throws {@link phenoml.tools.UnauthorizedError}
-     * @throws {@link phenoml.tools.ForbiddenError}
-     * @throws {@link phenoml.tools.FailedDependencyError}
-     * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link PhenoML.tools.BadRequestError}
+     * @throws {@link PhenoML.tools.UnauthorizedError}
+     * @throws {@link PhenoML.tools.ForbiddenError}
+     * @throws {@link PhenoML.tools.FailedDependencyError}
+     * @throws {@link PhenoML.tools.InternalServerError}
      *
      * @example
      *     await client.tools.createFhirResource({
@@ -47,16 +49,16 @@ export class Tools {
      *     })
      */
     public createFhirResource(
-        request: phenoml.tools.Lang2FhirAndCreateRequest,
+        request: PhenoML.tools.Lang2FhirAndCreateRequest,
         requestOptions?: Tools.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.tools.Lang2FhirAndCreateResponse> {
+    ): core.HttpResponsePromise<PhenoML.tools.Lang2FhirAndCreateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__createFhirResource(request, requestOptions));
     }
 
     private async __createFhirResource(
-        request: phenoml.tools.Lang2FhirAndCreateRequest,
+        request: PhenoML.tools.Lang2FhirAndCreateRequest,
         requestOptions?: Tools.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.tools.Lang2FhirAndCreateResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.tools.Lang2FhirAndCreateResponse>> {
         const {
             "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
             "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
@@ -75,7 +77,7 @@ export class Tools {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "tools/lang2fhir-and-create",
             ),
             method: "POST",
@@ -92,7 +94,7 @@ export class Tools {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.tools.Lang2FhirAndCreateResponse,
+                data: _response.body as PhenoML.tools.Lang2FhirAndCreateResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -100,20 +102,20 @@ export class Tools {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.tools.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 424:
-                    throw new phenoml.tools.FailedDependencyError(
+                    throw new PhenoML.tools.FailedDependencyError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 500:
-                    throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -123,15 +125,15 @@ export class Tools {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /tools/lang2fhir-and-create.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /tools/lang2fhir-and-create.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -145,14 +147,14 @@ export class Tools {
      * For FHIR servers that don't auto-resolve urn:uuid references, this endpoint will automatically
      * resolve them via PUT requests after the initial bundle creation.
      *
-     * @param {phenoml.tools.Lang2FhirAndCreateMultiRequest} request
+     * @param {PhenoML.tools.Lang2FhirAndCreateMultiRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.tools.BadRequestError}
-     * @throws {@link phenoml.tools.UnauthorizedError}
-     * @throws {@link phenoml.tools.ForbiddenError}
-     * @throws {@link phenoml.tools.FailedDependencyError}
-     * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link PhenoML.tools.BadRequestError}
+     * @throws {@link PhenoML.tools.UnauthorizedError}
+     * @throws {@link PhenoML.tools.ForbiddenError}
+     * @throws {@link PhenoML.tools.FailedDependencyError}
+     * @throws {@link PhenoML.tools.InternalServerError}
      *
      * @example
      *     await client.tools.createFhirResourcesMulti({
@@ -163,16 +165,16 @@ export class Tools {
      *     })
      */
     public createFhirResourcesMulti(
-        request: phenoml.tools.Lang2FhirAndCreateMultiRequest,
+        request: PhenoML.tools.Lang2FhirAndCreateMultiRequest,
         requestOptions?: Tools.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.tools.Lang2FhirAndCreateMultiResponse> {
+    ): core.HttpResponsePromise<PhenoML.tools.Lang2FhirAndCreateMultiResponse> {
         return core.HttpResponsePromise.fromPromise(this.__createFhirResourcesMulti(request, requestOptions));
     }
 
     private async __createFhirResourcesMulti(
-        request: phenoml.tools.Lang2FhirAndCreateMultiRequest,
+        request: PhenoML.tools.Lang2FhirAndCreateMultiRequest,
         requestOptions?: Tools.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.tools.Lang2FhirAndCreateMultiResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.tools.Lang2FhirAndCreateMultiResponse>> {
         const {
             "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
             "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
@@ -191,7 +193,7 @@ export class Tools {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "tools/lang2fhir-and-create-multi",
             ),
             method: "POST",
@@ -208,7 +210,7 @@ export class Tools {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.tools.Lang2FhirAndCreateMultiResponse,
+                data: _response.body as PhenoML.tools.Lang2FhirAndCreateMultiResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -216,20 +218,20 @@ export class Tools {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.tools.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 424:
-                    throw new phenoml.tools.FailedDependencyError(
+                    throw new PhenoML.tools.FailedDependencyError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 500:
-                    throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -239,17 +241,17 @@ export class Tools {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError(
+                throw new errors.PhenoMLTimeoutError(
                     "Timeout exceeded when calling POST /tools/lang2fhir-and-create-multi.",
                 );
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -259,14 +261,14 @@ export class Tools {
     /**
      * Converts natural language to FHIR search parameters and executes search in FHIR server
      *
-     * @param {phenoml.tools.Lang2FhirAndSearchRequest} request
+     * @param {PhenoML.tools.Lang2FhirAndSearchRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.tools.BadRequestError}
-     * @throws {@link phenoml.tools.UnauthorizedError}
-     * @throws {@link phenoml.tools.ForbiddenError}
-     * @throws {@link phenoml.tools.FailedDependencyError}
-     * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link PhenoML.tools.BadRequestError}
+     * @throws {@link PhenoML.tools.UnauthorizedError}
+     * @throws {@link PhenoML.tools.ForbiddenError}
+     * @throws {@link PhenoML.tools.FailedDependencyError}
+     * @throws {@link PhenoML.tools.InternalServerError}
      *
      * @example
      *     await client.tools.searchFhirResources({
@@ -276,16 +278,16 @@ export class Tools {
      *     })
      */
     public searchFhirResources(
-        request: phenoml.tools.Lang2FhirAndSearchRequest,
+        request: PhenoML.tools.Lang2FhirAndSearchRequest,
         requestOptions?: Tools.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.tools.Lang2FhirAndSearchResponse> {
+    ): core.HttpResponsePromise<PhenoML.tools.Lang2FhirAndSearchResponse> {
         return core.HttpResponsePromise.fromPromise(this.__searchFhirResources(request, requestOptions));
     }
 
     private async __searchFhirResources(
-        request: phenoml.tools.Lang2FhirAndSearchRequest,
+        request: PhenoML.tools.Lang2FhirAndSearchRequest,
         requestOptions?: Tools.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.tools.Lang2FhirAndSearchResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.tools.Lang2FhirAndSearchResponse>> {
         const {
             "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
             "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
@@ -304,7 +306,7 @@ export class Tools {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "tools/lang2fhir-and-search",
             ),
             method: "POST",
@@ -321,7 +323,7 @@ export class Tools {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.tools.Lang2FhirAndSearchResponse,
+                data: _response.body as PhenoML.tools.Lang2FhirAndSearchResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -329,20 +331,20 @@ export class Tools {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.tools.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 424:
-                    throw new phenoml.tools.FailedDependencyError(
+                    throw new PhenoML.tools.FailedDependencyError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 500:
-                    throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -352,15 +354,15 @@ export class Tools {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /tools/lang2fhir-and-search.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /tools/lang2fhir-and-search.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -370,13 +372,13 @@ export class Tools {
     /**
      * Uses LLM to extract search concepts from natural language and builds patient cohorts with inclusion/exclusion criteria
      *
-     * @param {phenoml.tools.CohortRequest} request
+     * @param {PhenoML.tools.CohortRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.tools.BadRequestError}
-     * @throws {@link phenoml.tools.UnauthorizedError}
-     * @throws {@link phenoml.tools.ForbiddenError}
-     * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link PhenoML.tools.BadRequestError}
+     * @throws {@link PhenoML.tools.UnauthorizedError}
+     * @throws {@link PhenoML.tools.ForbiddenError}
+     * @throws {@link PhenoML.tools.InternalServerError}
      *
      * @example
      *     await client.tools.analyzeCohort({
@@ -387,16 +389,16 @@ export class Tools {
      *     })
      */
     public analyzeCohort(
-        request: phenoml.tools.CohortRequest,
+        request: PhenoML.tools.CohortRequest,
         requestOptions?: Tools.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.tools.CohortResponse> {
+    ): core.HttpResponsePromise<PhenoML.tools.CohortResponse> {
         return core.HttpResponsePromise.fromPromise(this.__analyzeCohort(request, requestOptions));
     }
 
     private async __analyzeCohort(
-        request: phenoml.tools.CohortRequest,
+        request: PhenoML.tools.CohortRequest,
         requestOptions?: Tools.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.tools.CohortResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.tools.CohortResponse>> {
         const {
             "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
             "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
@@ -415,7 +417,7 @@ export class Tools {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "tools/cohort",
             ),
             method: "POST",
@@ -431,21 +433,21 @@ export class Tools {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.tools.CohortResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.tools.CohortResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.tools.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -455,22 +457,27 @@ export class Tools {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /tools/cohort.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /tools/cohort.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

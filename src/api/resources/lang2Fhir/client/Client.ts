@@ -5,10 +5,12 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.
 import * as core from "../../../../core/index.js";
 import * as environments from "../../../../environments.js";
 import * as errors from "../../../../errors/index.js";
-import * as phenoml from "../../../index.js";
+import * as PhenoML from "../../../index.js";
 
 export declare namespace Lang2Fhir {
-    export interface Options extends BaseClientOptions {}
+    export interface Options extends BaseClientOptions {
+        token?: core.Supplier<core.BearerToken>;
+    }
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -16,19 +18,19 @@ export declare namespace Lang2Fhir {
 export class Lang2Fhir {
     protected readonly _options: Lang2Fhir.Options;
 
-    constructor(_options: Lang2Fhir.Options) {
+    constructor(_options: Lang2Fhir.Options = {}) {
         this._options = _options;
     }
 
     /**
      * Converts natural language text into a structured FHIR resource
      *
-     * @param {phenoml.lang2Fhir.CreateRequest} request
+     * @param {PhenoML.lang2Fhir.CreateRequest} request
      * @param {Lang2Fhir.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.lang2Fhir.BadRequestError}
-     * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
-     * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link PhenoML.lang2Fhir.BadRequestError}
+     * @throws {@link PhenoML.lang2Fhir.UnauthorizedError}
+     * @throws {@link PhenoML.lang2Fhir.InternalServerError}
      *
      * @example
      *     await client.lang2Fhir.create({
@@ -38,16 +40,16 @@ export class Lang2Fhir {
      *     })
      */
     public create(
-        request: phenoml.lang2Fhir.CreateRequest,
+        request: PhenoML.lang2Fhir.CreateRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.lang2Fhir.FhirResource> {
+    ): core.HttpResponsePromise<PhenoML.lang2Fhir.FhirResource> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: phenoml.lang2Fhir.CreateRequest,
+        request: PhenoML.lang2Fhir.CreateRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.lang2Fhir.FhirResource>> {
+    ): Promise<core.WithRawResponse<PhenoML.lang2Fhir.FhirResource>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -57,7 +59,7 @@ export class Lang2Fhir {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "lang2fhir/create",
             ),
             method: "POST",
@@ -73,25 +75,25 @@ export class Lang2Fhir {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.lang2Fhir.FhirResource, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.lang2Fhir.FhirResource, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.lang2Fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.lang2Fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.lang2Fhir.UnauthorizedError(
+                    throw new PhenoML.lang2Fhir.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 500:
-                    throw new phenoml.lang2Fhir.InternalServerError(
+                    throw new PhenoML.lang2Fhir.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -101,15 +103,15 @@ export class Lang2Fhir {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /lang2fhir/create.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /lang2fhir/create.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -121,12 +123,12 @@ export class Lang2Fhir {
      * Automatically detects Patient, Condition, MedicationRequest, Observation, and other resource types from the text.
      * Resources are linked with proper references (e.g., Conditions reference the Patient).
      *
-     * @param {phenoml.lang2Fhir.CreateMultiRequest} request
+     * @param {PhenoML.lang2Fhir.CreateMultiRequest} request
      * @param {Lang2Fhir.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.lang2Fhir.BadRequestError}
-     * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
-     * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link PhenoML.lang2Fhir.BadRequestError}
+     * @throws {@link PhenoML.lang2Fhir.UnauthorizedError}
+     * @throws {@link PhenoML.lang2Fhir.InternalServerError}
      *
      * @example
      *     await client.lang2Fhir.createMulti({
@@ -134,16 +136,16 @@ export class Lang2Fhir {
      *     })
      */
     public createMulti(
-        request: phenoml.lang2Fhir.CreateMultiRequest,
+        request: PhenoML.lang2Fhir.CreateMultiRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.lang2Fhir.CreateMultiResponse> {
+    ): core.HttpResponsePromise<PhenoML.lang2Fhir.CreateMultiResponse> {
         return core.HttpResponsePromise.fromPromise(this.__createMulti(request, requestOptions));
     }
 
     private async __createMulti(
-        request: phenoml.lang2Fhir.CreateMultiRequest,
+        request: PhenoML.lang2Fhir.CreateMultiRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.lang2Fhir.CreateMultiResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.lang2Fhir.CreateMultiResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -153,7 +155,7 @@ export class Lang2Fhir {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "lang2fhir/create/multi",
             ),
             method: "POST",
@@ -170,7 +172,7 @@ export class Lang2Fhir {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.lang2Fhir.CreateMultiResponse,
+                data: _response.body as PhenoML.lang2Fhir.CreateMultiResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -178,19 +180,19 @@ export class Lang2Fhir {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.lang2Fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.lang2Fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.lang2Fhir.UnauthorizedError(
+                    throw new PhenoML.lang2Fhir.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 500:
-                    throw new phenoml.lang2Fhir.InternalServerError(
+                    throw new PhenoML.lang2Fhir.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -200,15 +202,15 @@ export class Lang2Fhir {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /lang2fhir/create/multi.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /lang2fhir/create/multi.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -225,13 +227,13 @@ export class Lang2Fhir {
      * PractitionerRole, Procedure, Provenance, Questionnaire, QuestionnaireResponse, RelatedPerson,
      * Schedule, ServiceRequest, Slot, and Specimen.
      *
-     * @param {phenoml.lang2Fhir.SearchRequest} request
+     * @param {PhenoML.lang2Fhir.SearchRequest} request
      * @param {Lang2Fhir.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.lang2Fhir.BadRequestError}
-     * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
-     * @throws {@link phenoml.lang2Fhir.FailedDependencyError}
-     * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link PhenoML.lang2Fhir.BadRequestError}
+     * @throws {@link PhenoML.lang2Fhir.UnauthorizedError}
+     * @throws {@link PhenoML.lang2Fhir.FailedDependencyError}
+     * @throws {@link PhenoML.lang2Fhir.InternalServerError}
      *
      * @example
      *     await client.lang2Fhir.search({
@@ -239,16 +241,16 @@ export class Lang2Fhir {
      *     })
      */
     public search(
-        request: phenoml.lang2Fhir.SearchRequest,
+        request: PhenoML.lang2Fhir.SearchRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.lang2Fhir.SearchResponse> {
+    ): core.HttpResponsePromise<PhenoML.lang2Fhir.SearchResponse> {
         return core.HttpResponsePromise.fromPromise(this.__search(request, requestOptions));
     }
 
     private async __search(
-        request: phenoml.lang2Fhir.SearchRequest,
+        request: PhenoML.lang2Fhir.SearchRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.lang2Fhir.SearchResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.lang2Fhir.SearchResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -258,7 +260,7 @@ export class Lang2Fhir {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "lang2fhir/search",
             ),
             method: "POST",
@@ -274,30 +276,30 @@ export class Lang2Fhir {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.lang2Fhir.SearchResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.lang2Fhir.SearchResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.lang2Fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.lang2Fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.lang2Fhir.UnauthorizedError(
+                    throw new PhenoML.lang2Fhir.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 424:
-                    throw new phenoml.lang2Fhir.FailedDependencyError(
+                    throw new PhenoML.lang2Fhir.FailedDependencyError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 500:
-                    throw new phenoml.lang2Fhir.InternalServerError(
+                    throw new PhenoML.lang2Fhir.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -307,15 +309,15 @@ export class Lang2Fhir {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /lang2fhir/search.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /lang2fhir/search.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -334,13 +336,13 @@ export class Lang2Fhir {
      * - A custom profile with the same id has already been uploaded
      * - A custom profile with the same url has already been uploaded
      *
-     * @param {phenoml.lang2Fhir.ProfileUploadRequest} request
+     * @param {PhenoML.lang2Fhir.ProfileUploadRequest} request
      * @param {Lang2Fhir.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.lang2Fhir.BadRequestError}
-     * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
-     * @throws {@link phenoml.lang2Fhir.ForbiddenError}
-     * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link PhenoML.lang2Fhir.BadRequestError}
+     * @throws {@link PhenoML.lang2Fhir.UnauthorizedError}
+     * @throws {@link PhenoML.lang2Fhir.ForbiddenError}
+     * @throws {@link PhenoML.lang2Fhir.InternalServerError}
      *
      * @example
      *     await client.lang2Fhir.uploadProfile({
@@ -348,16 +350,16 @@ export class Lang2Fhir {
      *     })
      */
     public uploadProfile(
-        request: phenoml.lang2Fhir.ProfileUploadRequest,
+        request: PhenoML.lang2Fhir.ProfileUploadRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.lang2Fhir.Lang2FhirUploadProfileResponse> {
+    ): core.HttpResponsePromise<PhenoML.lang2Fhir.Lang2FhirUploadProfileResponse> {
         return core.HttpResponsePromise.fromPromise(this.__uploadProfile(request, requestOptions));
     }
 
     private async __uploadProfile(
-        request: phenoml.lang2Fhir.ProfileUploadRequest,
+        request: PhenoML.lang2Fhir.ProfileUploadRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.lang2Fhir.Lang2FhirUploadProfileResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.lang2Fhir.Lang2FhirUploadProfileResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -367,7 +369,7 @@ export class Lang2Fhir {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "lang2fhir/profile/upload",
             ),
             method: "POST",
@@ -384,7 +386,7 @@ export class Lang2Fhir {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.lang2Fhir.Lang2FhirUploadProfileResponse,
+                data: _response.body as PhenoML.lang2Fhir.Lang2FhirUploadProfileResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -392,21 +394,21 @@ export class Lang2Fhir {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.lang2Fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.lang2Fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.lang2Fhir.UnauthorizedError(
+                    throw new PhenoML.lang2Fhir.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 403:
-                    throw new phenoml.lang2Fhir.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.lang2Fhir.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.lang2Fhir.InternalServerError(
+                    throw new PhenoML.lang2Fhir.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -416,15 +418,15 @@ export class Lang2Fhir {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /lang2fhir/profile/upload.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /lang2fhir/profile/upload.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -434,12 +436,12 @@ export class Lang2Fhir {
     /**
      * Extracts text from a document (PDF or image) and converts it into a structured FHIR resource
      *
-     * @param {phenoml.lang2Fhir.DocumentRequest} request
+     * @param {PhenoML.lang2Fhir.DocumentRequest} request
      * @param {Lang2Fhir.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.lang2Fhir.BadRequestError}
-     * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
-     * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link PhenoML.lang2Fhir.BadRequestError}
+     * @throws {@link PhenoML.lang2Fhir.UnauthorizedError}
+     * @throws {@link PhenoML.lang2Fhir.InternalServerError}
      *
      * @example
      *     await client.lang2Fhir.document({
@@ -449,16 +451,16 @@ export class Lang2Fhir {
      *     })
      */
     public document(
-        request: phenoml.lang2Fhir.DocumentRequest,
+        request: PhenoML.lang2Fhir.DocumentRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.lang2Fhir.FhirResource> {
+    ): core.HttpResponsePromise<PhenoML.lang2Fhir.FhirResource> {
         return core.HttpResponsePromise.fromPromise(this.__document(request, requestOptions));
     }
 
     private async __document(
-        request: phenoml.lang2Fhir.DocumentRequest,
+        request: PhenoML.lang2Fhir.DocumentRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.lang2Fhir.FhirResource>> {
+    ): Promise<core.WithRawResponse<PhenoML.lang2Fhir.FhirResource>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -468,7 +470,7 @@ export class Lang2Fhir {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "lang2fhir/document",
             ),
             method: "POST",
@@ -484,25 +486,25 @@ export class Lang2Fhir {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.lang2Fhir.FhirResource, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.lang2Fhir.FhirResource, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.lang2Fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.lang2Fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.lang2Fhir.UnauthorizedError(
+                    throw new PhenoML.lang2Fhir.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 500:
-                    throw new phenoml.lang2Fhir.InternalServerError(
+                    throw new PhenoML.lang2Fhir.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -512,15 +514,15 @@ export class Lang2Fhir {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /lang2fhir/document.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /lang2fhir/document.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -533,13 +535,13 @@ export class Lang2Fhir {
      * Automatically detects Patient, Condition, MedicationRequest, Observation, and other resource types.
      * Resources are linked with proper references (e.g., Conditions reference the Patient).
      *
-     * @param {phenoml.lang2Fhir.DocumentMultiRequest} request
+     * @param {PhenoML.lang2Fhir.DocumentMultiRequest} request
      * @param {Lang2Fhir.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.lang2Fhir.BadRequestError}
-     * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
-     * @throws {@link phenoml.lang2Fhir.UnprocessableEntityError}
-     * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link PhenoML.lang2Fhir.BadRequestError}
+     * @throws {@link PhenoML.lang2Fhir.UnauthorizedError}
+     * @throws {@link PhenoML.lang2Fhir.UnprocessableEntityError}
+     * @throws {@link PhenoML.lang2Fhir.InternalServerError}
      *
      * @example
      *     await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
@@ -548,18 +550,18 @@ export class Lang2Fhir {
      *     })
      */
     public extractMultipleFhirResourcesFromADocument(
-        request: phenoml.lang2Fhir.DocumentMultiRequest,
+        request: PhenoML.lang2Fhir.DocumentMultiRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.lang2Fhir.CreateMultiResponse> {
+    ): core.HttpResponsePromise<PhenoML.lang2Fhir.CreateMultiResponse> {
         return core.HttpResponsePromise.fromPromise(
             this.__extractMultipleFhirResourcesFromADocument(request, requestOptions),
         );
     }
 
     private async __extractMultipleFhirResourcesFromADocument(
-        request: phenoml.lang2Fhir.DocumentMultiRequest,
+        request: PhenoML.lang2Fhir.DocumentMultiRequest,
         requestOptions?: Lang2Fhir.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.lang2Fhir.CreateMultiResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.lang2Fhir.CreateMultiResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -569,7 +571,7 @@ export class Lang2Fhir {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "lang2fhir/document/multi",
             ),
             method: "POST",
@@ -586,7 +588,7 @@ export class Lang2Fhir {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.lang2Fhir.CreateMultiResponse,
+                data: _response.body as PhenoML.lang2Fhir.CreateMultiResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -594,24 +596,24 @@ export class Lang2Fhir {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.lang2Fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.lang2Fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.lang2Fhir.UnauthorizedError(
+                    throw new PhenoML.lang2Fhir.UnauthorizedError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 422:
-                    throw new phenoml.lang2Fhir.UnprocessableEntityError(
+                    throw new PhenoML.lang2Fhir.UnprocessableEntityError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 case 500:
-                    throw new phenoml.lang2Fhir.InternalServerError(
+                    throw new PhenoML.lang2Fhir.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -621,22 +623,27 @@ export class Lang2Fhir {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /lang2fhir/document/multi.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /lang2fhir/document/multi.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

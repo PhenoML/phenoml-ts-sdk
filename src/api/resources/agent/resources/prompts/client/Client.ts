@@ -5,10 +5,12 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/he
 import * as core from "../../../../../../core/index.js";
 import * as environments from "../../../../../../environments.js";
 import * as errors from "../../../../../../errors/index.js";
-import * as phenoml from "../../../../../index.js";
+import * as PhenoML from "../../../../../index.js";
 
 export declare namespace Prompts {
-    export interface Options extends BaseClientOptions {}
+    export interface Options extends BaseClientOptions {
+        token?: core.Supplier<core.BearerToken>;
+    }
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -16,20 +18,20 @@ export declare namespace Prompts {
 export class Prompts {
     protected readonly _options: Prompts.Options;
 
-    constructor(_options: Prompts.Options) {
+    constructor(_options: Prompts.Options = {}) {
         this._options = _options;
     }
 
     /**
      * Creates a new agent prompt
      *
-     * @param {phenoml.agent.AgentPromptsCreateRequest} request
+     * @param {PhenoML.agent.AgentPromptsCreateRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.BadRequestError}
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.BadRequestError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.prompts.create({
@@ -38,16 +40,16 @@ export class Prompts {
      *     })
      */
     public create(
-        request: phenoml.agent.AgentPromptsCreateRequest,
+        request: PhenoML.agent.AgentPromptsCreateRequest,
         requestOptions?: Prompts.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentPromptsResponse> {
+    ): core.HttpResponsePromise<PhenoML.agent.AgentPromptsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: phenoml.agent.AgentPromptsCreateRequest,
+        request: PhenoML.agent.AgentPromptsCreateRequest,
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.AgentPromptsResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -57,7 +59,7 @@ export class Prompts {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "agent/prompts",
             ),
             method: "POST",
@@ -73,21 +75,21 @@ export class Prompts {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -97,15 +99,15 @@ export class Prompts {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /agent/prompts.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling POST /agent/prompts.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -117,20 +119,20 @@ export class Prompts {
      *
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.prompts.list()
      */
-    public list(requestOptions?: Prompts.RequestOptions): core.HttpResponsePromise<phenoml.agent.PromptsListResponse> {
+    public list(requestOptions?: Prompts.RequestOptions): core.HttpResponsePromise<PhenoML.agent.PromptsListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
     }
 
     private async __list(
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.PromptsListResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.PromptsListResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -140,7 +142,7 @@ export class Prompts {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "agent/prompts/list",
             ),
             method: "GET",
@@ -153,19 +155,19 @@ export class Prompts {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.PromptsListResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.agent.PromptsListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -175,15 +177,15 @@ export class Prompts {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /agent/prompts/list.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling GET /agent/prompts/list.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -196,10 +198,10 @@ export class Prompts {
      * @param {string} id - Prompt ID
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.NotFoundError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.NotFoundError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.prompts.get("id")
@@ -207,14 +209,14 @@ export class Prompts {
     public get(
         id: string,
         requestOptions?: Prompts.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentPromptsResponse> {
+    ): core.HttpResponsePromise<PhenoML.agent.AgentPromptsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
     }
 
     private async __get(
         id: string,
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.AgentPromptsResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -224,7 +226,7 @@ export class Prompts {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `agent/prompts/${core.url.encodePathParam(id)}`,
             ),
             method: "GET",
@@ -237,21 +239,21 @@ export class Prompts {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
-                    throw new phenoml.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -261,15 +263,15 @@ export class Prompts {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling GET /agent/prompts/{id}.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling GET /agent/prompts/{id}.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -280,31 +282,31 @@ export class Prompts {
      * Updates an existing prompt
      *
      * @param {string} id - Prompt ID
-     * @param {phenoml.agent.AgentPromptsUpdateRequest} request
+     * @param {PhenoML.agent.AgentPromptsUpdateRequest} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.BadRequestError}
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.NotFoundError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.BadRequestError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.NotFoundError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.prompts.update("id")
      */
     public update(
         id: string,
-        request: phenoml.agent.AgentPromptsUpdateRequest = {},
+        request: PhenoML.agent.AgentPromptsUpdateRequest = {},
         requestOptions?: Prompts.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentPromptsResponse> {
+    ): core.HttpResponsePromise<PhenoML.agent.AgentPromptsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
     }
 
     private async __update(
         id: string,
-        request: phenoml.agent.AgentPromptsUpdateRequest = {},
+        request: PhenoML.agent.AgentPromptsUpdateRequest = {},
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.AgentPromptsResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -314,7 +316,7 @@ export class Prompts {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `agent/prompts/${core.url.encodePathParam(id)}`,
             ),
             method: "PUT",
@@ -330,23 +332,23 @@ export class Prompts {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
-                    throw new phenoml.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -356,15 +358,15 @@ export class Prompts {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling PUT /agent/prompts/{id}.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling PUT /agent/prompts/{id}.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -377,10 +379,10 @@ export class Prompts {
      * @param {string} id - Prompt ID
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.NotFoundError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.NotFoundError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.prompts.delete("id")
@@ -388,14 +390,14 @@ export class Prompts {
     public delete(
         id: string,
         requestOptions?: Prompts.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.PromptsDeleteResponse> {
+    ): core.HttpResponsePromise<PhenoML.agent.PromptsDeleteResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
     }
 
     private async __delete(
         id: string,
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.PromptsDeleteResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.PromptsDeleteResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -405,7 +407,7 @@ export class Prompts {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `agent/prompts/${core.url.encodePathParam(id)}`,
             ),
             method: "DELETE",
@@ -418,21 +420,21 @@ export class Prompts {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.PromptsDeleteResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.agent.PromptsDeleteResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
-                    throw new phenoml.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -442,15 +444,15 @@ export class Prompts {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling DELETE /agent/prompts/{id}.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling DELETE /agent/prompts/{id}.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -461,14 +463,14 @@ export class Prompts {
      * Patches an existing prompt
      *
      * @param {string} id - Agent Prompt ID
-     * @param {phenoml.agent.JsonPatch} request
+     * @param {PhenoML.agent.JsonPatch} request
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.BadRequestError}
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.NotFoundError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.BadRequestError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.NotFoundError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.prompts.patch("id", [{
@@ -486,17 +488,17 @@ export class Prompts {
      */
     public patch(
         id: string,
-        request: phenoml.agent.JsonPatch,
+        request: PhenoML.agent.JsonPatch,
         requestOptions?: Prompts.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentPromptsResponse> {
+    ): core.HttpResponsePromise<PhenoML.agent.AgentPromptsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__patch(id, request, requestOptions));
     }
 
     private async __patch(
         id: string,
-        request: phenoml.agent.JsonPatch,
+        request: PhenoML.agent.JsonPatch,
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.AgentPromptsResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -506,7 +508,7 @@ export class Prompts {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 `agent/prompts/${core.url.encodePathParam(id)}`,
             ),
             method: "PATCH",
@@ -522,23 +524,23 @@ export class Prompts {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new phenoml.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
-                    throw new phenoml.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -548,15 +550,15 @@ export class Prompts {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError("Timeout exceeded when calling PATCH /agent/prompts/{id}.");
+                throw new errors.PhenoMLTimeoutError("Timeout exceeded when calling PATCH /agent/prompts/{id}.");
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
@@ -568,22 +570,22 @@ export class Prompts {
      *
      * @param {Prompts.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link PhenoML.agent.UnauthorizedError}
+     * @throws {@link PhenoML.agent.ForbiddenError}
+     * @throws {@link PhenoML.agent.InternalServerError}
      *
      * @example
      *     await client.agent.prompts.loadDefaults()
      */
     public loadDefaults(
         requestOptions?: Prompts.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.SuccessResponse> {
+    ): core.HttpResponsePromise<PhenoML.agent.SuccessResponse> {
         return core.HttpResponsePromise.fromPromise(this.__loadDefaults(requestOptions));
     }
 
     private async __loadDefaults(
         requestOptions?: Prompts.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.SuccessResponse>> {
+    ): Promise<core.WithRawResponse<PhenoML.agent.SuccessResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
@@ -593,7 +595,7 @@ export class Prompts {
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
+                    environments.PhenoMLEnvironment.Default,
                 "agent/prompts/load-defaults",
             ),
             method: "POST",
@@ -606,19 +608,19 @@ export class Prompts {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.SuccessResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as PhenoML.agent.SuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                    throw new PhenoML.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
-                    throw new errors.phenomlError({
+                    throw new errors.PhenoMLError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                         rawResponse: _response.rawResponse,
@@ -628,24 +630,29 @@ export class Prompts {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.phenomlTimeoutError(
+                throw new errors.PhenoMLTimeoutError(
                     "Timeout exceeded when calling POST /agent/prompts/load-defaults.",
                 );
             case "unknown":
-                throw new errors.phenomlError({
+                throw new errors.PhenoMLError({
                     message: _response.error.errorMessage,
                     rawResponse: _response.rawResponse,
                 });
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }
