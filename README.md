@@ -20,14 +20,13 @@ A full reference for this library is available [here](https://github.com/phenoml
 Instantiate and use the client with the following:
 
 ```typescript
-import { PhenoMLClient } from "phenoml";
+import { phenomlClient } from "phenoml";
 
-const client = new PhenoMLClient({
-            username: "your_username",
-            password: "your_password",
-            baseUrl: "https://your-phenoml-instance.com"
-        });
-
+const client = new phenomlClient({
+    clientId: "YOUR_CLIENT_ID",
+    clientSecret: "YOUR_CLIENT_SECRET",
+    baseUrl: "https://yourinstance.app.pheno.ml",
+});
 
 await client.agent.create({
     name: "name",
