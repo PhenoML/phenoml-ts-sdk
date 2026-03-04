@@ -2,17 +2,17 @@
 
 ### Breaking Changes
 
-- **Authentication**: Migrated from token-based auth to OAuth 2.0 client credentials flow. The client now accepts `clientId` and `clientSecret` options (defaulting to `PHENOML_CLIENT_ID` and `PHENOML_CLIENT_SECRET` environment variables) instead of a `token` parameter. Tokens are automatically obtained and refreshed via the `/v2/auth/token` endpoint.
+- **Authentication**: Replaced username/password authentication with OAuth 2.0 client credentials. The client now accepts `clientId` and `clientSecret` options (defaulting to `PHENOML_CLIENT_ID` and `PHENOML_CLIENT_SECRET` environment variables). Tokens are automatically obtained and refreshed via the `/v2/auth/token` endpoint. A `token` option is still supported for pre-existing tokens.
 - **Client renamed**: The main exported client class is now `phenomlClient` (was `PhenoMLClient`).
 - **Wrapper client removed**: The custom `WrapperClient` has been removed. Use `phenomlClient` directly.
 
 ### Migration Guide
 
-**Authentication** — replace token-based auth with client credentials:
+**Authentication** — replace username/password with client credentials:
 ```ts
 // Before
 import { PhenoMLClient } from "phenoml";
-const client = new PhenoMLClient({ token: "YOUR_TOKEN" });
+const client = new PhenoMLClient({ username: "user", password: "pass" });
 
 // After (option 1: env vars PHENOML_CLIENT_ID and PHENOML_CLIENT_SECRET)
 import { phenomlClient } from "phenoml";
