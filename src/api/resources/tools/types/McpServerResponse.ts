@@ -2,11 +2,11 @@
 
 export interface McpServerResponse {
     /** Whether the MCP server was created successfully */
-    success?: boolean;
+    success?: boolean | undefined;
     /** Status message */
-    message?: string;
+    message?: string | undefined;
     /** MCP server data */
-    data?: McpServerResponse.Data;
+    data?: McpServerResponse.Data | undefined;
 }
 
 export namespace McpServerResponse {
@@ -15,12 +15,12 @@ export namespace McpServerResponse {
      */
     export interface Data {
         /** ID of the MCP server */
-        id?: string;
+        id?: string | undefined;
         /** Name of the MCP server */
-        name?: string;
+        name?: string | undefined;
         /** Description of the MCP server */
-        description?: string;
+        description?: string | undefined;
         /** URL of the MCP server */
-        mcp_server_url?: string;
+        mcp_server_url?: string | undefined;
     }
 }

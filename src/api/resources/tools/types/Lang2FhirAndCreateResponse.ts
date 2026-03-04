@@ -2,10 +2,10 @@
 
 export interface Lang2FhirAndCreateResponse {
     /** The created FHIR resource */
-    fhir_resource?: Record<string, unknown>;
+    fhir_resource?: Record<string, unknown> | undefined;
     /** ID of the resource in the FHIR server (if successfully stored) */
-    fhir_id?: string;
-    success?: boolean;
+    fhir_id?: string | undefined;
+    success?: boolean | undefined;
     /** Status message */
-    message?: string;
+    message?: string | undefined;
 }

@@ -3,7 +3,7 @@
 import type * as core from "../../../../core/index.js";
 import * as errors from "../../../../errors/index.js";
 
-export class ConflictError extends errors.phenomlError {
+export class ConflictError extends errors.PhenoMLError {
     constructor(body?: unknown, rawResponse?: core.RawResponse) {
         super({
             message: "ConflictError",
@@ -11,6 +11,11 @@ export class ConflictError extends errors.phenomlError {
             body: body,
             rawResponse: rawResponse,
         });
-        Object.setPrototypeOf(this, ConflictError.prototype);
+        Object.setPrototypeOf(this, new.target.prototype);
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, this.constructor);
+        }
+
+        this.name = this.constructor.name;
     }
 }

@@ -2,16 +2,21 @@
 
 import type * as core from "../../../../core/index.js";
 import * as errors from "../../../../errors/index.js";
-import type * as phenoml from "../../../index.js";
+import type * as PhenoML from "../../../index.js";
 
-export class BadGatewayError extends errors.phenomlError {
-    constructor(body: phenoml.fhir.ErrorResponse, rawResponse?: core.RawResponse) {
+export class BadGatewayError extends errors.PhenoMLError {
+    constructor(body: PhenoML.fhir.ErrorResponse, rawResponse?: core.RawResponse) {
         super({
             message: "BadGatewayError",
             statusCode: 502,
             body: body,
             rawResponse: rawResponse,
         });
-        Object.setPrototypeOf(this, BadGatewayError.prototype);
+        Object.setPrototypeOf(this, new.target.prototype);
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, this.constructor);
+        }
+
+        this.name = this.constructor.name;
     }
 }

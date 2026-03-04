@@ -2,15 +2,15 @@
 
 export interface ExecuteWorkflowResponse {
     /** Whether the workflow execution was successful */
-    success?: boolean;
+    success?: boolean | undefined;
     /** Status message with execution details */
-    message?: string;
-    results?: ExecuteWorkflowResponse.Results;
+    message?: string | undefined;
+    results?: ExecuteWorkflowResponse.Results | undefined;
 }
 
 export namespace ExecuteWorkflowResponse {
     export interface Results {
         /** Results for each executed workflow step, keyed by step ID */
-        steps?: Record<string, unknown>;
+        steps?: Record<string, unknown> | undefined;
     }
 }

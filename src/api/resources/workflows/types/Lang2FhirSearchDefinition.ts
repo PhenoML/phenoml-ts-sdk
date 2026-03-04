@@ -2,13 +2,13 @@
 
 export interface Lang2FhirSearchDefinition {
     /** Original natural language query */
-    original_query?: string;
+    original_query?: string | undefined;
     /** FHIR resource type to search */
-    resource_type?: string;
+    resource_type?: string | undefined;
     /** Prepared FHIR search parameters */
-    search_parameters?: Record<string, unknown>;
+    search_parameters?: Record<string, unknown> | undefined;
     /** Fields needed from search results */
-    required_fields?: string[];
+    required_fields?: string[] | undefined;
     /** Maps placeholder tokens to their input data paths */
-    runtime_placeholders?: Record<string, string>;
+    runtime_placeholders?: Record<string, string> | undefined;
 }

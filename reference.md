@@ -1,6 +1,6 @@
 # Reference
 ## Agent
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">create</a>({ ...params }) -> phenoml.AgentResponse</code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">create</a>({ ...params }) -> PhenoML.AgentResponse</code></summary>
 <dl>
 <dd>
 
@@ -47,7 +47,7 @@ await client.agent.create({
 <dl>
 <dd>
 
-**request:** `phenoml.AgentCreateRequest` 
+**request:** `PhenoML.AgentCreateRequest` 
     
 </dd>
 </dl>
@@ -55,7 +55,7 @@ await client.agent.create({
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -67,7 +67,7 @@ await client.agent.create({
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">list</a>({ ...params }) -> phenoml.AgentListResponse</code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">list</a>({ ...params }) -> PhenoML.AgentListResponse</code></summary>
 <dl>
 <dd>
 
@@ -112,7 +112,7 @@ await client.agent.list({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentListRequest` 
+**request:** `PhenoML.agent.AgentListRequest` 
     
 </dd>
 </dl>
@@ -120,7 +120,7 @@ await client.agent.list({
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -132,7 +132,7 @@ await client.agent.list({
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">get</a>(id) -> phenoml.AgentResponse</code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">get</a>(id) -> PhenoML.AgentResponse</code></summary>
 <dl>
 <dd>
 
@@ -183,7 +183,7 @@ await client.agent.get("id");
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -195,7 +195,7 @@ await client.agent.get("id");
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">update</a>(id, { ...params }) -> phenoml.AgentResponse</code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">update</a>(id, { ...params }) -> PhenoML.AgentResponse</code></summary>
 <dl>
 <dd>
 
@@ -250,7 +250,7 @@ await client.agent.update("id", {
 <dl>
 <dd>
 
-**request:** `phenoml.AgentCreateRequest` 
+**request:** `PhenoML.AgentCreateRequest` 
     
 </dd>
 </dl>
@@ -258,7 +258,7 @@ await client.agent.update("id", {
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -270,7 +270,7 @@ await client.agent.update("id", {
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">delete</a>(id) -> phenoml.AgentDeleteResponse</code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">delete</a>(id) -> PhenoML.AgentDeleteResponse</code></summary>
 <dl>
 <dd>
 
@@ -321,7 +321,7 @@ await client.agent.delete("id");
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -333,7 +333,7 @@ await client.agent.delete("id");
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">patch</a>(id, { ...params }) -> phenoml.AgentResponse</code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">patch</a>(id, { ...params }) -> PhenoML.AgentResponse</code></summary>
 <dl>
 <dd>
 
@@ -395,7 +395,7 @@ await client.agent.patch("id", [{
 <dl>
 <dd>
 
-**request:** `phenoml.JsonPatch` 
+**request:** `PhenoML.JsonPatch` 
     
 </dd>
 </dl>
@@ -403,7 +403,7 @@ await client.agent.patch("id", [{
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -415,7 +415,7 @@ await client.agent.patch("id", [{
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">chat</a>({ ...params }) -> phenoml.AgentChatResponse</code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">chat</a>({ ...params }) -> PhenoML.AgentChatResponse</code></summary>
 <dl>
 <dd>
 
@@ -463,7 +463,7 @@ await client.agent.chat({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentChatRequest` 
+**request:** `PhenoML.agent.AgentChatRequest` 
     
 </dd>
 </dl>
@@ -471,7 +471,7 @@ await client.agent.chat({
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -483,7 +483,7 @@ await client.agent.chat({
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">streamChat</a>({ ...params }) -> core.Stream<phenoml.AgentChatStreamEvent></code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">streamChat</a>({ ...params }) -> core.Stream&lt;PhenoML.AgentChatStreamEvent&gt;</code></summary>
 <dl>
 <dd>
 
@@ -536,7 +536,7 @@ for await (const item of response) {
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentStreamChatRequest` 
+**request:** `PhenoML.agent.AgentStreamChatRequest` 
     
 </dd>
 </dl>
@@ -544,7 +544,7 @@ for await (const item of response) {
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -556,7 +556,7 @@ for await (const item of response) {
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">getChatMessages</a>({ ...params }) -> phenoml.AgentGetChatMessagesResponse</code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">getChatMessages</a>({ ...params }) -> PhenoML.AgentGetChatMessagesResponse</code></summary>
 <dl>
 <dd>
 
@@ -604,7 +604,7 @@ await client.agent.getChatMessages({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentGetChatMessagesRequest` 
+**request:** `PhenoML.agent.AgentGetChatMessagesRequest` 
     
 </dd>
 </dl>
@@ -612,7 +612,7 @@ await client.agent.getChatMessages({
 <dl>
 <dd>
 
-**requestOptions:** `Agent.RequestOptions` 
+**requestOptions:** `AgentClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -625,7 +625,7 @@ await client.agent.getChatMessages({
 </details>
 
 ## Agent Prompts
-<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">create</a>({ ...params }) -> phenoml.AgentPromptsResponse</code></summary>
+<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">create</a>({ ...params }) -> PhenoML.AgentPromptsResponse</code></summary>
 <dl>
 <dd>
 
@@ -671,7 +671,7 @@ await client.agent.prompts.create({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentPromptsCreateRequest` 
+**request:** `PhenoML.agent.AgentPromptsCreateRequest` 
     
 </dd>
 </dl>
@@ -679,7 +679,7 @@ await client.agent.prompts.create({
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `PromptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -691,7 +691,7 @@ await client.agent.prompts.create({
 </dl>
 </details>
 
-<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">list</a>() -> phenoml.PromptsListResponse</code></summary>
+<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">list</a>() -> PhenoML.PromptsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -734,7 +734,7 @@ await client.agent.prompts.list();
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `PromptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -746,7 +746,7 @@ await client.agent.prompts.list();
 </dl>
 </details>
 
-<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">get</a>(id) -> phenoml.AgentPromptsResponse</code></summary>
+<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">get</a>(id) -> PhenoML.AgentPromptsResponse</code></summary>
 <dl>
 <dd>
 
@@ -797,7 +797,7 @@ await client.agent.prompts.get("id");
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `PromptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -809,7 +809,7 @@ await client.agent.prompts.get("id");
 </dl>
 </details>
 
-<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">update</a>(id, { ...params }) -> phenoml.AgentPromptsResponse</code></summary>
+<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">update</a>(id, { ...params }) -> PhenoML.AgentPromptsResponse</code></summary>
 <dl>
 <dd>
 
@@ -860,7 +860,7 @@ await client.agent.prompts.update("id");
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentPromptsUpdateRequest` 
+**request:** `PhenoML.agent.AgentPromptsUpdateRequest` 
     
 </dd>
 </dl>
@@ -868,7 +868,7 @@ await client.agent.prompts.update("id");
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `PromptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -880,7 +880,7 @@ await client.agent.prompts.update("id");
 </dl>
 </details>
 
-<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">delete</a>(id) -> phenoml.PromptsDeleteResponse</code></summary>
+<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">delete</a>(id) -> PhenoML.PromptsDeleteResponse</code></summary>
 <dl>
 <dd>
 
@@ -931,7 +931,7 @@ await client.agent.prompts.delete("id");
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `PromptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -943,7 +943,7 @@ await client.agent.prompts.delete("id");
 </dl>
 </details>
 
-<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">patch</a>(id, { ...params }) -> phenoml.AgentPromptsResponse</code></summary>
+<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">patch</a>(id, { ...params }) -> PhenoML.AgentPromptsResponse</code></summary>
 <dl>
 <dd>
 
@@ -1005,7 +1005,7 @@ await client.agent.prompts.patch("id", [{
 <dl>
 <dd>
 
-**request:** `phenoml.JsonPatch` 
+**request:** `PhenoML.JsonPatch` 
     
 </dd>
 </dl>
@@ -1013,7 +1013,7 @@ await client.agent.prompts.patch("id", [{
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `PromptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1025,7 +1025,7 @@ await client.agent.prompts.patch("id", [{
 </dl>
 </details>
 
-<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">loadDefaults</a>() -> phenoml.SuccessResponse</code></summary>
+<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">loadDefaults</a>() -> PhenoML.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -1068,7 +1068,7 @@ await client.agent.prompts.loadDefaults();
 <dl>
 <dd>
 
-**requestOptions:** `Prompts.RequestOptions` 
+**requestOptions:** `PromptsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1081,7 +1081,7 @@ await client.agent.prompts.loadDefaults();
 </details>
 
 ## Authtoken Auth
-<details><summary><code>client.authtoken.auth.<a href="/src/api/resources/authtoken/resources/auth/client/Client.ts">generateToken</a>({ ...params }) -> phenoml.AuthGenerateTokenResponse</code></summary>
+<details><summary><code>client.authtoken.auth.<a href="/src/api/resources/authtoken/resources/auth/client/Client.ts">generateToken</a>({ ...params }) -> PhenoML.AuthGenerateTokenResponse</code></summary>
 <dl>
 <dd>
 
@@ -1127,7 +1127,7 @@ await client.authtoken.auth.generateToken({
 <dl>
 <dd>
 
-**request:** `phenoml.authtoken.AuthGenerateTokenRequest` 
+**request:** `PhenoML.authtoken.AuthGenerateTokenRequest` 
     
 </dd>
 </dl>
@@ -1135,7 +1135,73 @@ await client.authtoken.auth.generateToken({
 <dl>
 <dd>
 
-**requestOptions:** `Auth.RequestOptions` 
+**requestOptions:** `AuthClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.authtoken.auth.<a href="/src/api/resources/authtoken/resources/auth/client/Client.ts">getToken</a>({ ...params }) -> PhenoML.TokenResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+OAuth 2.0 client credentials token endpoint (RFC 6749 §4.4).
+Accepts client_id and client_secret in the request body (JSON or
+form-encoded) or via Basic Auth header (RFC 6749 §2.3.1), and
+returns an access token with expiration information.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.authtoken.auth.getToken();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `PhenoML.authtoken.ClientCredentialsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AuthClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1148,7 +1214,7 @@ await client.authtoken.auth.generateToken({
 </details>
 
 ## Cohort
-<details><summary><code>client.cohort.<a href="/src/api/resources/cohort/client/Client.ts">analyze</a>({ ...params }) -> phenoml.CohortResponse</code></summary>
+<details><summary><code>client.cohort.<a href="/src/api/resources/cohort/client/Client.ts">analyze</a>({ ...params }) -> PhenoML.CohortResponse</code></summary>
 <dl>
 <dd>
 
@@ -1193,7 +1259,7 @@ await client.cohort.analyze({
 <dl>
 <dd>
 
-**request:** `phenoml.cohort.CohortRequest` 
+**request:** `PhenoML.cohort.CohortRequest` 
     
 </dd>
 </dl>
@@ -1201,7 +1267,7 @@ await client.cohort.analyze({
 <dl>
 <dd>
 
-**requestOptions:** `Cohort.RequestOptions` 
+**requestOptions:** `CohortClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1214,7 +1280,7 @@ await client.cohort.analyze({
 </details>
 
 ## Construe
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">uploadCodeSystem</a>({ ...params }) -> phenoml.ConstrueUploadCodeSystemResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">uploadCodeSystem</a>({ ...params }) -> PhenoML.ConstrueUploadCodeSystemResponse</code></summary>
 <dl>
 <dd>
 
@@ -1264,7 +1330,7 @@ await client.construe.uploadCodeSystem({
 <dl>
 <dd>
 
-**request:** `phenoml.construe.UploadRequest` 
+**request:** `PhenoML.construe.UploadRequest` 
     
 </dd>
 </dl>
@@ -1272,7 +1338,7 @@ await client.construe.uploadCodeSystem({
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1284,7 +1350,7 @@ await client.construe.uploadCodeSystem({
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">extractCodes</a>({ ...params }) -> phenoml.ExtractCodesResult</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">extractCodes</a>({ ...params }) -> PhenoML.ExtractCodesResult</code></summary>
 <dl>
 <dd>
 
@@ -1331,7 +1397,7 @@ await client.construe.extractCodes({
 <dl>
 <dd>
 
-**request:** `phenoml.construe.ExtractRequest` 
+**request:** `PhenoML.construe.ExtractRequest` 
     
 </dd>
 </dl>
@@ -1339,7 +1405,7 @@ await client.construe.extractCodes({
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1351,7 +1417,7 @@ await client.construe.extractCodes({
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">listAvailableCodeSystems</a>() -> phenoml.ListCodeSystemsResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">listAvailableCodeSystems</a>() -> PhenoML.ListCodeSystemsResponse</code></summary>
 <dl>
 <dd>
 
@@ -1394,7 +1460,7 @@ await client.construe.listAvailableCodeSystems();
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1406,7 +1472,7 @@ await client.construe.listAvailableCodeSystems();
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">getCodeSystemDetail</a>(codesystem, { ...params }) -> phenoml.GetCodeSystemDetailResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">getCodeSystemDetail</a>(codesystem, { ...params }) -> PhenoML.GetCodeSystemDetailResponse</code></summary>
 <dl>
 <dd>
 
@@ -1459,7 +1525,7 @@ await client.construe.getCodeSystemDetail("ICD-10-CM", {
 <dl>
 <dd>
 
-**request:** `phenoml.construe.GetConstrueCodesSystemsCodesystemRequest` 
+**request:** `PhenoML.construe.GetConstrueCodesSystemsCodesystemRequest` 
     
 </dd>
 </dl>
@@ -1467,7 +1533,7 @@ await client.construe.getCodeSystemDetail("ICD-10-CM", {
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1479,7 +1545,7 @@ await client.construe.getCodeSystemDetail("ICD-10-CM", {
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">deleteCustomCodeSystem</a>(codesystem, { ...params }) -> phenoml.DeleteCodeSystemResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">deleteCustomCodeSystem</a>(codesystem, { ...params }) -> PhenoML.DeleteCodeSystemResponse</code></summary>
 <dl>
 <dd>
 
@@ -1533,7 +1599,7 @@ await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
 <dl>
 <dd>
 
-**request:** `phenoml.construe.DeleteConstrueCodesSystemsCodesystemRequest` 
+**request:** `PhenoML.construe.DeleteConstrueCodesSystemsCodesystemRequest` 
     
 </dd>
 </dl>
@@ -1541,7 +1607,7 @@ await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1553,7 +1619,7 @@ await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">exportCustomCodeSystem</a>(codesystem, { ...params }) -> phenoml.ExportCodeSystemResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">exportCustomCodeSystem</a>(codesystem, { ...params }) -> PhenoML.ExportCodeSystemResponse</code></summary>
 <dl>
 <dd>
 
@@ -1608,7 +1674,7 @@ await client.construe.exportCustomCodeSystem("CUSTOM_CODES", {
 <dl>
 <dd>
 
-**request:** `phenoml.construe.GetConstrueCodesSystemsCodesystemExportRequest` 
+**request:** `PhenoML.construe.GetConstrueCodesSystemsCodesystemExportRequest` 
     
 </dd>
 </dl>
@@ -1616,7 +1682,7 @@ await client.construe.exportCustomCodeSystem("CUSTOM_CODES", {
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1628,7 +1694,7 @@ await client.construe.exportCustomCodeSystem("CUSTOM_CODES", {
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">listCodesInACodeSystem</a>(codesystem, { ...params }) -> phenoml.ListCodesResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">listCodesInACodeSystem</a>(codesystem, { ...params }) -> PhenoML.ListCodesResponse</code></summary>
 <dl>
 <dd>
 
@@ -1685,7 +1751,7 @@ await client.construe.listCodesInACodeSystem("ICD-10-CM", {
 <dl>
 <dd>
 
-**request:** `phenoml.construe.GetConstrueCodesCodesystemRequest` 
+**request:** `PhenoML.construe.GetConstrueCodesCodesystemRequest` 
     
 </dd>
 </dl>
@@ -1693,7 +1759,7 @@ await client.construe.listCodesInACodeSystem("ICD-10-CM", {
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1705,7 +1771,7 @@ await client.construe.listCodesInACodeSystem("ICD-10-CM", {
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">getASpecificCode</a>(codesystem, codeID, { ...params }) -> phenoml.GetCodeResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">getASpecificCode</a>(codesystem, codeID, { ...params }) -> PhenoML.GetCodeResponse</code></summary>
 <dl>
 <dd>
 
@@ -1768,7 +1834,7 @@ await client.construe.getASpecificCode("ICD-10-CM", "E11.65", {
 <dl>
 <dd>
 
-**request:** `phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest` 
+**request:** `PhenoML.construe.GetConstrueCodesCodesystemCodeIdRequest` 
     
 </dd>
 </dl>
@@ -1776,7 +1842,7 @@ await client.construe.getASpecificCode("ICD-10-CM", "E11.65", {
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1788,7 +1854,7 @@ await client.construe.getASpecificCode("ICD-10-CM", "E11.65", {
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">semanticSearchEmbeddingBased</a>(codesystem, { ...params }) -> phenoml.SemanticSearchResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">semanticSearchEmbeddingBased</a>(codesystem, { ...params }) -> PhenoML.SemanticSearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -1861,7 +1927,7 @@ await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
 <dl>
 <dd>
 
-**request:** `phenoml.construe.GetConstrueCodesCodesystemSearchSemanticRequest` 
+**request:** `PhenoML.construe.GetConstrueCodesCodesystemSearchSemanticRequest` 
     
 </dd>
 </dl>
@@ -1869,7 +1935,7 @@ await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1881,7 +1947,7 @@ await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">submitFeedbackOnExtractionResults</a>({ ...params }) -> phenoml.FeedbackResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">submitFeedbackOnExtractionResults</a>({ ...params }) -> PhenoML.FeedbackResponse</code></summary>
 <dl>
 <dd>
 
@@ -1943,7 +2009,7 @@ await client.construe.submitFeedbackOnExtractionResults({
 <dl>
 <dd>
 
-**request:** `phenoml.construe.FeedbackRequest` 
+**request:** `PhenoML.construe.FeedbackRequest` 
     
 </dd>
 </dl>
@@ -1951,7 +2017,7 @@ await client.construe.submitFeedbackOnExtractionResults({
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1963,7 +2029,7 @@ await client.construe.submitFeedbackOnExtractionResults({
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">terminologyServerTextSearch</a>(codesystem, { ...params }) -> phenoml.TextSearchResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">terminologyServerTextSearch</a>(codesystem, { ...params }) -> PhenoML.TextSearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -2041,7 +2107,7 @@ await client.construe.terminologyServerTextSearch("ICD-10-CM", {
 <dl>
 <dd>
 
-**request:** `phenoml.construe.GetConstrueCodesCodesystemSearchTextRequest` 
+**request:** `PhenoML.construe.GetConstrueCodesCodesystemSearchTextRequest` 
     
 </dd>
 </dl>
@@ -2049,7 +2115,7 @@ await client.construe.terminologyServerTextSearch("ICD-10-CM", {
 <dl>
 <dd>
 
-**requestOptions:** `Construe.RequestOptions` 
+**requestOptions:** `ConstrueClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2062,7 +2128,7 @@ await client.construe.terminologyServerTextSearch("ICD-10-CM", {
 </details>
 
 ## Fhir
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">search</a>(fhir_provider_id, fhir_path, { ...params }) -> phenoml.FhirSearchResponse</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">search</a>(fhir_provider_id, fhir_path, { ...params }) -> PhenoML.FhirSearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -2136,7 +2202,7 @@ Examples:
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirSearchRequest` 
+**request:** `PhenoML.fhir.FhirSearchRequest` 
     
 </dd>
 </dl>
@@ -2144,7 +2210,7 @@ Examples:
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions` 
+**requestOptions:** `FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2156,7 +2222,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">create</a>(fhir_provider_id, fhir_path, { ...params }) -> phenoml.FhirResource</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">create</a>(fhir_provider_id, fhir_path, { ...params }) -> PhenoML.FhirResource</code></summary>
 <dl>
 <dd>
 
@@ -2243,7 +2309,7 @@ Examples:
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirCreateRequest` 
+**request:** `PhenoML.fhir.FhirCreateRequest` 
     
 </dd>
 </dl>
@@ -2251,7 +2317,7 @@ Examples:
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions` 
+**requestOptions:** `FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2263,7 +2329,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">upsert</a>(fhir_provider_id, fhir_path, { ...params }) -> phenoml.FhirResource</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">upsert</a>(fhir_provider_id, fhir_path, { ...params }) -> PhenoML.FhirResource</code></summary>
 <dl>
 <dd>
 
@@ -2352,7 +2418,7 @@ Examples:
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirUpsertRequest` 
+**request:** `PhenoML.fhir.FhirUpsertRequest` 
     
 </dd>
 </dl>
@@ -2360,7 +2426,7 @@ Examples:
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions` 
+**requestOptions:** `FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2372,7 +2438,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">delete</a>(fhir_provider_id, fhir_path, { ...params }) -> Record<string, unknown></code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">delete</a>(fhir_provider_id, fhir_path, { ...params }) -> Record&lt;string, unknown&gt;</code></summary>
 <dl>
 <dd>
 
@@ -2446,7 +2512,7 @@ Examples:
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirDeleteRequest` 
+**request:** `PhenoML.fhir.FhirDeleteRequest` 
     
 </dd>
 </dl>
@@ -2454,7 +2520,7 @@ Examples:
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions` 
+**requestOptions:** `FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2466,7 +2532,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">patch</a>(fhir_provider_id, fhir_path, { ...params }) -> phenoml.FhirResource</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">patch</a>(fhir_provider_id, fhir_path, { ...params }) -> PhenoML.FhirResource</code></summary>
 <dl>
 <dd>
 
@@ -2550,7 +2616,7 @@ Examples:
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirPatchRequest` 
+**request:** `PhenoML.fhir.FhirPatchRequest` 
     
 </dd>
 </dl>
@@ -2558,7 +2624,7 @@ Examples:
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions` 
+**requestOptions:** `FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2570,7 +2636,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">executeBundle</a>(fhir_provider_id, { ...params }) -> phenoml.FhirBundle</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">executeBundle</a>(fhir_provider_id, { ...params }) -> PhenoML.FhirBundle</code></summary>
 <dl>
 <dd>
 
@@ -2664,7 +2730,7 @@ The ID of the FHIR provider to use. Can be either:
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirExecuteBundleRequest` 
+**request:** `PhenoML.fhir.FhirExecuteBundleRequest` 
     
 </dd>
 </dl>
@@ -2672,7 +2738,7 @@ The ID of the FHIR provider to use. Can be either:
 <dl>
 <dd>
 
-**requestOptions:** `Fhir.RequestOptions` 
+**requestOptions:** `FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2685,7 +2751,7 @@ The ID of the FHIR provider to use. Can be either:
 </details>
 
 ## FhirProvider
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">create</a>({ ...params }) -> phenoml.FhirProviderResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">create</a>({ ...params }) -> PhenoML.FhirProviderResponse</code></summary>
 <dl>
 <dd>
 
@@ -2738,7 +2804,7 @@ await client.fhirProvider.create({
 <dl>
 <dd>
 
-**request:** `phenoml.fhirProvider.FhirProviderCreateRequest` 
+**request:** `PhenoML.fhirProvider.FhirProviderCreateRequest` 
     
 </dd>
 </dl>
@@ -2746,7 +2812,7 @@ await client.fhirProvider.create({
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions` 
+**requestOptions:** `FhirProviderClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2758,7 +2824,7 @@ await client.fhirProvider.create({
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">list</a>() -> phenoml.FhirProviderListResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">list</a>() -> PhenoML.FhirProviderListResponse</code></summary>
 <dl>
 <dd>
 
@@ -2804,7 +2870,7 @@ await client.fhirProvider.list();
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions` 
+**requestOptions:** `FhirProviderClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2816,7 +2882,7 @@ await client.fhirProvider.list();
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">get</a>(fhir_provider_id) -> phenoml.FhirProviderResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">get</a>(fhir_provider_id) -> PhenoML.FhirProviderResponse</code></summary>
 <dl>
 <dd>
 
@@ -2870,7 +2936,7 @@ await client.fhirProvider.get("fhir_provider_id");
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions` 
+**requestOptions:** `FhirProviderClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2882,7 +2948,7 @@ await client.fhirProvider.get("fhir_provider_id");
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">delete</a>(fhir_provider_id) -> phenoml.FhirProviderDeleteResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">delete</a>(fhir_provider_id) -> PhenoML.FhirProviderDeleteResponse</code></summary>
 <dl>
 <dd>
 
@@ -2935,7 +3001,7 @@ await client.fhirProvider.delete("fhir_provider_id");
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions` 
+**requestOptions:** `FhirProviderClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2947,7 +3013,7 @@ await client.fhirProvider.delete("fhir_provider_id");
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">addAuthConfig</a>(fhir_provider_id, { ...params }) -> phenoml.FhirProviderResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">addAuthConfig</a>(fhir_provider_id, { ...params }) -> PhenoML.FhirProviderResponse</code></summary>
 <dl>
 <dd>
 
@@ -3004,7 +3070,7 @@ await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", 
 <dl>
 <dd>
 
-**request:** `phenoml.FhirProviderAddAuthConfigRequest` 
+**request:** `PhenoML.FhirProviderAddAuthConfigRequest` 
     
 </dd>
 </dl>
@@ -3012,7 +3078,7 @@ await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", 
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions` 
+**requestOptions:** `FhirProviderClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3024,7 +3090,7 @@ await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", 
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">setActiveAuthConfig</a>(fhir_provider_id, { ...params }) -> phenoml.FhirProviderResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">setActiveAuthConfig</a>(fhir_provider_id, { ...params }) -> PhenoML.FhirProviderResponse</code></summary>
 <dl>
 <dd>
 
@@ -3083,7 +3149,7 @@ await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e
 <dl>
 <dd>
 
-**request:** `phenoml.fhirProvider.FhirProviderSetActiveAuthConfigRequest` 
+**request:** `PhenoML.fhirProvider.FhirProviderSetActiveAuthConfigRequest` 
     
 </dd>
 </dl>
@@ -3091,7 +3157,7 @@ await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions` 
+**requestOptions:** `FhirProviderClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3103,7 +3169,7 @@ await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">removeAuthConfig</a>(fhir_provider_id, { ...params }) -> phenoml.FhirProviderRemoveAuthConfigResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">removeAuthConfig</a>(fhir_provider_id, { ...params }) -> PhenoML.FhirProviderRemoveAuthConfigResponse</code></summary>
 <dl>
 <dd>
 
@@ -3159,7 +3225,7 @@ await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad
 <dl>
 <dd>
 
-**request:** `phenoml.fhirProvider.FhirProviderRemoveAuthConfigRequest` 
+**request:** `PhenoML.fhirProvider.FhirProviderRemoveAuthConfigRequest` 
     
 </dd>
 </dl>
@@ -3167,7 +3233,7 @@ await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad
 <dl>
 <dd>
 
-**requestOptions:** `FhirProvider.RequestOptions` 
+**requestOptions:** `FhirProviderClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3180,7 +3246,7 @@ await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad
 </details>
 
 ## Lang2Fhir
-<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">create</a>({ ...params }) -> phenoml.FhirResource</code></summary>
+<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">create</a>({ ...params }) -> PhenoML.FhirResource</code></summary>
 <dl>
 <dd>
 
@@ -3227,7 +3293,7 @@ await client.lang2Fhir.create({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.CreateRequest` 
+**request:** `PhenoML.lang2Fhir.CreateRequest` 
     
 </dd>
 </dl>
@@ -3235,7 +3301,7 @@ await client.lang2Fhir.create({
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions` 
+**requestOptions:** `Lang2FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3247,7 +3313,7 @@ await client.lang2Fhir.create({
 </dl>
 </details>
 
-<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">createMulti</a>({ ...params }) -> phenoml.CreateMultiResponse</code></summary>
+<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">createMulti</a>({ ...params }) -> PhenoML.CreateMultiResponse</code></summary>
 <dl>
 <dd>
 
@@ -3294,7 +3360,7 @@ await client.lang2Fhir.createMulti({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.CreateMultiRequest` 
+**request:** `PhenoML.lang2Fhir.CreateMultiRequest` 
     
 </dd>
 </dl>
@@ -3302,7 +3368,7 @@ await client.lang2Fhir.createMulti({
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions` 
+**requestOptions:** `Lang2FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3314,7 +3380,7 @@ await client.lang2Fhir.createMulti({
 </dl>
 </details>
 
-<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">search</a>({ ...params }) -> phenoml.SearchResponse</code></summary>
+<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">search</a>({ ...params }) -> PhenoML.SearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -3366,7 +3432,7 @@ await client.lang2Fhir.search({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.SearchRequest` 
+**request:** `PhenoML.lang2Fhir.SearchRequest` 
     
 </dd>
 </dl>
@@ -3374,7 +3440,7 @@ await client.lang2Fhir.search({
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions` 
+**requestOptions:** `Lang2FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3386,7 +3452,7 @@ await client.lang2Fhir.search({
 </dl>
 </details>
 
-<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">uploadProfile</a>({ ...params }) -> phenoml.Lang2FhirUploadProfileResponse</code></summary>
+<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">uploadProfile</a>({ ...params }) -> PhenoML.Lang2FhirUploadProfileResponse</code></summary>
 <dl>
 <dd>
 
@@ -3440,7 +3506,7 @@ await client.lang2Fhir.uploadProfile({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.ProfileUploadRequest` 
+**request:** `PhenoML.lang2Fhir.ProfileUploadRequest` 
     
 </dd>
 </dl>
@@ -3448,7 +3514,7 @@ await client.lang2Fhir.uploadProfile({
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions` 
+**requestOptions:** `Lang2FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3460,7 +3526,7 @@ await client.lang2Fhir.uploadProfile({
 </dl>
 </details>
 
-<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">document</a>({ ...params }) -> phenoml.FhirResource</code></summary>
+<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">document</a>({ ...params }) -> PhenoML.FhirResource</code></summary>
 <dl>
 <dd>
 
@@ -3507,7 +3573,7 @@ await client.lang2Fhir.document({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.DocumentRequest` 
+**request:** `PhenoML.lang2Fhir.DocumentRequest` 
     
 </dd>
 </dl>
@@ -3515,7 +3581,7 @@ await client.lang2Fhir.document({
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions` 
+**requestOptions:** `Lang2FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3527,7 +3593,7 @@ await client.lang2Fhir.document({
 </dl>
 </details>
 
-<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">extractMultipleFhirResourcesFromADocument</a>({ ...params }) -> phenoml.CreateMultiResponse</code></summary>
+<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">extractMultipleFhirResourcesFromADocument</a>({ ...params }) -> PhenoML.CreateMultiResponse</code></summary>
 <dl>
 <dd>
 
@@ -3576,7 +3642,7 @@ await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.DocumentMultiRequest` 
+**request:** `PhenoML.lang2Fhir.DocumentMultiRequest` 
     
 </dd>
 </dl>
@@ -3584,7 +3650,7 @@ await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
 <dl>
 <dd>
 
-**requestOptions:** `Lang2Fhir.RequestOptions` 
+**requestOptions:** `Lang2FhirClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3597,7 +3663,7 @@ await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
 </details>
 
 ## Summary
-<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">listTemplates</a>() -> phenoml.SummaryListTemplatesResponse</code></summary>
+<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">listTemplates</a>() -> PhenoML.SummaryListTemplatesResponse</code></summary>
 <dl>
 <dd>
 
@@ -3640,7 +3706,7 @@ await client.summary.listTemplates();
 <dl>
 <dd>
 
-**requestOptions:** `Summary.RequestOptions` 
+**requestOptions:** `SummaryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3652,7 +3718,7 @@ await client.summary.listTemplates();
 </dl>
 </details>
 
-<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">createTemplate</a>({ ...params }) -> phenoml.CreateSummaryTemplateResponse</code></summary>
+<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">createTemplate</a>({ ...params }) -> PhenoML.CreateSummaryTemplateResponse</code></summary>
 <dl>
 <dd>
 
@@ -3700,7 +3766,7 @@ await client.summary.createTemplate({
 <dl>
 <dd>
 
-**request:** `phenoml.summary.CreateSummaryTemplateRequest` 
+**request:** `PhenoML.summary.CreateSummaryTemplateRequest` 
     
 </dd>
 </dl>
@@ -3708,7 +3774,7 @@ await client.summary.createTemplate({
 <dl>
 <dd>
 
-**requestOptions:** `Summary.RequestOptions` 
+**requestOptions:** `SummaryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3720,7 +3786,7 @@ await client.summary.createTemplate({
 </dl>
 </details>
 
-<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">getTemplate</a>(id) -> phenoml.SummaryGetTemplateResponse</code></summary>
+<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">getTemplate</a>(id) -> PhenoML.SummaryGetTemplateResponse</code></summary>
 <dl>
 <dd>
 
@@ -3771,7 +3837,7 @@ await client.summary.getTemplate("id");
 <dl>
 <dd>
 
-**requestOptions:** `Summary.RequestOptions` 
+**requestOptions:** `SummaryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3783,7 +3849,7 @@ await client.summary.getTemplate("id");
 </dl>
 </details>
 
-<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">updateTemplate</a>(id, { ...params }) -> phenoml.SummaryUpdateTemplateResponse</code></summary>
+<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">updateTemplate</a>(id, { ...params }) -> PhenoML.SummaryUpdateTemplateResponse</code></summary>
 <dl>
 <dd>
 
@@ -3839,7 +3905,7 @@ await client.summary.updateTemplate("id", {
 <dl>
 <dd>
 
-**request:** `phenoml.summary.UpdateSummaryTemplateRequest` 
+**request:** `PhenoML.summary.UpdateSummaryTemplateRequest` 
     
 </dd>
 </dl>
@@ -3847,7 +3913,7 @@ await client.summary.updateTemplate("id", {
 <dl>
 <dd>
 
-**requestOptions:** `Summary.RequestOptions` 
+**requestOptions:** `SummaryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3859,7 +3925,7 @@ await client.summary.updateTemplate("id", {
 </dl>
 </details>
 
-<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">deleteTemplate</a>(id) -> phenoml.SummaryDeleteTemplateResponse</code></summary>
+<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">deleteTemplate</a>(id) -> PhenoML.SummaryDeleteTemplateResponse</code></summary>
 <dl>
 <dd>
 
@@ -3910,7 +3976,7 @@ await client.summary.deleteTemplate("id");
 <dl>
 <dd>
 
-**requestOptions:** `Summary.RequestOptions` 
+**requestOptions:** `SummaryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3922,7 +3988,7 @@ await client.summary.deleteTemplate("id");
 </dl>
 </details>
 
-<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">create</a>({ ...params }) -> phenoml.CreateSummaryResponse</code></summary>
+<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">create</a>({ ...params }) -> PhenoML.CreateSummaryResponse</code></summary>
 <dl>
 <dd>
 
@@ -3972,7 +4038,7 @@ await client.summary.create({
 <dl>
 <dd>
 
-**request:** `phenoml.summary.CreateSummaryRequest` 
+**request:** `PhenoML.summary.CreateSummaryRequest` 
     
 </dd>
 </dl>
@@ -3980,7 +4046,7 @@ await client.summary.create({
 <dl>
 <dd>
 
-**requestOptions:** `Summary.RequestOptions` 
+**requestOptions:** `SummaryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3993,7 +4059,7 @@ await client.summary.create({
 </details>
 
 ## Tools
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">createFhirResource</a>({ ...params }) -> phenoml.Lang2FhirAndCreateResponse</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">createFhirResource</a>({ ...params }) -> PhenoML.Lang2FhirAndCreateResponse</code></summary>
 <dl>
 <dd>
 
@@ -4041,7 +4107,7 @@ await client.tools.createFhirResource({
 <dl>
 <dd>
 
-**request:** `phenoml.tools.Lang2FhirAndCreateRequest` 
+**request:** `PhenoML.tools.Lang2FhirAndCreateRequest` 
     
 </dd>
 </dl>
@@ -4049,7 +4115,7 @@ await client.tools.createFhirResource({
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4061,7 +4127,7 @@ await client.tools.createFhirResource({
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">createFhirResourcesMulti</a>({ ...params }) -> phenoml.Lang2FhirAndCreateMultiResponse</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">createFhirResourcesMulti</a>({ ...params }) -> PhenoML.Lang2FhirAndCreateMultiResponse</code></summary>
 <dl>
 <dd>
 
@@ -4113,7 +4179,7 @@ await client.tools.createFhirResourcesMulti({
 <dl>
 <dd>
 
-**request:** `phenoml.tools.Lang2FhirAndCreateMultiRequest` 
+**request:** `PhenoML.tools.Lang2FhirAndCreateMultiRequest` 
     
 </dd>
 </dl>
@@ -4121,7 +4187,7 @@ await client.tools.createFhirResourcesMulti({
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4133,7 +4199,7 @@ await client.tools.createFhirResourcesMulti({
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">searchFhirResources</a>({ ...params }) -> phenoml.Lang2FhirAndSearchResponse</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">searchFhirResources</a>({ ...params }) -> PhenoML.Lang2FhirAndSearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -4180,7 +4246,7 @@ await client.tools.searchFhirResources({
 <dl>
 <dd>
 
-**request:** `phenoml.tools.Lang2FhirAndSearchRequest` 
+**request:** `PhenoML.tools.Lang2FhirAndSearchRequest` 
     
 </dd>
 </dl>
@@ -4188,7 +4254,7 @@ await client.tools.searchFhirResources({
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4200,7 +4266,7 @@ await client.tools.searchFhirResources({
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">analyzeCohort</a>({ ...params }) -> phenoml.CohortResponse</code></summary>
+<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">analyzeCohort</a>({ ...params }) -> PhenoML.CohortResponse</code></summary>
 <dl>
 <dd>
 
@@ -4248,7 +4314,7 @@ await client.tools.analyzeCohort({
 <dl>
 <dd>
 
-**request:** `phenoml.tools.CohortRequest` 
+**request:** `PhenoML.tools.CohortRequest` 
     
 </dd>
 </dl>
@@ -4256,7 +4322,7 @@ await client.tools.analyzeCohort({
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4269,7 +4335,7 @@ await client.tools.analyzeCohort({
 </details>
 
 ## Tools McpServer
-<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">create</a>({ ...params }) -> phenoml.McpServerResponse</code></summary>
+<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">create</a>({ ...params }) -> PhenoML.McpServerResponse</code></summary>
 <dl>
 <dd>
 
@@ -4315,7 +4381,7 @@ await client.tools.mcpServer.create({
 <dl>
 <dd>
 
-**request:** `phenoml.tools.McpServerCreateRequest` 
+**request:** `PhenoML.tools.McpServerCreateRequest` 
     
 </dd>
 </dl>
@@ -4323,7 +4389,7 @@ await client.tools.mcpServer.create({
 <dl>
 <dd>
 
-**requestOptions:** `McpServer.RequestOptions` 
+**requestOptions:** `McpServerClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4335,7 +4401,7 @@ await client.tools.mcpServer.create({
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">list</a>() -> phenoml.McpServerResponse</code></summary>
+<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">list</a>() -> PhenoML.McpServerResponse</code></summary>
 <dl>
 <dd>
 
@@ -4378,7 +4444,7 @@ await client.tools.mcpServer.list();
 <dl>
 <dd>
 
-**requestOptions:** `McpServer.RequestOptions` 
+**requestOptions:** `McpServerClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4390,7 +4456,7 @@ await client.tools.mcpServer.list();
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">get</a>(mcp_server_id) -> phenoml.McpServerResponse</code></summary>
+<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">get</a>(mcp_server_id) -> PhenoML.McpServerResponse</code></summary>
 <dl>
 <dd>
 
@@ -4441,7 +4507,7 @@ await client.tools.mcpServer.get("mcp_server_id");
 <dl>
 <dd>
 
-**requestOptions:** `McpServer.RequestOptions` 
+**requestOptions:** `McpServerClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4453,7 +4519,7 @@ await client.tools.mcpServer.get("mcp_server_id");
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">delete</a>(mcp_server_id) -> phenoml.McpServerResponse</code></summary>
+<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">delete</a>(mcp_server_id) -> PhenoML.McpServerResponse</code></summary>
 <dl>
 <dd>
 
@@ -4504,7 +4570,7 @@ await client.tools.mcpServer.delete("mcp_server_id");
 <dl>
 <dd>
 
-**requestOptions:** `McpServer.RequestOptions` 
+**requestOptions:** `McpServerClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4517,7 +4583,7 @@ await client.tools.mcpServer.delete("mcp_server_id");
 </details>
 
 ## Tools McpServer Tools
-<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">list</a>(mcp_server_id) -> phenoml.McpServerToolResponse</code></summary>
+<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">list</a>(mcp_server_id) -> PhenoML.McpServerToolResponse</code></summary>
 <dl>
 <dd>
 
@@ -4568,7 +4634,7 @@ await client.tools.mcpServer.tools.list("mcp_server_id");
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4580,7 +4646,7 @@ await client.tools.mcpServer.tools.list("mcp_server_id");
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">get</a>(mcp_server_tool_id) -> phenoml.McpServerToolResponse</code></summary>
+<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">get</a>(mcp_server_tool_id) -> PhenoML.McpServerToolResponse</code></summary>
 <dl>
 <dd>
 
@@ -4631,7 +4697,7 @@ await client.tools.mcpServer.tools.get("mcp_server_tool_id");
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4643,7 +4709,7 @@ await client.tools.mcpServer.tools.get("mcp_server_tool_id");
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">delete</a>(mcp_server_tool_id) -> phenoml.McpServerToolResponse</code></summary>
+<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">delete</a>(mcp_server_tool_id) -> PhenoML.McpServerToolResponse</code></summary>
 <dl>
 <dd>
 
@@ -4694,7 +4760,7 @@ await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4706,7 +4772,7 @@ await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">call</a>(mcp_server_tool_id, { ...params }) -> phenoml.McpServerToolCallResponse</code></summary>
+<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">call</a>(mcp_server_tool_id, { ...params }) -> PhenoML.McpServerToolCallResponse</code></summary>
 <dl>
 <dd>
 
@@ -4761,7 +4827,7 @@ await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
 <dl>
 <dd>
 
-**request:** `phenoml.tools.mcpServer.McpServerToolCallRequest` 
+**request:** `PhenoML.tools.mcpServer.McpServerToolCallRequest` 
     
 </dd>
 </dl>
@@ -4769,7 +4835,7 @@ await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions` 
+**requestOptions:** `ToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4782,7 +4848,7 @@ await client.tools.mcpServer.tools.call("mcp_server_tool_id", {
 </details>
 
 ## Workflows
-<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">list</a>({ ...params }) -> phenoml.ListWorkflowsResponse</code></summary>
+<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">list</a>({ ...params }) -> PhenoML.ListWorkflowsResponse</code></summary>
 <dl>
 <dd>
 
@@ -4827,7 +4893,7 @@ await client.workflows.list({
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.WorkflowsListRequest` 
+**request:** `PhenoML.workflows.WorkflowsListRequest` 
     
 </dd>
 </dl>
@@ -4835,7 +4901,7 @@ await client.workflows.list({
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions` 
+**requestOptions:** `WorkflowsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4847,7 +4913,7 @@ await client.workflows.list({
 </dl>
 </details>
 
-<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">create</a>({ ...params }) -> phenoml.CreateWorkflowResponse</code></summary>
+<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">create</a>({ ...params }) -> PhenoML.CreateWorkflowResponse</code></summary>
 <dl>
 <dd>
 
@@ -4900,7 +4966,7 @@ await client.workflows.create({
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.CreateWorkflowRequest` 
+**request:** `PhenoML.workflows.CreateWorkflowRequest` 
     
 </dd>
 </dl>
@@ -4908,7 +4974,7 @@ await client.workflows.create({
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions` 
+**requestOptions:** `WorkflowsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4920,7 +4986,7 @@ await client.workflows.create({
 </dl>
 </details>
 
-<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">get</a>(id, { ...params }) -> phenoml.WorkflowsGetResponse</code></summary>
+<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">get</a>(id, { ...params }) -> PhenoML.WorkflowsGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -4973,7 +5039,7 @@ await client.workflows.get("id", {
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.WorkflowsGetRequest` 
+**request:** `PhenoML.workflows.WorkflowsGetRequest` 
     
 </dd>
 </dl>
@@ -4981,7 +5047,7 @@ await client.workflows.get("id", {
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions` 
+**requestOptions:** `WorkflowsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4993,7 +5059,7 @@ await client.workflows.get("id", {
 </dl>
 </details>
 
-<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">update</a>(id, { ...params }) -> phenoml.WorkflowsUpdateResponse</code></summary>
+<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">update</a>(id, { ...params }) -> PhenoML.WorkflowsUpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -5054,7 +5120,7 @@ await client.workflows.update("id", {
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.UpdateWorkflowRequest` 
+**request:** `PhenoML.workflows.UpdateWorkflowRequest` 
     
 </dd>
 </dl>
@@ -5062,7 +5128,7 @@ await client.workflows.update("id", {
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions` 
+**requestOptions:** `WorkflowsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5074,7 +5140,7 @@ await client.workflows.update("id", {
 </dl>
 </details>
 
-<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">delete</a>(id) -> phenoml.WorkflowsDeleteResponse</code></summary>
+<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">delete</a>(id) -> PhenoML.WorkflowsDeleteResponse</code></summary>
 <dl>
 <dd>
 
@@ -5125,7 +5191,7 @@ await client.workflows.delete("id");
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions` 
+**requestOptions:** `WorkflowsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5137,7 +5203,7 @@ await client.workflows.delete("id");
 </dl>
 </details>
 
-<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">execute</a>(id, { ...params }) -> phenoml.ExecuteWorkflowResponse</code></summary>
+<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">execute</a>(id, { ...params }) -> PhenoML.ExecuteWorkflowResponse</code></summary>
 <dl>
 <dd>
 
@@ -5195,7 +5261,7 @@ await client.workflows.execute("id", {
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.ExecuteWorkflowRequest` 
+**request:** `PhenoML.workflows.ExecuteWorkflowRequest` 
     
 </dd>
 </dl>
@@ -5203,7 +5269,7 @@ await client.workflows.execute("id", {
 <dl>
 <dd>
 
-**requestOptions:** `Workflows.RequestOptions` 
+**requestOptions:** `WorkflowsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5214,3 +5280,4 @@ await client.workflows.execute("id", {
 </dd>
 </dl>
 </details>
+
