@@ -1,6 +1,21 @@
-## 9.2.1 - 2026-03-04
-* SDK regeneration
-* Unable to analyze changes with AI, incrementing PATCH version.
+## 10.0.0 - 2026-03-04
+
+### Breaking Changes
+
+- **Authentication**: Migrated from token-based auth to OAuth 2.0 client credentials flow. The client now accepts `clientId` and `clientSecret` options (defaulting to `PHENOML_CLIENT_ID` and `PHENOML_CLIENT_SECRET` environment variables) instead of a `token` parameter. Tokens are automatically obtained and refreshed via the `/v2/auth/token` endpoint.
+- **Client renamed**: The main exported client class is now `phenomlClient` (was `PhenoMLClient`).
+- **Wrapper client removed**: The custom `WrapperClient` has been removed. Use `phenomlClient` directly.
+
+### Added
+
+- New `/v2/auth/token` OAuth 2.0 client credentials endpoint with `TokenResponse` and `OAuthError` types.
+- `BaseClient.ts` with centralized client options normalization and auth provider integration.
+- Per-resource `exports.ts` modules for cleaner imports.
+
+### Internal
+
+- Upgraded Fern TypeScript SDK generator to 3.53.3 and Fern CLI to 4.3.3.
+- Error classes now include structured response bodies.
 
 ## 9.2.0 - 2026-03-03
 * feat: add document multi-resource extraction endpoint
