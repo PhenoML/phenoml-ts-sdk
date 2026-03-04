@@ -8,5 +8,5 @@
         "packageManager": "pnpm",
         "testFramework": "vitest"
     },
-    "sdkVersion": "9.2.1"
+    "sdkVersion": "10.0.0"
 }
