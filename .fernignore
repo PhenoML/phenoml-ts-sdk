@@ -1,9 +1,5 @@
 # Specify files that shouldn't be modified by Fern
 
-# Manual wrapper client implementation
-src/WrapperClient.ts
-src/index.ts
-
 # don't modify license or readme
 LICENSE.md
 README.md
