@@ -2,9 +2,9 @@
 
 export interface DecisionNodeDefinition {
     /** Simple equality expression for decision logic */
-    expression?: string;
+    expression?: string | undefined;
     /** Maps decision outcomes to next step IDs */
-    paths?: Record<string, string>;
+    paths?: Record<string, string> | undefined;
     /** Maps placeholder tokens to their input data paths for decision evaluation */
-    runtime_placeholders?: Record<string, string>;
+    runtime_placeholders?: Record<string, string> | undefined;
 }

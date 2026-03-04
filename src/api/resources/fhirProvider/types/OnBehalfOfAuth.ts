@@ -7,7 +7,7 @@ export interface OnBehalfOfAuth {
     client_id: string;
     /** OAuth client secret */
     client_secret: string;
-    role?: phenoml.fhirProvider.Role;
+    role?: phenoml.fhirProvider.Role | undefined;
     /** OAuth scopes to request. Cannot be specified with role. If neither role nor scopes are specified, the provider-specific default role will be used. */
-    scopes?: string;
+    scopes?: string | undefined;
 }

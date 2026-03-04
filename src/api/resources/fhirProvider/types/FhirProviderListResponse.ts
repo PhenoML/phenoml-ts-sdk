@@ -8,13 +8,13 @@ import type * as phenoml from "../../../index.js";
  * On dedicated instances, full provider details are returned (as FhirProviderTemplate).
  */
 export interface FhirProviderListResponse {
-    success?: boolean;
-    message?: string;
+    success?: boolean | undefined;
+    message?: string | undefined;
     /**
      * List of FHIR providers. Sandbox providers return FhirProviderSandboxInfo,
      * other providers return FhirProviderTemplate.
      */
-    fhir_providers?: FhirProviderListResponse.FhirProviders.Item[];
+    fhir_providers?: FhirProviderListResponse.FhirProviders.Item[] | undefined;
 }
 
 export namespace FhirProviderListResponse {

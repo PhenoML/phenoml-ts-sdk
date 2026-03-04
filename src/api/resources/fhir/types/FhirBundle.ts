@@ -11,7 +11,7 @@ export interface FhirBundle {
      * Total number of resources that match the search criteria.
      * Optional field as not all FHIR servers include it (e.g., Medplum).
      */
-    total?: number;
+    total?: number | undefined;
     /** Array of bundle entries containing resources or operation results */
     entry: FhirBundle.Entry.Item[];
 }
@@ -22,11 +22,11 @@ export namespace FhirBundle {
     export namespace Entry {
         export interface Item {
             /** The FHIR resource contained in this entry */
-            resource?: Record<string, unknown>;
+            resource?: Record<string, unknown> | undefined;
             /** Request information for transaction/batch bundles */
-            request?: Item.Request;
+            request?: Item.Request | undefined;
             /** Response information for transaction/batch bundle responses */
-            response?: Item.Response;
+            response?: Item.Response | undefined;
         }
 
         export namespace Item {
@@ -34,8 +34,8 @@ export namespace FhirBundle {
              * Request information for transaction/batch bundles
              */
             export interface Request {
-                method?: Request.Method;
-                url?: string;
+                method?: Request.Method | undefined;
+                url?: string | undefined;
             }
 
             export namespace Request {
@@ -53,8 +53,8 @@ export namespace FhirBundle {
              * Response information for transaction/batch bundle responses
              */
             export interface Response {
-                status?: string;
-                location?: string;
+                status?: string | undefined;
+                location?: string | undefined;
             }
         }
     }

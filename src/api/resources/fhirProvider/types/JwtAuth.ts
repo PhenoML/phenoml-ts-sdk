@@ -6,8 +6,8 @@ export interface JwtAuth {
     /** OAuth client ID */
     client_id: string;
     /** Expiry time for JWT credentials. If omitted, a default expiry is used. */
-    credential_expiry?: string;
-    role?: phenoml.fhirProvider.Role;
+    credential_expiry?: string | undefined;
+    role?: phenoml.fhirProvider.Role | undefined;
     /** OAuth scopes to request. Cannot be specified with role. If neither role nor scopes are specified, the provider-specific default role will be used. */
-    scopes?: string;
+    scopes?: string | undefined;
 }

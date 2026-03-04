@@ -3,11 +3,19 @@
 import * as phenoml from "../../../src/api/index";
 import { phenomlClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
+import { mockPhenoMloAuth } from "../mockAuth";
 
-describe("Agent", () => {
+describe("AgentClient", () => {
     test("create (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { name: "name", prompts: ["prompt_123", "prompt_456"], provider: "provider" };
         const rawResponseBody = {
             success: true,
@@ -55,7 +63,14 @@ describe("Agent", () => {
 
     test("create (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -78,7 +93,14 @@ describe("Agent", () => {
 
     test("create (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -101,7 +123,14 @@ describe("Agent", () => {
 
     test("create (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -124,7 +153,14 @@ describe("Agent", () => {
 
     test("create (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -147,7 +183,14 @@ describe("Agent", () => {
 
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = {
             success: true,
@@ -190,7 +233,14 @@ describe("Agent", () => {
 
     test("list (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/agent/list").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
@@ -202,7 +252,14 @@ describe("Agent", () => {
 
     test("list (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/agent/list").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
@@ -214,7 +271,14 @@ describe("Agent", () => {
 
     test("list (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/agent/list").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
@@ -226,7 +290,14 @@ describe("Agent", () => {
 
     test("get (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = {
             success: true,
@@ -263,7 +334,14 @@ describe("Agent", () => {
 
     test("get (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
@@ -275,7 +353,14 @@ describe("Agent", () => {
 
     test("get (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
@@ -287,7 +372,14 @@ describe("Agent", () => {
 
     test("get (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
@@ -299,7 +391,14 @@ describe("Agent", () => {
 
     test("get (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
@@ -311,7 +410,14 @@ describe("Agent", () => {
 
     test("update (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { name: "name", prompts: ["prompt_123", "prompt_456"], provider: "provider" };
         const rawResponseBody = {
             success: true,
@@ -359,7 +465,14 @@ describe("Agent", () => {
 
     test("update (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -382,7 +495,14 @@ describe("Agent", () => {
 
     test("update (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -405,7 +525,14 @@ describe("Agent", () => {
 
     test("update (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -428,7 +555,14 @@ describe("Agent", () => {
 
     test("update (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -451,7 +585,14 @@ describe("Agent", () => {
 
     test("update (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -474,7 +615,14 @@ describe("Agent", () => {
 
     test("delete (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { success: true, message: "Agent deleted successfully" };
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
@@ -488,7 +636,14 @@ describe("Agent", () => {
 
     test("delete (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
@@ -500,7 +655,14 @@ describe("Agent", () => {
 
     test("delete (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
@@ -512,7 +674,14 @@ describe("Agent", () => {
 
     test("delete (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
@@ -524,7 +693,14 @@ describe("Agent", () => {
 
     test("delete (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
@@ -536,7 +712,14 @@ describe("Agent", () => {
 
     test("patch (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = [
             { op: "replace", path: "/name", value: "Updated Agent Name" },
             { op: "add", path: "/tags/-", value: "new-tag" },
@@ -599,7 +782,14 @@ describe("Agent", () => {
 
     test("patch (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = [
             { op: "add", path: "path" },
             { op: "add", path: "path" },
@@ -630,7 +820,14 @@ describe("Agent", () => {
 
     test("patch (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = [
             { op: "add", path: "path" },
             { op: "add", path: "path" },
@@ -661,7 +858,14 @@ describe("Agent", () => {
 
     test("patch (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = [
             { op: "add", path: "path" },
             { op: "add", path: "path" },
@@ -692,7 +896,14 @@ describe("Agent", () => {
 
     test("patch (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = [
             { op: "add", path: "path" },
             { op: "add", path: "path" },
@@ -723,7 +934,14 @@ describe("Agent", () => {
 
     test("patch (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = [
             { op: "add", path: "path" },
             { op: "add", path: "path" },
@@ -754,7 +972,14 @@ describe("Agent", () => {
 
     test("chat (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { message: "What is the patient's current condition?", agent_id: "agent-123" };
         const rawResponseBody = {
             response: "I'll create a patient record for John Doe with diabetes. Let me process that information...",
@@ -793,7 +1018,14 @@ describe("Agent", () => {
 
     test("chat (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
         const rawResponseBody = { key: "value" };
         server
@@ -815,7 +1047,14 @@ describe("Agent", () => {
 
     test("chat (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
         const rawResponseBody = { key: "value" };
         server
@@ -837,7 +1076,14 @@ describe("Agent", () => {
 
     test("chat (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
         const rawResponseBody = { key: "value" };
         server
@@ -859,7 +1105,14 @@ describe("Agent", () => {
 
     test("chat (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
         const rawResponseBody = { key: "value" };
         server
@@ -879,9 +1132,196 @@ describe("Agent", () => {
         }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
 
+    test("streamChat (1)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { message: "What is the patient's current condition?", agent_id: "agent-123" };
+        const rawResponseBody =
+            'event: \ndata: {"type":"message_start","session_id":"session_123","content":"I\'ll create a patient record...","success":true,"message":"Response generated successfully","function_name":"lang2fhir_search","function_args":{"key":"value"},"function_result":{"key":"value"}}\n\n';
+        server
+            .mockEndpoint()
+            .post("/agent/stream-chat")
+            .header("X-Phenoml-On-Behalf-Of", "Patient/550e8400-e29b-41d4-a716-446655440000")
+            .header(
+                "X-Phenoml-Fhir-Provider",
+                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+            )
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .sseBody(rawResponseBody)
+            .build();
+
+        const response = await client.agent.streamChat({
+            "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+            "X-Phenoml-Fhir-Provider":
+                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+            message: "What is the patient's current condition?",
+            agent_id: "agent-123",
+        });
+        const events: unknown[] = [];
+        for await (const event of response) {
+            events.push(event);
+        }
+        expect(events).toEqual([
+            {
+                type: "message_start",
+                session_id: "session_123",
+                content: "I'll create a patient record...",
+                success: true,
+                message: "Response generated successfully",
+                function_name: "lang2fhir_search",
+                function_args: { key: "value" },
+                function_result: { key: "value" },
+            },
+        ]);
+    });
+
+    test("streamChat (2)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { message: "message", agent_id: "agent_id" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/stream-chat")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .sseBody(rawResponseBody)
+            .build();
+
+        const response = await client.agent.streamChat({
+            message: "message",
+            agent_id: "agent_id",
+        });
+        const events: unknown[] = [];
+        for await (const event of response) {
+            events.push(event);
+        }
+        expect(events.length).toBeGreaterThan(0);
+    });
+
+    test("streamChat (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { message: "message", agent_id: "agent_id" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/stream-chat")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .sseBody(rawResponseBody)
+            .build();
+
+        const response = await client.agent.streamChat({
+            message: "message",
+            agent_id: "agent_id",
+        });
+        const events: unknown[] = [];
+        for await (const event of response) {
+            events.push(event);
+        }
+        expect(events.length).toBeGreaterThan(0);
+    });
+
+    test("streamChat (4)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { message: "message", agent_id: "agent_id" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/stream-chat")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .sseBody(rawResponseBody)
+            .build();
+
+        const response = await client.agent.streamChat({
+            message: "message",
+            agent_id: "agent_id",
+        });
+        const events: unknown[] = [];
+        for await (const event of response) {
+            events.push(event);
+        }
+        expect(events.length).toBeGreaterThan(0);
+    });
+
+    test("streamChat (5)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { message: "message", agent_id: "agent_id" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/agent/stream-chat")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .sseBody(rawResponseBody)
+            .build();
+
+        const response = await client.agent.streamChat({
+            message: "message",
+            agent_id: "agent_id",
+        });
+        const events: unknown[] = [];
+        for await (const event of response) {
+            events.push(event);
+        }
+        expect(events.length).toBeGreaterThan(0);
+    });
+
     test("getChatMessages (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = {
             messages: [
@@ -941,7 +1381,14 @@ describe("Agent", () => {
 
     test("getChatMessages (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { key: "value" };
         server
@@ -961,7 +1408,14 @@ describe("Agent", () => {
 
     test("getChatMessages (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { key: "value" };
         server
@@ -981,7 +1435,14 @@ describe("Agent", () => {
 
     test("getChatMessages (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
 
         const rawResponseBody = { key: "value" };
         server

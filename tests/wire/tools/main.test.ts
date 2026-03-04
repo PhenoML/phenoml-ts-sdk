@@ -3,11 +3,19 @@
 import * as phenoml from "../../../src/api/index";
 import { phenomlClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
+import { mockPhenoMloAuth } from "../mockAuth";
 
-describe("Tools", () => {
+describe("ToolsClient", () => {
     test("createFhirResource (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { resource: "auto", text: "Patient John Doe has severe asthma with acute exacerbation" };
         const rawResponseBody = {
             fhir_resource: {
@@ -67,7 +75,14 @@ describe("Tools", () => {
 
     test("createFhirResource (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { resource: "auto", text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -89,7 +104,14 @@ describe("Tools", () => {
 
     test("createFhirResource (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { resource: "auto", text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -111,7 +133,14 @@ describe("Tools", () => {
 
     test("createFhirResource (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { resource: "auto", text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -133,7 +162,14 @@ describe("Tools", () => {
 
     test("createFhirResource (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { resource: "auto", text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -155,7 +191,14 @@ describe("Tools", () => {
 
     test("createFhirResource (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { resource: "auto", text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -177,7 +220,14 @@ describe("Tools", () => {
 
     test("createFhirResourcesMulti (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = {
             text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
             provider: "medplum",
@@ -239,7 +289,14 @@ describe("Tools", () => {
 
     test("createFhirResourcesMulti (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -261,7 +318,14 @@ describe("Tools", () => {
 
     test("createFhirResourcesMulti (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -283,7 +347,14 @@ describe("Tools", () => {
 
     test("createFhirResourcesMulti (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -305,7 +376,14 @@ describe("Tools", () => {
 
     test("createFhirResourcesMulti (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -327,7 +405,14 @@ describe("Tools", () => {
 
     test("createFhirResourcesMulti (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -349,7 +434,14 @@ describe("Tools", () => {
 
     test("searchFhirResources (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "Find all appointments for patient John Doe next week" };
         const rawResponseBody = {
             resource_type: "Appointment",
@@ -414,7 +506,14 @@ describe("Tools", () => {
 
     test("searchFhirResources (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -435,7 +534,14 @@ describe("Tools", () => {
 
     test("searchFhirResources (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -456,7 +562,14 @@ describe("Tools", () => {
 
     test("searchFhirResources (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -477,7 +590,14 @@ describe("Tools", () => {
 
     test("searchFhirResources (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -498,7 +618,14 @@ describe("Tools", () => {
 
     test("searchFhirResources (6)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
@@ -519,7 +646,14 @@ describe("Tools", () => {
 
     test("analyzeCohort (1)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = {
             text: "female patients over 20 with diabetes but not hypertension",
             provider: "550e8400-e29b-41d4-a716-446655440000",
@@ -589,7 +723,14 @@ describe("Tools", () => {
 
     test("analyzeCohort (2)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -611,7 +752,14 @@ describe("Tools", () => {
 
     test("analyzeCohort (3)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -633,7 +781,14 @@ describe("Tools", () => {
 
     test("analyzeCohort (4)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
         server
@@ -655,7 +810,14 @@ describe("Tools", () => {
 
     test("analyzeCohort (5)", async () => {
         const server = mockServerPool.createServer();
-        const client = new phenomlClient({ token: "test", environment: server.baseUrl });
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
         server

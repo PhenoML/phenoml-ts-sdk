@@ -12,7 +12,7 @@ export namespace FhirBundle {
 
     export namespace Entry {
         export interface Item {
-            resource?: phenoml.summary.FhirResource;
+            resource?: phenoml.summary.FhirResource | undefined;
         }
     }
 }

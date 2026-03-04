@@ -5,11 +5,11 @@
  */
 export interface FhirProviderSandboxInfo {
     /** Unique identifier for the FHIR provider */
-    id?: string;
+    id?: string | undefined;
     /** Display name for the FHIR provider */
-    name?: string;
+    name?: string | undefined;
     /** Optional description of the FHIR provider */
-    description?: string;
+    description?: string | undefined;
     /** Provider type (always "sandbox" for this schema) */
-    provider?: "sandbox";
+    provider?: "sandbox" | undefined;
 }

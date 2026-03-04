@@ -2,9 +2,9 @@
 
 export interface SubWorkflowDefinition {
     /** ID of the workflow to execute as a sub-workflow */
-    workflow_id?: string;
+    workflow_id?: string | undefined;
     /** Input data to pass to the sub-workflow */
-    input?: Record<string, unknown>;
+    input?: Record<string, unknown> | undefined;
     /** Maps placeholder tokens to their input data paths for sub-workflow */
-    runtime_placeholders?: Record<string, string>;
+    runtime_placeholders?: Record<string, string> | undefined;
 }

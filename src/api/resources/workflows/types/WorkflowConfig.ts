@@ -2,7 +2,7 @@
 
 export interface WorkflowConfig {
     /** FHIR provider IDs for executing workflow steps */
-    fhir_provider_ids?: string[];
+    fhir_provider_ids?: string[] | undefined;
     /** Whether to use dynamic lang2fhir generation instead of pre-populated templates */
-    dynamic_generation?: boolean;
+    dynamic_generation?: boolean | undefined;
 }
