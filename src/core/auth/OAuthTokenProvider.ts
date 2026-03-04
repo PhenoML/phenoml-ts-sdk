@@ -45,6 +45,9 @@ export class OAuthTokenProvider {
         });
 
         this._accessToken = tokenResponse.access_token;
+        if (!this._accessToken) {
+            throw new Error("OAuth token response did not include an access_token");
+        }
         this._expiresAt = this.getExpiresAt(tokenResponse.expires_in, this.BUFFER_IN_MINUTES);
         return this._accessToken;
     }

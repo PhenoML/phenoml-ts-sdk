@@ -128,6 +128,95 @@ export class Auth {
         }
     }
 
+    /**
+     * Obtain an OAuth access token using client credentials (POST /v2/auth/token)
+     *
+     * @param {object} request - The client credentials.
+     * @param {string | undefined} request.client_id - The OAuth client ID.
+     * @param {string | undefined} request.client_secret - The OAuth client secret.
+     * @param {Auth.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.authtoken.BadRequestError}
+     * @throws {@link phenoml.authtoken.UnauthorizedError}
+     */
+    public getToken(
+        request: { client_id?: string; client_secret?: string },
+        requestOptions?: Auth.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.authtoken.TokenResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getToken(request, requestOptions));
+    }
+
+    private async __getToken(
+        request: { client_id?: string; client_secret?: string },
+        requestOptions?: Auth.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.authtoken.TokenResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                "v2/auth/token",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            body: {
+                client_id: request.client_id,
+                client_secret: request.client_secret,
+                grant_type: "client_credentials",
+            },
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as phenoml.authtoken.TokenResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.authtoken.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.authtoken.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.phenomlError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.phenomlTimeoutError("Timeout exceeded when calling POST /v2/auth/token.");
+            case "unknown":
+                throw new errors.phenomlError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
     protected async _getAuthorizationHeader(request?: phenoml.authtoken.AuthGenerateTokenRequest): Promise<string> {
         // Auth token endpoint only uses basic auth with username/password
         if (!request?.username || !request?.password) {
@@ -146,3 +235,6 @@ export class Auth {
         return basicAuthHeader;
     }
 }
+
+// Re-export Auth as AuthClient for forward compatibility with newer Fern generators
+export { Auth as AuthClient };

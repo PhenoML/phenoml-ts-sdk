@@ -149,7 +149,7 @@ describe("Fhir", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhir.search("fhir_provider_id", "fhir_path");
+            return await client.fhir.search("fhir_provider_id", "fhir_path", {}, { maxRetries: 0 });
         }).rejects.toThrow(phenoml.fhir.InternalServerError);
     });
 
@@ -265,7 +265,7 @@ describe("Fhir", () => {
                     id: undefined,
                     meta: undefined,
                 },
-            });
+            }, { maxRetries: 0 });
         }).rejects.toThrow(phenoml.fhir.InternalServerError);
     });
 
@@ -383,7 +383,7 @@ describe("Fhir", () => {
                     id: undefined,
                     meta: undefined,
                 },
-            });
+            }, { maxRetries: 0 });
         }).rejects.toThrow(phenoml.fhir.InternalServerError);
     });
 
@@ -477,7 +477,7 @@ describe("Fhir", () => {
             .build();
 
         await expect(async () => {
-            return await client.fhir.delete("fhir_provider_id", "fhir_path");
+            return await client.fhir.delete("fhir_provider_id", "fhir_path", {}, { maxRetries: 0 });
         }).rejects.toThrow(phenoml.fhir.InternalServerError);
     });
 
@@ -815,7 +815,7 @@ describe("Fhir", () => {
                         from: undefined,
                     },
                 ],
-            });
+            }, { maxRetries: 0 });
         }).rejects.toThrow(phenoml.fhir.InternalServerError);
     });
 
@@ -1034,7 +1034,7 @@ describe("Fhir", () => {
                         },
                     ],
                 },
-            });
+            }, { maxRetries: 0 });
         }).rejects.toThrow(phenoml.fhir.InternalServerError);
     });
 });
