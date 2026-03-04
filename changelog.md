@@ -45,11 +45,6 @@ import { phenomlClient } from "phenoml";
 - `BaseClient.ts` with centralized client options normalization and auth provider integration.
 - Per-resource `exports.ts` modules for cleaner imports.
 
-### Internal
-
-- Upgraded Fern TypeScript SDK generator to 3.53.3 and Fern CLI to 4.3.3.
-- Error classes now include structured response bodies.
-
 ## 9.2.0 - 2026-03-03
 * feat: add document multi-resource extraction endpoint
 * Adds a new API endpoint for extracting multiple FHIR resources from documents (PDF or images).
