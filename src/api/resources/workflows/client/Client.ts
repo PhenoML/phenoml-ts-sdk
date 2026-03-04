@@ -8,7 +8,9 @@ import * as errors from "../../../../errors/index.js";
 import * as phenoml from "../../../index.js";
 
 export declare namespace Workflows {
-    export interface Options extends BaseClientOptions {}
+    export interface Options extends BaseClientOptions {
+        token?: core.Supplier<core.BearerToken>;
+    }
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -16,7 +18,7 @@ export declare namespace Workflows {
 export class Workflows {
     protected readonly _options: Workflows.Options;
 
-    constructor(_options: Workflows.Options) {
+    constructor(_options: Workflows.Options = {}) {
         this._options = _options;
     }
 
@@ -666,7 +668,12 @@ export class Workflows {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

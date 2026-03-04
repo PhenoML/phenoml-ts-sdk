@@ -8,7 +8,9 @@ import * as errors from "../../../../errors/index.js";
 import * as phenoml from "../../../index.js";
 
 export declare namespace Construe {
-    export interface Options extends BaseClientOptions {}
+    export interface Options extends BaseClientOptions {
+        token?: core.Supplier<core.BearerToken>;
+    }
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -16,7 +18,7 @@ export declare namespace Construe {
 export class Construe {
     protected readonly _options: Construe.Options;
 
-    constructor(_options: Construe.Options) {
+    constructor(_options: Construe.Options = {}) {
         this._options = _options;
     }
 
@@ -1295,7 +1297,12 @@ export class Construe {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

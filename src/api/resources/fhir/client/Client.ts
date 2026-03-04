@@ -9,7 +9,9 @@ import * as errors from "../../../../errors/index.js";
 import * as phenoml from "../../../index.js";
 
 export declare namespace Fhir {
-    export interface Options extends BaseClientOptions {}
+    export interface Options extends BaseClientOptions {
+        token?: core.Supplier<core.BearerToken>;
+    }
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -17,7 +19,7 @@ export declare namespace Fhir {
 export class Fhir {
     protected readonly _options: Fhir.Options;
 
-    constructor(_options: Fhir.Options) {
+    constructor(_options: Fhir.Options = {}) {
         this._options = _options;
     }
 
@@ -869,7 +871,12 @@ export class Fhir {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

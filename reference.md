@@ -1147,6 +1147,72 @@ await client.authtoken.auth.generateToken({
 </dl>
 </details>
 
+<details><summary><code>client.authtoken.auth.<a href="/src/api/resources/authtoken/resources/auth/client/Client.ts">getToken</a>({ ...params }) -> phenoml.TokenResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+OAuth 2.0 client credentials token endpoint (RFC 6749 §4.4).
+Accepts client_id and client_secret in the request body (JSON or
+form-encoded) or via Basic Auth header (RFC 6749 §2.3.1), and
+returns an access token with expiration information.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.authtoken.auth.getToken();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.authtoken.ClientCredentialsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Auth.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Cohort
 <details><summary><code>client.cohort.<a href="/src/api/resources/cohort/client/Client.ts">analyze</a>({ ...params }) -> phenoml.CohortResponse</code></summary>
 <dl>

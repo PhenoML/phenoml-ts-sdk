@@ -2,6 +2,7 @@
 
 import { Agent } from "./api/resources/agent/client/Client.js";
 import { Authtoken } from "./api/resources/authtoken/client/Client.js";
+import { Auth } from "./api/resources/authtoken/resources/auth/client/Client.js";
 import { Cohort } from "./api/resources/cohort/client/Client.js";
 import { Construe } from "./api/resources/construe/client/Client.js";
 import { Fhir } from "./api/resources/fhir/client/Client.js";
@@ -15,13 +16,17 @@ import { mergeHeaders } from "./core/headers.js";
 import * as core from "./core/index.js";
 
 export declare namespace phenomlClient {
-    export interface Options extends BaseClientOptions {}
+    export interface Options extends BaseClientOptions {
+        clientId?: core.Supplier<string | undefined>;
+        clientSecret?: core.Supplier<string | undefined>;
+    }
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
 export class phenomlClient {
     protected readonly _options: phenomlClient.Options;
+    private readonly _oauthTokenProvider: core.OAuthTokenProvider;
     protected _agent: Agent | undefined;
     protected _authtoken: Authtoken | undefined;
     protected _cohort: Cohort | undefined;
@@ -33,7 +38,7 @@ export class phenomlClient {
     protected _tools: Tools | undefined;
     protected _workflows: Workflows | undefined;
 
-    constructor(_options: phenomlClient.Options) {
+    constructor(_options: phenomlClient.Options = {}) {
         this._options = {
             ..._options,
             logging: core.logging.createLogger(_options?.logging),
@@ -41,53 +46,107 @@ export class phenomlClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "phenoml",
-                    "X-Fern-SDK-Version": "9.2.0",
-                    "User-Agent": "phenoml/9.2.0",
+                    "X-Fern-SDK-Version": "9.2.1",
+                    "User-Agent": "phenoml/9.2.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
                 _options?.headers,
             ),
         };
+
+        const clientId = this._options.clientId ?? process.env.PHENOML_CLIENT_ID;
+        if (clientId == null) {
+            throw new Error(
+                "clientId is required; either pass it as an argument or set the PHENOML_CLIENT_ID environment variable",
+            );
+        }
+
+        const clientSecret = this._options.clientSecret ?? process.env.PHENOML_CLIENT_SECRET;
+        if (clientSecret == null) {
+            throw new Error(
+                "clientSecret is required; either pass it as an argument or set the PHENOML_CLIENT_SECRET environment variable",
+            );
+        }
+
+        this._oauthTokenProvider = new core.OAuthTokenProvider({
+            clientId,
+
+            clientSecret,
+            authClient: new Auth({
+                ...this._options,
+                environment: this._options.environment,
+            }),
+        });
     }
 
     public get agent(): Agent {
-        return (this._agent ??= new Agent(this._options));
+        return (this._agent ??= new Agent({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
     }
 
     public get authtoken(): Authtoken {
-        return (this._authtoken ??= new Authtoken(this._options));
+        return (this._authtoken ??= new Authtoken({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
     }
 
     public get cohort(): Cohort {
-        return (this._cohort ??= new Cohort(this._options));
+        return (this._cohort ??= new Cohort({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
     }
 
     public get construe(): Construe {
-        return (this._construe ??= new Construe(this._options));
+        return (this._construe ??= new Construe({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
     }
 
     public get fhir(): Fhir {
-        return (this._fhir ??= new Fhir(this._options));
+        return (this._fhir ??= new Fhir({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
     }
 
     public get fhirProvider(): FhirProvider {
-        return (this._fhirProvider ??= new FhirProvider(this._options));
+        return (this._fhirProvider ??= new FhirProvider({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
     }
 
     public get lang2Fhir(): Lang2Fhir {
-        return (this._lang2Fhir ??= new Lang2Fhir(this._options));
+        return (this._lang2Fhir ??= new Lang2Fhir({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
     }
 
     public get summary(): Summary {
-        return (this._summary ??= new Summary(this._options));
+        return (this._summary ??= new Summary({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
     }
 
     public get tools(): Tools {
-        return (this._tools ??= new Tools(this._options));
+        return (this._tools ??= new Tools({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
     }
 
     public get workflows(): Workflows {
-        return (this._workflows ??= new Workflows(this._options));
+        return (this._workflows ??= new Workflows({
+            ...this._options,
+            token: async () => await this._oauthTokenProvider.getToken(),
+        }));
     }
 }

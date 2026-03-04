@@ -9,7 +9,9 @@ import * as phenoml from "../../../index.js";
 import { Prompts } from "../resources/prompts/client/Client.js";
 
 export declare namespace Agent {
-    export interface Options extends BaseClientOptions {}
+    export interface Options extends BaseClientOptions {
+        token?: core.Supplier<core.BearerToken>;
+    }
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -18,7 +20,7 @@ export class Agent {
     protected readonly _options: Agent.Options;
     protected _prompts: Prompts | undefined;
 
-    constructor(_options: Agent.Options) {
+    constructor(_options: Agent.Options = {}) {
         this._options = _options;
     }
 
@@ -897,7 +899,12 @@ export class Agent {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }

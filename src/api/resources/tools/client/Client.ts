@@ -9,7 +9,9 @@ import * as phenoml from "../../../index.js";
 import { McpServer } from "../resources/mcpServer/client/Client.js";
 
 export declare namespace Tools {
-    export interface Options extends BaseClientOptions {}
+    export interface Options extends BaseClientOptions {
+        token?: core.Supplier<core.BearerToken>;
+    }
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
@@ -18,7 +20,7 @@ export class Tools {
     protected readonly _options: Tools.Options;
     protected _mcpServer: McpServer | undefined;
 
-    constructor(_options: Tools.Options) {
+    constructor(_options: Tools.Options = {}) {
         this._options = _options;
     }
 
@@ -470,7 +472,12 @@ export class Tools {
         }
     }
 
-    protected async _getAuthorizationHeader(): Promise<string> {
-        return `Bearer ${await core.Supplier.get(this._options.token)}`;
+    protected async _getAuthorizationHeader(): Promise<string | undefined> {
+        const bearer = await core.Supplier.get(this._options.token);
+        if (bearer != null) {
+            return `Bearer ${bearer}`;
+        }
+
+        return undefined;
     }
 }
