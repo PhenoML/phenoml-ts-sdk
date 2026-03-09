@@ -1,3 +1,13 @@
+## 10.1.0 - 2026-03-09
+* feat: add support for 429 and 503 error handling in FHIR client
+* Enhance the FHIR client with improved error handling by adding support for rate limiting (429 Too Many Requests) and service unavailability (503 Service Unavailable) errors. This provides better error handling coverage for common HTTP status codes encountered when interacting with FHIR APIs.
+* Key changes:
+* Add TooManyRequestsError and ServiceUnavailableError classes with proper TypeScript typing
+* Update all FHIR client methods to handle 429 and 503 status codes appropriately
+* Include comprehensive JSDoc error documentation for all affected methods
+* Export new error classes through the errors index module
+* 🌿 Generated with Fern
+
 ## 10.0.0 - 2026-03-04
 
 ### Breaking Changes

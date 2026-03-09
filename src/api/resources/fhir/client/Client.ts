@@ -42,8 +42,10 @@ export class FhirClient {
      * @throws {@link phenoml.fhir.BadRequestError}
      * @throws {@link phenoml.fhir.UnauthorizedError}
      * @throws {@link phenoml.fhir.NotFoundError}
+     * @throws {@link phenoml.fhir.TooManyRequestsError}
      * @throws {@link phenoml.fhir.InternalServerError}
      * @throws {@link phenoml.fhir.BadGatewayError}
+     * @throws {@link phenoml.fhir.ServiceUnavailableError}
      *
      * @example
      *     await client.fhir.search("550e8400-e29b-41d4-a716-446655440000", "Patient", {
@@ -114,11 +116,21 @@ export class FhirClient {
                     throw new phenoml.fhir.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
                     throw new phenoml.fhir.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 429:
+                    throw new phenoml.fhir.TooManyRequestsError(
+                        _response.error.body as phenoml.fhir.ErrorResponse,
+                        _response.rawResponse,
+                    );
                 case 500:
                     throw new phenoml.fhir.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 case 502:
                     throw new phenoml.fhir.BadGatewayError(
                         _response.error.body as phenoml.fhir.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 503:
+                    throw new phenoml.fhir.ServiceUnavailableError(
+                        _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
@@ -156,8 +168,10 @@ export class FhirClient {
      *
      * @throws {@link phenoml.fhir.BadRequestError}
      * @throws {@link phenoml.fhir.UnauthorizedError}
+     * @throws {@link phenoml.fhir.TooManyRequestsError}
      * @throws {@link phenoml.fhir.InternalServerError}
      * @throws {@link phenoml.fhir.BadGatewayError}
+     * @throws {@link phenoml.fhir.ServiceUnavailableError}
      *
      * @example
      *     await client.fhir.create("550e8400-e29b-41d4-a716-446655440000", "Patient", {
@@ -239,11 +253,21 @@ export class FhirClient {
                     throw new phenoml.fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
                     throw new phenoml.fhir.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                case 429:
+                    throw new phenoml.fhir.TooManyRequestsError(
+                        _response.error.body as phenoml.fhir.ErrorResponse,
+                        _response.rawResponse,
+                    );
                 case 500:
                     throw new phenoml.fhir.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 case 502:
                     throw new phenoml.fhir.BadGatewayError(
                         _response.error.body as phenoml.fhir.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 503:
+                    throw new phenoml.fhir.ServiceUnavailableError(
+                        _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
@@ -281,8 +305,10 @@ export class FhirClient {
      *
      * @throws {@link phenoml.fhir.BadRequestError}
      * @throws {@link phenoml.fhir.UnauthorizedError}
+     * @throws {@link phenoml.fhir.TooManyRequestsError}
      * @throws {@link phenoml.fhir.InternalServerError}
      * @throws {@link phenoml.fhir.BadGatewayError}
+     * @throws {@link phenoml.fhir.ServiceUnavailableError}
      *
      * @example
      *     await client.fhir.upsert("550e8400-e29b-41d4-a716-446655440000", "Patient", {
@@ -366,11 +392,21 @@ export class FhirClient {
                     throw new phenoml.fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
                     throw new phenoml.fhir.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                case 429:
+                    throw new phenoml.fhir.TooManyRequestsError(
+                        _response.error.body as phenoml.fhir.ErrorResponse,
+                        _response.rawResponse,
+                    );
                 case 500:
                     throw new phenoml.fhir.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 case 502:
                     throw new phenoml.fhir.BadGatewayError(
                         _response.error.body as phenoml.fhir.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 503:
+                    throw new phenoml.fhir.ServiceUnavailableError(
+                        _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
@@ -409,8 +445,10 @@ export class FhirClient {
      * @throws {@link phenoml.fhir.BadRequestError}
      * @throws {@link phenoml.fhir.UnauthorizedError}
      * @throws {@link phenoml.fhir.NotFoundError}
+     * @throws {@link phenoml.fhir.TooManyRequestsError}
      * @throws {@link phenoml.fhir.InternalServerError}
      * @throws {@link phenoml.fhir.BadGatewayError}
+     * @throws {@link phenoml.fhir.ServiceUnavailableError}
      *
      * @example
      *     await client.fhir.delete("550e8400-e29b-41d4-a716-446655440000", "Patient", {
@@ -474,11 +512,21 @@ export class FhirClient {
                     throw new phenoml.fhir.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
                     throw new phenoml.fhir.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 429:
+                    throw new phenoml.fhir.TooManyRequestsError(
+                        _response.error.body as phenoml.fhir.ErrorResponse,
+                        _response.rawResponse,
+                    );
                 case 500:
                     throw new phenoml.fhir.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 case 502:
                     throw new phenoml.fhir.BadGatewayError(
                         _response.error.body as phenoml.fhir.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 503:
+                    throw new phenoml.fhir.ServiceUnavailableError(
+                        _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
@@ -522,8 +570,10 @@ export class FhirClient {
      * @throws {@link phenoml.fhir.BadRequestError}
      * @throws {@link phenoml.fhir.UnauthorizedError}
      * @throws {@link phenoml.fhir.NotFoundError}
+     * @throws {@link phenoml.fhir.TooManyRequestsError}
      * @throws {@link phenoml.fhir.InternalServerError}
      * @throws {@link phenoml.fhir.BadGatewayError}
+     * @throws {@link phenoml.fhir.ServiceUnavailableError}
      *
      * @example
      *     await client.fhir.patch("550e8400-e29b-41d4-a716-446655440000", "Patient", {
@@ -648,11 +698,21 @@ export class FhirClient {
                     throw new phenoml.fhir.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
                     throw new phenoml.fhir.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 429:
+                    throw new phenoml.fhir.TooManyRequestsError(
+                        _response.error.body as phenoml.fhir.ErrorResponse,
+                        _response.rawResponse,
+                    );
                 case 500:
                     throw new phenoml.fhir.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 case 502:
                     throw new phenoml.fhir.BadGatewayError(
                         _response.error.body as phenoml.fhir.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 503:
+                    throw new phenoml.fhir.ServiceUnavailableError(
+                        _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:
@@ -687,8 +747,10 @@ export class FhirClient {
      *
      * @throws {@link phenoml.fhir.BadRequestError}
      * @throws {@link phenoml.fhir.UnauthorizedError}
+     * @throws {@link phenoml.fhir.TooManyRequestsError}
      * @throws {@link phenoml.fhir.InternalServerError}
      * @throws {@link phenoml.fhir.BadGatewayError}
+     * @throws {@link phenoml.fhir.ServiceUnavailableError}
      *
      * @example
      *     await client.fhir.executeBundle("550e8400-e29b-41d4-a716-446655440000", {
@@ -785,11 +847,21 @@ export class FhirClient {
                     throw new phenoml.fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
                     throw new phenoml.fhir.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                case 429:
+                    throw new phenoml.fhir.TooManyRequestsError(
+                        _response.error.body as phenoml.fhir.ErrorResponse,
+                        _response.rawResponse,
+                    );
                 case 500:
                     throw new phenoml.fhir.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 case 502:
                     throw new phenoml.fhir.BadGatewayError(
                         _response.error.body as phenoml.fhir.ErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 503:
+                    throw new phenoml.fhir.ServiceUnavailableError(
+                        _response.error.body as unknown,
                         _response.rawResponse,
                     );
                 default:

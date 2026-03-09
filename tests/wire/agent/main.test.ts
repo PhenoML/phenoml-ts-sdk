@@ -1184,9 +1184,7 @@ describe("AgentClient", () => {
         ]);
     });
 
-    // TODO: Fern generator bug (v3.51.0+) - SSE error tests expect events but client throws typed errors
-    // https://github.com/fern-api/fern/issues/13128
-    test.skip("streamChat (2)", async () => {
+    test("streamChat (2)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1204,21 +1202,18 @@ describe("AgentClient", () => {
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
-            .sseBody(rawResponseBody)
+            .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.agent.streamChat({
-            message: "message",
-            agent_id: "agent_id",
-        });
-        const events: unknown[] = [];
-        for await (const event of response) {
-            events.push(event);
-        }
-        expect(events.length).toBeGreaterThan(0);
+        await expect(async () => {
+            return await client.agent.streamChat({
+                message: "message",
+                agent_id: "agent_id",
+            });
+        }).rejects.toThrow(phenoml.agent.BadRequestError);
     });
 
-    test.skip("streamChat (3)", async () => {
+    test("streamChat (3)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1236,21 +1231,18 @@ describe("AgentClient", () => {
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
-            .sseBody(rawResponseBody)
+            .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.agent.streamChat({
-            message: "message",
-            agent_id: "agent_id",
-        });
-        const events: unknown[] = [];
-        for await (const event of response) {
-            events.push(event);
-        }
-        expect(events.length).toBeGreaterThan(0);
+        await expect(async () => {
+            return await client.agent.streamChat({
+                message: "message",
+                agent_id: "agent_id",
+            });
+        }).rejects.toThrow(phenoml.agent.UnauthorizedError);
     });
 
-    test.skip("streamChat (4)", async () => {
+    test("streamChat (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1268,21 +1260,18 @@ describe("AgentClient", () => {
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(403)
-            .sseBody(rawResponseBody)
+            .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.agent.streamChat({
-            message: "message",
-            agent_id: "agent_id",
-        });
-        const events: unknown[] = [];
-        for await (const event of response) {
-            events.push(event);
-        }
-        expect(events.length).toBeGreaterThan(0);
+        await expect(async () => {
+            return await client.agent.streamChat({
+                message: "message",
+                agent_id: "agent_id",
+            });
+        }).rejects.toThrow(phenoml.agent.ForbiddenError);
     });
 
-    test.skip("streamChat (5)", async () => {
+    test("streamChat (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1300,18 +1289,15 @@ describe("AgentClient", () => {
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
-            .sseBody(rawResponseBody)
+            .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.agent.streamChat({
-            message: "message",
-            agent_id: "agent_id",
-        });
-        const events: unknown[] = [];
-        for await (const event of response) {
-            events.push(event);
-        }
-        expect(events.length).toBeGreaterThan(0);
+        await expect(async () => {
+            return await client.agent.streamChat({
+                message: "message",
+                agent_id: "agent_id",
+            });
+        }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
 
     test("getChatMessages (1)", async () => {
