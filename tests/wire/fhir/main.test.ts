@@ -198,6 +198,31 @@ describe("FhirClient", () => {
             environment: server.baseUrl,
         });
 
+        const rawResponseBody = { message: "message" };
+        server
+            .mockEndpoint()
+            .get("/fhir-provider/fhir_provider_id/fhir/fhir_path")
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.fhir.search("fhir_provider_id", "fhir_path");
+        }).rejects.toThrow(phenoml.fhir.TooManyRequestsError);
+    });
+
+    test("search (7)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -212,7 +237,7 @@ describe("FhirClient", () => {
         }).rejects.toThrow(phenoml.fhir.InternalServerError);
     });
 
-    test("search (7)", async () => {
+    test("search (8)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -235,6 +260,31 @@ describe("FhirClient", () => {
         await expect(async () => {
             return await client.fhir.search("fhir_provider_id", "fhir_path");
         }).rejects.toThrow(phenoml.fhir.BadGatewayError);
+    });
+
+    test("search (9)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/fhir-provider/fhir_provider_id/fhir/fhir_path")
+            .respondWith()
+            .statusCode(503)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.fhir.search("fhir_provider_id", "fhir_path");
+        }).rejects.toThrow(phenoml.fhir.ServiceUnavailableError);
     });
 
     test("create (1)", async () => {
@@ -370,6 +420,36 @@ describe("FhirClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "resourceType" };
+        const rawResponseBody = { message: "message" };
+        server
+            .mockEndpoint()
+            .post("/fhir-provider/fhir_provider_id/fhir/fhir_path")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.fhir.create("fhir_provider_id", "fhir_path", {
+                body: {
+                    resourceType: "resourceType",
+                },
+            });
+        }).rejects.toThrow(phenoml.fhir.TooManyRequestsError);
+    });
+
+    test("create (5)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { resourceType: "resourceType" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -389,7 +469,7 @@ describe("FhirClient", () => {
         }).rejects.toThrow(phenoml.fhir.InternalServerError);
     });
 
-    test("create (5)", async () => {
+    test("create (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -417,6 +497,36 @@ describe("FhirClient", () => {
                 },
             });
         }).rejects.toThrow(phenoml.fhir.BadGatewayError);
+    });
+
+    test("create (7)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { resourceType: "resourceType" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/fhir-provider/fhir_provider_id/fhir/fhir_path")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(503)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.fhir.create("fhir_provider_id", "fhir_path", {
+                body: {
+                    resourceType: "resourceType",
+                },
+            });
+        }).rejects.toThrow(phenoml.fhir.ServiceUnavailableError);
     });
 
     test("upsert (1)", async () => {
@@ -554,6 +664,36 @@ describe("FhirClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "resourceType" };
+        const rawResponseBody = { message: "message" };
+        server
+            .mockEndpoint()
+            .put("/fhir-provider/fhir_provider_id/fhir/fhir_path")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.fhir.upsert("fhir_provider_id", "fhir_path", {
+                body: {
+                    resourceType: "resourceType",
+                },
+            });
+        }).rejects.toThrow(phenoml.fhir.TooManyRequestsError);
+    });
+
+    test("upsert (5)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { resourceType: "resourceType" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -573,7 +713,7 @@ describe("FhirClient", () => {
         }).rejects.toThrow(phenoml.fhir.InternalServerError);
     });
 
-    test("upsert (5)", async () => {
+    test("upsert (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -601,6 +741,36 @@ describe("FhirClient", () => {
                 },
             });
         }).rejects.toThrow(phenoml.fhir.BadGatewayError);
+    });
+
+    test("upsert (7)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { resourceType: "resourceType" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .put("/fhir-provider/fhir_provider_id/fhir/fhir_path")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(503)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.fhir.upsert("fhir_provider_id", "fhir_path", {
+                body: {
+                    resourceType: "resourceType",
+                },
+            });
+        }).rejects.toThrow(phenoml.fhir.ServiceUnavailableError);
     });
 
     test("delete (1)", async () => {
@@ -724,6 +894,31 @@ describe("FhirClient", () => {
             environment: server.baseUrl,
         });
 
+        const rawResponseBody = { message: "message" };
+        server
+            .mockEndpoint()
+            .delete("/fhir-provider/fhir_provider_id/fhir/fhir_path")
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.fhir.delete("fhir_provider_id", "fhir_path");
+        }).rejects.toThrow(phenoml.fhir.TooManyRequestsError);
+    });
+
+    test("delete (6)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -738,7 +933,7 @@ describe("FhirClient", () => {
         }).rejects.toThrow(phenoml.fhir.InternalServerError);
     });
 
-    test("delete (6)", async () => {
+    test("delete (7)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -761,6 +956,31 @@ describe("FhirClient", () => {
         await expect(async () => {
             return await client.fhir.delete("fhir_provider_id", "fhir_path");
         }).rejects.toThrow(phenoml.fhir.BadGatewayError);
+    });
+
+    test("delete (8)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .delete("/fhir-provider/fhir_provider_id/fhir/fhir_path")
+            .respondWith()
+            .statusCode(503)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.fhir.delete("fhir_provider_id", "fhir_path");
+        }).rejects.toThrow(phenoml.fhir.ServiceUnavailableError);
     });
 
     test("patch (1)", async () => {
@@ -1139,6 +1359,46 @@ describe("FhirClient", () => {
             { op: "add", path: "path" },
             { op: "add", path: "path" },
         ];
+        const rawResponseBody = { message: "message" };
+        server
+            .mockEndpoint()
+            .patch("/fhir-provider/fhir_provider_id/fhir/fhir_path")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.fhir.patch("fhir_provider_id", "fhir_path", {
+                body: [
+                    {
+                        op: "add",
+                        path: "path",
+                    },
+                    {
+                        op: "add",
+                        path: "path",
+                    },
+                ],
+            });
+        }).rejects.toThrow(phenoml.fhir.TooManyRequestsError);
+    });
+
+    test("patch (9)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = [
+            { op: "add", path: "path" },
+            { op: "add", path: "path" },
+        ];
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -1165,7 +1425,7 @@ describe("FhirClient", () => {
         }).rejects.toThrow(phenoml.fhir.InternalServerError);
     });
 
-    test("patch (9)", async () => {
+    test("patch (10)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1203,6 +1463,46 @@ describe("FhirClient", () => {
                 ],
             });
         }).rejects.toThrow(phenoml.fhir.BadGatewayError);
+    });
+
+    test("patch (11)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = [
+            { op: "add", path: "path" },
+            { op: "add", path: "path" },
+        ];
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .patch("/fhir-provider/fhir_provider_id/fhir/fhir_path")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(503)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.fhir.patch("fhir_provider_id", "fhir_path", {
+                body: [
+                    {
+                        op: "add",
+                        path: "path",
+                    },
+                    {
+                        op: "add",
+                        path: "path",
+                    },
+                ],
+            });
+        }).rejects.toThrow(phenoml.fhir.ServiceUnavailableError);
     });
 
     test("executeBundle (1)", async () => {
@@ -1381,6 +1681,37 @@ describe("FhirClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };
+        const rawResponseBody = { message: "message" };
+        server
+            .mockEndpoint()
+            .post("/fhir-provider/fhir_provider_id/fhir")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.fhir.executeBundle("fhir_provider_id", {
+                body: {
+                    resourceType: "Bundle",
+                    entry: [{}, {}],
+                },
+            });
+        }).rejects.toThrow(phenoml.fhir.TooManyRequestsError);
+    });
+
+    test("executeBundle (5)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -1401,7 +1732,7 @@ describe("FhirClient", () => {
         }).rejects.toThrow(phenoml.fhir.InternalServerError);
     });
 
-    test("executeBundle (5)", async () => {
+    test("executeBundle (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1430,5 +1761,36 @@ describe("FhirClient", () => {
                 },
             });
         }).rejects.toThrow(phenoml.fhir.BadGatewayError);
+    });
+
+    test("executeBundle (7)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "test_client_id",
+            clientSecret: "test_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/fhir-provider/fhir_provider_id/fhir")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(503)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.fhir.executeBundle("fhir_provider_id", {
+                body: {
+                    resourceType: "Bundle",
+                    entry: [{}, {}],
+                },
+            });
+        }).rejects.toThrow(phenoml.fhir.ServiceUnavailableError);
     });
 });
