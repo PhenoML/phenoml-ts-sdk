@@ -1,3 +1,6 @@
+## 11.0.0 - 2026-03-11
+* The `ErrorResponse` interface has been removed from the summary resources types. If your code imports or uses this type, you will need to define your own error response interface or use alternative error handling patterns.
+
 ## 10.1.0 - 2026-03-09
 * feat: add support for 429 and 503 error handling in FHIR client
 * Enhance the FHIR client with improved error handling by adding support for rate limiting (429 Too Many Requests) and service unavailability (503 Service Unavailable) errors. This provides better error handling coverage for common HTTP status codes encountered when interacting with FHIR APIs.
