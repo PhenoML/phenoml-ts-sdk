@@ -1,3 +1,6 @@
+## 11.1.0 - 2026-03-11
+* The SDK now supports preview mode for workflow execution. Set the optional `preview` parameter to `true` in ExecuteWorkflowRequest to create mock resources instead of persisting to the FHIR server.
+
 ## 11.0.0 - 2026-03-11
 * The `ErrorResponse` interface has been removed from the summary resources types. If your code imports or uses this type, you will need to define your own error response interface or use alternative error handling patterns.
 

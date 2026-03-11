@@ -6,6 +6,8 @@ export interface ExecuteWorkflowResponse {
     /** Status message with execution details */
     message?: string | undefined;
     results?: ExecuteWorkflowResponse.Results | undefined;
+    /** Whether the workflow was executed in preview mode */
+    preview?: boolean | undefined;
 }
 
 export namespace ExecuteWorkflowResponse {
