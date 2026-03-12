@@ -8,6 +8,6 @@
         "packageManager": "pnpm",
         "testFramework": "vitest"
     },
-    "originGitCommit": "cdfe611a02d68f09dbce1eb259387269402552fb",
-    "sdkVersion": "11.0.0"
+    "originGitCommit": "670d2f19d924d953196b4131bb16a252f2b6148f",
+    "sdkVersion": "11.1.0"
 }

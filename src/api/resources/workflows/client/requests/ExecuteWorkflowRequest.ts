@@ -14,4 +14,6 @@
 export interface ExecuteWorkflowRequest {
     /** Input data for workflow execution */
     input_data: Record<string, unknown>;
+    /** If true, create operations return mock resources instead of persisting to the FHIR server */
+    preview?: boolean;
 }

@@ -1673,6 +1673,7 @@ describe("WorkflowsClient", () => {
             success: true,
             message: "Workflow executed successfully",
             results: { steps: { key: "value" } },
+            preview: false,
         };
         server
             .mockEndpoint()
@@ -1699,6 +1700,7 @@ describe("WorkflowsClient", () => {
                     key: "value",
                 },
             },
+            preview: false,
         });
     });
 
