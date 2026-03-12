@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
 
       - name: Install pnpm
-        uses: pnpm/action-setup@90f659ecb4e9337ce0ccede6ef8e59e5bb6d4724 # v4
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
 
       - name: Install dependencies
         run: pnpm install
@@ -35,7 +35,7 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
 
       - name: Install pnpm
-        uses: pnpm/action-setup@90f659ecb4e9337ce0ccede6ef8e59e5bb6d4724 # v4
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
 
       - name: Install dependencies
         run: pnpm install
@@ -98,7 +98,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install pnpm
-        uses: pnpm/action-setup@90f659ecb4e9337ce0ccede6ef8e59e5bb6d4724 # v4
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
 
       - name: Install dependencies
         run: pnpm install
