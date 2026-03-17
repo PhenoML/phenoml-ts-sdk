@@ -29,8 +29,8 @@
  * field to specify exact scopes instead.
  *
  * Canvas does not support system-level roles — use `scopes` directly.
- * Google Healthcare, HAPI, and `none`/`token_passthrough` auth methods
- * do not use scopes at all.
+ * Google Healthcare, HAPI, Meditech, and `none`/`token_passthrough`
+ * auth methods do not use scopes at all.
  */
 export const Role = {
     Admin: "admin",

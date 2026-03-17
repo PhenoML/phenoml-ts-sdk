@@ -1,3 +1,6 @@
+## 11.2.0 - 2026-03-17
+* The SDK now supports Meditech as a FHIR provider. Use the `Provider.Meditech` value when configuring FHIR connections to Meditech systems.
+
 ## 11.1.0 - 2026-03-11
 * The SDK now supports preview mode for workflow execution. Set the optional `preview` parameter to `true` in ExecuteWorkflowRequest to create mock resources instead of persisting to the FHIR server.
 
