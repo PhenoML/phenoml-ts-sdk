@@ -13,7 +13,8 @@
  *   return an error.
  * - `token_passthrough`: The caller provides their own bearer token via the X-Phenoml-Fhir-Provider header
  *   as one or more comma-separated {fhir_provider_id}:{oauth2_token} pairs. Specifying `role` or `scopes`
- *   will return an error.
+ *   will return an error. This is the recommended mode for providers like Meditech where the bearer token
+ *   is typically obtained outside PhenoML.
  * - `none`: No authentication is performed. Specifying `role` or `scopes` will return an error.
  *
  * For the `on_behalf_of` authentication method, you must also provide the Patient or Practitioner reference

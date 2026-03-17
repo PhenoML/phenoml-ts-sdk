@@ -14,6 +14,7 @@ export const Provider = {
     Epic: "epic",
     GoogleHealthcare: "google_healthcare",
     Hapi: "hapi",
+    Meditech: "meditech",
     Medplum: "medplum",
     Phenostore: "phenostore",
     Sandbox: "sandbox",
