@@ -1,3 +1,12 @@
+## 11.2.1 - 2026-03-23
+* docs: update AuthGenerateTokenRequest field documentation
+* Updated the documentation comments for the username and password fields in AuthGenerateTokenRequest to clarify they represent API credential client ID and client secret respectively, rather than user login credentials.
+* Key changes:
+* Updated username field documentation from "The user's username or email" to "The API credential client ID"
+* Updated password field documentation from "The user's password" to "The API credential client secret"
+* Clarified the intended use of these authentication fields
+* 🌿 Generated with Fern
+
 ## 11.2.0 - 2026-03-17
 * The SDK now supports Meditech as a FHIR provider. Use the `Provider.Meditech` value when configuring FHIR connections to Meditech systems.
 
