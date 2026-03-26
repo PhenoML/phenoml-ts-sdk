@@ -1,3 +1,6 @@
+## 11.3.0 - 2026-03-26
+* The extract API now supports "soap_note" as a chunking method for better processing of medical SOAP (Subjective, Objective, Assessment, Plan) notes. Use the `ChunkingMethod.SoapNote` value in your ExtractRequestConfig to enable this specialized clinical document processing.
+
 ## 11.2.0 - 2026-03-17
 * The SDK now supports Meditech as a FHIR provider. Use the `Provider.Meditech` value when configuring FHIR connections to Meditech systems.
 

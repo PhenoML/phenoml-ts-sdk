@@ -30,7 +30,7 @@ export interface ExtractRequestConfig {
      * Citations show the exact text spans (with character offsets) that led to each code.
      * Only available when using chunking_method: "sentences".
      * The "none" method returns full text as one chunk (not useful for citations).
-     * LLM-based chunking (paragraphs, topics) does not support citations.
+     * LLM-based chunking (paragraphs, topics, soap_note) does not support citations.
      */
     include_citations?: boolean | undefined;
 }
@@ -42,6 +42,7 @@ export namespace ExtractRequestConfig {
         Sentences: "sentences",
         Paragraphs: "paragraphs",
         Topics: "topics",
+        SoapNote: "soap_note",
     } as const;
     export type ChunkingMethod = (typeof ChunkingMethod)[keyof typeof ChunkingMethod];
     /**
