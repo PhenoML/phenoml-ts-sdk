@@ -1,3 +1,6 @@
+## 11.3.0 - 2026-03-26
+* The SDK now supports context-aware extraction filtering. Use the optional `extraction_context` parameter to describe your extraction goal, and set `min_context_relevance` to filter out irrelevant chunks based on LLM-scored relevance. Additionally, SOAP note chunking is now available via the `"soap_note"` chunking method.
+
 ## 11.2.0 - 2026-03-17
 * The SDK now supports Meditech as a FHIR provider. Use the `Provider.Meditech` value when configuring FHIR connections to Meditech systems.
 

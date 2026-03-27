@@ -8,8 +8,8 @@
  *     }
  */
 export interface AuthGenerateTokenRequest {
-    /** The user's username or email */
+    /** The API credential client ID */
     username: string;
-    /** The user's password */
+    /** The API credential client secret */
     password: string;
 }
