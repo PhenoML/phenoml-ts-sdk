@@ -1,3 +1,6 @@
+## 11.4.0 - 2026-03-31
+* The SDK now supports consistency effort control for extraction requests. Use the optional `consistency_effort` parameter in ExtractRequestConfig to specify how much effort to spend ensuring consistent results across repeated requests, with options for none, low, medium, or high consistency levels.
+
 ## 11.3.0 - 2026-03-26
 * The SDK now supports context-aware extraction filtering. Use the optional `extraction_context` parameter to describe your extraction goal, and set `min_context_relevance` to filter out irrelevant chunks based on LLM-scored relevance. Additionally, SOAP note chunking is now available via the `"soap_note"` chunking method.
 

@@ -46,6 +46,12 @@ export interface ExtractRequestConfig {
      * Requires the "extraction_context" field when set above 0.
      */
     min_context_relevance?: number | undefined;
+    /**
+     * How much effort to spend ensuring consistent results across repeated requests.
+     * Higher levels apply stricter filtering to remove borderline codes that may
+     * vary between calls, improving determinism at the cost of additional latency.
+     */
+    consistency_effort?: ExtractRequestConfig.ConsistencyEffort | undefined;
 }
 
 export namespace ExtractRequestConfig {
@@ -70,4 +76,16 @@ export namespace ExtractRequestConfig {
         MedicationSearch: "medication_search",
     } as const;
     export type ValidationMethod = (typeof ValidationMethod)[keyof typeof ValidationMethod];
+    /**
+     * How much effort to spend ensuring consistent results across repeated requests.
+     * Higher levels apply stricter filtering to remove borderline codes that may
+     * vary between calls, improving determinism at the cost of additional latency.
+     */
+    export const ConsistencyEffort = {
+        None: "none",
+        Low: "low",
+        Medium: "medium",
+        High: "high",
+    } as const;
+    export type ConsistencyEffort = (typeof ConsistencyEffort)[keyof typeof ConsistencyEffort];
 }
