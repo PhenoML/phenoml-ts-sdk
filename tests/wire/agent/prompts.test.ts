@@ -32,6 +32,7 @@ describe("PromptsClient", () => {
                 tags: ["medical", "system"],
             },
         };
+
         server
             .mockEndpoint()
             .post("/agent/prompts")
@@ -71,6 +72,7 @@ describe("PromptsClient", () => {
         });
         const rawRequestBody = { name: "name", content: "content" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/prompts")
@@ -100,6 +102,7 @@ describe("PromptsClient", () => {
         });
         const rawRequestBody = { name: "name", content: "content" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/prompts")
@@ -129,6 +132,7 @@ describe("PromptsClient", () => {
         });
         const rawRequestBody = { name: "name", content: "content" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/prompts")
@@ -158,6 +162,7 @@ describe("PromptsClient", () => {
         });
         const rawRequestBody = { name: "name", content: "content" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/prompts")
@@ -200,6 +205,7 @@ describe("PromptsClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .get("/agent/prompts/list")
@@ -237,6 +243,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/agent/prompts/list")
@@ -262,6 +269,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/agent/prompts/list")
@@ -287,6 +295,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/agent/prompts/list")
@@ -323,6 +332,7 @@ describe("PromptsClient", () => {
                 tags: ["medical", "system"],
             },
         };
+
         server.mockEndpoint().get("/agent/prompts/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.agent.prompts.get("id");
@@ -352,6 +362,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/agent/prompts/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -371,6 +382,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/agent/prompts/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -390,6 +402,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/agent/prompts/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -409,6 +422,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/agent/prompts/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -439,6 +453,7 @@ describe("PromptsClient", () => {
                 tags: ["medical", "system"],
             },
         };
+
         server
             .mockEndpoint()
             .put("/agent/prompts/id")
@@ -475,6 +490,7 @@ describe("PromptsClient", () => {
         });
         const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/agent/prompts/id")
@@ -501,6 +517,7 @@ describe("PromptsClient", () => {
         });
         const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/agent/prompts/id")
@@ -527,6 +544,7 @@ describe("PromptsClient", () => {
         });
         const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/agent/prompts/id")
@@ -553,6 +571,7 @@ describe("PromptsClient", () => {
         });
         const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/agent/prompts/id")
@@ -579,6 +598,7 @@ describe("PromptsClient", () => {
         });
         const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/agent/prompts/id")
@@ -605,6 +625,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { success: true, message: "Prompt deleted successfully" };
+
         server
             .mockEndpoint()
             .delete("/agent/prompts/id")
@@ -632,6 +653,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/agent/prompts/id")
@@ -657,6 +679,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/agent/prompts/id")
@@ -682,6 +705,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/agent/prompts/id")
@@ -707,6 +731,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/agent/prompts/id")
@@ -747,6 +772,7 @@ describe("PromptsClient", () => {
                 tags: ["medical", "system"],
             },
         };
+
         server
             .mockEndpoint()
             .patch("/agent/prompts/id")
@@ -801,6 +827,7 @@ describe("PromptsClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/agent/prompts/id")
@@ -839,6 +866,7 @@ describe("PromptsClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/agent/prompts/id")
@@ -877,6 +905,7 @@ describe("PromptsClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/agent/prompts/id")
@@ -915,6 +944,7 @@ describe("PromptsClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/agent/prompts/id")
@@ -953,6 +983,7 @@ describe("PromptsClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/agent/prompts/id")
@@ -988,6 +1019,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { success: true, message: "Operation completed successfully" };
+
         server
             .mockEndpoint()
             .post("/agent/prompts/load-defaults")
@@ -1015,6 +1047,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/prompts/load-defaults")
@@ -1040,6 +1073,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/prompts/load-defaults")
@@ -1065,6 +1099,7 @@ describe("PromptsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/prompts/load-defaults")

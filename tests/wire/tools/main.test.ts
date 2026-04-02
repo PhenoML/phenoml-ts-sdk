@@ -28,6 +28,7 @@ describe("ToolsClient", () => {
             success: true,
             message: "FHIR resource created and stored in FHIR server successfully",
         };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-create")
@@ -85,6 +86,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { resource: "auto", text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-create")
@@ -114,6 +116,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { resource: "auto", text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-create")
@@ -143,6 +146,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { resource: "auto", text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-create")
@@ -172,6 +176,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { resource: "auto", text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-create")
@@ -201,6 +206,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { resource: "auto", text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-create")
@@ -244,6 +250,7 @@ describe("ToolsClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-create-multi")
@@ -299,6 +306,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-create-multi")
@@ -328,6 +336,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-create-multi")
@@ -357,6 +366,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-create-multi")
@@ -386,6 +396,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-create-multi")
@@ -415,6 +426,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-create-multi")
@@ -459,6 +471,7 @@ describe("ToolsClient", () => {
             success: true,
             message: "Search query generated and executed in FHIR server successfully. Found 1 results.",
         };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-search")
@@ -516,6 +529,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-search")
@@ -544,6 +558,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-search")
@@ -572,6 +587,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-search")
@@ -600,6 +616,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-search")
@@ -628,6 +645,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/lang2fhir-and-search")
@@ -678,6 +696,7 @@ describe("ToolsClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .post("/tools/cohort")
@@ -733,6 +752,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/cohort")
@@ -762,6 +782,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/cohort")
@@ -791,6 +812,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/cohort")
@@ -820,6 +842,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { text: "text", provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/cohort")

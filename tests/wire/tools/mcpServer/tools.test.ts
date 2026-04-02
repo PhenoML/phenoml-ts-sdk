@@ -29,6 +29,7 @@ describe("ToolsClient", () => {
                 mcp_server_url: "https://mcp.example.com",
             },
         };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/mcp_server_id/list")
@@ -67,6 +68,7 @@ describe("ToolsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/mcp_server_id/list")
@@ -92,6 +94,7 @@ describe("ToolsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/mcp_server_id/list")
@@ -117,6 +120,7 @@ describe("ToolsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/mcp_server_id/list")
@@ -153,6 +157,7 @@ describe("ToolsClient", () => {
                 mcp_server_url: "https://mcp.example.com",
             },
         };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/tool/mcp_server_tool_id")
@@ -191,6 +196,7 @@ describe("ToolsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/tool/mcp_server_tool_id")
@@ -216,6 +222,7 @@ describe("ToolsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/tool/mcp_server_tool_id")
@@ -241,6 +248,7 @@ describe("ToolsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/tool/mcp_server_tool_id")
@@ -277,6 +285,7 @@ describe("ToolsClient", () => {
                 mcp_server_url: "https://mcp.example.com",
             },
         };
+
         server
             .mockEndpoint()
             .delete("/tools/mcp-server/tool/mcp_server_tool_id")
@@ -315,6 +324,7 @@ describe("ToolsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/tools/mcp-server/tool/mcp_server_tool_id")
@@ -340,6 +350,7 @@ describe("ToolsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/tools/mcp-server/tool/mcp_server_tool_id")
@@ -365,6 +376,7 @@ describe("ToolsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/tools/mcp-server/tool/mcp_server_tool_id")
@@ -395,6 +407,7 @@ describe("ToolsClient", () => {
             result: { content: [{ type: "text", text: '{"endpoint_data": "example"}' }] },
             error: "Failed to call MCP server tool",
         };
+
         server
             .mockEndpoint()
             .post("/tools/mcp-server/tool/mcp_server_tool_id/call")
@@ -436,6 +449,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { arguments: { arguments: { key: "value" } } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/mcp-server/tool/mcp_server_tool_id/call")
@@ -468,6 +482,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { arguments: { arguments: { key: "value" } } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/mcp-server/tool/mcp_server_tool_id/call")
@@ -500,6 +515,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { arguments: { arguments: { key: "value" } } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/mcp-server/tool/mcp_server_tool_id/call")
@@ -532,6 +548,7 @@ describe("ToolsClient", () => {
         });
         const rawRequestBody = { arguments: { arguments: { key: "value" } } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/mcp-server/tool/mcp_server_tool_id/call")

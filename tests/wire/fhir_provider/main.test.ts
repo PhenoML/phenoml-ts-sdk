@@ -67,6 +67,7 @@ describe("FhirProviderClient", () => {
                 last_updated: "2024-01-15T10:30:00Z",
             },
         };
+
         server
             .mockEndpoint()
             .post("/fhir-provider")
@@ -149,6 +150,7 @@ describe("FhirProviderClient", () => {
             auth: { auth_method: "jwt", client_id: "client_id" },
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider")
@@ -188,6 +190,7 @@ describe("FhirProviderClient", () => {
             auth: { auth_method: "jwt", client_id: "client_id" },
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider")
@@ -227,6 +230,7 @@ describe("FhirProviderClient", () => {
             auth: { auth_method: "jwt", client_id: "client_id" },
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider")
@@ -266,6 +270,7 @@ describe("FhirProviderClient", () => {
             auth: { auth_method: "jwt", client_id: "client_id" },
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider")
@@ -347,6 +352,7 @@ describe("FhirProviderClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/list")
@@ -418,6 +424,7 @@ describe("FhirProviderClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/list")
@@ -443,6 +450,7 @@ describe("FhirProviderClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/list")
@@ -512,6 +520,7 @@ describe("FhirProviderClient", () => {
                 last_updated: "2024-01-15T10:30:00Z",
             },
         };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/fhir_provider_id")
@@ -580,6 +589,7 @@ describe("FhirProviderClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/fhir_provider_id")
@@ -605,6 +615,7 @@ describe("FhirProviderClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/fhir_provider_id")
@@ -630,6 +641,7 @@ describe("FhirProviderClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/fhir_provider_id")
@@ -655,6 +667,7 @@ describe("FhirProviderClient", () => {
         });
 
         const rawResponseBody = { success: true, message: "Fhir provider deleted successfully" };
+
         server
             .mockEndpoint()
             .delete("/fhir-provider/fhir_provider_id")
@@ -682,6 +695,7 @@ describe("FhirProviderClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/fhir-provider/fhir_provider_id")
@@ -707,6 +721,7 @@ describe("FhirProviderClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/fhir-provider/fhir_provider_id")
@@ -732,6 +747,7 @@ describe("FhirProviderClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/fhir-provider/fhir_provider_id")
@@ -757,6 +773,7 @@ describe("FhirProviderClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/fhir-provider/fhir_provider_id")
@@ -826,6 +843,7 @@ describe("FhirProviderClient", () => {
                 last_updated: "2024-01-15T10:30:00Z",
             },
         };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/1716d214-de93-43a4-aa6b-a878d864e2ad/add-auth-config")
@@ -898,6 +916,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/add-auth-config")
@@ -927,6 +946,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/add-auth-config")
@@ -956,6 +976,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/add-auth-config")
@@ -985,6 +1006,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/add-auth-config")
@@ -1014,6 +1036,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/add-auth-config")
@@ -1087,6 +1110,7 @@ describe("FhirProviderClient", () => {
                 last_updated: "2024-01-15T10:30:00Z",
             },
         };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/1716d214-de93-43a4-aa6b-a878d864e2ad/set-active-auth-config")
@@ -1158,6 +1182,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/set-active-auth-config")
@@ -1186,6 +1211,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/set-active-auth-config")
@@ -1214,6 +1240,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/set-active-auth-config")
@@ -1242,6 +1269,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/set-active-auth-config")
@@ -1270,6 +1298,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/set-active-auth-config")
@@ -1342,6 +1371,7 @@ describe("FhirProviderClient", () => {
                 last_updated: "2024-01-15T10:30:00Z",
             },
         };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/1716d214-de93-43a4-aa6b-a878d864e2ad/remove-auth-config")
@@ -1413,6 +1443,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/remove-auth-config")
@@ -1441,6 +1472,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/remove-auth-config")
@@ -1469,6 +1501,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/remove-auth-config")
@@ -1497,6 +1530,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/remove-auth-config")
@@ -1525,6 +1559,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/remove-auth-config")

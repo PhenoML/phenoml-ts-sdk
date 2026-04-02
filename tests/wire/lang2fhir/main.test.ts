@@ -22,6 +22,7 @@ describe("Lang2FhirClient", () => {
             text: "Patient has severe asthma with acute exacerbation",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/create")
@@ -53,6 +54,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { version: "R4", resource: "auto", text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/create")
@@ -83,6 +85,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { version: "R4", resource: "auto", text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/create")
@@ -113,6 +116,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { version: "R4", resource: "auto", text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/create")
@@ -160,6 +164,7 @@ describe("Lang2FhirClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/create/multi")
@@ -210,6 +215,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/create/multi")
@@ -238,6 +244,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/create/multi")
@@ -266,6 +273,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/create/multi")
@@ -297,6 +305,7 @@ describe("Lang2FhirClient", () => {
             resourceType: "AllergyIntolerance",
             searchParams: "date=ge2025-03-02&date=le2025-03-09",
         };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/search")
@@ -327,6 +336,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/search")
@@ -355,6 +365,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/search")
@@ -383,6 +394,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/search")
@@ -411,6 +423,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/search")
@@ -444,6 +457,7 @@ describe("Lang2FhirClient", () => {
             type: "Patient",
             url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
         };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/profile/upload")
@@ -476,6 +490,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { profile: "profile" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/profile/upload")
@@ -504,6 +519,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { profile: "profile" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/profile/upload")
@@ -532,6 +548,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { profile: "profile" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/profile/upload")
@@ -560,6 +577,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { profile: "profile" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/profile/upload")
@@ -588,6 +606,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { version: "R4", resource: "questionnaire", content: "content" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/document")
@@ -619,6 +638,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { version: "version", resource: "resource", content: "content" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/document")
@@ -649,6 +669,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { version: "version", resource: "resource", content: "content" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/document")
@@ -679,6 +700,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { version: "version", resource: "resource", content: "content" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/document")
@@ -724,6 +746,7 @@ describe("Lang2FhirClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/document/multi")
@@ -775,6 +798,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { version: "version", content: "content" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/document/multi")
@@ -804,6 +828,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { version: "version", content: "content" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/document/multi")
@@ -833,6 +858,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { version: "version", content: "content" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/document/multi")
@@ -862,6 +888,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = { version: "version", content: "content" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/lang2fhir/document/multi")

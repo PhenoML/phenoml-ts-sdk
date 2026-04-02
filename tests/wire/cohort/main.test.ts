@@ -29,6 +29,7 @@ describe("CohortClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .post("/cohort")
@@ -67,6 +68,7 @@ describe("CohortClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/cohort")
@@ -95,6 +97,7 @@ describe("CohortClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/cohort")
@@ -123,6 +126,7 @@ describe("CohortClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/cohort")

@@ -22,6 +22,7 @@ describe("FhirClient", () => {
             total: 2,
             entry: [{ resource: { resourceType: "Patient", id: "123", name: [{ family: "Doe", given: ["John"] }] } }],
         };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/550e8400-e29b-41d4-a716-446655440000/fhir/Patient")
@@ -77,6 +78,7 @@ describe("FhirClient", () => {
             id: "123",
             meta: { versionId: "versionId", lastUpdated: "2024-01-15T09:30:00Z", profile: ["profile"] },
         };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/550e8400-e29b-41d4-a716-446655440000/fhir/Patient")
@@ -124,6 +126,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -149,6 +152,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -174,6 +178,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -199,6 +204,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { message: "message" };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -224,6 +230,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -249,6 +256,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { message: "message" };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -274,6 +282,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -308,6 +317,7 @@ describe("FhirClient", () => {
             id: "123",
             meta: { versionId: "versionId", lastUpdated: "2024-01-15T09:30:00Z", profile: ["profile"] },
         };
+
         server
             .mockEndpoint()
             .post("/fhir-provider/550e8400-e29b-41d4-a716-446655440000/fhir/Patient")
@@ -361,6 +371,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "resourceType" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -391,6 +402,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "resourceType" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -421,6 +433,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "resourceType" };
         const rawResponseBody = { message: "message" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -451,6 +464,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "resourceType" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -481,6 +495,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "resourceType" };
         const rawResponseBody = { message: "message" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -511,6 +526,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "resourceType" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -551,6 +567,7 @@ describe("FhirClient", () => {
             id: "123",
             meta: { versionId: "versionId", lastUpdated: "2024-01-15T09:30:00Z", profile: ["profile"] },
         };
+
         server
             .mockEndpoint()
             .put("/fhir-provider/550e8400-e29b-41d4-a716-446655440000/fhir/Patient")
@@ -605,6 +622,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "resourceType" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -635,6 +653,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "resourceType" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -665,6 +684,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "resourceType" };
         const rawResponseBody = { message: "message" };
+
         server
             .mockEndpoint()
             .put("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -695,6 +715,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "resourceType" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -725,6 +746,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "resourceType" };
         const rawResponseBody = { message: "message" };
+
         server
             .mockEndpoint()
             .put("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -755,6 +777,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "resourceType" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -785,6 +808,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/fhir-provider/550e8400-e29b-41d4-a716-446655440000/fhir/Patient")
@@ -820,6 +844,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -845,6 +870,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -870,6 +896,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -895,6 +922,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { message: "message" };
+
         server
             .mockEndpoint()
             .delete("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -920,6 +948,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -945,6 +974,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { message: "message" };
+
         server
             .mockEndpoint()
             .delete("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -970,6 +1000,7 @@ describe("FhirClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -999,6 +1030,7 @@ describe("FhirClient", () => {
             id: "123",
             meta: { versionId: "versionId", lastUpdated: "2024-01-15T09:30:00Z", profile: ["profile"] },
         };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/550e8400-e29b-41d4-a716-446655440000/fhir/Patient")
@@ -1054,6 +1086,7 @@ describe("FhirClient", () => {
             id: "123",
             meta: { versionId: "versionId", lastUpdated: "2024-01-15T09:30:00Z", profile: ["profile"] },
         };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/550e8400-e29b-41d4-a716-446655440000/fhir/Patient")
@@ -1115,6 +1148,7 @@ describe("FhirClient", () => {
             id: "123",
             meta: { versionId: "versionId", lastUpdated: "2024-01-15T09:30:00Z", profile: ["profile"] },
         };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/550e8400-e29b-41d4-a716-446655440000/fhir/Patient")
@@ -1183,6 +1217,7 @@ describe("FhirClient", () => {
             id: "123",
             meta: { versionId: "versionId", lastUpdated: "2024-01-15T09:30:00Z", profile: ["profile"] },
         };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/550e8400-e29b-41d4-a716-446655440000/fhir/Patient")
@@ -1240,6 +1275,7 @@ describe("FhirClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -1280,6 +1316,7 @@ describe("FhirClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -1320,6 +1357,7 @@ describe("FhirClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -1360,6 +1398,7 @@ describe("FhirClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { message: "message" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -1400,6 +1439,7 @@ describe("FhirClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -1440,6 +1480,7 @@ describe("FhirClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { message: "message" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -1480,6 +1521,7 @@ describe("FhirClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/fhir-provider/fhir_provider_id/fhir/fhir_path")
@@ -1538,6 +1580,7 @@ describe("FhirClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .post("/fhir-provider/550e8400-e29b-41d4-a716-446655440000/fhir")
@@ -1620,6 +1663,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider/fhir_provider_id/fhir")
@@ -1651,6 +1695,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider/fhir_provider_id/fhir")
@@ -1682,6 +1727,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };
         const rawResponseBody = { message: "message" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider/fhir_provider_id/fhir")
@@ -1713,6 +1759,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider/fhir_provider_id/fhir")
@@ -1744,6 +1791,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };
         const rawResponseBody = { message: "message" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider/fhir_provider_id/fhir")
@@ -1775,6 +1823,7 @@ describe("FhirClient", () => {
         });
         const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir-provider/fhir_provider_id/fhir")

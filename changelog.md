@@ -1,3 +1,6 @@
+## 11.5.0 - 2026-04-02
+* The SDK now supports a passthrough `fetch()` method on the client, enabling consumers to make arbitrary HTTP requests to any endpoint while automatically applying the SDK's configured authentication, retries, logging, and default headers. This is useful for accessing endpoints not yet covered by the SDK's typed methods.
+
 ## 11.4.0 - 2026-03-31
 * The SDK now supports consistency effort control for extraction requests. Use the optional `consistency_effort` parameter in ExtractRequestConfig to specify how much effort to spend ensuring consistent results across repeated requests, with options for none, low, medium, or high consistency levels.
 

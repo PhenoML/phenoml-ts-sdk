@@ -18,6 +18,7 @@ describe("AuthClient", () => {
         });
         const rawRequestBody = { username: "username", password: "password" };
         const rawResponseBody = { token: "token" };
+
         server
             .mockEndpoint()
             .post("/auth/token")
@@ -48,6 +49,7 @@ describe("AuthClient", () => {
         });
         const rawRequestBody = { username: "username", password: "password" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/auth/token")
@@ -77,6 +79,7 @@ describe("AuthClient", () => {
         });
         const rawRequestBody = { username: "username", password: "password" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/auth/token")
@@ -106,6 +109,7 @@ describe("AuthClient", () => {
         });
         const rawRequestBody = {};
         const rawResponseBody = { access_token: "access_token", token_type: "Bearer", expires_in: 172800 };
+
         server
             .mockEndpoint()
             .post("/v2/auth/token")
@@ -135,6 +139,7 @@ describe("AuthClient", () => {
         });
         const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/v2/auth/token")
@@ -161,6 +166,7 @@ describe("AuthClient", () => {
         });
         const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/v2/auth/token")
@@ -187,6 +193,7 @@ describe("AuthClient", () => {
         });
         const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/v2/auth/token")

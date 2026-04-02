@@ -18,6 +18,7 @@ describe("ConstrueClient", () => {
         });
         const rawRequestBody = { name: "CUSTOM_CODES", version: "1.0", format: "csv" };
         const rawResponseBody = { status: "processing", name: "CUSTOM_CODES", version: "1.0" };
+
         server
             .mockEndpoint()
             .post("/construe/upload")
@@ -51,6 +52,7 @@ describe("ConstrueClient", () => {
         });
         const rawRequestBody = { name: "name", version: "version", format: "csv" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/upload")
@@ -81,6 +83,7 @@ describe("ConstrueClient", () => {
         });
         const rawRequestBody = { name: "name", version: "version", format: "csv" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/upload")
@@ -111,6 +114,7 @@ describe("ConstrueClient", () => {
         });
         const rawRequestBody = { name: "name", version: "version", format: "csv" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/upload")
@@ -141,6 +145,7 @@ describe("ConstrueClient", () => {
         });
         const rawRequestBody = { name: "name", version: "version", format: "csv" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/upload")
@@ -171,6 +176,7 @@ describe("ConstrueClient", () => {
         });
         const rawRequestBody = { name: "name", version: "version", format: "csv" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/upload")
@@ -201,6 +207,7 @@ describe("ConstrueClient", () => {
         });
         const rawRequestBody = { name: "name", version: "version", format: "csv" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/upload")
@@ -245,6 +252,7 @@ describe("ConstrueClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .post("/construe/extract")
@@ -293,6 +301,7 @@ describe("ConstrueClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/extract")
@@ -321,6 +330,7 @@ describe("ConstrueClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/extract")
@@ -349,6 +359,7 @@ describe("ConstrueClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/extract")
@@ -377,6 +388,7 @@ describe("ConstrueClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/extract")
@@ -405,6 +417,7 @@ describe("ConstrueClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/extract")
@@ -433,6 +446,7 @@ describe("ConstrueClient", () => {
         });
         const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/extract")
@@ -461,6 +475,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { systems: [{ name: "ICD-10-CM", version: "2025", code_count: 72750, builtin: true }] };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems")
@@ -494,6 +509,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems")
@@ -519,6 +535,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems")
@@ -552,6 +569,7 @@ describe("ConstrueClient", () => {
             created_at: "2024-01-15T09:30:00Z",
             updated_at: "2024-01-15T09:30:00Z",
         };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems/ICD-10-CM")
@@ -586,6 +604,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems/codesystem")
@@ -611,6 +630,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems/codesystem")
@@ -636,6 +656,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems/codesystem")
@@ -661,6 +682,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems/codesystem")
@@ -686,6 +708,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { message: "code system deleted successfully" };
+
         server
             .mockEndpoint()
             .delete("/construe/codes/systems/CUSTOM_CODES")
@@ -714,6 +737,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/construe/codes/systems/codesystem")
@@ -739,6 +763,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/construe/codes/systems/codesystem")
@@ -764,6 +789,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/construe/codes/systems/codesystem")
@@ -789,6 +815,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/construe/codes/systems/codesystem")
@@ -814,6 +841,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/construe/codes/systems/codesystem")
@@ -850,6 +878,7 @@ describe("ConstrueClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems/CUSTOM_CODES/export")
@@ -887,6 +916,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems/codesystem/export")
@@ -912,6 +942,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems/codesystem/export")
@@ -937,6 +968,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems/codesystem/export")
@@ -962,6 +994,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems/codesystem/export")
@@ -987,6 +1020,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems/codesystem/export")
@@ -1012,6 +1046,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems/codesystem/export")
@@ -1037,6 +1072,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/systems/codesystem/export")
@@ -1073,6 +1109,7 @@ describe("ConstrueClient", () => {
             next_cursor: "next_cursor",
             has_more: true,
         };
+
         server
             .mockEndpoint()
             .get("/construe/codes/ICD-10-CM")
@@ -1115,6 +1152,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem")
@@ -1140,6 +1178,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem")
@@ -1165,6 +1204,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem")
@@ -1190,6 +1230,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem")
@@ -1220,6 +1261,7 @@ describe("ConstrueClient", () => {
             description: "Type 2 diabetes mellitus with hyperglycemia",
             definition: "definition",
         };
+
         server
             .mockEndpoint()
             .get("/construe/codes/ICD-10-CM/E11.65")
@@ -1254,6 +1296,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem/codeID")
@@ -1279,6 +1322,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem/codeID")
@@ -1304,6 +1348,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem/codeID")
@@ -1329,6 +1374,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem/codeID")
@@ -1357,6 +1403,7 @@ describe("ConstrueClient", () => {
             system: { name: "ICD-10-CM", version: "2025" },
             results: [{ code: "E11.65", description: "Type 2 diabetes mellitus with hyperglycemia" }],
         };
+
         server
             .mockEndpoint()
             .get("/construe/codes/ICD-10-CM/search/semantic")
@@ -1396,6 +1443,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem/search/semantic")
@@ -1423,6 +1471,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem/search/semantic")
@@ -1450,6 +1499,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem/search/semantic")
@@ -1477,6 +1527,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem/search/semantic")
@@ -1508,6 +1559,7 @@ describe("ConstrueClient", () => {
             expected_result: { system: {}, codes: [{ code: "195967001", description: "Asthma", valid: true }] },
         };
         const rawResponseBody = { id: "abc123def456" };
+
         server
             .mockEndpoint()
             .post("/construe/feedback")
@@ -1573,6 +1625,7 @@ describe("ConstrueClient", () => {
             },
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/feedback")
@@ -1647,6 +1700,7 @@ describe("ConstrueClient", () => {
             },
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/feedback")
@@ -1721,6 +1775,7 @@ describe("ConstrueClient", () => {
             },
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/feedback")
@@ -1795,6 +1850,7 @@ describe("ConstrueClient", () => {
             },
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/construe/feedback")
@@ -1857,6 +1913,7 @@ describe("ConstrueClient", () => {
             results: [{ code: "E11.65", description: "Type 2 diabetes mellitus with hyperglycemia" }],
             found: 150,
         };
+
         server
             .mockEndpoint()
             .get("/construe/codes/ICD-10-CM/search/text")
@@ -1897,6 +1954,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem/search/text")
@@ -1924,6 +1982,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem/search/text")
@@ -1951,6 +2010,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem/search/text")
@@ -1978,6 +2038,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem/search/text")
@@ -2005,6 +2066,7 @@ describe("ConstrueClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/construe/codes/codesystem/search/text")
