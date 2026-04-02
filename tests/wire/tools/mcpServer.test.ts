@@ -27,6 +27,7 @@ describe("McpServerClient", () => {
                 mcp_server_url: "https://mcp.example.com",
             },
         };
+
         server
             .mockEndpoint()
             .post("/tools/mcp-server/create")
@@ -64,6 +65,7 @@ describe("McpServerClient", () => {
         });
         const rawRequestBody = { name: "name", mcp_server_url: "mcp_server_url" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/mcp-server/create")
@@ -93,6 +95,7 @@ describe("McpServerClient", () => {
         });
         const rawRequestBody = { name: "name", mcp_server_url: "mcp_server_url" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/mcp-server/create")
@@ -122,6 +125,7 @@ describe("McpServerClient", () => {
         });
         const rawRequestBody = { name: "name", mcp_server_url: "mcp_server_url" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/mcp-server/create")
@@ -151,6 +155,7 @@ describe("McpServerClient", () => {
         });
         const rawRequestBody = { name: "name", mcp_server_url: "mcp_server_url" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/tools/mcp-server/create")
@@ -189,6 +194,7 @@ describe("McpServerClient", () => {
                 mcp_server_url: "https://mcp.example.com",
             },
         };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/list")
@@ -222,6 +228,7 @@ describe("McpServerClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/list")
@@ -247,6 +254,7 @@ describe("McpServerClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/list")
@@ -272,6 +280,7 @@ describe("McpServerClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/list")
@@ -306,6 +315,7 @@ describe("McpServerClient", () => {
                 mcp_server_url: "https://mcp.example.com",
             },
         };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/mcp_server_id")
@@ -339,6 +349,7 @@ describe("McpServerClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/mcp_server_id")
@@ -364,6 +375,7 @@ describe("McpServerClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/mcp_server_id")
@@ -389,6 +401,7 @@ describe("McpServerClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/tools/mcp-server/mcp_server_id")
@@ -423,6 +436,7 @@ describe("McpServerClient", () => {
                 mcp_server_url: "https://mcp.example.com",
             },
         };
+
         server
             .mockEndpoint()
             .delete("/tools/mcp-server/mcp_server_id")
@@ -456,6 +470,7 @@ describe("McpServerClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/tools/mcp-server/mcp_server_id")
@@ -481,6 +496,7 @@ describe("McpServerClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/tools/mcp-server/mcp_server_id")
@@ -506,6 +522,7 @@ describe("McpServerClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/tools/mcp-server/mcp_server_id")

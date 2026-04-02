@@ -33,6 +33,7 @@ describe("SummaryClient", () => {
                 },
             ],
         };
+
         server
             .mockEndpoint()
             .get("/fhir2summary/templates")
@@ -74,6 +75,7 @@ describe("SummaryClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir2summary/templates")
@@ -99,6 +101,7 @@ describe("SummaryClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir2summary/templates")
@@ -144,6 +147,7 @@ describe("SummaryClient", () => {
                 updated_at: "2024-01-15T09:30:00Z",
             },
         };
+
         server
             .mockEndpoint()
             .post("/fhir2summary/template")
@@ -196,6 +200,7 @@ describe("SummaryClient", () => {
             mode: "mode",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir2summary/template")
@@ -232,6 +237,7 @@ describe("SummaryClient", () => {
             mode: "mode",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir2summary/template")
@@ -268,6 +274,7 @@ describe("SummaryClient", () => {
             mode: "mode",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir2summary/template")
@@ -312,6 +319,7 @@ describe("SummaryClient", () => {
                 updated_at: "2024-01-15T09:30:00Z",
             },
         };
+
         server
             .mockEndpoint()
             .get("/fhir2summary/template/id")
@@ -351,6 +359,7 @@ describe("SummaryClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir2summary/template/id")
@@ -376,6 +385,7 @@ describe("SummaryClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir2summary/template/id")
@@ -401,6 +411,7 @@ describe("SummaryClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir2summary/template/id")
@@ -426,6 +437,7 @@ describe("SummaryClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/fhir2summary/template/id")
@@ -470,6 +482,7 @@ describe("SummaryClient", () => {
                 updated_at: "2024-01-15T09:30:00Z",
             },
         };
+
         server
             .mockEndpoint()
             .put("/fhir2summary/template/id")
@@ -521,6 +534,7 @@ describe("SummaryClient", () => {
             mode: "mode",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/fhir2summary/template/id")
@@ -557,6 +571,7 @@ describe("SummaryClient", () => {
             mode: "mode",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/fhir2summary/template/id")
@@ -593,6 +608,7 @@ describe("SummaryClient", () => {
             mode: "mode",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/fhir2summary/template/id")
@@ -629,6 +645,7 @@ describe("SummaryClient", () => {
             mode: "mode",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/fhir2summary/template/id")
@@ -665,6 +682,7 @@ describe("SummaryClient", () => {
             mode: "mode",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/fhir2summary/template/id")
@@ -696,6 +714,7 @@ describe("SummaryClient", () => {
         });
 
         const rawResponseBody = { success: true, message: "message" };
+
         server
             .mockEndpoint()
             .delete("/fhir2summary/template/id")
@@ -723,6 +742,7 @@ describe("SummaryClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/fhir2summary/template/id")
@@ -748,6 +768,7 @@ describe("SummaryClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/fhir2summary/template/id")
@@ -773,6 +794,7 @@ describe("SummaryClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/fhir2summary/template/id")
@@ -798,6 +820,7 @@ describe("SummaryClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .delete("/fhir2summary/template/id")
@@ -823,6 +846,7 @@ describe("SummaryClient", () => {
         });
         const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
         const rawResponseBody = { success: true, message: "message", summary: "summary", warnings: ["warnings"] };
+
         server
             .mockEndpoint()
             .post("/fhir2summary/create")
@@ -857,6 +881,7 @@ describe("SummaryClient", () => {
         });
         const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir2summary/create")
@@ -887,6 +912,7 @@ describe("SummaryClient", () => {
         });
         const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir2summary/create")
@@ -917,6 +943,7 @@ describe("SummaryClient", () => {
         });
         const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir2summary/create")
@@ -947,6 +974,7 @@ describe("SummaryClient", () => {
         });
         const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir2summary/create")
@@ -977,6 +1005,7 @@ describe("SummaryClient", () => {
         });
         const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/fhir2summary/create")

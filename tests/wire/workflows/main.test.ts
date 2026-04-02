@@ -135,6 +135,7 @@ describe("WorkflowsClient", () => {
                 },
             ],
         };
+
         server.mockEndpoint().get("/workflows").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.workflows.list({
@@ -280,6 +281,7 @@ describe("WorkflowsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/workflows").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -299,6 +301,7 @@ describe("WorkflowsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/workflows").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -318,6 +321,7 @@ describe("WorkflowsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/workflows").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -453,6 +457,7 @@ describe("WorkflowsClient", () => {
                 updated_at: "2024-01-15T15:45:00Z",
             },
         };
+
         server
             .mockEndpoint()
             .post("/workflows")
@@ -615,6 +620,7 @@ describe("WorkflowsClient", () => {
             fhir_provider_id: "fhir_provider_id",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/workflows")
@@ -655,6 +661,7 @@ describe("WorkflowsClient", () => {
             fhir_provider_id: "fhir_provider_id",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/workflows")
@@ -695,6 +702,7 @@ describe("WorkflowsClient", () => {
             fhir_provider_id: "fhir_provider_id",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/workflows")
@@ -735,6 +743,7 @@ describe("WorkflowsClient", () => {
             fhir_provider_id: "fhir_provider_id",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/workflows")
@@ -879,6 +888,7 @@ describe("WorkflowsClient", () => {
                 updated_at: "2024-01-15T15:45:00Z",
             },
         };
+
         server.mockEndpoint().get("/workflows/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.workflows.get("id", {
@@ -1019,6 +1029,7 @@ describe("WorkflowsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/workflows/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -1038,6 +1049,7 @@ describe("WorkflowsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/workflows/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -1057,6 +1069,7 @@ describe("WorkflowsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/workflows/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -1076,6 +1089,7 @@ describe("WorkflowsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/workflows/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -1210,6 +1224,7 @@ describe("WorkflowsClient", () => {
                 updated_at: "2024-01-15T15:45:00Z",
             },
         };
+
         server
             .mockEndpoint()
             .put("/workflows/id")
@@ -1371,6 +1386,7 @@ describe("WorkflowsClient", () => {
             fhir_provider_id: "fhir_provider_id",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/workflows/id")
@@ -1411,6 +1427,7 @@ describe("WorkflowsClient", () => {
             fhir_provider_id: "fhir_provider_id",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/workflows/id")
@@ -1451,6 +1468,7 @@ describe("WorkflowsClient", () => {
             fhir_provider_id: "fhir_provider_id",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/workflows/id")
@@ -1491,6 +1509,7 @@ describe("WorkflowsClient", () => {
             fhir_provider_id: "fhir_provider_id",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/workflows/id")
@@ -1531,6 +1550,7 @@ describe("WorkflowsClient", () => {
             fhir_provider_id: "fhir_provider_id",
         };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/workflows/id")
@@ -1566,6 +1586,7 @@ describe("WorkflowsClient", () => {
         });
 
         const rawResponseBody = { success: true, message: "Workflow deleted successfully" };
+
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.workflows.delete("id");
@@ -1587,6 +1608,7 @@ describe("WorkflowsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -1606,6 +1628,7 @@ describe("WorkflowsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -1625,6 +1648,7 @@ describe("WorkflowsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -1644,6 +1668,7 @@ describe("WorkflowsClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -1675,6 +1700,7 @@ describe("WorkflowsClient", () => {
             results: { steps: { key: "value" } },
             preview: false,
         };
+
         server
             .mockEndpoint()
             .post("/workflows/id/execute")
@@ -1716,6 +1742,7 @@ describe("WorkflowsClient", () => {
         });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/workflows/id/execute")
@@ -1748,6 +1775,7 @@ describe("WorkflowsClient", () => {
         });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/workflows/id/execute")
@@ -1780,6 +1808,7 @@ describe("WorkflowsClient", () => {
         });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/workflows/id/execute")
@@ -1812,6 +1841,7 @@ describe("WorkflowsClient", () => {
         });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/workflows/id/execute")
@@ -1844,6 +1874,7 @@ describe("WorkflowsClient", () => {
         });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/workflows/id/execute")

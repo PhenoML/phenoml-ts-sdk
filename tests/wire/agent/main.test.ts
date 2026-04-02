@@ -31,6 +31,7 @@ describe("AgentClient", () => {
                 provider: "provider",
             },
         };
+
         server
             .mockEndpoint()
             .post("/agent/create")
@@ -73,6 +74,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/create")
@@ -103,6 +105,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/create")
@@ -133,6 +136,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/create")
@@ -163,6 +167,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/create")
@@ -208,6 +213,7 @@ describe("AgentClient", () => {
                 },
             ],
         };
+
         server.mockEndpoint().get("/agent/list").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.agent.list({
@@ -243,6 +249,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/agent/list").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -262,6 +269,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/agent/list").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -281,6 +289,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/agent/list").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -313,6 +322,7 @@ describe("AgentClient", () => {
                 provider: "provider",
             },
         };
+
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.agent.get("id");
@@ -344,6 +354,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -363,6 +374,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -382,6 +394,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -401,6 +414,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -433,6 +447,7 @@ describe("AgentClient", () => {
                 provider: "provider",
             },
         };
+
         server
             .mockEndpoint()
             .put("/agent/id")
@@ -475,6 +490,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/agent/id")
@@ -505,6 +521,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/agent/id")
@@ -535,6 +552,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/agent/id")
@@ -565,6 +583,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/agent/id")
@@ -595,6 +614,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .put("/agent/id")
@@ -625,6 +645,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { success: true, message: "Agent deleted successfully" };
+
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.agent.delete("id");
@@ -646,6 +667,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -665,6 +687,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -684,6 +707,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -703,6 +727,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -739,6 +764,7 @@ describe("AgentClient", () => {
                 provider: "provider",
             },
         };
+
         server
             .mockEndpoint()
             .patch("/agent/id")
@@ -795,6 +821,7 @@ describe("AgentClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/agent/id")
@@ -833,6 +860,7 @@ describe("AgentClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/agent/id")
@@ -871,6 +899,7 @@ describe("AgentClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/agent/id")
@@ -909,6 +938,7 @@ describe("AgentClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/agent/id")
@@ -947,6 +977,7 @@ describe("AgentClient", () => {
             { op: "add", path: "path" },
         ];
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .patch("/agent/id")
@@ -987,6 +1018,7 @@ describe("AgentClient", () => {
             message: "Chat response generated successfully",
             session_id: "session_123",
         };
+
         server
             .mockEndpoint()
             .post("/agent/chat")
@@ -1028,6 +1060,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/chat")
@@ -1057,6 +1090,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/chat")
@@ -1086,6 +1120,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/chat")
@@ -1115,6 +1150,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/chat")
@@ -1145,6 +1181,7 @@ describe("AgentClient", () => {
         const rawRequestBody = { message: "What is the patient's current condition?", agent_id: "agent-123" };
         const rawResponseBody =
             'event: \ndata: {"type":"message_start","session_id":"session_123","content":"I\'ll create a patient record...","success":true,"message":"Response generated successfully","function_name":"lang2fhir_search","function_args":{"key":"value"},"function_result":{"key":"value"}}\n\n';
+
         server
             .mockEndpoint()
             .post("/agent/stream-chat")
@@ -1178,8 +1215,12 @@ describe("AgentClient", () => {
                 success: true,
                 message: "Response generated successfully",
                 function_name: "lang2fhir_search",
-                function_args: { key: "value" },
-                function_result: { key: "value" },
+                function_args: {
+                    key: "value",
+                },
+                function_result: {
+                    key: "value",
+                },
             },
         ]);
     });
@@ -1196,6 +1237,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/stream-chat")
@@ -1225,6 +1267,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/stream-chat")
@@ -1254,6 +1297,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/stream-chat")
@@ -1283,6 +1327,7 @@ describe("AgentClient", () => {
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .post("/agent/stream-chat")
@@ -1329,6 +1374,7 @@ describe("AgentClient", () => {
             total: 10,
             session_id: "session_123",
         };
+
         server
             .mockEndpoint()
             .get("/agent/chat/messages")
@@ -1379,6 +1425,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/agent/chat/messages")
@@ -1406,6 +1453,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/agent/chat/messages")
@@ -1433,6 +1481,7 @@ describe("AgentClient", () => {
         });
 
         const rawResponseBody = { key: "value" };
+
         server
             .mockEndpoint()
             .get("/agent/chat/messages")

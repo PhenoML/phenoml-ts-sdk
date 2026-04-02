@@ -15,7 +15,7 @@ export interface FhirSearchRequest {
      * - Result parameters (_count, _offset, _sort, _include, _revinclude, _summary, _elements)
      * - Search prefixes for dates, numbers, quantities (eq, ne, gt, ge, lt, le, sa, eb, ap)
      */
-    query_parameters?: Record<string, string | undefined>;
+    query_parameters?: Record<string, string>;
     /**
      * Optional header for on-behalf-of authentication. Used when making requests on behalf of another user or entity.
      * Must be in the format: Patient/{uuid} or Practitioner/{uuid}
