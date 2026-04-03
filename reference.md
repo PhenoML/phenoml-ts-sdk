@@ -1081,72 +1081,6 @@ await client.agent.prompts.loadDefaults();
 </details>
 
 ## Authtoken Auth
-<details><summary><code>client.authtoken.auth.<a href="/src/api/resources/authtoken/resources/auth/client/Client.ts">generateToken</a>({ ...params }) -> phenoml.AuthGenerateTokenResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Obtain an access token using client credentials
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.authtoken.auth.generateToken({
-    username: "username",
-    password: "password"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `phenoml.authtoken.AuthGenerateTokenRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `AuthClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.authtoken.auth.<a href="/src/api/resources/authtoken/resources/auth/client/Client.ts">getToken</a>({ ...params }) -> phenoml.TokenResponse</code></summary>
 <dl>
 <dd>
@@ -2255,17 +2189,7 @@ await client.fhir.create("550e8400-e29b-41d4-a716-446655440000", "Patient", {
     "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
     "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     body: {
-        resourceType: "Patient",
-        name: [
-            {
-                "family": "Doe",
-                "given": [
-                    "Jane"
-                ]
-            }
-        ],
-        gender: "female",
-        birthDate: "1990-01-01"
+        resourceType: "Patient"
     }
 });
 
@@ -2363,18 +2287,7 @@ await client.fhir.upsert("550e8400-e29b-41d4-a716-446655440000", "Patient", {
     "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     body: {
         resourceType: "Patient",
-        id: "123",
-        name: [
-            {
-                "family": "Doe",
-                "given": [
-                    "John",
-                    "Updated"
-                ]
-            }
-        ],
-        gender: "male",
-        birthDate: "1985-05-15"
+        id: "123"
     }
 });
 

@@ -1,3 +1,6 @@
+## 12.0.0 - 2026-04-03
+* The `generateToken` method has been removed from `AuthClient`. Migrate to the OAuth 2.0 client credentials endpoint method instead. The associated types `AuthGenerateTokenRequest`, `AuthGenerateTokenResponse`, `BadRequestErrorBody`, and `UnauthorizedErrorBody` have also been removed from the SDK's public API.
+
 ## 11.5.0 - 2026-04-02
 * The SDK now supports a passthrough `fetch()` method on the client, enabling consumers to make arbitrary HTTP requests to any endpoint while automatically applying the SDK's configured authentication, retries, logging, and default headers. This is useful for accessing endpoints not yet covered by the SDK's typed methods.
 

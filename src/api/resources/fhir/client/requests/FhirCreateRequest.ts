@@ -8,17 +8,7 @@ import type * as phenoml from "../../../../index.js";
  *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
  *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
  *         body: {
- *             resourceType: "Patient",
- *             name: [
- *                 {
- *                     "family": "Doe",
- *                     "given": [
- *                         "Jane"
- *                     ]
- *                 }
- *             ],
- *             gender: "female",
- *             birthDate: "1990-01-01"
+ *             resourceType: "Patient"
  *         }
  *     }
  */
