@@ -1,3 +1,15 @@
+## 11.5.1 - 2026-04-03
+* docs: simplify FHIR request code examples
+* Update inline code examples for FhirCreateRequest and FhirUpsertRequest
+* to use minimal FHIR resource bodies, removing extraneous fields like
+* name, gender, and birthDate. This makes the examples easier to read
+* and focus on the essential required fields only.
+* Key changes:
+* Simplify FhirCreateRequest example body to only include `resourceType`
+* Simplify FhirUpsertRequest example body to only include `resourceType` and `id`
+* Update corresponding examples in FhirClient method documentation
+* 🌿 Generated with Fern
+
 ## 11.5.0 - 2026-04-02
 * The SDK now supports a passthrough `fetch()` method on the client, enabling consumers to make arbitrary HTTP requests to any endpoint while automatically applying the SDK's configured authentication, retries, logging, and default headers. This is useful for accessing endpoints not yet covered by the SDK's typed methods.
 
