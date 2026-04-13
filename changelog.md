@@ -1,3 +1,6 @@
+## 12.1.0 - 2026-04-13
+* The `CreateMultiRequest` and `DocumentMultiRequest` types now support an optional `detection_effort` parameter (`"standard"` or `"deep"`), giving consumers control over how thoroughly FHIR entities are detected. Use `"deep"` for higher recall at the cost of additional processing, or omit the field to retain the default `"standard"` behavior.
+
 ## 12.0.1 - 2026-04-13
 * docs: expand JSDoc for consistency_effort parameter
 * Update the documentation for `consistency_effort` in `ExtractRequestConfig`

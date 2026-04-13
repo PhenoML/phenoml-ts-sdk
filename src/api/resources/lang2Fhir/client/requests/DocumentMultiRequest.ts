@@ -18,4 +18,15 @@ export interface DocumentMultiRequest {
     content: string;
     /** Optional FHIR provider name for provider-specific profiles */
     provider?: string;
+    /** Detection effort. 'standard' runs detection once, 'deep' runs detection multiple times for higher recall. */
+    detection_effort?: DocumentMultiRequest.DetectionEffort;
+}
+
+export namespace DocumentMultiRequest {
+    /** Detection effort. 'standard' runs detection once, 'deep' runs detection multiple times for higher recall. */
+    export const DetectionEffort = {
+        Standard: "standard",
+        Deep: "deep",
+    } as const;
+    export type DetectionEffort = (typeof DetectionEffort)[keyof typeof DetectionEffort];
 }
