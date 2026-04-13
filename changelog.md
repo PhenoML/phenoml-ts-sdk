@@ -1,3 +1,18 @@
+## 12.0.1 - 2026-04-13
+* docs: expand JSDoc for consistency_effort parameter
+* Update the documentation for `consistency_effort` in `ExtractRequestConfig`
+* to clarify how consistency is applied depending on the active configuration.
+* The updated docs explain the two distinct behaviors: when `validation_method`
+* is set to a non-"none" value, consistency applies to the validation step
+* (codes must be unanimously validated); when `validation_method` is "none"
+* and `min_context_relevance` is above 0, consistency applies to the relevance
+* ranking step instead.
+* Key changes:
+* Clarify "borderline codes" → "borderline results" for broader accuracy
+* Document validation-step consistency behavior for non-"none" validation methods
+* Document relevance-ranking consistency behavior when validation is disabled
+* 🌿 Generated with Fern
+
 ## 12.0.0 - 2026-04-03
 * The `generateToken` method has been removed from `AuthClient`. Migrate to the OAuth 2.0 client credentials endpoint method instead. The associated types `AuthGenerateTokenRequest`, `AuthGenerateTokenResponse`, `BadRequestErrorBody`, and `UnauthorizedErrorBody` have also been removed from the SDK's public API.
 
