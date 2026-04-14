@@ -1,3 +1,6 @@
+## 12.2.0 - 2026-04-14
+* The `CreateMultiRequest` and `DocumentMultiRequest` types now support an optional `implementation_guide` parameter, allowing consumers to target custom FHIR Implementation Guide profiles during resource detection alongside the always-present US Core base layer. The `ProfileUploadRequest` type gains two new optional fields: `implementation_guide` (to group uploaded profiles into a named IG, defaulting to `"custom"`) and `profile_context` (a natural-language hint, up to 2000 characters, injected into the LLM prompt to improve profile selection across the IG).
+
 ## 12.1.0 - 2026-04-13
 * The `CreateMultiRequest` and `DocumentMultiRequest` types now support an optional `detection_effort` parameter (`"standard"` or `"deep"`), giving consumers control over how thoroughly FHIR entities are detected. Use `"deep"` for higher recall at the cost of additional processing, or omit the field to retain the default `"standard"` behavior.
 
