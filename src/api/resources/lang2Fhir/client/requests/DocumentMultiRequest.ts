@@ -18,6 +18,8 @@ export interface DocumentMultiRequest {
     content: string;
     /** Optional FHIR provider name for provider-specific profiles */
     provider?: string;
+    /** Custom Implementation Guide name. When specified, profiles from this IG are included alongside US Core profiles during resource detection. US Core is always the base layer; custom IG profiles are additive. */
+    implementation_guide?: string;
     /** Detection effort. 'standard' runs detection once, 'deep' runs detection multiple times for higher recall. */
     detection_effort?: DocumentMultiRequest.DetectionEffort;
 }

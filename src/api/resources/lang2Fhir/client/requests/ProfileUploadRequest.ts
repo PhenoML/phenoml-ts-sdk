@@ -9,4 +9,8 @@
 export interface ProfileUploadRequest {
     /** Base64 encoded JSON string of a FHIR StructureDefinition. The profile must include id, url, type, and a snapshot with elements. All metadata (version, resource type, identifier) is derived from the StructureDefinition itself. The lowercase id from the StructureDefinition becomes the profile's lookup key. */
     profile: string;
+    /** Implementation Guide name to group this profile under. Defaults to "custom" if omitted. Cannot be "us_core" (reserved). Use this to organize custom profiles into named IGs that can be referenced when calling create/multi or document/multi endpoints. */
+    implementation_guide?: string;
+    /** Natural language context that helps the LLM select the right profiles from this implementation guide during resource detection. For example, "When the text mentions phenotypic features or abnormalities, prefer the hpo-observation profile over Condition." This is stored as IG-level metadata and injected into the LLM prompt. Max 2000 characters. Providing this field on any upload will update the context for the entire IG (last write wins). */
+    profile_context?: string;
 }
