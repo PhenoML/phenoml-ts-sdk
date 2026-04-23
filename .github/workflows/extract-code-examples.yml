@@ -1,0 +1,12 @@
+name: Extract Code Examples
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    uses: PhenoML/github-actions/.github/workflows/extract-code-examples.yml@gavinsharp/extract-examples
