@@ -59,7 +59,7 @@ interface Manifest {
         packageName: string;
         sdkVersion: string;
         specCommit: string;
-        generatorVersion: string;
+        generatorName: string;
     };
     examples: Record<string, CodeExample>;
 }
@@ -111,41 +111,6 @@ function camelToSnake(str: string): string {
  */
 function normalizePathParams(httpPath: string): string {
     return httpPath.replace(/\{(\w+)\}/g, (_, name) => `{${camelToSnake(name)}}`);
-}
-
-/**
- * Extract a balanced brace-delimited block from source text starting at an
- * opening brace. Returns the full text including the braces, or null if
- * the braces never balance.
- */
-function extractBalancedBraces(source: string, startIndex: number): string | null {
-    let depth = 0;
-    for (let i = startIndex; i < source.length; i++) {
-        if (source[i] === "{") depth++;
-        else if (source[i] === "}") depth--;
-        if (depth === 0) return source.slice(startIndex, i + 1);
-    }
-    return null;
-}
-
-/**
- * Convert a Python dict literal string to JSON by replacing Python-specific
- * syntax: True→true, False→false, None→null, single quotes→double quotes.
- */
-function pythonDictToJson(dictStr: string): unknown {
-    let json = dictStr
-        .replace(/\bTrue\b/g, "true")
-        .replace(/\bFalse\b/g, "false")
-        .replace(/\bNone\b/g, "null");
-    // Replace single-quoted strings with double-quoted, being careful about
-    // strings that contain the other quote type.
-    // Simple approach: replace ' with " when it's a dict key/value delimiter
-    json = json.replace(/'/g, '"');
-    try {
-        return JSON.parse(json);
-    } catch {
-        return null;
-    }
 }
 
 // ============================================================
@@ -593,12 +558,13 @@ function pyExtractEndpoints(filePath: string, pkgRoot: string): EndpointMapping[
             const httpMethod = pyExtractHttpMethod(lines, i);
 
             if (httpPath && httpMethod) {
-                const key = `${httpMethod} ${httpPath}`;
+                const normalizedPath = normalizePath(httpPath);
+                const key = `${httpMethod} ${normalizedPath}`;
                 if (!seen.has(key)) {
                     seen.add(key);
                     endpoints.push({
                         httpMethod,
-                        httpPath: normalizePath(httpPath),
+                        httpPath: normalizedPath,
                         methodChain: [...chain, currentMethod],
                         methodName: currentMethod,
                     });
@@ -1001,13 +967,39 @@ function javaExtractTestExamples(filePath: string): TestExample[] {
     return examples;
 }
 
+// Single-pass unescape for Java string literals. Chained regex replaces can't
+// handle this correctly because e.g. \\n (backslash+backslash+n, representing
+// the two-char sequence \n at Java runtime) gets corrupted whichever order
+// you replace \\ and \n in.
+function javaUnescape(s: string): string {
+    let out = "";
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] === "\\" && i + 1 < s.length) {
+            const next = s[i + 1];
+            switch (next) {
+                case "n": out += "\n"; break;
+                case "t": out += "\t"; break;
+                case "r": out += "\r"; break;
+                case '"': out += '"'; break;
+                case "'": out += "'"; break;
+                case "\\": out += "\\"; break;
+                default: out += next; break;
+            }
+            i++;
+        } else {
+            out += s[i];
+        }
+    }
+    return out;
+}
+
 function javaExtractSetBody(lines: string[], startLine: number): string | null {
     let combined = "";
     for (let i = startLine; i < Math.min(startLine + 10, lines.length); i++) {
         combined += lines[i];
         const match = combined.match(/\.setBody\s*\(\s*"((?:[^"\\]|\\.)*)"\s*\)/);
         if (match) {
-            return match[1].replace(/\\"/g, '"').replace(/\\n/g, "\n").replace(/\\\\/g, "\\");
+            return javaUnescape(match[1]);
         }
     }
     return null;
@@ -1023,7 +1015,7 @@ function javaExtractConcatenatedString(lines: string[], startLine: number): stri
     const stringLiteralPattern = /"((?:[^"\\]|\\.)*)"/g;
     let m;
     while ((m = stringLiteralPattern.exec(combined)) !== null) {
-        parts.push(m[1].replace(/\\"/g, '"').replace(/\\n/g, "\n").replace(/\\\\/g, "\\"));
+        parts.push(javaUnescape(m[1]));
     }
     if (parts.length === 0) return null;
     return parts.join("");
@@ -1032,12 +1024,6 @@ function javaExtractConcatenatedString(lines: string[], startLine: number): stri
 // ============================================================
 // Shared helpers
 // ============================================================
-
-function sumLineOffsets(lines: string[], lineIndex: number): number {
-    let offset = 0;
-    for (let i = 0; i < lineIndex; i++) offset += lines[i].length + 1; // +1 for newline
-    return offset;
-}
 
 function isBalancedParens(str: string): boolean {
     let depth = 0;
@@ -1091,8 +1077,8 @@ function buildManifest(
     const chainIndex = new Map<string, EndpointMapping>();
     for (const ep of allEndpoints) {
         endpointMap.set(`${ep.httpMethod} ${ep.httpPath}`, ep);
-        const prefix = ep.methodChain.slice(0, -1).join("");
-        chainIndex.set(`${prefix}.${ep.methodName}`, ep);
+        const prefix = ep.methodChain.slice(0, -1).join("").toLowerCase();
+        chainIndex.set(`${prefix}.${ep.methodName.toLowerCase()}`, ep);
     }
 
     const manifest: Manifest = {
@@ -1101,7 +1087,7 @@ function buildManifest(
             packageName,
             sdkVersion: metadata.sdkVersion,
             specCommit: metadata.originGitCommit || "unknown",
-            generatorVersion: metadata.generatorName,
+            generatorName: metadata.generatorName,
         },
         examples: {},
     };
@@ -1116,7 +1102,7 @@ function buildManifest(
         // Fallback: match by method chain (for Java tests that don't have httpPath)
         if (!endpoint && !example.httpPath && example.describeBlock) {
             const filePrefix = example.describeBlock.replace(/WireTest\.java$/, "").toLowerCase();
-            const chainKey = `${filePrefix}.${example.methodName}`;
+            const chainKey = `${filePrefix}.${example.methodName.toLowerCase()}`;
             endpoint = chainIndex.get(chainKey);
         }
 
@@ -1156,13 +1142,24 @@ function buildManifest(
 // Main
 // ============================================================
 
+const SUPPORTED_LANGUAGES: readonly Language[] = ["typescript", "python", "java"];
+
 function parseArgs(): { rootDir: string; language?: Language } {
     const args = process.argv.slice(2);
     let rootDir = process.cwd();
     let language: Language | undefined;
     for (let i = 0; i < args.length; i++) {
-        if (args[i] === "--root" && args[i + 1]) rootDir = args[++i];
-        if (args[i] === "--language" && args[i + 1]) language = args[++i] as Language;
+        if (args[i] === "--root" && args[i + 1]) {
+            rootDir = args[++i];
+        } else if (args[i] === "--language" && args[i + 1]) {
+            const value = args[++i];
+            if (!SUPPORTED_LANGUAGES.includes(value as Language)) {
+                throw new Error(
+                    `Unsupported --language "${value}". Expected one of: ${SUPPORTED_LANGUAGES.join(", ")}`,
+                );
+            }
+            language = value as Language;
+        }
     }
     return { rootDir, language };
 }
@@ -1188,12 +1185,16 @@ async function main() {
 
     console.error(`Language: ${language} (${metadata.generatorName})\n`);
 
-    const parser: LanguageParser =
-        language === "typescript"
-            ? createTypeScriptParser()
-            : language === "python"
-              ? createPythonParser()
-              : createJavaParser();
+    let parser: LanguageParser;
+    switch (language) {
+        case "typescript": parser = createTypeScriptParser(); break;
+        case "python": parser = createPythonParser(); break;
+        case "java": parser = createJavaParser(); break;
+        default: {
+            const exhaustive: never = language;
+            throw new Error(`Unsupported language: ${exhaustive}`);
+        }
+    }
 
     // Phase 1: Extract endpoint mappings from client source
     console.error("Phase 1: Parsing client source files...");
