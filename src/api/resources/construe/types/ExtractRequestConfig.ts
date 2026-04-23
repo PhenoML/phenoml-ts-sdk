@@ -17,8 +17,14 @@ export interface ExtractRequestConfig {
      * * none - No validation, returns all candidate codes
      * * simple - LLM-based validation
      * * medication_search - LLM-based validation tailored for medication concepts
+     * * chunk_code_jaccard_similarity - Token-level Jaccard similarity between source text chunk and code description
      */
     validation_method?: ExtractRequestConfig.ValidationMethod | undefined;
+    /**
+     * Minimum Jaccard similarity (0.0-1.0) for a code to be considered valid
+     * when using the "chunk_code_jaccard_similarity" validation method. Ignored by other methods.
+     */
+    chunk_code_jaccard_similarity_filtering_threshold?: number | undefined;
     /** Whether to include explanations for why each code was extracted */
     include_rationale?: boolean | undefined;
     /** Whether to include ancestor/parent codes in the results */
@@ -77,11 +83,13 @@ export namespace ExtractRequestConfig {
      * * none - No validation, returns all candidate codes
      * * simple - LLM-based validation
      * * medication_search - LLM-based validation tailored for medication concepts
+     * * chunk_code_jaccard_similarity - Token-level Jaccard similarity between source text chunk and code description
      */
     export const ValidationMethod = {
         None: "none",
         Simple: "simple",
         MedicationSearch: "medication_search",
+        ChunkCodeJaccardSimilarity: "chunk_code_jaccard_similarity",
     } as const;
     export type ValidationMethod = (typeof ValidationMethod)[keyof typeof ValidationMethod];
     /**
