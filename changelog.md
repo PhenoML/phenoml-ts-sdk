@@ -1,3 +1,11 @@
+## 12.3.0 - 2026-04-24
+### Added
+* **`ExtractRequestConfig.ChunkingMethod.ClinicalNerExtract`** — new `"clinical_ner_extract"` chunking method that extracts clinical concepts (problems, tests, treatments) and uses each as an individual chunk; also supports source-text citations.
+* **`ExtractRequestConfig.ValidationMethod.ChunkCodeJaccardSimilarity`** — new `"chunk_code_jaccard_similarity"` validation method that scores codes using token-level Jaccard similarity between the source text chunk and the code description.
+* **`ExtractRequestConfig.chunk_code_jaccard_similarity_filtering_threshold`** — optional `number` field (0.0–1.0) that sets the minimum Jaccard similarity threshold when using the `chunk_code_jaccard_similarity` validation method.
+### Changed
+* **`ExtractRequestConfig.include_citations`** — docs updated to reflect that citations are now supported for both `"sentences"` and `"clinical_ner_extract"` chunking methods, not only `"sentences"`.
+
 ## 12.2.0 - 2026-04-14
 * The `CreateMultiRequest` and `DocumentMultiRequest` types now support an optional `implementation_guide` parameter, allowing consumers to target custom FHIR Implementation Guide profiles during resource detection alongside the always-present US Core base layer. The `ProfileUploadRequest` type gains two new optional fields: `implementation_guide` (to group uploaded profiles into a named IG, defaulting to `"custom"`) and `profile_context` (a natural-language hint, up to 2000 characters, injected into the LLM prompt to improve profile selection across the IG).
 
