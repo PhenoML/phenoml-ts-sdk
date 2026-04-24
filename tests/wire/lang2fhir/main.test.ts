@@ -154,11 +154,16 @@ describe("Lang2FhirClient", () => {
             bundle: {
                 resourceType: "Bundle",
                 type: "transaction",
-                entry: [{ fullUrl: "urn:uuid:patient-abc123", request: { method: "POST", url: "Patient" } }],
+                entry: [
+                    {
+                        fullUrl: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
+                        request: { method: "POST", url: "Patient" },
+                    },
+                ],
             },
             resources: [
                 {
-                    tempId: "urn:uuid:patient-abc123",
+                    tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
                     resourceType: "Patient",
                     description: "John Smith, 45-year-old male",
                 },
@@ -185,7 +190,7 @@ describe("Lang2FhirClient", () => {
                 type: "transaction",
                 entry: [
                     {
-                        fullUrl: "urn:uuid:patient-abc123",
+                        fullUrl: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
                         request: {
                             method: "POST",
                             url: "Patient",
@@ -195,7 +200,7 @@ describe("Lang2FhirClient", () => {
             },
             resources: [
                 {
-                    tempId: "urn:uuid:patient-abc123",
+                    tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
                     resourceType: "Patient",
                     description: "John Smith, 45-year-old male",
                 },
@@ -736,11 +741,16 @@ describe("Lang2FhirClient", () => {
             bundle: {
                 resourceType: "Bundle",
                 type: "transaction",
-                entry: [{ fullUrl: "urn:uuid:patient-abc123", request: { method: "POST", url: "Patient" } }],
+                entry: [
+                    {
+                        fullUrl: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
+                        request: { method: "POST", url: "Patient" },
+                    },
+                ],
             },
             resources: [
                 {
-                    tempId: "urn:uuid:patient-abc123",
+                    tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
                     resourceType: "Patient",
                     description: "John Smith, 45-year-old male",
                 },
@@ -768,7 +778,7 @@ describe("Lang2FhirClient", () => {
                 type: "transaction",
                 entry: [
                     {
-                        fullUrl: "urn:uuid:patient-abc123",
+                        fullUrl: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
                         request: {
                             method: "POST",
                             url: "Patient",
@@ -778,7 +788,7 @@ describe("Lang2FhirClient", () => {
             },
             resources: [
                 {
-                    tempId: "urn:uuid:patient-abc123",
+                    tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
                     resourceType: "Patient",
                     description: "John Smith, 45-year-old male",
                 },
