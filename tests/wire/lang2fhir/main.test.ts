@@ -146,7 +146,7 @@ describe("Lang2FhirClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = {
-            text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
+            text: "John Smith, male born on 1980-03-12, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
         };
         const rawResponseBody = {
             success: true,
@@ -180,7 +180,7 @@ describe("Lang2FhirClient", () => {
             .build();
 
         const response = await client.lang2Fhir.createMulti({
-            text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
+            text: "John Smith, male born on 1980-03-12, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
         });
         expect(response).toEqual({
             success: true,
