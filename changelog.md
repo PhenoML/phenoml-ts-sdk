@@ -1,3 +1,13 @@
+## 12.3.1 - 2026-04-27
+* chore: update example text in CreateMultiRequest and createMulti docs
+* Refresh the inline code example to use a date-of-birth format instead
+* of an age description, making the sample input more realistic and
+* consistent with structured patient data.
+* Key changes:
+* Updated JSDoc example in `CreateMultiRequest` to use "born on 1980-03-12" instead of "45-year-old"
+* Updated JSDoc example in `Lang2FhirClient.createMulti` to match the same text
+* 🌿 Generated with Fern
+
 ## 12.3.0 - 2026-04-24
 ### Added
 * **`ExtractRequestConfig.ChunkingMethod.ClinicalNerExtract`** — new `"clinical_ner_extract"` chunking method that extracts clinical concepts (problems, tests, treatments) and uses each as an individual chunk; also supports source-text citations.
