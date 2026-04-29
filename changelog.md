@@ -1,3 +1,11 @@
+## 12.4.0 - 2026-04-29
+### Added
+* **`ExtractRequestConfig.ChunkingMethod.Fasthpocr`** — new `"fasthpocr"` chunking method that extracts HPO concepts directly with category annotations; requires `system: HPO`, supports citations, and causes most other config options to be ignored.
+* **`CodeCategory`** — new exported interface (`uri`, `label`) representing a higher-level grouping (e.g. an HPO category term) for an extracted code.
+* **`ExtractedCodeResult.categories`** — new optional `CodeCategory[]` field populated by full-extraction chunking methods such as `"fasthpocr"`.
+### Changed
+* **`ExtractRequestConfig.include_citations`** — docs updated to reflect that citations are now also supported for the `"fasthpocr"` chunking method.
+
 ## 12.3.0 - 2026-04-24
 ### Added
 * **`ExtractRequestConfig.ChunkingMethod.ClinicalNerExtract`** — new `"clinical_ner_extract"` chunking method that extracts clinical concepts (problems, tests, treatments) and uses each as an individual chunk; also supports source-text citations.

@@ -1,4 +1,5 @@
 export * from "./Citation.js";
+export * from "./CodeCategory.js";
 export * from "./CodeResponse.js";
 export * from "./CodeSystemDetails.js";
 export * from "./CodeSystemInfo.js";
