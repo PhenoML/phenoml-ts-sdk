@@ -1,0 +1,44 @@
+name: Extract Code Examples
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+
+      - name: Install extraction script dependencies
+        run: bun install --frozen-lockfile --cwd scripts
+
+      - name: Extract code examples
+        run: bun run scripts/extract-code-examples.ts
+
+      - name: Check for changes
+        id: diff
+        run: |
+          git add code-examples.json
+          if git diff --cached --quiet -- code-examples.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit code-examples.json
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: update code-examples.json"
+          git push

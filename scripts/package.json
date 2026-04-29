@@ -1,0 +1,7 @@
+{
+  "name": "extract-code-examples",
+  "private": true,
+  "dependencies": {
+    "typescript": "~5.7.2"
+  }
+}
