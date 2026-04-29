@@ -22,4 +22,9 @@ export interface ExtractedCodeResult {
      * Ancestor codes do not receive citations.
      */
     citations?: phenoml.construe.Citation[] | undefined;
+    /**
+     * Higher-level groupings the extracted code belongs to (e.g. HPO category terms).
+     * Only populated by full-extraction chunking methods such as "fasthpocr".
+     */
+    categories?: phenoml.construe.CodeCategory[] | undefined;
 }

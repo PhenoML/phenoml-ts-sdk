@@ -249,6 +249,7 @@ describe("ConstrueClient", () => {
                     reason: "reason",
                     is_ancestor: true,
                     citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
                 },
             ],
         };
@@ -282,6 +283,12 @@ describe("ConstrueClient", () => {
                             text: "Patient has type 2 diabetes",
                             begin_offset: 0,
                             end_offset: 27,
+                        },
+                    ],
+                    categories: [
+                        {
+                            uri: "HP:0025142",
+                            label: "Constitutional symptom",
                         },
                     ],
                 },
