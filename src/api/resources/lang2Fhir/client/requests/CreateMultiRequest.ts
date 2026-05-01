@@ -17,6 +17,8 @@ export interface CreateMultiRequest {
     implementation_guide?: string;
     /** Detection effort. 'standard' runs detection once, 'deep' runs detection multiple times for higher recall. */
     detection_effort?: CreateMultiRequest.DetectionEffort;
+    /** FHIR validation method to apply to the generated bundle. 'none' skips validation (default). 'check' runs the bundle through a FHIR structure validator and includes the results in the response. 'fix' runs validation and attempts to auto-correct errors using an LLM (up to 3 validation passes). The response includes results from each pass. Warning: 'fix' can significantly increase latency due to multiple LLM and validation round-trips. */
+    validation_method?: CreateMultiRequest.ValidationMethod;
 }
 
 export namespace CreateMultiRequest {
@@ -26,4 +28,11 @@ export namespace CreateMultiRequest {
         Deep: "deep",
     } as const;
     export type DetectionEffort = (typeof DetectionEffort)[keyof typeof DetectionEffort];
+    /** FHIR validation method to apply to the generated bundle. 'none' skips validation (default). 'check' runs the bundle through a FHIR structure validator and includes the results in the response. 'fix' runs validation and attempts to auto-correct errors using an LLM (up to 3 validation passes). The response includes results from each pass. Warning: 'fix' can significantly increase latency due to multiple LLM and validation round-trips. */
+    export const ValidationMethod = {
+        None: "none",
+        Check: "check",
+        Fix: "fix",
+    } as const;
+    export type ValidationMethod = (typeof ValidationMethod)[keyof typeof ValidationMethod];
 }
