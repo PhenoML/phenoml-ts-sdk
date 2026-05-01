@@ -9,6 +9,8 @@ export interface CreateMultiResponse {
     bundle?: CreateMultiResponse.Bundle | undefined;
     /** Summary of extracted resources */
     resources?: CreateMultiResponse.Resources.Item[] | undefined;
+    /** FHIR validation results. Present when validation_method is 'check' or 'fix'. Contains results from each validation pass. For 'check', there is one pass. For 'fix', there may be up to 3 passes as the system attempts auto-correction. */
+    validation?: CreateMultiResponse.Validation | undefined;
 }
 
 export namespace CreateMultiResponse {
@@ -50,6 +52,74 @@ export namespace CreateMultiResponse {
             resourceType?: string | undefined;
             /** Text excerpt this resource was extracted from */
             description?: string | undefined;
+        }
+    }
+
+    /**
+     * FHIR validation results. Present when validation_method is 'check' or 'fix'. Contains results from each validation pass. For 'check', there is one pass. For 'fix', there may be up to 3 passes as the system attempts auto-correction.
+     */
+    export interface Validation {
+        /** Results from each validation pass, in chronological order */
+        passes?: Validation.Passes.Item[] | undefined;
+        /** Whether validation errors were successfully fixed by the LLM. Always false for 'check' mode. For 'fix' mode, true if errors were resolved and the returned bundle is the corrected version. */
+        fixed?: boolean | undefined;
+        /** Total number of validation passes run (1 for check, 1-3 for fix) */
+        attempts?: number | undefined;
+        /** Human-readable summary of the validation outcome */
+        summary?: string | undefined;
+    }
+
+    export namespace Validation {
+        export type Passes = Passes.Item[];
+
+        export namespace Passes {
+            export interface Item {
+                /** Validation issues found in this pass */
+                issues?: Item.Issues.Item[] | undefined;
+                /** Validation statistics for this pass */
+                stats?: Item.Stats | undefined;
+            }
+
+            export namespace Item {
+                export type Issues = Issues.Item[];
+
+                export namespace Issues {
+                    export interface Item {
+                        /** Issue severity level */
+                        severity?: Item.Severity | undefined;
+                        /** Issue type code */
+                        code?: string | undefined;
+                        /** Human-readable description of the issue */
+                        diagnostics?: string | undefined;
+                        /** FHIRPath expression(s) pointing to the issue location */
+                        expression?: string[] | undefined;
+                        /** Validation phase that generated this issue */
+                        source?: string | undefined;
+                    }
+
+                    export namespace Item {
+                        /** Issue severity level */
+                        export const Severity = {
+                            Fatal: "fatal",
+                            Error: "error",
+                            Warning: "warning",
+                            Information: "information",
+                        } as const;
+                        export type Severity = (typeof Severity)[keyof typeof Severity];
+                    }
+                }
+
+                /**
+                 * Validation statistics for this pass
+                 */
+                export interface Stats {
+                    resource_type?: string | undefined;
+                    profile_url?: string | undefined;
+                    is_custom_profile?: boolean | undefined;
+                    /** Validation duration in milliseconds */
+                    duration_ms?: number | undefined;
+                }
+            }
         }
     }
 }

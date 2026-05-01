@@ -168,6 +168,7 @@ describe("Lang2FhirClient", () => {
                     description: "John Smith, 45-year-old male",
                 },
             ],
+            validation: { passes: [{}], fixed: true, attempts: 1, summary: "summary" },
         };
 
         server
@@ -205,6 +206,12 @@ describe("Lang2FhirClient", () => {
                     description: "John Smith, 45-year-old male",
                 },
             ],
+            validation: {
+                passes: [{}],
+                fixed: true,
+                attempts: 1,
+                summary: "summary",
+            },
         });
     });
 
@@ -755,6 +762,7 @@ describe("Lang2FhirClient", () => {
                     description: "John Smith, 45-year-old male",
                 },
             ],
+            validation: { passes: [{}], fixed: true, attempts: 1, summary: "summary" },
         };
 
         server
@@ -793,6 +801,12 @@ describe("Lang2FhirClient", () => {
                     description: "John Smith, 45-year-old male",
                 },
             ],
+            validation: {
+                passes: [{}],
+                fixed: true,
+                attempts: 1,
+                summary: "summary",
+            },
         });
     });
 

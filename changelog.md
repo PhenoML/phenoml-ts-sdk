@@ -1,3 +1,9 @@
+## 12.5.0 - 2026-05-01
+### Added
+* **`CreateMultiRequest.validation_method`** — new optional field accepting a `ValidationMethod` enum (`"none"` | `"check"` | `"fix"`) that controls FHIR structure validation of the generated bundle; `"none"` is the default and skips validation.
+* **`DocumentMultiRequest.validation_method`** — same optional `ValidationMethod` field added to the document-based multi-resource request.
+* **`CreateMultiResponse.validation`** — new optional `Validation` object returned when `validation_method` is `"check"` or `"fix"`, containing per-pass issue details (severity, code, diagnostics, FHIRPath expressions), validation statistics, fix status, attempt count, and a human-readable summary.
+
 ## 12.4.0 - 2026-04-29
 ### Added
 * **`ExtractRequestConfig.ChunkingMethod.Fasthpocr`** — new `"fasthpocr"` chunking method that extracts HPO concepts directly with category annotations; requires `system: HPO`, supports citations, and causes most other config options to be ignored.
