@@ -1,3 +1,14 @@
+## 13.0.0 - 2026-05-06
+### Breaking Changes
+* **`Lang2FhirClient.extractMultipleFhirResourcesFromADocument`** — return type changed from `CreateMultiResponse` to `DocumentMultiResponse`. Update any variable or type annotation that references `CreateMultiResponse` for this method's result to use `DocumentMultiResponse` instead (which extends `CreateMultiResponse`, so runtime values are compatible).
+### Added
+* **`DocumentMultiResponse`** — new interface extending `CreateMultiResponse` with an optional `page_classifications` field (`PageClassification[]`) populated when a `page_filter` is supplied in the request.
+* **`DocumentConfig`** — new optional `config` field on both `DocumentMultiRequest` and `DocumentRequest`, accepting a `DocumentConfig` object with an optional `page_filter` (`PageFilter`) to enable per-page LLM relevance filtering before FHIR extraction.
+* **`PageFilter`** — new interface with a required `context` string describing what content is relevant; pages that do not match are dropped from FHIR extraction.
+* **`PageClassification`** — new interface capturing the classifier's per-page decision (`page_number`, `include`, `reason`).
+### Changed
+* **`CreateMultiResponse` resource `description`** — semantics updated to "context-enriched rewritten text excerpt"; a new optional `originalText` field now carries the verbatim text excerpt from the original clinical document.
+
 ## 12.5.0 - 2026-05-01
 ### Added
 * **`CreateMultiRequest.validation_method`** — new optional field accepting a `ValidationMethod` enum (`"none"` | `"check"` | `"fix"`) that controls FHIR structure validation of the generated bundle; `"none"` is the default and skips validation.

@@ -487,7 +487,7 @@ export class Lang2FhirClient {
     public extractMultipleFhirResourcesFromADocument(
         request: phenoml.lang2Fhir.DocumentMultiRequest,
         requestOptions?: Lang2FhirClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.lang2Fhir.CreateMultiResponse> {
+    ): core.HttpResponsePromise<phenoml.lang2Fhir.DocumentMultiResponse> {
         return core.HttpResponsePromise.fromPromise(
             this.__extractMultipleFhirResourcesFromADocument(request, requestOptions),
         );
@@ -496,7 +496,7 @@ export class Lang2FhirClient {
     private async __extractMultipleFhirResourcesFromADocument(
         request: phenoml.lang2Fhir.DocumentMultiRequest,
         requestOptions?: Lang2FhirClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.lang2Fhir.CreateMultiResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.lang2Fhir.DocumentMultiResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -524,7 +524,7 @@ export class Lang2FhirClient {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.lang2Fhir.CreateMultiResponse,
+                data: _response.body as phenoml.lang2Fhir.DocumentMultiResponse,
                 rawResponse: _response.rawResponse,
             };
         }

@@ -3506,7 +3506,7 @@ await client.lang2Fhir.document({
 </dl>
 </details>
 
-<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">extractMultipleFhirResourcesFromADocument</a>({ ...params }) -> phenoml.CreateMultiResponse</code></summary>
+<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">extractMultipleFhirResourcesFromADocument</a>({ ...params }) -> phenoml.DocumentMultiResponse</code></summary>
 <dl>
 <dd>
 

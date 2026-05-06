@@ -165,7 +165,9 @@ describe("Lang2FhirClient", () => {
                 {
                     tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
                     resourceType: "Patient",
-                    description: "John Smith, 45-year-old male",
+                    description:
+                        "John Smith (DOB 1980-05-12) was diagnosed with Type 2 Diabetes during office visit on 2025-03-01 with Dr. Chen",
+                    originalText: "diagnosed with Type 2 Diabetes",
                 },
             ],
             validation: { passes: [{}], fixed: true, attempts: 1, summary: "summary" },
@@ -203,7 +205,9 @@ describe("Lang2FhirClient", () => {
                 {
                     tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
                     resourceType: "Patient",
-                    description: "John Smith, 45-year-old male",
+                    description:
+                        "John Smith (DOB 1980-05-12) was diagnosed with Type 2 Diabetes during office visit on 2025-03-01 with Dr. Chen",
+                    originalText: "diagnosed with Type 2 Diabetes",
                 },
             ],
             validation: {
@@ -759,10 +763,13 @@ describe("Lang2FhirClient", () => {
                 {
                     tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
                     resourceType: "Patient",
-                    description: "John Smith, 45-year-old male",
+                    description:
+                        "John Smith (DOB 1980-05-12) was diagnosed with Type 2 Diabetes during office visit on 2025-03-01 with Dr. Chen",
+                    originalText: "diagnosed with Type 2 Diabetes",
                 },
             ],
             validation: { passes: [{}], fixed: true, attempts: 1, summary: "summary" },
+            page_classifications: [{ page_number: 1, include: true, reason: "clinical notes with diagnoses" }],
         };
 
         server
@@ -798,7 +805,9 @@ describe("Lang2FhirClient", () => {
                 {
                     tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
                     resourceType: "Patient",
-                    description: "John Smith, 45-year-old male",
+                    description:
+                        "John Smith (DOB 1980-05-12) was diagnosed with Type 2 Diabetes during office visit on 2025-03-01 with Dr. Chen",
+                    originalText: "diagnosed with Type 2 Diabetes",
                 },
             ],
             validation: {
@@ -807,6 +816,13 @@ describe("Lang2FhirClient", () => {
                 attempts: 1,
                 summary: "summary",
             },
+            page_classifications: [
+                {
+                    page_number: 1,
+                    include: true,
+                    reason: "clinical notes with diagnoses",
+                },
+            ],
         });
     });
 
