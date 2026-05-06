@@ -1,3 +1,9 @@
+## 12.6.0 - 2026-05-06
+### Added
+* **`CreateMultiResponse.Resource.originalText`** — new optional `string` field containing the verbatim text excerpt from the original clinical document, distinct from `description` which now holds a context-enriched rewritten excerpt.
+### Changed
+* **`CreateMultiResponse.Resource.description`** — docs updated to clarify this field contains a context-enriched rewritten text excerpt for the resource, not the raw source text.
+
 ## 12.5.0 - 2026-05-01
 ### Added
 * **`CreateMultiRequest.validation_method`** — new optional field accepting a `ValidationMethod` enum (`"none"` | `"check"` | `"fix"`) that controls FHIR structure validation of the generated bundle; `"none"` is the default and skips validation.
