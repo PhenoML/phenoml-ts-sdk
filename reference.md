@@ -3171,7 +3171,9 @@ await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad
 <dl>
 <dd>
 
-Converts natural language text into a structured FHIR resource
+Converts natural language text into a structured FHIR resource.
+
+**Patient identifier handling.** When generating a `patient` (or `patient-canvas`) resource, US Core requires `Patient.identifier` (a business identifier such as an MRN). When the source text contains an identifier, it is extracted with an appropriate URI system. When the source text does not contain a detectable identifier, a synthetic one is generated with `system: "urn:phenoml:lang2fhir-generated-id"` and a UUID `value` so the resource remains FHIR-valid and US Core conformant. Callers who need a tenant-specific namespace should rewrite the synthetic system after extraction.
 </dd>
 </dl>
 </dd>
@@ -3241,6 +3243,8 @@ await client.lang2Fhir.create({
 Analyzes natural language text and extracts multiple FHIR resources, returning them as a transaction Bundle.
 Automatically detects Patient, Condition, MedicationRequest, Observation, and other resource types from the text.
 Resources are linked with proper references (e.g., Conditions reference the Patient).
+
+**Patient identifier handling.** US Core requires `Patient.identifier` (a business identifier such as an MRN). When the source text contains an identifier, it is extracted with an appropriate URI system. When the source text does not contain a detectable identifier, a synthetic one is generated with `system: "urn:phenoml:lang2fhir-generated-id"` and a UUID `value` so the bundle remains FHIR-valid and US Core conformant. Callers who need a tenant-specific namespace should rewrite the synthetic system after extraction.
 </dd>
 </dl>
 </dd>
@@ -3451,7 +3455,9 @@ await client.lang2Fhir.uploadProfile({
 <dl>
 <dd>
 
-Extracts text from a document (PDF or image) and converts it into a structured FHIR resource
+Extracts text from a document (PDF or image) and converts it into a structured FHIR resource.
+
+**Patient identifier handling.** When generating a `patient` (or `patient-canvas`) resource, US Core requires `Patient.identifier` (a business identifier such as an MRN). When the source text contains an identifier, it is extracted with an appropriate URI system. When the source text does not contain a detectable identifier, a synthetic one is generated with `system: "urn:phenoml:lang2fhir-generated-id"` and a UUID `value` so the resource remains FHIR-valid and US Core conformant. Callers who need a tenant-specific namespace should rewrite the synthetic system after extraction.
 </dd>
 </dl>
 </dd>
@@ -3506,7 +3512,7 @@ await client.lang2Fhir.document({
 </dl>
 </details>
 
-<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">extractMultipleFhirResourcesFromADocument</a>({ ...params }) -> phenoml.CreateMultiResponse</code></summary>
+<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">extractMultipleFhirResourcesFromADocument</a>({ ...params }) -> phenoml.DocumentMultiResponse</code></summary>
 <dl>
 <dd>
 
@@ -3522,6 +3528,8 @@ Extracts text from a document (PDF or image) and converts it into multiple FHIR 
 returned as a transaction Bundle. Combines document text extraction with multi-resource detection.
 Automatically detects Patient, Condition, MedicationRequest, Observation, and other resource types.
 Resources are linked with proper references (e.g., Conditions reference the Patient).
+
+**Patient identifier handling.** US Core requires `Patient.identifier` (a business identifier such as an MRN). When the source text contains an identifier, it is extracted with an appropriate URI system. When the source text does not contain a detectable identifier, a synthetic one is generated with `system: "urn:phenoml:lang2fhir-generated-id"` and a UUID `value` so the bundle remains FHIR-valid and US Core conformant. Callers who need a tenant-specific namespace should rewrite the synthetic system after extraction.
 </dd>
 </dl>
 </dd>
