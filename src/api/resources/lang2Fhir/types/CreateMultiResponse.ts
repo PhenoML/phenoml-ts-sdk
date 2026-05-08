@@ -50,8 +50,10 @@ export namespace CreateMultiResponse {
             tempId?: string | undefined;
             /** FHIR resource type */
             resourceType?: string | undefined;
-            /** Text excerpt this resource was extracted from */
+            /** Context-enriched rewritten text excerpt for this resource */
             description?: string | undefined;
+            /** Verbatim text excerpt from the original clinical document */
+            originalText?: string | undefined;
         }
     }
 
