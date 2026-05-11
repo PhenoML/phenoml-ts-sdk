@@ -86,51 +86,7 @@ describe("FhirProviderClient", () => {
                 client_id: "your-client-id",
             },
         });
-        expect(response).toEqual({
-            success: true,
-            message: "Fhir provider created successfully",
-            data: {
-                id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                name: "Epic Sandbox",
-                description: "Epic sandbox environment for testing",
-                provider: "athenahealth",
-                base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
-                auth_configs: {
-                    key: {
-                        auth_config_id: "auth-config-123",
-                        is_active_auth_config: true,
-                        created_at: "2024-01-15T10:30:00Z",
-                        updated_at: "2024-01-15T14:45:00Z",
-                        public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
-                        json_web_key: {
-                            kty: "RSA",
-                            use: "sig",
-                            kid: "FHIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0vx7agoeb",
-                            alg: "RS384",
-                            n: "0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbIS",
-                            e: "AQAB",
-                        },
-                        credential_expiry: "2024-12-31T23:59:59Z",
-                        smart_configuration: {
-                            authorization_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize",
-                            token_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token",
-                            issuer: "https://fhir.epic.com/interconnect-fhir-oauth",
-                            jwks_uri: "https://fhir.epic.com/interconnect-fhir-oauth/.well-known/jwks",
-                            scopes_supported: ["patient/*.read", "system/*.read"],
-                        },
-                        service_account_metadata: {
-                            type: "service_account",
-                            project_id: "my-gcp-project",
-                            client_email: "service-account@my-gcp-project.iam.gserviceaccount.com",
-                            client_id: "123456789012345678901",
-                        },
-                        scopes: "system/Patient.read system/Observation.read",
-                        client_id: "your-client-id",
-                    },
-                },
-                last_updated: "2024-01-15T10:30:00Z",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("create (2)", async () => {
@@ -362,54 +318,7 @@ describe("FhirProviderClient", () => {
             .build();
 
         const response = await client.fhirProvider.list();
-        expect(response).toEqual({
-            success: true,
-            message: "Fhir providers retrieved successfully",
-            fhir_providers: [
-                {
-                    id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                    name: "Epic Sandbox",
-                    description: "Epic sandbox environment for testing",
-                    provider: "athenahealth",
-                    base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
-                    auth_configs: {
-                        key: {
-                            auth_config_id: "auth-config-123",
-                            is_active_auth_config: true,
-                            created_at: "2024-01-15T10:30:00Z",
-                            updated_at: "2024-01-15T14:45:00Z",
-                            public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
-                            json_web_key: {
-                                kty: "RSA",
-                                use: "sig",
-                                kid: "FHIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0vx7agoeb",
-                                alg: "RS384",
-                                n: "0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbIS",
-                                e: "AQAB",
-                            },
-                            credential_expiry: "2024-12-31T23:59:59Z",
-                            smart_configuration: {
-                                authorization_endpoint:
-                                    "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize",
-                                token_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token",
-                                issuer: "https://fhir.epic.com/interconnect-fhir-oauth",
-                                jwks_uri: "https://fhir.epic.com/interconnect-fhir-oauth/.well-known/jwks",
-                                scopes_supported: ["patient/*.read", "system/*.read"],
-                            },
-                            service_account_metadata: {
-                                type: "service_account",
-                                project_id: "my-gcp-project",
-                                client_email: "service-account@my-gcp-project.iam.gserviceaccount.com",
-                                client_id: "123456789012345678901",
-                            },
-                            scopes: "system/Patient.read system/Observation.read",
-                            client_id: "your-client-id",
-                        },
-                    },
-                    last_updated: "2024-01-15T10:30:00Z",
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("list (2)", async () => {
@@ -530,51 +439,7 @@ describe("FhirProviderClient", () => {
             .build();
 
         const response = await client.fhirProvider.get("fhir_provider_id");
-        expect(response).toEqual({
-            success: true,
-            message: "Fhir provider created successfully",
-            data: {
-                id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                name: "Epic Sandbox",
-                description: "Epic sandbox environment for testing",
-                provider: "athenahealth",
-                base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
-                auth_configs: {
-                    key: {
-                        auth_config_id: "auth-config-123",
-                        is_active_auth_config: true,
-                        created_at: "2024-01-15T10:30:00Z",
-                        updated_at: "2024-01-15T14:45:00Z",
-                        public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
-                        json_web_key: {
-                            kty: "RSA",
-                            use: "sig",
-                            kid: "FHIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0vx7agoeb",
-                            alg: "RS384",
-                            n: "0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbIS",
-                            e: "AQAB",
-                        },
-                        credential_expiry: "2024-12-31T23:59:59Z",
-                        smart_configuration: {
-                            authorization_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize",
-                            token_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token",
-                            issuer: "https://fhir.epic.com/interconnect-fhir-oauth",
-                            jwks_uri: "https://fhir.epic.com/interconnect-fhir-oauth/.well-known/jwks",
-                            scopes_supported: ["patient/*.read", "system/*.read"],
-                        },
-                        service_account_metadata: {
-                            type: "service_account",
-                            project_id: "my-gcp-project",
-                            client_email: "service-account@my-gcp-project.iam.gserviceaccount.com",
-                            client_id: "123456789012345678901",
-                        },
-                        scopes: "system/Patient.read system/Observation.read",
-                        client_id: "your-client-id",
-                    },
-                },
-                last_updated: "2024-01-15T10:30:00Z",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("get (2)", async () => {
@@ -677,10 +542,7 @@ describe("FhirProviderClient", () => {
             .build();
 
         const response = await client.fhirProvider.delete("fhir_provider_id");
-        expect(response).toEqual({
-            success: true,
-            message: "Fhir provider deleted successfully",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("delete (2)", async () => {
@@ -857,51 +719,7 @@ describe("FhirProviderClient", () => {
             auth_method: "jwt",
             client_id: "your-client-id",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "Fhir provider created successfully",
-            data: {
-                id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                name: "Epic Sandbox",
-                description: "Epic sandbox environment for testing",
-                provider: "athenahealth",
-                base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
-                auth_configs: {
-                    key: {
-                        auth_config_id: "auth-config-123",
-                        is_active_auth_config: true,
-                        created_at: "2024-01-15T10:30:00Z",
-                        updated_at: "2024-01-15T14:45:00Z",
-                        public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
-                        json_web_key: {
-                            kty: "RSA",
-                            use: "sig",
-                            kid: "FHIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0vx7agoeb",
-                            alg: "RS384",
-                            n: "0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbIS",
-                            e: "AQAB",
-                        },
-                        credential_expiry: "2024-12-31T23:59:59Z",
-                        smart_configuration: {
-                            authorization_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize",
-                            token_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token",
-                            issuer: "https://fhir.epic.com/interconnect-fhir-oauth",
-                            jwks_uri: "https://fhir.epic.com/interconnect-fhir-oauth/.well-known/jwks",
-                            scopes_supported: ["patient/*.read", "system/*.read"],
-                        },
-                        service_account_metadata: {
-                            type: "service_account",
-                            project_id: "my-gcp-project",
-                            client_email: "service-account@my-gcp-project.iam.gserviceaccount.com",
-                            client_id: "123456789012345678901",
-                        },
-                        scopes: "system/Patient.read system/Observation.read",
-                        client_id: "your-client-id",
-                    },
-                },
-                last_updated: "2024-01-15T10:30:00Z",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("addAuthConfig (2)", async () => {
@@ -1123,51 +941,7 @@ describe("FhirProviderClient", () => {
         const response = await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
             auth_config_id: "auth-config-123",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "Fhir provider created successfully",
-            data: {
-                id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                name: "Epic Sandbox",
-                description: "Epic sandbox environment for testing",
-                provider: "athenahealth",
-                base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
-                auth_configs: {
-                    key: {
-                        auth_config_id: "auth-config-123",
-                        is_active_auth_config: true,
-                        created_at: "2024-01-15T10:30:00Z",
-                        updated_at: "2024-01-15T14:45:00Z",
-                        public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
-                        json_web_key: {
-                            kty: "RSA",
-                            use: "sig",
-                            kid: "FHIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0vx7agoeb",
-                            alg: "RS384",
-                            n: "0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbIS",
-                            e: "AQAB",
-                        },
-                        credential_expiry: "2024-12-31T23:59:59Z",
-                        smart_configuration: {
-                            authorization_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize",
-                            token_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token",
-                            issuer: "https://fhir.epic.com/interconnect-fhir-oauth",
-                            jwks_uri: "https://fhir.epic.com/interconnect-fhir-oauth/.well-known/jwks",
-                            scopes_supported: ["patient/*.read", "system/*.read"],
-                        },
-                        service_account_metadata: {
-                            type: "service_account",
-                            project_id: "my-gcp-project",
-                            client_email: "service-account@my-gcp-project.iam.gserviceaccount.com",
-                            client_id: "123456789012345678901",
-                        },
-                        scopes: "system/Patient.read system/Observation.read",
-                        client_id: "your-client-id",
-                    },
-                },
-                last_updated: "2024-01-15T10:30:00Z",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("setActiveAuthConfig (2)", async () => {
@@ -1384,51 +1158,7 @@ describe("FhirProviderClient", () => {
         const response = await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
             auth_config_id: "auth-config-123",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "Auth configuration removed successfully",
-            data: {
-                id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
-                name: "Epic Sandbox",
-                description: "Epic sandbox environment for testing",
-                provider: "athenahealth",
-                base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
-                auth_configs: {
-                    key: {
-                        auth_config_id: "auth-config-123",
-                        is_active_auth_config: true,
-                        created_at: "2024-01-15T10:30:00Z",
-                        updated_at: "2024-01-15T14:45:00Z",
-                        public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
-                        json_web_key: {
-                            kty: "RSA",
-                            use: "sig",
-                            kid: "FHIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0vx7agoeb",
-                            alg: "RS384",
-                            n: "0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbIS",
-                            e: "AQAB",
-                        },
-                        credential_expiry: "2024-12-31T23:59:59Z",
-                        smart_configuration: {
-                            authorization_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize",
-                            token_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token",
-                            issuer: "https://fhir.epic.com/interconnect-fhir-oauth",
-                            jwks_uri: "https://fhir.epic.com/interconnect-fhir-oauth/.well-known/jwks",
-                            scopes_supported: ["patient/*.read", "system/*.read"],
-                        },
-                        service_account_metadata: {
-                            type: "service_account",
-                            project_id: "my-gcp-project",
-                            client_email: "service-account@my-gcp-project.iam.gserviceaccount.com",
-                            client_id: "123456789012345678901",
-                        },
-                        scopes: "system/Patient.read system/Observation.read",
-                        client_id: "your-client-id",
-                    },
-                },
-                last_updated: "2024-01-15T10:30:00Z",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("removeAuthConfig (2)", async () => {

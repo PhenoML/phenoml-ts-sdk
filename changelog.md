@@ -1,3 +1,15 @@
+## 13.1.0 - 2026-05-11
+### Added
+* **`Fetcher.TimeoutError.cause` / `Fetcher.UnknownError.cause`** — new optional `cause?: unknown` field on both error shapes so callers can inspect the underlying triggering error.
+* **`phenomlError.cause` / `phenomlTimeoutError.cause`** — both error classes now accept and expose an optional `cause` property for improved error-chain diagnostics.
+* **`QueryStringOptions` `"comma"` array format** — query-string serialization now supports `arrayFormat: "comma"`, serializing arrays as a single comma-separated parameter.
+* **`isAuthProvider`** — new exported helper from `core/auth` for runtime `AuthProvider` type-narrowing.
+* **`BaseClientOptions.auth`** — new optional field accepting `false`, a function, an `AuthProvider` instance, or auth options for per-client authentication overrides.
+* **`core.url.queryBuilder()`** — new fluent `QueryStringBuilder` utility with `.add()`, `.addMany()`, `.mergeAdditional()`, and `.build()` methods for constructing URL query strings.
+### Changed
+* **All API client methods** — query parameters are now built via the `core.url.queryBuilder()` fluent API and passed as a pre-serialized `queryString`; observable behavior is unchanged for standard use cases.
+* **`BasicAuth.username` / `BasicAuth.password`** — both fields are now optional; `toAuthorizationHeader` returns `undefined` when both are absent or empty instead of encoding empty credentials.
+
 ## 13.0.0 - 2026-05-08
 ### Breaking Changes
 * **`Lang2FhirClient.extractMultipleFhirResourcesFromADocument`** — return type changed from `CreateMultiResponse` to `DocumentMultiResponse`; update any typed variable or destructuring that references `CreateMultiResponse` to use `DocumentMultiResponse` instead (it extends `CreateMultiResponse` so all existing fields remain).

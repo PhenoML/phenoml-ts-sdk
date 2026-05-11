@@ -42,18 +42,7 @@ describe("CohortClient", () => {
         const response = await client.cohort.analyze({
             text: "female patients over 65 with diabetes but not hypertension",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "Cohort analysis completed successfully. Generated 3 search queries from 3 concepts.",
-            queries: [
-                {
-                    resource_type: "Patient",
-                    search_params: "gender=female&birthdate=le1959-01-01",
-                    concept: "female patients over 65",
-                    exclude: false,
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("analyze (2)", async () => {

@@ -29,11 +29,7 @@ describe("AuthClient", () => {
             .build();
 
         const response = await client.authtoken.auth.getToken();
-        expect(response).toEqual({
-            access_token: "access_token",
-            token_type: "Bearer",
-            expires_in: 172800,
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("getToken (2)", async () => {

@@ -37,9 +37,7 @@ describe("Lang2FhirClient", () => {
             resource: "auto",
             text: "Patient has severe asthma with acute exacerbation",
         });
-        expect(response).toEqual({
-            key: "value",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("create (2)", async () => {
@@ -185,38 +183,7 @@ describe("Lang2FhirClient", () => {
         const response = await client.lang2Fhir.createMulti({
             text: "John Smith, male born on 1980-03-12, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "Successfully extracted 3 resources",
-            bundle: {
-                resourceType: "Bundle",
-                type: "transaction",
-                entry: [
-                    {
-                        fullUrl: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
-                        request: {
-                            method: "POST",
-                            url: "Patient",
-                        },
-                    },
-                ],
-            },
-            resources: [
-                {
-                    tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
-                    resourceType: "Patient",
-                    description:
-                        "John Smith (DOB 1980-05-12) was diagnosed with Type 2 Diabetes during office visit on 2025-03-01 with Dr. Chen",
-                    originalText: "diagnosed with Type 2 Diabetes",
-                },
-            ],
-            validation: {
-                passes: [{}],
-                fixed: true,
-                attempts: 1,
-                summary: "summary",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("createMulti (2)", async () => {
@@ -334,10 +301,7 @@ describe("Lang2FhirClient", () => {
         const response = await client.lang2Fhir.search({
             text: "Appointments between March 2-9, 2025",
         });
-        expect(response).toEqual({
-            resourceType: "AllergyIntolerance",
-            searchParams: "date=ge2025-03-02&date=le2025-03-09",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("search (2)", async () => {
@@ -486,12 +450,7 @@ describe("Lang2FhirClient", () => {
         const response = await client.lang2Fhir.uploadProfile({
             profile: "(base64 encoded FHIR StructureDefinition JSON)",
         });
-        expect(response).toEqual({
-            message: "Profile uploaded successfully",
-            id: "custom-patient",
-            type: "Patient",
-            url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("uploadProfile (2)", async () => {
@@ -637,9 +596,7 @@ describe("Lang2FhirClient", () => {
             resource: "questionnaire",
             content: "content",
         });
-        expect(response).toEqual({
-            key: "value",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("document (2)", async () => {
@@ -785,45 +742,7 @@ describe("Lang2FhirClient", () => {
             version: "R4",
             content: "content",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "Successfully extracted 3 resources",
-            bundle: {
-                resourceType: "Bundle",
-                type: "transaction",
-                entry: [
-                    {
-                        fullUrl: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
-                        request: {
-                            method: "POST",
-                            url: "Patient",
-                        },
-                    },
-                ],
-            },
-            resources: [
-                {
-                    tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
-                    resourceType: "Patient",
-                    description:
-                        "John Smith (DOB 1980-05-12) was diagnosed with Type 2 Diabetes during office visit on 2025-03-01 with Dr. Chen",
-                    originalText: "diagnosed with Type 2 Diabetes",
-                },
-            ],
-            validation: {
-                passes: [{}],
-                fixed: true,
-                attempts: 1,
-                summary: "summary",
-            },
-            page_classifications: [
-                {
-                    page_number: 1,
-                    include: true,
-                    reason: "clinical notes with diagnoses",
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("extractMultipleFhirResourcesFromADocument (2)", async () => {
