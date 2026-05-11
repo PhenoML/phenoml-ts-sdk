@@ -1,0 +1,16 @@
+name: bundle-openapi-spec
+
+# Thin wrapper around PhenoML/sdk-shared-actions: fires on Fern-generated PRs
+# (which change .fern/metadata.json) and auto-commits the matching OpenAPI
+# spec to the PR branch.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - ".fern/metadata.json"
+  workflow_dispatch:
+
+jobs:
+  bundle:
+    uses: PhenoML/sdk-shared-actions/.github/workflows/bundle-openapi-spec.yml@main

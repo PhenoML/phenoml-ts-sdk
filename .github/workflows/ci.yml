@@ -103,6 +103,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Verify bundled OpenAPI spec
+        uses: PhenoML/sdk-shared-actions/verify-openapi-spec@main
+
       - name: Build
         run: pnpm build
 
