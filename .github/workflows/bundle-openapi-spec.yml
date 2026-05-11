@@ -10,7 +10,6 @@ on:
     types: [opened, synchronize, reopened]
     paths:
       - ".fern/metadata.json"
-  workflow_dispatch:
 
 jobs:
   bundle:
@@ -20,12 +19,12 @@ jobs:
     # Fork PRs can't push back to the head branch and we don't want to leak
     # tokens to forked code. Fern's bot opens PRs from same-repo branches,
     # so this only excludes the (currently unused) fork path.
-    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    if: github.event.pull_request.head.repo.full_name == github.repository
 
     env:
       # Quoted indirection: keeps untrusted ref values out of inline ${{ }}
       # shell expansions per GitHub's workflow-injection guidance.
-      HEAD_REF: ${{ github.event.pull_request.head.ref || github.ref_name }}
+      HEAD_REF: ${{ github.event.pull_request.head.ref }}
 
     steps:
       - name: Checkout PR branch
