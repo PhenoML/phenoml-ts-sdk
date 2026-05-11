@@ -15,8 +15,7 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      # TODO: switch to @main (or a tagged release) once PhenoML/sdk-shared-actions#1 merges
-      - uses: PhenoML/sdk-shared-actions/extract-code-examples@extract-code-examples
+      - uses: PhenoML/sdk-shared-actions/extract-code-examples@main
 
       - name: Commit code-examples.json if changed
         run: |
