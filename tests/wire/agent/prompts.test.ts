@@ -46,18 +46,7 @@ describe("PromptsClient", () => {
             name: "Medical Assistant System Prompt",
             content: "You are a helpful medical assistant specialized in FHIR data processing...",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "Prompt created successfully",
-            data: {
-                id: "prompt_123",
-                name: "Medical Assistant System Prompt",
-                description: "System prompt for medical assistant agent",
-                content: "You are a helpful medical assistant...",
-                is_default: false,
-                tags: ["medical", "system"],
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("create (2)", async () => {
@@ -215,20 +204,7 @@ describe("PromptsClient", () => {
             .build();
 
         const response = await client.agent.prompts.list();
-        expect(response).toEqual({
-            success: true,
-            message: "Prompts retrieved successfully",
-            prompts: [
-                {
-                    id: "prompt_123",
-                    name: "Medical Assistant System Prompt",
-                    description: "System prompt for medical assistant agent",
-                    content: "You are a helpful medical assistant...",
-                    is_default: false,
-                    tags: ["medical", "system"],
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("list (2)", async () => {
@@ -336,18 +312,7 @@ describe("PromptsClient", () => {
         server.mockEndpoint().get("/agent/prompts/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.agent.prompts.get("id");
-        expect(response).toEqual({
-            success: true,
-            message: "Prompt created successfully",
-            data: {
-                id: "prompt_123",
-                name: "Medical Assistant System Prompt",
-                description: "System prompt for medical assistant agent",
-                content: "You are a helpful medical assistant...",
-                is_default: false,
-                tags: ["medical", "system"],
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("get (2)", async () => {
@@ -464,18 +429,7 @@ describe("PromptsClient", () => {
             .build();
 
         const response = await client.agent.prompts.update("id");
-        expect(response).toEqual({
-            success: true,
-            message: "Prompt created successfully",
-            data: {
-                id: "prompt_123",
-                name: "Medical Assistant System Prompt",
-                description: "System prompt for medical assistant agent",
-                content: "You are a helpful medical assistant...",
-                is_default: false,
-                tags: ["medical", "system"],
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("update (2)", async () => {
@@ -635,10 +589,7 @@ describe("PromptsClient", () => {
             .build();
 
         const response = await client.agent.prompts.delete("id");
-        expect(response).toEqual({
-            success: true,
-            message: "Prompt deleted successfully",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("delete (2)", async () => {
@@ -798,18 +749,7 @@ describe("PromptsClient", () => {
                 path: "/description",
             },
         ]);
-        expect(response).toEqual({
-            success: true,
-            message: "Prompt created successfully",
-            data: {
-                id: "prompt_123",
-                name: "Medical Assistant System Prompt",
-                description: "System prompt for medical assistant agent",
-                content: "You are a helpful medical assistant...",
-                is_default: false,
-                tags: ["medical", "system"],
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("patch (2)", async () => {
@@ -1029,10 +969,7 @@ describe("PromptsClient", () => {
             .build();
 
         const response = await client.agent.prompts.loadDefaults();
-        expect(response).toEqual({
-            success: true,
-            message: "Operation completed successfully",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("loadDefaults (2)", async () => {

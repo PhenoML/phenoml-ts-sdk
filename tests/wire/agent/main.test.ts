@@ -46,20 +46,7 @@ describe("AgentClient", () => {
             prompts: ["prompt_123", "prompt_456"],
             provider: "provider",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "Agent created successfully",
-            data: {
-                id: "agent_123",
-                name: "Medical Assistant",
-                description: "An AI assistant for medical information processing",
-                prompts: ["prompt_123", "prompt_456"],
-                tools: ["mcp_server_123", "mcp_server_456"],
-                workflows: ["workflow_123", "workflow_456"],
-                tags: ["medical", "fhir"],
-                provider: "provider",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("create (2)", async () => {
@@ -219,22 +206,7 @@ describe("AgentClient", () => {
         const response = await client.agent.list({
             tags: "tags",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "Agents retrieved successfully",
-            agents: [
-                {
-                    id: "agent_123",
-                    name: "Medical Assistant",
-                    description: "An AI assistant for medical information processing",
-                    prompts: ["prompt_123", "prompt_456"],
-                    tools: ["mcp_server_123", "mcp_server_456"],
-                    workflows: ["workflow_123", "workflow_456"],
-                    tags: ["medical", "fhir"],
-                    provider: "provider",
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("list (2)", async () => {
@@ -326,20 +298,7 @@ describe("AgentClient", () => {
         server.mockEndpoint().get("/agent/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.agent.get("id");
-        expect(response).toEqual({
-            success: true,
-            message: "Agent created successfully",
-            data: {
-                id: "agent_123",
-                name: "Medical Assistant",
-                description: "An AI assistant for medical information processing",
-                prompts: ["prompt_123", "prompt_456"],
-                tools: ["mcp_server_123", "mcp_server_456"],
-                workflows: ["workflow_123", "workflow_456"],
-                tags: ["medical", "fhir"],
-                provider: "provider",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("get (2)", async () => {
@@ -462,20 +421,7 @@ describe("AgentClient", () => {
             prompts: ["prompt_123", "prompt_456"],
             provider: "provider",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "Agent created successfully",
-            data: {
-                id: "agent_123",
-                name: "Medical Assistant",
-                description: "An AI assistant for medical information processing",
-                prompts: ["prompt_123", "prompt_456"],
-                tools: ["mcp_server_123", "mcp_server_456"],
-                workflows: ["workflow_123", "workflow_456"],
-                tags: ["medical", "fhir"],
-                provider: "provider",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("update (2)", async () => {
@@ -649,10 +595,7 @@ describe("AgentClient", () => {
         server.mockEndpoint().delete("/agent/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.agent.delete("id");
-        expect(response).toEqual({
-            success: true,
-            message: "Agent deleted successfully",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("delete (2)", async () => {
@@ -790,20 +733,7 @@ describe("AgentClient", () => {
                 path: "/description",
             },
         ]);
-        expect(response).toEqual({
-            success: true,
-            message: "Agent created successfully",
-            data: {
-                id: "agent_123",
-                name: "Medical Assistant",
-                description: "An AI assistant for medical information processing",
-                prompts: ["prompt_123", "prompt_456"],
-                tools: ["mcp_server_123", "mcp_server_456"],
-                workflows: ["workflow_123", "workflow_456"],
-                tags: ["medical", "fhir"],
-                provider: "provider",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("patch (2)", async () => {
@@ -1040,12 +970,7 @@ describe("AgentClient", () => {
             message: "What is the patient's current condition?",
             agent_id: "agent-123",
         });
-        expect(response).toEqual({
-            response: "I'll create a patient record for John Doe with diabetes. Let me process that information...",
-            success: true,
-            message: "Chat response generated successfully",
-            session_id: "session_123",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("chat (2)", async () => {
@@ -1389,28 +1314,7 @@ describe("AgentClient", () => {
             role: "user",
             order: "asc",
         });
-        expect(response).toEqual({
-            messages: [
-                {
-                    id: "message_123",
-                    session_id: "session_123",
-                    role: "user",
-                    content: "Hello, how are you?",
-                    created: "2021-01-01T00:00:00Z",
-                    updated: "2021-01-01T00:00:00Z",
-                    function_name: "get_patient_info",
-                    function_args: {
-                        patient_id: "123",
-                    },
-                    function_result: {
-                        name: "John Doe",
-                    },
-                    message_order: 1,
-                },
-            ],
-            total: 10,
-            session_id: "session_123",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("getChatMessages (2)", async () => {

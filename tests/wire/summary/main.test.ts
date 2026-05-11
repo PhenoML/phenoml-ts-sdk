@@ -43,24 +43,7 @@ describe("SummaryClient", () => {
             .build();
 
         const response = await client.summary.listTemplates();
-        expect(response).toEqual({
-            success: true,
-            templates: [
-                {
-                    id: "id",
-                    name: "name",
-                    description: "description",
-                    template: "template",
-                    target_resources: ["target_resources"],
-                    mode: "mode",
-                    metadata: {
-                        key: "value",
-                    },
-                    created_at: "2024-01-15T09:30:00Z",
-                    updated_at: "2024-01-15T09:30:00Z",
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("listTemplates (2)", async () => {
@@ -163,24 +146,7 @@ describe("SummaryClient", () => {
             target_resources: ["Patient", "Condition", "Observation"],
             mode: "mode",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "message",
-            template_id: "template_id",
-            template: {
-                id: "id",
-                name: "name",
-                description: "description",
-                template: "template",
-                target_resources: ["target_resources"],
-                mode: "mode",
-                metadata: {
-                    key: "value",
-                },
-                created_at: "2024-01-15T09:30:00Z",
-                updated_at: "2024-01-15T09:30:00Z",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("createTemplate (2)", async () => {
@@ -329,22 +295,7 @@ describe("SummaryClient", () => {
             .build();
 
         const response = await client.summary.getTemplate("id");
-        expect(response).toEqual({
-            success: true,
-            template: {
-                id: "id",
-                name: "name",
-                description: "description",
-                template: "template",
-                target_resources: ["target_resources"],
-                mode: "mode",
-                metadata: {
-                    key: "value",
-                },
-                created_at: "2024-01-15T09:30:00Z",
-                updated_at: "2024-01-15T09:30:00Z",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("getTemplate (2)", async () => {
@@ -498,23 +449,7 @@ describe("SummaryClient", () => {
             target_resources: ["target_resources"],
             mode: "mode",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "message",
-            template: {
-                id: "id",
-                name: "name",
-                description: "description",
-                template: "template",
-                target_resources: ["target_resources"],
-                mode: "mode",
-                metadata: {
-                    key: "value",
-                },
-                created_at: "2024-01-15T09:30:00Z",
-                updated_at: "2024-01-15T09:30:00Z",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("updateTemplate (2)", async () => {
@@ -724,10 +659,7 @@ describe("SummaryClient", () => {
             .build();
 
         const response = await client.summary.deleteTemplate("id");
-        expect(response).toEqual({
-            success: true,
-            message: "message",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("deleteTemplate (2)", async () => {
@@ -861,12 +793,7 @@ describe("SummaryClient", () => {
                 resourceType: "resourceType",
             },
         });
-        expect(response).toEqual({
-            success: true,
-            message: "message",
-            summary: "summary",
-            warnings: ["warnings"],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("create (2)", async () => {

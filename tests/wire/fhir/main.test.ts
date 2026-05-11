@@ -41,24 +41,7 @@ describe("FhirClient", () => {
             "X-Phenoml-Fhir-Provider":
                 "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
         });
-        expect(response).toEqual({
-            resourceType: "Bundle",
-            total: 2,
-            entry: [
-                {
-                    resource: {
-                        resourceType: "Patient",
-                        id: "123",
-                        name: [
-                            {
-                                family: "Doe",
-                                given: ["John"],
-                            },
-                        ],
-                    },
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("search (2)", async () => {
@@ -97,21 +80,7 @@ describe("FhirClient", () => {
             "X-Phenoml-Fhir-Provider":
                 "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
         });
-        expect(response).toEqual({
-            resourceType: "Patient",
-            id: "123",
-            meta: {
-                versionId: "versionId",
-                lastUpdated: "2024-01-15T09:30:00Z",
-                profile: ["profile"],
-            },
-            name: [
-                {
-                    family: "Doe",
-                    given: ["John"],
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("search (3)", async () => {
@@ -335,15 +304,7 @@ describe("FhirClient", () => {
                 resourceType: "Patient",
             },
         });
-        expect(response).toEqual({
-            resourceType: "Patient",
-            id: "123",
-            meta: {
-                versionId: "versionId",
-                lastUpdated: "2024-01-15T09:30:00Z",
-                profile: ["profile"],
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("create (2)", async () => {
@@ -572,15 +533,7 @@ describe("FhirClient", () => {
                 id: "123",
             },
         });
-        expect(response).toEqual({
-            resourceType: "Patient",
-            id: "123",
-            meta: {
-                versionId: "versionId",
-                lastUpdated: "2024-01-15T09:30:00Z",
-                profile: ["profile"],
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("upsert (2)", async () => {
@@ -800,9 +753,7 @@ describe("FhirClient", () => {
             "X-Phenoml-Fhir-Provider":
                 "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
         });
-        expect(response).toEqual({
-            key: "value",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("delete (2)", async () => {
@@ -1030,15 +981,7 @@ describe("FhirClient", () => {
                 },
             ],
         });
-        expect(response).toEqual({
-            resourceType: "Patient",
-            id: "123",
-            meta: {
-                versionId: "versionId",
-                lastUpdated: "2024-01-15T09:30:00Z",
-                profile: ["profile"],
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("patch (2)", async () => {
@@ -1090,15 +1033,7 @@ describe("FhirClient", () => {
                 },
             ],
         });
-        expect(response).toEqual({
-            resourceType: "Patient",
-            id: "123",
-            meta: {
-                versionId: "versionId",
-                lastUpdated: "2024-01-15T09:30:00Z",
-                profile: ["profile"],
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("patch (3)", async () => {
@@ -1160,15 +1095,7 @@ describe("FhirClient", () => {
                 },
             ],
         });
-        expect(response).toEqual({
-            resourceType: "Patient",
-            id: "123",
-            meta: {
-                versionId: "versionId",
-                lastUpdated: "2024-01-15T09:30:00Z",
-                profile: ["profile"],
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("patch (4)", async () => {
@@ -1222,15 +1149,7 @@ describe("FhirClient", () => {
                 },
             ],
         });
-        expect(response).toEqual({
-            resourceType: "Patient",
-            id: "123",
-            meta: {
-                versionId: "versionId",
-                lastUpdated: "2024-01-15T09:30:00Z",
-                profile: ["profile"],
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("patch (5)", async () => {
@@ -1606,22 +1525,7 @@ describe("FhirClient", () => {
                 ],
             },
         });
-        expect(response).toEqual({
-            resourceType: "Bundle",
-            total: 1,
-            entry: [
-                {
-                    resource: {
-                        resourceType: "Patient",
-                        id: "456",
-                    },
-                    response: {
-                        status: "201 Created",
-                        location: "Patient/456",
-                    },
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("executeBundle (2)", async () => {

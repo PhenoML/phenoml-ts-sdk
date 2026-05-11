@@ -33,11 +33,7 @@ describe("ConstrueClient", () => {
             version: "1.0",
             format: "csv",
         });
-        expect(response).toEqual({
-            status: "processing",
-            name: "CUSTOM_CODES",
-            version: "1.0",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("uploadCodeSystem (2)", async () => {
@@ -266,34 +262,7 @@ describe("ConstrueClient", () => {
         const response = await client.construe.extractCodes({
             text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney",
         });
-        expect(response).toEqual({
-            system: {
-                name: "SNOMED_CT_US_LITE",
-                version: "20240901",
-            },
-            codes: [
-                {
-                    code: "195967001",
-                    description: "Asthma",
-                    valid: true,
-                    reason: "reason",
-                    is_ancestor: true,
-                    citations: [
-                        {
-                            text: "Patient has type 2 diabetes",
-                            begin_offset: 0,
-                            end_offset: 27,
-                        },
-                    ],
-                    categories: [
-                        {
-                            uri: "HP:0025142",
-                            label: "Constitutional symptom",
-                        },
-                    ],
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("extractCodes (2)", async () => {
@@ -492,16 +461,7 @@ describe("ConstrueClient", () => {
             .build();
 
         const response = await client.construe.listAvailableCodeSystems();
-        expect(response).toEqual({
-            systems: [
-                {
-                    name: "ICD-10-CM",
-                    version: "2025",
-                    code_count: 72750,
-                    builtin: true,
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("listAvailableCodeSystems (2)", async () => {
@@ -588,15 +548,7 @@ describe("ConstrueClient", () => {
         const response = await client.construe.getCodeSystemDetail("ICD-10-CM", {
             version: "2025",
         });
-        expect(response).toEqual({
-            name: "ICD-10-CM",
-            version: "2025",
-            code_count: 72750,
-            builtin: true,
-            status: "processing",
-            created_at: "2024-01-15T09:30:00Z",
-            updated_at: "2024-01-15T09:30:00Z",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("getCodeSystemDetail (2)", async () => {
@@ -727,9 +679,7 @@ describe("ConstrueClient", () => {
         const response = await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
             version: "version",
         });
-        expect(response).toEqual({
-            message: "code system deleted successfully",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("deleteCustomCodeSystem (2)", async () => {
@@ -897,18 +847,7 @@ describe("ConstrueClient", () => {
         const response = await client.construe.exportCustomCodeSystem("CUSTOM_CODES", {
             version: "version",
         });
-        expect(response).toEqual({
-            name: "CUSTOM_CODES",
-            version: "1.0",
-            format: "json",
-            codes: [
-                {
-                    code: "E11.65",
-                    description: "Type 2 diabetes mellitus with hyperglycemia",
-                    definition: "definition",
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("exportCustomCodeSystem (2)", async () => {
@@ -1130,21 +1069,7 @@ describe("ConstrueClient", () => {
             cursor: "cursor",
             limit: 1,
         });
-        expect(response).toEqual({
-            system: {
-                name: "ICD-10-CM",
-                version: "2025",
-            },
-            codes: [
-                {
-                    code: "E11.65",
-                    description: "Type 2 diabetes mellitus with hyperglycemia",
-                    definition: "definition",
-                },
-            ],
-            next_cursor: "next_cursor",
-            has_more: true,
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("listCodesInACodeSystem (2)", async () => {
@@ -1280,15 +1205,7 @@ describe("ConstrueClient", () => {
         const response = await client.construe.getASpecificCode("ICD-10-CM", "E11.65", {
             version: "version",
         });
-        expect(response).toEqual({
-            system: {
-                name: "ICD-10-CM",
-                version: "2025",
-            },
-            code: "E11.65",
-            description: "Type 2 diabetes mellitus with hyperglycemia",
-            definition: "definition",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("getASpecificCode (2)", async () => {
@@ -1424,18 +1341,7 @@ describe("ConstrueClient", () => {
             version: "version",
             limit: 1,
         });
-        expect(response).toEqual({
-            system: {
-                name: "ICD-10-CM",
-                version: "2025",
-            },
-            results: [
-                {
-                    code: "E11.65",
-                    description: "Type 2 diabetes mellitus with hyperglycemia",
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("semanticSearchEmbeddingBased (2)", async () => {
@@ -1599,9 +1505,7 @@ describe("ConstrueClient", () => {
                 ],
             },
         });
-        expect(response).toEqual({
-            id: "abc123def456",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("submitFeedbackOnExtractionResults (2)", async () => {
@@ -1934,19 +1838,7 @@ describe("ConstrueClient", () => {
             version: "version",
             limit: 1,
         });
-        expect(response).toEqual({
-            system: {
-                name: "ICD-10-CM",
-                version: "2025",
-            },
-            results: [
-                {
-                    code: "E11.65",
-                    description: "Type 2 diabetes mellitus with hyperglycemia",
-                },
-            ],
-            found: 150,
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("terminologyServerTextSearch (2)", async () => {

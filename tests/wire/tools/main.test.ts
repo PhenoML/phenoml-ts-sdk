@@ -50,28 +50,7 @@ describe("ToolsClient", () => {
             resource: "auto",
             text: "Patient John Doe has severe asthma with acute exacerbation",
         });
-        expect(response).toEqual({
-            fhir_resource: {
-                resourceType: "Condition",
-                id: "condition-123",
-                code: {
-                    coding: [
-                        {
-                            system: "http://snomed.info/sct",
-                            code: "195967001",
-                            display: "Asthma",
-                        },
-                    ],
-                },
-                subject: {
-                    reference: "Patient/patient-123",
-                    display: "John Doe",
-                },
-            },
-            fhir_id: "condition-123",
-            success: true,
-            message: "FHIR resource created and stored in FHIR server successfully",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("createFhirResource (2)", async () => {
@@ -272,26 +251,7 @@ describe("ToolsClient", () => {
             text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
             provider: "medplum",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "Created 3 resources",
-            response_bundle: {
-                resourceType: "Bundle",
-                type: "transaction-response",
-                entry: [
-                    {
-                        key: "value",
-                    },
-                ],
-            },
-            resource_info: [
-                {
-                    tempId: "urn:uuid:patient-abc123",
-                    resourceType: "Patient",
-                    description: "John Smith, 45-year-old male",
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("createFhirResourcesMulti (2)", async () => {
@@ -492,29 +452,7 @@ describe("ToolsClient", () => {
                 "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
             text: "Find all appointments for patient John Doe next week",
         });
-        expect(response).toEqual({
-            resource_type: "Appointment",
-            search_params: "patient=Patient/patient-123&date=ge2024-01-15&date=le2024-01-22",
-            fhir_results: [
-                {
-                    resourceType: "Appointment",
-                    id: "appointment-123",
-                    status: "booked",
-                    start: "2024-01-16T10:00:00Z",
-                    end: "2024-01-16T11:00:00Z",
-                    participant: [
-                        {
-                            actor: {
-                                reference: "Patient/patient-123",
-                                display: "John Doe",
-                            },
-                        },
-                    ],
-                },
-            ],
-            success: true,
-            message: "Search query generated and executed in FHIR server successfully. Found 1 results.",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("searchFhirResources (2)", async () => {
@@ -718,26 +656,7 @@ describe("ToolsClient", () => {
             text: "female patients over 20 with diabetes but not hypertension",
             provider: "550e8400-e29b-41d4-a716-446655440000",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "Cohort analysis completed successfully. Found 33 patients from 2 search concepts.",
-            patientIds: ["patient-123", "patient-456", "patient-789"],
-            patientCount: 33,
-            queries: [
-                {
-                    resource_type: "Patient",
-                    search_params: "gender=female&birthdate=le2004-01-01",
-                    concept: "female patients over 20",
-                    exclude: false,
-                },
-                {
-                    resource_type: "Condition",
-                    search_params: "code=55822004",
-                    concept: "hyperlipidemia",
-                    exclude: false,
-                },
-            ],
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("analyzeCohort (2)", async () => {

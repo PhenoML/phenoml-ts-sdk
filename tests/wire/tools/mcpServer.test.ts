@@ -41,16 +41,7 @@ describe("McpServerClient", () => {
             name: "My MCP Server",
             mcp_server_url: "https://mcp.example.com",
         });
-        expect(response).toEqual({
-            success: true,
-            message: "MCP server created successfully",
-            data: {
-                id: "123",
-                name: "My MCP Server",
-                description: "My MCP Server is a server that provides MCP services",
-                mcp_server_url: "https://mcp.example.com",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("create (2)", async () => {
@@ -204,16 +195,7 @@ describe("McpServerClient", () => {
             .build();
 
         const response = await client.tools.mcpServer.list();
-        expect(response).toEqual({
-            success: true,
-            message: "MCP server created successfully",
-            data: {
-                id: "123",
-                name: "My MCP Server",
-                description: "My MCP Server is a server that provides MCP services",
-                mcp_server_url: "https://mcp.example.com",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("list (2)", async () => {
@@ -325,16 +307,7 @@ describe("McpServerClient", () => {
             .build();
 
         const response = await client.tools.mcpServer.get("mcp_server_id");
-        expect(response).toEqual({
-            success: true,
-            message: "MCP server created successfully",
-            data: {
-                id: "123",
-                name: "My MCP Server",
-                description: "My MCP Server is a server that provides MCP services",
-                mcp_server_url: "https://mcp.example.com",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("get (2)", async () => {
@@ -446,16 +419,7 @@ describe("McpServerClient", () => {
             .build();
 
         const response = await client.tools.mcpServer.delete("mcp_server_id");
-        expect(response).toEqual({
-            success: true,
-            message: "MCP server created successfully",
-            data: {
-                id: "123",
-                name: "My MCP Server",
-                description: "My MCP Server is a server that provides MCP services",
-                mcp_server_url: "https://mcp.example.com",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("delete (2)", async () => {

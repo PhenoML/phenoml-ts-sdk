@@ -39,21 +39,7 @@ describe("ToolsClient", () => {
             .build();
 
         const response = await client.tools.mcpServer.tools.list("mcp_server_id");
-        expect(response).toEqual({
-            success: true,
-            message: "MCP server tool created successfully",
-            data: {
-                id: "123",
-                name: "My MCP Server Tool",
-                description: "My MCP Server Tool is a tool that provides MCP services",
-                input_schema: {
-                    name: "string",
-                    age: "number",
-                },
-                mcp_server_id: "123",
-                mcp_server_url: "https://mcp.example.com",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("list (2)", async () => {
@@ -167,21 +153,7 @@ describe("ToolsClient", () => {
             .build();
 
         const response = await client.tools.mcpServer.tools.get("mcp_server_tool_id");
-        expect(response).toEqual({
-            success: true,
-            message: "MCP server tool created successfully",
-            data: {
-                id: "123",
-                name: "My MCP Server Tool",
-                description: "My MCP Server Tool is a tool that provides MCP services",
-                input_schema: {
-                    name: "string",
-                    age: "number",
-                },
-                mcp_server_id: "123",
-                mcp_server_url: "https://mcp.example.com",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("get (2)", async () => {
@@ -295,21 +267,7 @@ describe("ToolsClient", () => {
             .build();
 
         const response = await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
-        expect(response).toEqual({
-            success: true,
-            message: "MCP server tool created successfully",
-            data: {
-                id: "123",
-                name: "My MCP Server Tool",
-                description: "My MCP Server Tool is a tool that provides MCP services",
-                input_schema: {
-                    name: "string",
-                    age: "number",
-                },
-                mcp_server_id: "123",
-                mcp_server_url: "https://mcp.example.com",
-            },
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("delete (2)", async () => {
@@ -422,19 +380,7 @@ describe("ToolsClient", () => {
                 title: "PhenoML Agent API",
             },
         });
-        expect(response).toEqual({
-            success: true,
-            message: "MCP server tool called successfully",
-            result: {
-                content: [
-                    {
-                        type: "text",
-                        text: '{"endpoint_data": "example"}',
-                    },
-                ],
-            },
-            error: "Failed to call MCP server tool",
-        });
+        expect(response).toEqual(rawResponseBody);
     });
 
     test("call (2)", async () => {
