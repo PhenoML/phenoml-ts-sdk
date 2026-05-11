@@ -23,8 +23,6 @@ export interface Lang2FhirAndSearchRequest {
     text: string;
     /** Patient ID to filter results */
     patient_id?: string;
-    /** Practitioner ID to filter results */
-    practitioner_id?: string;
     /** Maximum number of results to return */
     count?: number;
     /** FHIR provider ID - must be a valid UUID from existing FHIR providers. also supports provider by name (e.g. medplum) */

@@ -1,3 +1,15 @@
+## 13.0.0 - 2026-05-08
+### Breaking Changes
+* **`Lang2FhirClient.extractMultipleFhirResourcesFromADocument`** — return type changed from `CreateMultiResponse` to `DocumentMultiResponse`; update any typed variable or destructuring that references `CreateMultiResponse` to use `DocumentMultiResponse` instead (it extends `CreateMultiResponse` so all existing fields remain).
+* **`Lang2FhirAndSearchRequest.practitioner_id`** — field removed; callers passing this property must remove it from their request objects.
+### Added
+* **`DocumentMultiResponse`** — new interface extending `CreateMultiResponse` with an optional `page_classifications: PageClassification[]` field populated when a `page_filter` is supplied.
+* **`DocumentConfig`** — new optional `config` field on `DocumentRequest` and `DocumentMultiRequest` accepting a `DocumentConfig` object with an optional `page_filter: PageFilter` for per-page relevance filtering before FHIR extraction.
+* **`PageFilter`** and **`PageClassification`** — new exported types; `PageFilter` accepts a natural-language `context` string, and `PageClassification` reports each page's keep/drop decision with a reason.
+### Changed
+* **`CreateMultiResponse.ResourceItem.description`** — semantics updated to "context-enriched rewritten text excerpt"; a new sibling field `originalText` now carries the verbatim text from the original clinical document.
+* **`Lang2FhirClient` JSDoc** — all four conversion methods (`create`, `createMultiple`, `document`, `documentMulti`) now document patient identifier handling, including the synthetic `urn:phenoml:lang2fhir-generated-id` fallback for US Core conformance.
+
 ## 12.5.0 - 2026-05-01
 ### Added
 * **`CreateMultiRequest.validation_method`** — new optional field accepting a `ValidationMethod` enum (`"none"` | `"check"` | `"fix"`) that controls FHIR structure validation of the generated bundle; `"none"` is the default and skips validation.
