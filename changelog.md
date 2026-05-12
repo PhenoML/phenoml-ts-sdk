@@ -1,3 +1,11 @@
+## 14.0.0 - 2026-05-12
+### Added
+* **`McpServer`** — new exported interface representing an MCP server with optional `id`, `name`, `description`, and `mcp_server_url` fields.
+* **`McpServerTool`** — new exported interface representing a tool registered on an MCP server, including optional `input_schema`, `mcp_server_id`, and `mcp_server_url` fields.
+* **`CreateSummaryRequest` `ips` mode example** — documentation now includes a second example demonstrating IPS (International Patient Summary) mode alongside the existing narrative mode example.
+* **`ExecuteWorkflowRequest` `preview` field example** — documentation now illustrates the `preview: true` option for dry-run workflow execution.
+* **`AgentChatRequest` `enhanced_reasoning` example** — documentation now shows usage of `session_id` and `enhanced_reasoning: true` for advanced agent interactions.
+
 ## 13.1.0 - 2026-05-11
 ### Added
 * **`Fetcher.TimeoutError.cause` / `Fetcher.UnknownError.cause`** — new optional `cause?: unknown` field on both error shapes so callers can inspect the underlying triggering error.

@@ -41,9 +41,11 @@ export class AgentClient {
      *
      * @example
      *     await client.agent.create({
-     *         name: "name",
-     *         prompts: ["prompt_123", "prompt_456"],
-     *         provider: "provider"
+     *         name: "Medical Assistant",
+     *         description: "An AI assistant for medical information processing",
+     *         prompts: ["prompt_123"],
+     *         tags: ["medical", "fhir"],
+     *         provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35"
      *     })
      */
     public create(
@@ -276,9 +278,11 @@ export class AgentClient {
      *
      * @example
      *     await client.agent.update("id", {
-     *         name: "name",
-     *         prompts: ["prompt_123", "prompt_456"],
-     *         provider: "provider"
+     *         name: "Medical Assistant",
+     *         description: "Updated description for the medical assistant",
+     *         prompts: ["prompt_123"],
+     *         tags: ["medical", "fhir", "updated"],
+     *         provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35"
      *     })
      */
     public update(
@@ -436,15 +440,12 @@ export class AgentClient {
      * @example
      *     await client.agent.patch("id", [{
      *             op: "replace",
-     *             path: "/name",
-     *             value: "Updated Agent Name"
+     *             path: "/description",
+     *             value: "patched description"
      *         }, {
      *             op: "add",
      *             path: "/tags/-",
-     *             value: "new-tag"
-     *         }, {
-     *             op: "remove",
-     *             path: "/description"
+     *             value: "updated"
      *         }])
      */
     public patch(
@@ -529,7 +530,18 @@ export class AgentClient {
      *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
      *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         message: "What is the patient's current condition?",
+     *         session_id: "session-abc123",
      *         agent_id: "agent-123"
+     *     })
+     *
+     * @example
+     *     await client.agent.chat({
+     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+     *         message: "Create a patient record for Jane Doe, 32F, diagnosed with iron deficiency anemia. Prescribe ferrous sulfate 325mg daily.",
+     *         session_id: "session-def456",
+     *         agent_id: "agent-123",
+     *         enhanced_reasoning: true
      *     })
      */
     public chat(

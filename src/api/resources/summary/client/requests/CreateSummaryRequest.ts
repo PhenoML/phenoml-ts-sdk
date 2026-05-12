@@ -5,8 +5,71 @@ import type * as phenoml from "../../../../index.js";
 /**
  * @example
  *     {
+ *         mode: "narrative",
+ *         template_id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
  *         fhir_resources: {
- *             resourceType: "resourceType"
+ *             resourceType: "Bundle",
+ *             entry: [
+ *                 {
+ *                     "resource": {
+ *                         "resourceType": "Patient",
+ *                         "name": [
+ *                             {
+ *                                 "given": [
+ *                                     "John"
+ *                                 ],
+ *                                 "family": "Doe"
+ *                             }
+ *                         ],
+ *                         "gender": "male",
+ *                         "birthDate": "1979-03-15"
+ *                     }
+ *                 },
+ *                 {
+ *                     "resource": {
+ *                         "resourceType": "Condition",
+ *                         "code": {
+ *                             "text": "Type 2 Diabetes Mellitus"
+ *                         },
+ *                         "onsetDateTime": "2024-01-15"
+ *                     }
+ *                 }
+ *             ]
+ *         }
+ *     }
+ *
+ * @example
+ *     {
+ *         mode: "ips",
+ *         fhir_resources: {
+ *             resourceType: "Bundle",
+ *             entry: [
+ *                 {
+ *                     "resource": {
+ *                         "resourceType": "Patient",
+ *                         "id": "maria-garcia-001",
+ *                         "name": [
+ *                             {
+ *                                 "given": [
+ *                                     "Maria"
+ *                                 ],
+ *                                 "family": "Garcia"
+ *                             }
+ *                         ],
+ *                         "gender": "female",
+ *                         "birthDate": "1985-07-22"
+ *                     }
+ *                 },
+ *                 {
+ *                     "resource": {
+ *                         "resourceType": "AllergyIntolerance",
+ *                         "code": {
+ *                             "text": "Penicillin"
+ *                         },
+ *                         "criticality": "high"
+ *                     }
+ *                 }
+ *             ]
  *         }
  *     }
  */

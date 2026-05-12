@@ -4,8 +4,15 @@
  * @example
  *     {
  *         version: "R4",
- *         resource: "auto",
- *         text: "Patient has severe asthma with acute exacerbation"
+ *         resource: "condition-encounter-diagnosis",
+ *         text: "Patient has severe persistent asthma with acute exacerbation"
+ *     }
+ *
+ * @example
+ *     {
+ *         version: "R4",
+ *         resource: "medicationrequest",
+ *         text: "Prescribe Amoxicillin 500mg capsules, take one capsule three times daily for 10 days"
  *     }
  */
 export interface CreateRequest {

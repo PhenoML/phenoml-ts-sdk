@@ -3,10 +3,10 @@
 /**
  * @example
  *     {
- *         name: "name",
- *         example_summary: "Patient John Doe, age 45, presents with hypertension diagnosed on 2024-01-15.",
- *         target_resources: ["Patient", "Condition", "Observation"],
- *         mode: "mode"
+ *         name: "Discharge Summary",
+ *         example_summary: "Patient John Doe, age 45, was admitted on 2024-01-10 with Type 2 Diabetes. Discharged on 2024-01-15 with Metformin 500mg BID.",
+ *         target_resources: ["Patient", "Condition", "MedicationRequest"],
+ *         mode: "narrative"
  *     }
  */
 export interface CreateSummaryTemplateRequest {

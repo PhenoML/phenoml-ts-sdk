@@ -12,16 +12,26 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
             version: "R4",
-            resource: "auto",
-            text: "Patient has severe asthma with acute exacerbation",
+            resource: "condition-encounter-diagnosis",
+            text: "Patient has severe persistent asthma with acute exacerbation",
         };
-        const rawResponseBody = { key: "value" };
+        const rawResponseBody = {
+            resourceType: "Condition",
+            clinicalStatus: {
+                coding: [{ system: "http://terminology.hl7.org/CodeSystem/condition-clinical", code: "active" }],
+            },
+            code: {
+                coding: [{ system: "http://snomed.info/sct", code: "195967001", display: "Asthma" }],
+                text: "Severe persistent asthma with acute exacerbation",
+            },
+            severity: { coding: [{ system: "http://snomed.info/sct", code: "24484000", display: "Severe" }] },
+        };
 
         server
             .mockEndpoint()
@@ -34,8 +44,8 @@ describe("Lang2FhirClient", () => {
 
         const response = await client.lang2Fhir.create({
             version: "R4",
-            resource: "auto",
-            text: "Patient has severe asthma with acute exacerbation",
+            resource: "condition-encounter-diagnosis",
+            text: "Patient has severe persistent asthma with acute exacerbation",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -46,8 +56,63 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
+            version: "R4",
+            resource: "medicationrequest",
+            text: "Prescribe Amoxicillin 500mg capsules, take one capsule three times daily for 10 days",
+        };
+        const rawResponseBody = {
+            resourceType: "MedicationRequest",
+            status: "active",
+            intent: "order",
+            medicationCodeableConcept: {
+                coding: [
+                    {
+                        system: "http://www.nlm.nih.gov/research/umls/rxnorm",
+                        code: "308182",
+                        display: "Amoxicillin 500 MG Oral Capsule",
+                    },
+                ],
+            },
+            dosageInstruction: [
+                {
+                    text: "Take one capsule three times daily",
+                    timing: { repeat: { frequency: 3, period: 1, periodUnit: "d" } },
+                    doseAndRate: [{ doseQuantity: { value: 500, unit: "mg" } }],
+                },
+            ],
+            dispenseRequest: { expectedSupplyDuration: { value: 10, unit: "days" } },
+        };
+
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.lang2Fhir.create({
+            version: "R4",
+            resource: "medicationrequest",
+            text: "Prescribe Amoxicillin 500mg capsules, take one capsule three times daily for 10 days",
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("create (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { version: "R4", resource: "auto", text: "text" };
@@ -71,14 +136,14 @@ describe("Lang2FhirClient", () => {
         }).rejects.toThrow(phenoml.lang2Fhir.BadRequestError);
     });
 
-    test("create (3)", async () => {
+    test("create (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { version: "R4", resource: "auto", text: "text" };
@@ -102,14 +167,14 @@ describe("Lang2FhirClient", () => {
         }).rejects.toThrow(phenoml.lang2Fhir.UnauthorizedError);
     });
 
-    test("create (4)", async () => {
+    test("create (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { version: "R4", resource: "auto", text: "text" };
@@ -139,12 +204,13 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
-            text: "John Smith, male born on 1980-03-12, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
+            text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily. Blood pressure 140/90.",
+            version: "R4",
         };
         const rawResponseBody = {
             success: true,
@@ -154,8 +220,26 @@ describe("Lang2FhirClient", () => {
                 type: "transaction",
                 entry: [
                     {
-                        fullUrl: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
+                        fullUrl: "urn:uuid:patient-001",
+                        resource: {
+                            resourceType: "Patient",
+                            name: [{ given: ["John"], family: "Smith" }],
+                            gender: "male",
+                        },
                         request: { method: "POST", url: "Patient" },
+                    },
+                    {
+                        fullUrl: "urn:uuid:condition-001",
+                        resource: { resourceType: "Condition", code: { text: "Type 2 Diabetes" } },
+                        request: { method: "POST", url: "Condition" },
+                    },
+                    {
+                        fullUrl: "urn:uuid:medication-001",
+                        resource: {
+                            resourceType: "MedicationRequest",
+                            medicationCodeableConcept: { text: "Metformin 500mg" },
+                        },
+                        request: { method: "POST", url: "MedicationRequest" },
                     },
                 ],
             },
@@ -181,7 +265,8 @@ describe("Lang2FhirClient", () => {
             .build();
 
         const response = await client.lang2Fhir.createMulti({
-            text: "John Smith, male born on 1980-03-12, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
+            text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily. Blood pressure 140/90.",
+            version: "R4",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -192,8 +277,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -221,8 +306,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -250,8 +335,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -279,15 +364,12 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "Appointments between March 2-9, 2025" };
-        const rawResponseBody = {
-            resourceType: "AllergyIntolerance",
-            searchParams: "date=ge2025-03-02&date=le2025-03-09",
-        };
+        const rawResponseBody = { resourceType: "Appointment", searchParams: "date=ge2025-03-02&date=le2025-03-09" };
 
         server
             .mockEndpoint()
@@ -310,8 +392,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -339,8 +421,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -368,8 +450,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -397,8 +479,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -426,11 +508,17 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { profile: "(base64 encoded FHIR StructureDefinition JSON)" };
+        const rawRequestBody = {
+            profile:
+                "eyJyZXNvdXJjZVR5cGUiOiJTdHJ1Y3R1cmVEZWZpbml0aW9uIiwiaWQiOiJjdXN0b20tcGF0aWVudCIsInVybCI6Imh0dHA6Ly9waGVub21sLmNvbS9maGlyL1N0cnVjdHVyZURlZmluaXRpb24vY3VzdG9tLXBhdGllbnQiLCJuYW1lIjoiQ3VzdG9tUGF0aWVudCIsInN0YXR1cyI6ImFjdGl2ZSIsImZoaXJWZXJzaW9uIjoiNC4wLjEiLCJraW5kIjoicmVzb3VyY2UiLCJhYnN0cmFjdCI6ZmFsc2UsInR5cGUiOiJQYXRpZW50IiwiYmFzZURlZmluaXRpb24iOiJodHRwOi8vaGw3Lm9yZy9maGlyL1N0cnVjdHVyZURlZmluaXRpb24vUGF0aWVudCIsImRlcml2YXRpb24iOiJjb25zdHJhaW50Iiwic25hcHNob3QiOnsiZWxlbWVudCI6W3siaWQiOiJQYXRpZW50IiwicGF0aCI6IlBhdGllbnQiLCJtaW4iOjAsIm1heCI6IioifSx7ImlkIjoiUGF0aWVudC5uYW1lIiwicGF0aCI6IlBhdGllbnQubmFtZSIsIm1pbiI6MSwibWF4IjoiKiJ9XX19Cg==",
+            implementation_guide: "acme-cardiology",
+            profile_context:
+                "When clinical text describes cardiology-specific findings, prefer this profile over the generic US Core Condition.",
+        };
         const rawResponseBody = {
             message: "Profile uploaded successfully",
             id: "custom-patient",
@@ -448,7 +536,11 @@ describe("Lang2FhirClient", () => {
             .build();
 
         const response = await client.lang2Fhir.uploadProfile({
-            profile: "(base64 encoded FHIR StructureDefinition JSON)",
+            profile:
+                "eyJyZXNvdXJjZVR5cGUiOiJTdHJ1Y3R1cmVEZWZpbml0aW9uIiwiaWQiOiJjdXN0b20tcGF0aWVudCIsInVybCI6Imh0dHA6Ly9waGVub21sLmNvbS9maGlyL1N0cnVjdHVyZURlZmluaXRpb24vY3VzdG9tLXBhdGllbnQiLCJuYW1lIjoiQ3VzdG9tUGF0aWVudCIsInN0YXR1cyI6ImFjdGl2ZSIsImZoaXJWZXJzaW9uIjoiNC4wLjEiLCJraW5kIjoicmVzb3VyY2UiLCJhYnN0cmFjdCI6ZmFsc2UsInR5cGUiOiJQYXRpZW50IiwiYmFzZURlZmluaXRpb24iOiJodHRwOi8vaGw3Lm9yZy9maGlyL1N0cnVjdHVyZURlZmluaXRpb24vUGF0aWVudCIsImRlcml2YXRpb24iOiJjb25zdHJhaW50Iiwic25hcHNob3QiOnsiZWxlbWVudCI6W3siaWQiOiJQYXRpZW50IiwicGF0aCI6IlBhdGllbnQiLCJtaW4iOjAsIm1heCI6IioifSx7ImlkIjoiUGF0aWVudC5uYW1lIiwicGF0aCI6IlBhdGllbnQubmFtZSIsIm1pbiI6MSwibWF4IjoiKiJ9XX19Cg==",
+            implementation_guide: "acme-cardiology",
+            profile_context:
+                "When clinical text describes cardiology-specific findings, prefer this profile over the generic US Core Condition.",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -459,8 +551,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { profile: "profile" };
@@ -488,8 +580,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { profile: "profile" };
@@ -517,8 +609,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { profile: "profile" };
@@ -546,8 +638,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { profile: "profile" };
@@ -575,12 +667,24 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { version: "R4", resource: "questionnaire", content: "content" };
-        const rawResponseBody = { key: "value" };
+        const rawRequestBody = {
+            version: "R4",
+            resource: "questionnaire",
+            content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
+        };
+        const rawResponseBody = {
+            resourceType: "Questionnaire",
+            status: "active",
+            title: "Patient Intake Form",
+            item: [
+                { linkId: "1", text: "What is your name?", type: "string" },
+                { linkId: "2", text: "What is your date of birth?", type: "date" },
+            ],
+        };
 
         server
             .mockEndpoint()
@@ -594,7 +698,7 @@ describe("Lang2FhirClient", () => {
         const response = await client.lang2Fhir.document({
             version: "R4",
             resource: "questionnaire",
-            content: "content",
+            content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -605,8 +709,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { version: "version", resource: "resource", content: "content" };
@@ -636,8 +740,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { version: "version", resource: "resource", content: "content" };
@@ -667,8 +771,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { version: "version", resource: "resource", content: "content" };
@@ -698,11 +802,15 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { version: "R4", content: "content" };
+        const rawRequestBody = {
+            version: "R4",
+            content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
+            provider: "medplum",
+        };
         const rawResponseBody = {
             success: true,
             message: "Successfully extracted 3 resources",
@@ -711,18 +819,53 @@ describe("Lang2FhirClient", () => {
                 type: "transaction",
                 entry: [
                     {
-                        fullUrl: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
+                        fullUrl: "urn:uuid:patient-001",
+                        resource: {
+                            resourceType: "Patient",
+                            name: [{ given: ["John"], family: "Doe" }],
+                            gender: "male",
+                            birthDate: "1979-03-15",
+                        },
                         request: { method: "POST", url: "Patient" },
+                    },
+                    {
+                        fullUrl: "urn:uuid:condition-001",
+                        resource: {
+                            resourceType: "Condition",
+                            code: { text: "Type 2 Diabetes Mellitus" },
+                            subject: { reference: "urn:uuid:patient-001" },
+                        },
+                        request: { method: "POST", url: "Condition" },
+                    },
+                    {
+                        fullUrl: "urn:uuid:medication-001",
+                        resource: {
+                            resourceType: "MedicationRequest",
+                            medicationCodeableConcept: { text: "Metformin 500mg" },
+                            subject: { reference: "urn:uuid:patient-001" },
+                        },
+                        request: { method: "POST", url: "MedicationRequest" },
                     },
                 ],
             },
             resources: [
                 {
-                    tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
+                    tempId: "urn:uuid:patient-001",
                     resourceType: "Patient",
-                    description:
-                        "John Smith (DOB 1980-05-12) was diagnosed with Type 2 Diabetes during office visit on 2025-03-01 with Dr. Chen",
+                    description: "John Doe, born 1979-03-15",
+                    originalText: "John Doe, DOB 1979-03-15",
+                },
+                {
+                    tempId: "urn:uuid:condition-001",
+                    resourceType: "Condition",
+                    description: "Type 2 Diabetes Mellitus diagnosis",
                     originalText: "diagnosed with Type 2 Diabetes",
+                },
+                {
+                    tempId: "urn:uuid:medication-001",
+                    resourceType: "MedicationRequest",
+                    description: "Metformin 500mg prescription",
+                    originalText: "Prescribed Metformin 500mg",
                 },
             ],
             validation: { passes: [{}], fixed: true, attempts: 1, summary: "summary" },
@@ -740,7 +883,8 @@ describe("Lang2FhirClient", () => {
 
         const response = await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
             version: "R4",
-            content: "content",
+            content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
+            provider: "medplum",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -751,8 +895,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { version: "version", content: "content" };
@@ -781,8 +925,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { version: "version", content: "content" };
@@ -811,8 +955,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { version: "version", content: "content" };
@@ -841,8 +985,8 @@ describe("Lang2FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { version: "version", content: "content" };

@@ -36,7 +36,11 @@ export class AuthClient {
      * @throws {@link phenoml.authtoken.InternalServerError}
      *
      * @example
-     *     await client.authtoken.auth.getToken()
+     *     await client.authtoken.auth.getToken({
+     *         grant_type: "client_credentials",
+     *         client_id: "your_client_id",
+     *         client_secret: "your_client_secret"
+     *     })
      */
     public getToken(
         request: phenoml.authtoken.ClientCredentialsRequest = {},

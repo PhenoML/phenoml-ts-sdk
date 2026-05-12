@@ -37,8 +37,15 @@ export class Lang2FhirClient {
      * @example
      *     await client.lang2Fhir.create({
      *         version: "R4",
-     *         resource: "auto",
-     *         text: "Patient has severe asthma with acute exacerbation"
+     *         resource: "condition-encounter-diagnosis",
+     *         text: "Patient has severe persistent asthma with acute exacerbation"
+     *     })
+     *
+     * @example
+     *     await client.lang2Fhir.create({
+     *         version: "R4",
+     *         resource: "medicationrequest",
+     *         text: "Prescribe Amoxicillin 500mg capsules, take one capsule three times daily for 10 days"
      *     })
      */
     public create(
@@ -123,7 +130,8 @@ export class Lang2FhirClient {
      *
      * @example
      *     await client.lang2Fhir.createMulti({
-     *         text: "John Smith, male born on 1980-03-12, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily."
+     *         text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily. Blood pressure 140/90.",
+     *         version: "R4"
      *     })
      */
     public createMulti(
@@ -311,7 +319,9 @@ export class Lang2FhirClient {
      *
      * @example
      *     await client.lang2Fhir.uploadProfile({
-     *         profile: "(base64 encoded FHIR StructureDefinition JSON)"
+     *         profile: "eyJyZXNvdXJjZVR5cGUiOiJTdHJ1Y3R1cmVEZWZpbml0aW9uIiwiaWQiOiJjdXN0b20tcGF0aWVudCIsInVybCI6Imh0dHA6Ly9waGVub21sLmNvbS9maGlyL1N0cnVjdHVyZURlZmluaXRpb24vY3VzdG9tLXBhdGllbnQiLCJuYW1lIjoiQ3VzdG9tUGF0aWVudCIsInN0YXR1cyI6ImFjdGl2ZSIsImZoaXJWZXJzaW9uIjoiNC4wLjEiLCJraW5kIjoicmVzb3VyY2UiLCJhYnN0cmFjdCI6ZmFsc2UsInR5cGUiOiJQYXRpZW50IiwiYmFzZURlZmluaXRpb24iOiJodHRwOi8vaGw3Lm9yZy9maGlyL1N0cnVjdHVyZURlZmluaXRpb24vUGF0aWVudCIsImRlcml2YXRpb24iOiJjb25zdHJhaW50Iiwic25hcHNob3QiOnsiZWxlbWVudCI6W3siaWQiOiJQYXRpZW50IiwicGF0aCI6IlBhdGllbnQiLCJtaW4iOjAsIm1heCI6IioifSx7ImlkIjoiUGF0aWVudC5uYW1lIiwicGF0aCI6IlBhdGllbnQubmFtZSIsIm1pbiI6MSwibWF4IjoiKiJ9XX19Cg==",
+     *         implementation_guide: "acme-cardiology",
+     *         profile_context: "When clinical text describes cardiology-specific findings, prefer this profile over the generic US Core Condition."
      *     })
      */
     public uploadProfile(
@@ -401,7 +411,7 @@ export class Lang2FhirClient {
      *     await client.lang2Fhir.document({
      *         version: "R4",
      *         resource: "questionnaire",
-     *         content: "content"
+     *         content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)"
      *     })
      */
     public document(
@@ -489,7 +499,8 @@ export class Lang2FhirClient {
      * @example
      *     await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
      *         version: "R4",
-     *         content: "content"
+     *         content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
+     *         provider: "medplum"
      *     })
      */
     public extractMultipleFhirResourcesFromADocument(
