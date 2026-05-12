@@ -12,11 +12,66 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { name: "CUSTOM_CODES", version: "1.0", format: "csv" };
+        const rawRequestBody = {
+            name: "CUSTOM_CODES",
+            version: "1.0",
+            format: "json",
+            codes: [
+                { code: "X001", description: "Example custom code 1" },
+                { code: "X002", description: "Example custom code 2" },
+            ],
+        };
+        const rawResponseBody = { status: "processing", name: "CUSTOM_CODES", version: "1.0" };
+
+        server
+            .mockEndpoint()
+            .post("/construe/upload")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.uploadCodeSystem({
+            name: "CUSTOM_CODES",
+            version: "1.0",
+            format: "json",
+            codes: [
+                {
+                    code: "X001",
+                    description: "Example custom code 1",
+                },
+                {
+                    code: "X002",
+                    description: "Example custom code 2",
+                },
+            ],
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("uploadCodeSystem (2)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
+            name: "CUSTOM_CODES",
+            version: "1.0",
+            format: "csv",
+            file: "Y29kZSxkZXNjcmlwdGlvbgpYMDAxLEV4YW1wbGUgY3VzdG9tIGNvZGUgMQo=",
+            code_col: "code",
+            desc_col: "description",
+        };
         const rawResponseBody = { status: "processing", name: "CUSTOM_CODES", version: "1.0" };
 
         server
@@ -32,18 +87,21 @@ describe("ConstrueClient", () => {
             name: "CUSTOM_CODES",
             version: "1.0",
             format: "csv",
+            file: "Y29kZSxkZXNjcmlwdGlvbgpYMDAxLEV4YW1wbGUgY3VzdG9tIGNvZGUgMQo=",
+            code_col: "code",
+            desc_col: "description",
         });
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("uploadCodeSystem (2)", async () => {
+    test("uploadCodeSystem (3)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", version: "version", format: "csv" };
@@ -67,14 +125,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("uploadCodeSystem (3)", async () => {
+    test("uploadCodeSystem (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", version: "version", format: "csv" };
@@ -98,14 +156,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("uploadCodeSystem (4)", async () => {
+    test("uploadCodeSystem (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", version: "version", format: "csv" };
@@ -129,14 +187,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.ForbiddenError);
     });
 
-    test("uploadCodeSystem (5)", async () => {
+    test("uploadCodeSystem (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", version: "version", format: "csv" };
@@ -160,14 +218,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.ConflictError);
     });
 
-    test("uploadCodeSystem (6)", async () => {
+    test("uploadCodeSystem (7)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", version: "version", format: "csv" };
@@ -191,14 +249,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.FailedDependencyError);
     });
 
-    test("uploadCodeSystem (7)", async () => {
+    test("uploadCodeSystem (8)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", version: "version", format: "csv" };
@@ -228,19 +286,38 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
-            text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney",
+            text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney.",
+            system: { name: "ICD-10-CM", version: "2025" },
         };
         const rawResponseBody = {
-            system: { name: "SNOMED_CT_US_LITE", version: "20240901" },
+            system: { name: "ICD-10-CM", version: "2025" },
             codes: [
                 {
-                    code: "195967001",
-                    description: "Asthma",
+                    code: "Q60.3",
+                    description: "Renal hypoplasia, unspecified",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+                {
+                    code: "R93.42",
+                    description: "Abnormal findings on diagnostic imaging of kidney",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+                {
+                    code: "N28.1",
+                    description: "Cyst of kidney, acquired",
                     valid: true,
                     reason: "reason",
                     is_ancestor: true,
@@ -260,7 +337,11 @@ describe("ConstrueClient", () => {
             .build();
 
         const response = await client.construe.extractCodes({
-            text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney",
+            text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney.",
+            system: {
+                name: "ICD-10-CM",
+                version: "2025",
+            },
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -271,8 +352,331 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
+            text: "45-year-old male presents with chest pain radiating to left arm, shortness of breath, and diaphoresis. ECG shows ST elevation in leads II, III, and aVF.",
+            system: { name: "SNOMED_CT_US_LITE", version: "20240901" },
+            config: {
+                chunking_method: "sentences",
+                validation_method: "simple",
+                include_rationale: true,
+                include_citations: true,
+            },
+        };
+        const rawResponseBody = {
+            system: { name: "SNOMED_CT_US_LITE", version: "20240901" },
+            codes: [
+                {
+                    code: "29857009",
+                    description: "Chest pain",
+                    valid: true,
+                    reason: "Patient presents with chest pain radiating to left arm",
+                    is_ancestor: true,
+                    citations: [{ text: "chest pain radiating to left arm", begin_offset: 31, end_offset: 63 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+                {
+                    code: "267036007",
+                    description: "Dyspnea",
+                    valid: true,
+                    reason: "Patient reports shortness of breath",
+                    is_ancestor: true,
+                    citations: [{ text: "shortness of breath", begin_offset: 65, end_offset: 84 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+                {
+                    code: "415690000",
+                    description: "Sweating",
+                    valid: true,
+                    reason: "Diaphoresis noted on presentation",
+                    is_ancestor: true,
+                    citations: [{ text: "diaphoresis", begin_offset: 90, end_offset: 101 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+            ],
+        };
+
+        server
+            .mockEndpoint()
+            .post("/construe/extract")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.extractCodes({
+            text: "45-year-old male presents with chest pain radiating to left arm, shortness of breath, and diaphoresis. ECG shows ST elevation in leads II, III, and aVF.",
+            system: {
+                name: "SNOMED_CT_US_LITE",
+                version: "20240901",
+            },
+            config: {
+                chunking_method: "sentences",
+                validation_method: "simple",
+                include_rationale: true,
+                include_citations: true,
+            },
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("extractCodes (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
+            text: "Start Metformin 500mg twice daily for type 2 diabetes. Continue Lisinopril 10mg daily for hypertension. Add Atorvastatin 20mg at bedtime.",
+            system: { name: "RXNORM", version: "11042024" },
+            config: { validation_method: "medication_search", include_rationale: true },
+        };
+        const rawResponseBody = {
+            system: { name: "RXNORM", version: "11042024" },
+            codes: [
+                {
+                    code: "861004",
+                    description: "Metformin hydrochloride 500 MG Oral Tablet",
+                    valid: true,
+                    reason: "Metformin 500mg prescribed for type 2 diabetes",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+                {
+                    code: "314076",
+                    description: "Lisinopril 10 MG Oral Tablet",
+                    valid: true,
+                    reason: "Lisinopril 10mg continued for hypertension",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+                {
+                    code: "259255",
+                    description: "Atorvastatin 20 MG Oral Tablet",
+                    valid: true,
+                    reason: "Atorvastatin 20mg added at bedtime",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+            ],
+        };
+
+        server
+            .mockEndpoint()
+            .post("/construe/extract")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.extractCodes({
+            text: "Start Metformin 500mg twice daily for type 2 diabetes. Continue Lisinopril 10mg daily for hypertension. Add Atorvastatin 20mg at bedtime.",
+            system: {
+                name: "RXNORM",
+                version: "11042024",
+            },
+            config: {
+                validation_method: "medication_search",
+                include_rationale: true,
+            },
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("extractCodes (4)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
+            text: "Patient diagnosed with Type 2 diabetes mellitus with diabetic chronic kidney disease, stage 3.",
+            system: { name: "ICD-10-CM", version: "2025" },
+            config: { validation_method: "simple", include_ancestors: true },
+        };
+        const rawResponseBody = {
+            system: { name: "ICD-10-CM", version: "2025" },
+            codes: [
+                {
+                    code: "E11.22",
+                    description: "Type 2 diabetes mellitus with diabetic chronic kidney disease",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+                {
+                    code: "E11.2",
+                    description: "Type 2 diabetes mellitus with kidney complications",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+                {
+                    code: "E11",
+                    description: "Type 2 diabetes mellitus",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+                {
+                    code: "N18.3",
+                    description: "Chronic kidney disease, stage 3 (moderate)",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+                {
+                    code: "N18",
+                    description: "Chronic kidney disease (CKD)",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+            ],
+        };
+
+        server
+            .mockEndpoint()
+            .post("/construe/extract")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.extractCodes({
+            text: "Patient diagnosed with Type 2 diabetes mellitus with diabetic chronic kidney disease, stage 3.",
+            system: {
+                name: "ICD-10-CM",
+                version: "2025",
+            },
+            config: {
+                validation_method: "simple",
+                include_ancestors: true,
+            },
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("extractCodes (5)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
+            text: "5-year-old male with seizures, severe intellectual disability, microcephaly, and hypotonia.",
+            system: { name: "HPO", version: "2025" },
+            config: { chunking_method: "fasthpocr", validation_method: "none", include_rationale: false },
+        };
+        const rawResponseBody = {
+            system: { name: "HPO", version: "2025" },
+            codes: [
+                {
+                    code: "HP:0001250",
+                    description: "Seizures",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0000707", label: "Abnormality of the nervous system" }],
+                },
+                {
+                    code: "HP:0010864",
+                    description: "Intellectual disability, severe",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0000707", label: "Abnormality of the nervous system" }],
+                },
+                {
+                    code: "HP:0000252",
+                    description: "Microcephaly",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [
+                        { uri: "HP:0000152", label: "Abnormality of head or neck" },
+                        { uri: "HP:0033127", label: "Abnormality of the musculoskeletal system" },
+                        { uri: "HP:0000707", label: "Abnormality of the nervous system" },
+                    ],
+                },
+                {
+                    code: "HP:0001252",
+                    description: "Hypotonia",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0033127", label: "Abnormality of the musculoskeletal system" }],
+                },
+            ],
+        };
+
+        server
+            .mockEndpoint()
+            .post("/construe/extract")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.extractCodes({
+            text: "5-year-old male with seizures, severe intellectual disability, microcephaly, and hypotonia.",
+            system: {
+                name: "HPO",
+                version: "2025",
+            },
+            config: {
+                chunking_method: "fasthpocr",
+                validation_method: "none",
+                include_rationale: false,
+            },
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("extractCodes (6)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -294,14 +698,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("extractCodes (3)", async () => {
+    test("extractCodes (7)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -323,14 +727,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("extractCodes (4)", async () => {
+    test("extractCodes (8)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -352,14 +756,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.NotFoundError);
     });
 
-    test("extractCodes (5)", async () => {
+    test("extractCodes (9)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -381,14 +785,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
-    test("extractCodes (6)", async () => {
+    test("extractCodes (10)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -410,14 +814,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.ServiceUnavailableError);
     });
 
-    test("extractCodes (7)", async () => {
+    test("extractCodes (11)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -445,12 +849,22 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = { systems: [{ name: "ICD-10-CM", version: "2025", code_count: 72750, builtin: true }] };
+        const rawResponseBody = {
+            systems: [
+                { name: "ICD-10-CM", version: "2025", code_count: 97584, builtin: true },
+                { name: "SNOMED_CT_US_LITE", version: "20240901", code_count: 102837, builtin: true },
+                { name: "RXNORM", version: "11042024", code_count: 257619, builtin: true },
+                { name: "LOINC", version: "2.78", code_count: 98123, builtin: true },
+                { name: "HPO", version: "2025", code_count: 19542, builtin: true },
+                { name: "CPT", version: "2025", code_count: 10192, builtin: true },
+                { name: "ICD-10-PCS", version: "2025", code_count: 78717, builtin: true },
+            ],
+        };
 
         server
             .mockEndpoint()
@@ -470,8 +884,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -496,8 +910,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -522,19 +936,19 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
         const rawResponseBody = {
             name: "ICD-10-CM",
             version: "2025",
-            code_count: 72750,
+            code_count: 97584,
             builtin: true,
-            status: "processing",
-            created_at: "2024-01-15T09:30:00Z",
-            updated_at: "2024-01-15T09:30:00Z",
+            status: "ready",
+            created_at: "2026-02-10T18:33:23Z",
+            updated_at: "2026-02-10T18:33:23Z",
         };
 
         server
@@ -557,8 +971,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -583,8 +997,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -609,8 +1023,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -635,8 +1049,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -661,8 +1075,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -688,8 +1102,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -714,8 +1128,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -740,8 +1154,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -766,8 +1180,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -792,8 +1206,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -818,8 +1232,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -828,11 +1242,8 @@ describe("ConstrueClient", () => {
             version: "1.0",
             format: "json",
             codes: [
-                {
-                    code: "E11.65",
-                    description: "Type 2 diabetes mellitus with hyperglycemia",
-                    definition: "definition",
-                },
+                { code: "X001", description: "Example custom code 1", definition: "definition" },
+                { code: "X002", description: "Example custom code 2", definition: "definition" },
             ],
         };
 
@@ -856,8 +1267,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -882,8 +1293,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -908,8 +1319,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -934,8 +1345,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -960,8 +1371,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -986,8 +1397,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1012,8 +1423,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1038,21 +1449,29 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
         const rawResponseBody = {
             system: { name: "ICD-10-CM", version: "2025" },
             codes: [
+                { code: "A00", description: "Cholera", definition: "definition" },
                 {
-                    code: "E11.65",
-                    description: "Type 2 diabetes mellitus with hyperglycemia",
+                    code: "A000",
+                    description: "Cholera due to Vibrio cholerae 01, biovar cholerae",
                     definition: "definition",
                 },
+                {
+                    code: "A001",
+                    description: "Cholera due to Vibrio cholerae 01, biovar eltor",
+                    definition: "definition",
+                },
+                { code: "A009", description: "Cholera, unspecified", definition: "definition" },
+                { code: "A01", description: "Typhoid and paratyphoid fevers", definition: "definition" },
             ],
-            next_cursor: "next_cursor",
+            next_cursor: "QTAx",
             has_more: true,
         };
 
@@ -1078,8 +1497,52 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = {
+            system: { name: "SNOMED_CT_US_LITE", version: "20240901" },
+            codes: [
+                { code: "10000006", description: "Radiating chest pain (finding)", definition: "definition" },
+                { code: "10001005", description: "Bacterial septicemia (disorder)", definition: "definition" },
+                { code: "10007009", description: "Coffin-Siris syndrome (disorder)", definition: "definition" },
+                {
+                    code: "1001000119102",
+                    description: "Pulmonary embolism with pulmonary infarction (disorder)",
+                    definition: "definition",
+                },
+                { code: "10017004", description: "Occlusal wear of teeth (disorder)", definition: "definition" },
+            ],
+            next_cursor: "MTAwMTcwMDQ",
+            has_more: true,
+        };
+
+        server
+            .mockEndpoint()
+            .get("/construe/codes/ICD-10-CM")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.listCodesInACodeSystem("ICD-10-CM", {
+            version: "2025",
+            cursor: "cursor",
+            limit: 1,
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("listCodesInACodeSystem (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1098,14 +1561,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("listCodesInACodeSystem (3)", async () => {
+    test("listCodesInACodeSystem (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1124,14 +1587,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("listCodesInACodeSystem (4)", async () => {
+    test("listCodesInACodeSystem (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1150,14 +1613,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.NotFoundError);
     });
 
-    test("listCodesInACodeSystem (5)", async () => {
+    test("listCodesInACodeSystem (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1182,27 +1645,27 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
         const rawResponseBody = {
             system: { name: "ICD-10-CM", version: "2025" },
-            code: "E11.65",
+            code: "E1165",
             description: "Type 2 diabetes mellitus with hyperglycemia",
             definition: "definition",
         };
 
         server
             .mockEndpoint()
-            .get("/construe/codes/ICD-10-CM/E11.65")
+            .get("/construe/codes/ICD-10-CM/E1165")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.getASpecificCode("ICD-10-CM", "E11.65", {
+        const response = await client.construe.getASpecificCode("ICD-10-CM", "E1165", {
             version: "version",
         });
         expect(response).toEqual(rawResponseBody);
@@ -1214,8 +1677,40 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = {
+            system: { name: "SNOMED_CT_US_LITE", version: "20240901" },
+            code: "73211009",
+            description: "Diabetes mellitus (disorder)",
+            definition: "definition",
+        };
+
+        server
+            .mockEndpoint()
+            .get("/construe/codes/ICD-10-CM/E1165")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.getASpecificCode("ICD-10-CM", "E1165", {
+            version: "version",
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("getASpecificCode (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1234,14 +1729,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("getASpecificCode (3)", async () => {
+    test("getASpecificCode (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1260,14 +1755,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("getASpecificCode (4)", async () => {
+    test("getASpecificCode (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1286,14 +1781,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.NotFoundError);
     });
 
-    test("getASpecificCode (5)", async () => {
+    test("getASpecificCode (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1318,14 +1813,20 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
         const rawResponseBody = {
             system: { name: "ICD-10-CM", version: "2025" },
-            results: [{ code: "E11.65", description: "Type 2 diabetes mellitus with hyperglycemia" }],
+            results: [
+                { code: "R06.00", description: "Dyspnea, unspecified" },
+                { code: "R06.01", description: "Orthopnea" },
+                { code: "G47.33", description: "Obstructive sleep apnea" },
+                { code: "R06.83", description: "Snoring" },
+                { code: "J45.20", description: "Mild intermittent asthma, uncomplicated" },
+            ],
         };
 
         server
@@ -1350,8 +1851,47 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = {
+            system: { name: "ICD-10-CM", version: "2025" },
+            results: [
+                { code: "E11.22", description: "Type 2 diabetes mellitus with diabetic chronic kidney disease" },
+                {
+                    code: "E11.311",
+                    description: "Type 2 diabetes mellitus with unspecified diabetic retinopathy with macular edema",
+                },
+                { code: "E11.65", description: "Type 2 diabetes mellitus with hyperglycemia" },
+            ],
+        };
+
+        server
+            .mockEndpoint()
+            .get("/construe/codes/ICD-10-CM/search/semantic")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
+            text: "patient has trouble breathing at night and wakes up gasping",
+            version: "version",
+            limit: 1,
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("semanticSearchEmbeddingBased (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1372,14 +1912,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("semanticSearchEmbeddingBased (3)", async () => {
+    test("semanticSearchEmbeddingBased (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1400,14 +1940,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("semanticSearchEmbeddingBased (4)", async () => {
+    test("semanticSearchEmbeddingBased (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1428,14 +1968,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.NotFoundError);
     });
 
-    test("semanticSearchEmbeddingBased (5)", async () => {
+    test("semanticSearchEmbeddingBased (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1462,14 +2002,21 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
             text: "Patient has type 2 diabetes with hyperglycemia",
-            received_result: { system: {}, codes: [{ code: "195967001", description: "Asthma", valid: true }] },
-            expected_result: { system: {}, codes: [{ code: "195967001", description: "Asthma", valid: true }] },
+            received_result: {
+                system: { name: "ICD-10-CM", version: "2025" },
+                codes: [{ code: "E11.9", description: "Type 2 diabetes mellitus without complications", valid: true }],
+            },
+            expected_result: {
+                system: { name: "ICD-10-CM", version: "2025" },
+                codes: [{ code: "E11.65", description: "Type 2 diabetes mellitus with hyperglycemia", valid: true }],
+            },
+            detail: "Expected code E11.65 because the text mentions hyperglycemia",
         };
         const rawResponseBody = { id: "abc123def456" };
 
@@ -1485,25 +2032,32 @@ describe("ConstrueClient", () => {
         const response = await client.construe.submitFeedbackOnExtractionResults({
             text: "Patient has type 2 diabetes with hyperglycemia",
             received_result: {
-                system: {},
+                system: {
+                    name: "ICD-10-CM",
+                    version: "2025",
+                },
                 codes: [
                     {
-                        code: "195967001",
-                        description: "Asthma",
+                        code: "E11.9",
+                        description: "Type 2 diabetes mellitus without complications",
                         valid: true,
                     },
                 ],
             },
             expected_result: {
-                system: {},
+                system: {
+                    name: "ICD-10-CM",
+                    version: "2025",
+                },
                 codes: [
                     {
-                        code: "195967001",
-                        description: "Asthma",
+                        code: "E11.65",
+                        description: "Type 2 diabetes mellitus with hyperglycemia",
                         valid: true,
                     },
                 ],
             },
+            detail: "Expected code E11.65 because the text mentions hyperglycemia",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -1514,8 +2068,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -1589,8 +2143,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -1664,8 +2218,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -1739,8 +2293,8 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -1814,15 +2368,19 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
         const rawResponseBody = {
             system: { name: "ICD-10-CM", version: "2025" },
-            results: [{ code: "E11.65", description: "Type 2 diabetes mellitus with hyperglycemia" }],
-            found: 150,
+            results: [
+                { code: "E11.65", description: "Type 2 diabetes mellitus with hyperglycemia" },
+                { code: "E11.649", description: "Type 2 diabetes mellitus with hypoglycemia without coma" },
+                { code: "E11.69", description: "Type 2 diabetes mellitus with other specified complication" },
+            ],
+            found: 3,
         };
 
         server
@@ -1847,8 +2405,45 @@ describe("ConstrueClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = {
+            system: { name: "ICD-10-CM", version: "2025" },
+            results: [
+                { code: "I10", description: "Essential (primary) hypertension" },
+                { code: "I11.9", description: "Hypertensive heart disease without heart failure" },
+                { code: "I12.9", description: "Hypertensive chronic kidney disease with stage 1-4 or unspecified CKD" },
+            ],
+            found: 3,
+        };
+
+        server
+            .mockEndpoint()
+            .get("/construe/codes/ICD-10-CM/search/text")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.terminologyServerTextSearch("ICD-10-CM", {
+            q: "E11.65",
+            version: "version",
+            limit: 1,
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("terminologyServerTextSearch (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1869,14 +2464,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("terminologyServerTextSearch (3)", async () => {
+    test("terminologyServerTextSearch (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1897,14 +2492,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("terminologyServerTextSearch (4)", async () => {
+    test("terminologyServerTextSearch (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1925,14 +2520,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.NotFoundError);
     });
 
-    test("terminologyServerTextSearch (5)", async () => {
+    test("terminologyServerTextSearch (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1953,14 +2548,14 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
-    test("terminologyServerTextSearch (6)", async () => {
+    test("terminologyServerTextSearch (7)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 

@@ -1,3 +1,14 @@
+## 14.0.0 - 2026-05-12
+### Breaking Changes
+* **`SearchResponse.resourceType` / `SearchResponse.searchParams`** — fields renamed to `resource_type` and `search_params`; update all property accesses to use the snake_case names.
+* **`FhirProviderTemplate`** — `id`, `name`, `provider`, `auth_configs`, and `last_updated` are now required (non-optional); remove null guards and supply all fields when constructing this type.
+* **`FhirProviderSandboxInfo`** — `id`, `name`, and `provider` are now required (non-optional); same migration as `FhirProviderTemplate`.
+* **`McpServerResponse` / `McpServerToolResponse`** — the nested `Data` namespace and its inline interface have been removed; `data` now types as `phenoml.tools.McpServer` / `McpServerTool` respectively; update any references to the removed `Data` namespace.
+### Added
+* **`McpServer` / `McpServerTool`** — new exported interfaces representing an MCP server and its registered tools, with optional `id`, `name`, `description`, `mcp_server_url`, `input_schema`, and `mcp_server_id` fields.
+* **`McpServerResponse.mcp_servers` / `McpServerToolResponse.mcp_server_tools`** — new optional list fields for bulk server and tool results returned by list and create endpoints.
+* **`CreateSummaryRequest`, `ExecuteWorkflowRequest`, `AgentChatRequest`** — additional usage examples added covering IPS-mode summaries, dry-run workflow preview, and multi-turn agent chat with enhanced reasoning.
+
 ## 13.1.0 - 2026-05-11
 ### Added
 * **`Fetcher.TimeoutError.cause` / `Fetcher.UnknownError.cause`** — new optional `cause?: unknown` field on both error shapes so callers can inspect the underlying triggering error.

@@ -3,8 +3,16 @@
 import type { MockServer } from "../mock-server/MockServer";
 
 export function mockPhenoMloAuth(server: MockServer): void {
-    const rawRequestBody = { client_id: "test_client_id", client_secret: "test_client_secret" };
-    const rawResponseBody = { access_token: "access_token", token_type: "Bearer", expires_in: 172800 };
+    const rawRequestBody = {
+        grant_type: "client_credentials",
+        client_id: "your_client_id",
+        client_secret: "your_client_secret",
+    };
+    const rawResponseBody = {
+        access_token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+        token_type: "Bearer",
+        expires_in: 172800,
+    };
     server
         .mockEndpoint()
         .post("/v2/auth/token")

@@ -12,12 +12,20 @@ describe("AuthClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = {};
-        const rawResponseBody = { access_token: "access_token", token_type: "Bearer", expires_in: 172800 };
+        const rawRequestBody = {
+            grant_type: "client_credentials",
+            client_id: "your_client_id",
+            client_secret: "your_client_secret",
+        };
+        const rawResponseBody = {
+            access_token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+            token_type: "Bearer",
+            expires_in: 172800,
+        };
 
         server
             .mockEndpoint()
@@ -28,7 +36,11 @@ describe("AuthClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.authtoken.auth.getToken();
+        const response = await client.authtoken.auth.getToken({
+            grant_type: "client_credentials",
+            client_id: "your_client_id",
+            client_secret: "your_client_secret",
+        });
         expect(response).toEqual(rawResponseBody);
     });
 
@@ -38,8 +50,8 @@ describe("AuthClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {};
@@ -65,8 +77,8 @@ describe("AuthClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {};
@@ -92,8 +104,8 @@ describe("AuthClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {};

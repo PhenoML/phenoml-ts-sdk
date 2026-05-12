@@ -2,7 +2,13 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         name: "Medical Assistant System Prompt",
+ *         description: "Updated system prompt",
+ *         content: "You are a helpful medical assistant. Always cite ICD-10 codes when discussing diagnoses.",
+ *         is_default: false,
+ *         tags: ["medical", "system", "updated"]
+ *     }
  */
 export interface AgentPromptsUpdateRequest {
     /** Prompt name */
