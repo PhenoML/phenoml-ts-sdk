@@ -12,14 +12,14 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
         const rawResponseBody = {
             success: true,
-            message: "MCP server tool created successfully",
+            message: "MCP Server tools retrieved successfully",
             data: {
                 id: "123",
                 name: "My MCP Server Tool",
@@ -28,6 +28,24 @@ describe("ToolsClient", () => {
                 mcp_server_id: "123",
                 mcp_server_url: "https://mcp.example.com",
             },
+            mcp_server_tools: [
+                {
+                    id: "tool-001",
+                    name: "search_endpoints",
+                    description: "Search across the documented endpoints",
+                    input_schema: { query: "string" },
+                    mcp_server_id: "123",
+                    mcp_server_url: "https://mcp.example.com",
+                },
+                {
+                    id: "tool-002",
+                    name: "get_endpoint",
+                    description: "Fetch a single endpoint by ID",
+                    input_schema: { endpoint_id: "string" },
+                    mcp_server_id: "123",
+                    mcp_server_url: "https://mcp.example.com",
+                },
+            ],
         };
 
         server
@@ -48,8 +66,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -74,8 +92,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -100,8 +118,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -126,14 +144,14 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
         const rawResponseBody = {
             success: true,
-            message: "MCP server tool created successfully",
+            message: "MCP Server tool retrieved successfully",
             data: {
                 id: "123",
                 name: "My MCP Server Tool",
@@ -142,6 +160,16 @@ describe("ToolsClient", () => {
                 mcp_server_id: "123",
                 mcp_server_url: "https://mcp.example.com",
             },
+            mcp_server_tools: [
+                {
+                    id: "123",
+                    name: "My MCP Server Tool",
+                    description: "My MCP Server Tool is a tool that provides MCP services",
+                    input_schema: { name: "string", age: "number" },
+                    mcp_server_id: "123",
+                    mcp_server_url: "https://mcp.example.com",
+                },
+            ],
         };
 
         server
@@ -162,8 +190,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -188,8 +216,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -214,8 +242,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -240,14 +268,14 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
         const rawResponseBody = {
             success: true,
-            message: "MCP server tool created successfully",
+            message: "MCP Server tool deleted successfully",
             data: {
                 id: "123",
                 name: "My MCP Server Tool",
@@ -256,6 +284,16 @@ describe("ToolsClient", () => {
                 mcp_server_id: "123",
                 mcp_server_url: "https://mcp.example.com",
             },
+            mcp_server_tools: [
+                {
+                    id: "123",
+                    name: "My MCP Server Tool",
+                    description: "My MCP Server Tool is a tool that provides MCP services",
+                    input_schema: { name: "string", age: "number" },
+                    mcp_server_id: "123",
+                    mcp_server_url: "https://mcp.example.com",
+                },
+            ],
         };
 
         server
@@ -276,8 +314,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -302,8 +340,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -328,8 +366,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -354,8 +392,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { arguments: { title: "PhenoML Agent API" } };
@@ -389,8 +427,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { arguments: { arguments: { key: "value" } } };
@@ -422,8 +460,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { arguments: { arguments: { key: "value" } } };
@@ -455,8 +493,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { arguments: { arguments: { key: "value" } } };
@@ -488,8 +526,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { arguments: { arguments: { key: "value" } } };

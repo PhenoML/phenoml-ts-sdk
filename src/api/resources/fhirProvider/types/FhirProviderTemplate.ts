@@ -2,20 +2,25 @@
 
 import type * as phenoml from "../../../index.js";
 
+/**
+ * Full FHIR provider configuration returned for non-sandbox providers.
+ * `auth_configs` and `last_updated` are always populated, which is how
+ * list responses distinguish this shape from `FhirProviderSandboxInfo`.
+ */
 export interface FhirProviderTemplate {
     /** Unique identifier for the FHIR provider */
-    id?: string | undefined;
+    id: string;
     /** Display name for the FHIR provider */
-    name?: string | undefined;
+    name: string;
     /** Optional description of the FHIR provider */
     description?: string | undefined;
-    provider?: phenoml.fhirProvider.Provider | undefined;
+    provider: phenoml.fhirProvider.Provider;
     /** Base URL of the FHIR server */
     base_url?: string | undefined;
     /** OAuth client ID. Deprecated: use client_id on FhirProviderAuthConfig instead. Retained for backward compatibility with existing providers. */
     client_id?: string | undefined;
     /** Map of authentication configurations (key is auth_config_id) */
-    auth_configs?: Record<string, phenoml.fhirProvider.FhirProviderAuthConfig> | undefined;
+    auth_configs: Record<string, phenoml.fhirProvider.FhirProviderAuthConfig>;
     /** Timestamp when the provider was last updated */
-    last_updated?: string | undefined;
+    last_updated: string;
 }

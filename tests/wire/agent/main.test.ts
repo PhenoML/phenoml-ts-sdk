@@ -12,11 +12,17 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { name: "name", prompts: ["prompt_123", "prompt_456"], provider: "provider" };
+        const rawRequestBody = {
+            name: "Medical Assistant",
+            description: "An AI assistant for medical information processing",
+            prompts: ["prompt_123"],
+            tags: ["medical", "fhir"],
+            provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
+        };
         const rawResponseBody = {
             success: true,
             message: "Agent created successfully",
@@ -28,7 +34,7 @@ describe("AgentClient", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 workflows: ["workflow_123", "workflow_456"],
                 tags: ["medical", "fhir"],
-                provider: "provider",
+                provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
             },
         };
 
@@ -42,9 +48,11 @@ describe("AgentClient", () => {
             .build();
 
         const response = await client.agent.create({
-            name: "name",
-            prompts: ["prompt_123", "prompt_456"],
-            provider: "provider",
+            name: "Medical Assistant",
+            description: "An AI assistant for medical information processing",
+            prompts: ["prompt_123"],
+            tags: ["medical", "fhir"],
+            provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -55,8 +63,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
@@ -86,8 +94,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
@@ -117,8 +125,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
@@ -148,8 +156,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
@@ -179,8 +187,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -192,11 +200,21 @@ describe("AgentClient", () => {
                     id: "agent_123",
                     name: "Medical Assistant",
                     description: "An AI assistant for medical information processing",
-                    prompts: ["prompt_123", "prompt_456"],
+                    prompts: ["prompt_123"],
                     tools: ["mcp_server_123", "mcp_server_456"],
                     workflows: ["workflow_123", "workflow_456"],
                     tags: ["medical", "fhir"],
-                    provider: "provider",
+                    provider: ["7002b0b4-8d09-445a-bf65-0fafdaf26c35"],
+                },
+                {
+                    id: "agent_456",
+                    name: "Clinical Coding Assistant",
+                    description: "Helps with ICD-10 and SNOMED coding",
+                    prompts: ["prompt_456"],
+                    tools: ["mcp_server_123", "mcp_server_456"],
+                    workflows: ["workflow_123", "workflow_456"],
+                    tags: ["coding"],
+                    provider: ["7002b0b4-8d09-445a-bf65-0fafdaf26c35"],
                 },
             ],
         };
@@ -215,8 +233,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -235,8 +253,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -255,8 +273,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -275,14 +293,14 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
         const rawResponseBody = {
             success: true,
-            message: "Agent created successfully",
+            message: "Agent retrieved successfully",
             data: {
                 id: "agent_123",
                 name: "Medical Assistant",
@@ -291,7 +309,7 @@ describe("AgentClient", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 workflows: ["workflow_123", "workflow_456"],
                 tags: ["medical", "fhir"],
-                provider: "provider",
+                provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
             },
         };
 
@@ -307,8 +325,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -327,8 +345,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -347,8 +365,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -367,8 +385,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -387,14 +405,20 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { name: "name", prompts: ["prompt_123", "prompt_456"], provider: "provider" };
+        const rawRequestBody = {
+            name: "Medical Assistant",
+            description: "Updated description for the medical assistant",
+            prompts: ["prompt_123"],
+            tags: ["medical", "fhir", "updated"],
+            provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
+        };
         const rawResponseBody = {
             success: true,
-            message: "Agent created successfully",
+            message: "Agent updated successfully",
             data: {
                 id: "agent_123",
                 name: "Medical Assistant",
@@ -403,7 +427,7 @@ describe("AgentClient", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 workflows: ["workflow_123", "workflow_456"],
                 tags: ["medical", "fhir"],
-                provider: "provider",
+                provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
             },
         };
 
@@ -417,9 +441,11 @@ describe("AgentClient", () => {
             .build();
 
         const response = await client.agent.update("id", {
-            name: "name",
-            prompts: ["prompt_123", "prompt_456"],
-            provider: "provider",
+            name: "Medical Assistant",
+            description: "Updated description for the medical assistant",
+            prompts: ["prompt_123"],
+            tags: ["medical", "fhir", "updated"],
+            provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -430,8 +456,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
@@ -461,8 +487,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
@@ -492,8 +518,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
@@ -523,8 +549,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
@@ -554,8 +580,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
@@ -585,8 +611,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -604,8 +630,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -624,8 +650,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -644,8 +670,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -664,8 +690,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -684,18 +710,17 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
-            { op: "replace", path: "/name", value: "Updated Agent Name" },
-            { op: "add", path: "/tags/-", value: "new-tag" },
-            { op: "remove", path: "/description" },
+            { op: "replace", path: "/description", value: "patched description" },
+            { op: "add", path: "/tags/-", value: "updated" },
         ];
         const rawResponseBody = {
             success: true,
-            message: "Agent created successfully",
+            message: "Agent patched successfully",
             data: {
                 id: "agent_123",
                 name: "Medical Assistant",
@@ -704,7 +729,7 @@ describe("AgentClient", () => {
                 tools: ["mcp_server_123", "mcp_server_456"],
                 workflows: ["workflow_123", "workflow_456"],
                 tags: ["medical", "fhir"],
-                provider: "provider",
+                provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
             },
         };
 
@@ -720,17 +745,13 @@ describe("AgentClient", () => {
         const response = await client.agent.patch("id", [
             {
                 op: "replace",
-                path: "/name",
-                value: "Updated Agent Name",
+                path: "/description",
+                value: "patched description",
             },
             {
                 op: "add",
                 path: "/tags/-",
-                value: "new-tag",
-            },
-            {
-                op: "remove",
-                path: "/description",
+                value: "updated",
             },
         ]);
         expect(response).toEqual(rawResponseBody);
@@ -742,8 +763,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -781,8 +802,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -820,8 +841,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -859,8 +880,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -898,8 +919,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -937,16 +958,21 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { message: "What is the patient's current condition?", agent_id: "agent-123" };
+        const rawRequestBody = {
+            message: "What is the patient's current condition?",
+            session_id: "session-abc123",
+            agent_id: "agent-123",
+        };
         const rawResponseBody = {
-            response: "I'll create a patient record for John Doe with diabetes. Let me process that information...",
+            response:
+                "Based on the patient records, they have been diagnosed with Type 2 Diabetes Mellitus (ICD-10: E11.65) and Essential Hypertension (ICD-10: I10). Current medications include Metformin 500mg BID and Lisinopril 10mg daily. Most recent HbA1c was 7.2% on 2024-12-15.",
             success: true,
-            message: "Chat response generated successfully",
-            session_id: "session_123",
+            message: "Response generated successfully",
+            session_id: "session-abc123",
         };
 
         server
@@ -968,6 +994,7 @@ describe("AgentClient", () => {
             "X-Phenoml-Fhir-Provider":
                 "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
             message: "What is the patient's current condition?",
+            session_id: "session-abc123",
             agent_id: "agent-123",
         });
         expect(response).toEqual(rawResponseBody);
@@ -979,8 +1006,60 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
+            message:
+                "Create a patient record for Jane Doe, 32F, diagnosed with iron deficiency anemia. Prescribe ferrous sulfate 325mg daily.",
+            session_id: "session-def456",
+            agent_id: "agent-123",
+            enhanced_reasoning: true,
+        };
+        const rawResponseBody = {
+            response:
+                "Created the following resources for Jane Doe:\n\n1. Patient: Jane Doe, 32-year-old female\n2. Condition: Iron deficiency anemia (ICD-10: D50.9)\n3. MedicationRequest: Ferrous sulfate 325mg daily\n\nAll resources bundled as a FHIR transaction Bundle.",
+            success: true,
+            message: "Response generated successfully",
+            session_id: "session-def456",
+        };
+
+        server
+            .mockEndpoint()
+            .post("/agent/chat")
+            .header("X-Phenoml-On-Behalf-Of", "Patient/550e8400-e29b-41d4-a716-446655440000")
+            .header(
+                "X-Phenoml-Fhir-Provider",
+                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+            )
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.agent.chat({
+            "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
+            "X-Phenoml-Fhir-Provider":
+                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
+            message:
+                "Create a patient record for Jane Doe, 32F, diagnosed with iron deficiency anemia. Prescribe ferrous sulfate 325mg daily.",
+            session_id: "session-def456",
+            agent_id: "agent-123",
+            enhanced_reasoning: true,
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("chat (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
@@ -1003,14 +1082,14 @@ describe("AgentClient", () => {
         }).rejects.toThrow(phenoml.agent.BadRequestError);
     });
 
-    test("chat (3)", async () => {
+    test("chat (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
@@ -1033,14 +1112,14 @@ describe("AgentClient", () => {
         }).rejects.toThrow(phenoml.agent.UnauthorizedError);
     });
 
-    test("chat (4)", async () => {
+    test("chat (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
@@ -1063,14 +1142,14 @@ describe("AgentClient", () => {
         }).rejects.toThrow(phenoml.agent.ForbiddenError);
     });
 
-    test("chat (5)", async () => {
+    test("chat (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
@@ -1099,13 +1178,17 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { message: "What is the patient's current condition?", agent_id: "agent-123" };
+        const rawRequestBody = {
+            message: "What is the patient's current condition?",
+            session_id: "session-abc123",
+            agent_id: "agent-123",
+        };
         const rawResponseBody =
-            'event: \ndata: {"type":"message_start","session_id":"session_123","content":"I\'ll create a patient record...","success":true,"message":"Response generated successfully","function_name":"lang2fhir_search","function_args":{"key":"value"},"function_result":{"key":"value"}}\n\n';
+            'event: \ndata: {"type":"content_delta","session_id":"session-abc123","content":"Based on the patient records, ","success":true,"message":"Response generated successfully","function_name":"lang2fhir_search","function_args":{"key":"value"},"function_result":{"key":"value"}}\n\n';
 
         server
             .mockEndpoint()
@@ -1126,6 +1209,7 @@ describe("AgentClient", () => {
             "X-Phenoml-Fhir-Provider":
                 "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
             message: "What is the patient's current condition?",
+            session_id: "session-abc123",
             agent_id: "agent-123",
         });
         const events: unknown[] = [];
@@ -1134,9 +1218,9 @@ describe("AgentClient", () => {
         }
         expect(events).toEqual([
             {
-                type: "message_start",
-                session_id: "session_123",
-                content: "I'll create a patient record...",
+                type: "content_delta",
+                session_id: "session-abc123",
+                content: "Based on the patient records, ",
                 success: true,
                 message: "Response generated successfully",
                 function_name: "lang2fhir_search",
@@ -1156,8 +1240,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
@@ -1186,8 +1270,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
@@ -1216,8 +1300,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
@@ -1246,8 +1330,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { message: "message", agent_id: "agent_id" };
@@ -1276,27 +1360,40 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
         const rawResponseBody = {
             messages: [
                 {
-                    id: "message_123",
+                    id: "message_001",
                     session_id: "session_123",
                     role: "user",
-                    content: "Hello, how are you?",
-                    created: "2021-01-01T00:00:00Z",
-                    updated: "2021-01-01T00:00:00Z",
+                    content: "What is the patient's current condition?",
+                    created: "2025-03-01T14:00:00Z",
+                    updated: "2025-03-01T14:00:00Z",
                     function_name: "get_patient_info",
                     function_args: { patient_id: "123" },
                     function_result: { name: "John Doe" },
                     message_order: 1,
                 },
+                {
+                    id: "message_002",
+                    session_id: "session_123",
+                    role: "assistant",
+                    content:
+                        "Based on the patient records, they have been diagnosed with Type 2 Diabetes Mellitus (ICD-10: E11.65).",
+                    created: "2025-03-01T14:00:02Z",
+                    updated: "2025-03-01T14:00:02Z",
+                    function_name: "get_patient_info",
+                    function_args: { patient_id: "123" },
+                    function_result: { name: "John Doe" },
+                    message_order: 2,
+                },
             ],
-            total: 10,
+            total: 2,
             session_id: "session_123",
         };
 
@@ -1323,8 +1420,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1351,8 +1448,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1379,8 +1476,8 @@ describe("AgentClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 

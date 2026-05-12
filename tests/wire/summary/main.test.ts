@@ -12,8 +12,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -21,15 +21,16 @@ describe("SummaryClient", () => {
             success: true,
             templates: [
                 {
-                    id: "id",
-                    name: "name",
+                    id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                    name: "Discharge Summary",
                     description: "description",
-                    template: "template",
-                    target_resources: ["target_resources"],
-                    mode: "mode",
+                    template:
+                        "Patient \\{{Patient.name[0].text}}, age \\{{Patient.birthDate|age}}, was admitted on \\{{Encounter[0].period.start}} with \\{{Condition[0].code.coding[0].display}}.",
+                    target_resources: ["Patient", "Condition", "MedicationRequest"],
+                    mode: "narrative",
                     metadata: { key: "value" },
-                    created_at: "2024-01-15T09:30:00Z",
-                    updated_at: "2024-01-15T09:30:00Z",
+                    created_at: "2024-01-15T10:30:00Z",
+                    updated_at: "2024-01-15T10:30:00Z",
                 },
             ],
         };
@@ -52,8 +53,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -78,8 +79,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -104,30 +105,32 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
-            name: "name",
-            example_summary: "Patient John Doe, age 45, presents with hypertension diagnosed on 2024-01-15.",
-            target_resources: ["Patient", "Condition", "Observation"],
-            mode: "mode",
+            name: "Discharge Summary",
+            example_summary:
+                "Patient John Doe, age 45, was admitted on 2024-01-10 with Type 2 Diabetes. Discharged on 2024-01-15 with Metformin 500mg BID.",
+            target_resources: ["Patient", "Condition", "MedicationRequest"],
+            mode: "narrative",
         };
         const rawResponseBody = {
             success: true,
-            message: "message",
-            template_id: "template_id",
+            message: "Template created successfully",
+            template_id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
             template: {
-                id: "id",
-                name: "name",
+                id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                name: "Discharge Summary",
                 description: "description",
-                template: "template",
-                target_resources: ["target_resources"],
-                mode: "mode",
+                template:
+                    "Patient \\{{Patient.name[0].text}}, age \\{{Patient.birthDate|age}}, was admitted on \\{{Encounter[0].period.start}} with \\{{Condition[0].code.coding[0].display}}. Discharged on \\{{Encounter[0].period.end}} with \\{{MedicationRequest[0].medicationCodeableConcept.coding[0].display}} \\{{MedicationRequest[0].dosageInstruction[0].text}}.",
+                target_resources: ["Patient", "Condition", "MedicationRequest"],
+                mode: "narrative",
                 metadata: { key: "value" },
-                created_at: "2024-01-15T09:30:00Z",
-                updated_at: "2024-01-15T09:30:00Z",
+                created_at: "2024-01-15T10:30:00Z",
+                updated_at: "2024-01-15T10:30:00Z",
             },
         };
 
@@ -141,10 +144,11 @@ describe("SummaryClient", () => {
             .build();
 
         const response = await client.summary.createTemplate({
-            name: "name",
-            example_summary: "Patient John Doe, age 45, presents with hypertension diagnosed on 2024-01-15.",
-            target_resources: ["Patient", "Condition", "Observation"],
-            mode: "mode",
+            name: "Discharge Summary",
+            example_summary:
+                "Patient John Doe, age 45, was admitted on 2024-01-10 with Type 2 Diabetes. Discharged on 2024-01-15 with Metformin 500mg BID.",
+            target_resources: ["Patient", "Condition", "MedicationRequest"],
+            mode: "narrative",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -155,8 +159,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -192,8 +196,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -229,8 +233,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -266,23 +270,24 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
         const rawResponseBody = {
             success: true,
             template: {
-                id: "id",
-                name: "name",
+                id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                name: "Discharge Summary",
                 description: "description",
-                template: "template",
-                target_resources: ["target_resources"],
-                mode: "mode",
+                template:
+                    "Patient \\{{Patient.name[0].text}}, age \\{{Patient.birthDate|age}}, was admitted on \\{{Encounter[0].period.start}} with \\{{Condition[0].code.coding[0].display}}.",
+                target_resources: ["Patient", "Condition", "MedicationRequest"],
+                mode: "narrative",
                 metadata: { key: "value" },
-                created_at: "2024-01-15T09:30:00Z",
-                updated_at: "2024-01-15T09:30:00Z",
+                created_at: "2024-01-15T10:30:00Z",
+                updated_at: "2024-01-15T10:30:00Z",
             },
         };
 
@@ -304,8 +309,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -330,8 +335,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -356,8 +361,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -382,8 +387,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -408,29 +413,31 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
-            name: "name",
-            template: "template",
-            target_resources: ["target_resources"],
-            mode: "mode",
+            name: "Discharge Summary",
+            template:
+                "Patient {{Patient.name[0].text}} was discharged on {{Encounter[0].period.end}} with {{MedicationRequest[0].medicationCodeableConcept.coding[0].display}} {{MedicationRequest[0].dosageInstruction[0].text}}.",
+            target_resources: ["Patient", "Encounter", "MedicationRequest"],
+            mode: "narrative",
         };
         const rawResponseBody = {
             success: true,
-            message: "message",
+            message: "Template updated successfully",
             template: {
-                id: "id",
-                name: "name",
+                id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                name: "Discharge Summary",
                 description: "description",
-                template: "template",
-                target_resources: ["target_resources"],
-                mode: "mode",
+                template:
+                    "Patient \\{{Patient.name[0].text}} was discharged on \\{{Encounter[0].period.end}} with \\{{MedicationRequest[0].medicationCodeableConcept.coding[0].display}} \\{{MedicationRequest[0].dosageInstruction[0].text}}.",
+                target_resources: ["Patient", "Encounter", "MedicationRequest"],
+                mode: "narrative",
                 metadata: { key: "value" },
-                created_at: "2024-01-15T09:30:00Z",
-                updated_at: "2024-01-15T09:30:00Z",
+                created_at: "2024-01-15T10:30:00Z",
+                updated_at: "2024-02-20T11:00:00Z",
             },
         };
 
@@ -444,10 +451,11 @@ describe("SummaryClient", () => {
             .build();
 
         const response = await client.summary.updateTemplate("id", {
-            name: "name",
-            template: "template",
-            target_resources: ["target_resources"],
-            mode: "mode",
+            name: "Discharge Summary",
+            template:
+                "Patient {{Patient.name[0].text}} was discharged on {{Encounter[0].period.end}} with {{MedicationRequest[0].medicationCodeableConcept.coding[0].display}} {{MedicationRequest[0].dosageInstruction[0].text}}.",
+            target_resources: ["Patient", "Encounter", "MedicationRequest"],
+            mode: "narrative",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -458,8 +466,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -495,8 +503,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -532,8 +540,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -569,8 +577,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -606,8 +614,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -643,12 +651,12 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = { success: true, message: "message" };
+        const rawResponseBody = { success: true, message: "Template deleted successfully" };
 
         server
             .mockEndpoint()
@@ -668,8 +676,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -694,8 +702,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -720,8 +728,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -746,8 +754,8 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -772,12 +780,42 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
-        const rawResponseBody = { success: true, message: "message", summary: "summary", warnings: ["warnings"] };
+        const rawRequestBody = {
+            mode: "narrative",
+            template_id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+            fhir_resources: {
+                resourceType: "Bundle",
+                type: "collection",
+                entry: [
+                    {
+                        resource: {
+                            resourceType: "Patient",
+                            name: [{ given: ["John"], family: "Doe" }],
+                            gender: "male",
+                            birthDate: "1979-03-15",
+                        },
+                    },
+                    {
+                        resource: {
+                            resourceType: "Condition",
+                            code: { text: "Type 2 Diabetes Mellitus" },
+                            onsetDateTime: "2024-01-15",
+                        },
+                    },
+                ],
+            },
+        };
+        const rawResponseBody = {
+            success: true,
+            message: "message",
+            summary:
+                "Patient John Doe is a 45-year-old male diagnosed with Type 2 Diabetes Mellitus on January 15, 2024. Current treatment plan includes lifestyle modifications and medication management.",
+            warnings: ["warnings"],
+        };
 
         server
             .mockEndpoint()
@@ -789,8 +827,35 @@ describe("SummaryClient", () => {
             .build();
 
         const response = await client.summary.create({
+            mode: "narrative",
+            template_id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
             fhir_resources: {
-                resourceType: "resourceType",
+                resourceType: "Bundle",
+                type: "collection",
+                entry: [
+                    {
+                        resource: {
+                            resourceType: "Patient",
+                            name: [
+                                {
+                                    given: ["John"],
+                                    family: "Doe",
+                                },
+                            ],
+                            gender: "male",
+                            birthDate: "1979-03-15",
+                        },
+                    },
+                    {
+                        resource: {
+                            resourceType: "Condition",
+                            code: {
+                                text: "Type 2 Diabetes Mellitus",
+                            },
+                            onsetDateTime: "2024-01-15",
+                        },
+                    },
+                ],
             },
         });
         expect(response).toEqual(rawResponseBody);
@@ -802,11 +867,98 @@ describe("SummaryClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
+        const rawRequestBody = {
+            mode: "ips",
+            fhir_resources: {
+                resourceType: "Bundle",
+                type: "collection",
+                entry: [
+                    {
+                        resource: {
+                            resourceType: "Patient",
+                            id: "maria-garcia-001",
+                            name: [{ given: ["Maria"], family: "Garcia" }],
+                            gender: "female",
+                            birthDate: "1985-07-22",
+                        },
+                    },
+                    {
+                        resource: {
+                            resourceType: "AllergyIntolerance",
+                            code: { text: "Penicillin" },
+                            criticality: "high",
+                        },
+                    },
+                ],
+            },
+        };
+        const rawResponseBody = {
+            success: true,
+            message: "message",
+            summary:
+                "International Patient Summary for Maria Garcia\n\nAllergies and Intolerances:\n- Penicillin (high criticality)\n\nActive Problems: None documented\nMedications: None documented\nImmunizations: None documented",
+            warnings: ["warnings"],
+        };
+
+        server
+            .mockEndpoint()
+            .post("/fhir2summary/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.summary.create({
+            mode: "ips",
+            fhir_resources: {
+                resourceType: "Bundle",
+                type: "collection",
+                entry: [
+                    {
+                        resource: {
+                            resourceType: "Patient",
+                            id: "maria-garcia-001",
+                            name: [
+                                {
+                                    given: ["Maria"],
+                                    family: "Garcia",
+                                },
+                            ],
+                            gender: "female",
+                            birthDate: "1985-07-22",
+                        },
+                    },
+                    {
+                        resource: {
+                            resourceType: "AllergyIntolerance",
+                            code: {
+                                text: "Penicillin",
+                            },
+                            criticality: "high",
+                        },
+                    },
+                ],
+            },
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("create (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { fhir_resources: { fhir_resources: { key: "value" } } };
         const rawResponseBody = { key: "value" };
 
         server
@@ -821,23 +973,25 @@ describe("SummaryClient", () => {
         await expect(async () => {
             return await client.summary.create({
                 fhir_resources: {
-                    resourceType: "resourceType",
+                    fhir_resources: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(phenoml.summary.BadRequestError);
     });
 
-    test("create (3)", async () => {
+    test("create (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
+        const rawRequestBody = { fhir_resources: { fhir_resources: { key: "value" } } };
         const rawResponseBody = { key: "value" };
 
         server
@@ -852,23 +1006,25 @@ describe("SummaryClient", () => {
         await expect(async () => {
             return await client.summary.create({
                 fhir_resources: {
-                    resourceType: "resourceType",
+                    fhir_resources: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(phenoml.summary.UnauthorizedError);
     });
 
-    test("create (4)", async () => {
+    test("create (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
+        const rawRequestBody = { fhir_resources: { fhir_resources: { key: "value" } } };
         const rawResponseBody = { key: "value" };
 
         server
@@ -883,23 +1039,25 @@ describe("SummaryClient", () => {
         await expect(async () => {
             return await client.summary.create({
                 fhir_resources: {
-                    resourceType: "resourceType",
+                    fhir_resources: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(phenoml.summary.ForbiddenError);
     });
 
-    test("create (5)", async () => {
+    test("create (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
+        const rawRequestBody = { fhir_resources: { fhir_resources: { key: "value" } } };
         const rawResponseBody = { key: "value" };
 
         server
@@ -914,23 +1072,25 @@ describe("SummaryClient", () => {
         await expect(async () => {
             return await client.summary.create({
                 fhir_resources: {
-                    resourceType: "resourceType",
+                    fhir_resources: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(phenoml.summary.NotFoundError);
     });
 
-    test("create (6)", async () => {
+    test("create (7)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { fhir_resources: { resourceType: "resourceType" } };
+        const rawRequestBody = { fhir_resources: { fhir_resources: { key: "value" } } };
         const rawResponseBody = { key: "value" };
 
         server
@@ -945,7 +1105,9 @@ describe("SummaryClient", () => {
         await expect(async () => {
             return await client.summary.create({
                 fhir_resources: {
-                    resourceType: "resourceType",
+                    fhir_resources: {
+                        key: "value",
+                    },
                 },
             });
         }).rejects.toThrow(phenoml.summary.InternalServerError);

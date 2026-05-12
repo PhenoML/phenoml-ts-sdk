@@ -1,3 +1,14 @@
+## 14.0.0 - 2026-05-12
+### Breaking Changes
+* **`FhirBundle` and `FhirResource`** — removed from the `summary` namespace; replace `phenoml.summary.FhirBundle` / `phenoml.summary.FhirResource` references with `Record<string, unknown>` or a local type.
+* **`CreateSummaryRequest.FhirResources`** — namespace type removed; `fhir_resources` is now typed as `Record<string, unknown>`, so remove any typed references to `CreateSummaryRequest.FhirResources`.
+* **`FhirProviderTemplate` and `FhirProviderSandboxInfo`** — previously optional fields (`id`, `name`, `provider`, `auth_configs`, `last_updated`) are now required; update all construction sites to supply every required field.
+* **`McpServerResponse` / `McpServerToolResponse`** — inline `Data` namespace interfaces removed and replaced with shared `McpServer` / `McpServerTool` types; update any code accessing `.data` sub-fields via the old namespace shapes.
+* **`SearchResponse.resourceType` and `SearchResponse.searchParams`** — fields renamed to `resource_type` and `search_params` respectively; update all property accesses.
+### Added
+* **`McpServer`** — new exported interface representing an MCP server with optional `id`, `name`, `description`, and `mcp_server_url` fields.
+* **`McpServerTool`** — new exported interface representing a tool registered on an MCP server, including optional `input_schema` and `mcp_server_id` fields.
+
 ## 13.1.0 - 2026-05-11
 ### Added
 * **`Fetcher.TimeoutError.cause` / `Fetcher.UnknownError.cause`** — new optional `cause?: unknown` field on both error shapes so callers can inspect the underlying triggering error.

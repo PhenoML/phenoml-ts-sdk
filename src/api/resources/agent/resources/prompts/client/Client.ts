@@ -36,7 +36,10 @@ export class PromptsClient {
      * @example
      *     await client.agent.prompts.create({
      *         name: "Medical Assistant System Prompt",
-     *         content: "You are a helpful medical assistant specialized in FHIR data processing..."
+     *         description: "System prompt for medical assistant agent",
+     *         content: "You are a helpful medical assistant specialized in FHIR data processing.",
+     *         is_default: false,
+     *         tags: ["medical", "system"]
      *     })
      */
     public create(
@@ -255,7 +258,13 @@ export class PromptsClient {
      * @throws {@link phenoml.agent.InternalServerError}
      *
      * @example
-     *     await client.agent.prompts.update("id")
+     *     await client.agent.prompts.update("id", {
+     *         name: "Medical Assistant System Prompt",
+     *         description: "Updated system prompt",
+     *         content: "You are a helpful medical assistant. Always cite ICD-10 codes when discussing diagnoses.",
+     *         is_default: false,
+     *         tags: ["medical", "system", "updated"]
+     *     })
      */
     public update(
         id: string,
@@ -412,15 +421,8 @@ export class PromptsClient {
      * @example
      *     await client.agent.prompts.patch("id", [{
      *             op: "replace",
-     *             path: "/name",
-     *             value: "Updated Agent Name"
-     *         }, {
-     *             op: "add",
-     *             path: "/tags/-",
-     *             value: "new-tag"
-     *         }, {
-     *             op: "remove",
-     *             path: "/description"
+     *             path: "/content",
+     *             value: "Updated prompt content."
      *         }])
      */
     public patch(

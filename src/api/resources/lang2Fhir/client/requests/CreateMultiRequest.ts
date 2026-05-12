@@ -3,7 +3,8 @@
 /**
  * @example
  *     {
- *         text: "John Smith, male born on 1980-03-12, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily."
+ *         text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily. Blood pressure 140/90.",
+ *         version: "R4"
  *     }
  */
 export interface CreateMultiRequest {

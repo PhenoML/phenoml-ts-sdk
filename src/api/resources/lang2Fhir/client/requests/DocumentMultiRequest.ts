@@ -6,7 +6,8 @@ import type * as phenoml from "../../../../index.js";
  * @example
  *     {
  *         version: "R4",
- *         content: "content"
+ *         content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
+ *         provider: "medplum"
  *     }
  */
 export interface DocumentMultiRequest {

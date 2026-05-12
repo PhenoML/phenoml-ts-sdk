@@ -7,7 +7,24 @@ import type * as phenoml from "../../../../index.js";
  *     {
  *         name: "CUSTOM_CODES",
  *         version: "1.0",
- *         format: "csv"
+ *         format: "json",
+ *         codes: [{
+ *                 code: "X001",
+ *                 description: "Example custom code 1"
+ *             }, {
+ *                 code: "X002",
+ *                 description: "Example custom code 2"
+ *             }]
+ *     }
+ *
+ * @example
+ *     {
+ *         name: "CUSTOM_CODES",
+ *         version: "1.0",
+ *         format: "csv",
+ *         file: "Y29kZSxkZXNjcmlwdGlvbgpYMDAxLEV4YW1wbGUgY3VzdG9tIGNvZGUgMQo=",
+ *         code_col: "code",
+ *         desc_col: "description"
  *     }
  */
 export interface UploadRequest {

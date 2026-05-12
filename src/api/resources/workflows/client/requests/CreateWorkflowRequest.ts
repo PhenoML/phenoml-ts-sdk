@@ -5,11 +5,12 @@
  *     {
  *         verbose: true,
  *         name: "Patient Data Mapping Workflow",
- *         workflow_instructions: "Given diagnosis data, find the patient and create condition record",
+ *         workflow_instructions: "Given diagnosis data, find the patient and create a condition record linked to their encounter",
  *         sample_data: {
  *             "patient_last_name": "Rippin",
  *             "patient_first_name": "Clay",
- *             "diagnosis_code": "I10"
+ *             "diagnosis_code": "I10",
+ *             "encounter_date": "2024-01-15"
  *         },
  *         fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000"
  *     }
