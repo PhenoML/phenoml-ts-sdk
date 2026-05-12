@@ -3,10 +3,10 @@
 /**
  * @example
  *     {
- *         name: "name",
- *         template: "template",
- *         target_resources: ["target_resources"],
- *         mode: "mode"
+ *         name: "Discharge Summary",
+ *         template: "Patient {{Patient.name[0].text}} was discharged on {{Encounter[0].period.end}} with {{MedicationRequest[0].medicationCodeableConcept.coding[0].display}} {{MedicationRequest[0].dosageInstruction[0].text}}.",
+ *         target_resources: ["Patient", "Encounter", "MedicationRequest"],
+ *         mode: "narrative"
  *     }
  */
 export interface UpdateSummaryTemplateRequest {

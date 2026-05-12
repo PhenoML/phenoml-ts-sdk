@@ -12,13 +12,16 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
             name: "Medical Assistant System Prompt",
-            content: "You are a helpful medical assistant specialized in FHIR data processing...",
+            description: "System prompt for medical assistant agent",
+            content: "You are a helpful medical assistant specialized in FHIR data processing.",
+            is_default: false,
+            tags: ["medical", "system"],
         };
         const rawResponseBody = {
             success: true,
@@ -44,7 +47,10 @@ describe("PromptsClient", () => {
 
         const response = await client.agent.prompts.create({
             name: "Medical Assistant System Prompt",
-            content: "You are a helpful medical assistant specialized in FHIR data processing...",
+            description: "System prompt for medical assistant agent",
+            content: "You are a helpful medical assistant specialized in FHIR data processing.",
+            is_default: false,
+            tags: ["medical", "system"],
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -55,8 +61,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", content: "content" };
@@ -85,8 +91,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", content: "content" };
@@ -115,8 +121,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", content: "content" };
@@ -145,8 +151,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { name: "name", content: "content" };
@@ -175,8 +181,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -191,6 +197,14 @@ describe("PromptsClient", () => {
                     content: "You are a helpful medical assistant...",
                     is_default: false,
                     tags: ["medical", "system"],
+                },
+                {
+                    id: "prompt_456",
+                    name: "Clinical Coding Prompt",
+                    description: "Prompt for ICD-10 / SNOMED coding tasks",
+                    content: "You assist with mapping clinical text to standard codes...",
+                    is_default: false,
+                    tags: ["coding"],
                 },
             ],
         };
@@ -213,8 +227,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -239,8 +253,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -265,8 +279,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -291,14 +305,14 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
         const rawResponseBody = {
             success: true,
-            message: "Prompt created successfully",
+            message: "Prompt retrieved successfully",
             data: {
                 id: "prompt_123",
                 name: "Medical Assistant System Prompt",
@@ -321,8 +335,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -341,8 +355,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -361,8 +375,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -381,8 +395,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -401,14 +415,20 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = {};
+        const rawRequestBody = {
+            name: "Medical Assistant System Prompt",
+            description: "Updated system prompt",
+            content: "You are a helpful medical assistant. Always cite ICD-10 codes when discussing diagnoses.",
+            is_default: false,
+            tags: ["medical", "system", "updated"],
+        };
         const rawResponseBody = {
             success: true,
-            message: "Prompt created successfully",
+            message: "Prompt updated successfully",
             data: {
                 id: "prompt_123",
                 name: "Medical Assistant System Prompt",
@@ -428,7 +448,13 @@ describe("PromptsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.agent.prompts.update("id");
+        const response = await client.agent.prompts.update("id", {
+            name: "Medical Assistant System Prompt",
+            description: "Updated system prompt",
+            content: "You are a helpful medical assistant. Always cite ICD-10 codes when discussing diagnoses.",
+            is_default: false,
+            tags: ["medical", "system", "updated"],
+        });
         expect(response).toEqual(rawResponseBody);
     });
 
@@ -438,8 +464,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {};
@@ -465,8 +491,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {};
@@ -492,8 +518,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {};
@@ -519,8 +545,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {};
@@ -546,8 +572,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {};
@@ -573,8 +599,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -598,8 +624,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -624,8 +650,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -650,8 +676,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -676,8 +702,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -702,18 +728,14 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = [
-            { op: "replace", path: "/name", value: "Updated Agent Name" },
-            { op: "add", path: "/tags/-", value: "new-tag" },
-            { op: "remove", path: "/description" },
-        ];
+        const rawRequestBody = [{ op: "replace", path: "/content", value: "Updated prompt content." }];
         const rawResponseBody = {
             success: true,
-            message: "Prompt created successfully",
+            message: "Prompt patched successfully",
             data: {
                 id: "prompt_123",
                 name: "Medical Assistant System Prompt",
@@ -736,17 +758,8 @@ describe("PromptsClient", () => {
         const response = await client.agent.prompts.patch("id", [
             {
                 op: "replace",
-                path: "/name",
-                value: "Updated Agent Name",
-            },
-            {
-                op: "add",
-                path: "/tags/-",
-                value: "new-tag",
-            },
-            {
-                op: "remove",
-                path: "/description",
+                path: "/content",
+                value: "Updated prompt content.",
             },
         ]);
         expect(response).toEqual(rawResponseBody);
@@ -758,8 +771,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -797,8 +810,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -836,8 +849,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -875,8 +888,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -914,8 +927,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -953,8 +966,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -978,8 +991,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1004,8 +1017,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1030,8 +1043,8 @@ describe("PromptsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 

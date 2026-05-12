@@ -1,7 +1,5 @@
 export * from "./CreateSummaryResponse.js";
 export * from "./CreateSummaryTemplateResponse.js";
-export * from "./FhirBundle.js";
-export * from "./FhirResource.js";
 export * from "./SummaryDeleteTemplateResponse.js";
 export * from "./SummaryGetTemplateResponse.js";
 export * from "./SummaryListTemplatesResponse.js";

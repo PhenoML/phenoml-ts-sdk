@@ -7,8 +7,18 @@
  *             "patient_last_name": "Johnson",
  *             "patient_first_name": "Mary",
  *             "diagnosis_code": "M79.3",
- *             "encounter_date": "2024-01-15"
+ *             "encounter_date": "2024-03-20"
  *         }
+ *     }
+ *
+ * @example
+ *     {
+ *         input_data: {
+ *             "patient_last_name": "Johnson",
+ *             "patient_first_name": "Mary",
+ *             "diagnosis_code": "M79.3"
+ *         },
+ *         preview: true
  *     }
  */
 export interface ExecuteWorkflowRequest {

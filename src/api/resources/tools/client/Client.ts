@@ -44,8 +44,9 @@ export class ToolsClient {
      *     await client.tools.createFhirResource({
      *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
      *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-     *         resource: "auto",
-     *         text: "Patient John Doe has severe asthma with acute exacerbation"
+     *         resource: "condition-encounter-diagnosis",
+     *         text: "Patient has severe persistent asthma with acute exacerbation",
+     *         provider: "550e8400-e29b-41d4-a716-446655440000"
      *     })
      */
     public createFhirResource(
@@ -148,6 +149,7 @@ export class ToolsClient {
      *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
      *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
+     *         version: "R4",
      *         provider: "medplum"
      *     })
      */
@@ -251,7 +253,9 @@ export class ToolsClient {
      *     await client.tools.searchFhirResources({
      *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
      *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-     *         text: "Find all appointments for patient John Doe next week"
+     *         text: "Find all appointments for patient John Doe next week",
+     *         count: 10,
+     *         provider: "550e8400-e29b-41d4-a716-446655440000"
      *     })
      */
     public searchFhirResources(

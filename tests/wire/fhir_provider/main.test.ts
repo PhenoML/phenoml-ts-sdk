@@ -12,15 +12,16 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
             name: "Epic Sandbox",
-            provider: "athenahealth",
+            description: "Epic sandbox environment for testing",
+            provider: "epic",
             base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
-            auth: { auth_method: "jwt", client_id: "your-client-id" },
+            auth: { auth_method: "client_secret", client_id: "your-client-id", client_secret: "your-client-secret" },
         };
         const rawResponseBody = {
             success: true,
@@ -29,14 +30,15 @@ describe("FhirProviderClient", () => {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
-                provider: "athenahealth",
+                provider: "epic",
                 base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
                 auth_configs: {
-                    key: {
+                    "auth-config-123": {
                         auth_config_id: "auth-config-123",
+                        auth_method: "client_secret",
                         is_active_auth_config: true,
                         created_at: "2024-01-15T10:30:00Z",
-                        updated_at: "2024-01-15T14:45:00Z",
+                        updated_at: "2024-01-15T10:30:00Z",
                         public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                         json_web_key: {
                             kty: "RSA",
@@ -79,11 +81,13 @@ describe("FhirProviderClient", () => {
 
         const response = await client.fhirProvider.create({
             name: "Epic Sandbox",
-            provider: "athenahealth",
+            description: "Epic sandbox environment for testing",
+            provider: "epic",
             base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
             auth: {
-                auth_method: "jwt",
+                auth_method: "client_secret",
                 client_id: "your-client-id",
+                client_secret: "your-client-secret",
             },
         });
         expect(response).toEqual(rawResponseBody);
@@ -95,8 +99,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -135,8 +139,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -175,8 +179,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -215,8 +219,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -255,8 +259,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -268,14 +272,15 @@ describe("FhirProviderClient", () => {
                     id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
                     name: "Epic Sandbox",
                     description: "Epic sandbox environment for testing",
-                    provider: "athenahealth",
+                    provider: "epic",
                     base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
                     auth_configs: {
-                        key: {
+                        "auth-config-123": {
                             auth_config_id: "auth-config-123",
+                            auth_method: "jwt",
                             is_active_auth_config: true,
                             created_at: "2024-01-15T10:30:00Z",
-                            updated_at: "2024-01-15T14:45:00Z",
+                            updated_at: "2024-01-15T10:30:00Z",
                             public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                             json_web_key: {
                                 kty: "RSA",
@@ -306,6 +311,12 @@ describe("FhirProviderClient", () => {
                     },
                     last_updated: "2024-01-15T10:30:00Z",
                 },
+                {
+                    id: "4da196da-5cf1-4574-9e65-f97d7ea20b38",
+                    name: "PhenoML Sandbox",
+                    description: "Shared sandbox environment for experimentation",
+                    provider: "sandbox",
+                },
             ],
         };
 
@@ -327,8 +338,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -353,8 +364,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -379,23 +390,24 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
         const rawResponseBody = {
             success: true,
-            message: "Fhir provider created successfully",
+            message: "Fhir provider retrieved successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
-                provider: "athenahealth",
+                provider: "epic",
                 base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
                 auth_configs: {
-                    key: {
+                    "auth-config-123": {
                         auth_config_id: "auth-config-123",
+                        auth_method: "jwt",
                         is_active_auth_config: true,
                         created_at: "2024-01-15T10:30:00Z",
                         updated_at: "2024-01-15T14:45:00Z",
@@ -426,7 +438,7 @@ describe("FhirProviderClient", () => {
                         client_id: "your-client-id",
                     },
                 },
-                last_updated: "2024-01-15T10:30:00Z",
+                last_updated: "2024-01-15T14:45:00Z",
             },
         };
 
@@ -448,8 +460,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -474,8 +486,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -500,8 +512,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -526,8 +538,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -551,8 +563,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -577,8 +589,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -603,8 +615,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -629,8 +641,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -655,23 +667,28 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { auth_method: "jwt", client_id: "your-client-id" };
+        const rawRequestBody = {
+            auth_method: "client_secret",
+            client_id: "your-client-id",
+            client_secret: "your-client-secret",
+        };
         const rawResponseBody = {
             success: true,
-            message: "Fhir provider created successfully",
+            message: "Fhir provider auth config added successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
-                provider: "athenahealth",
+                provider: "epic",
                 base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
                 auth_configs: {
-                    key: {
+                    "auth-config-123": {
                         auth_config_id: "auth-config-123",
+                        auth_method: "jwt",
                         is_active_auth_config: true,
                         created_at: "2024-01-15T10:30:00Z",
                         updated_at: "2024-01-15T14:45:00Z",
@@ -701,8 +718,40 @@ describe("FhirProviderClient", () => {
                         scopes: "system/Patient.read system/Observation.read",
                         client_id: "your-client-id",
                     },
+                    "auth-config-456": {
+                        auth_config_id: "auth-config-456",
+                        auth_method: "client_secret",
+                        is_active_auth_config: false,
+                        created_at: "2024-02-20T09:00:00Z",
+                        updated_at: "2024-02-20T09:00:00Z",
+                        public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
+                        json_web_key: {
+                            kty: "RSA",
+                            use: "sig",
+                            kid: "FHIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0vx7agoeb",
+                            alg: "RS384",
+                            n: "0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbIS",
+                            e: "AQAB",
+                        },
+                        credential_expiry: "2024-12-31T23:59:59Z",
+                        smart_configuration: {
+                            authorization_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize",
+                            token_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token",
+                            issuer: "https://fhir.epic.com/interconnect-fhir-oauth",
+                            jwks_uri: "https://fhir.epic.com/interconnect-fhir-oauth/.well-known/jwks",
+                            scopes_supported: ["patient/*.read", "system/*.read"],
+                        },
+                        service_account_metadata: {
+                            type: "service_account",
+                            project_id: "my-gcp-project",
+                            client_email: "service-account@my-gcp-project.iam.gserviceaccount.com",
+                            client_id: "123456789012345678901",
+                        },
+                        scopes: "system/Patient.read",
+                        client_id: "your-other-client-id",
+                    },
                 },
-                last_updated: "2024-01-15T10:30:00Z",
+                last_updated: "2024-02-20T09:00:00Z",
             },
         };
 
@@ -716,8 +765,9 @@ describe("FhirProviderClient", () => {
             .build();
 
         const response = await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-            auth_method: "jwt",
+            auth_method: "client_secret",
             client_id: "your-client-id",
+            client_secret: "your-client-secret",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -728,8 +778,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
@@ -758,8 +808,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
@@ -788,8 +838,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
@@ -818,8 +868,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
@@ -848,8 +898,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_method: "jwt", client_id: "client_id" };
@@ -878,26 +928,27 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { auth_config_id: "auth-config-123" };
+        const rawRequestBody = { auth_config_id: "auth-config-456" };
         const rawResponseBody = {
             success: true,
-            message: "Fhir provider created successfully",
+            message: "FHIR provider auth config set as active successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
-                provider: "athenahealth",
+                provider: "epic",
                 base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
                 auth_configs: {
-                    key: {
+                    "auth-config-123": {
                         auth_config_id: "auth-config-123",
-                        is_active_auth_config: true,
+                        auth_method: "jwt",
+                        is_active_auth_config: false,
                         created_at: "2024-01-15T10:30:00Z",
-                        updated_at: "2024-01-15T14:45:00Z",
+                        updated_at: "2024-02-20T11:00:00Z",
                         public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                         json_web_key: {
                             kty: "RSA",
@@ -924,8 +975,40 @@ describe("FhirProviderClient", () => {
                         scopes: "system/Patient.read system/Observation.read",
                         client_id: "your-client-id",
                     },
+                    "auth-config-456": {
+                        auth_config_id: "auth-config-456",
+                        auth_method: "client_secret",
+                        is_active_auth_config: true,
+                        created_at: "2024-02-20T09:00:00Z",
+                        updated_at: "2024-02-20T11:00:00Z",
+                        public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
+                        json_web_key: {
+                            kty: "RSA",
+                            use: "sig",
+                            kid: "FHIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0vx7agoeb",
+                            alg: "RS384",
+                            n: "0vx7agoebGcQSuuPiLJXZptN9nndrQmbXEps2aiAFbWhM78LhWx4cbbfAAtVT86zwu1RK7aPFFxuhDR1L6tSoc_BJECPebWKRXjBZCiFV4n3oknjhMstn64tZ_2W-5JsGY4Hc5n9yBXArwl93lqt7_RN5w6Cf0h4QyQ5v-65YGjQR0_FDW2QvzqY368QQMicAtaSqzs8KJZgnYb9c7d0zgdAZHzu6qMQvRL5hajrn1n91CbOpbIS",
+                            e: "AQAB",
+                        },
+                        credential_expiry: "2024-12-31T23:59:59Z",
+                        smart_configuration: {
+                            authorization_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize",
+                            token_endpoint: "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token",
+                            issuer: "https://fhir.epic.com/interconnect-fhir-oauth",
+                            jwks_uri: "https://fhir.epic.com/interconnect-fhir-oauth/.well-known/jwks",
+                            scopes_supported: ["patient/*.read", "system/*.read"],
+                        },
+                        service_account_metadata: {
+                            type: "service_account",
+                            project_id: "my-gcp-project",
+                            client_email: "service-account@my-gcp-project.iam.gserviceaccount.com",
+                            client_id: "123456789012345678901",
+                        },
+                        scopes: "system/Patient.read",
+                        client_id: "your-other-client-id",
+                    },
                 },
-                last_updated: "2024-01-15T10:30:00Z",
+                last_updated: "2024-02-20T11:00:00Z",
             },
         };
 
@@ -939,7 +1022,7 @@ describe("FhirProviderClient", () => {
             .build();
 
         const response = await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-            auth_config_id: "auth-config-123",
+            auth_config_id: "auth-config-456",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -950,8 +1033,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
@@ -979,8 +1062,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
@@ -1008,8 +1091,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
@@ -1037,8 +1120,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
@@ -1066,8 +1149,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
@@ -1095,26 +1178,27 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { auth_config_id: "auth-config-123" };
+        const rawRequestBody = { auth_config_id: "auth-config-456" };
         const rawResponseBody = {
             success: true,
-            message: "Auth configuration removed successfully",
+            message: "Fhir provider auth config deleted successfully",
             data: {
                 id: "1716d214-de93-43a4-aa6b-a878d864e2ad",
                 name: "Epic Sandbox",
                 description: "Epic sandbox environment for testing",
-                provider: "athenahealth",
+                provider: "epic",
                 base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
                 auth_configs: {
-                    key: {
+                    "auth-config-123": {
                         auth_config_id: "auth-config-123",
+                        auth_method: "jwt",
                         is_active_auth_config: true,
                         created_at: "2024-01-15T10:30:00Z",
-                        updated_at: "2024-01-15T14:45:00Z",
+                        updated_at: "2024-01-15T10:30:00Z",
                         public_key_cert_pem: "-----BEGIN CERTIFICATE-----\n...",
                         json_web_key: {
                             kty: "RSA",
@@ -1142,7 +1226,7 @@ describe("FhirProviderClient", () => {
                         client_id: "your-client-id",
                     },
                 },
-                last_updated: "2024-01-15T10:30:00Z",
+                last_updated: "2024-02-20T11:30:00Z",
             },
         };
 
@@ -1156,7 +1240,7 @@ describe("FhirProviderClient", () => {
             .build();
 
         const response = await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-            auth_config_id: "auth-config-123",
+            auth_config_id: "auth-config-456",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -1167,8 +1251,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
@@ -1196,8 +1280,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
@@ -1225,8 +1309,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
@@ -1254,8 +1338,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };
@@ -1283,8 +1367,8 @@ describe("FhirProviderClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { auth_config_id: "auth_config_id" };

@@ -12,21 +12,46 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { resource: "auto", text: "Patient John Doe has severe asthma with acute exacerbation" };
+        const rawRequestBody = {
+            resource: "condition-encounter-diagnosis",
+            text: "Patient has severe persistent asthma with acute exacerbation",
+            provider: "550e8400-e29b-41d4-a716-446655440000",
+        };
         const rawResponseBody = {
             fhir_resource: {
                 resourceType: "Condition",
                 id: "condition-123",
-                code: { coding: [{ system: "http://snomed.info/sct", code: "195967001", display: "Asthma" }] },
-                subject: { reference: "Patient/patient-123", display: "John Doe" },
+                clinicalStatus: {
+                    coding: [{ system: "http://terminology.hl7.org/CodeSystem/condition-clinical", code: "active" }],
+                },
+                verificationStatus: {
+                    coding: [
+                        { system: "http://terminology.hl7.org/CodeSystem/condition-ver-status", code: "confirmed" },
+                    ],
+                },
+                category: [
+                    {
+                        coding: [
+                            {
+                                system: "http://terminology.hl7.org/CodeSystem/condition-category",
+                                code: "encounter-diagnosis",
+                            },
+                        ],
+                    },
+                ],
+                code: {
+                    coding: [{ system: "http://snomed.info/sct", code: "195967001", display: "Asthma" }],
+                    text: "Severe persistent asthma with acute exacerbation",
+                },
+                subject: { reference: "Patient/patient-123" },
             },
             fhir_id: "condition-123",
             success: true,
-            message: "FHIR resource created and stored in FHIR server successfully",
+            message: "FHIR resource created successfully",
         };
 
         server
@@ -47,8 +72,9 @@ describe("ToolsClient", () => {
             "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
             "X-Phenoml-Fhir-Provider":
                 "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-            resource: "auto",
-            text: "Patient John Doe has severe asthma with acute exacerbation",
+            resource: "condition-encounter-diagnosis",
+            text: "Patient has severe persistent asthma with acute exacerbation",
+            provider: "550e8400-e29b-41d4-a716-446655440000",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -59,8 +85,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resource: "auto", text: "text" };
@@ -89,8 +115,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resource: "auto", text: "text" };
@@ -119,8 +145,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resource: "auto", text: "text" };
@@ -149,8 +175,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resource: "auto", text: "text" };
@@ -179,8 +205,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resource: "auto", text: "text" };
@@ -209,23 +235,42 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
             text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
+            version: "R4",
             provider: "medplum",
         };
         const rawResponseBody = {
             success: true,
             message: "Created 3 resources",
-            response_bundle: { resourceType: "Bundle", type: "transaction-response", entry: [{ key: "value" }] },
+            response_bundle: {
+                resourceType: "Bundle",
+                type: "transaction-response",
+                entry: [
+                    { response: { status: "201 Created", location: "Patient/patient-001" } },
+                    { response: { status: "201 Created", location: "Condition/condition-001" } },
+                    { response: { status: "201 Created", location: "MedicationRequest/medication-001" } },
+                ],
+            },
             resource_info: [
                 {
                     tempId: "urn:uuid:patient-abc123",
                     resourceType: "Patient",
                     description: "John Smith, 45-year-old male",
+                },
+                {
+                    tempId: "urn:uuid:condition-abc123",
+                    resourceType: "Condition",
+                    description: "Type 2 Diabetes diagnosis",
+                },
+                {
+                    tempId: "urn:uuid:medication-abc123",
+                    resourceType: "MedicationRequest",
+                    description: "Metformin 500mg twice daily",
                 },
             ],
         };
@@ -249,6 +294,7 @@ describe("ToolsClient", () => {
             "X-Phenoml-Fhir-Provider":
                 "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
             text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
+            version: "R4",
             provider: "medplum",
         });
         expect(response).toEqual(rawResponseBody);
@@ -260,8 +306,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text", provider: "provider" };
@@ -290,8 +336,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text", provider: "provider" };
@@ -320,8 +366,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text", provider: "provider" };
@@ -350,8 +396,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text", provider: "provider" };
@@ -380,8 +426,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text", provider: "provider" };
@@ -410,11 +456,15 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { text: "Find all appointments for patient John Doe next week" };
+        const rawRequestBody = {
+            text: "Find all appointments for patient John Doe next week",
+            count: 10,
+            provider: "550e8400-e29b-41d4-a716-446655440000",
+        };
         const rawResponseBody = {
             resource_type: "Appointment",
             search_params: "patient=Patient/patient-123&date=ge2024-01-15&date=le2024-01-22",
@@ -451,6 +501,8 @@ describe("ToolsClient", () => {
             "X-Phenoml-Fhir-Provider":
                 "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
             text: "Find all appointments for patient John Doe next week",
+            count: 10,
+            provider: "550e8400-e29b-41d4-a716-446655440000",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -461,8 +513,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -490,8 +542,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -519,8 +571,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -548,8 +600,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -577,8 +629,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -606,8 +658,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -626,12 +678,8 @@ describe("ToolsClient", () => {
                     concept: "female patients over 20",
                     exclude: false,
                 },
-                {
-                    resource_type: "Condition",
-                    search_params: "code=55822004",
-                    concept: "hyperlipidemia",
-                    exclude: false,
-                },
+                { resource_type: "Condition", search_params: "code=44054006", concept: "diabetes", exclude: false },
+                { resource_type: "Condition", search_params: "code=38341003", concept: "hypertension", exclude: true },
             ],
         };
 
@@ -665,8 +713,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text", provider: "provider" };
@@ -695,8 +743,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text", provider: "provider" };
@@ -725,8 +773,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text", provider: "provider" };
@@ -755,8 +803,8 @@ describe("ToolsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text", provider: "provider" };
