@@ -1,3 +1,16 @@
+## 14.0.0 - 2026-05-13
+### Breaking Changes
+* **`FhirBundle`** and **`FhirResource`** — removed from the `summary` namespace exports; replace any direct imports of these types with `Record<string, unknown>` or your own local definitions.
+* **`CreateSummaryRequest.fhir_resources`** — type changed from `FhirResource | FhirBundle` to `Record<string, unknown>`; remove references to the named union types.
+* **`FhirProviderTemplate`** — `id`, `name`, `provider`, `auth_configs`, and `last_updated` are now required fields; update any object literals that omit these properties.
+* **`McpServerResponse.Data`** and **`McpServerToolResponse.Data`** — inline `Data` namespace removed; `data` now references `phenoml.tools.McpServer` / `phenoml.tools.McpServerTool`, and `mcp_servers` / `mcp_server_tools` list fields have been added; update any destructuring of the old `Data` shape.
+* **`SearchResponse.resourceType`** and **`SearchResponse.searchParams`** — renamed to `resource_type` and `search_params` respectively; update all property accesses. **`PromptsClient.loadDefaults()`** — method removed; remove all invocations.
+### Added
+* **`McpServer`** — new exported interface with optional `id`, `name`, `description`, and `mcp_server_url` fields.
+* **`McpServerTool`** — new exported interface with optional `id`, `name`, `description`, `input_schema`, `mcp_server_id`, and `mcp_server_url` fields.
+### Changed
+* **JSDoc examples** — updated across `Lang2FhirClient`, `SummaryClient`, `ToolsClient`, `WorkflowsClient`, and `AgentChatRequest` with richer, more realistic payloads covering fields such as `provider`, `version`, `count`, `preview`, `session_id`, and `enhanced_reasoning`.
+
 ## 13.1.0 - 2026-05-11
 ### Added
 * **`Fetcher.TimeoutError.cause` / `Fetcher.UnknownError.cause`** — new optional `cause?: unknown` field on both error shapes so callers can inspect the underlying triggering error.

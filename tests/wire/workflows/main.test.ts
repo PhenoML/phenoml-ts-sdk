@@ -12,8 +12,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -22,14 +22,14 @@ describe("WorkflowsClient", () => {
             message: "Workflows retrieved successfully",
             workflows: [
                 {
-                    id: "550e8400-e29b-41d4-a716-446655440001",
+                    id: "7a8b9c0d-1234-5678-abcd-ef9876543210",
                     name: "Patient Data Mapping Workflow",
-                    workflow_instructions: "Given diagnosis data, find the patient and create condition record",
+                    workflow_instructions: "Given diagnosis data, find the patient and create a condition record",
                     sample_data: {
-                        diagnosis_code: "I10",
-                        diagnosis_date: "2025-01-01",
-                        patient_first_name: "Clay",
                         patient_last_name: "Rippin",
+                        patient_first_name: "Clay",
+                        diagnosis_code: "I10",
+                        encounter_date: "2024-01-15",
                     },
                     config: { fhir_provider_ids: ["550e8400-e29b-41d4-a716-446655440000"], dynamic_generation: false },
                     graph: {
@@ -38,12 +38,20 @@ describe("WorkflowsClient", () => {
                                 id: "step_1_id",
                                 name: "Find Patient",
                                 description: "Search for an existing patient by first name and last name",
+                                type: "search",
+                                provider_id: "550e8400-e29b-41d4-a716-446655440000",
+                            },
+                            {
+                                id: "step_2_id",
+                                name: "Create Condition",
+                                description: "Create a FHIR Condition resource for the patient",
+                                type: "create",
                                 provider_id: "550e8400-e29b-41d4-a716-446655440000",
                             },
                         ],
                     },
-                    created_at: "2024-01-15T10:30:00Z",
-                    updated_at: "2024-01-15T15:45:00Z",
+                    created_at: "2024-01-15T09:30:00Z",
+                    updated_at: "2024-01-15T09:30:00Z",
                 },
             ],
             workflow_details: [
@@ -150,8 +158,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -170,8 +178,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -190,8 +198,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -210,29 +218,36 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
             name: "Patient Data Mapping Workflow",
-            workflow_instructions: "Given diagnosis data, find the patient and create condition record",
-            sample_data: { patient_last_name: "Rippin", patient_first_name: "Clay", diagnosis_code: "I10" },
+            workflow_instructions:
+                "Given diagnosis data, find the patient and create a condition record linked to their encounter",
+            sample_data: {
+                patient_last_name: "Rippin",
+                patient_first_name: "Clay",
+                diagnosis_code: "I10",
+                encounter_date: "2024-01-15",
+            },
             fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000",
         };
         const rawResponseBody = {
             success: true,
             message: "Workflow created successfully",
-            workflow_id: "550e8400-e29b-41d4-a716-446655440001",
+            workflow_id: "7a8b9c0d-1234-5678-abcd-ef9876543210",
             workflow: {
-                id: "550e8400-e29b-41d4-a716-446655440001",
+                id: "7a8b9c0d-1234-5678-abcd-ef9876543210",
                 name: "Patient Data Mapping Workflow",
-                workflow_instructions: "Given diagnosis data, find the patient and create condition record",
+                workflow_instructions:
+                    "Given diagnosis data, find the patient and create a condition record linked to their encounter",
                 sample_data: {
-                    diagnosis_code: "I10",
-                    diagnosis_date: "2025-01-01",
-                    patient_first_name: "Clay",
                     patient_last_name: "Rippin",
+                    patient_first_name: "Clay",
+                    diagnosis_code: "I10",
+                    encounter_date: "2024-01-15",
                 },
                 config: { fhir_provider_ids: ["550e8400-e29b-41d4-a716-446655440000"], dynamic_generation: false },
                 graph: {
@@ -245,8 +260,8 @@ describe("WorkflowsClient", () => {
                         },
                     ],
                 },
-                created_at: "2024-01-15T10:30:00Z",
-                updated_at: "2024-01-15T15:45:00Z",
+                created_at: "2024-01-15T09:30:00Z",
+                updated_at: "2024-01-15T09:30:00Z",
             },
             workflow_details: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
@@ -345,11 +360,13 @@ describe("WorkflowsClient", () => {
         const response = await client.workflows.create({
             verbose: true,
             name: "Patient Data Mapping Workflow",
-            workflow_instructions: "Given diagnosis data, find the patient and create condition record",
+            workflow_instructions:
+                "Given diagnosis data, find the patient and create a condition record linked to their encounter",
             sample_data: {
                 patient_last_name: "Rippin",
                 patient_first_name: "Clay",
                 diagnosis_code: "I10",
+                encounter_date: "2024-01-15",
             },
             fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000",
         });
@@ -362,8 +379,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -403,8 +420,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -444,8 +461,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -485,8 +502,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -526,22 +543,22 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
         const rawResponseBody = {
             success: true,
             workflow: {
-                id: "550e8400-e29b-41d4-a716-446655440001",
+                id: "7a8b9c0d-1234-5678-abcd-ef9876543210",
                 name: "Patient Data Mapping Workflow",
-                workflow_instructions: "Given diagnosis data, find the patient and create condition record",
+                workflow_instructions: "Given diagnosis data, find the patient and create a condition record",
                 sample_data: {
-                    diagnosis_code: "I10",
-                    diagnosis_date: "2025-01-01",
-                    patient_first_name: "Clay",
                     patient_last_name: "Rippin",
+                    patient_first_name: "Clay",
+                    diagnosis_code: "I10",
+                    encounter_date: "2024-01-15",
                 },
                 config: { fhir_provider_ids: ["550e8400-e29b-41d4-a716-446655440000"], dynamic_generation: false },
                 graph: {
@@ -550,12 +567,20 @@ describe("WorkflowsClient", () => {
                             id: "step_1_id",
                             name: "Find Patient",
                             description: "Search for an existing patient by first name and last name",
+                            type: "search",
+                            provider_id: "550e8400-e29b-41d4-a716-446655440000",
+                        },
+                        {
+                            id: "step_2_id",
+                            name: "Create Condition",
+                            description: "Create a FHIR Condition resource for the patient",
+                            type: "create",
                             provider_id: "550e8400-e29b-41d4-a716-446655440000",
                         },
                     ],
                 },
-                created_at: "2024-01-15T10:30:00Z",
-                updated_at: "2024-01-15T15:45:00Z",
+                created_at: "2024-01-15T09:30:00Z",
+                updated_at: "2024-01-15T09:30:00Z",
             },
             workflow_details: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
@@ -656,8 +681,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -676,8 +701,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -696,8 +721,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -716,8 +741,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -736,28 +761,35 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
-            name: "Updated Patient Data Mapping Workflow",
-            workflow_instructions: "Given diagnosis data, find the patient and create condition record",
-            sample_data: { patient_last_name: "Smith", patient_first_name: "John", diagnosis_code: "E11" },
+            name: "Patient Data Mapping Workflow (v2)",
+            workflow_instructions:
+                "Given diagnosis data, find the patient and create a condition record linked to their encounter",
+            sample_data: {
+                patient_last_name: "Rippin",
+                patient_first_name: "Clay",
+                diagnosis_code: "I10",
+                encounter_date: "2024-01-15",
+            },
             fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000",
         };
         const rawResponseBody = {
             success: true,
             message: "Workflow updated successfully",
             workflow: {
-                id: "550e8400-e29b-41d4-a716-446655440001",
-                name: "Patient Data Mapping Workflow",
-                workflow_instructions: "Given diagnosis data, find the patient and create condition record",
+                id: "7a8b9c0d-1234-5678-abcd-ef9876543210",
+                name: "Patient Data Mapping Workflow (v2)",
+                workflow_instructions:
+                    "Given diagnosis data, find the patient and create a condition record linked to their encounter",
                 sample_data: {
-                    diagnosis_code: "I10",
-                    diagnosis_date: "2025-01-01",
-                    patient_first_name: "Clay",
                     patient_last_name: "Rippin",
+                    patient_first_name: "Clay",
+                    diagnosis_code: "I10",
+                    encounter_date: "2024-01-15",
                 },
                 config: { fhir_provider_ids: ["550e8400-e29b-41d4-a716-446655440000"], dynamic_generation: false },
                 graph: {
@@ -766,12 +798,13 @@ describe("WorkflowsClient", () => {
                             id: "step_1_id",
                             name: "Find Patient",
                             description: "Search for an existing patient by first name and last name",
+                            type: "search",
                             provider_id: "550e8400-e29b-41d4-a716-446655440000",
                         },
                     ],
                 },
-                created_at: "2024-01-15T10:30:00Z",
-                updated_at: "2024-01-15T15:45:00Z",
+                created_at: "2024-01-15T09:30:00Z",
+                updated_at: "2024-02-20T11:00:00Z",
             },
             workflow_details: {
                 id: "550e8400-e29b-41d4-a716-446655440001",
@@ -869,12 +902,14 @@ describe("WorkflowsClient", () => {
 
         const response = await client.workflows.update("id", {
             verbose: true,
-            name: "Updated Patient Data Mapping Workflow",
-            workflow_instructions: "Given diagnosis data, find the patient and create condition record",
+            name: "Patient Data Mapping Workflow (v2)",
+            workflow_instructions:
+                "Given diagnosis data, find the patient and create a condition record linked to their encounter",
             sample_data: {
-                patient_last_name: "Smith",
-                patient_first_name: "John",
-                diagnosis_code: "E11",
+                patient_last_name: "Rippin",
+                patient_first_name: "Clay",
+                diagnosis_code: "I10",
+                encounter_date: "2024-01-15",
             },
             fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000",
         });
@@ -887,8 +922,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -928,8 +963,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -969,8 +1004,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -1010,8 +1045,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -1051,8 +1086,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -1092,8 +1127,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1111,8 +1146,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1131,8 +1166,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1151,8 +1186,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1171,8 +1206,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -1191,8 +1226,8 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -1200,31 +1235,78 @@ describe("WorkflowsClient", () => {
                 patient_last_name: "Johnson",
                 patient_first_name: "Mary",
                 diagnosis_code: "M79.3",
-                encounter_date: "2024-01-15",
+                encounter_date: "2024-03-20",
             },
         };
         const rawResponseBody = {
             success: true,
             message: "Workflow executed successfully",
-            results: { steps: { key: "value" } },
+            results: {
+                steps: {
+                    step_1_id: {
+                        type: "search_result",
+                        original_query: "find patient by first name Mary and last name Johnson",
+                        resource_type: "Patient",
+                        search_params: { family: "Johnson", given: "Mary" },
+                        results: [
+                            {
+                                resourceType: "Patient",
+                                id: "patient-123",
+                                name: [{ family: "Johnson", given: ["Mary"], use: "usual" }],
+                                gender: "female",
+                                birthDate: "1961-01-01",
+                            },
+                        ],
+                    },
+                    step_2_id: {
+                        type: "create_result",
+                        id: "condition-456",
+                        resource_type: "Condition",
+                        original_desc: "create condition with diagnosis code M79.3 for the patient from step_1_id",
+                        preview: false,
+                        created_resource: {
+                            resourceType: "Condition",
+                            id: "condition-456",
+                            clinicalStatus: {
+                                coding: [
+                                    {
+                                        system: "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                                        code: "active",
+                                    },
+                                ],
+                            },
+                            code: {
+                                coding: [
+                                    {
+                                        system: "http://hl7.org/fhir/sid/icd-10",
+                                        code: "M79.3",
+                                        display: "Panniculitis, unspecified",
+                                    },
+                                ],
+                            },
+                            subject: { reference: "Patient/patient-123" },
+                        },
+                    },
+                },
+            },
             preview: false,
         };
 
         server
             .mockEndpoint()
-            .post("/workflows/id/execute")
+            .post("/workflows/7a8b9c0d-1234-5678-abcd-ef9876543210/execute")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.workflows.execute("id", {
+        const response = await client.workflows.execute("7a8b9c0d-1234-5678-abcd-ef9876543210", {
             input_data: {
                 patient_last_name: "Johnson",
                 patient_first_name: "Mary",
                 diagnosis_code: "M79.3",
-                encounter_date: "2024-01-15",
+                encounter_date: "2024-03-20",
             },
         });
         expect(response).toEqual(rawResponseBody);
@@ -1236,8 +1318,94 @@ describe("WorkflowsClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
+            input_data: { patient_last_name: "Johnson", patient_first_name: "Mary", diagnosis_code: "M79.3" },
+            preview: true,
+        };
+        const rawResponseBody = {
+            success: true,
+            message: "Workflow preview completed - no resources were persisted",
+            results: {
+                steps: {
+                    step_1_id: {
+                        type: "search_result",
+                        original_query: "find patient by first name Mary and last name Johnson",
+                        resource_type: "Patient",
+                        search_params: { family: "Johnson", given: "Mary" },
+                        results: [
+                            {
+                                resourceType: "Patient",
+                                id: "patient-123",
+                                name: [{ family: "Johnson", given: ["Mary"], use: "usual" }],
+                                gender: "female",
+                                birthDate: "1961-01-01",
+                            },
+                        ],
+                    },
+                    step_2_id: {
+                        type: "create_result",
+                        resource_type: "Condition",
+                        original_desc: "create condition with diagnosis code M79.3 for the patient from step_1_id",
+                        preview: true,
+                        created_resource: {
+                            resourceType: "Condition",
+                            clinicalStatus: {
+                                coding: [
+                                    {
+                                        system: "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                                        code: "active",
+                                    },
+                                ],
+                            },
+                            code: {
+                                coding: [
+                                    {
+                                        system: "http://hl7.org/fhir/sid/icd-10",
+                                        code: "M79.3",
+                                        display: "Panniculitis, unspecified",
+                                    },
+                                ],
+                            },
+                            subject: { reference: "Patient/step_1_id" },
+                        },
+                    },
+                },
+            },
+            preview: true,
+        };
+
+        server
+            .mockEndpoint()
+            .post("/workflows/7a8b9c0d-1234-5678-abcd-ef9876543210/execute")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.workflows.execute("7a8b9c0d-1234-5678-abcd-ef9876543210", {
+            input_data: {
+                patient_last_name: "Johnson",
+                patient_first_name: "Mary",
+                diagnosis_code: "M79.3",
+            },
+            preview: true,
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("execute (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };
@@ -1263,14 +1431,14 @@ describe("WorkflowsClient", () => {
         }).rejects.toThrow(phenoml.workflows.BadRequestError);
     });
 
-    test("execute (3)", async () => {
+    test("execute (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };
@@ -1296,14 +1464,14 @@ describe("WorkflowsClient", () => {
         }).rejects.toThrow(phenoml.workflows.UnauthorizedError);
     });
 
-    test("execute (4)", async () => {
+    test("execute (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };
@@ -1329,14 +1497,14 @@ describe("WorkflowsClient", () => {
         }).rejects.toThrow(phenoml.workflows.ForbiddenError);
     });
 
-    test("execute (5)", async () => {
+    test("execute (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };
@@ -1362,14 +1530,14 @@ describe("WorkflowsClient", () => {
         }).rejects.toThrow(phenoml.workflows.NotFoundError);
     });
 
-    test("execute (6)", async () => {
+    test("execute (7)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { input_data: { input_data: { key: "value" } } };

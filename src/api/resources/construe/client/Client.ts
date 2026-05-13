@@ -42,7 +42,24 @@ export class ConstrueClient {
      *     await client.construe.uploadCodeSystem({
      *         name: "CUSTOM_CODES",
      *         version: "1.0",
-     *         format: "csv"
+     *         format: "json",
+     *         codes: [{
+     *                 code: "X001",
+     *                 description: "Example custom code 1"
+     *             }, {
+     *                 code: "X002",
+     *                 description: "Example custom code 2"
+     *             }]
+     *     })
+     *
+     * @example
+     *     await client.construe.uploadCodeSystem({
+     *         name: "CUSTOM_CODES",
+     *         version: "1.0",
+     *         format: "csv",
+     *         file: "Y29kZSxkZXNjcmlwdGlvbgpYMDAxLEV4YW1wbGUgY3VzdG9tIGNvZGUgMQo=",
+     *         code_col: "code",
+     *         desc_col: "description"
      *     })
      */
     public uploadCodeSystem(
@@ -140,7 +157,66 @@ export class ConstrueClient {
      *
      * @example
      *     await client.construe.extractCodes({
-     *         text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney"
+     *         text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney.",
+     *         system: {
+     *             name: "ICD-10-CM",
+     *             version: "2025"
+     *         }
+     *     })
+     *
+     * @example
+     *     await client.construe.extractCodes({
+     *         text: "45-year-old male presents with chest pain radiating to left arm, shortness of breath, and diaphoresis. ECG shows ST elevation in leads II, III, and aVF.",
+     *         system: {
+     *             name: "SNOMED_CT_US_LITE",
+     *             version: "20240901"
+     *         },
+     *         config: {
+     *             chunking_method: "sentences",
+     *             validation_method: "simple",
+     *             include_rationale: true,
+     *             include_citations: true
+     *         }
+     *     })
+     *
+     * @example
+     *     await client.construe.extractCodes({
+     *         text: "Start Metformin 500mg twice daily for type 2 diabetes. Continue Lisinopril 10mg daily for hypertension. Add Atorvastatin 20mg at bedtime.",
+     *         system: {
+     *             name: "RXNORM",
+     *             version: "11042024"
+     *         },
+     *         config: {
+     *             validation_method: "medication_search",
+     *             include_rationale: true
+     *         }
+     *     })
+     *
+     * @example
+     *     await client.construe.extractCodes({
+     *         text: "Patient diagnosed with Type 2 diabetes mellitus with diabetic chronic kidney disease, stage 3.",
+     *         system: {
+     *             name: "ICD-10-CM",
+     *             version: "2025"
+     *         },
+     *         config: {
+     *             validation_method: "simple",
+     *             include_ancestors: true
+     *         }
+     *     })
+     *
+     * @example
+     *     await client.construe.extractCodes({
+     *         text: "5-year-old male with seizures, severe intellectual disability, microcephaly, and hypotonia.",
+     *         system: {
+     *             name: "HPO",
+     *             version: "2025"
+     *         },
+     *         config: {
+     *             chunking_method: "fasthpocr",
+     *             validation_method: "none",
+     *             include_rationale: false
+     *         }
      *     })
      */
     public extractCodes(
@@ -716,7 +792,8 @@ export class ConstrueClient {
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
      *
      * @param {string} codesystem - Code system name
-     * @param {string} codeID - The code identifier
+     * @param {string} codeID - The code identifier. ICD-10-CM codes are stored without their
+     *                          cosmetic dot (use "E1165", not "E11.65").
      * @param {phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest} request
      * @param {ConstrueClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -726,7 +803,7 @@ export class ConstrueClient {
      * @throws {@link phenoml.construe.InternalServerError}
      *
      * @example
-     *     await client.construe.getASpecificCode("ICD-10-CM", "E11.65", {
+     *     await client.construe.getASpecificCode("ICD-10-CM", "E1165", {
      *         version: "version"
      *     })
      */
@@ -954,21 +1031,28 @@ export class ConstrueClient {
      *     await client.construe.submitFeedbackOnExtractionResults({
      *         text: "Patient has type 2 diabetes with hyperglycemia",
      *         received_result: {
-     *             system: {},
+     *             system: {
+     *                 name: "ICD-10-CM",
+     *                 version: "2025"
+     *             },
      *             codes: [{
-     *                     code: "195967001",
-     *                     description: "Asthma",
+     *                     code: "E11.9",
+     *                     description: "Type 2 diabetes mellitus without complications",
      *                     valid: true
      *                 }]
      *         },
      *         expected_result: {
-     *             system: {},
+     *             system: {
+     *                 name: "ICD-10-CM",
+     *                 version: "2025"
+     *             },
      *             codes: [{
-     *                     code: "195967001",
-     *                     description: "Asthma",
+     *                     code: "E11.65",
+     *                     description: "Type 2 diabetes mellitus with hyperglycemia",
      *                     valid: true
      *                 }]
-     *         }
+     *         },
+     *         detail: "Expected code E11.65 because the text mentions hyperglycemia"
      *     })
      */
     public submitFeedbackOnExtractionResults(

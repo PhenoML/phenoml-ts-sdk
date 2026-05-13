@@ -3,7 +3,7 @@
 /**
  * @example
  *     {
- *         auth_config_id: "auth-config-123"
+ *         auth_config_id: "auth-config-456"
  *     }
  */
 export interface FhirProviderRemoveAuthConfigRequest {

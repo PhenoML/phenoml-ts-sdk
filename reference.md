@@ -28,9 +28,11 @@ Creates a new PhenoAgent with specified configuration
 
 ```typescript
 await client.agent.create({
-    name: "name",
-    prompts: ["prompt_123", "prompt_456"],
-    provider: "provider"
+    name: "Medical Assistant",
+    description: "An AI assistant for medical information processing",
+    prompts: ["prompt_123"],
+    tags: ["medical", "fhir"],
+    provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35"
 });
 
 ```
@@ -223,9 +225,11 @@ Updates an existing agent's configuration
 
 ```typescript
 await client.agent.update("id", {
-    name: "name",
-    prompts: ["prompt_123", "prompt_456"],
-    provider: "provider"
+    name: "Medical Assistant",
+    description: "Updated description for the medical assistant",
+    prompts: ["prompt_123"],
+    tags: ["medical", "fhir", "updated"],
+    provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35"
 });
 
 ```
@@ -362,15 +366,12 @@ Patches an existing agent's configuration
 ```typescript
 await client.agent.patch("id", [{
         op: "replace",
-        path: "/name",
-        value: "Updated Agent Name"
+        path: "/description",
+        value: "patched description"
     }, {
         op: "add",
         path: "/tags/-",
-        value: "new-tag"
-    }, {
-        op: "remove",
-        path: "/description"
+        value: "updated"
     }]);
 
 ```
@@ -446,6 +447,7 @@ await client.agent.chat({
     "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
     "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     message: "What is the patient's current condition?",
+    session_id: "session-abc123",
     agent_id: "agent-123"
 });
 
@@ -516,6 +518,7 @@ const response = await client.agent.streamChat({
     "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
     "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     message: "What is the patient's current condition?",
+    session_id: "session-abc123",
     agent_id: "agent-123"
 });
 for await (const item of response) {
@@ -654,7 +657,10 @@ Creates a new agent prompt
 ```typescript
 await client.agent.prompts.create({
     name: "Medical Assistant System Prompt",
-    content: "You are a helpful medical assistant specialized in FHIR data processing..."
+    description: "System prompt for medical assistant agent",
+    content: "You are a helpful medical assistant specialized in FHIR data processing.",
+    is_default: false,
+    tags: ["medical", "system"]
 });
 
 ```
@@ -836,7 +842,13 @@ Updates an existing prompt
 <dd>
 
 ```typescript
-await client.agent.prompts.update("id");
+await client.agent.prompts.update("id", {
+    name: "Medical Assistant System Prompt",
+    description: "Updated system prompt",
+    content: "You are a helpful medical assistant. Always cite ICD-10 codes when discussing diagnoses.",
+    is_default: false,
+    tags: ["medical", "system", "updated"]
+});
 
 ```
 </dd>
@@ -972,15 +984,8 @@ Patches an existing prompt
 ```typescript
 await client.agent.prompts.patch("id", [{
         op: "replace",
-        path: "/name",
-        value: "Updated Agent Name"
-    }, {
-        op: "add",
-        path: "/tags/-",
-        value: "new-tag"
-    }, {
-        op: "remove",
-        path: "/description"
+        path: "/content",
+        value: "Updated prompt content."
     }]);
 
 ```
@@ -1009,61 +1014,6 @@ await client.agent.prompts.patch("id", [{
     
 </dd>
 </dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `PromptsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">loadDefaults</a>() -> phenoml.SuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Loads default agent prompts for the authenticated user
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.agent.prompts.loadDefaults();
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
 
 <dl>
 <dd>
@@ -1111,7 +1061,10 @@ returns an access token with expiration information.
 <dd>
 
 ```typescript
-await client.authtoken.auth.getToken();
+await client.authtoken.auth.getToken({
+    client_id: "your_client_id",
+    client_secret: "your_client_secret"
+});
 
 ```
 </dd>
@@ -1247,7 +1200,14 @@ transitions from "processing" to "ready" or "failed".
 await client.construe.uploadCodeSystem({
     name: "CUSTOM_CODES",
     version: "1.0",
-    format: "csv"
+    format: "json",
+    codes: [{
+            code: "X001",
+            description: "Example custom code 1"
+        }, {
+            code: "X002",
+            description: "Example custom code 2"
+        }]
 });
 
 ```
@@ -1314,7 +1274,11 @@ Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
 
 ```typescript
 await client.construe.extractCodes({
-    text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney"
+    text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney.",
+    system: {
+        name: "ICD-10-CM",
+        version: "2025"
+    }
 });
 
 ```
@@ -1734,7 +1698,7 @@ Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
 <dd>
 
 ```typescript
-await client.construe.getASpecificCode("ICD-10-CM", "E11.65", {
+await client.construe.getASpecificCode("ICD-10-CM", "E1165", {
     version: "version"
 });
 
@@ -1760,7 +1724,10 @@ await client.construe.getASpecificCode("ICD-10-CM", "E11.65", {
 <dl>
 <dd>
 
-**codeID:** `string` — The code identifier
+**codeID:** `string` 
+
+The code identifier. ICD-10-CM codes are stored without their
+cosmetic dot (use "E1165", not "E11.65").
     
 </dd>
 </dl>
@@ -1912,21 +1879,28 @@ Feedback includes the full extraction result received and the result the user ex
 await client.construe.submitFeedbackOnExtractionResults({
     text: "Patient has type 2 diabetes with hyperglycemia",
     received_result: {
-        system: {},
+        system: {
+            name: "ICD-10-CM",
+            version: "2025"
+        },
         codes: [{
-                code: "195967001",
-                description: "Asthma",
+                code: "E11.9",
+                description: "Type 2 diabetes mellitus without complications",
                 valid: true
             }]
     },
     expected_result: {
-        system: {},
+        system: {
+            name: "ICD-10-CM",
+            version: "2025"
+        },
         codes: [{
-                code: "195967001",
-                description: "Asthma",
+                code: "E11.65",
+                description: "Type 2 diabetes mellitus with hyperglycemia",
                 valid: true
             }]
-    }
+    },
+    detail: "Expected code E11.65 because the text mentions hyperglycemia"
 });
 
 ```
@@ -2695,11 +2669,13 @@ Note: The "sandbox" provider type cannot be created via this API - it is managed
 ```typescript
 await client.fhirProvider.create({
     name: "Epic Sandbox",
-    provider: "athenahealth",
+    description: "Epic sandbox environment for testing",
+    provider: "epic",
     base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
     auth: {
-        auth_method: "jwt",
-        client_id: "your-client-id"
+        auth_method: "client_secret",
+        client_id: "your-client-id",
+        client_secret: "your-client-secret"
     }
 });
 
@@ -2957,8 +2933,9 @@ Note: Sandbox providers cannot be modified.
 
 ```typescript
 await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-    auth_method: "jwt",
-    client_id: "your-client-id"
+    auth_method: "client_secret",
+    client_id: "your-client-id",
+    client_secret: "your-client-secret"
 });
 
 ```
@@ -3037,7 +3014,7 @@ Note: Sandbox providers cannot be modified.
 
 ```typescript
 await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-    auth_config_id: "auth-config-123"
+    auth_config_id: "auth-config-456"
 });
 
 ```
@@ -3113,7 +3090,7 @@ Note: Sandbox providers cannot be modified.
 
 ```typescript
 await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-    auth_config_id: "auth-config-123"
+    auth_config_id: "auth-config-456"
 });
 
 ```
@@ -3190,8 +3167,8 @@ Converts natural language text into a structured FHIR resource.
 ```typescript
 await client.lang2Fhir.create({
     version: "R4",
-    resource: "auto",
-    text: "Patient has severe asthma with acute exacerbation"
+    resource: "condition-encounter-diagnosis",
+    text: "Patient has severe persistent asthma with acute exacerbation"
 });
 
 ```
@@ -3260,7 +3237,8 @@ Resources are linked with proper references (e.g., Conditions reference the Pati
 
 ```typescript
 await client.lang2Fhir.createMulti({
-    text: "John Smith, male born on 1980-03-12, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily."
+    text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily. Blood pressure 140/90.",
+    version: "R4"
 });
 
 ```
@@ -3406,7 +3384,9 @@ Uploads will be rejected if:
 
 ```typescript
 await client.lang2Fhir.uploadProfile({
-    profile: "(base64 encoded FHIR StructureDefinition JSON)"
+    profile: "eyJyZXNvdXJjZVR5cGUiOiJTdHJ1Y3R1cmVEZWZpbml0aW9uIiwiaWQiOiJjdXN0b20tcGF0aWVudCIsInVybCI6Imh0dHA6Ly9waGVub21sLmNvbS9maGlyL1N0cnVjdHVyZURlZmluaXRpb24vY3VzdG9tLXBhdGllbnQiLCJuYW1lIjoiQ3VzdG9tUGF0aWVudCIsInN0YXR1cyI6ImFjdGl2ZSIsImZoaXJWZXJzaW9uIjoiNC4wLjEiLCJraW5kIjoicmVzb3VyY2UiLCJhYnN0cmFjdCI6ZmFsc2UsInR5cGUiOiJQYXRpZW50IiwiYmFzZURlZmluaXRpb24iOiJodHRwOi8vaGw3Lm9yZy9maGlyL1N0cnVjdHVyZURlZmluaXRpb24vUGF0aWVudCIsImRlcml2YXRpb24iOiJjb25zdHJhaW50Iiwic25hcHNob3QiOnsiZWxlbWVudCI6W3siaWQiOiJQYXRpZW50IiwicGF0aCI6IlBhdGllbnQiLCJtaW4iOjAsIm1heCI6IioifSx7ImlkIjoiUGF0aWVudC5uYW1lIiwicGF0aCI6IlBhdGllbnQubmFtZSIsIm1pbiI6MSwibWF4IjoiKiJ9XX19Cg==",
+    implementation_guide: "acme-cardiology",
+    profile_context: "When clinical text describes cardiology-specific findings, prefer this profile over the generic US Core Condition."
 });
 
 ```
@@ -3475,7 +3455,7 @@ Extracts text from a document (PDF or image) and converts it into a structured F
 await client.lang2Fhir.document({
     version: "R4",
     resource: "questionnaire",
-    content: "content"
+    content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)"
 });
 
 ```
@@ -3546,7 +3526,8 @@ Resources are linked with proper references (e.g., Conditions reference the Pati
 ```typescript
 await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
     version: "R4",
-    content: "content"
+    content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
+    provider: "medplum"
 });
 
 ```
@@ -3667,10 +3648,10 @@ Creates a summary template from an example using LLM function calling
 
 ```typescript
 await client.summary.createTemplate({
-    name: "name",
-    example_summary: "Patient John Doe, age 45, presents with hypertension diagnosed on 2024-01-15.",
-    target_resources: ["Patient", "Condition", "Observation"],
-    mode: "mode"
+    name: "Discharge Summary",
+    example_summary: "Patient John Doe, age 45, was admitted on 2024-01-10 with Type 2 Diabetes. Discharged on 2024-01-15 with Metformin 500mg BID.",
+    target_resources: ["Patient", "Condition", "MedicationRequest"],
+    mode: "narrative"
 });
 
 ```
@@ -3798,10 +3779,10 @@ Updates an existing summary template
 
 ```typescript
 await client.summary.updateTemplate("id", {
-    name: "name",
-    template: "template",
-    target_resources: ["target_resources"],
-    mode: "mode"
+    name: "Discharge Summary",
+    template: "Patient {{Patient.name[0].text}} was discharged on {{Encounter[0].period.end}} with {{MedicationRequest[0].medicationCodeableConcept.coding[0].display}} {{MedicationRequest[0].dosageInstruction[0].text}}.",
+    target_resources: ["Patient", "Encounter", "MedicationRequest"],
+    mode: "narrative"
 });
 
 ```
@@ -3940,8 +3921,37 @@ Creates a summary from FHIR resources using one of three modes:
 
 ```typescript
 await client.summary.create({
+    mode: "narrative",
+    template_id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     fhir_resources: {
-        resourceType: "resourceType"
+        "resourceType": "Bundle",
+        "type": "collection",
+        "entry": [
+            {
+                "resource": {
+                    "resourceType": "Patient",
+                    "name": [
+                        {
+                            "given": [
+                                "John"
+                            ],
+                            "family": "Doe"
+                        }
+                    ],
+                    "gender": "male",
+                    "birthDate": "1979-03-15"
+                }
+            },
+            {
+                "resource": {
+                    "resourceType": "Condition",
+                    "code": {
+                        "text": "Type 2 Diabetes Mellitus"
+                    },
+                    "onsetDateTime": "2024-01-15"
+                }
+            }
+        ]
     }
 });
 
@@ -4010,8 +4020,9 @@ Converts natural language to FHIR resource and optionally stores it in a FHIR se
 await client.tools.createFhirResource({
     "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
     "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-    resource: "auto",
-    text: "Patient John Doe has severe asthma with acute exacerbation"
+    resource: "condition-encounter-diagnosis",
+    text: "Patient has severe persistent asthma with acute exacerbation",
+    provider: "550e8400-e29b-41d4-a716-446655440000"
 });
 
 ```
@@ -4083,6 +4094,7 @@ await client.tools.createFhirResourcesMulti({
     "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
     "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
+    version: "R4",
     provider: "medplum"
 });
 
@@ -4150,7 +4162,9 @@ Converts natural language to FHIR search parameters and executes search in FHIR 
 await client.tools.searchFhirResources({
     "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
     "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-    text: "Find all appointments for patient John Doe next week"
+    text: "Find all appointments for patient John Doe next week",
+    count: 10,
+    provider: "550e8400-e29b-41d4-a716-446655440000"
 });
 
 ```
@@ -4864,11 +4878,12 @@ Creates a new workflow definition with graph generation from workflow instructio
 await client.workflows.create({
     verbose: true,
     name: "Patient Data Mapping Workflow",
-    workflow_instructions: "Given diagnosis data, find the patient and create condition record",
+    workflow_instructions: "Given diagnosis data, find the patient and create a condition record linked to their encounter",
     sample_data: {
         "patient_last_name": "Rippin",
         "patient_first_name": "Clay",
-        "diagnosis_code": "I10"
+        "diagnosis_code": "I10",
+        "encounter_date": "2024-01-15"
     },
     fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000"
 });
@@ -5009,12 +5024,13 @@ Updates an existing workflow definition
 ```typescript
 await client.workflows.update("id", {
     verbose: true,
-    name: "Updated Patient Data Mapping Workflow",
-    workflow_instructions: "Given diagnosis data, find the patient and create condition record",
+    name: "Patient Data Mapping Workflow (v2)",
+    workflow_instructions: "Given diagnosis data, find the patient and create a condition record linked to their encounter",
     sample_data: {
-        "patient_last_name": "Smith",
-        "patient_first_name": "John",
-        "diagnosis_code": "E11"
+        "patient_last_name": "Rippin",
+        "patient_first_name": "Clay",
+        "diagnosis_code": "I10",
+        "encounter_date": "2024-01-15"
     },
     fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000"
 });
@@ -5151,12 +5167,12 @@ Executes a workflow with provided input data and returns results
 <dd>
 
 ```typescript
-await client.workflows.execute("id", {
+await client.workflows.execute("7a8b9c0d-1234-5678-abcd-ef9876543210", {
     input_data: {
         "patient_last_name": "Johnson",
         "patient_first_name": "Mary",
         "diagnosis_code": "M79.3",
-        "encounter_date": "2024-01-15"
+        "encounter_date": "2024-03-20"
     }
 });
 

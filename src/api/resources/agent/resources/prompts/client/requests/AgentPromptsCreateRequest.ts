@@ -4,7 +4,10 @@
  * @example
  *     {
  *         name: "Medical Assistant System Prompt",
- *         content: "You are a helpful medical assistant specialized in FHIR data processing..."
+ *         description: "System prompt for medical assistant agent",
+ *         content: "You are a helpful medical assistant specialized in FHIR data processing.",
+ *         is_default: false,
+ *         tags: ["medical", "system"]
  *     }
  */
 export interface AgentPromptsCreateRequest {

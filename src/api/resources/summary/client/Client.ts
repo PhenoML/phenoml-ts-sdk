@@ -104,10 +104,10 @@ export class SummaryClient {
      *
      * @example
      *     await client.summary.createTemplate({
-     *         name: "name",
-     *         example_summary: "Patient John Doe, age 45, presents with hypertension diagnosed on 2024-01-15.",
-     *         target_resources: ["Patient", "Condition", "Observation"],
-     *         mode: "mode"
+     *         name: "Discharge Summary",
+     *         example_summary: "Patient John Doe, age 45, was admitted on 2024-01-10 with Type 2 Diabetes. Discharged on 2024-01-15 with Metformin 500mg BID.",
+     *         target_resources: ["Patient", "Condition", "MedicationRequest"],
+     *         mode: "narrative"
      *     })
      */
     public createTemplate(
@@ -270,10 +270,10 @@ export class SummaryClient {
      *
      * @example
      *     await client.summary.updateTemplate("id", {
-     *         name: "name",
-     *         template: "template",
-     *         target_resources: ["target_resources"],
-     *         mode: "mode"
+     *         name: "Discharge Summary",
+     *         template: "Patient {{Patient.name[0].text}} was discharged on {{Encounter[0].period.end}} with {{MedicationRequest[0].medicationCodeableConcept.coding[0].display}} {{MedicationRequest[0].dosageInstruction[0].text}}.",
+     *         target_resources: ["Patient", "Encounter", "MedicationRequest"],
+     *         mode: "narrative"
      *     })
      */
     public updateTemplate(
@@ -449,8 +449,73 @@ export class SummaryClient {
      *
      * @example
      *     await client.summary.create({
+     *         mode: "narrative",
+     *         template_id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
      *         fhir_resources: {
-     *             resourceType: "resourceType"
+     *             "resourceType": "Bundle",
+     *             "type": "collection",
+     *             "entry": [
+     *                 {
+     *                     "resource": {
+     *                         "resourceType": "Patient",
+     *                         "name": [
+     *                             {
+     *                                 "given": [
+     *                                     "John"
+     *                                 ],
+     *                                 "family": "Doe"
+     *                             }
+     *                         ],
+     *                         "gender": "male",
+     *                         "birthDate": "1979-03-15"
+     *                     }
+     *                 },
+     *                 {
+     *                     "resource": {
+     *                         "resourceType": "Condition",
+     *                         "code": {
+     *                             "text": "Type 2 Diabetes Mellitus"
+     *                         },
+     *                         "onsetDateTime": "2024-01-15"
+     *                     }
+     *                 }
+     *             ]
+     *         }
+     *     })
+     *
+     * @example
+     *     await client.summary.create({
+     *         mode: "ips",
+     *         fhir_resources: {
+     *             "resourceType": "Bundle",
+     *             "type": "collection",
+     *             "entry": [
+     *                 {
+     *                     "resource": {
+     *                         "resourceType": "Patient",
+     *                         "id": "maria-garcia-001",
+     *                         "name": [
+     *                             {
+     *                                 "given": [
+     *                                     "Maria"
+     *                                 ],
+     *                                 "family": "Garcia"
+     *                             }
+     *                         ],
+     *                         "gender": "female",
+     *                         "birthDate": "1985-07-22"
+     *                     }
+     *                 },
+     *                 {
+     *                     "resource": {
+     *                         "resourceType": "AllergyIntolerance",
+     *                         "code": {
+     *                             "text": "Penicillin"
+     *                         },
+     *                         "criticality": "high"
+     *                     }
+     *                 }
+     *             ]
      *         }
      *     })
      */

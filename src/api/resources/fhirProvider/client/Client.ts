@@ -38,11 +38,13 @@ export class FhirProviderClient {
      * @example
      *     await client.fhirProvider.create({
      *         name: "Epic Sandbox",
-     *         provider: "athenahealth",
+     *         description: "Epic sandbox environment for testing",
+     *         provider: "epic",
      *         base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
      *         auth: {
-     *             auth_method: "jwt",
-     *             client_id: "your-client-id"
+     *             auth_method: "client_secret",
+     *             client_id: "your-client-id",
+     *             client_secret: "your-client-secret"
      *         }
      *     })
      */
@@ -402,8 +404,9 @@ export class FhirProviderClient {
      *
      * @example
      *     await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-     *         auth_method: "jwt",
-     *         client_id: "your-client-id"
+     *         auth_method: "client_secret",
+     *         client_id: "your-client-id",
+     *         client_secret: "your-client-secret"
      *     })
      */
     public addAuthConfig(
@@ -516,7 +519,7 @@ export class FhirProviderClient {
      *
      * @example
      *     await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-     *         auth_config_id: "auth-config-123"
+     *         auth_config_id: "auth-config-456"
      *     })
      */
     public setActiveAuthConfig(
@@ -628,7 +631,7 @@ export class FhirProviderClient {
      *
      * @example
      *     await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-     *         auth_config_id: "auth-config-123"
+     *         auth_config_id: "auth-config-456"
      *     })
      */
     public removeAuthConfig(

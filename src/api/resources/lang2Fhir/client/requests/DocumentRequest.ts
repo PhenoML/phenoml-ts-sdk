@@ -7,7 +7,7 @@ import type * as phenoml from "../../../../index.js";
  *     {
  *         version: "R4",
  *         resource: "questionnaire",
- *         content: "content"
+ *         content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)"
  *     }
  */
 export interface DocumentRequest {
