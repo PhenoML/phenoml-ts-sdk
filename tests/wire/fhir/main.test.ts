@@ -12,8 +12,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -50,8 +50,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -89,8 +89,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -115,8 +115,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -141,8 +141,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -167,8 +167,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -193,8 +193,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -219,8 +219,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -245,8 +245,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -271,15 +271,15 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "Patient" };
         const rawResponseBody = {
             resourceType: "Patient",
-            id: "123",
-            meta: { versionId: "versionId", lastUpdated: "2024-01-15T09:30:00Z", profile: ["profile"] },
+            id: "456",
+            meta: { versionId: "1", lastUpdated: "2024-01-15T10:30:00Z", profile: ["profile"] },
         };
 
         server
@@ -313,8 +313,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "resourceType" };
@@ -344,8 +344,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "resourceType" };
@@ -375,8 +375,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "resourceType" };
@@ -406,8 +406,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "resourceType" };
@@ -437,8 +437,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "resourceType" };
@@ -468,8 +468,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "resourceType" };
@@ -499,15 +499,15 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "Patient", id: "123" };
         const rawResponseBody = {
             resourceType: "Patient",
             id: "123",
-            meta: { versionId: "versionId", lastUpdated: "2024-01-15T09:30:00Z", profile: ["profile"] },
+            meta: { versionId: "2", lastUpdated: "2024-02-20T11:00:00Z", profile: ["profile"] },
         };
 
         server
@@ -542,8 +542,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "resourceType" };
@@ -573,8 +573,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "resourceType" };
@@ -604,8 +604,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "resourceType" };
@@ -635,8 +635,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "resourceType" };
@@ -666,8 +666,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "resourceType" };
@@ -697,8 +697,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "resourceType" };
@@ -728,12 +728,17 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = { key: "value" };
+        const rawResponseBody = {
+            resourceType: "OperationOutcome",
+            issue: [
+                { severity: "information", code: "informational", details: { text: "Resource deleted successfully" } },
+            ],
+        };
 
         server
             .mockEndpoint()
@@ -762,8 +767,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -788,8 +793,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -814,8 +819,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -840,8 +845,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -866,8 +871,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -892,8 +897,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -918,8 +923,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
 
@@ -944,15 +949,15 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [{ op: "replace", path: "/name/0/family", value: "NewFamilyName" }];
         const rawResponseBody = {
             resourceType: "Patient",
             id: "123",
-            meta: { versionId: "versionId", lastUpdated: "2024-01-15T09:30:00Z", profile: ["profile"] },
+            meta: { versionId: "3", lastUpdated: "2024-02-20T11:30:00Z", profile: ["profile"] },
         };
 
         server
@@ -990,8 +995,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -1000,7 +1005,7 @@ describe("FhirClient", () => {
         const rawResponseBody = {
             resourceType: "Patient",
             id: "123",
-            meta: { versionId: "versionId", lastUpdated: "2024-01-15T09:30:00Z", profile: ["profile"] },
+            meta: { versionId: "3", lastUpdated: "2024-02-20T11:30:00Z", profile: ["profile"] },
         };
 
         server
@@ -1042,8 +1047,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -1054,7 +1059,7 @@ describe("FhirClient", () => {
         const rawResponseBody = {
             resourceType: "Patient",
             id: "123",
-            meta: { versionId: "versionId", lastUpdated: "2024-01-15T09:30:00Z", profile: ["profile"] },
+            meta: { versionId: "3", lastUpdated: "2024-02-20T11:30:00Z", profile: ["profile"] },
         };
 
         server
@@ -1104,8 +1109,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -1115,7 +1120,7 @@ describe("FhirClient", () => {
         const rawResponseBody = {
             resourceType: "Patient",
             id: "123",
-            meta: { versionId: "versionId", lastUpdated: "2024-01-15T09:30:00Z", profile: ["profile"] },
+            meta: { versionId: "3", lastUpdated: "2024-02-20T11:30:00Z", profile: ["profile"] },
         };
 
         server
@@ -1158,8 +1163,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -1199,8 +1204,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -1240,8 +1245,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -1281,8 +1286,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -1322,8 +1327,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -1363,8 +1368,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -1404,8 +1409,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = [
@@ -1445,8 +1450,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = {
@@ -1534,8 +1539,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };
@@ -1566,8 +1571,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };
@@ -1598,8 +1603,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };
@@ -1630,8 +1635,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };
@@ -1662,8 +1667,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };
@@ -1694,8 +1699,8 @@ describe("FhirClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { resourceType: "Bundle", entry: [{}, {}] };

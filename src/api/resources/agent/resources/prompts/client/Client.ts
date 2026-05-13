@@ -36,7 +36,10 @@ export class PromptsClient {
      * @example
      *     await client.agent.prompts.create({
      *         name: "Medical Assistant System Prompt",
-     *         content: "You are a helpful medical assistant specialized in FHIR data processing..."
+     *         description: "System prompt for medical assistant agent",
+     *         content: "You are a helpful medical assistant specialized in FHIR data processing.",
+     *         is_default: false,
+     *         tags: ["medical", "system"]
      *     })
      */
     public create(
@@ -255,7 +258,13 @@ export class PromptsClient {
      * @throws {@link phenoml.agent.InternalServerError}
      *
      * @example
-     *     await client.agent.prompts.update("id")
+     *     await client.agent.prompts.update("id", {
+     *         name: "Medical Assistant System Prompt",
+     *         description: "Updated system prompt",
+     *         content: "You are a helpful medical assistant. Always cite ICD-10 codes when discussing diagnoses.",
+     *         is_default: false,
+     *         tags: ["medical", "system", "updated"]
+     *     })
      */
     public update(
         id: string,
@@ -412,15 +421,8 @@ export class PromptsClient {
      * @example
      *     await client.agent.prompts.patch("id", [{
      *             op: "replace",
-     *             path: "/name",
-     *             value: "Updated Agent Name"
-     *         }, {
-     *             op: "add",
-     *             path: "/tags/-",
-     *             value: "new-tag"
-     *         }, {
-     *             op: "remove",
-     *             path: "/description"
+     *             path: "/content",
+     *             value: "Updated prompt content."
      *         }])
      */
     public patch(
@@ -487,72 +489,5 @@ export class PromptsClient {
         }
 
         return handleNonStatusCodeError(_response.error, _response.rawResponse, "PATCH", "/agent/prompts/{id}");
-    }
-
-    /**
-     * Loads default agent prompts for the authenticated user
-     *
-     * @param {PromptsClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.InternalServerError}
-     *
-     * @example
-     *     await client.agent.prompts.loadDefaults()
-     */
-    public loadDefaults(
-        requestOptions?: PromptsClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.SuccessResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__loadDefaults(requestOptions));
-    }
-
-    private async __loadDefaults(
-        requestOptions?: PromptsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.SuccessResponse>> {
-        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            _authRequest.headers,
-            this._options?.headers,
-            requestOptions?.headers,
-        );
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
-                "agent/prompts/load-defaults",
-            ),
-            method: "POST",
-            headers: _headers,
-            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-            fetchFn: this._options?.fetch,
-            logging: this._options.logging,
-        });
-        if (_response.ok) {
-            return { data: _response.body as phenoml.agent.SuccessResponse, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/agent/prompts/load-defaults");
     }
 }

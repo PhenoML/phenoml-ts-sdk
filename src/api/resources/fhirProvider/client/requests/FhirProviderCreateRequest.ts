@@ -6,11 +6,13 @@ import type * as phenoml from "../../../../index.js";
  * @example
  *     {
  *         name: "Epic Sandbox",
- *         provider: "athenahealth",
+ *         description: "Epic sandbox environment for testing",
+ *         provider: "epic",
  *         base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
  *         auth: {
- *             auth_method: "jwt",
- *             client_id: "your-client-id"
+ *             auth_method: "client_secret",
+ *             client_id: "your-client-id",
+ *             client_secret: "your-client-secret"
  *         }
  *     }
  */

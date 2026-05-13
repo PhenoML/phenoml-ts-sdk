@@ -12,8 +12,8 @@ describe("CohortClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "female patients over 65 with diabetes but not hypertension" };
@@ -27,6 +27,8 @@ describe("CohortClient", () => {
                     concept: "female patients over 65",
                     exclude: false,
                 },
+                { resource_type: "Condition", search_params: "code=44054006", concept: "diabetes", exclude: false },
+                { resource_type: "Condition", search_params: "code=38341003", concept: "hypertension", exclude: true },
             ],
         };
 
@@ -51,8 +53,8 @@ describe("CohortClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -80,8 +82,8 @@ describe("CohortClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };
@@ -109,8 +111,8 @@ describe("CohortClient", () => {
 
         const client = new phenomlClient({
             maxRetries: 0,
-            clientId: "test_client_id",
-            clientSecret: "test_client_secret",
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
         const rawRequestBody = { text: "text" };

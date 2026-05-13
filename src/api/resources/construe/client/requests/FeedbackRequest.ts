@@ -7,21 +7,28 @@ import type * as phenoml from "../../../../index.js";
  *     {
  *         text: "Patient has type 2 diabetes with hyperglycemia",
  *         received_result: {
- *             system: {},
+ *             system: {
+ *                 name: "ICD-10-CM",
+ *                 version: "2025"
+ *             },
  *             codes: [{
- *                     code: "195967001",
- *                     description: "Asthma",
+ *                     code: "E11.9",
+ *                     description: "Type 2 diabetes mellitus without complications",
  *                     valid: true
  *                 }]
  *         },
  *         expected_result: {
- *             system: {},
+ *             system: {
+ *                 name: "ICD-10-CM",
+ *                 version: "2025"
+ *             },
  *             codes: [{
- *                     code: "195967001",
- *                     description: "Asthma",
+ *                     code: "E11.65",
+ *                     description: "Type 2 diabetes mellitus with hyperglycemia",
  *                     valid: true
  *                 }]
- *         }
+ *         },
+ *         detail: "Expected code E11.65 because the text mentions hyperglycemia"
  *     }
  */
 export interface FeedbackRequest {
