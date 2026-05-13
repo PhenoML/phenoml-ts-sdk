@@ -1,3 +1,9 @@
+## 15.0.0 - 2026-05-13
+### Breaking Changes
+* **`ToolsClient.call()`** — method removed from the MCP server tools client; remove all invocations of `client.tools.mcpServer.tools.call()`.
+* **`McpServerToolCallRequest`** — interface deleted; remove any imports or usages of this type.
+* **`McpServerToolCallResponse`** — interface deleted; remove any imports or usages of this type.
+
 ## 14.0.0 - 2026-05-13
 ### Breaking Changes
 * **`FhirBundle`** and **`FhirResource`** — removed from the `summary` namespace exports; replace any direct imports of these types with `Record<string, unknown>` or your own local definitions.
