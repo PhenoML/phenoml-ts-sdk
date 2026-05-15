@@ -2,8 +2,8 @@
   "metadata": {
     "language": "typescript",
     "packageName": "phenoml",
-    "sdkVersion": "14.0.0",
-    "specCommit": "2193fc57ed98e5c912a35f90c07e9a4f00da0af8",
+    "sdkVersion": "15.0.0",
+    "specCommit": "0cb0b6e9a5e9580e8311ea4fa304ccfd37b4b147",
     "generatorName": "fernapi/fern-typescript-sdk"
   },
   "examples": {
@@ -3527,48 +3527,6 @@
         }
       },
       "sdkCallSource": "client.tools.mcpServer.tools.delete(\"mcp_server_tool_id\")"
-    },
-    "POST /tools/mcp-server/tool/{mcp_server_tool_id}/call": {
-      "httpMethod": "POST",
-      "httpPath": "/tools/mcp-server/tool/{mcp_server_tool_id}/call",
-      "sdkMethodChain": [
-        "tools",
-        "mcpServer",
-        "tools",
-        "call"
-      ],
-      "sdkMethodName": "call",
-      "request": {
-        "body": {
-          "arguments": {
-            "title": "PhenoML Agent API"
-          }
-        },
-        "sdkCallArgs": [
-          "mcp_server_tool_id",
-          {
-            "arguments": {
-              "title": "PhenoML Agent API"
-            }
-          }
-        ]
-      },
-      "response": {
-        "body": {
-          "success": true,
-          "message": "MCP server tool called successfully",
-          "result": {
-            "content": [
-              {
-                "type": "text",
-                "text": "{\"endpoint_data\": \"example\"}"
-              }
-            ]
-          },
-          "error": "Failed to call MCP server tool"
-        }
-      },
-      "sdkCallSource": "client.tools.mcpServer.tools.call(\"mcp_server_tool_id\", {\n            arguments: {\n                title: \"PhenoML Agent API\",\n            },\n        })"
     },
     "GET /workflows": {
       "httpMethod": "GET",
