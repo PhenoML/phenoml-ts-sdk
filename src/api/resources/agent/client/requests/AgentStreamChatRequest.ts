@@ -29,6 +29,6 @@ export interface AgentStreamChatRequest {
     session_id?: string;
     /** The ID of the agent to chat with */
     agent_id: string;
-    /** Enable enhanced reasoning capabilities, will increase latency but will also improve response quality and reliability. */
+    /** Enable enhanced reasoning capabilities. Increases latency but improves response quality and reliability. */
     enhanced_reasoning?: boolean;
 }

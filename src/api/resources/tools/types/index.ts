@@ -5,6 +5,5 @@ export * from "./Lang2FhirAndSearchResponse.js";
 export * from "./McpServer.js";
 export * from "./McpServerResponse.js";
 export * from "./McpServerTool.js";
-export * from "./McpServerToolCallResponse.js";
 export * from "./McpServerToolResponse.js";
 export * from "./SearchConcept.js";
