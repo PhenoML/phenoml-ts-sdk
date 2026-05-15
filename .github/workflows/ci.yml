@@ -58,6 +58,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Verify bundled OpenAPI spec
+        # Run before tag creation so a missing/stale spec doesn't leave a
+        # ghost release (tag exists, npm publish skipped on retry because
+        # the tag-existence check sets should_publish=false).
+        uses: PhenoML/sdk-shared-actions/verify-openapi-spec@main
+
       - name: Extract version and check tag
         id: check
         run: |
@@ -102,9 +108,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
-
-      - name: Verify bundled OpenAPI spec
-        uses: PhenoML/sdk-shared-actions/verify-openapi-spec@main
 
       - name: Build
         run: pnpm build
