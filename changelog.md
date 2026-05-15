@@ -1,3 +1,11 @@
+## 15.0.0 - 2026-05-15
+### Breaking Changes
+* **`ToolsClient.call()`** — method removed; delete all calls to `client.tools.mcpServer.tools.call()` from your codebase.
+* **`McpServerToolCallRequest`** — interface removed; remove any imports or type references to this symbol.
+* **`McpServerToolCallResponse`** — interface removed; remove any imports or type references to this symbol.
+### Changed
+* **`AgentChatRequest.enhanced_reasoning`** and **`AgentStreamChatRequest.enhanced_reasoning`** — JSDoc description reworded for clarity; no functional change.
+
 ## 14.0.0 - 2026-05-13
 ### Breaking Changes
 * **`FhirBundle`** and **`FhirResource`** — removed from the `summary` namespace exports; replace any direct imports of these types with `Record<string, unknown>` or your own local definitions.
