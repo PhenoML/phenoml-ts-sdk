@@ -1,6 +1,6 @@
 {
     "name": "phenoml",
-    "version": "15.0.0",
+    "version": "16.0.0",
     "private": false,
     "repository": {
         "type": "git",
@@ -99,6 +99,17 @@
             },
             "default": "./dist/cjs/api/resources/fhir/exports.js"
         },
+        "./fhir/fhirOperations": {
+            "import": {
+                "types": "./dist/esm/api/resources/fhir/resources/fhirOperations/exports.d.mts",
+                "default": "./dist/esm/api/resources/fhir/resources/fhirOperations/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/fhir/resources/fhirOperations/exports.d.ts",
+                "default": "./dist/cjs/api/resources/fhir/resources/fhirOperations/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/fhir/resources/fhirOperations/exports.js"
+        },
         "./fhirProvider": {
             "import": {
                 "types": "./dist/esm/api/resources/fhirProvider/exports.d.mts",
@@ -131,6 +142,28 @@
                 "default": "./dist/cjs/api/resources/summary/exports.js"
             },
             "default": "./dist/cjs/api/resources/summary/exports.js"
+        },
+        "./summary/summaryTemplates": {
+            "import": {
+                "types": "./dist/esm/api/resources/summary/resources/summaryTemplates/exports.d.mts",
+                "default": "./dist/esm/api/resources/summary/resources/summaryTemplates/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/summary/resources/summaryTemplates/exports.d.ts",
+                "default": "./dist/cjs/api/resources/summary/resources/summaryTemplates/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/summary/resources/summaryTemplates/exports.js"
+        },
+        "./summary/summaryGeneration": {
+            "import": {
+                "types": "./dist/esm/api/resources/summary/resources/summaryGeneration/exports.d.mts",
+                "default": "./dist/esm/api/resources/summary/resources/summaryGeneration/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/summary/resources/summaryGeneration/exports.d.ts",
+                "default": "./dist/cjs/api/resources/summary/resources/summaryGeneration/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/summary/resources/summaryGeneration/exports.js"
         },
         "./tools": {
             "import": {
@@ -176,12 +209,10 @@
             },
             "default": "./dist/cjs/api/resources/workflows/exports.js"
         },
-        "./openapi.json": "./openapi/openapi.json",
         "./package.json": "./package.json"
     },
     "files": [
         "dist",
-        "openapi",
         "reference.md",
         "README.md",
         "LICENSE"

@@ -1,3 +1,16 @@
+## 16.0.0 - 2026-05-19
+### Breaking Changes
+* **`FhirClient.search()`, `create()`, `upsert()`, `delete()`, `patch()`, and `executeBundle()`** — all six methods removed from `FhirClient`; migrate all call sites to the new `client.fhir.fhirOperations.*` sub-client (e.g. `client.fhir.fhirOperations.search(...)`).
+* **`FhirClient.RequestOptions`** and all `Fhir*Request`/`Fhir*Response` types — removed or renamed; `FhirCreateRequest`, `FhirDeleteRequest`, `FhirExecuteBundleRequest`, `FhirPatchRequest`, `FhirPatchRequestBodyItem`, `FhirSearchRequest`, and `FhirUpsertRequest` are now `CreateRequest`, `DeleteRequest`, `ExecuteBundleRequest`, `PatchRequest`, `PatchRequestBodyItem`, `SearchRequest`, and `UpsertRequest` under the `fhir.fhirOperations` namespace; update all imports.
+* **`AgentListRequest`, `AgentListResponse`, `AgentDeleteResponse`, `AgentGetChatMessages*`** — removed from the `agent` namespace; replace with the unprefixed equivalents (`ListRequest`, `ListResponse`, `DeleteResponse`, `GetChatMessagesRequest`, etc.).
+* **`WorkflowsListRequest`, `WorkflowsGetRequest`, `WorkflowsGetResponse`, `WorkflowsUpdateResponse`, `WorkflowsDeleteResponse`** — removed from the `workflows` namespace; replace with the unprefixed equivalents (`ListRequest`, `GetRequest`, etc.); `FhirProviderDeleteResponse` and `FhirProviderRemoveAuthConfigResponse` similarly renamed under `fhirProvider`.
+* **`Lang2FhirClient.extractMultipleFhirResourcesFromADocument()`** — renamed to `documentMulti()`; update all call sites, and replace `Lang2FhirUploadProfileResponse` / `ConstrueUploadCodeSystemResponse` with `UploadProfileResponse` / `UploadCodeSystemResponse` in their respective namespaces.
+### Added
+* **`FhirOperationsClient`** — new sub-client at `client.fhir.fhirOperations` exposing `search()`, `create()`, `upsert()`, `delete()`, `patch()`, and `executeBundle()` for full FHIR resource lifecycle management.
+* **`SummaryGenerationClient`** — new sub-client at `client.summary.summaryGeneration` with a `create()` method supporting `narrative`, `flatten`, and `ips` summary modes.
+* **`SummaryTemplatesClient`** — new sub-client at `client.summary.summaryTemplates` with full CRUD: `listTemplates()`, `createTemplate()`, `getTemplate()`, `updateTemplate()`, and `deleteTemplate()`.
+* **`GatewayTimeoutError`** — new HTTP 504 error class thrown by `WorkflowsClient.execute()` and exported from the `workflows` errors namespace.
+
 ## 15.0.0 - 2026-05-15
 ### Breaking Changes
 * **`ToolsClient.call()`** — method removed; delete all calls to `client.tools.mcpServer.tools.call()` from your codebase.
