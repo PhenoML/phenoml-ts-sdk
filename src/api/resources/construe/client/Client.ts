@@ -65,14 +65,14 @@ export class ConstrueClient {
     public uploadCodeSystem(
         request: phenoml.construe.UploadRequest,
         requestOptions?: ConstrueClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.construe.ConstrueUploadCodeSystemResponse> {
+    ): core.HttpResponsePromise<phenoml.construe.UploadCodeSystemResponse> {
         return core.HttpResponsePromise.fromPromise(this.__uploadCodeSystem(request, requestOptions));
     }
 
     private async __uploadCodeSystem(
         request: phenoml.construe.UploadRequest,
         requestOptions?: ConstrueClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.construe.ConstrueUploadCodeSystemResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.construe.UploadCodeSystemResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -100,7 +100,7 @@ export class ConstrueClient {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.construe.ConstrueUploadCodeSystemResponse,
+                data: _response.body as phenoml.construe.UploadCodeSystemResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -306,15 +306,15 @@ export class ConstrueClient {
      * @throws {@link phenoml.construe.InternalServerError}
      *
      * @example
-     *     await client.construe.listAvailableCodeSystems()
+     *     await client.construe.listCodeSystems()
      */
-    public listAvailableCodeSystems(
+    public listCodeSystems(
         requestOptions?: ConstrueClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.construe.ListCodeSystemsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__listAvailableCodeSystems(requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__listCodeSystems(requestOptions));
     }
 
-    private async __listAvailableCodeSystems(
+    private async __listCodeSystems(
         requestOptions?: ConstrueClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.construe.ListCodeSystemsResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -374,7 +374,7 @@ export class ConstrueClient {
      * Returns full metadata for a single code system, including timestamps and builtin status.
      *
      * @param {string} codesystem - Code system name (e.g., "ICD-10-CM", "SNOMED_CT_US_LITE")
-     * @param {phenoml.construe.GetConstrueCodesSystemsCodesystemRequest} request
+     * @param {phenoml.construe.GetCodeSystemRequest} request
      * @param {ConstrueClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.construe.BadRequestError}
@@ -383,21 +383,21 @@ export class ConstrueClient {
      * @throws {@link phenoml.construe.InternalServerError}
      *
      * @example
-     *     await client.construe.getCodeSystemDetail("ICD-10-CM", {
+     *     await client.construe.getCodeSystem("ICD-10-CM", {
      *         version: "2025"
      *     })
      */
-    public getCodeSystemDetail(
+    public getCodeSystem(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesSystemsCodesystemRequest = {},
+        request: phenoml.construe.GetCodeSystemRequest = {},
         requestOptions?: ConstrueClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.construe.GetCodeSystemDetailResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getCodeSystemDetail(codesystem, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__getCodeSystem(codesystem, request, requestOptions));
     }
 
-    private async __getCodeSystemDetail(
+    private async __getCodeSystem(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesSystemsCodesystemRequest = {},
+        request: phenoml.construe.GetCodeSystemRequest = {},
         requestOptions?: ConstrueClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.construe.GetCodeSystemDetailResponse>> {
         const { version } = request;
@@ -475,7 +475,7 @@ export class ConstrueClient {
      * Only available on dedicated instances. Large systems may take up to a minute to delete.
      *
      * @param {string} codesystem - Code system name
-     * @param {phenoml.construe.DeleteConstrueCodesSystemsCodesystemRequest} request
+     * @param {phenoml.construe.DeleteCodeSystemRequest} request
      * @param {ConstrueClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.construe.BadRequestError}
@@ -485,21 +485,21 @@ export class ConstrueClient {
      * @throws {@link phenoml.construe.InternalServerError}
      *
      * @example
-     *     await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
+     *     await client.construe.deleteCodeSystem("CUSTOM_CODES", {
      *         version: "version"
      *     })
      */
-    public deleteCustomCodeSystem(
+    public deleteCodeSystem(
         codesystem: string,
-        request: phenoml.construe.DeleteConstrueCodesSystemsCodesystemRequest = {},
+        request: phenoml.construe.DeleteCodeSystemRequest = {},
         requestOptions?: ConstrueClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.construe.DeleteCodeSystemResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteCustomCodeSystem(codesystem, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__deleteCodeSystem(codesystem, request, requestOptions));
     }
 
-    private async __deleteCustomCodeSystem(
+    private async __deleteCodeSystem(
         codesystem: string,
-        request: phenoml.construe.DeleteConstrueCodesSystemsCodesystemRequest = {},
+        request: phenoml.construe.DeleteCodeSystemRequest = {},
         requestOptions?: ConstrueClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.construe.DeleteCodeSystemResponse>> {
         const { version } = request;
@@ -580,7 +580,7 @@ export class ConstrueClient {
      * Only available on dedicated instances. Builtin systems cannot be exported.
      *
      * @param {string} codesystem - Code system name
-     * @param {phenoml.construe.GetConstrueCodesSystemsCodesystemExportRequest} request
+     * @param {phenoml.construe.ExportCodeSystemRequest} request
      * @param {ConstrueClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.construe.BadRequestError}
@@ -592,21 +592,21 @@ export class ConstrueClient {
      * @throws {@link phenoml.construe.InternalServerError}
      *
      * @example
-     *     await client.construe.exportCustomCodeSystem("CUSTOM_CODES", {
+     *     await client.construe.exportCodeSystem("CUSTOM_CODES", {
      *         version: "version"
      *     })
      */
-    public exportCustomCodeSystem(
+    public exportCodeSystem(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesSystemsCodesystemExportRequest = {},
+        request: phenoml.construe.ExportCodeSystemRequest = {},
         requestOptions?: ConstrueClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.construe.ExportCodeSystemResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__exportCustomCodeSystem(codesystem, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__exportCodeSystem(codesystem, request, requestOptions));
     }
 
-    private async __exportCustomCodeSystem(
+    private async __exportCodeSystem(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesSystemsCodesystemExportRequest = {},
+        request: phenoml.construe.ExportCodeSystemRequest = {},
         requestOptions?: ConstrueClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.construe.ExportCodeSystemResponse>> {
         const { version } = request;
@@ -694,7 +694,7 @@ export class ConstrueClient {
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
      *
      * @param {string} codesystem - Code system name (e.g., "ICD-10-CM", "SNOMED_CT_US_LITE")
-     * @param {phenoml.construe.GetConstrueCodesCodesystemRequest} request
+     * @param {phenoml.construe.ListCodesRequest} request
      * @param {ConstrueClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.construe.BadRequestError}
@@ -703,23 +703,23 @@ export class ConstrueClient {
      * @throws {@link phenoml.construe.InternalServerError}
      *
      * @example
-     *     await client.construe.listCodesInACodeSystem("ICD-10-CM", {
+     *     await client.construe.listCodes("ICD-10-CM", {
      *         version: "2025",
      *         cursor: "cursor",
      *         limit: 1
      *     })
      */
-    public listCodesInACodeSystem(
+    public listCodes(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemRequest = {},
+        request: phenoml.construe.ListCodesRequest = {},
         requestOptions?: ConstrueClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.construe.ListCodesResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__listCodesInACodeSystem(codesystem, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__listCodes(codesystem, request, requestOptions));
     }
 
-    private async __listCodesInACodeSystem(
+    private async __listCodes(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemRequest = {},
+        request: phenoml.construe.ListCodesRequest = {},
         requestOptions?: ConstrueClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.construe.ListCodesResponse>> {
         const { version, cursor, limit } = request;
@@ -794,7 +794,7 @@ export class ConstrueClient {
      * @param {string} codesystem - Code system name
      * @param {string} codeID - The code identifier. ICD-10-CM codes are stored without their
      *                          cosmetic dot (use "E1165", not "E11.65").
-     * @param {phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest} request
+     * @param {phenoml.construe.GetCodeRequest} request
      * @param {ConstrueClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.construe.BadRequestError}
@@ -803,25 +803,23 @@ export class ConstrueClient {
      * @throws {@link phenoml.construe.InternalServerError}
      *
      * @example
-     *     await client.construe.getASpecificCode("ICD-10-CM", "E1165", {
+     *     await client.construe.getCode("ICD-10-CM", "E1165", {
      *         version: "version"
      *     })
      */
-    public getASpecificCode(
+    public getCode(
         codesystem: string,
         codeID: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest = {},
+        request: phenoml.construe.GetCodeRequest = {},
         requestOptions?: ConstrueClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.construe.GetCodeResponse> {
-        return core.HttpResponsePromise.fromPromise(
-            this.__getASpecificCode(codesystem, codeID, request, requestOptions),
-        );
+        return core.HttpResponsePromise.fromPromise(this.__getCode(codesystem, codeID, request, requestOptions));
     }
 
-    private async __getASpecificCode(
+    private async __getCode(
         codesystem: string,
         codeID: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest = {},
+        request: phenoml.construe.GetCodeRequest = {},
         requestOptions?: ConstrueClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.construe.GetCodeResponse>> {
         const { version } = request;
@@ -913,7 +911,7 @@ export class ConstrueClient {
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
      *
      * @param {string} codesystem - Code system name
-     * @param {phenoml.construe.GetConstrueCodesCodesystemSearchSemanticRequest} request
+     * @param {phenoml.construe.SearchSemanticRequest} request
      * @param {ConstrueClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.construe.BadRequestError}
@@ -922,25 +920,23 @@ export class ConstrueClient {
      * @throws {@link phenoml.construe.InternalServerError}
      *
      * @example
-     *     await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
+     *     await client.construe.searchSemantic("ICD-10-CM", {
      *         text: "patient has trouble breathing at night and wakes up gasping",
      *         version: "version",
      *         limit: 1
      *     })
      */
-    public semanticSearchEmbeddingBased(
+    public searchSemantic(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemSearchSemanticRequest,
+        request: phenoml.construe.SearchSemanticRequest,
         requestOptions?: ConstrueClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.construe.SemanticSearchResponse> {
-        return core.HttpResponsePromise.fromPromise(
-            this.__semanticSearchEmbeddingBased(codesystem, request, requestOptions),
-        );
+        return core.HttpResponsePromise.fromPromise(this.__searchSemantic(codesystem, request, requestOptions));
     }
 
-    private async __semanticSearchEmbeddingBased(
+    private async __searchSemantic(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemSearchSemanticRequest,
+        request: phenoml.construe.SearchSemanticRequest,
         requestOptions?: ConstrueClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.construe.SemanticSearchResponse>> {
         const { text, version, limit } = request;
@@ -1028,7 +1024,7 @@ export class ConstrueClient {
      * @throws {@link phenoml.construe.ServiceUnavailableError}
      *
      * @example
-     *     await client.construe.submitFeedbackOnExtractionResults({
+     *     await client.construe.submitFeedback({
      *         text: "Patient has type 2 diabetes with hyperglycemia",
      *         received_result: {
      *             system: {
@@ -1055,14 +1051,14 @@ export class ConstrueClient {
      *         detail: "Expected code E11.65 because the text mentions hyperglycemia"
      *     })
      */
-    public submitFeedbackOnExtractionResults(
+    public submitFeedback(
         request: phenoml.construe.FeedbackRequest,
         requestOptions?: ConstrueClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.construe.FeedbackResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__submitFeedbackOnExtractionResults(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__submitFeedback(request, requestOptions));
     }
 
-    private async __submitFeedbackOnExtractionResults(
+    private async __submitFeedback(
         request: phenoml.construe.FeedbackRequest,
         requestOptions?: ConstrueClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.construe.FeedbackResponse>> {
@@ -1153,7 +1149,7 @@ export class ConstrueClient {
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
      *
      * @param {string} codesystem - Code system name
-     * @param {phenoml.construe.GetConstrueCodesCodesystemSearchTextRequest} request
+     * @param {phenoml.construe.SearchTextRequest} request
      * @param {ConstrueClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.construe.BadRequestError}
@@ -1163,25 +1159,23 @@ export class ConstrueClient {
      * @throws {@link phenoml.construe.NotImplementedError}
      *
      * @example
-     *     await client.construe.terminologyServerTextSearch("ICD-10-CM", {
+     *     await client.construe.searchText("ICD-10-CM", {
      *         q: "E11.65",
      *         version: "version",
      *         limit: 1
      *     })
      */
-    public terminologyServerTextSearch(
+    public searchText(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemSearchTextRequest,
+        request: phenoml.construe.SearchTextRequest,
         requestOptions?: ConstrueClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.construe.TextSearchResponse> {
-        return core.HttpResponsePromise.fromPromise(
-            this.__terminologyServerTextSearch(codesystem, request, requestOptions),
-        );
+        return core.HttpResponsePromise.fromPromise(this.__searchText(codesystem, request, requestOptions));
     }
 
-    private async __terminologyServerTextSearch(
+    private async __searchText(
         codesystem: string,
-        request: phenoml.construe.GetConstrueCodesCodesystemSearchTextRequest,
+        request: phenoml.construe.SearchTextRequest,
         requestOptions?: ConstrueClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.construe.TextSearchResponse>> {
         const { q, version, limit } = request;

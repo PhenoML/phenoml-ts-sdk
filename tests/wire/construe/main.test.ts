@@ -843,7 +843,7 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.GatewayTimeoutError);
     });
 
-    test("listAvailableCodeSystems (1)", async () => {
+    test("listCodeSystems (1)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -874,11 +874,11 @@ describe("ConstrueClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.listAvailableCodeSystems();
+        const response = await client.construe.listCodeSystems();
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("listAvailableCodeSystems (2)", async () => {
+    test("listCodeSystems (2)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -900,11 +900,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.listAvailableCodeSystems();
+            return await client.construe.listCodeSystems();
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("listAvailableCodeSystems (3)", async () => {
+    test("listCodeSystems (3)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -926,11 +926,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.listAvailableCodeSystems();
+            return await client.construe.listCodeSystems();
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
-    test("getCodeSystemDetail (1)", async () => {
+    test("getCodeSystem (1)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -959,13 +959,13 @@ describe("ConstrueClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.getCodeSystemDetail("ICD-10-CM", {
+        const response = await client.construe.getCodeSystem("ICD-10-CM", {
             version: "2025",
         });
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("getCodeSystemDetail (2)", async () => {
+    test("getCodeSystem (2)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -987,11 +987,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.getCodeSystemDetail("codesystem");
+            return await client.construe.getCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("getCodeSystemDetail (3)", async () => {
+    test("getCodeSystem (3)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1013,11 +1013,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.getCodeSystemDetail("codesystem");
+            return await client.construe.getCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("getCodeSystemDetail (4)", async () => {
+    test("getCodeSystem (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1039,11 +1039,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.getCodeSystemDetail("codesystem");
+            return await client.construe.getCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.NotFoundError);
     });
 
-    test("getCodeSystemDetail (5)", async () => {
+    test("getCodeSystem (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1065,11 +1065,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.getCodeSystemDetail("codesystem");
+            return await client.construe.getCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
-    test("deleteCustomCodeSystem (1)", async () => {
+    test("deleteCodeSystem (1)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1090,13 +1090,13 @@ describe("ConstrueClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
+        const response = await client.construe.deleteCodeSystem("CUSTOM_CODES", {
             version: "version",
         });
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("deleteCustomCodeSystem (2)", async () => {
+    test("deleteCodeSystem (2)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1118,11 +1118,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.deleteCustomCodeSystem("codesystem");
+            return await client.construe.deleteCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("deleteCustomCodeSystem (3)", async () => {
+    test("deleteCodeSystem (3)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1144,11 +1144,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.deleteCustomCodeSystem("codesystem");
+            return await client.construe.deleteCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("deleteCustomCodeSystem (4)", async () => {
+    test("deleteCodeSystem (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1170,11 +1170,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.deleteCustomCodeSystem("codesystem");
+            return await client.construe.deleteCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.ForbiddenError);
     });
 
-    test("deleteCustomCodeSystem (5)", async () => {
+    test("deleteCodeSystem (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1196,11 +1196,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.deleteCustomCodeSystem("codesystem");
+            return await client.construe.deleteCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.NotFoundError);
     });
 
-    test("deleteCustomCodeSystem (6)", async () => {
+    test("deleteCodeSystem (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1222,11 +1222,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.deleteCustomCodeSystem("codesystem");
+            return await client.construe.deleteCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
-    test("exportCustomCodeSystem (1)", async () => {
+    test("exportCodeSystem (1)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1255,13 +1255,13 @@ describe("ConstrueClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.exportCustomCodeSystem("CUSTOM_CODES", {
+        const response = await client.construe.exportCodeSystem("CUSTOM_CODES", {
             version: "version",
         });
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("exportCustomCodeSystem (2)", async () => {
+    test("exportCodeSystem (2)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1283,11 +1283,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.exportCustomCodeSystem("codesystem");
+            return await client.construe.exportCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("exportCustomCodeSystem (3)", async () => {
+    test("exportCodeSystem (3)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1309,11 +1309,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.exportCustomCodeSystem("codesystem");
+            return await client.construe.exportCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("exportCustomCodeSystem (4)", async () => {
+    test("exportCodeSystem (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1335,11 +1335,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.exportCustomCodeSystem("codesystem");
+            return await client.construe.exportCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.ForbiddenError);
     });
 
-    test("exportCustomCodeSystem (5)", async () => {
+    test("exportCodeSystem (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1361,11 +1361,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.exportCustomCodeSystem("codesystem");
+            return await client.construe.exportCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.NotFoundError);
     });
 
-    test("exportCustomCodeSystem (6)", async () => {
+    test("exportCodeSystem (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1387,11 +1387,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.exportCustomCodeSystem("codesystem");
+            return await client.construe.exportCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.ConflictError);
     });
 
-    test("exportCustomCodeSystem (7)", async () => {
+    test("exportCodeSystem (7)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1413,11 +1413,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.exportCustomCodeSystem("codesystem");
+            return await client.construe.exportCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.FailedDependencyError);
     });
 
-    test("exportCustomCodeSystem (8)", async () => {
+    test("exportCodeSystem (8)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1439,11 +1439,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.exportCustomCodeSystem("codesystem");
+            return await client.construe.exportCodeSystem("codesystem");
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
-    test("listCodesInACodeSystem (1)", async () => {
+    test("listCodes (1)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1483,7 +1483,7 @@ describe("ConstrueClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.listCodesInACodeSystem("ICD-10-CM", {
+        const response = await client.construe.listCodes("ICD-10-CM", {
             version: "2025",
             cursor: "cursor",
             limit: 1,
@@ -1491,7 +1491,7 @@ describe("ConstrueClient", () => {
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("listCodesInACodeSystem (2)", async () => {
+    test("listCodes (2)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1527,7 +1527,7 @@ describe("ConstrueClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.listCodesInACodeSystem("ICD-10-CM", {
+        const response = await client.construe.listCodes("ICD-10-CM", {
             version: "2025",
             cursor: "cursor",
             limit: 1,
@@ -1535,7 +1535,7 @@ describe("ConstrueClient", () => {
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("listCodesInACodeSystem (3)", async () => {
+    test("listCodes (3)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1557,11 +1557,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.listCodesInACodeSystem("codesystem");
+            return await client.construe.listCodes("codesystem");
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("listCodesInACodeSystem (4)", async () => {
+    test("listCodes (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1583,11 +1583,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.listCodesInACodeSystem("codesystem");
+            return await client.construe.listCodes("codesystem");
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("listCodesInACodeSystem (5)", async () => {
+    test("listCodes (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1609,11 +1609,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.listCodesInACodeSystem("codesystem");
+            return await client.construe.listCodes("codesystem");
         }).rejects.toThrow(phenoml.construe.NotFoundError);
     });
 
-    test("listCodesInACodeSystem (6)", async () => {
+    test("listCodes (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1635,11 +1635,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.listCodesInACodeSystem("codesystem");
+            return await client.construe.listCodes("codesystem");
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
-    test("getASpecificCode (1)", async () => {
+    test("getCode (1)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1665,13 +1665,13 @@ describe("ConstrueClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.getASpecificCode("ICD-10-CM", "E1165", {
+        const response = await client.construe.getCode("ICD-10-CM", "E1165", {
             version: "version",
         });
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("getASpecificCode (2)", async () => {
+    test("getCode (2)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1697,13 +1697,13 @@ describe("ConstrueClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.getASpecificCode("ICD-10-CM", "E1165", {
+        const response = await client.construe.getCode("ICD-10-CM", "E1165", {
             version: "version",
         });
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("getASpecificCode (3)", async () => {
+    test("getCode (3)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1725,11 +1725,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.getASpecificCode("codesystem", "codeID");
+            return await client.construe.getCode("codesystem", "codeID");
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("getASpecificCode (4)", async () => {
+    test("getCode (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1751,11 +1751,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.getASpecificCode("codesystem", "codeID");
+            return await client.construe.getCode("codesystem", "codeID");
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("getASpecificCode (5)", async () => {
+    test("getCode (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1777,11 +1777,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.getASpecificCode("codesystem", "codeID");
+            return await client.construe.getCode("codesystem", "codeID");
         }).rejects.toThrow(phenoml.construe.NotFoundError);
     });
 
-    test("getASpecificCode (6)", async () => {
+    test("getCode (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1803,11 +1803,11 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.getASpecificCode("codesystem", "codeID");
+            return await client.construe.getCode("codesystem", "codeID");
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
-    test("semanticSearchEmbeddingBased (1)", async () => {
+    test("searchSemantic (1)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1837,7 +1837,7 @@ describe("ConstrueClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
+        const response = await client.construe.searchSemantic("ICD-10-CM", {
             text: "patient has trouble breathing at night and wakes up gasping",
             version: "version",
             limit: 1,
@@ -1845,7 +1845,7 @@ describe("ConstrueClient", () => {
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("semanticSearchEmbeddingBased (2)", async () => {
+    test("searchSemantic (2)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1876,7 +1876,7 @@ describe("ConstrueClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
+        const response = await client.construe.searchSemantic("ICD-10-CM", {
             text: "patient has trouble breathing at night and wakes up gasping",
             version: "version",
             limit: 1,
@@ -1884,7 +1884,7 @@ describe("ConstrueClient", () => {
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("semanticSearchEmbeddingBased (3)", async () => {
+    test("searchSemantic (3)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1906,13 +1906,13 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.semanticSearchEmbeddingBased("codesystem", {
+            return await client.construe.searchSemantic("codesystem", {
                 text: "text",
             });
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("semanticSearchEmbeddingBased (4)", async () => {
+    test("searchSemantic (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1934,13 +1934,13 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.semanticSearchEmbeddingBased("codesystem", {
+            return await client.construe.searchSemantic("codesystem", {
                 text: "text",
             });
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("semanticSearchEmbeddingBased (5)", async () => {
+    test("searchSemantic (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1962,13 +1962,13 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.semanticSearchEmbeddingBased("codesystem", {
+            return await client.construe.searchSemantic("codesystem", {
                 text: "text",
             });
         }).rejects.toThrow(phenoml.construe.NotFoundError);
     });
 
-    test("semanticSearchEmbeddingBased (6)", async () => {
+    test("searchSemantic (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1990,13 +1990,13 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.semanticSearchEmbeddingBased("codesystem", {
+            return await client.construe.searchSemantic("codesystem", {
                 text: "text",
             });
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
-    test("submitFeedbackOnExtractionResults (1)", async () => {
+    test("submitFeedback (1)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -2029,7 +2029,7 @@ describe("ConstrueClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.submitFeedbackOnExtractionResults({
+        const response = await client.construe.submitFeedback({
             text: "Patient has type 2 diabetes with hyperglycemia",
             received_result: {
                 system: {
@@ -2062,7 +2062,7 @@ describe("ConstrueClient", () => {
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("submitFeedbackOnExtractionResults (2)", async () => {
+    test("submitFeedback (2)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -2101,7 +2101,7 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.submitFeedbackOnExtractionResults({
+            return await client.construe.submitFeedback({
                 text: "text",
                 received_result: {
                     system: {},
@@ -2137,7 +2137,7 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("submitFeedbackOnExtractionResults (3)", async () => {
+    test("submitFeedback (3)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -2176,7 +2176,7 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.submitFeedbackOnExtractionResults({
+            return await client.construe.submitFeedback({
                 text: "text",
                 received_result: {
                     system: {},
@@ -2212,7 +2212,7 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("submitFeedbackOnExtractionResults (4)", async () => {
+    test("submitFeedback (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -2251,7 +2251,7 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.submitFeedbackOnExtractionResults({
+            return await client.construe.submitFeedback({
                 text: "text",
                 received_result: {
                     system: {},
@@ -2287,7 +2287,7 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
-    test("submitFeedbackOnExtractionResults (5)", async () => {
+    test("submitFeedback (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -2326,7 +2326,7 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.submitFeedbackOnExtractionResults({
+            return await client.construe.submitFeedback({
                 text: "text",
                 received_result: {
                     system: {},
@@ -2362,7 +2362,7 @@ describe("ConstrueClient", () => {
         }).rejects.toThrow(phenoml.construe.ServiceUnavailableError);
     });
 
-    test("terminologyServerTextSearch (1)", async () => {
+    test("searchText (1)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -2391,7 +2391,7 @@ describe("ConstrueClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.terminologyServerTextSearch("ICD-10-CM", {
+        const response = await client.construe.searchText("ICD-10-CM", {
             q: "E11.65",
             version: "version",
             limit: 1,
@@ -2399,7 +2399,7 @@ describe("ConstrueClient", () => {
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("terminologyServerTextSearch (2)", async () => {
+    test("searchText (2)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -2428,7 +2428,7 @@ describe("ConstrueClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.construe.terminologyServerTextSearch("ICD-10-CM", {
+        const response = await client.construe.searchText("ICD-10-CM", {
             q: "E11.65",
             version: "version",
             limit: 1,
@@ -2436,7 +2436,7 @@ describe("ConstrueClient", () => {
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("terminologyServerTextSearch (3)", async () => {
+    test("searchText (3)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -2458,13 +2458,13 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.terminologyServerTextSearch("codesystem", {
+            return await client.construe.searchText("codesystem", {
                 q: "q",
             });
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("terminologyServerTextSearch (4)", async () => {
+    test("searchText (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -2486,13 +2486,13 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.terminologyServerTextSearch("codesystem", {
+            return await client.construe.searchText("codesystem", {
                 q: "q",
             });
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("terminologyServerTextSearch (5)", async () => {
+    test("searchText (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -2514,13 +2514,13 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.terminologyServerTextSearch("codesystem", {
+            return await client.construe.searchText("codesystem", {
                 q: "q",
             });
         }).rejects.toThrow(phenoml.construe.NotFoundError);
     });
 
-    test("terminologyServerTextSearch (6)", async () => {
+    test("searchText (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -2542,13 +2542,13 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.terminologyServerTextSearch("codesystem", {
+            return await client.construe.searchText("codesystem", {
                 q: "q",
             });
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
-    test("terminologyServerTextSearch (7)", async () => {
+    test("searchText (7)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -2570,7 +2570,7 @@ describe("ConstrueClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.construe.terminologyServerTextSearch("codesystem", {
+            return await client.construe.searchText("codesystem", {
                 q: "q",
             });
         }).rejects.toThrow(phenoml.construe.NotImplementedError);

@@ -799,7 +799,7 @@ describe("Lang2FhirClient", () => {
         }).rejects.toThrow(phenoml.lang2Fhir.InternalServerError);
     });
 
-    test("extractMultipleFhirResourcesFromADocument (1)", async () => {
+    test("documentMulti (1)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -884,7 +884,7 @@ describe("Lang2FhirClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
+        const response = await client.lang2Fhir.documentMulti({
             version: "R4",
             content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
             provider: "medplum",
@@ -892,7 +892,7 @@ describe("Lang2FhirClient", () => {
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("extractMultipleFhirResourcesFromADocument (2)", async () => {
+    test("documentMulti (2)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -915,14 +915,14 @@ describe("Lang2FhirClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
+            return await client.lang2Fhir.documentMulti({
                 version: "version",
                 content: "content",
             });
         }).rejects.toThrow(phenoml.lang2Fhir.BadRequestError);
     });
 
-    test("extractMultipleFhirResourcesFromADocument (3)", async () => {
+    test("documentMulti (3)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -945,14 +945,14 @@ describe("Lang2FhirClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
+            return await client.lang2Fhir.documentMulti({
                 version: "version",
                 content: "content",
             });
         }).rejects.toThrow(phenoml.lang2Fhir.UnauthorizedError);
     });
 
-    test("extractMultipleFhirResourcesFromADocument (4)", async () => {
+    test("documentMulti (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -975,14 +975,14 @@ describe("Lang2FhirClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
+            return await client.lang2Fhir.documentMulti({
                 version: "version",
                 content: "content",
             });
         }).rejects.toThrow(phenoml.lang2Fhir.UnprocessableEntityError);
     });
 
-    test("extractMultipleFhirResourcesFromADocument (5)", async () => {
+    test("documentMulti (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1005,7 +1005,7 @@ describe("Lang2FhirClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
+            return await client.lang2Fhir.documentMulti({
                 version: "version",
                 content: "content",
             });
