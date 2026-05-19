@@ -1,3 +1,7 @@
+## 15.1.0 - 2026-05-19
+### Added
+* **`workflows.GatewayTimeoutError`** — new error class thrown when the workflows execute endpoint returns a 504 Gateway Timeout response, allowing callers to catch and handle gateway timeouts distinctly from other errors.
+
 ## 15.0.0 - 2026-05-15
 ### Breaking Changes
 * **`ToolsClient.call()`** — method removed; delete all calls to `client.tools.mcpServer.tools.call()` from your codebase.

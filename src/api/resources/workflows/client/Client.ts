@@ -514,6 +514,7 @@ export class WorkflowsClient {
      * @throws {@link phenoml.workflows.ForbiddenError}
      * @throws {@link phenoml.workflows.NotFoundError}
      * @throws {@link phenoml.workflows.InternalServerError}
+     * @throws {@link phenoml.workflows.GatewayTimeoutError}
      *
      * @example
      *     await client.workflows.execute("7a8b9c0d-1234-5678-abcd-ef9876543210", {
@@ -595,6 +596,11 @@ export class WorkflowsClient {
                     throw new phenoml.workflows.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
                     throw new phenoml.workflows.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 504:
+                    throw new phenoml.workflows.GatewayTimeoutError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
