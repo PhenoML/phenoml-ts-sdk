@@ -114,8 +114,8 @@ jobs:
 
       - name: Publish to npm
         run: |
-          publish() {  # use latest npm to ensure OIDC support
-            npx -y npm@latest publish "$@"
+          publish() {  # use latest npm to ensure OIDC + provenance support
+            npx -y npm@latest publish --provenance "$@"
           }
           VERSION=$(jq -r .version package.json)
           if [[ $VERSION == *alpha* ]]; then
