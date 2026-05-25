@@ -1,6 +1,6 @@
-export type { FhirCreateRequest } from "./FhirCreateRequest.js";
-export type { FhirDeleteRequest } from "./FhirDeleteRequest.js";
-export type { FhirExecuteBundleRequest } from "./FhirExecuteBundleRequest.js";
-export type { FhirPatchRequest } from "./FhirPatchRequest.js";
-export type { FhirSearchRequest } from "./FhirSearchRequest.js";
-export type { FhirUpsertRequest } from "./FhirUpsertRequest.js";
+export type { CreateRequest } from "./CreateRequest.js";
+export type { DeleteRequest } from "./DeleteRequest.js";
+export type { ExecuteBundleRequest } from "./ExecuteBundleRequest.js";
+export type { PatchRequest } from "./PatchRequest.js";
+export type { SearchRequest } from "./SearchRequest.js";
+export type { UpsertRequest } from "./UpsertRequest.js";

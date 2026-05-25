@@ -1,0 +1,2 @@
+export type { CreateSummaryTemplateRequest } from "./CreateSummaryTemplateRequest.js";
+export type { UpdateSummaryTemplateRequest } from "./UpdateSummaryTemplateRequest.js";
