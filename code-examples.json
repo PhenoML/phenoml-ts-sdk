@@ -63,7 +63,60 @@
       },
       "render": {
         "callTemplate": "client.agent.create({ {{__body__}} })",
-        "params": []
+        "params": [],
+        "body": {
+          "fieldSeparator": ", ",
+          "fields": [
+            {
+              "jsonKey": "name",
+              "fieldTemplate": "\"name\": {{value}}",
+              "kind": "string",
+              "required": true
+            },
+            {
+              "jsonKey": "description",
+              "fieldTemplate": "\"description\": {{value}}",
+              "kind": "object",
+              "required": false
+            },
+            {
+              "jsonKey": "prompts",
+              "fieldTemplate": "\"prompts\": {{value}}",
+              "kind": "list",
+              "required": true,
+              "items": {
+                "jsonKey": "",
+                "fieldTemplate": "{{value}}",
+                "kind": "string",
+                "required": true
+              }
+            },
+            {
+              "jsonKey": "tools",
+              "fieldTemplate": "\"tools\": {{value}}",
+              "kind": "object",
+              "required": false
+            },
+            {
+              "jsonKey": "workflows",
+              "fieldTemplate": "\"workflows\": {{value}}",
+              "kind": "object",
+              "required": false
+            },
+            {
+              "jsonKey": "tags",
+              "fieldTemplate": "\"tags\": {{value}}",
+              "kind": "object",
+              "required": false
+            },
+            {
+              "jsonKey": "provider",
+              "fieldTemplate": "\"provider\": {{value}}",
+              "kind": "object",
+              "required": true
+            }
+          ]
+        }
       }
     },
     "GET /agent/list": {
@@ -238,7 +291,60 @@
             "name": "id",
             "kind": "string"
           }
-        ]
+        ],
+        "body": {
+          "fieldSeparator": ", ",
+          "fields": [
+            {
+              "jsonKey": "name",
+              "fieldTemplate": "\"name\": {{value}}",
+              "kind": "string",
+              "required": true
+            },
+            {
+              "jsonKey": "description",
+              "fieldTemplate": "\"description\": {{value}}",
+              "kind": "object",
+              "required": false
+            },
+            {
+              "jsonKey": "prompts",
+              "fieldTemplate": "\"prompts\": {{value}}",
+              "kind": "list",
+              "required": true,
+              "items": {
+                "jsonKey": "",
+                "fieldTemplate": "{{value}}",
+                "kind": "string",
+                "required": true
+              }
+            },
+            {
+              "jsonKey": "tools",
+              "fieldTemplate": "\"tools\": {{value}}",
+              "kind": "object",
+              "required": false
+            },
+            {
+              "jsonKey": "workflows",
+              "fieldTemplate": "\"workflows\": {{value}}",
+              "kind": "object",
+              "required": false
+            },
+            {
+              "jsonKey": "tags",
+              "fieldTemplate": "\"tags\": {{value}}",
+              "kind": "object",
+              "required": false
+            },
+            {
+              "jsonKey": "provider",
+              "fieldTemplate": "\"provider\": {{value}}",
+              "kind": "object",
+              "required": true
+            }
+          ]
+        }
       }
     },
     "DELETE /agent/{id}": {
@@ -309,17 +415,77 @@
         }
       },
       "render": {
-        "callTemplate": "client.agent.patch({{id}}, {{request}})",
+        "callTemplate": "client.agent.patch({{id}}, {{__body__}})",
         "params": [
           {
             "name": "id",
             "kind": "string"
-          },
-          {
-            "name": "request",
-            "kind": "string"
           }
-        ]
+        ],
+        "body": {
+          "fieldSeparator": "",
+          "fields": [
+            {
+              "jsonKey": "",
+              "fieldTemplate": "{{value}}",
+              "kind": "list",
+              "required": true,
+              "items": {
+                "jsonKey": "",
+                "fieldTemplate": "{{value}}",
+                "kind": "object",
+                "required": true,
+                "nested": {
+                  "fieldSeparator": ", ",
+                  "fields": [
+                    {
+                      "jsonKey": "op",
+                      "fieldTemplate": "\"op\": {{value}}",
+                      "kind": "enum",
+                      "required": true,
+                      "enumValues": [
+                        "add",
+                        "remove",
+                        "replace",
+                        "move",
+                        "copy",
+                        "test"
+                      ],
+                      "enumConstants": {
+                        "add": "JsonPatchOperation.Op.Add",
+                        "remove": "JsonPatchOperation.Op.Remove",
+                        "replace": "JsonPatchOperation.Op.Replace",
+                        "move": "JsonPatchOperation.Op.Move",
+                        "copy": "JsonPatchOperation.Op.Copy",
+                        "test": "JsonPatchOperation.Op.Test"
+                      }
+                    },
+                    {
+                      "jsonKey": "path",
+                      "fieldTemplate": "\"path\": {{value}}",
+                      "kind": "string",
+                      "required": true
+                    },
+                    {
+                      "jsonKey": "value",
+                      "fieldTemplate": "\"value\": {{value}}",
+                      "kind": "object",
+                      "required": false
+                    },
+                    {
+                      "jsonKey": "from",
+                      "fieldTemplate": "\"from\": {{value}}",
+                      "kind": "object",
+                      "required": false
+                    }
+                  ],
+                  "wrap": "{ {{__body__}} }"
+                }
+              },
+              "passthroughBody": true
+            }
+          ]
+        }
       }
     },
     "POST /agent/chat": {
@@ -801,17 +967,25 @@
         }
       },
       "render": {
-        "callTemplate": "client.agent.prompts.patch({{id}}, {{request}})",
+        "callTemplate": "client.agent.prompts.patch({{id}}, {{__body__}})",
         "params": [
           {
             "name": "id",
             "kind": "string"
-          },
-          {
-            "name": "request",
-            "kind": "string"
           }
-        ]
+        ],
+        "body": {
+          "fieldSeparator": "",
+          "fields": [
+            {
+              "jsonKey": "",
+              "fieldTemplate": "{{value}}",
+              "kind": "object",
+              "required": true,
+              "passthroughBody": true
+            }
+          ]
+        }
       }
     },
     "POST /v2/auth/token": {
@@ -2840,13 +3014,25 @@
         }
       },
       "render": {
-        "callTemplate": "client.fhirProvider.addAuthConfig({{fhir_provider_id}}, { {{__body__}} })",
+        "callTemplate": "client.fhirProvider.addAuthConfig({{fhir_provider_id}}, {{__body__}})",
         "params": [
           {
             "name": "fhir_provider_id",
             "kind": "string"
           }
-        ]
+        ],
+        "body": {
+          "fieldSeparator": "",
+          "fields": [
+            {
+              "jsonKey": "",
+              "fieldTemplate": "{{value}}",
+              "kind": "object",
+              "required": true,
+              "passthroughBody": true
+            }
+          ]
+        }
       }
     },
     "PATCH /fhir-provider/{fhir_provider_id}/set-active-auth-config": {
