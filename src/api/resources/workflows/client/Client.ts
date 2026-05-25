@@ -25,7 +25,7 @@ export class WorkflowsClient {
     /**
      * Retrieves all workflow definitions for the authenticated user
      *
-     * @param {phenoml.workflows.WorkflowsListRequest} request
+     * @param {phenoml.workflows.ListRequest} request
      * @param {WorkflowsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.workflows.UnauthorizedError}
@@ -38,14 +38,14 @@ export class WorkflowsClient {
      *     })
      */
     public list(
-        request: phenoml.workflows.WorkflowsListRequest = {},
+        request: phenoml.workflows.ListRequest = {},
         requestOptions?: WorkflowsClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.workflows.ListWorkflowsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
-        request: phenoml.workflows.WorkflowsListRequest = {},
+        request: phenoml.workflows.ListRequest = {},
         requestOptions?: WorkflowsClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.workflows.ListWorkflowsResponse>> {
         const { verbose } = request;
@@ -219,7 +219,7 @@ export class WorkflowsClient {
      * Retrieves a workflow definition by its ID
      *
      * @param {string} id - ID of the workflow to retrieve
-     * @param {phenoml.workflows.WorkflowsGetRequest} request
+     * @param {phenoml.workflows.GetRequest} request
      * @param {WorkflowsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.workflows.UnauthorizedError}
@@ -234,17 +234,17 @@ export class WorkflowsClient {
      */
     public get(
         id: string,
-        request: phenoml.workflows.WorkflowsGetRequest = {},
+        request: phenoml.workflows.GetRequest = {},
         requestOptions?: WorkflowsClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.workflows.WorkflowsGetResponse> {
+    ): core.HttpResponsePromise<phenoml.workflows.GetResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, request, requestOptions));
     }
 
     private async __get(
         id: string,
-        request: phenoml.workflows.WorkflowsGetRequest = {},
+        request: phenoml.workflows.GetRequest = {},
         requestOptions?: WorkflowsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.workflows.WorkflowsGetResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.workflows.GetResponse>> {
         const { verbose } = request;
         const _queryParams: Record<string, unknown> = {
             verbose,
@@ -276,10 +276,7 @@ export class WorkflowsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as phenoml.workflows.WorkflowsGetResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as phenoml.workflows.GetResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -341,7 +338,7 @@ export class WorkflowsClient {
         id: string,
         request: phenoml.workflows.UpdateWorkflowRequest,
         requestOptions?: WorkflowsClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.workflows.WorkflowsUpdateResponse> {
+    ): core.HttpResponsePromise<phenoml.workflows.UpdateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
     }
 
@@ -349,7 +346,7 @@ export class WorkflowsClient {
         id: string,
         request: phenoml.workflows.UpdateWorkflowRequest,
         requestOptions?: WorkflowsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.workflows.WorkflowsUpdateResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.workflows.UpdateResponse>> {
         const { verbose, ..._body } = request;
         const _queryParams: Record<string, unknown> = {
             verbose,
@@ -384,10 +381,7 @@ export class WorkflowsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as phenoml.workflows.WorkflowsUpdateResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as phenoml.workflows.UpdateResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -437,14 +431,14 @@ export class WorkflowsClient {
     public delete(
         id: string,
         requestOptions?: WorkflowsClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.workflows.WorkflowsDeleteResponse> {
+    ): core.HttpResponsePromise<phenoml.workflows.DeleteResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
     }
 
     private async __delete(
         id: string,
         requestOptions?: WorkflowsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.workflows.WorkflowsDeleteResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.workflows.DeleteResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -468,10 +462,7 @@ export class WorkflowsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as phenoml.workflows.WorkflowsDeleteResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as phenoml.workflows.DeleteResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -514,6 +505,7 @@ export class WorkflowsClient {
      * @throws {@link phenoml.workflows.ForbiddenError}
      * @throws {@link phenoml.workflows.NotFoundError}
      * @throws {@link phenoml.workflows.InternalServerError}
+     * @throws {@link phenoml.workflows.GatewayTimeoutError}
      *
      * @example
      *     await client.workflows.execute("7a8b9c0d-1234-5678-abcd-ef9876543210", {
@@ -595,6 +587,11 @@ export class WorkflowsClient {
                     throw new phenoml.workflows.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
                     throw new phenoml.workflows.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 504:
+                    throw new phenoml.workflows.GatewayTimeoutError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );

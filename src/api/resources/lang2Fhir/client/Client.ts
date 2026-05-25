@@ -327,14 +327,14 @@ export class Lang2FhirClient {
     public uploadProfile(
         request: phenoml.lang2Fhir.ProfileUploadRequest,
         requestOptions?: Lang2FhirClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.lang2Fhir.Lang2FhirUploadProfileResponse> {
+    ): core.HttpResponsePromise<phenoml.lang2Fhir.UploadProfileResponse> {
         return core.HttpResponsePromise.fromPromise(this.__uploadProfile(request, requestOptions));
     }
 
     private async __uploadProfile(
         request: phenoml.lang2Fhir.ProfileUploadRequest,
         requestOptions?: Lang2FhirClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.lang2Fhir.Lang2FhirUploadProfileResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.lang2Fhir.UploadProfileResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -362,7 +362,7 @@ export class Lang2FhirClient {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.lang2Fhir.Lang2FhirUploadProfileResponse,
+                data: _response.body as phenoml.lang2Fhir.UploadProfileResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -497,22 +497,20 @@ export class Lang2FhirClient {
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
      *
      * @example
-     *     await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
+     *     await client.lang2Fhir.documentMulti({
      *         version: "R4",
      *         content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
      *         provider: "medplum"
      *     })
      */
-    public extractMultipleFhirResourcesFromADocument(
+    public documentMulti(
         request: phenoml.lang2Fhir.DocumentMultiRequest,
         requestOptions?: Lang2FhirClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.lang2Fhir.DocumentMultiResponse> {
-        return core.HttpResponsePromise.fromPromise(
-            this.__extractMultipleFhirResourcesFromADocument(request, requestOptions),
-        );
+        return core.HttpResponsePromise.fromPromise(this.__documentMulti(request, requestOptions));
     }
 
-    private async __extractMultipleFhirResourcesFromADocument(
+    private async __documentMulti(
         request: phenoml.lang2Fhir.DocumentMultiRequest,
         requestOptions?: Lang2FhirClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.lang2Fhir.DocumentMultiResponse>> {

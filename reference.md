@@ -69,7 +69,7 @@ await client.agent.create({
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">list</a>({ ...params }) -> phenoml.AgentListResponse</code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">list</a>({ ...params }) -> phenoml.ListResponse</code></summary>
 <dl>
 <dd>
 
@@ -114,7 +114,7 @@ await client.agent.list({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentListRequest` 
+**request:** `phenoml.agent.ListRequest` 
     
 </dd>
 </dl>
@@ -274,7 +274,7 @@ await client.agent.update("id", {
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">delete</a>(id) -> phenoml.AgentDeleteResponse</code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">delete</a>(id) -> phenoml.DeleteResponse</code></summary>
 <dl>
 <dd>
 
@@ -559,7 +559,7 @@ for await (const item of response) {
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">getChatMessages</a>({ ...params }) -> phenoml.AgentGetChatMessagesResponse</code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">getChatMessages</a>({ ...params }) -> phenoml.GetChatMessagesResponse</code></summary>
 <dl>
 <dd>
 
@@ -607,7 +607,7 @@ await client.agent.getChatMessages({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentGetChatMessagesRequest` 
+**request:** `phenoml.agent.GetChatMessagesRequest` 
     
 </dd>
 </dl>
@@ -1030,8 +1030,8 @@ await client.agent.prompts.patch("id", [{
 </dl>
 </details>
 
-## Authtoken Auth
-<details><summary><code>client.authtoken.auth.<a href="/src/api/resources/authtoken/resources/auth/client/Client.ts">getToken</a>({ ...params }) -> phenoml.TokenResponse</code></summary>
+## Authtoken
+<details><summary><code>client.authtoken.<a href="/src/api/resources/authtoken/client/Client.ts">getToken</a>({ ...params }) -> phenoml.TokenResponse</code></summary>
 <dl>
 <dd>
 
@@ -1061,7 +1061,7 @@ returns an access token with expiration information.
 <dd>
 
 ```typescript
-await client.authtoken.auth.getToken({
+await client.authtoken.getToken({
     client_id: "your_client_id",
     client_secret: "your_client_secret"
 });
@@ -1088,7 +1088,7 @@ await client.authtoken.auth.getToken({
 <dl>
 <dd>
 
-**requestOptions:** `AuthClient.RequestOptions` 
+**requestOptions:** `AuthtokenClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1167,7 +1167,7 @@ await client.cohort.analyze({
 </details>
 
 ## Construe
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">uploadCodeSystem</a>({ ...params }) -> phenoml.ConstrueUploadCodeSystemResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">uploadCodeSystem</a>({ ...params }) -> phenoml.UploadCodeSystemResponse</code></summary>
 <dl>
 <dd>
 
@@ -1315,7 +1315,7 @@ await client.construe.extractCodes({
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">listAvailableCodeSystems</a>() -> phenoml.ListCodeSystemsResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">listCodeSystems</a>() -> phenoml.ListCodeSystemsResponse</code></summary>
 <dl>
 <dd>
 
@@ -1342,7 +1342,7 @@ Returns the terminology server's catalog of available code systems, including bo
 <dd>
 
 ```typescript
-await client.construe.listAvailableCodeSystems();
+await client.construe.listCodeSystems();
 
 ```
 </dd>
@@ -1370,7 +1370,7 @@ await client.construe.listAvailableCodeSystems();
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">getCodeSystemDetail</a>(codesystem, { ...params }) -> phenoml.GetCodeSystemDetailResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">getCodeSystem</a>(codesystem, { ...params }) -> phenoml.GetCodeSystemDetailResponse</code></summary>
 <dl>
 <dd>
 
@@ -1397,7 +1397,7 @@ Returns full metadata for a single code system, including timestamps and builtin
 <dd>
 
 ```typescript
-await client.construe.getCodeSystemDetail("ICD-10-CM", {
+await client.construe.getCodeSystem("ICD-10-CM", {
     version: "2025"
 });
 
@@ -1423,7 +1423,7 @@ await client.construe.getCodeSystemDetail("ICD-10-CM", {
 <dl>
 <dd>
 
-**request:** `phenoml.construe.GetConstrueCodesSystemsCodesystemRequest` 
+**request:** `phenoml.construe.GetCodeSystemRequest` 
     
 </dd>
 </dl>
@@ -1443,7 +1443,7 @@ await client.construe.getCodeSystemDetail("ICD-10-CM", {
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">deleteCustomCodeSystem</a>(codesystem, { ...params }) -> phenoml.DeleteCodeSystemResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">deleteCodeSystem</a>(codesystem, { ...params }) -> phenoml.DeleteCodeSystemResponse</code></summary>
 <dl>
 <dd>
 
@@ -1471,7 +1471,7 @@ Only available on dedicated instances. Large systems may take up to a minute to 
 <dd>
 
 ```typescript
-await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
+await client.construe.deleteCodeSystem("CUSTOM_CODES", {
     version: "version"
 });
 
@@ -1497,7 +1497,7 @@ await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
 <dl>
 <dd>
 
-**request:** `phenoml.construe.DeleteConstrueCodesSystemsCodesystemRequest` 
+**request:** `phenoml.construe.DeleteCodeSystemRequest` 
     
 </dd>
 </dl>
@@ -1517,7 +1517,7 @@ await client.construe.deleteCustomCodeSystem("CUSTOM_CODES", {
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">exportCustomCodeSystem</a>(codesystem, { ...params }) -> phenoml.ExportCodeSystemResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">exportCodeSystem</a>(codesystem, { ...params }) -> phenoml.ExportCodeSystemResponse</code></summary>
 <dl>
 <dd>
 
@@ -1546,7 +1546,7 @@ Only available on dedicated instances. Builtin systems cannot be exported.
 <dd>
 
 ```typescript
-await client.construe.exportCustomCodeSystem("CUSTOM_CODES", {
+await client.construe.exportCodeSystem("CUSTOM_CODES", {
     version: "version"
 });
 
@@ -1572,7 +1572,7 @@ await client.construe.exportCustomCodeSystem("CUSTOM_CODES", {
 <dl>
 <dd>
 
-**request:** `phenoml.construe.GetConstrueCodesSystemsCodesystemExportRequest` 
+**request:** `phenoml.construe.ExportCodeSystemRequest` 
     
 </dd>
 </dl>
@@ -1592,7 +1592,7 @@ await client.construe.exportCustomCodeSystem("CUSTOM_CODES", {
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">listCodesInACodeSystem</a>(codesystem, { ...params }) -> phenoml.ListCodesResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">listCodes</a>(codesystem, { ...params }) -> phenoml.ListCodesResponse</code></summary>
 <dl>
 <dd>
 
@@ -1621,7 +1621,7 @@ Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
 <dd>
 
 ```typescript
-await client.construe.listCodesInACodeSystem("ICD-10-CM", {
+await client.construe.listCodes("ICD-10-CM", {
     version: "2025",
     cursor: "cursor",
     limit: 1
@@ -1649,7 +1649,7 @@ await client.construe.listCodesInACodeSystem("ICD-10-CM", {
 <dl>
 <dd>
 
-**request:** `phenoml.construe.GetConstrueCodesCodesystemRequest` 
+**request:** `phenoml.construe.ListCodesRequest` 
     
 </dd>
 </dl>
@@ -1669,7 +1669,7 @@ await client.construe.listCodesInACodeSystem("ICD-10-CM", {
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">getASpecificCode</a>(codesystem, codeID, { ...params }) -> phenoml.GetCodeResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">getCode</a>(codesystem, codeID, { ...params }) -> phenoml.GetCodeResponse</code></summary>
 <dl>
 <dd>
 
@@ -1698,7 +1698,7 @@ Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
 <dd>
 
 ```typescript
-await client.construe.getASpecificCode("ICD-10-CM", "E1165", {
+await client.construe.getCode("ICD-10-CM", "E1165", {
     version: "version"
 });
 
@@ -1735,7 +1735,7 @@ cosmetic dot (use "E1165", not "E11.65").
 <dl>
 <dd>
 
-**request:** `phenoml.construe.GetConstrueCodesCodesystemCodeIdRequest` 
+**request:** `phenoml.construe.GetCodeRequest` 
     
 </dd>
 </dl>
@@ -1755,7 +1755,7 @@ cosmetic dot (use "E1165", not "E11.65").
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">semanticSearchEmbeddingBased</a>(codesystem, { ...params }) -> phenoml.SemanticSearchResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">searchSemantic</a>(codesystem, { ...params }) -> phenoml.SemanticSearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -1800,7 +1800,7 @@ Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
 <dd>
 
 ```typescript
-await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
+await client.construe.searchSemantic("ICD-10-CM", {
     text: "patient has trouble breathing at night and wakes up gasping",
     version: "version",
     limit: 1
@@ -1828,7 +1828,7 @@ await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
 <dl>
 <dd>
 
-**request:** `phenoml.construe.GetConstrueCodesCodesystemSearchSemanticRequest` 
+**request:** `phenoml.construe.SearchSemanticRequest` 
     
 </dd>
 </dl>
@@ -1848,7 +1848,7 @@ await client.construe.semanticSearchEmbeddingBased("ICD-10-CM", {
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">submitFeedbackOnExtractionResults</a>({ ...params }) -> phenoml.FeedbackResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">submitFeedback</a>({ ...params }) -> phenoml.FeedbackResponse</code></summary>
 <dl>
 <dd>
 
@@ -1876,7 +1876,7 @@ Feedback includes the full extraction result received and the result the user ex
 <dd>
 
 ```typescript
-await client.construe.submitFeedbackOnExtractionResults({
+await client.construe.submitFeedback({
     text: "Patient has type 2 diabetes with hyperglycemia",
     received_result: {
         system: {
@@ -1937,7 +1937,7 @@ await client.construe.submitFeedbackOnExtractionResults({
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">terminologyServerTextSearch</a>(codesystem, { ...params }) -> phenoml.TextSearchResponse</code></summary>
+<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">searchText</a>(codesystem, { ...params }) -> phenoml.TextSearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -1987,7 +1987,7 @@ Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
 <dd>
 
 ```typescript
-await client.construe.terminologyServerTextSearch("ICD-10-CM", {
+await client.construe.searchText("ICD-10-CM", {
     q: "E11.65",
     version: "version",
     limit: 1
@@ -2015,7 +2015,7 @@ await client.construe.terminologyServerTextSearch("ICD-10-CM", {
 <dl>
 <dd>
 
-**request:** `phenoml.construe.GetConstrueCodesCodesystemSearchTextRequest` 
+**request:** `phenoml.construe.SearchTextRequest` 
     
 </dd>
 </dl>
@@ -2036,7 +2036,7 @@ await client.construe.terminologyServerTextSearch("ICD-10-CM", {
 </details>
 
 ## Fhir
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">search</a>(fhir_provider_id, fhir_path, { ...params }) -> phenoml.FhirSearchResponse</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">search</a>(fhir_provider_id, fhir_path, { ...params }) -> phenoml.SearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -2110,7 +2110,7 @@ Examples:
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirSearchRequest` 
+**request:** `phenoml.fhir.SearchRequest` 
     
 </dd>
 </dl>
@@ -2207,7 +2207,7 @@ Examples:
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirCreateRequest` 
+**request:** `phenoml.fhir.CreateRequest` 
     
 </dd>
 </dl>
@@ -2305,7 +2305,7 @@ Examples:
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirUpsertRequest` 
+**request:** `phenoml.fhir.UpsertRequest` 
     
 </dd>
 </dl>
@@ -2399,7 +2399,7 @@ Examples:
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirDeleteRequest` 
+**request:** `phenoml.fhir.DeleteRequest` 
     
 </dd>
 </dl>
@@ -2503,7 +2503,7 @@ Examples:
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirPatchRequest` 
+**request:** `phenoml.fhir.PatchRequest` 
     
 </dd>
 </dl>
@@ -2617,7 +2617,7 @@ The ID of the FHIR provider to use. Can be either:
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.FhirExecuteBundleRequest` 
+**request:** `phenoml.fhir.ExecuteBundleRequest` 
     
 </dd>
 </dl>
@@ -2837,7 +2837,7 @@ await client.fhirProvider.get("fhir_provider_id");
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">delete</a>(fhir_provider_id) -> phenoml.FhirProviderDeleteResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">delete</a>(fhir_provider_id) -> phenoml.DeleteResponse</code></summary>
 <dl>
 <dd>
 
@@ -3059,7 +3059,7 @@ await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">removeAuthConfig</a>(fhir_provider_id, { ...params }) -> phenoml.FhirProviderRemoveAuthConfigResponse</code></summary>
+<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">removeAuthConfig</a>(fhir_provider_id, { ...params }) -> phenoml.RemoveAuthConfigResponse</code></summary>
 <dl>
 <dd>
 
@@ -3347,7 +3347,7 @@ await client.lang2Fhir.search({
 </dl>
 </details>
 
-<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">uploadProfile</a>({ ...params }) -> phenoml.Lang2FhirUploadProfileResponse</code></summary>
+<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">uploadProfile</a>({ ...params }) -> phenoml.UploadProfileResponse</code></summary>
 <dl>
 <dd>
 
@@ -3492,7 +3492,7 @@ await client.lang2Fhir.document({
 </dl>
 </details>
 
-<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">extractMultipleFhirResourcesFromADocument</a>({ ...params }) -> phenoml.DocumentMultiResponse</code></summary>
+<details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">documentMulti</a>({ ...params }) -> phenoml.DocumentMultiResponse</code></summary>
 <dl>
 <dd>
 
@@ -3524,7 +3524,7 @@ Resources are linked with proper references (e.g., Conditions reference the Pati
 <dd>
 
 ```typescript
-await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
+await client.lang2Fhir.documentMulti({
     version: "R4",
     content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
     provider: "medplum"
@@ -3565,331 +3565,6 @@ await client.lang2Fhir.extractMultipleFhirResourcesFromADocument({
 </details>
 
 ## Summary
-<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">listTemplates</a>() -> phenoml.SummaryListTemplatesResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieves all summary templates for the authenticated user
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.summary.listTemplates();
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `SummaryClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">createTemplate</a>({ ...params }) -> phenoml.CreateSummaryTemplateResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a summary template from an example using LLM function calling
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.summary.createTemplate({
-    name: "Discharge Summary",
-    example_summary: "Patient John Doe, age 45, was admitted on 2024-01-10 with Type 2 Diabetes. Discharged on 2024-01-15 with Metformin 500mg BID.",
-    target_resources: ["Patient", "Condition", "MedicationRequest"],
-    mode: "narrative"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `phenoml.summary.CreateSummaryTemplateRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `SummaryClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">getTemplate</a>(id) -> phenoml.SummaryGetTemplateResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieves a specific summary template
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.summary.getTemplate("id");
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Template ID
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `SummaryClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">updateTemplate</a>(id, { ...params }) -> phenoml.SummaryUpdateTemplateResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates an existing summary template
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.summary.updateTemplate("id", {
-    name: "Discharge Summary",
-    template: "Patient {{Patient.name[0].text}} was discharged on {{Encounter[0].period.end}} with {{MedicationRequest[0].medicationCodeableConcept.coding[0].display}} {{MedicationRequest[0].dosageInstruction[0].text}}.",
-    target_resources: ["Patient", "Encounter", "MedicationRequest"],
-    mode: "narrative"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Template ID
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `phenoml.summary.UpdateSummaryTemplateRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `SummaryClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">deleteTemplate</a>(id) -> phenoml.SummaryDeleteTemplateResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a summary template
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.summary.deleteTemplate("id");
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Template ID
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `SummaryClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">create</a>({ ...params }) -> phenoml.CreateSummaryResponse</code></summary>
 <dl>
 <dd>
@@ -3978,6 +3653,332 @@ await client.summary.create({
 <dd>
 
 **requestOptions:** `SummaryClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Summary Templates
+<details><summary><code>client.summary.templates.<a href="/src/api/resources/summary/resources/templates/client/Client.ts">list</a>() -> phenoml.TemplatesListResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves all summary templates for the authenticated user
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.summary.templates.list();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `TemplatesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.summary.templates.<a href="/src/api/resources/summary/resources/templates/client/Client.ts">create</a>({ ...params }) -> phenoml.CreateSummaryTemplateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a summary template from an example using LLM function calling
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.summary.templates.create({
+    name: "Discharge Summary",
+    example_summary: "Patient John Doe, age 45, was admitted on 2024-01-10 with Type 2 Diabetes. Discharged on 2024-01-15 with Metformin 500mg BID.",
+    target_resources: ["Patient", "Condition", "MedicationRequest"],
+    mode: "narrative"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.summary.CreateSummaryTemplateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TemplatesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.summary.templates.<a href="/src/api/resources/summary/resources/templates/client/Client.ts">get</a>(id) -> phenoml.TemplatesGetResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a specific summary template
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.summary.templates.get("id");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Template ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TemplatesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.summary.templates.<a href="/src/api/resources/summary/resources/templates/client/Client.ts">update</a>(id, { ...params }) -> phenoml.TemplatesUpdateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates an existing summary template
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.summary.templates.update("id", {
+    name: "Discharge Summary",
+    template: "Patient {{Patient.name[0].text}} was discharged on {{Encounter[0].period.end}} with {{MedicationRequest[0].medicationCodeableConcept.coding[0].display}} {{MedicationRequest[0].dosageInstruction[0].text}}.",
+    target_resources: ["Patient", "Encounter", "MedicationRequest"],
+    mode: "narrative"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Template ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.summary.UpdateSummaryTemplateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TemplatesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.summary.templates.<a href="/src/api/resources/summary/resources/templates/client/Client.ts">delete</a>(id) -> phenoml.TemplatesDeleteResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a summary template
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.summary.templates.delete("id");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Template ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TemplatesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4753,7 +4754,7 @@ await client.workflows.list({
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.WorkflowsListRequest` 
+**request:** `phenoml.workflows.ListRequest` 
     
 </dd>
 </dl>
@@ -4847,7 +4848,7 @@ await client.workflows.create({
 </dl>
 </details>
 
-<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">get</a>(id, { ...params }) -> phenoml.WorkflowsGetResponse</code></summary>
+<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">get</a>(id, { ...params }) -> phenoml.GetResponse</code></summary>
 <dl>
 <dd>
 
@@ -4900,7 +4901,7 @@ await client.workflows.get("id", {
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.WorkflowsGetRequest` 
+**request:** `phenoml.workflows.GetRequest` 
     
 </dd>
 </dl>
@@ -4920,7 +4921,7 @@ await client.workflows.get("id", {
 </dl>
 </details>
 
-<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">update</a>(id, { ...params }) -> phenoml.WorkflowsUpdateResponse</code></summary>
+<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">update</a>(id, { ...params }) -> phenoml.UpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -5002,7 +5003,7 @@ await client.workflows.update("id", {
 </dl>
 </details>
 
-<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">delete</a>(id) -> phenoml.WorkflowsDeleteResponse</code></summary>
+<details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">delete</a>(id) -> phenoml.DeleteResponse</code></summary>
 <dl>
 <dd>
 

@@ -1562,4 +1562,37 @@ describe("WorkflowsClient", () => {
             });
         }).rejects.toThrow(phenoml.workflows.InternalServerError);
     });
+
+    test("execute (8)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { input_data: { input_data: { key: "value" } } };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/workflows/id/execute")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(504)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.workflows.execute("id", {
+                input_data: {
+                    input_data: {
+                        key: "value",
+                    },
+                },
+            });
+        }).rejects.toThrow(phenoml.workflows.GatewayTimeoutError);
+    });
 });

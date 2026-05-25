@@ -1,6 +1,6 @@
 {
     "name": "phenoml",
-    "version": "15.0.0",
+    "version": "0.0.0-fern-placeholder",
     "private": false,
     "repository": {
         "type": "git",
@@ -54,17 +54,6 @@
                 "default": "./dist/cjs/api/resources/authtoken/exports.js"
             },
             "default": "./dist/cjs/api/resources/authtoken/exports.js"
-        },
-        "./authtoken/auth": {
-            "import": {
-                "types": "./dist/esm/api/resources/authtoken/resources/auth/exports.d.mts",
-                "default": "./dist/esm/api/resources/authtoken/resources/auth/exports.mjs"
-            },
-            "require": {
-                "types": "./dist/cjs/api/resources/authtoken/resources/auth/exports.d.ts",
-                "default": "./dist/cjs/api/resources/authtoken/resources/auth/exports.js"
-            },
-            "default": "./dist/cjs/api/resources/authtoken/resources/auth/exports.js"
         },
         "./cohort": {
             "import": {
@@ -132,6 +121,17 @@
             },
             "default": "./dist/cjs/api/resources/summary/exports.js"
         },
+        "./summary/templates": {
+            "import": {
+                "types": "./dist/esm/api/resources/summary/resources/templates/exports.d.mts",
+                "default": "./dist/esm/api/resources/summary/resources/templates/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/summary/resources/templates/exports.d.ts",
+                "default": "./dist/cjs/api/resources/summary/resources/templates/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/summary/resources/templates/exports.js"
+        },
         "./tools": {
             "import": {
                 "types": "./dist/esm/api/resources/tools/exports.d.mts",
@@ -176,12 +176,10 @@
             },
             "default": "./dist/cjs/api/resources/workflows/exports.js"
         },
-        "./openapi.json": "./openapi/openapi.json",
         "./package.json": "./package.json"
     },
     "files": [
         "dist",
-        "openapi",
         "reference.md",
         "README.md",
         "LICENSE"

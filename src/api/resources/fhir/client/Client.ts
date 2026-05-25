@@ -36,7 +36,7 @@ export class FhirClient {
      *                             - "Patient" (for resource type operations)
      *                             - "Patient/123" (for specific resource operations)
      *                             - "Patient/123/_history" (for history operations)
-     * @param {phenoml.fhir.FhirSearchRequest} request
+     * @param {phenoml.fhir.SearchRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.fhir.BadRequestError}
@@ -56,9 +56,9 @@ export class FhirClient {
     public search(
         fhir_provider_id: string,
         fhir_path: string,
-        request: phenoml.fhir.FhirSearchRequest = {},
+        request: phenoml.fhir.SearchRequest = {},
         requestOptions?: FhirClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.fhir.FhirSearchResponse> {
+    ): core.HttpResponsePromise<phenoml.fhir.SearchResponse> {
         return core.HttpResponsePromise.fromPromise(
             this.__search(fhir_provider_id, fhir_path, request, requestOptions),
         );
@@ -67,9 +67,9 @@ export class FhirClient {
     private async __search(
         fhir_provider_id: string,
         fhir_path: string,
-        request: phenoml.fhir.FhirSearchRequest = {},
+        request: phenoml.fhir.SearchRequest = {},
         requestOptions?: FhirClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.fhir.FhirSearchResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.fhir.SearchResponse>> {
         const {
             query_parameters: queryParameters,
             "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
@@ -109,7 +109,7 @@ export class FhirClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.fhir.FhirSearchResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.fhir.SearchResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -167,7 +167,7 @@ export class FhirClient {
      *                             - "Patient" (for resource type operations)
      *                             - "Patient/123" (for specific resource operations)
      *                             - "Patient/123/_history" (for history operations)
-     * @param {phenoml.fhir.FhirCreateRequest} request
+     * @param {phenoml.fhir.CreateRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.fhir.BadRequestError}
@@ -189,7 +189,7 @@ export class FhirClient {
     public create(
         fhir_provider_id: string,
         fhir_path: string,
-        request: phenoml.fhir.FhirCreateRequest,
+        request: phenoml.fhir.CreateRequest,
         requestOptions?: FhirClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhir.FhirResource> {
         return core.HttpResponsePromise.fromPromise(
@@ -200,7 +200,7 @@ export class FhirClient {
     private async __create(
         fhir_provider_id: string,
         fhir_path: string,
-        request: phenoml.fhir.FhirCreateRequest,
+        request: phenoml.fhir.CreateRequest,
         requestOptions?: FhirClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhir.FhirResource>> {
         const {
@@ -294,7 +294,7 @@ export class FhirClient {
      *                             - "Patient" (for resource type operations)
      *                             - "Patient/123" (for specific resource operations)
      *                             - "Patient/123/_history" (for history operations)
-     * @param {phenoml.fhir.FhirUpsertRequest} request
+     * @param {phenoml.fhir.UpsertRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.fhir.BadRequestError}
@@ -317,7 +317,7 @@ export class FhirClient {
     public upsert(
         fhir_provider_id: string,
         fhir_path: string,
-        request: phenoml.fhir.FhirUpsertRequest,
+        request: phenoml.fhir.UpsertRequest,
         requestOptions?: FhirClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhir.FhirResource> {
         return core.HttpResponsePromise.fromPromise(
@@ -328,7 +328,7 @@ export class FhirClient {
     private async __upsert(
         fhir_provider_id: string,
         fhir_path: string,
-        request: phenoml.fhir.FhirUpsertRequest,
+        request: phenoml.fhir.UpsertRequest,
         requestOptions?: FhirClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhir.FhirResource>> {
         const {
@@ -422,7 +422,7 @@ export class FhirClient {
      *                             - "Patient" (for resource type operations)
      *                             - "Patient/123" (for specific resource operations)
      *                             - "Patient/123/_history" (for history operations)
-     * @param {phenoml.fhir.FhirDeleteRequest} request
+     * @param {phenoml.fhir.DeleteRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.fhir.BadRequestError}
@@ -442,7 +442,7 @@ export class FhirClient {
     public delete(
         fhir_provider_id: string,
         fhir_path: string,
-        request: phenoml.fhir.FhirDeleteRequest = {},
+        request: phenoml.fhir.DeleteRequest = {},
         requestOptions?: FhirClient.RequestOptions,
     ): core.HttpResponsePromise<Record<string, unknown>> {
         return core.HttpResponsePromise.fromPromise(
@@ -453,7 +453,7 @@ export class FhirClient {
     private async __delete(
         fhir_provider_id: string,
         fhir_path: string,
-        request: phenoml.fhir.FhirDeleteRequest = {},
+        request: phenoml.fhir.DeleteRequest = {},
         requestOptions?: FhirClient.RequestOptions,
     ): Promise<core.WithRawResponse<Record<string, unknown>>> {
         const { "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf, "X-Phenoml-Fhir-Provider": phenomlFhirProvider } = request;
@@ -547,7 +547,7 @@ export class FhirClient {
      *                             - "Patient" (for resource type operations)
      *                             - "Patient/123" (for specific resource operations)
      *                             - "Patient/123/_history" (for history operations)
-     * @param {phenoml.fhir.FhirPatchRequest} request
+     * @param {phenoml.fhir.PatchRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.fhir.BadRequestError}
@@ -623,7 +623,7 @@ export class FhirClient {
     public patch(
         fhir_provider_id: string,
         fhir_path: string,
-        request: phenoml.fhir.FhirPatchRequest,
+        request: phenoml.fhir.PatchRequest,
         requestOptions?: FhirClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhir.FhirResource> {
         return core.HttpResponsePromise.fromPromise(this.__patch(fhir_provider_id, fhir_path, request, requestOptions));
@@ -632,7 +632,7 @@ export class FhirClient {
     private async __patch(
         fhir_provider_id: string,
         fhir_path: string,
-        request: phenoml.fhir.FhirPatchRequest,
+        request: phenoml.fhir.PatchRequest,
         requestOptions?: FhirClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhir.FhirResource>> {
         const {
@@ -725,7 +725,7 @@ export class FhirClient {
      * @param {string} fhir_provider_id - The ID of the FHIR provider to use. Can be either:
      *                                    - A UUID representing the provider ID
      *                                    - A provider name (legacy support - will just use the most recently updated provider with this name)
-     * @param {phenoml.fhir.FhirExecuteBundleRequest} request
+     * @param {phenoml.fhir.ExecuteBundleRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.fhir.BadRequestError}
@@ -775,7 +775,7 @@ export class FhirClient {
      */
     public executeBundle(
         fhir_provider_id: string,
-        request: phenoml.fhir.FhirExecuteBundleRequest,
+        request: phenoml.fhir.ExecuteBundleRequest,
         requestOptions?: FhirClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.fhir.FhirBundle> {
         return core.HttpResponsePromise.fromPromise(this.__executeBundle(fhir_provider_id, request, requestOptions));
@@ -783,7 +783,7 @@ export class FhirClient {
 
     private async __executeBundle(
         fhir_provider_id: string,
-        request: phenoml.fhir.FhirExecuteBundleRequest,
+        request: phenoml.fhir.ExecuteBundleRequest,
         requestOptions?: FhirClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.fhir.FhirBundle>> {
         const {
