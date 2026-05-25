@@ -176,10 +176,12 @@
             },
             "default": "./dist/cjs/api/resources/workflows/exports.js"
         },
+        "./openapi.json": "./openapi/openapi.json",
         "./package.json": "./package.json"
     },
     "files": [
         "dist",
+        "openapi",
         "reference.md",
         "README.md",
         "LICENSE"
