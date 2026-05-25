@@ -1,3 +1,28 @@
+## 16.0.0 - 2026-05-25
+### Breaking Changes
+* **`client.summary.listTemplates()` / `createTemplate()` / `getTemplate()` / `updateTemplate()` / `deleteTemplate()`** — removed from `SummaryClient`; the five template CRUD methods now live on a new `client.summary.templates` sub-client. Rewrite call sites as `client.summary.templates.list()` / `create()` / `get(id)` / `update(id, ...)` / `delete(id)`. HTTP routes are unchanged.
+* **`SummaryListTemplatesResponse` / `SummaryGetTemplateResponse` / `SummaryUpdateTemplateResponse` / `SummaryDeleteTemplateResponse`** — renamed to `TemplatesListResponse` / `TemplatesGetResponse` / `TemplatesUpdateResponse` / `TemplatesDeleteResponse`, now exported from `phenoml.summary.templates` (also re-exported from `phenoml.summary`). Update imports.
+* **`client.authtoken.auth.getToken()`** — the intermediate `auth` sub-client was removed; call `client.authtoken.getToken()` directly. The `AuthClient` class is deleted; replace any direct imports with `AuthtokenClient`, and use `AuthtokenClient.RequestOptions` in place of `AuthClient.RequestOptions`.
+* **`client.construe.listAvailableCodeSystems()` → `listCodeSystems()`** — method renamed.
+* **`client.construe.getCodeSystemDetail()` → `getCodeSystem()`** — method renamed.
+* **`client.construe.deleteCustomCodeSystem()` → `deleteCodeSystem()`** — method renamed.
+* **`client.construe.exportCustomCodeSystem()` → `exportCodeSystem()`** — method renamed.
+* **`client.construe.listCodesInACodeSystem()` → `listCodes()`** — method renamed.
+* **`client.construe.getASpecificCode()` → `getCode()`** — method renamed.
+* **`client.construe.semanticSearchEmbeddingBased()` → `searchSemantic()`** — method renamed.
+* **`client.construe.terminologyServerTextSearch()` → `searchText()`** — method renamed.
+* **`client.construe.submitFeedbackOnExtractionResults()` → `submitFeedback()`** — method renamed.
+* **`client.lang2Fhir.extractMultipleFhirResourcesFromADocument()` → `documentMulti()`** — method renamed.
+* **`phenoml.construe.*` request and response types** — redundant `Construe`/long-form prefixes dropped: `GetConstrueCodesSystemsCodesystemRequest` → `GetCodeSystemRequest`, `DeleteConstrueCodesSystemsCodesystemRequest` → `DeleteCodeSystemRequest`, `GetConstrueCodesSystemsCodesystemExportRequest` → `ExportCodeSystemRequest`, `GetConstrueCodesCodesystemRequest` → `ListCodesRequest`, `GetConstrueCodesCodesystemCodeIdRequest` → `GetCodeRequest`, `GetConstrueCodesCodesystemSearchSemanticRequest` → `SearchSemanticRequest`, `GetConstrueCodesCodesystemSearchTextRequest` → `SearchTextRequest`, `ConstrueUploadCodeSystemResponse` → `UploadCodeSystemResponse`. Update imports.
+* **`phenoml.fhir.Fhir*Request` and FHIR response types** — `Fhir` prefix dropped: `FhirSearchRequest` → `SearchRequest`, `FhirCreateRequest` → `CreateRequest`, `FhirUpsertRequest` → `UpsertRequest`, `FhirDeleteRequest` → `DeleteRequest`, `FhirPatchRequest` → `PatchRequest`, `FhirExecuteBundleRequest` → `ExecuteBundleRequest`, `FhirSearchResponse` → `SearchResponse`, `FhirPatchRequestBodyItem` → `PatchRequestBodyItem`, `FhirPatchRequestBodyItemOp` → `PatchRequestBodyItemOp`. All still live under `phenoml.fhir`.
+* **`phenoml.fhirProvider.FhirProviderDeleteResponse` / `FhirProviderRemoveAuthConfigResponse`** — renamed to `phenoml.fhirProvider.DeleteResponse` / `RemoveAuthConfigResponse`.
+* **`phenoml.lang2Fhir.Lang2FhirUploadProfileResponse`** — renamed to `phenoml.lang2Fhir.UploadProfileResponse`.
+* **`phenoml.agent.Agent*` request and response types** — `Agent` prefix dropped: `AgentListRequest` → `ListRequest`, `AgentListResponse` → `ListResponse`, `AgentDeleteResponse` → `DeleteResponse`, `AgentGetChatMessagesRequest` → `GetChatMessagesRequest`, `AgentGetChatMessagesResponse` → `GetChatMessagesResponse`, `AgentGetChatMessagesRequestRole` → `GetChatMessagesRequestRole`, `AgentGetChatMessagesRequestOrder` → `GetChatMessagesRequestOrder` (still under `phenoml.agent`; enum values unchanged).
+* **`phenoml.workflows.Workflows*` request and response types** — `Workflows` prefix dropped: `WorkflowsListRequest` → `ListRequest`, `WorkflowsGetRequest` → `GetRequest`, `WorkflowsGetResponse` → `GetResponse`, `WorkflowsUpdateResponse` → `UpdateResponse`, `WorkflowsDeleteResponse` → `DeleteResponse` (still under `phenoml.workflows`).
+### Added
+* **`client.summary.templates`** — new nested sub-client (`TemplatesClient`) exposing `list()`, `create()`, `get(id)`, `update(id, ...)`, `delete(id)` for summary templates.
+* **`phenoml.workflows.GatewayTimeoutError`** — new error class thrown by `client.workflows.execute()` on HTTP 504 responses; long-running workflow callers may catch it explicitly.
+
 ## 15.0.0 - 2026-05-15
 ### Breaking Changes
 * **`ToolsClient.call()`** — method removed; delete all calls to `client.tools.mcpServer.tools.call()` from your codebase.
