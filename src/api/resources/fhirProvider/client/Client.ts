@@ -310,14 +310,14 @@ export class FhirProviderClient {
     public delete(
         fhir_provider_id: string,
         requestOptions?: FhirProviderClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderDeleteResponse> {
+    ): core.HttpResponsePromise<phenoml.fhirProvider.DeleteResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(fhir_provider_id, requestOptions));
     }
 
     private async __delete(
         fhir_provider_id: string,
         requestOptions?: FhirProviderClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderDeleteResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.fhirProvider.DeleteResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -341,10 +341,7 @@ export class FhirProviderClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as phenoml.fhirProvider.FhirProviderDeleteResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as phenoml.fhirProvider.DeleteResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -638,7 +635,7 @@ export class FhirProviderClient {
         fhir_provider_id: string,
         request: phenoml.fhirProvider.FhirProviderRemoveAuthConfigRequest,
         requestOptions?: FhirProviderClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.fhirProvider.FhirProviderRemoveAuthConfigResponse> {
+    ): core.HttpResponsePromise<phenoml.fhirProvider.RemoveAuthConfigResponse> {
         return core.HttpResponsePromise.fromPromise(this.__removeAuthConfig(fhir_provider_id, request, requestOptions));
     }
 
@@ -646,7 +643,7 @@ export class FhirProviderClient {
         fhir_provider_id: string,
         request: phenoml.fhirProvider.FhirProviderRemoveAuthConfigRequest,
         requestOptions?: FhirProviderClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.fhirProvider.FhirProviderRemoveAuthConfigResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.fhirProvider.RemoveAuthConfigResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -674,7 +671,7 @@ export class FhirProviderClient {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.fhirProvider.FhirProviderRemoveAuthConfigResponse,
+                data: _response.body as phenoml.fhirProvider.RemoveAuthConfigResponse,
                 rawResponse: _response.rawResponse,
             };
         }

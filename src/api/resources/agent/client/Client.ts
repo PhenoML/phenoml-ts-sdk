@@ -113,7 +113,7 @@ export class AgentClient {
     /**
      * Retrieves a list of PhenoAgents belonging to the authenticated user
      *
-     * @param {phenoml.agent.AgentListRequest} request
+     * @param {phenoml.agent.ListRequest} request
      * @param {AgentClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.UnauthorizedError}
@@ -126,16 +126,16 @@ export class AgentClient {
      *     })
      */
     public list(
-        request: phenoml.agent.AgentListRequest = {},
+        request: phenoml.agent.ListRequest = {},
         requestOptions?: AgentClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentListResponse> {
+    ): core.HttpResponsePromise<phenoml.agent.ListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
-        request: phenoml.agent.AgentListRequest = {},
+        request: phenoml.agent.ListRequest = {},
         requestOptions?: AgentClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentListResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.ListResponse>> {
         const { tags } = request;
         const _queryParams: Record<string, unknown> = {
             tags,
@@ -167,7 +167,7 @@ export class AgentClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentListResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.agent.ListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -368,14 +368,14 @@ export class AgentClient {
     public delete(
         id: string,
         requestOptions?: AgentClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentDeleteResponse> {
+    ): core.HttpResponsePromise<phenoml.agent.DeleteResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
     }
 
     private async __delete(
         id: string,
         requestOptions?: AgentClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentDeleteResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.DeleteResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -399,7 +399,7 @@ export class AgentClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentDeleteResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.agent.DeleteResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -705,7 +705,7 @@ export class AgentClient {
     /**
      * Retrieves a list of chat messages for a given chat session
      *
-     * @param {phenoml.agent.AgentGetChatMessagesRequest} request
+     * @param {phenoml.agent.GetChatMessagesRequest} request
      * @param {AgentClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.UnauthorizedError}
@@ -721,16 +721,16 @@ export class AgentClient {
      *     })
      */
     public getChatMessages(
-        request: phenoml.agent.AgentGetChatMessagesRequest,
+        request: phenoml.agent.GetChatMessagesRequest,
         requestOptions?: AgentClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentGetChatMessagesResponse> {
+    ): core.HttpResponsePromise<phenoml.agent.GetChatMessagesResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getChatMessages(request, requestOptions));
     }
 
     private async __getChatMessages(
-        request: phenoml.agent.AgentGetChatMessagesRequest,
+        request: phenoml.agent.GetChatMessagesRequest,
         requestOptions?: AgentClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentGetChatMessagesResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.GetChatMessagesResponse>> {
         const { chat_session_id: chatSessionId, num_messages: numMessages, role, order } = request;
         const _queryParams: Record<string, unknown> = {
             chat_session_id: chatSessionId,
@@ -766,7 +766,7 @@ export class AgentClient {
         });
         if (_response.ok) {
             return {
-                data: _response.body as phenoml.agent.AgentGetChatMessagesResponse,
+                data: _response.body as phenoml.agent.GetChatMessagesResponse,
                 rawResponse: _response.rawResponse,
             };
         }
