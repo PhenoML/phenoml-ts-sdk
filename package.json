@@ -1,6 +1,6 @@
 {
     "name": "phenoml",
-    "version": "16.0.0",
+    "version": "16.0.1",
     "private": false,
     "repository": {
         "type": "git",
@@ -176,12 +176,10 @@
             },
             "default": "./dist/cjs/api/resources/workflows/exports.js"
         },
-        "./openapi.json": "./openapi/openapi.json",
         "./package.json": "./package.json"
     },
     "files": [
         "dist",
-        "openapi",
         "reference.md",
         "README.md",
         "LICENSE"

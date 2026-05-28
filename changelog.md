@@ -1,3 +1,13 @@
+## 16.0.1 - 2026-05-28
+* chore: remove openapi.json export and file from package
+* Remove the `./openapi.json` package export entry and the `openapi`
+* directory from the published `files` list. This is a packaging
+* cleanup that stops bundling the OpenAPI spec with the npm package.
+* Key changes:
+* Remove `"./openapi.json": "./openapi/openapi.json"` from package exports map
+* Remove `"openapi"` directory from the `files` array in package.json
+* 🌿 Generated with Fern
+
 ## 16.0.0 - 2026-05-25
 ### Breaking Changes
 * **`client.summary.listTemplates()` / `createTemplate()` / `getTemplate()` / `updateTemplate()` / `deleteTemplate()`** — removed from `SummaryClient`; the five template CRUD methods now live on a new `client.summary.templates` sub-client. Rewrite call sites as `client.summary.templates.list()` / `create()` / `get(id)` / `update(id, ...)` / `delete(id)`. HTTP routes are unchanged.
