@@ -226,6 +226,7 @@ export class WorkflowsClient {
      * @throws {@link phenoml.workflows.ForbiddenError}
      * @throws {@link phenoml.workflows.NotFoundError}
      * @throws {@link phenoml.workflows.InternalServerError}
+     * @throws {@link phenoml.workflows.GatewayTimeoutError}
      *
      * @example
      *     await client.workflows.get("id", {
@@ -295,6 +296,11 @@ export class WorkflowsClient {
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
+                case 504:
+                    throw new phenoml.workflows.GatewayTimeoutError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.phenomlError({
                         statusCode: _response.error.statusCode,
@@ -319,6 +325,7 @@ export class WorkflowsClient {
      * @throws {@link phenoml.workflows.ForbiddenError}
      * @throws {@link phenoml.workflows.NotFoundError}
      * @throws {@link phenoml.workflows.InternalServerError}
+     * @throws {@link phenoml.workflows.GatewayTimeoutError}
      *
      * @example
      *     await client.workflows.update("id", {
@@ -402,6 +409,11 @@ export class WorkflowsClient {
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
+                case 504:
+                    throw new phenoml.workflows.GatewayTimeoutError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.phenomlError({
                         statusCode: _response.error.statusCode,
@@ -424,6 +436,7 @@ export class WorkflowsClient {
      * @throws {@link phenoml.workflows.ForbiddenError}
      * @throws {@link phenoml.workflows.NotFoundError}
      * @throws {@link phenoml.workflows.InternalServerError}
+     * @throws {@link phenoml.workflows.GatewayTimeoutError}
      *
      * @example
      *     await client.workflows.delete("id")
@@ -478,6 +491,11 @@ export class WorkflowsClient {
                     throw new phenoml.workflows.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
                     throw new phenoml.workflows.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 504:
+                    throw new phenoml.workflows.GatewayTimeoutError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );

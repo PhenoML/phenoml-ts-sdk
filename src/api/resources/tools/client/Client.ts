@@ -8,7 +8,7 @@ import * as environments from "../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../errors/index.js";
 import * as phenoml from "../../../index.js";
-import { McpServerClient } from "../resources/mcpServer/client/Client.js";
+import { McpServersClient } from "../resources/mcpServers/client/Client.js";
 
 export declare namespace ToolsClient {
     export type Options = BaseClientOptions;
@@ -18,14 +18,14 @@ export declare namespace ToolsClient {
 
 export class ToolsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<ToolsClient.Options>;
-    protected _mcpServer: McpServerClient | undefined;
+    protected _mcpServers: McpServersClient | undefined;
 
     constructor(options: ToolsClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
-    public get mcpServer(): McpServerClient {
-        return (this._mcpServer ??= new McpServerClient(this._options));
+    public get mcpServers(): McpServersClient {
+        return (this._mcpServers ??= new McpServersClient(this._options));
     }
 
     /**
@@ -37,7 +37,6 @@ export class ToolsClient {
      * @throws {@link phenoml.tools.BadRequestError}
      * @throws {@link phenoml.tools.UnauthorizedError}
      * @throws {@link phenoml.tools.ForbiddenError}
-     * @throws {@link phenoml.tools.FailedDependencyError}
      * @throws {@link phenoml.tools.InternalServerError}
      *
      * @example
@@ -109,11 +108,6 @@ export class ToolsClient {
                     throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
                     throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
-                case 424:
-                    throw new phenoml.tools.FailedDependencyError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
                 case 500:
                     throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
@@ -141,7 +135,6 @@ export class ToolsClient {
      * @throws {@link phenoml.tools.BadRequestError}
      * @throws {@link phenoml.tools.UnauthorizedError}
      * @throws {@link phenoml.tools.ForbiddenError}
-     * @throws {@link phenoml.tools.FailedDependencyError}
      * @throws {@link phenoml.tools.InternalServerError}
      *
      * @example
@@ -213,11 +206,6 @@ export class ToolsClient {
                     throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
                     throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
-                case 424:
-                    throw new phenoml.tools.FailedDependencyError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
                 case 500:
                     throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
@@ -246,7 +234,6 @@ export class ToolsClient {
      * @throws {@link phenoml.tools.BadRequestError}
      * @throws {@link phenoml.tools.UnauthorizedError}
      * @throws {@link phenoml.tools.ForbiddenError}
-     * @throws {@link phenoml.tools.FailedDependencyError}
      * @throws {@link phenoml.tools.InternalServerError}
      *
      * @example
@@ -318,11 +305,6 @@ export class ToolsClient {
                     throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
                     throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
-                case 424:
-                    throw new phenoml.tools.FailedDependencyError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
                 case 500:
                     throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
@@ -425,5 +407,236 @@ export class ToolsClient {
         }
 
         return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/tools/cohort");
+    }
+
+    /**
+     * Lists all MCP server tools for a specific MCP server
+     *
+     * @param {string} mcp_server_id - ID of the MCP server to list tools for
+     * @param {ToolsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.tools.UnauthorizedError}
+     * @throws {@link phenoml.tools.ForbiddenError}
+     * @throws {@link phenoml.tools.InternalServerError}
+     *
+     * @example
+     *     await client.tools.list("mcp_server_id")
+     */
+    public list(
+        mcp_server_id: string,
+        requestOptions?: ToolsClient.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.tools.McpServerToolResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__list(mcp_server_id, requestOptions));
+    }
+
+    private async __list(
+        mcp_server_id: string,
+        requestOptions?: ToolsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.tools.McpServerToolResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `tools/mcp-server/${core.url.encodePathParam(mcp_server_id)}/list`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as phenoml.tools.McpServerToolResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                case 403:
+                    throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/tools/mcp-server/{mcp_server_id}/list",
+        );
+    }
+
+    /**
+     * Gets a MCP server tool by ID
+     *
+     * @param {string} mcp_server_tool_id - ID of the MCP server tool to retrieve
+     * @param {ToolsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.tools.UnauthorizedError}
+     * @throws {@link phenoml.tools.ForbiddenError}
+     * @throws {@link phenoml.tools.NotFoundError}
+     * @throws {@link phenoml.tools.InternalServerError}
+     *
+     * @example
+     *     await client.tools.get("mcp_server_tool_id")
+     */
+    public get(
+        mcp_server_tool_id: string,
+        requestOptions?: ToolsClient.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.tools.McpServerToolResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__get(mcp_server_tool_id, requestOptions));
+    }
+
+    private async __get(
+        mcp_server_tool_id: string,
+        requestOptions?: ToolsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.tools.McpServerToolResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `tools/mcp-server/tool/${core.url.encodePathParam(mcp_server_tool_id)}`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as phenoml.tools.McpServerToolResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                case 403:
+                    throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 404:
+                    throw new phenoml.tools.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/tools/mcp-server/tool/{mcp_server_tool_id}",
+        );
+    }
+
+    /**
+     * Deletes a MCP server tool by ID
+     *
+     * @param {string} mcp_server_tool_id - ID of the MCP server tool to delete
+     * @param {ToolsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.tools.UnauthorizedError}
+     * @throws {@link phenoml.tools.ForbiddenError}
+     * @throws {@link phenoml.tools.NotFoundError}
+     * @throws {@link phenoml.tools.InternalServerError}
+     *
+     * @example
+     *     await client.tools.delete("mcp_server_tool_id")
+     */
+    public delete(
+        mcp_server_tool_id: string,
+        requestOptions?: ToolsClient.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.tools.McpServerToolResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__delete(mcp_server_tool_id, requestOptions));
+    }
+
+    private async __delete(
+        mcp_server_tool_id: string,
+        requestOptions?: ToolsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.tools.McpServerToolResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `tools/mcp-server/tool/${core.url.encodePathParam(mcp_server_tool_id)}`,
+            ),
+            method: "DELETE",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as phenoml.tools.McpServerToolResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
+                case 403:
+                    throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 404:
+                    throw new phenoml.tools.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "DELETE",
+            "/tools/mcp-server/tool/{mcp_server_tool_id}",
+        );
     }
 }

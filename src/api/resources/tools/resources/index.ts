@@ -1,2 +1,2 @@
-export * from "./mcpServer/client/requests/index.js";
-export * as mcpServer from "./mcpServer/index.js";
+export * from "./mcpServers/client/requests/index.js";
+export * as mcpServers from "./mcpServers/index.js";

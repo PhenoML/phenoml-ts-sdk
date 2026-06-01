@@ -17,30 +17,28 @@ describe("AgentClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = {
-            name: "Medical Assistant",
-            description: "An AI assistant for medical information processing",
-            prompts: ["prompt_123"],
-            tags: ["medical", "fhir"],
-            provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
+            name: "Medical Assistant System Prompt",
+            description: "System prompt for medical assistant agent",
+            content: "You are a helpful medical assistant specialized in FHIR data processing.",
+            is_default: false,
+            tags: ["medical", "system"],
         };
         const rawResponseBody = {
             success: true,
-            message: "Agent created successfully",
+            message: "Prompt created successfully",
             data: {
-                id: "agent_123",
-                name: "Medical Assistant",
-                description: "An AI assistant for medical information processing",
-                prompts: ["prompt_123", "prompt_456"],
-                tools: ["mcp_server_123", "mcp_server_456"],
-                workflows: ["workflow_123", "workflow_456"],
-                tags: ["medical", "fhir"],
-                provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
+                id: "prompt_123",
+                name: "Medical Assistant System Prompt",
+                description: "System prompt for medical assistant agent",
+                content: "You are a helpful medical assistant...",
+                is_default: false,
+                tags: ["medical", "system"],
             },
         };
 
         server
             .mockEndpoint()
-            .post("/agent/create")
+            .post("/agent/prompts")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -48,11 +46,11 @@ describe("AgentClient", () => {
             .build();
 
         const response = await client.agent.create({
-            name: "Medical Assistant",
-            description: "An AI assistant for medical information processing",
-            prompts: ["prompt_123"],
-            tags: ["medical", "fhir"],
-            provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
+            name: "Medical Assistant System Prompt",
+            description: "System prompt for medical assistant agent",
+            content: "You are a helpful medical assistant specialized in FHIR data processing.",
+            is_default: false,
+            tags: ["medical", "system"],
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -67,12 +65,12 @@ describe("AgentClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
+        const rawRequestBody = { name: "name", content: "content" };
         const rawResponseBody = { key: "value" };
 
         server
             .mockEndpoint()
-            .post("/agent/create")
+            .post("/agent/prompts")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -82,8 +80,7 @@ describe("AgentClient", () => {
         await expect(async () => {
             return await client.agent.create({
                 name: "name",
-                prompts: ["prompts", "prompts"],
-                provider: "provider",
+                content: "content",
             });
         }).rejects.toThrow(phenoml.agent.BadRequestError);
     });
@@ -98,12 +95,12 @@ describe("AgentClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
+        const rawRequestBody = { name: "name", content: "content" };
         const rawResponseBody = { key: "value" };
 
         server
             .mockEndpoint()
-            .post("/agent/create")
+            .post("/agent/prompts")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -113,8 +110,7 @@ describe("AgentClient", () => {
         await expect(async () => {
             return await client.agent.create({
                 name: "name",
-                prompts: ["prompts", "prompts"],
-                provider: "provider",
+                content: "content",
             });
         }).rejects.toThrow(phenoml.agent.UnauthorizedError);
     });
@@ -129,12 +125,12 @@ describe("AgentClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
+        const rawRequestBody = { name: "name", content: "content" };
         const rawResponseBody = { key: "value" };
 
         server
             .mockEndpoint()
-            .post("/agent/create")
+            .post("/agent/prompts")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(403)
@@ -144,8 +140,7 @@ describe("AgentClient", () => {
         await expect(async () => {
             return await client.agent.create({
                 name: "name",
-                prompts: ["prompts", "prompts"],
-                provider: "provider",
+                content: "content",
             });
         }).rejects.toThrow(phenoml.agent.ForbiddenError);
     });
@@ -160,12 +155,12 @@ describe("AgentClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
+        const rawRequestBody = { name: "name", content: "content" };
         const rawResponseBody = { key: "value" };
 
         server
             .mockEndpoint()
-            .post("/agent/create")
+            .post("/agent/prompts")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -175,8 +170,7 @@ describe("AgentClient", () => {
         await expect(async () => {
             return await client.agent.create({
                 name: "name",
-                prompts: ["prompts", "prompts"],
-                provider: "provider",
+                content: "content",
             });
         }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
@@ -194,36 +188,36 @@ describe("AgentClient", () => {
 
         const rawResponseBody = {
             success: true,
-            message: "Agents retrieved successfully",
-            agents: [
+            message: "Prompts retrieved successfully",
+            prompts: [
                 {
-                    id: "agent_123",
-                    name: "Medical Assistant",
-                    description: "An AI assistant for medical information processing",
-                    prompts: ["prompt_123"],
-                    tools: ["mcp_server_123", "mcp_server_456"],
-                    workflows: ["workflow_123", "workflow_456"],
-                    tags: ["medical", "fhir"],
-                    provider: ["7002b0b4-8d09-445a-bf65-0fafdaf26c35"],
+                    id: "prompt_123",
+                    name: "Medical Assistant System Prompt",
+                    description: "System prompt for medical assistant agent",
+                    content: "You are a helpful medical assistant...",
+                    is_default: false,
+                    tags: ["medical", "system"],
                 },
                 {
-                    id: "agent_456",
-                    name: "Clinical Coding Assistant",
-                    description: "Helps with ICD-10 and SNOMED coding",
-                    prompts: ["prompt_456"],
-                    tools: ["mcp_server_123", "mcp_server_456"],
-                    workflows: ["workflow_123", "workflow_456"],
+                    id: "prompt_456",
+                    name: "Clinical Coding Prompt",
+                    description: "Prompt for ICD-10 / SNOMED coding tasks",
+                    content: "You assist with mapping clinical text to standard codes...",
+                    is_default: false,
                     tags: ["coding"],
-                    provider: ["7002b0b4-8d09-445a-bf65-0fafdaf26c35"],
                 },
             ],
         };
 
-        server.mockEndpoint().get("/agent/list").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/agent/prompts/list")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
-        const response = await client.agent.list({
-            tags: "tags",
-        });
+        const response = await client.agent.list();
         expect(response).toEqual(rawResponseBody);
     });
 
@@ -240,7 +234,13 @@ describe("AgentClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/agent/list").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/agent/prompts/list")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.agent.list();
@@ -260,7 +260,13 @@ describe("AgentClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/agent/list").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/agent/prompts/list")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.agent.list();
@@ -280,7 +286,13 @@ describe("AgentClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/agent/list").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/agent/prompts/list")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.agent.list();
@@ -300,20 +312,18 @@ describe("AgentClient", () => {
 
         const rawResponseBody = {
             success: true,
-            message: "Agent retrieved successfully",
+            message: "Prompt retrieved successfully",
             data: {
-                id: "agent_123",
-                name: "Medical Assistant",
-                description: "An AI assistant for medical information processing",
-                prompts: ["prompt_123", "prompt_456"],
-                tools: ["mcp_server_123", "mcp_server_456"],
-                workflows: ["workflow_123", "workflow_456"],
-                tags: ["medical", "fhir"],
-                provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
+                id: "prompt_123",
+                name: "Medical Assistant System Prompt",
+                description: "System prompt for medical assistant agent",
+                content: "You are a helpful medical assistant...",
+                is_default: false,
+                tags: ["medical", "system"],
             },
         };
 
-        server.mockEndpoint().get("/agent/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server.mockEndpoint().get("/agent/prompts/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.agent.get("id");
         expect(response).toEqual(rawResponseBody);
@@ -332,7 +342,7 @@ describe("AgentClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/agent/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+        server.mockEndpoint().get("/agent/prompts/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
             return await client.agent.get("id");
@@ -352,7 +362,7 @@ describe("AgentClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/agent/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
+        server.mockEndpoint().get("/agent/prompts/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
             return await client.agent.get("id");
@@ -372,7 +382,7 @@ describe("AgentClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/agent/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+        server.mockEndpoint().get("/agent/prompts/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
             return await client.agent.get("id");
@@ -392,7 +402,7 @@ describe("AgentClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/agent/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+        server.mockEndpoint().get("/agent/prompts/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
             return await client.agent.get("id");
@@ -410,30 +420,28 @@ describe("AgentClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = {
-            name: "Medical Assistant",
-            description: "Updated description for the medical assistant",
-            prompts: ["prompt_123"],
-            tags: ["medical", "fhir", "updated"],
-            provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
+            name: "Medical Assistant System Prompt",
+            description: "Updated system prompt",
+            content: "You are a helpful medical assistant. Always cite ICD-10 codes when discussing diagnoses.",
+            is_default: false,
+            tags: ["medical", "system", "updated"],
         };
         const rawResponseBody = {
             success: true,
-            message: "Agent updated successfully",
+            message: "Prompt updated successfully",
             data: {
-                id: "agent_123",
-                name: "Medical Assistant",
-                description: "An AI assistant for medical information processing",
-                prompts: ["prompt_123", "prompt_456"],
-                tools: ["mcp_server_123", "mcp_server_456"],
-                workflows: ["workflow_123", "workflow_456"],
-                tags: ["medical", "fhir"],
-                provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
+                id: "prompt_123",
+                name: "Medical Assistant System Prompt",
+                description: "System prompt for medical assistant agent",
+                content: "You are a helpful medical assistant...",
+                is_default: false,
+                tags: ["medical", "system"],
             },
         };
 
         server
             .mockEndpoint()
-            .put("/agent/id")
+            .put("/agent/prompts/id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -441,11 +449,11 @@ describe("AgentClient", () => {
             .build();
 
         const response = await client.agent.update("id", {
-            name: "Medical Assistant",
-            description: "Updated description for the medical assistant",
-            prompts: ["prompt_123"],
-            tags: ["medical", "fhir", "updated"],
-            provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
+            name: "Medical Assistant System Prompt",
+            description: "Updated system prompt",
+            content: "You are a helpful medical assistant. Always cite ICD-10 codes when discussing diagnoses.",
+            is_default: false,
+            tags: ["medical", "system", "updated"],
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -460,12 +468,12 @@ describe("AgentClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
+        const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
 
         server
             .mockEndpoint()
-            .put("/agent/id")
+            .put("/agent/prompts/id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -473,11 +481,7 @@ describe("AgentClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.update("id", {
-                name: "name",
-                prompts: ["prompts", "prompts"],
-                provider: "provider",
-            });
+            return await client.agent.update("id");
         }).rejects.toThrow(phenoml.agent.BadRequestError);
     });
 
@@ -491,12 +495,12 @@ describe("AgentClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
+        const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
 
         server
             .mockEndpoint()
-            .put("/agent/id")
+            .put("/agent/prompts/id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -504,11 +508,7 @@ describe("AgentClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.update("id", {
-                name: "name",
-                prompts: ["prompts", "prompts"],
-                provider: "provider",
-            });
+            return await client.agent.update("id");
         }).rejects.toThrow(phenoml.agent.UnauthorizedError);
     });
 
@@ -522,12 +522,12 @@ describe("AgentClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
+        const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
 
         server
             .mockEndpoint()
-            .put("/agent/id")
+            .put("/agent/prompts/id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(403)
@@ -535,11 +535,7 @@ describe("AgentClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.update("id", {
-                name: "name",
-                prompts: ["prompts", "prompts"],
-                provider: "provider",
-            });
+            return await client.agent.update("id");
         }).rejects.toThrow(phenoml.agent.ForbiddenError);
     });
 
@@ -553,12 +549,12 @@ describe("AgentClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
+        const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
 
         server
             .mockEndpoint()
-            .put("/agent/id")
+            .put("/agent/prompts/id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -566,11 +562,7 @@ describe("AgentClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.update("id", {
-                name: "name",
-                prompts: ["prompts", "prompts"],
-                provider: "provider",
-            });
+            return await client.agent.update("id");
         }).rejects.toThrow(phenoml.agent.NotFoundError);
     });
 
@@ -584,12 +576,12 @@ describe("AgentClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { name: "name", prompts: ["prompts", "prompts"], provider: "provider" };
+        const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
 
         server
             .mockEndpoint()
-            .put("/agent/id")
+            .put("/agent/prompts/id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -597,11 +589,7 @@ describe("AgentClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.agent.update("id", {
-                name: "name",
-                prompts: ["prompts", "prompts"],
-                provider: "provider",
-            });
+            return await client.agent.update("id");
         }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
 
@@ -616,9 +604,15 @@ describe("AgentClient", () => {
             environment: server.baseUrl,
         });
 
-        const rawResponseBody = { success: true, message: "Agent deleted successfully" };
+        const rawResponseBody = { success: true, message: "Prompt deleted successfully" };
 
-        server.mockEndpoint().delete("/agent/id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .delete("/agent/prompts/id")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
         const response = await client.agent.delete("id");
         expect(response).toEqual(rawResponseBody);
@@ -637,7 +631,13 @@ describe("AgentClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().delete("/agent/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .delete("/agent/prompts/id")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.agent.delete("id");
@@ -657,7 +657,13 @@ describe("AgentClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().delete("/agent/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .delete("/agent/prompts/id")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.agent.delete("id");
@@ -677,7 +683,13 @@ describe("AgentClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().delete("/agent/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .delete("/agent/prompts/id")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.agent.delete("id");
@@ -697,7 +709,13 @@ describe("AgentClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().delete("/agent/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .delete("/agent/prompts/id")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
             return await client.agent.delete("id");
@@ -714,28 +732,23 @@ describe("AgentClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = [
-            { op: "replace", path: "/description", value: "patched description" },
-            { op: "add", path: "/tags/-", value: "updated" },
-        ];
+        const rawRequestBody = [{ op: "replace", path: "/content", value: "Updated prompt content." }];
         const rawResponseBody = {
             success: true,
-            message: "Agent patched successfully",
+            message: "Prompt patched successfully",
             data: {
-                id: "agent_123",
-                name: "Medical Assistant",
-                description: "An AI assistant for medical information processing",
-                prompts: ["prompt_123", "prompt_456"],
-                tools: ["mcp_server_123", "mcp_server_456"],
-                workflows: ["workflow_123", "workflow_456"],
-                tags: ["medical", "fhir"],
-                provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35",
+                id: "prompt_123",
+                name: "Medical Assistant System Prompt",
+                description: "System prompt for medical assistant agent",
+                content: "You are a helpful medical assistant...",
+                is_default: false,
+                tags: ["medical", "system"],
             },
         };
 
         server
             .mockEndpoint()
-            .patch("/agent/id")
+            .patch("/agent/prompts/id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -745,13 +758,8 @@ describe("AgentClient", () => {
         const response = await client.agent.patch("id", [
             {
                 op: "replace",
-                path: "/description",
-                value: "patched description",
-            },
-            {
-                op: "add",
-                path: "/tags/-",
-                value: "updated",
+                path: "/content",
+                value: "Updated prompt content.",
             },
         ]);
         expect(response).toEqual(rawResponseBody);
@@ -775,7 +783,7 @@ describe("AgentClient", () => {
 
         server
             .mockEndpoint()
-            .patch("/agent/id")
+            .patch("/agent/prompts/id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -814,7 +822,7 @@ describe("AgentClient", () => {
 
         server
             .mockEndpoint()
-            .patch("/agent/id")
+            .patch("/agent/prompts/id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -853,7 +861,7 @@ describe("AgentClient", () => {
 
         server
             .mockEndpoint()
-            .patch("/agent/id")
+            .patch("/agent/prompts/id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(403)
@@ -892,7 +900,7 @@ describe("AgentClient", () => {
 
         server
             .mockEndpoint()
-            .patch("/agent/id")
+            .patch("/agent/prompts/id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -931,7 +939,7 @@ describe("AgentClient", () => {
 
         server
             .mockEndpoint()
-            .patch("/agent/id")
+            .patch("/agent/prompts/id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -949,552 +957,6 @@ describe("AgentClient", () => {
                     path: "path",
                 },
             ]);
-        }).rejects.toThrow(phenoml.agent.InternalServerError);
-    });
-
-    test("chat (1)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = {
-            message: "What is the patient's current condition?",
-            session_id: "session-abc123",
-            agent_id: "agent-123",
-        };
-        const rawResponseBody = {
-            response:
-                "Based on the patient records, they have been diagnosed with Type 2 Diabetes Mellitus (ICD-10: E11.65) and Essential Hypertension (ICD-10: I10). Current medications include Metformin 500mg BID and Lisinopril 10mg daily. Most recent HbA1c was 7.2% on 2024-12-15.",
-            success: true,
-            message: "Response generated successfully",
-            session_id: "session-abc123",
-        };
-
-        server
-            .mockEndpoint()
-            .post("/agent/chat")
-            .header("X-Phenoml-On-Behalf-Of", "Patient/550e8400-e29b-41d4-a716-446655440000")
-            .header(
-                "X-Phenoml-Fhir-Provider",
-                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-            )
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.agent.chat({
-            "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-            "X-Phenoml-Fhir-Provider":
-                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-            message: "What is the patient's current condition?",
-            session_id: "session-abc123",
-            agent_id: "agent-123",
-        });
-        expect(response).toEqual(rawResponseBody);
-    });
-
-    test("chat (2)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = {
-            message:
-                "Create a patient record for Jane Doe, 32F, diagnosed with iron deficiency anemia. Prescribe ferrous sulfate 325mg daily.",
-            session_id: "session-def456",
-            agent_id: "agent-123",
-            enhanced_reasoning: true,
-        };
-        const rawResponseBody = {
-            response:
-                "Created the following resources for Jane Doe:\n\n1. Patient: Jane Doe, 32-year-old female\n2. Condition: Iron deficiency anemia (ICD-10: D50.9)\n3. MedicationRequest: Ferrous sulfate 325mg daily\n\nAll resources bundled as a FHIR transaction Bundle.",
-            success: true,
-            message: "Response generated successfully",
-            session_id: "session-def456",
-        };
-
-        server
-            .mockEndpoint()
-            .post("/agent/chat")
-            .header("X-Phenoml-On-Behalf-Of", "Patient/550e8400-e29b-41d4-a716-446655440000")
-            .header(
-                "X-Phenoml-Fhir-Provider",
-                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-            )
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.agent.chat({
-            "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-            "X-Phenoml-Fhir-Provider":
-                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-            message:
-                "Create a patient record for Jane Doe, 32F, diagnosed with iron deficiency anemia. Prescribe ferrous sulfate 325mg daily.",
-            session_id: "session-def456",
-            agent_id: "agent-123",
-            enhanced_reasoning: true,
-        });
-        expect(response).toEqual(rawResponseBody);
-    });
-
-    test("chat (3)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { message: "message", agent_id: "agent_id" };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/agent/chat")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(400)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.agent.chat({
-                message: "message",
-                agent_id: "agent_id",
-            });
-        }).rejects.toThrow(phenoml.agent.BadRequestError);
-    });
-
-    test("chat (4)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { message: "message", agent_id: "agent_id" };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/agent/chat")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(401)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.agent.chat({
-                message: "message",
-                agent_id: "agent_id",
-            });
-        }).rejects.toThrow(phenoml.agent.UnauthorizedError);
-    });
-
-    test("chat (5)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { message: "message", agent_id: "agent_id" };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/agent/chat")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(403)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.agent.chat({
-                message: "message",
-                agent_id: "agent_id",
-            });
-        }).rejects.toThrow(phenoml.agent.ForbiddenError);
-    });
-
-    test("chat (6)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { message: "message", agent_id: "agent_id" };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/agent/chat")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(500)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.agent.chat({
-                message: "message",
-                agent_id: "agent_id",
-            });
-        }).rejects.toThrow(phenoml.agent.InternalServerError);
-    });
-
-    test("streamChat (1)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = {
-            message: "What is the patient's current condition?",
-            session_id: "session-abc123",
-            agent_id: "agent-123",
-        };
-        const rawResponseBody =
-            'event: \ndata: {"type":"content_delta","session_id":"session-abc123","content":"Based on the patient records, ","success":true,"message":"Response generated successfully","function_name":"lang2fhir_search","function_args":{"key":"value"},"function_result":{"key":"value"}}\n\n';
-
-        server
-            .mockEndpoint()
-            .post("/agent/stream-chat")
-            .header("X-Phenoml-On-Behalf-Of", "Patient/550e8400-e29b-41d4-a716-446655440000")
-            .header(
-                "X-Phenoml-Fhir-Provider",
-                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-            )
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(200)
-            .sseBody(rawResponseBody)
-            .build();
-
-        const response = await client.agent.streamChat({
-            "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-            "X-Phenoml-Fhir-Provider":
-                "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-            message: "What is the patient's current condition?",
-            session_id: "session-abc123",
-            agent_id: "agent-123",
-        });
-        const events: unknown[] = [];
-        for await (const event of response) {
-            events.push(event);
-        }
-        expect(events).toEqual([
-            {
-                type: "content_delta",
-                session_id: "session-abc123",
-                content: "Based on the patient records, ",
-                success: true,
-                message: "Response generated successfully",
-                function_name: "lang2fhir_search",
-                function_args: {
-                    key: "value",
-                },
-                function_result: {
-                    key: "value",
-                },
-            },
-        ]);
-    });
-
-    test("streamChat (2)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { message: "message", agent_id: "agent_id" };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/agent/stream-chat")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(400)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.agent.streamChat({
-                message: "message",
-                agent_id: "agent_id",
-            });
-        }).rejects.toThrow(phenoml.agent.BadRequestError);
-    });
-
-    test("streamChat (3)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { message: "message", agent_id: "agent_id" };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/agent/stream-chat")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(401)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.agent.streamChat({
-                message: "message",
-                agent_id: "agent_id",
-            });
-        }).rejects.toThrow(phenoml.agent.UnauthorizedError);
-    });
-
-    test("streamChat (4)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { message: "message", agent_id: "agent_id" };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/agent/stream-chat")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(403)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.agent.streamChat({
-                message: "message",
-                agent_id: "agent_id",
-            });
-        }).rejects.toThrow(phenoml.agent.ForbiddenError);
-    });
-
-    test("streamChat (5)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { message: "message", agent_id: "agent_id" };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/agent/stream-chat")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(500)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.agent.streamChat({
-                message: "message",
-                agent_id: "agent_id",
-            });
-        }).rejects.toThrow(phenoml.agent.InternalServerError);
-    });
-
-    test("getChatMessages (1)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-
-        const rawResponseBody = {
-            messages: [
-                {
-                    id: "message_001",
-                    session_id: "session_123",
-                    role: "user",
-                    content: "What is the patient's current condition?",
-                    created: "2025-03-01T14:00:00Z",
-                    updated: "2025-03-01T14:00:00Z",
-                    function_name: "get_patient_info",
-                    function_args: { patient_id: "123" },
-                    function_result: { name: "John Doe" },
-                    message_order: 1,
-                },
-                {
-                    id: "message_002",
-                    session_id: "session_123",
-                    role: "assistant",
-                    content:
-                        "Based on the patient records, they have been diagnosed with Type 2 Diabetes Mellitus (ICD-10: E11.65).",
-                    created: "2025-03-01T14:00:02Z",
-                    updated: "2025-03-01T14:00:02Z",
-                    function_name: "get_patient_info",
-                    function_args: { patient_id: "123" },
-                    function_result: { name: "John Doe" },
-                    message_order: 2,
-                },
-            ],
-            total: 2,
-            session_id: "session_123",
-        };
-
-        server
-            .mockEndpoint()
-            .get("/agent/chat/messages")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.agent.getChatMessages({
-            chat_session_id: "chat_session_id",
-            num_messages: 1,
-            role: "user",
-            order: "asc",
-        });
-        expect(response).toEqual(rawResponseBody);
-    });
-
-    test("getChatMessages (2)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .get("/agent/chat/messages")
-            .respondWith()
-            .statusCode(401)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.agent.getChatMessages({
-                chat_session_id: "chat_session_id",
-            });
-        }).rejects.toThrow(phenoml.agent.UnauthorizedError);
-    });
-
-    test("getChatMessages (3)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .get("/agent/chat/messages")
-            .respondWith()
-            .statusCode(403)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.agent.getChatMessages({
-                chat_session_id: "chat_session_id",
-            });
-        }).rejects.toThrow(phenoml.agent.ForbiddenError);
-    });
-
-    test("getChatMessages (4)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .get("/agent/chat/messages")
-            .respondWith()
-            .statusCode(500)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.agent.getChatMessages({
-                chat_session_id: "chat_session_id",
-            });
         }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
 });

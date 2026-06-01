@@ -2,13 +2,13 @@
 
 import type { BaseClientOptions, BaseRequestOptions } from "../../../../BaseClient.js";
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
-import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
+import { mergeHeaders } from "../../../../core/headers.js";
 import * as core from "../../../../core/index.js";
 import * as environments from "../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../errors/index.js";
 import * as phenoml from "../../../index.js";
-import { PromptsClient } from "../resources/prompts/client/Client.js";
+import { ChatClient } from "../resources/chat/client/Client.js";
 
 export declare namespace AgentClient {
     export type Options = BaseClientOptions;
@@ -18,20 +18,20 @@ export declare namespace AgentClient {
 
 export class AgentClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<AgentClient.Options>;
-    protected _prompts: PromptsClient | undefined;
+    protected _chat: ChatClient | undefined;
 
     constructor(options: AgentClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
-    public get prompts(): PromptsClient {
-        return (this._prompts ??= new PromptsClient(this._options));
+    public get chat(): ChatClient {
+        return (this._chat ??= new ChatClient(this._options));
     }
 
     /**
-     * Creates a new PhenoAgent with specified configuration
+     * Creates a new agent prompt
      *
-     * @param {phenoml.agent.AgentCreateRequest} request
+     * @param {phenoml.agent.AgentPromptsCreateRequest} request
      * @param {AgentClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.BadRequestError}
@@ -41,24 +41,24 @@ export class AgentClient {
      *
      * @example
      *     await client.agent.create({
-     *         name: "Medical Assistant",
-     *         description: "An AI assistant for medical information processing",
-     *         prompts: ["prompt_123"],
-     *         tags: ["medical", "fhir"],
-     *         provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35"
+     *         name: "Medical Assistant System Prompt",
+     *         description: "System prompt for medical assistant agent",
+     *         content: "You are a helpful medical assistant specialized in FHIR data processing.",
+     *         is_default: false,
+     *         tags: ["medical", "system"]
      *     })
      */
     public create(
-        request: phenoml.agent.AgentCreateRequest,
+        request: phenoml.agent.AgentPromptsCreateRequest,
         requestOptions?: AgentClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentResponse> {
+    ): core.HttpResponsePromise<phenoml.agent.AgentPromptsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: phenoml.agent.AgentCreateRequest,
+        request: phenoml.agent.AgentPromptsCreateRequest,
         requestOptions?: AgentClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -70,7 +70,7 @@ export class AgentClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                "agent/create",
+                "agent/prompts",
             ),
             method: "POST",
             headers: _headers,
@@ -85,7 +85,7 @@ export class AgentClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -107,13 +107,12 @@ export class AgentClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/agent/create");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/agent/prompts");
     }
 
     /**
-     * Retrieves a list of PhenoAgents belonging to the authenticated user
+     * Retrieves a list of agent prompts belonging to the authenticated user
      *
-     * @param {phenoml.agent.ListRequest} request
      * @param {AgentClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.UnauthorizedError}
@@ -121,25 +120,17 @@ export class AgentClient {
      * @throws {@link phenoml.agent.InternalServerError}
      *
      * @example
-     *     await client.agent.list({
-     *         tags: "tags"
-     *     })
+     *     await client.agent.list()
      */
     public list(
-        request: phenoml.agent.ListRequest = {},
         requestOptions?: AgentClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.ListResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
+    ): core.HttpResponsePromise<phenoml.agent.PromptsListResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
     }
 
     private async __list(
-        request: phenoml.agent.ListRequest = {},
         requestOptions?: AgentClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.ListResponse>> {
-        const { tags } = request;
-        const _queryParams: Record<string, unknown> = {
-            tags,
-        };
+    ): Promise<core.WithRawResponse<phenoml.agent.PromptsListResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -151,15 +142,11 @@ export class AgentClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                "agent/list",
+                "agent/prompts/list",
             ),
             method: "GET",
             headers: _headers,
-            queryString: core.url
-                .queryBuilder()
-                .addMany(_queryParams)
-                .mergeAdditional(requestOptions?.queryParams)
-                .build(),
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -167,7 +154,7 @@ export class AgentClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.ListResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.agent.PromptsListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -187,13 +174,13 @@ export class AgentClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/agent/list");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/agent/prompts/list");
     }
 
     /**
-     * Retrieves a specific agent by its ID
+     * Retrieves a specific prompt by its ID
      *
-     * @param {string} id - Agent ID
+     * @param {string} id - Prompt ID
      * @param {AgentClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.UnauthorizedError}
@@ -207,14 +194,14 @@ export class AgentClient {
     public get(
         id: string,
         requestOptions?: AgentClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentResponse> {
+    ): core.HttpResponsePromise<phenoml.agent.AgentPromptsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
     }
 
     private async __get(
         id: string,
         requestOptions?: AgentClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -226,7 +213,7 @@ export class AgentClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `agent/${core.url.encodePathParam(id)}`,
+                `agent/prompts/${core.url.encodePathParam(id)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -238,7 +225,7 @@ export class AgentClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -260,14 +247,14 @@ export class AgentClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/agent/{id}");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/agent/prompts/{id}");
     }
 
     /**
-     * Updates an existing agent's configuration
+     * Updates an existing prompt
      *
-     * @param {string} id - Agent ID
-     * @param {phenoml.agent.AgentCreateRequest} request
+     * @param {string} id - Prompt ID
+     * @param {phenoml.agent.AgentPromptsUpdateRequest} request
      * @param {AgentClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.BadRequestError}
@@ -278,26 +265,26 @@ export class AgentClient {
      *
      * @example
      *     await client.agent.update("id", {
-     *         name: "Medical Assistant",
-     *         description: "Updated description for the medical assistant",
-     *         prompts: ["prompt_123"],
-     *         tags: ["medical", "fhir", "updated"],
-     *         provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35"
+     *         name: "Medical Assistant System Prompt",
+     *         description: "Updated system prompt",
+     *         content: "You are a helpful medical assistant. Always cite ICD-10 codes when discussing diagnoses.",
+     *         is_default: false,
+     *         tags: ["medical", "system", "updated"]
      *     })
      */
     public update(
         id: string,
-        request: phenoml.agent.AgentCreateRequest,
+        request: phenoml.agent.AgentPromptsUpdateRequest = {},
         requestOptions?: AgentClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentResponse> {
+    ): core.HttpResponsePromise<phenoml.agent.AgentPromptsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
     }
 
     private async __update(
         id: string,
-        request: phenoml.agent.AgentCreateRequest,
+        request: phenoml.agent.AgentPromptsUpdateRequest = {},
         requestOptions?: AgentClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -309,7 +296,7 @@ export class AgentClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `agent/${core.url.encodePathParam(id)}`,
+                `agent/prompts/${core.url.encodePathParam(id)}`,
             ),
             method: "PUT",
             headers: _headers,
@@ -324,7 +311,7 @@ export class AgentClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -348,13 +335,13 @@ export class AgentClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "PUT", "/agent/{id}");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "PUT", "/agent/prompts/{id}");
     }
 
     /**
-     * Deletes an existing agent
+     * Deletes a prompt
      *
-     * @param {string} id - Agent ID
+     * @param {string} id - Prompt ID
      * @param {AgentClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.agent.UnauthorizedError}
@@ -368,14 +355,14 @@ export class AgentClient {
     public delete(
         id: string,
         requestOptions?: AgentClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.DeleteResponse> {
+    ): core.HttpResponsePromise<phenoml.agent.PromptsDeleteResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
     }
 
     private async __delete(
         id: string,
         requestOptions?: AgentClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.DeleteResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.PromptsDeleteResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -387,7 +374,7 @@ export class AgentClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `agent/${core.url.encodePathParam(id)}`,
+                `agent/prompts/${core.url.encodePathParam(id)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -399,7 +386,7 @@ export class AgentClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.DeleteResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.agent.PromptsDeleteResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -421,13 +408,13 @@ export class AgentClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "DELETE", "/agent/{id}");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "DELETE", "/agent/prompts/{id}");
     }
 
     /**
-     * Patches an existing agent's configuration
+     * Patches an existing prompt
      *
-     * @param {string} id - Agent ID
+     * @param {string} id - Agent Prompt ID
      * @param {phenoml.agent.JsonPatch} request
      * @param {AgentClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -440,19 +427,15 @@ export class AgentClient {
      * @example
      *     await client.agent.patch("id", [{
      *             op: "replace",
-     *             path: "/description",
-     *             value: "patched description"
-     *         }, {
-     *             op: "add",
-     *             path: "/tags/-",
-     *             value: "updated"
+     *             path: "/content",
+     *             value: "Updated prompt content."
      *         }])
      */
     public patch(
         id: string,
         request: phenoml.agent.JsonPatch,
         requestOptions?: AgentClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentResponse> {
+    ): core.HttpResponsePromise<phenoml.agent.AgentPromptsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__patch(id, request, requestOptions));
     }
 
@@ -460,7 +443,7 @@ export class AgentClient {
         id: string,
         request: phenoml.agent.JsonPatch,
         requestOptions?: AgentClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.AgentPromptsResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -472,7 +455,7 @@ export class AgentClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `agent/${core.url.encodePathParam(id)}`,
+                `agent/prompts/${core.url.encodePathParam(id)}`,
             ),
             method: "PATCH",
             headers: _headers,
@@ -487,7 +470,7 @@ export class AgentClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.agent.AgentPromptsResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -511,283 +494,6 @@ export class AgentClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "PATCH", "/agent/{id}");
-    }
-
-    /**
-     * Send a message to an agent and receive a JSON response.
-     *
-     * @param {phenoml.agent.AgentChatRequest} request
-     * @param {AgentClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link phenoml.agent.BadRequestError}
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.InternalServerError}
-     *
-     * @example
-     *     await client.agent.chat({
-     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-     *         message: "What is the patient's current condition?",
-     *         session_id: "session-abc123",
-     *         agent_id: "agent-123"
-     *     })
-     *
-     * @example
-     *     await client.agent.chat({
-     *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-     *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-     *         message: "Create a patient record for Jane Doe, 32F, diagnosed with iron deficiency anemia. Prescribe ferrous sulfate 325mg daily.",
-     *         session_id: "session-def456",
-     *         agent_id: "agent-123",
-     *         enhanced_reasoning: true
-     *     })
-     */
-    public chat(
-        request: phenoml.agent.AgentChatRequest,
-        requestOptions?: AgentClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.AgentChatResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__chat(request, requestOptions));
-    }
-
-    private async __chat(
-        request: phenoml.agent.AgentChatRequest,
-        requestOptions?: AgentClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.AgentChatResponse>> {
-        const {
-            "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
-            "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
-            ..._body
-        } = request;
-        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            _authRequest.headers,
-            this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
-                "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
-            }),
-            requestOptions?.headers,
-        );
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
-                "agent/chat",
-            ),
-            method: "POST",
-            headers: _headers,
-            contentType: "application/json",
-            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
-            requestType: "json",
-            body: _body,
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-            fetchFn: this._options?.fetch,
-            logging: this._options.logging,
-        });
-        if (_response.ok) {
-            return { data: _response.body as phenoml.agent.AgentChatResponse, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new phenoml.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/agent/chat");
-    }
-
-    /**
-     * Send a message to an agent and receive the response as a Server-Sent Events
-     * (SSE) stream. Events include message_start, content_delta, tool_use,
-     * tool_result, message_end, and error.
-     */
-    public streamChat(
-        request: phenoml.agent.AgentStreamChatRequest,
-        requestOptions?: AgentClient.RequestOptions,
-    ): core.HttpResponsePromise<core.Stream<phenoml.agent.AgentChatStreamEvent>> {
-        return core.HttpResponsePromise.fromPromise(this.__streamChat(request, requestOptions));
-    }
-
-    private async __streamChat(
-        request: phenoml.agent.AgentStreamChatRequest,
-        requestOptions?: AgentClient.RequestOptions,
-    ): Promise<core.WithRawResponse<core.Stream<phenoml.agent.AgentChatStreamEvent>>> {
-        const {
-            "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
-            "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
-            ..._body
-        } = request;
-        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            _authRequest.headers,
-            this._options?.headers,
-            mergeOnlyDefinedHeaders({
-                "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
-                "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
-            }),
-            requestOptions?.headers,
-        );
-        const _response = await (this._options.fetcher ?? core.fetcher)<ReadableStream>({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
-                "agent/stream-chat",
-            ),
-            method: "POST",
-            headers: _headers,
-            contentType: "application/json",
-            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
-            requestType: "json",
-            body: _body,
-            responseType: "sse",
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-            fetchFn: this._options?.fetch,
-            logging: this._options.logging,
-        });
-        if (_response.ok) {
-            return {
-                data: new core.Stream({
-                    stream: _response.body,
-                    parse: (data) => data as any,
-                    signal: requestOptions?.abortSignal,
-                    eventShape: {
-                        type: "sse",
-                    },
-                }),
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new phenoml.agent.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/agent/stream-chat");
-    }
-
-    /**
-     * Retrieves a list of chat messages for a given chat session
-     *
-     * @param {phenoml.agent.GetChatMessagesRequest} request
-     * @param {AgentClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link phenoml.agent.UnauthorizedError}
-     * @throws {@link phenoml.agent.ForbiddenError}
-     * @throws {@link phenoml.agent.InternalServerError}
-     *
-     * @example
-     *     await client.agent.getChatMessages({
-     *         chat_session_id: "chat_session_id",
-     *         num_messages: 1,
-     *         role: "user",
-     *         order: "asc"
-     *     })
-     */
-    public getChatMessages(
-        request: phenoml.agent.GetChatMessagesRequest,
-        requestOptions?: AgentClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.GetChatMessagesResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getChatMessages(request, requestOptions));
-    }
-
-    private async __getChatMessages(
-        request: phenoml.agent.GetChatMessagesRequest,
-        requestOptions?: AgentClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.GetChatMessagesResponse>> {
-        const { chat_session_id: chatSessionId, num_messages: numMessages, role, order } = request;
-        const _queryParams: Record<string, unknown> = {
-            chat_session_id: chatSessionId,
-            num_messages: numMessages,
-            role: role != null ? role : undefined,
-            order: order != null ? order : undefined,
-        };
-        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            _authRequest.headers,
-            this._options?.headers,
-            requestOptions?.headers,
-        );
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
-                "agent/chat/messages",
-            ),
-            method: "GET",
-            headers: _headers,
-            queryString: core.url
-                .queryBuilder()
-                .addMany(_queryParams)
-                .mergeAdditional(requestOptions?.queryParams)
-                .build(),
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-            fetchFn: this._options?.fetch,
-            logging: this._options.logging,
-        });
-        if (_response.ok) {
-            return {
-                data: _response.body as phenoml.agent.GetChatMessagesResponse,
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new phenoml.agent.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 403:
-                    throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/agent/chat/messages");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "PATCH", "/agent/prompts/{id}");
     }
 }

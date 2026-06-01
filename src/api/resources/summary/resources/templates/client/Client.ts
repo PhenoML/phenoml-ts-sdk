@@ -15,6 +15,9 @@ export declare namespace TemplatesClient {
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
+/**
+ * Reusable summary templates that drive FHIR-to-text generation.
+ */
 export class TemplatesClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<TemplatesClient.Options>;
 
@@ -35,13 +38,13 @@ export class TemplatesClient {
      */
     public list(
         requestOptions?: TemplatesClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.TemplatesListResponse> {
+    ): core.HttpResponsePromise<phenoml.summary.ListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
     }
 
     private async __list(
         requestOptions?: TemplatesClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.TemplatesListResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.summary.ListResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -65,10 +68,7 @@ export class TemplatesClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as phenoml.summary.TemplatesListResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as phenoml.summary.ListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -93,90 +93,6 @@ export class TemplatesClient {
     }
 
     /**
-     * Creates a summary template from an example using LLM function calling
-     *
-     * @param {phenoml.summary.CreateSummaryTemplateRequest} request
-     * @param {TemplatesClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link phenoml.summary.BadRequestError}
-     * @throws {@link phenoml.summary.UnauthorizedError}
-     * @throws {@link phenoml.summary.InternalServerError}
-     *
-     * @example
-     *     await client.summary.templates.create({
-     *         name: "Discharge Summary",
-     *         example_summary: "Patient John Doe, age 45, was admitted on 2024-01-10 with Type 2 Diabetes. Discharged on 2024-01-15 with Metformin 500mg BID.",
-     *         target_resources: ["Patient", "Condition", "MedicationRequest"],
-     *         mode: "narrative"
-     *     })
-     */
-    public create(
-        request: phenoml.summary.CreateSummaryTemplateRequest,
-        requestOptions?: TemplatesClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.CreateSummaryTemplateResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
-    }
-
-    private async __create(
-        request: phenoml.summary.CreateSummaryTemplateRequest,
-        requestOptions?: TemplatesClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.CreateSummaryTemplateResponse>> {
-        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            _authRequest.headers,
-            this._options?.headers,
-            requestOptions?.headers,
-        );
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
-                "fhir2summary/template",
-            ),
-            method: "POST",
-            headers: _headers,
-            contentType: "application/json",
-            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
-            requestType: "json",
-            body: request,
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-            fetchFn: this._options?.fetch,
-            logging: this._options.logging,
-        });
-        if (_response.ok) {
-            return {
-                data: _response.body as phenoml.summary.CreateSummaryTemplateResponse,
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new phenoml.summary.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new phenoml.summary.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new phenoml.summary.InternalServerError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/fhir2summary/template");
-    }
-
-    /**
      * Retrieves a specific summary template
      *
      * @param {string} id - Template ID
@@ -193,14 +109,14 @@ export class TemplatesClient {
     public get(
         id: string,
         requestOptions?: TemplatesClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.TemplatesGetResponse> {
+    ): core.HttpResponsePromise<phenoml.summary.GetResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
     }
 
     private async __get(
         id: string,
         requestOptions?: TemplatesClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.TemplatesGetResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.summary.GetResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -224,7 +140,7 @@ export class TemplatesClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.summary.TemplatesGetResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.summary.GetResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -277,7 +193,7 @@ export class TemplatesClient {
         id: string,
         request: phenoml.summary.UpdateSummaryTemplateRequest,
         requestOptions?: TemplatesClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.TemplatesUpdateResponse> {
+    ): core.HttpResponsePromise<phenoml.summary.UpdateResponse> {
         return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
     }
 
@@ -285,7 +201,7 @@ export class TemplatesClient {
         id: string,
         request: phenoml.summary.UpdateSummaryTemplateRequest,
         requestOptions?: TemplatesClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.TemplatesUpdateResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.summary.UpdateResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -312,10 +228,7 @@ export class TemplatesClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as phenoml.summary.TemplatesUpdateResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as phenoml.summary.UpdateResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -362,14 +275,14 @@ export class TemplatesClient {
     public delete(
         id: string,
         requestOptions?: TemplatesClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.summary.TemplatesDeleteResponse> {
+    ): core.HttpResponsePromise<phenoml.summary.DeleteResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
     }
 
     private async __delete(
         id: string,
         requestOptions?: TemplatesClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.summary.TemplatesDeleteResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.summary.DeleteResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -393,10 +306,7 @@ export class TemplatesClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as phenoml.summary.TemplatesDeleteResponse,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as phenoml.summary.DeleteResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

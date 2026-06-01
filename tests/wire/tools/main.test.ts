@@ -187,36 +187,6 @@ describe("ToolsClient", () => {
             .post("/tools/lang2fhir-and-create")
             .jsonBody(rawRequestBody)
             .respondWith()
-            .statusCode(424)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.tools.createFhirResource({
-                resource: "auto",
-                text: "text",
-            });
-        }).rejects.toThrow(phenoml.tools.FailedDependencyError);
-    });
-
-    test("createFhirResource (6)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { resource: "auto", text: "text" };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/tools/lang2fhir-and-create")
-            .jsonBody(rawRequestBody)
-            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -408,36 +378,6 @@ describe("ToolsClient", () => {
             .post("/tools/lang2fhir-and-create-multi")
             .jsonBody(rawRequestBody)
             .respondWith()
-            .statusCode(424)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.tools.createFhirResourcesMulti({
-                text: "text",
-                provider: "provider",
-            });
-        }).rejects.toThrow(phenoml.tools.FailedDependencyError);
-    });
-
-    test("createFhirResourcesMulti (6)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { text: "text", provider: "provider" };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/tools/lang2fhir-and-create-multi")
-            .jsonBody(rawRequestBody)
-            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -595,35 +535,6 @@ describe("ToolsClient", () => {
     });
 
     test("searchFhirResources (5)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { text: "text" };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/tools/lang2fhir-and-search")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(424)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.tools.searchFhirResources({
-                text: "text",
-            });
-        }).rejects.toThrow(phenoml.tools.FailedDependencyError);
-    });
-
-    test("searchFhirResources (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -824,6 +735,438 @@ describe("ToolsClient", () => {
                 text: "text",
                 provider: "provider",
             });
+        }).rejects.toThrow(phenoml.tools.InternalServerError);
+    });
+
+    test("list (1)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = {
+            success: true,
+            message: "MCP Server tools retrieved successfully",
+            data: {
+                id: "123",
+                name: "My MCP Server Tool",
+                description: "My MCP Server Tool is a tool that provides MCP services",
+                input_schema: { name: "string", age: "number" },
+                mcp_server_id: "123",
+                mcp_server_url: "https://mcp.example.com",
+            },
+            mcp_server_tools: [
+                {
+                    id: "tool-001",
+                    name: "search_endpoints",
+                    description: "Search across the documented endpoints",
+                    input_schema: { query: "string" },
+                    mcp_server_id: "123",
+                    mcp_server_url: "https://mcp.example.com",
+                },
+                {
+                    id: "tool-002",
+                    name: "get_endpoint",
+                    description: "Fetch a single endpoint by ID",
+                    input_schema: { endpoint_id: "string" },
+                    mcp_server_id: "123",
+                    mcp_server_url: "https://mcp.example.com",
+                },
+            ],
+        };
+
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/mcp_server_id/list")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.tools.list("mcp_server_id");
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("list (2)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/mcp_server_id/list")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.list("mcp_server_id");
+        }).rejects.toThrow(phenoml.tools.UnauthorizedError);
+    });
+
+    test("list (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/mcp_server_id/list")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.list("mcp_server_id");
+        }).rejects.toThrow(phenoml.tools.ForbiddenError);
+    });
+
+    test("list (4)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/mcp_server_id/list")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.list("mcp_server_id");
+        }).rejects.toThrow(phenoml.tools.InternalServerError);
+    });
+
+    test("get (1)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = {
+            success: true,
+            message: "MCP Server tool retrieved successfully",
+            data: {
+                id: "123",
+                name: "My MCP Server Tool",
+                description: "My MCP Server Tool is a tool that provides MCP services",
+                input_schema: { name: "string", age: "number" },
+                mcp_server_id: "123",
+                mcp_server_url: "https://mcp.example.com",
+            },
+            mcp_server_tools: [
+                {
+                    id: "123",
+                    name: "My MCP Server Tool",
+                    description: "My MCP Server Tool is a tool that provides MCP services",
+                    input_schema: { name: "string", age: "number" },
+                    mcp_server_id: "123",
+                    mcp_server_url: "https://mcp.example.com",
+                },
+            ],
+        };
+
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.tools.get("mcp_server_tool_id");
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("get (2)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.get("mcp_server_tool_id");
+        }).rejects.toThrow(phenoml.tools.UnauthorizedError);
+    });
+
+    test("get (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.get("mcp_server_tool_id");
+        }).rejects.toThrow(phenoml.tools.ForbiddenError);
+    });
+
+    test("get (4)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.get("mcp_server_tool_id");
+        }).rejects.toThrow(phenoml.tools.NotFoundError);
+    });
+
+    test("get (5)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .get("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.get("mcp_server_tool_id");
+        }).rejects.toThrow(phenoml.tools.InternalServerError);
+    });
+
+    test("delete (1)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = {
+            success: true,
+            message: "MCP Server tool deleted successfully",
+            data: {
+                id: "123",
+                name: "My MCP Server Tool",
+                description: "My MCP Server Tool is a tool that provides MCP services",
+                input_schema: { name: "string", age: "number" },
+                mcp_server_id: "123",
+                mcp_server_url: "https://mcp.example.com",
+            },
+            mcp_server_tools: [
+                {
+                    id: "123",
+                    name: "My MCP Server Tool",
+                    description: "My MCP Server Tool is a tool that provides MCP services",
+                    input_schema: { name: "string", age: "number" },
+                    mcp_server_id: "123",
+                    mcp_server_url: "https://mcp.example.com",
+                },
+            ],
+        };
+
+        server
+            .mockEndpoint()
+            .delete("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.tools.delete("mcp_server_tool_id");
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("delete (2)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .delete("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.delete("mcp_server_tool_id");
+        }).rejects.toThrow(phenoml.tools.UnauthorizedError);
+    });
+
+    test("delete (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .delete("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.delete("mcp_server_tool_id");
+        }).rejects.toThrow(phenoml.tools.ForbiddenError);
+    });
+
+    test("delete (4)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .delete("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.delete("mcp_server_tool_id");
+        }).rejects.toThrow(phenoml.tools.NotFoundError);
+    });
+
+    test("delete (5)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .delete("/tools/mcp-server/tool/mcp_server_tool_id")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.delete("mcp_server_tool_id");
         }).rejects.toThrow(phenoml.tools.InternalServerError);
     });
 });

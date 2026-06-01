@@ -1,4 +1,2 @@
-export type { AgentChatRequest } from "./AgentChatRequest.js";
-export type { AgentStreamChatRequest } from "./AgentStreamChatRequest.js";
-export type { GetChatMessagesRequest } from "./GetChatMessagesRequest.js";
-export type { ListRequest } from "./ListRequest.js";
+export type { AgentPromptsCreateRequest } from "./AgentPromptsCreateRequest.js";
+export type { AgentPromptsUpdateRequest } from "./AgentPromptsUpdateRequest.js";
