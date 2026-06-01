@@ -69,7 +69,7 @@ await client.agent.create({
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">list</a>({ ...params }) -> phenoml.ListResponse</code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">list</a>({ ...params }) -> phenoml.AgentListResponse</code></summary>
 <dl>
 <dd>
 
@@ -274,7 +274,7 @@ await client.agent.update("id", {
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">delete</a>(id) -> phenoml.DeleteResponse</code></summary>
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">delete</a>(id) -> phenoml.AgentDeleteResponse</code></summary>
 <dl>
 <dd>
 
@@ -416,7 +416,8 @@ await client.agent.patch("id", [{
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">chat</a>({ ...params }) -> phenoml.AgentChatResponse</code></summary>
+## Chat
+<details><summary><code>client.agent.chat.<a href="/src/api/resources/agent/resources/chat/client/Client.ts">send</a>({ ...params }) -> phenoml.AgentChatResponse</code></summary>
 <dl>
 <dd>
 
@@ -443,7 +444,7 @@ Send a message to an agent and receive a JSON response.
 <dd>
 
 ```typescript
-await client.agent.chat({
+await client.agent.chat.send({
     "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
     "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     message: "What is the patient's current condition?",
@@ -473,7 +474,7 @@ await client.agent.chat({
 <dl>
 <dd>
 
-**requestOptions:** `AgentClient.RequestOptions` 
+**requestOptions:** `ChatClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -485,7 +486,7 @@ await client.agent.chat({
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">streamChat</a>({ ...params }) -> core.Stream&lt;phenoml.AgentChatStreamEvent&gt;</code></summary>
+<details><summary><code>client.agent.chat.<a href="/src/api/resources/agent/resources/chat/client/Client.ts">stream</a>({ ...params }) -> core.Stream&lt;phenoml.AgentChatStreamEvent&gt;</code></summary>
 <dl>
 <dd>
 
@@ -514,7 +515,7 @@ tool_result, message_end, and error.
 <dd>
 
 ```typescript
-const response = await client.agent.streamChat({
+const response = await client.agent.chat.stream({
     "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
     "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     message: "What is the patient's current condition?",
@@ -547,7 +548,7 @@ for await (const item of response) {
 <dl>
 <dd>
 
-**requestOptions:** `AgentClient.RequestOptions` 
+**requestOptions:** `ChatClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -559,7 +560,7 @@ for await (const item of response) {
 </dl>
 </details>
 
-<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">getChatMessages</a>({ ...params }) -> phenoml.GetChatMessagesResponse</code></summary>
+<details><summary><code>client.agent.chat.<a href="/src/api/resources/agent/resources/chat/client/Client.ts">listMessages</a>({ ...params }) -> phenoml.ListMessagesResponse</code></summary>
 <dl>
 <dd>
 
@@ -586,7 +587,7 @@ Retrieves a list of chat messages for a given chat session
 <dd>
 
 ```typescript
-await client.agent.getChatMessages({
+await client.agent.chat.listMessages({
     chat_session_id: "chat_session_id",
     num_messages: 1,
     role: "user",
@@ -607,7 +608,7 @@ await client.agent.getChatMessages({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.GetChatMessagesRequest` 
+**request:** `phenoml.agent.ListMessagesRequest` 
     
 </dd>
 </dl>
@@ -615,7 +616,7 @@ await client.agent.getChatMessages({
 <dl>
 <dd>
 
-**requestOptions:** `AgentClient.RequestOptions` 
+**requestOptions:** `ChatClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -627,7 +628,7 @@ await client.agent.getChatMessages({
 </dl>
 </details>
 
-## Agent Prompts
+## Prompts
 <details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">create</a>({ ...params }) -> phenoml.AgentPromptsResponse</code></summary>
 <dl>
 <dd>
@@ -697,7 +698,7 @@ await client.agent.prompts.create({
 </dl>
 </details>
 
-<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">list</a>() -> phenoml.PromptsListResponse</code></summary>
+<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">list</a>() -> phenoml.PromptListResponse</code></summary>
 <dl>
 <dd>
 
@@ -892,7 +893,7 @@ await client.agent.prompts.update("id", {
 </dl>
 </details>
 
-<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">delete</a>(id) -> phenoml.PromptsDeleteResponse</code></summary>
+<details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">delete</a>(id) -> phenoml.PromptDeleteResponse</code></summary>
 <dl>
 <dd>
 
@@ -1167,687 +1168,6 @@ await client.cohort.analyze({
 </details>
 
 ## Construe
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">uploadCodeSystem</a>({ ...params }) -> phenoml.UploadCodeSystemResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Upload a custom medical code system with codes and descriptions for use in code extraction. Requires a paid plan.
-Returns 202 immediately; embedding generation runs asynchronously. Poll
-GET /construe/codes/systems/{codesystem}?version={version} to check when status
-transitions from "processing" to "ready" or "failed".
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.construe.uploadCodeSystem({
-    name: "CUSTOM_CODES",
-    version: "1.0",
-    format: "json",
-    codes: [{
-            code: "X001",
-            description: "Example custom code 1"
-        }, {
-            code: "X002",
-            description: "Example custom code 2"
-        }]
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `phenoml.construe.UploadRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ConstrueClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">extractCodes</a>({ ...params }) -> phenoml.ExtractCodesResult</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Converts natural language text into structured medical codes.
-
-Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.construe.extractCodes({
-    text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney.",
-    system: {
-        name: "ICD-10-CM",
-        version: "2025"
-    }
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `phenoml.construe.ExtractRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ConstrueClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">listCodeSystems</a>() -> phenoml.ListCodeSystemsResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns the terminology server's catalog of available code systems, including both built-in standard terminologies and custom uploaded systems.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.construe.listCodeSystems();
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**requestOptions:** `ConstrueClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">getCodeSystem</a>(codesystem, { ...params }) -> phenoml.GetCodeSystemDetailResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns full metadata for a single code system, including timestamps and builtin status.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.construe.getCodeSystem("ICD-10-CM", {
-    version: "2025"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**codesystem:** `string` — Code system name (e.g., "ICD-10-CM", "SNOMED_CT_US_LITE")
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `phenoml.construe.GetCodeSystemRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ConstrueClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">deleteCodeSystem</a>(codesystem, { ...params }) -> phenoml.DeleteCodeSystemResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a custom (non-builtin) code system and all its codes. Builtin systems cannot be deleted.
-Only available on dedicated instances. Large systems may take up to a minute to delete.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.construe.deleteCodeSystem("CUSTOM_CODES", {
-    version: "version"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**codesystem:** `string` — Code system name
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `phenoml.construe.DeleteCodeSystemRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ConstrueClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">exportCodeSystem</a>(codesystem, { ...params }) -> phenoml.ExportCodeSystemResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Exports a custom (non-builtin) code system as a JSON file compatible with the upload format.
-The exported file can be re-uploaded directly via POST /construe/upload with format "json".
-Only available on dedicated instances. Builtin systems cannot be exported.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.construe.exportCodeSystem("CUSTOM_CODES", {
-    version: "version"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**codesystem:** `string` — Code system name
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `phenoml.construe.ExportCodeSystemRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ConstrueClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">listCodes</a>(codesystem, { ...params }) -> phenoml.ListCodesResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a paginated list of all codes in the specified code system from the terminology server.
-
-Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.construe.listCodes("ICD-10-CM", {
-    version: "2025",
-    cursor: "cursor",
-    limit: 1
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**codesystem:** `string` — Code system name (e.g., "ICD-10-CM", "SNOMED_CT_US_LITE")
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `phenoml.construe.ListCodesRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ConstrueClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">getCode</a>(codesystem, codeID, { ...params }) -> phenoml.GetCodeResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Looks up a specific code in the terminology server and returns its details.
-
-Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.construe.getCode("ICD-10-CM", "E1165", {
-    version: "version"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**codesystem:** `string` — Code system name
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**codeID:** `string` 
-
-The code identifier. ICD-10-CM codes are stored without their
-cosmetic dot (use "E1165", not "E11.65").
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `phenoml.construe.GetCodeRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ConstrueClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">searchSemantic</a>(codesystem, { ...params }) -> phenoml.SemanticSearchResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Performs semantic similarity search using vector embeddings.
-
-**Availability**: This endpoint works for both **built-in and custom** code systems.
-
-**When to use**: Best for natural language queries where you want to find conceptually
-related codes, even when different terminology is used. The search understands meaning,
-not just keywords.
-
-**Examples**:
-- Query "trouble breathing at night" finds codes like "Sleep apnea", "Orthopnea",
-  "Nocturnal dyspnea" — semantically related but no exact keyword matches
-- Query "heart problems" finds "Myocardial infarction", "Cardiac arrest", "Arrhythmia"
-
-**Trade-offs**: Slower than text search (requires embedding generation), but finds
-conceptually similar results that keyword search would miss.
-
-See also: `/search/text` for faster keyword-based lookup with typo tolerance.
-
-Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.construe.searchSemantic("ICD-10-CM", {
-    text: "patient has trouble breathing at night and wakes up gasping",
-    version: "version",
-    limit: 1
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**codesystem:** `string` — Code system name
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `phenoml.construe.SearchSemanticRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ConstrueClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">submitFeedback</a>({ ...params }) -> phenoml.FeedbackResponse</code></summary>
 <dl>
 <dd>
@@ -1937,7 +1257,690 @@ await client.construe.submitFeedback({
 </dl>
 </details>
 
-<details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">searchText</a>(codesystem, { ...params }) -> phenoml.TextSearchResponse</code></summary>
+## Code Systems
+<details><summary><code>client.construe.codeSystems.<a href="/src/api/resources/construe/resources/codeSystems/client/Client.ts">upload</a>({ ...params }) -> phenoml.UploadResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Upload a custom medical code system with codes and descriptions for use in code extraction. Requires a paid plan.
+Returns 202 immediately; embedding generation runs asynchronously. Poll
+GET /construe/codes/systems/{codesystem}?version={version} to check when status
+transitions from "processing" to "ready" or "failed".
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.codeSystems.upload({
+    name: "CUSTOM_CODES",
+    version: "1.0",
+    format: "json",
+    codes: [{
+            code: "X001",
+            description: "Example custom code 1"
+        }, {
+            code: "X002",
+            description: "Example custom code 2"
+        }]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.construe.UploadRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CodeSystemsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.construe.codeSystems.<a href="/src/api/resources/construe/resources/codeSystems/client/Client.ts">list</a>() -> phenoml.ListCodeSystemsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the terminology server's catalog of available code systems, including both built-in standard terminologies and custom uploaded systems.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.codeSystems.list();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `CodeSystemsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.construe.codeSystems.<a href="/src/api/resources/construe/resources/codeSystems/client/Client.ts">find</a>(codesystem, { ...params }) -> phenoml.GetCodeSystemDetailResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns full metadata for a single code system, including timestamps and builtin status.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.codeSystems.find("ICD-10-CM", {
+    version: "2025"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**codesystem:** `string` — Code system name (e.g., "ICD-10-CM", "SNOMED_CT_US_LITE")
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.construe.FindRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CodeSystemsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.construe.codeSystems.<a href="/src/api/resources/construe/resources/codeSystems/client/Client.ts">delete</a>(codesystem, { ...params }) -> phenoml.DeleteCodeSystemResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a custom (non-builtin) code system and all its codes. Builtin systems cannot be deleted.
+Only available on dedicated instances. Large systems may take up to a minute to delete.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.codeSystems.delete("CUSTOM_CODES", {
+    version: "version"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**codesystem:** `string` — Code system name
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.construe.DeleteRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CodeSystemsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.construe.codeSystems.<a href="/src/api/resources/construe/resources/codeSystems/client/Client.ts">export</a>(codesystem, { ...params }) -> phenoml.ExportCodeSystemResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Exports a custom (non-builtin) code system as a JSON file compatible with the upload format.
+The exported file can be re-uploaded directly via POST /construe/upload with format "json".
+Only available on dedicated instances. Builtin systems cannot be exported.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.codeSystems.export("CUSTOM_CODES", {
+    version: "version"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**codesystem:** `string` — Code system name
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.construe.ExportRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CodeSystemsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Codes
+<details><summary><code>client.construe.codes.<a href="/src/api/resources/construe/resources/codes/client/Client.ts">extract</a>({ ...params }) -> phenoml.ExtractCodesResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Converts natural language text into structured medical codes.
+
+Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.codes.extract({
+    text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney.",
+    system: {
+        name: "ICD-10-CM",
+        version: "2025"
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.construe.ExtractRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CodesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.construe.codes.<a href="/src/api/resources/construe/resources/codes/client/Client.ts">list</a>(codesystem, { ...params }) -> phenoml.ListCodesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a paginated list of all codes in the specified code system from the terminology server.
+
+Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.codes.list("ICD-10-CM", {
+    version: "2025",
+    cursor: "cursor",
+    limit: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**codesystem:** `string` — Code system name (e.g., "ICD-10-CM", "SNOMED_CT_US_LITE")
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.construe.ListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CodesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.construe.codes.<a href="/src/api/resources/construe/resources/codes/client/Client.ts">lookup</a>(codesystem, codeID, { ...params }) -> phenoml.GetCodeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Looks up a specific code in the terminology server and returns its details.
+
+Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.codes.lookup("ICD-10-CM", "E1165", {
+    version: "version"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**codesystem:** `string` — Code system name
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**codeID:** `string` 
+
+The code identifier. ICD-10-CM codes are stored without their
+cosmetic dot (use "E1165", not "E11.65").
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.construe.LookupRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CodesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.construe.codes.<a href="/src/api/resources/construe/resources/codes/client/Client.ts">searchSemantic</a>(codesystem, { ...params }) -> phenoml.SemanticSearchResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Performs semantic similarity search using vector embeddings.
+
+**Availability**: This endpoint works for both **built-in and custom** code systems.
+
+**When to use**: Best for natural language queries where you want to find conceptually
+related codes, even when different terminology is used. The search understands meaning,
+not just keywords.
+
+**Examples**:
+- Query "trouble breathing at night" finds codes like "Sleep apnea", "Orthopnea",
+  "Nocturnal dyspnea" — semantically related but no exact keyword matches
+- Query "heart problems" finds "Myocardial infarction", "Cardiac arrest", "Arrhythmia"
+
+**Trade-offs**: Slower than text search (requires embedding generation), but finds
+conceptually similar results that keyword search would miss.
+
+See also: `/search/text` for faster keyword-based lookup with typo tolerance.
+
+Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.codes.searchSemantic("ICD-10-CM", {
+    text: "patient has trouble breathing at night and wakes up gasping",
+    version: "version",
+    limit: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**codesystem:** `string` — Code system name
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.construe.SearchSemanticRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CodesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.construe.codes.<a href="/src/api/resources/construe/resources/codes/client/Client.ts">searchText</a>(codesystem, { ...params }) -> phenoml.TextSearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -1987,7 +1990,7 @@ Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
 <dd>
 
 ```typescript
-await client.construe.searchText("ICD-10-CM", {
+await client.construe.codes.searchText("ICD-10-CM", {
     q: "E11.65",
     version: "version",
     limit: 1
@@ -2023,7 +2026,7 @@ await client.construe.searchText("ICD-10-CM", {
 <dl>
 <dd>
 
-**requestOptions:** `ConstrueClient.RequestOptions` 
+**requestOptions:** `CodesClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2036,7 +2039,7 @@ await client.construe.searchText("ICD-10-CM", {
 </details>
 
 ## Fhir
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">search</a>(fhir_provider_id, fhir_path, { ...params }) -> phenoml.SearchResponse</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">search</a>(fhir_provider_id, fhir_path, { ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2048,7 +2051,19 @@ await client.construe.searchText("ICD-10-CM", {
 <dl>
 <dd>
 
-Retrieves FHIR resources from the specified provider. Supports both individual resource retrieval and search operations based on the FHIR path and query parameters.
+Retrieves FHIR resources from the specified provider. Supports both individual resource retrieval (e.g. `Patient/123` via the path) and search operations.
+
+FHIR search parameters are passed through to the upstream server verbatim as native query-string parameters; this proxy does not model, validate, or transform them. Append standard FHIR search parameters directly to the request URL. Supported parameters include:
+- Resource-specific search parameters (e.g. `name` for Patient, `status` for Observation)
+- Common search parameters (`_id`, `_lastUpdated`, `_tag`, `_profile`, `_security`, `_text`, `_content`, `_filter`)
+- Result parameters (`_count`, `_offset`, `_sort`, `_include`, `_revinclude`, `_summary`, `_elements`)
+- Search prefixes for dates, numbers, and quantities (`eq`, `ne`, `gt`, `ge`, `lt`, `le`, `sa`, `eb`, `ap`)
+
+Examples:
+- `Patient?name=John%20Doe&_count=10&_sort=family`
+- `Observation?patient=Patient/123&date=ge2023-01-01&category=vital-signs&_sort=-date`
+
+When using a generated SDK, supply these via the client's request-level query-parameter option (the SDK escape hatch) rather than a typed argument.
 
 The request is proxied to the configured FHIR server with appropriate authentication headers.
 </dd>
@@ -2130,7 +2145,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">create</a>(fhir_provider_id, fhir_path, { ...params }) -> phenoml.FhirResource</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">create</a>(fhir_provider_id, fhir_path, { ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2163,7 +2178,7 @@ await client.fhir.create("550e8400-e29b-41d4-a716-446655440000", "Patient", {
     "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
     "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     body: {
-        resourceType: "Patient"
+        "resourceType": "Patient"
     }
 });
 
@@ -2227,7 +2242,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">upsert</a>(fhir_provider_id, fhir_path, { ...params }) -> phenoml.FhirResource</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">upsert</a>(fhir_provider_id, fhir_path, { ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2260,8 +2275,8 @@ await client.fhir.upsert("550e8400-e29b-41d4-a716-446655440000", "Patient", {
     "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
     "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     body: {
-        resourceType: "Patient",
-        id: "123"
+        "resourceType": "Patient",
+        "id": "123"
     }
 });
 
@@ -2325,7 +2340,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">delete</a>(fhir_provider_id, fhir_path, { ...params }) -> Record&lt;string, unknown&gt;</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">delete</a>(fhir_provider_id, fhir_path, { ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2419,7 +2434,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">patch</a>(fhir_provider_id, fhir_path, { ...params }) -> phenoml.FhirResource</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">patch</a>(fhir_provider_id, fhir_path, { ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2431,12 +2446,16 @@ Examples:
 <dl>
 <dd>
 
-Partially updates a FHIR resource on the specified provider using JSON Patch operations as defined in RFC 6902.
+Partially updates a FHIR resource on the specified provider.
 
-The request body should contain an array of JSON Patch operations. Each operation specifies:
-- `op`: The operation type (add, remove, replace, move, copy, test)
-- `path`: JSON Pointer to the target location in the resource
-- `value`: The value to use (required for add, replace, and test operations)
+Two body formats are supported, selected by request content type:
+- `application/json-patch+json` — an array of JSON Patch operations as defined in RFC 6902. Each operation specifies:
+  - `op`: The operation type (add, remove, replace, move, copy, test)
+  - `path`: JSON Pointer to the target location in the resource
+  - `value`: The value to use (required for add, replace, and test operations)
+- `application/fhir+json` — a partial FHIR resource for merge-patch semantics.
+
+**Note:** This proxy currently forwards the request body to the upstream FHIR server with `Content-Type: application/fhir+json` regardless of the declared request content type. JSON Patch (RFC 6902) therefore only succeeds against upstream servers that accept patch arrays under `application/fhir+json`; servers that strictly enforce patch media types may reject or misinterpret it. Support for either format ultimately depends on the upstream FHIR server.
 
 The request is proxied to the configured FHIR server with appropriate authentication headers.
 </dd>
@@ -2523,7 +2542,7 @@ Examples:
 </dl>
 </details>
 
-<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">executeBundle</a>(fhir_provider_id, { ...params }) -> phenoml.FhirBundle</code></summary>
+<details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">executeBundle</a>(fhir_provider_id, { ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2558,9 +2577,15 @@ await client.fhir.executeBundle("550e8400-e29b-41d4-a716-446655440000", {
     "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
     "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
     body: {
-        resourceType: "Bundle",
-        entry: [{
-                resource: {
+        "resourceType": "Bundle",
+        "type": "transaction",
+        "entry": [
+            {
+                "request": {
+                    "method": "POST",
+                    "url": "Patient"
+                },
+                "resource": {
                     "resourceType": "Patient",
                     "name": [
                         {
@@ -2570,24 +2595,22 @@ await client.fhir.executeBundle("550e8400-e29b-41d4-a716-446655440000", {
                             ]
                         }
                     ]
-                },
-                request: {
-                    method: "POST",
-                    url: "Patient"
                 }
-            }, {
-                resource: {
+            },
+            {
+                "request": {
+                    "method": "POST",
+                    "url": "Observation"
+                },
+                "resource": {
                     "resourceType": "Observation",
                     "status": "final",
                     "subject": {
                         "reference": "Patient/123"
                     }
-                },
-                request: {
-                    method: "POST",
-                    url: "Observation"
                 }
-            }]
+            }
+        ]
     }
 });
 
@@ -2902,7 +2925,8 @@ await client.fhirProvider.delete("fhir_provider_id");
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">addAuthConfig</a>(fhir_provider_id, { ...params }) -> phenoml.FhirProviderResponse</code></summary>
+## Auth Config
+<details><summary><code>client.fhirProvider.authConfig.<a href="/src/api/resources/fhirProvider/resources/authConfig/client/Client.ts">add</a>(fhir_provider_id, { ...params }) -> phenoml.FhirProviderResponse</code></summary>
 <dl>
 <dd>
 
@@ -2932,7 +2956,7 @@ Note: Sandbox providers cannot be modified.
 <dd>
 
 ```typescript
-await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
+await client.fhirProvider.authConfig.add("1716d214-de93-43a4-aa6b-a878d864e2ad", {
     auth_method: "client_secret",
     client_id: "your-client-id",
     client_secret: "your-client-secret"
@@ -2968,7 +2992,7 @@ await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", 
 <dl>
 <dd>
 
-**requestOptions:** `FhirProviderClient.RequestOptions` 
+**requestOptions:** `AuthConfigClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2980,7 +3004,7 @@ await client.fhirProvider.addAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", 
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">setActiveAuthConfig</a>(fhir_provider_id, { ...params }) -> phenoml.FhirProviderResponse</code></summary>
+<details><summary><code>client.fhirProvider.authConfig.<a href="/src/api/resources/fhirProvider/resources/authConfig/client/Client.ts">setActive</a>(fhir_provider_id, { ...params }) -> phenoml.FhirProviderResponse</code></summary>
 <dl>
 <dd>
 
@@ -3013,7 +3037,7 @@ Note: Sandbox providers cannot be modified.
 <dd>
 
 ```typescript
-await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
+await client.fhirProvider.authConfig.setActive("1716d214-de93-43a4-aa6b-a878d864e2ad", {
     auth_config_id: "auth-config-456"
 });
 
@@ -3047,7 +3071,7 @@ await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e
 <dl>
 <dd>
 
-**requestOptions:** `FhirProviderClient.RequestOptions` 
+**requestOptions:** `AuthConfigClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3059,7 +3083,7 @@ await client.fhirProvider.setActiveAuthConfig("1716d214-de93-43a4-aa6b-a878d864e
 </dl>
 </details>
 
-<details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">removeAuthConfig</a>(fhir_provider_id, { ...params }) -> phenoml.RemoveAuthConfigResponse</code></summary>
+<details><summary><code>client.fhirProvider.authConfig.<a href="/src/api/resources/fhirProvider/resources/authConfig/client/Client.ts">remove</a>(fhir_provider_id, { ...params }) -> phenoml.RemoveResponse</code></summary>
 <dl>
 <dd>
 
@@ -3089,7 +3113,7 @@ Note: Sandbox providers cannot be modified.
 <dd>
 
 ```typescript
-await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad", {
+await client.fhirProvider.authConfig.remove("1716d214-de93-43a4-aa6b-a878d864e2ad", {
     auth_config_id: "auth-config-456"
 });
 
@@ -3123,7 +3147,7 @@ await client.fhirProvider.removeAuthConfig("1716d214-de93-43a4-aa6b-a878d864e2ad
 <dl>
 <dd>
 
-**requestOptions:** `FhirProviderClient.RequestOptions` 
+**requestOptions:** `AuthConfigClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3664,8 +3688,8 @@ await client.summary.create({
 </dl>
 </details>
 
-## Summary Templates
-<details><summary><code>client.summary.templates.<a href="/src/api/resources/summary/resources/templates/client/Client.ts">list</a>() -> phenoml.TemplatesListResponse</code></summary>
+## Templates
+<details><summary><code>client.summary.templates.<a href="/src/api/resources/summary/resources/templates/client/Client.ts">list</a>() -> phenoml.ListResponse</code></summary>
 <dl>
 <dd>
 
@@ -3788,7 +3812,7 @@ await client.summary.templates.create({
 </dl>
 </details>
 
-<details><summary><code>client.summary.templates.<a href="/src/api/resources/summary/resources/templates/client/Client.ts">get</a>(id) -> phenoml.TemplatesGetResponse</code></summary>
+<details><summary><code>client.summary.templates.<a href="/src/api/resources/summary/resources/templates/client/Client.ts">get</a>(id) -> phenoml.GetResponse</code></summary>
 <dl>
 <dd>
 
@@ -3851,7 +3875,7 @@ await client.summary.templates.get("id");
 </dl>
 </details>
 
-<details><summary><code>client.summary.templates.<a href="/src/api/resources/summary/resources/templates/client/Client.ts">update</a>(id, { ...params }) -> phenoml.TemplatesUpdateResponse</code></summary>
+<details><summary><code>client.summary.templates.<a href="/src/api/resources/summary/resources/templates/client/Client.ts">update</a>(id, { ...params }) -> phenoml.UpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -3927,7 +3951,7 @@ await client.summary.templates.update("id", {
 </dl>
 </details>
 
-<details><summary><code>client.summary.templates.<a href="/src/api/resources/summary/resources/templates/client/Client.ts">delete</a>(id) -> phenoml.TemplatesDeleteResponse</code></summary>
+<details><summary><code>client.summary.templates.<a href="/src/api/resources/summary/resources/templates/client/Client.ts">delete</a>(id) -> phenoml.DeleteResponse</code></summary>
 <dl>
 <dd>
 
@@ -4270,8 +4294,8 @@ await client.tools.analyzeCohort({
 </dl>
 </details>
 
-## Tools McpServer
-<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">create</a>({ ...params }) -> phenoml.McpServerResponse</code></summary>
+## MCP Servers
+<details><summary><code>client.tools.mcpServers.<a href="/src/api/resources/tools/resources/mcpServers/client/Client.ts">create</a>({ ...params }) -> phenoml.McpServerResponse</code></summary>
 <dl>
 <dd>
 
@@ -4298,7 +4322,7 @@ Creates a new MCP server
 <dd>
 
 ```typescript
-await client.tools.mcpServer.create({
+await client.tools.mcpServers.create({
     name: "My MCP Server",
     mcp_server_url: "https://mcp.example.com"
 });
@@ -4325,7 +4349,7 @@ await client.tools.mcpServer.create({
 <dl>
 <dd>
 
-**requestOptions:** `McpServerClient.RequestOptions` 
+**requestOptions:** `McpServersClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4337,7 +4361,7 @@ await client.tools.mcpServer.create({
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">list</a>() -> phenoml.McpServerResponse</code></summary>
+<details><summary><code>client.tools.mcpServers.<a href="/src/api/resources/tools/resources/mcpServers/client/Client.ts">list</a>() -> phenoml.McpServerResponse</code></summary>
 <dl>
 <dd>
 
@@ -4364,7 +4388,7 @@ Lists all MCP servers for a specific user
 <dd>
 
 ```typescript
-await client.tools.mcpServer.list();
+await client.tools.mcpServers.list();
 
 ```
 </dd>
@@ -4380,7 +4404,7 @@ await client.tools.mcpServer.list();
 <dl>
 <dd>
 
-**requestOptions:** `McpServerClient.RequestOptions` 
+**requestOptions:** `McpServersClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4392,7 +4416,7 @@ await client.tools.mcpServer.list();
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">get</a>(mcp_server_id) -> phenoml.McpServerResponse</code></summary>
+<details><summary><code>client.tools.mcpServers.<a href="/src/api/resources/tools/resources/mcpServers/client/Client.ts">get</a>(mcp_server_id) -> phenoml.McpServerResponse</code></summary>
 <dl>
 <dd>
 
@@ -4419,7 +4443,7 @@ Gets a MCP server by ID
 <dd>
 
 ```typescript
-await client.tools.mcpServer.get("mcp_server_id");
+await client.tools.mcpServers.get("mcp_server_id");
 
 ```
 </dd>
@@ -4443,7 +4467,7 @@ await client.tools.mcpServer.get("mcp_server_id");
 <dl>
 <dd>
 
-**requestOptions:** `McpServerClient.RequestOptions` 
+**requestOptions:** `McpServersClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4455,7 +4479,7 @@ await client.tools.mcpServer.get("mcp_server_id");
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.<a href="/src/api/resources/tools/resources/mcpServer/client/Client.ts">delete</a>(mcp_server_id) -> phenoml.McpServerResponse</code></summary>
+<details><summary><code>client.tools.mcpServers.<a href="/src/api/resources/tools/resources/mcpServers/client/Client.ts">delete</a>(mcp_server_id) -> phenoml.McpServerResponse</code></summary>
 <dl>
 <dd>
 
@@ -4482,7 +4506,7 @@ Deletes a MCP server by ID
 <dd>
 
 ```typescript
-await client.tools.mcpServer.delete("mcp_server_id");
+await client.tools.mcpServers.delete("mcp_server_id");
 
 ```
 </dd>
@@ -4506,7 +4530,7 @@ await client.tools.mcpServer.delete("mcp_server_id");
 <dl>
 <dd>
 
-**requestOptions:** `McpServerClient.RequestOptions` 
+**requestOptions:** `McpServersClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4518,8 +4542,8 @@ await client.tools.mcpServer.delete("mcp_server_id");
 </dl>
 </details>
 
-## Tools McpServer Tools
-<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">list</a>(mcp_server_id) -> phenoml.McpServerToolResponse</code></summary>
+## MCP Tools
+<details><summary><code>client.tools.mcpTools.<a href="/src/api/resources/tools/resources/mcpTools/client/Client.ts">list</a>(mcp_server_id) -> phenoml.McpServerToolResponse</code></summary>
 <dl>
 <dd>
 
@@ -4546,7 +4570,7 @@ Lists all MCP server tools for a specific MCP server
 <dd>
 
 ```typescript
-await client.tools.mcpServer.tools.list("mcp_server_id");
+await client.tools.mcpTools.list("mcp_server_id");
 
 ```
 </dd>
@@ -4570,7 +4594,7 @@ await client.tools.mcpServer.tools.list("mcp_server_id");
 <dl>
 <dd>
 
-**requestOptions:** `ToolsClient.RequestOptions` 
+**requestOptions:** `McpToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4582,7 +4606,7 @@ await client.tools.mcpServer.tools.list("mcp_server_id");
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">get</a>(mcp_server_tool_id) -> phenoml.McpServerToolResponse</code></summary>
+<details><summary><code>client.tools.mcpTools.<a href="/src/api/resources/tools/resources/mcpTools/client/Client.ts">get</a>(mcp_server_tool_id) -> phenoml.McpServerToolResponse</code></summary>
 <dl>
 <dd>
 
@@ -4609,7 +4633,7 @@ Gets a MCP server tool by ID
 <dd>
 
 ```typescript
-await client.tools.mcpServer.tools.get("mcp_server_tool_id");
+await client.tools.mcpTools.get("mcp_server_tool_id");
 
 ```
 </dd>
@@ -4633,7 +4657,7 @@ await client.tools.mcpServer.tools.get("mcp_server_tool_id");
 <dl>
 <dd>
 
-**requestOptions:** `ToolsClient.RequestOptions` 
+**requestOptions:** `McpToolsClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4645,7 +4669,7 @@ await client.tools.mcpServer.tools.get("mcp_server_tool_id");
 </dl>
 </details>
 
-<details><summary><code>client.tools.mcpServer.tools.<a href="/src/api/resources/tools/resources/mcpServer/resources/tools/client/Client.ts">delete</a>(mcp_server_tool_id) -> phenoml.McpServerToolResponse</code></summary>
+<details><summary><code>client.tools.mcpTools.<a href="/src/api/resources/tools/resources/mcpTools/client/Client.ts">delete</a>(mcp_server_tool_id) -> phenoml.McpServerToolResponse</code></summary>
 <dl>
 <dd>
 
@@ -4672,7 +4696,7 @@ Deletes a MCP server tool by ID
 <dd>
 
 ```typescript
-await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
+await client.tools.mcpTools.delete("mcp_server_tool_id");
 
 ```
 </dd>
@@ -4696,7 +4720,7 @@ await client.tools.mcpServer.tools.delete("mcp_server_tool_id");
 <dl>
 <dd>
 
-**requestOptions:** `ToolsClient.RequestOptions` 
+**requestOptions:** `McpToolsClient.RequestOptions` 
     
 </dd>
 </dl>

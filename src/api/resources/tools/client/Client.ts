@@ -8,7 +8,8 @@ import * as environments from "../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../errors/index.js";
 import * as phenoml from "../../../index.js";
-import { McpServerClient } from "../resources/mcpServer/client/Client.js";
+import { McpServersClient } from "../resources/mcpServers/client/Client.js";
+import { McpToolsClient } from "../resources/mcpTools/client/Client.js";
 
 export declare namespace ToolsClient {
     export type Options = BaseClientOptions;
@@ -18,14 +19,19 @@ export declare namespace ToolsClient {
 
 export class ToolsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<ToolsClient.Options>;
-    protected _mcpServer: McpServerClient | undefined;
+    protected _mcpServers: McpServersClient | undefined;
+    protected _mcpTools: McpToolsClient | undefined;
 
     constructor(options: ToolsClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
-    public get mcpServer(): McpServerClient {
-        return (this._mcpServer ??= new McpServerClient(this._options));
+    public get mcpServers(): McpServersClient {
+        return (this._mcpServers ??= new McpServersClient(this._options));
+    }
+
+    public get mcpTools(): McpToolsClient {
+        return (this._mcpTools ??= new McpToolsClient(this._options));
     }
 
     /**
