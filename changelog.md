@@ -1,3 +1,38 @@
+## 17.0.0 - 2026-06-01
+### Breaking Changes
+* **`client.agent.chat()` / `streamChat()` / `getChatMessages()`** — removed from `AgentClient`; the three chat methods now live on a new `client.agent.chat` sub-client. Rewrite call sites as `client.agent.chat.send()` / `client.agent.chat.stream()` / `client.agent.chat.listMessages()`. HTTP routes are unchanged.
+* **`phenoml.agent.ListResponse` / `phenoml.agent.DeleteResponse`** — renamed back to `phenoml.agent.AgentListResponse` / `phenoml.agent.AgentDeleteResponse` (the `Agent` prefix dropped in 16.0.0 is re-added); returned by `client.agent.list()` / `delete()`. Update imports and type annotations.
+* **`phenoml.agent.GetChatMessagesRequest` / `GetChatMessagesResponse` / `GetChatMessagesRequestRole` / `GetChatMessagesRequestOrder`** — renamed to `ListMessagesRequest` / `ListMessagesResponse` / `ListMessagesRequestRole` / `ListMessagesRequestOrder` (still under `phenoml.agent`, now also under `phenoml.agent.chat`); enum values unchanged. Update imports.
+* **`phenoml.agent.PromptsListResponse` / `PromptsDeleteResponse`** — renamed to `PromptListResponse` / `PromptDeleteResponse` (singular); returned by `client.agent.prompts.list()` / `delete()`. Update imports.
+* **`client.construe.uploadCodeSystem()` / `listCodeSystems()` / `getCodeSystem()` / `deleteCodeSystem()` / `exportCodeSystem()`** — removed from `ConstrueClient`; these now live on a new `client.construe.codeSystems` sub-client as `upload()` / `list()` / `find()` / `delete()` / `export()`. Rewrite call sites accordingly.
+* **`client.construe.extractCodes()` / `listCodes()` / `getCode()` / `searchSemantic()` / `searchText()`** — removed from `ConstrueClient`; these now live on a new `client.construe.codes` sub-client as `extract()` / `list()` / `lookup()` / `searchSemantic()` / `searchText()`. Rewrite call sites accordingly. (`client.construe.submitFeedback()` remains on the parent client.)
+* **`phenoml.construe.UploadCodeSystemResponse`** — renamed to `phenoml.construe.UploadResponse` (also exported from `phenoml.construe.codeSystems`); returned by `client.construe.codeSystems.upload()`. Update imports.
+* **`phenoml.construe.GetCodeSystemRequest` / `DeleteCodeSystemRequest` / `ExportCodeSystemRequest`** — renamed to `FindRequest` / `DeleteRequest` / `ExportRequest` (parameters of the `codeSystems` sub-client methods). Update imports.
+* **`phenoml.construe.ListCodesRequest` / `GetCodeRequest`** — renamed to `ListRequest` / `LookupRequest` (parameters of the `codes` sub-client methods). Update imports.
+* **`client.fhirProvider.addAuthConfig()` / `setActiveAuthConfig()` / `removeAuthConfig()`** — removed from `FhirProviderClient`; these now live on a new `client.fhirProvider.authConfig` sub-client as `add()` / `setActive()` / `remove()`. Rewrite call sites accordingly.
+* **`phenoml.fhirProvider.RemoveAuthConfigResponse`** — renamed to `phenoml.fhirProvider.RemoveResponse` and moved to the `phenoml.fhirProvider.authConfig` namespace; returned by `client.fhirProvider.authConfig.remove()`. Update imports.
+* **`client.tools.mcpServer`** — removed; the sub-client was split into `client.tools.mcpServers` (`create()` / `list()` / `get()` / `delete()`) and `client.tools.mcpTools` (`list()` / `get()` / `delete()`). Rewrite `client.tools.mcpServer.*` call sites as `client.tools.mcpServers.*`, and the nested `client.tools.mcpServer.tools.*` call sites as `client.tools.mcpTools.*`.
+* **`phenoml.summary.TemplatesListResponse` / `TemplatesGetResponse` / `TemplatesUpdateResponse` / `TemplatesDeleteResponse`** — renamed to `ListResponse` / `GetResponse` / `UpdateResponse` / `DeleteResponse` (the `Templates` prefix added in 16.0.0 is dropped; still under `phenoml.summary`, now also under `phenoml.summary.templates`). Update imports.
+* **`phenoml.fhir.FhirResource` / `FhirBundle` / `SearchResponse` / `ErrorResponse`** — removed from the `fhir` namespace; the FHIR proxy is now opaque. Replace any imports with `Record<string, unknown>`, `unknown`, or your own local definitions.
+* **`FhirClient.search()` / `create()` / `upsert()` / `delete()` / `patch()` / `executeBundle()`** — return type changed to `unknown`; the create/upsert request `body` changed from `phenoml.fhir.FhirResource` to optional `unknown`, and the executeBundle request `body` from `phenoml.fhir.FhirBundle` to optional `unknown`. Cast or validate the response and stop relying on the named body types.
+* **`phenoml.fhir.SearchRequest.query_parameters`** — field removed; pass FHIR search parameters via the request-level `queryParams` option (the SDK escape hatch) instead of this typed field.
+* **`phenoml.fhir.BadRequestError` / `UnauthorizedError` / `NotFoundError` / `InternalServerError` / `BadGatewayError` / `ServiceUnavailableError` / `TooManyRequestsError`** — all FHIR proxy error classes removed; these endpoints now throw the generic `phenomlError` on any non-2xx status. Remove imports and catch `phenomlError` (inspecting `statusCode`) instead.
+* **`phenoml.lang2Fhir.FailedDependencyError`** — error class removed (the 424 response is gone); remove imports and 424-specific catch logic.
+* **`phenoml.tools.FailedDependencyError`** — error class removed (the 424 response is gone); remove imports and 424-specific catch logic.
+### Added
+* **`client.agent.chat`** — new nested sub-client (`ChatClient`) exposing `send()`, `stream()`, and `listMessages()` for agent chat sessions.
+* **`client.construe.codeSystems`** — new nested sub-client (`CodeSystemsClient`) exposing `upload()`, `list()`, `find()`, `delete()`, and `export()` for code-system management.
+* **`client.construe.codes`** — new nested sub-client (`CodesClient`) exposing `extract()`, `list()`, `lookup()`, `searchSemantic()`, and `searchText()` for code operations.
+* **`client.fhirProvider.authConfig`** — new nested sub-client (`AuthConfigClient`) exposing `add()`, `setActive()`, and `remove()` for FHIR provider auth configuration.
+* **`client.tools.mcpServers`** and **`client.tools.mcpTools`** — new sub-clients (`McpServersClient`, `McpToolsClient`) replacing the former `client.tools.mcpServer` and its nested `tools` sub-client.
+* **`phenoml.agent.GatewayTimeoutError`** — new error class thrown by the `client.agent.chat` methods on HTTP 504 responses.
+* **`phenoml.lang2Fhir.NotFoundError`** — new error class thrown by `client.lang2Fhir.create()`, `createMultiple()`, `document()`, and `documentMulti()` on HTTP 404 responses.
+* **`phenoml.lang2Fhir.ClientClosedRequestError`** and **`phenoml.lang2Fhir.GatewayTimeoutError`** — new error classes thrown by `client.lang2Fhir.document()` and `documentMulti()` on HTTP 499 and 504 responses.
+* **`phenoml.tools.NotFoundError`** — new error class available in the `tools` namespace.
+### Changed
+* **`client.agent.chat.send()` / `stream()` / `listMessages()`** — now also throw `phenoml.agent.NotFoundError` (404) and `phenoml.agent.GatewayTimeoutError` (504), which the former flat `agent.chat`/`streamChat`/`getChatMessages` methods did not surface.
+* **`client.workflows.get()` / `update()` / `delete()`** — now throw `phenoml.workflows.GatewayTimeoutError` on HTTP 504 responses (previously only `client.workflows.execute()` did).
+
 ## 16.0.0 - 2026-05-25
 ### Breaking Changes
 * **`client.summary.listTemplates()` / `createTemplate()` / `getTemplate()` / `updateTemplate()` / `deleteTemplate()`** — removed from `SummaryClient`; the five template CRUD methods now live on a new `client.summary.templates` sub-client. Rewrite call sites as `client.summary.templates.list()` / `create()` / `get(id)` / `update(id, ...)` / `delete(id)`. HTTP routes are unchanged.
