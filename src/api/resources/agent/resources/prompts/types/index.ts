@@ -1,2 +1,2 @@
-export * from "./PromptsDeleteResponse.js";
-export * from "./PromptsListResponse.js";
+export * from "./PromptDeleteResponse.js";
+export * from "./PromptListResponse.js";

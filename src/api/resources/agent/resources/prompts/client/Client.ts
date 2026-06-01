@@ -15,6 +15,9 @@ export declare namespace PromptsClient {
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
+/**
+ * Reusable prompt templates that agents can attach to chats.
+ */
 export class PromptsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<PromptsClient.Options>;
 
@@ -118,13 +121,13 @@ export class PromptsClient {
      */
     public list(
         requestOptions?: PromptsClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.PromptsListResponse> {
+    ): core.HttpResponsePromise<phenoml.agent.PromptListResponse> {
         return core.HttpResponsePromise.fromPromise(this.__list(requestOptions));
     }
 
     private async __list(
         requestOptions?: PromptsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.PromptsListResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.PromptListResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -148,7 +151,7 @@ export class PromptsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.PromptsListResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.agent.PromptListResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -349,14 +352,14 @@ export class PromptsClient {
     public delete(
         id: string,
         requestOptions?: PromptsClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.agent.PromptsDeleteResponse> {
+    ): core.HttpResponsePromise<phenoml.agent.PromptDeleteResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
     }
 
     private async __delete(
         id: string,
         requestOptions?: PromptsClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.agent.PromptsDeleteResponse>> {
+    ): Promise<core.WithRawResponse<phenoml.agent.PromptDeleteResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -380,7 +383,7 @@ export class PromptsClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.agent.PromptsDeleteResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as phenoml.agent.PromptDeleteResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

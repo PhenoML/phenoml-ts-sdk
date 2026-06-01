@@ -15,7 +15,6 @@ export * from "./JwtAuth.js";
 export * from "./NoAuth.js";
 export * from "./OnBehalfOfAuth.js";
 export * from "./Provider.js";
-export * from "./RemoveAuthConfigResponse.js";
 export * from "./Role.js";
 export * from "./ServiceAccountKey.js";
 export * from "./ServiceAccountMetadata.js";
