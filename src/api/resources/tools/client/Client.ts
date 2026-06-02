@@ -8,7 +8,8 @@ import * as environments from "../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../errors/index.js";
 import * as phenoml from "../../../index.js";
-import { McpServerClient } from "../resources/mcpServer/client/Client.js";
+import { McpServersClient } from "../resources/mcpServers/client/Client.js";
+import { McpToolsClient } from "../resources/mcpTools/client/Client.js";
 
 export declare namespace ToolsClient {
     export type Options = BaseClientOptions;
@@ -18,14 +19,19 @@ export declare namespace ToolsClient {
 
 export class ToolsClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<ToolsClient.Options>;
-    protected _mcpServer: McpServerClient | undefined;
+    protected _mcpServers: McpServersClient | undefined;
+    protected _mcpTools: McpToolsClient | undefined;
 
     constructor(options: ToolsClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
-    public get mcpServer(): McpServerClient {
-        return (this._mcpServer ??= new McpServerClient(this._options));
+    public get mcpServers(): McpServersClient {
+        return (this._mcpServers ??= new McpServersClient(this._options));
+    }
+
+    public get mcpTools(): McpToolsClient {
+        return (this._mcpTools ??= new McpToolsClient(this._options));
     }
 
     /**
@@ -37,7 +43,6 @@ export class ToolsClient {
      * @throws {@link phenoml.tools.BadRequestError}
      * @throws {@link phenoml.tools.UnauthorizedError}
      * @throws {@link phenoml.tools.ForbiddenError}
-     * @throws {@link phenoml.tools.FailedDependencyError}
      * @throws {@link phenoml.tools.InternalServerError}
      *
      * @example
@@ -109,11 +114,6 @@ export class ToolsClient {
                     throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
                     throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
-                case 424:
-                    throw new phenoml.tools.FailedDependencyError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
                 case 500:
                     throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
@@ -141,7 +141,6 @@ export class ToolsClient {
      * @throws {@link phenoml.tools.BadRequestError}
      * @throws {@link phenoml.tools.UnauthorizedError}
      * @throws {@link phenoml.tools.ForbiddenError}
-     * @throws {@link phenoml.tools.FailedDependencyError}
      * @throws {@link phenoml.tools.InternalServerError}
      *
      * @example
@@ -213,11 +212,6 @@ export class ToolsClient {
                     throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
                     throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
-                case 424:
-                    throw new phenoml.tools.FailedDependencyError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
                 case 500:
                     throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:
@@ -246,7 +240,6 @@ export class ToolsClient {
      * @throws {@link phenoml.tools.BadRequestError}
      * @throws {@link phenoml.tools.UnauthorizedError}
      * @throws {@link phenoml.tools.ForbiddenError}
-     * @throws {@link phenoml.tools.FailedDependencyError}
      * @throws {@link phenoml.tools.InternalServerError}
      *
      * @example
@@ -318,11 +311,6 @@ export class ToolsClient {
                     throw new phenoml.tools.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 403:
                     throw new phenoml.tools.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
-                case 424:
-                    throw new phenoml.tools.FailedDependencyError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
                 case 500:
                     throw new phenoml.tools.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 default:

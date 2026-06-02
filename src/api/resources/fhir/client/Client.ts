@@ -4,11 +4,10 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../BaseClie
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as core from "../../../../core/index.js";
-import { toJson } from "../../../../core/json.js";
 import * as environments from "../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../errors/index.js";
-import * as phenoml from "../../../index.js";
+import type * as phenoml from "../../../index.js";
 
 export declare namespace FhirClient {
     export type Options = BaseClientOptions;
@@ -24,7 +23,19 @@ export class FhirClient {
     }
 
     /**
-     * Retrieves FHIR resources from the specified provider. Supports both individual resource retrieval and search operations based on the FHIR path and query parameters.
+     * Retrieves FHIR resources from the specified provider. Supports both individual resource retrieval (e.g. `Patient/123` via the path) and search operations.
+     *
+     * FHIR search parameters are passed through to the upstream server verbatim as native query-string parameters; this proxy does not model, validate, or transform them. Append standard FHIR search parameters directly to the request URL. Supported parameters include:
+     * - Resource-specific search parameters (e.g. `name` for Patient, `status` for Observation)
+     * - Common search parameters (`_id`, `_lastUpdated`, `_tag`, `_profile`, `_security`, `_text`, `_content`, `_filter`)
+     * - Result parameters (`_count`, `_offset`, `_sort`, `_include`, `_revinclude`, `_summary`, `_elements`)
+     * - Search prefixes for dates, numbers, and quantities (`eq`, `ne`, `gt`, `ge`, `lt`, `le`, `sa`, `eb`, `ap`)
+     *
+     * Examples:
+     * - `Patient?name=John%20Doe&_count=10&_sort=family`
+     * - `Observation?patient=Patient/123&date=ge2023-01-01&category=vital-signs&_sort=-date`
+     *
+     * When using a generated SDK, supply these via the client's request-level query-parameter option (the SDK escape hatch) rather than a typed argument.
      *
      * The request is proxied to the configured FHIR server with appropriate authentication headers.
      *
@@ -39,14 +50,6 @@ export class FhirClient {
      * @param {phenoml.fhir.SearchRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.fhir.BadRequestError}
-     * @throws {@link phenoml.fhir.UnauthorizedError}
-     * @throws {@link phenoml.fhir.NotFoundError}
-     * @throws {@link phenoml.fhir.TooManyRequestsError}
-     * @throws {@link phenoml.fhir.InternalServerError}
-     * @throws {@link phenoml.fhir.BadGatewayError}
-     * @throws {@link phenoml.fhir.ServiceUnavailableError}
-     *
      * @example
      *     await client.fhir.search("550e8400-e29b-41d4-a716-446655440000", "Patient", {
      *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
@@ -58,7 +61,7 @@ export class FhirClient {
         fhir_path: string,
         request: phenoml.fhir.SearchRequest = {},
         requestOptions?: FhirClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.fhir.SearchResponse> {
+    ): core.HttpResponsePromise<unknown> {
         return core.HttpResponsePromise.fromPromise(
             this.__search(fhir_provider_id, fhir_path, request, requestOptions),
         );
@@ -69,15 +72,8 @@ export class FhirClient {
         fhir_path: string,
         request: phenoml.fhir.SearchRequest = {},
         requestOptions?: FhirClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.fhir.SearchResponse>> {
-        const {
-            query_parameters: queryParameters,
-            "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
-            "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
-        } = request;
-        const _queryParams: Record<string, unknown> = {
-            query_parameters: queryParameters != null ? toJson(queryParameters) : undefined,
-        };
+    ): Promise<core.WithRawResponse<unknown>> {
+        const { "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf, "X-Phenoml-Fhir-Provider": phenomlFhirProvider } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -97,11 +93,7 @@ export class FhirClient {
             ),
             method: "GET",
             headers: _headers,
-            queryString: core.url
-                .queryBuilder()
-                .addMany(_queryParams)
-                .mergeAdditional(requestOptions?.queryParams)
-                .build(),
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -109,41 +101,15 @@ export class FhirClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.fhir.SearchResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new phenoml.fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new phenoml.fhir.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 404:
-                    throw new phenoml.fhir.NotFoundError(_response.error.body as unknown, _response.rawResponse);
-                case 429:
-                    throw new phenoml.fhir.TooManyRequestsError(
-                        _response.error.body as phenoml.fhir.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 500:
-                    throw new phenoml.fhir.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                case 502:
-                    throw new phenoml.fhir.BadGatewayError(
-                        _response.error.body as phenoml.fhir.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 503:
-                    throw new phenoml.fhir.ServiceUnavailableError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
+            throw new errors.phenomlError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
         }
 
         return handleNonStatusCodeError(
@@ -170,19 +136,12 @@ export class FhirClient {
      * @param {phenoml.fhir.CreateRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.fhir.BadRequestError}
-     * @throws {@link phenoml.fhir.UnauthorizedError}
-     * @throws {@link phenoml.fhir.TooManyRequestsError}
-     * @throws {@link phenoml.fhir.InternalServerError}
-     * @throws {@link phenoml.fhir.BadGatewayError}
-     * @throws {@link phenoml.fhir.ServiceUnavailableError}
-     *
      * @example
      *     await client.fhir.create("550e8400-e29b-41d4-a716-446655440000", "Patient", {
      *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
      *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         body: {
-     *             resourceType: "Patient"
+     *             "resourceType": "Patient"
      *         }
      *     })
      */
@@ -191,7 +150,7 @@ export class FhirClient {
         fhir_path: string,
         request: phenoml.fhir.CreateRequest,
         requestOptions?: FhirClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.fhir.FhirResource> {
+    ): core.HttpResponsePromise<unknown> {
         return core.HttpResponsePromise.fromPromise(
             this.__create(fhir_provider_id, fhir_path, request, requestOptions),
         );
@@ -202,7 +161,7 @@ export class FhirClient {
         fhir_path: string,
         request: phenoml.fhir.CreateRequest,
         requestOptions?: FhirClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.fhir.FhirResource>> {
+    ): Promise<core.WithRawResponse<unknown>> {
         const {
             "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
             "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
@@ -238,39 +197,15 @@ export class FhirClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.fhir.FhirResource, rawResponse: _response.rawResponse };
+            return { data: _response.body, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new phenoml.fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new phenoml.fhir.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 429:
-                    throw new phenoml.fhir.TooManyRequestsError(
-                        _response.error.body as phenoml.fhir.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 500:
-                    throw new phenoml.fhir.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                case 502:
-                    throw new phenoml.fhir.BadGatewayError(
-                        _response.error.body as phenoml.fhir.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 503:
-                    throw new phenoml.fhir.ServiceUnavailableError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
+            throw new errors.phenomlError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
         }
 
         return handleNonStatusCodeError(
@@ -297,20 +232,13 @@ export class FhirClient {
      * @param {phenoml.fhir.UpsertRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.fhir.BadRequestError}
-     * @throws {@link phenoml.fhir.UnauthorizedError}
-     * @throws {@link phenoml.fhir.TooManyRequestsError}
-     * @throws {@link phenoml.fhir.InternalServerError}
-     * @throws {@link phenoml.fhir.BadGatewayError}
-     * @throws {@link phenoml.fhir.ServiceUnavailableError}
-     *
      * @example
      *     await client.fhir.upsert("550e8400-e29b-41d4-a716-446655440000", "Patient", {
      *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
      *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         body: {
-     *             resourceType: "Patient",
-     *             id: "123"
+     *             "resourceType": "Patient",
+     *             "id": "123"
      *         }
      *     })
      */
@@ -319,7 +247,7 @@ export class FhirClient {
         fhir_path: string,
         request: phenoml.fhir.UpsertRequest,
         requestOptions?: FhirClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.fhir.FhirResource> {
+    ): core.HttpResponsePromise<unknown> {
         return core.HttpResponsePromise.fromPromise(
             this.__upsert(fhir_provider_id, fhir_path, request, requestOptions),
         );
@@ -330,7 +258,7 @@ export class FhirClient {
         fhir_path: string,
         request: phenoml.fhir.UpsertRequest,
         requestOptions?: FhirClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.fhir.FhirResource>> {
+    ): Promise<core.WithRawResponse<unknown>> {
         const {
             "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
             "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
@@ -366,39 +294,15 @@ export class FhirClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.fhir.FhirResource, rawResponse: _response.rawResponse };
+            return { data: _response.body, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new phenoml.fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new phenoml.fhir.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 429:
-                    throw new phenoml.fhir.TooManyRequestsError(
-                        _response.error.body as phenoml.fhir.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 500:
-                    throw new phenoml.fhir.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                case 502:
-                    throw new phenoml.fhir.BadGatewayError(
-                        _response.error.body as phenoml.fhir.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 503:
-                    throw new phenoml.fhir.ServiceUnavailableError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
+            throw new errors.phenomlError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
         }
 
         return handleNonStatusCodeError(
@@ -425,14 +329,6 @@ export class FhirClient {
      * @param {phenoml.fhir.DeleteRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.fhir.BadRequestError}
-     * @throws {@link phenoml.fhir.UnauthorizedError}
-     * @throws {@link phenoml.fhir.NotFoundError}
-     * @throws {@link phenoml.fhir.TooManyRequestsError}
-     * @throws {@link phenoml.fhir.InternalServerError}
-     * @throws {@link phenoml.fhir.BadGatewayError}
-     * @throws {@link phenoml.fhir.ServiceUnavailableError}
-     *
      * @example
      *     await client.fhir.delete("550e8400-e29b-41d4-a716-446655440000", "Patient", {
      *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
@@ -444,7 +340,7 @@ export class FhirClient {
         fhir_path: string,
         request: phenoml.fhir.DeleteRequest = {},
         requestOptions?: FhirClient.RequestOptions,
-    ): core.HttpResponsePromise<Record<string, unknown>> {
+    ): core.HttpResponsePromise<unknown> {
         return core.HttpResponsePromise.fromPromise(
             this.__delete(fhir_provider_id, fhir_path, request, requestOptions),
         );
@@ -455,7 +351,7 @@ export class FhirClient {
         fhir_path: string,
         request: phenoml.fhir.DeleteRequest = {},
         requestOptions?: FhirClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Record<string, unknown>>> {
+    ): Promise<core.WithRawResponse<unknown>> {
         const { "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf, "X-Phenoml-Fhir-Provider": phenomlFhirProvider } = request;
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -484,41 +380,15 @@ export class FhirClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Record<string, unknown>, rawResponse: _response.rawResponse };
+            return { data: _response.body, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new phenoml.fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new phenoml.fhir.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 404:
-                    throw new phenoml.fhir.NotFoundError(_response.error.body as unknown, _response.rawResponse);
-                case 429:
-                    throw new phenoml.fhir.TooManyRequestsError(
-                        _response.error.body as phenoml.fhir.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 500:
-                    throw new phenoml.fhir.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                case 502:
-                    throw new phenoml.fhir.BadGatewayError(
-                        _response.error.body as phenoml.fhir.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 503:
-                    throw new phenoml.fhir.ServiceUnavailableError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
+            throw new errors.phenomlError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
         }
 
         return handleNonStatusCodeError(
@@ -530,12 +400,16 @@ export class FhirClient {
     }
 
     /**
-     * Partially updates a FHIR resource on the specified provider using JSON Patch operations as defined in RFC 6902.
+     * Partially updates a FHIR resource on the specified provider.
      *
-     * The request body should contain an array of JSON Patch operations. Each operation specifies:
-     * - `op`: The operation type (add, remove, replace, move, copy, test)
-     * - `path`: JSON Pointer to the target location in the resource
-     * - `value`: The value to use (required for add, replace, and test operations)
+     * Two body formats are supported, selected by request content type:
+     * - `application/json-patch+json` — an array of JSON Patch operations as defined in RFC 6902. Each operation specifies:
+     *   - `op`: The operation type (add, remove, replace, move, copy, test)
+     *   - `path`: JSON Pointer to the target location in the resource
+     *   - `value`: The value to use (required for add, replace, and test operations)
+     * - `application/fhir+json` — a partial FHIR resource for merge-patch semantics.
+     *
+     * **Note:** This proxy currently forwards the request body to the upstream FHIR server with `Content-Type: application/fhir+json` regardless of the declared request content type. JSON Patch (RFC 6902) therefore only succeeds against upstream servers that accept patch arrays under `application/fhir+json`; servers that strictly enforce patch media types may reject or misinterpret it. Support for either format ultimately depends on the upstream FHIR server.
      *
      * The request is proxied to the configured FHIR server with appropriate authentication headers.
      *
@@ -549,14 +423,6 @@ export class FhirClient {
      *                             - "Patient/123/_history" (for history operations)
      * @param {phenoml.fhir.PatchRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link phenoml.fhir.BadRequestError}
-     * @throws {@link phenoml.fhir.UnauthorizedError}
-     * @throws {@link phenoml.fhir.NotFoundError}
-     * @throws {@link phenoml.fhir.TooManyRequestsError}
-     * @throws {@link phenoml.fhir.InternalServerError}
-     * @throws {@link phenoml.fhir.BadGatewayError}
-     * @throws {@link phenoml.fhir.ServiceUnavailableError}
      *
      * @example
      *     await client.fhir.patch("550e8400-e29b-41d4-a716-446655440000", "Patient", {
@@ -625,7 +491,7 @@ export class FhirClient {
         fhir_path: string,
         request: phenoml.fhir.PatchRequest,
         requestOptions?: FhirClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.fhir.FhirResource> {
+    ): core.HttpResponsePromise<unknown> {
         return core.HttpResponsePromise.fromPromise(this.__patch(fhir_provider_id, fhir_path, request, requestOptions));
     }
 
@@ -634,7 +500,7 @@ export class FhirClient {
         fhir_path: string,
         request: phenoml.fhir.PatchRequest,
         requestOptions?: FhirClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.fhir.FhirResource>> {
+    ): Promise<core.WithRawResponse<unknown>> {
         const {
             "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
             "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
@@ -670,41 +536,15 @@ export class FhirClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.fhir.FhirResource, rawResponse: _response.rawResponse };
+            return { data: _response.body, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new phenoml.fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new phenoml.fhir.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 404:
-                    throw new phenoml.fhir.NotFoundError(_response.error.body as unknown, _response.rawResponse);
-                case 429:
-                    throw new phenoml.fhir.TooManyRequestsError(
-                        _response.error.body as phenoml.fhir.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 500:
-                    throw new phenoml.fhir.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                case 502:
-                    throw new phenoml.fhir.BadGatewayError(
-                        _response.error.body as phenoml.fhir.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 503:
-                    throw new phenoml.fhir.ServiceUnavailableError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
+            throw new errors.phenomlError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
         }
 
         return handleNonStatusCodeError(
@@ -728,21 +568,20 @@ export class FhirClient {
      * @param {phenoml.fhir.ExecuteBundleRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link phenoml.fhir.BadRequestError}
-     * @throws {@link phenoml.fhir.UnauthorizedError}
-     * @throws {@link phenoml.fhir.TooManyRequestsError}
-     * @throws {@link phenoml.fhir.InternalServerError}
-     * @throws {@link phenoml.fhir.BadGatewayError}
-     * @throws {@link phenoml.fhir.ServiceUnavailableError}
-     *
      * @example
      *     await client.fhir.executeBundle("550e8400-e29b-41d4-a716-446655440000", {
      *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
      *         "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
      *         body: {
-     *             resourceType: "Bundle",
-     *             entry: [{
-     *                     resource: {
+     *             "resourceType": "Bundle",
+     *             "type": "transaction",
+     *             "entry": [
+     *                 {
+     *                     "request": {
+     *                         "method": "POST",
+     *                         "url": "Patient"
+     *                     },
+     *                     "resource": {
      *                         "resourceType": "Patient",
      *                         "name": [
      *                             {
@@ -752,24 +591,22 @@ export class FhirClient {
      *                                 ]
      *                             }
      *                         ]
-     *                     },
-     *                     request: {
-     *                         method: "POST",
-     *                         url: "Patient"
      *                     }
-     *                 }, {
-     *                     resource: {
+     *                 },
+     *                 {
+     *                     "request": {
+     *                         "method": "POST",
+     *                         "url": "Observation"
+     *                     },
+     *                     "resource": {
      *                         "resourceType": "Observation",
      *                         "status": "final",
      *                         "subject": {
      *                             "reference": "Patient/123"
      *                         }
-     *                     },
-     *                     request: {
-     *                         method: "POST",
-     *                         url: "Observation"
      *                     }
-     *                 }]
+     *                 }
+     *             ]
      *         }
      *     })
      */
@@ -777,7 +614,7 @@ export class FhirClient {
         fhir_provider_id: string,
         request: phenoml.fhir.ExecuteBundleRequest,
         requestOptions?: FhirClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.fhir.FhirBundle> {
+    ): core.HttpResponsePromise<unknown> {
         return core.HttpResponsePromise.fromPromise(this.__executeBundle(fhir_provider_id, request, requestOptions));
     }
 
@@ -785,7 +622,7 @@ export class FhirClient {
         fhir_provider_id: string,
         request: phenoml.fhir.ExecuteBundleRequest,
         requestOptions?: FhirClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.fhir.FhirBundle>> {
+    ): Promise<core.WithRawResponse<unknown>> {
         const {
             "X-Phenoml-On-Behalf-Of": phenomlOnBehalfOf,
             "X-Phenoml-Fhir-Provider": phenomlFhirProvider,
@@ -821,39 +658,15 @@ export class FhirClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.fhir.FhirBundle, rawResponse: _response.rawResponse };
+            return { data: _response.body, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new phenoml.fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new phenoml.fhir.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 429:
-                    throw new phenoml.fhir.TooManyRequestsError(
-                        _response.error.body as phenoml.fhir.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 500:
-                    throw new phenoml.fhir.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                case 502:
-                    throw new phenoml.fhir.BadGatewayError(
-                        _response.error.body as phenoml.fhir.ErrorResponse,
-                        _response.rawResponse,
-                    );
-                case 503:
-                    throw new phenoml.fhir.ServiceUnavailableError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
+            throw new errors.phenomlError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
         }
 
         return handleNonStatusCodeError(

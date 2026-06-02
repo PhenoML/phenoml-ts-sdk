@@ -9,14 +9,6 @@
  */
 export interface SearchRequest {
     /**
-     * FHIR-compliant query parameters for search operations. Supports standard FHIR search parameters including:
-     * - Resource-specific search parameters (e.g., name for Patient, status for Observation)
-     * - Common search parameters (_id, _lastUpdated, _tag, _profile, _security, _text, _content, _filter)
-     * - Result parameters (_count, _offset, _sort, _include, _revinclude, _summary, _elements)
-     * - Search prefixes for dates, numbers, quantities (eq, ne, gt, ge, lt, le, sa, eb, ap)
-     */
-    query_parameters?: Record<string, string>;
-    /**
      * Optional header for on-behalf-of authentication. Used when making requests on behalf of another user or entity.
      * Must be in the format: Patient/{uuid} or Practitioner/{uuid}
      */

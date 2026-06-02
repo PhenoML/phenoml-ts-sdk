@@ -755,6 +755,26 @@ describe("WorkflowsClient", () => {
         }).rejects.toThrow(phenoml.workflows.InternalServerError);
     });
 
+    test("get (6)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server.mockEndpoint().get("/workflows/id").respondWith().statusCode(504).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.workflows.get("id");
+        }).rejects.toThrow(phenoml.workflows.GatewayTimeoutError);
+    });
+
     test("update (1)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
@@ -1121,6 +1141,47 @@ describe("WorkflowsClient", () => {
         }).rejects.toThrow(phenoml.workflows.InternalServerError);
     });
 
+    test("update (7)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
+            name: "name",
+            workflow_instructions: "workflow_instructions",
+            sample_data: { sample_data: { key: "value" } },
+            fhir_provider_id: "fhir_provider_id",
+        };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .put("/workflows/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(504)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.workflows.update("id", {
+                name: "name",
+                workflow_instructions: "workflow_instructions",
+                sample_data: {
+                    sample_data: {
+                        key: "value",
+                    },
+                },
+                fhir_provider_id: "fhir_provider_id",
+            });
+        }).rejects.toThrow(phenoml.workflows.GatewayTimeoutError);
+    });
+
     test("delete (1)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
@@ -1218,6 +1279,26 @@ describe("WorkflowsClient", () => {
         await expect(async () => {
             return await client.workflows.delete("id");
         }).rejects.toThrow(phenoml.workflows.InternalServerError);
+    });
+
+    test("delete (6)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server.mockEndpoint().delete("/workflows/id").respondWith().statusCode(504).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.workflows.delete("id");
+        }).rejects.toThrow(phenoml.workflows.GatewayTimeoutError);
     });
 
     test("execute (1)", async () => {
