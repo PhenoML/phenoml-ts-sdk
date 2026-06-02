@@ -2236,7 +2236,7 @@
         }
       },
       "render": {
-        "callTemplate": "client.fhir.create({{fhir_provider_id}}, {{fhir_path}}, {{__body__}})",
+        "callTemplate": "client.fhir.create({{fhir_provider_id}}, {{fhir_path}}, { \"body\": {{__body__}} })",
         "params": [
           {
             "name": "fhir_provider_id",
@@ -2281,7 +2281,7 @@
         }
       },
       "render": {
-        "callTemplate": "client.fhir.upsert({{fhir_provider_id}}, {{fhir_path}}, {{__body__}})",
+        "callTemplate": "client.fhir.upsert({{fhir_provider_id}}, {{fhir_path}}, { \"body\": {{__body__}} })",
         "params": [
           {
             "name": "fhir_provider_id",
@@ -2329,7 +2329,7 @@
         }
       },
       "render": {
-        "callTemplate": "client.fhir.patch({{fhir_provider_id}}, {{fhir_path}}, {{__body__}})",
+        "callTemplate": "client.fhir.patch({{fhir_provider_id}}, {{fhir_path}}, { \"body\": {{__body__}} })",
         "params": [
           {
             "name": "fhir_provider_id",
@@ -2454,7 +2454,7 @@
         }
       },
       "render": {
-        "callTemplate": "client.fhir.executeBundle({{fhir_provider_id}}, {{__body__}})",
+        "callTemplate": "client.fhir.executeBundle({{fhir_provider_id}}, { \"body\": {{__body__}} })",
         "params": [
           {
             "name": "fhir_provider_id",
