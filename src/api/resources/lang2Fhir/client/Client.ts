@@ -32,6 +32,8 @@ export class Lang2FhirClient {
      *
      * @throws {@link phenoml.lang2Fhir.BadRequestError}
      * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
+     * @throws {@link phenoml.lang2Fhir.NotFoundError}
+     * @throws {@link phenoml.lang2Fhir.UnprocessableEntityError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
      *
      * @example
@@ -97,6 +99,13 @@ export class Lang2FhirClient {
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
+                case 404:
+                    throw new phenoml.lang2Fhir.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 422:
+                    throw new phenoml.lang2Fhir.UnprocessableEntityError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
                 case 500:
                     throw new phenoml.lang2Fhir.InternalServerError(
                         _response.error.body as unknown,
@@ -126,6 +135,8 @@ export class Lang2FhirClient {
      *
      * @throws {@link phenoml.lang2Fhir.BadRequestError}
      * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
+     * @throws {@link phenoml.lang2Fhir.NotFoundError}
+     * @throws {@link phenoml.lang2Fhir.UnprocessableEntityError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
      *
      * @example
@@ -186,6 +197,13 @@ export class Lang2FhirClient {
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
+                case 404:
+                    throw new phenoml.lang2Fhir.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 422:
+                    throw new phenoml.lang2Fhir.UnprocessableEntityError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
                 case 500:
                     throw new phenoml.lang2Fhir.InternalServerError(
                         _response.error.body as unknown,
@@ -218,7 +236,6 @@ export class Lang2FhirClient {
      *
      * @throws {@link phenoml.lang2Fhir.BadRequestError}
      * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
-     * @throws {@link phenoml.lang2Fhir.FailedDependencyError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
      *
      * @example
@@ -272,11 +289,6 @@ export class Lang2FhirClient {
                     throw new phenoml.lang2Fhir.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
                     throw new phenoml.lang2Fhir.UnauthorizedError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                case 424:
-                    throw new phenoml.lang2Fhir.FailedDependencyError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
@@ -405,7 +417,11 @@ export class Lang2FhirClient {
      *
      * @throws {@link phenoml.lang2Fhir.BadRequestError}
      * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
+     * @throws {@link phenoml.lang2Fhir.NotFoundError}
+     * @throws {@link phenoml.lang2Fhir.UnprocessableEntityError}
+     * @throws {@link phenoml.lang2Fhir.ClientClosedRequestError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link phenoml.lang2Fhir.GatewayTimeoutError}
      *
      * @example
      *     await client.lang2Fhir.document({
@@ -463,8 +479,25 @@ export class Lang2FhirClient {
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
+                case 404:
+                    throw new phenoml.lang2Fhir.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 422:
+                    throw new phenoml.lang2Fhir.UnprocessableEntityError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 499:
+                    throw new phenoml.lang2Fhir.ClientClosedRequestError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
                 case 500:
                     throw new phenoml.lang2Fhir.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 504:
+                    throw new phenoml.lang2Fhir.GatewayTimeoutError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
@@ -493,8 +526,11 @@ export class Lang2FhirClient {
      *
      * @throws {@link phenoml.lang2Fhir.BadRequestError}
      * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
+     * @throws {@link phenoml.lang2Fhir.NotFoundError}
      * @throws {@link phenoml.lang2Fhir.UnprocessableEntityError}
+     * @throws {@link phenoml.lang2Fhir.ClientClosedRequestError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link phenoml.lang2Fhir.GatewayTimeoutError}
      *
      * @example
      *     await client.lang2Fhir.documentMulti({
@@ -555,13 +591,25 @@ export class Lang2FhirClient {
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
+                case 404:
+                    throw new phenoml.lang2Fhir.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 422:
                     throw new phenoml.lang2Fhir.UnprocessableEntityError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
+                case 499:
+                    throw new phenoml.lang2Fhir.ClientClosedRequestError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
                 case 500:
                     throw new phenoml.lang2Fhir.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 504:
+                    throw new phenoml.lang2Fhir.GatewayTimeoutError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
