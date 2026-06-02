@@ -1,6 +1,6 @@
 {
     "name": "phenoml",
-    "version": "16.0.0",
+    "version": "0.0.0-fern-placeholder",
     "private": false,
     "repository": {
         "type": "git",
@@ -32,6 +32,17 @@
                 "default": "./dist/cjs/api/resources/agent/exports.js"
             },
             "default": "./dist/cjs/api/resources/agent/exports.js"
+        },
+        "./agent/chat": {
+            "import": {
+                "types": "./dist/esm/api/resources/agent/resources/chat/exports.d.mts",
+                "default": "./dist/esm/api/resources/agent/resources/chat/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/agent/resources/chat/exports.d.ts",
+                "default": "./dist/cjs/api/resources/agent/resources/chat/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/agent/resources/chat/exports.js"
         },
         "./agent/prompts": {
             "import": {
@@ -77,6 +88,28 @@
             },
             "default": "./dist/cjs/api/resources/construe/exports.js"
         },
+        "./construe/codeSystems": {
+            "import": {
+                "types": "./dist/esm/api/resources/construe/resources/codeSystems/exports.d.mts",
+                "default": "./dist/esm/api/resources/construe/resources/codeSystems/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/construe/resources/codeSystems/exports.d.ts",
+                "default": "./dist/cjs/api/resources/construe/resources/codeSystems/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/construe/resources/codeSystems/exports.js"
+        },
+        "./construe/codes": {
+            "import": {
+                "types": "./dist/esm/api/resources/construe/resources/codes/exports.d.mts",
+                "default": "./dist/esm/api/resources/construe/resources/codes/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/construe/resources/codes/exports.d.ts",
+                "default": "./dist/cjs/api/resources/construe/resources/codes/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/construe/resources/codes/exports.js"
+        },
         "./fhir": {
             "import": {
                 "types": "./dist/esm/api/resources/fhir/exports.d.mts",
@@ -98,6 +131,17 @@
                 "default": "./dist/cjs/api/resources/fhirProvider/exports.js"
             },
             "default": "./dist/cjs/api/resources/fhirProvider/exports.js"
+        },
+        "./fhirProvider/authConfig": {
+            "import": {
+                "types": "./dist/esm/api/resources/fhirProvider/resources/authConfig/exports.d.mts",
+                "default": "./dist/esm/api/resources/fhirProvider/resources/authConfig/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/fhirProvider/resources/authConfig/exports.d.ts",
+                "default": "./dist/cjs/api/resources/fhirProvider/resources/authConfig/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/fhirProvider/resources/authConfig/exports.js"
         },
         "./lang2Fhir": {
             "import": {
@@ -143,27 +187,27 @@
             },
             "default": "./dist/cjs/api/resources/tools/exports.js"
         },
-        "./tools/mcpServer": {
+        "./tools/mcpServers": {
             "import": {
-                "types": "./dist/esm/api/resources/tools/resources/mcpServer/exports.d.mts",
-                "default": "./dist/esm/api/resources/tools/resources/mcpServer/exports.mjs"
+                "types": "./dist/esm/api/resources/tools/resources/mcpServers/exports.d.mts",
+                "default": "./dist/esm/api/resources/tools/resources/mcpServers/exports.mjs"
             },
             "require": {
-                "types": "./dist/cjs/api/resources/tools/resources/mcpServer/exports.d.ts",
-                "default": "./dist/cjs/api/resources/tools/resources/mcpServer/exports.js"
+                "types": "./dist/cjs/api/resources/tools/resources/mcpServers/exports.d.ts",
+                "default": "./dist/cjs/api/resources/tools/resources/mcpServers/exports.js"
             },
-            "default": "./dist/cjs/api/resources/tools/resources/mcpServer/exports.js"
+            "default": "./dist/cjs/api/resources/tools/resources/mcpServers/exports.js"
         },
-        "./tools/mcpServer/tools": {
+        "./tools/mcpTools": {
             "import": {
-                "types": "./dist/esm/api/resources/tools/resources/mcpServer/resources/tools/exports.d.mts",
-                "default": "./dist/esm/api/resources/tools/resources/mcpServer/resources/tools/exports.mjs"
+                "types": "./dist/esm/api/resources/tools/resources/mcpTools/exports.d.mts",
+                "default": "./dist/esm/api/resources/tools/resources/mcpTools/exports.mjs"
             },
             "require": {
-                "types": "./dist/cjs/api/resources/tools/resources/mcpServer/resources/tools/exports.d.ts",
-                "default": "./dist/cjs/api/resources/tools/resources/mcpServer/resources/tools/exports.js"
+                "types": "./dist/cjs/api/resources/tools/resources/mcpTools/exports.d.ts",
+                "default": "./dist/cjs/api/resources/tools/resources/mcpTools/exports.js"
             },
-            "default": "./dist/cjs/api/resources/tools/resources/mcpServer/resources/tools/exports.js"
+            "default": "./dist/cjs/api/resources/tools/resources/mcpTools/exports.js"
         },
         "./workflows": {
             "import": {
@@ -176,12 +220,10 @@
             },
             "default": "./dist/cjs/api/resources/workflows/exports.js"
         },
-        "./openapi.json": "./openapi/openapi.json",
         "./package.json": "./package.json"
     },
     "files": [
         "dist",
-        "openapi",
         "reference.md",
         "README.md",
         "LICENSE"

@@ -187,36 +187,6 @@ describe("ToolsClient", () => {
             .post("/tools/lang2fhir-and-create")
             .jsonBody(rawRequestBody)
             .respondWith()
-            .statusCode(424)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.tools.createFhirResource({
-                resource: "auto",
-                text: "text",
-            });
-        }).rejects.toThrow(phenoml.tools.FailedDependencyError);
-    });
-
-    test("createFhirResource (6)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { resource: "auto", text: "text" };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/tools/lang2fhir-and-create")
-            .jsonBody(rawRequestBody)
-            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -408,36 +378,6 @@ describe("ToolsClient", () => {
             .post("/tools/lang2fhir-and-create-multi")
             .jsonBody(rawRequestBody)
             .respondWith()
-            .statusCode(424)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.tools.createFhirResourcesMulti({
-                text: "text",
-                provider: "provider",
-            });
-        }).rejects.toThrow(phenoml.tools.FailedDependencyError);
-    });
-
-    test("createFhirResourcesMulti (6)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { text: "text", provider: "provider" };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/tools/lang2fhir-and-create-multi")
-            .jsonBody(rawRequestBody)
-            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -595,35 +535,6 @@ describe("ToolsClient", () => {
     });
 
     test("searchFhirResources (5)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { text: "text" };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/tools/lang2fhir-and-search")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(424)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.tools.searchFhirResources({
-                text: "text",
-            });
-        }).rejects.toThrow(phenoml.tools.FailedDependencyError);
-    });
-
-    test("searchFhirResources (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
