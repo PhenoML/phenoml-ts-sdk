@@ -1,3 +1,7 @@
+## 17.0.1 - 2026-06-06
+### Fixed
+* **`getResponseBody()` (`sse` / `streaming`)** — the returned `ReadableStream` now pins its parent `Response` via a non-enumerable `__fern_response_ref`, preventing undici's `FinalizationRegistry` from garbage-collecting the response and cancelling the body mid-stream; long-lived SSE/streaming consumers no longer see truncated streams.
+
 ## 17.0.0 - 2026-06-02
 ### Breaking Changes
 * **`client.agent.chat()` / `streamChat()` / `getChatMessages()`** — removed from `AgentClient`; the three chat methods now live on a new `client.agent.chat` sub-client. Rewrite call sites as `client.agent.chat.send()` / `client.agent.chat.stream()` / `client.agent.chat.listMessages()`. HTTP routes are unchanged.
