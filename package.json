@@ -1,6 +1,6 @@
 {
     "name": "phenoml",
-    "version": "17.0.0",
+    "version": "0.0.0-fern-placeholder",
     "private": false,
     "repository": {
         "type": "git",
@@ -220,12 +220,10 @@
             },
             "default": "./dist/cjs/api/resources/workflows/exports.js"
         },
-        "./openapi.json": "./openapi/openapi.json",
         "./package.json": "./package.json"
     },
     "files": [
         "dist",
-        "openapi",
         "reference.md",
         "README.md",
         "LICENSE"
