@@ -3,6 +3,7 @@ export * as authtoken from "./authtoken/index.js";
 export * as cohort from "./cohort/index.js";
 export * as construe from "./construe/index.js";
 export * as fhir from "./fhir/index.js";
+export * as fhir2Omop from "./fhir2Omop/index.js";
 export * as fhirProvider from "./fhirProvider/index.js";
 export * as lang2Fhir from "./lang2Fhir/index.js";
 export * as summary from "./summary/index.js";
