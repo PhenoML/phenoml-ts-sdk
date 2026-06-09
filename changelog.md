@@ -1,3 +1,10 @@
+## 17.1.0 - 2026-06-09
+### Added
+* **`client.fhir2Omop.create()`** — new method posting FHIR R4 resources or a Bundle to `POST /fhir2omop/create` and returning OMOP CDM v5.4 rows; structural mode only, so all clinical `concept_id`s are `0` (the vocabulary crosswalk is a later release).
+* **`phenoml.fhir2Omop.CreateOmopRequest` / `CreateOmopResponse`** — request carries `fhir_resources` (single resource or Bundle); response exposes `tables`, `report`, and `scan_summary`.
+* **`phenoml.fhir2Omop.OmopTables`** and the row types `PersonRow`, `ConditionOccurrenceRow`, `DrugExposureRow`, `MeasurementRow`, `ObservationRow`, `ProcedureOccurrenceRow`, `VisitOccurrenceRow` — typed OMOP CDM table output.
+* **`phenoml.fhir2Omop.MappingReportEntry` / `DroppedResource` / `ScanSummary`** — Usagi-shaped per-coding mapping report and White Rabbit-style scan summary.
+
 ## 17.0.1 - 2026-06-06
 ### Fixed
 * **`getResponseBody()` (`sse` / `streaming`)** — the returned `ReadableStream` now pins its parent `Response` via a non-enumerable `__fern_response_ref`, preventing undici's `FinalizationRegistry` from garbage-collecting the response and cancelling the body mid-stream; long-lived SSE/streaming consumers no longer see truncated streams.

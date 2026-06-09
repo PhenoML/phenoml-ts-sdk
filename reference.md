@@ -2660,6 +2660,152 @@ The ID of the FHIR provider to use. Can be either:
 </dl>
 </details>
 
+## Fhir2Omop
+<details><summary><code>client.fhir2Omop.<a href="/src/api/resources/fhir2Omop/client/Client.ts">create</a>({ ...params }) -> phenoml.CreateOmopResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Shapes a FHIR R4 resource or Bundle into OMOP Common Data Model v5.4 rows
+(person, visit_occurrence, condition_occurrence, drug_exposure,
+procedure_occurrence, measurement, observation).
+
+**This is a structural mapping (`mode: "structural"`).** Rows are
+structurally valid OMOP, but every clinical and source `concept_id` is `0`:
+the vocabulary crosswalk that assigns real OMOP `concept_id`s is a planned
+follow-up. Each `*_source_value` carries the verbatim FHIR coding
+(`system#code`), `*_type_concept_id` is set to `32817` (EHR), and the
+response `report` lists a standard-code *suggestion* for each source coding
+(already-standard, an unchecked normalization suggestion, or unmapped). Do
+not treat the output as analytically resolved OMOP until `concept_id`s are
+populated.
+
+Medication codes are resolved whether they appear inline
+(`medicationCodeableConcept`) or via a `medicationReference` to a contained,
+relative (`Type/id`), or bundle-entry (`urn:uuid`) `Medication` resource.
+A medication with no usable code, resolvable reference, or display is
+reported under `scan_summary.dropped_resources` rather than emitted as a
+blank row. The bundle must contain at least one Patient resource.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.fhir2Omop.create({
+    fhir_resources: {
+        "resourceType": "Bundle",
+        "type": "collection",
+        "entry": [
+            {
+                "resource": {
+                    "resourceType": "Patient",
+                    "id": "patient-1",
+                    "gender": "female",
+                    "birthDate": "1985-07-22"
+                }
+            },
+            {
+                "resource": {
+                    "resourceType": "Condition",
+                    "id": "condition-1",
+                    "subject": {
+                        "reference": "Patient/patient-1"
+                    },
+                    "code": {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "code": "44054006",
+                                "display": "Type 2 diabetes mellitus"
+                            }
+                        ]
+                    },
+                    "onsetDateTime": "2024-01-15"
+                }
+            },
+            {
+                "resource": {
+                    "resourceType": "MedicationRequest",
+                    "id": "medreq-1",
+                    "status": "active",
+                    "subject": {
+                        "reference": "Patient/patient-1"
+                    },
+                    "medicationReference": {
+                        "reference": "#med0"
+                    },
+                    "authoredOn": "2024-01-16",
+                    "contained": [
+                        {
+                            "resourceType": "Medication",
+                            "id": "med0",
+                            "code": {
+                                "coding": [
+                                    {
+                                        "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                                        "code": "860975",
+                                        "display": "metformin hydrochloride 500 MG"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.fhir2Omop.CreateOmopRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Fhir2OmopClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## FhirProvider
 <details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">create</a>({ ...params }) -> phenoml.FhirProviderResponse</code></summary>
 <dl>

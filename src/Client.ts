@@ -5,6 +5,7 @@ import { AuthtokenClient } from "./api/resources/authtoken/client/Client.js";
 import { CohortClient } from "./api/resources/cohort/client/Client.js";
 import { ConstrueClient } from "./api/resources/construe/client/Client.js";
 import { FhirClient } from "./api/resources/fhir/client/Client.js";
+import { Fhir2OmopClient } from "./api/resources/fhir2Omop/client/Client.js";
 import { FhirProviderClient } from "./api/resources/fhirProvider/client/Client.js";
 import { Lang2FhirClient } from "./api/resources/lang2Fhir/client/Client.js";
 import { SummaryClient } from "./api/resources/summary/client/Client.js";
@@ -27,6 +28,7 @@ export class phenomlClient {
     protected _cohort: CohortClient | undefined;
     protected _construe: ConstrueClient | undefined;
     protected _fhir: FhirClient | undefined;
+    protected _fhir2Omop: Fhir2OmopClient | undefined;
     protected _fhirProvider: FhirProviderClient | undefined;
     protected _lang2Fhir: Lang2FhirClient | undefined;
     protected _summary: SummaryClient | undefined;
@@ -55,6 +57,10 @@ export class phenomlClient {
 
     public get fhir(): FhirClient {
         return (this._fhir ??= new FhirClient(this._options));
+    }
+
+    public get fhir2Omop(): Fhir2OmopClient {
+        return (this._fhir2Omop ??= new Fhir2OmopClient(this._options));
     }
 
     public get fhirProvider(): FhirProviderClient {

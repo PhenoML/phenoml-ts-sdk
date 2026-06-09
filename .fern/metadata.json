@@ -1,17 +1,23 @@
 {
-    "cliVersion": "5.45.0",
+    "cliVersion": "5.45.3",
     "generatorName": "fernapi/fern-typescript-sdk",
     "generatorVersion": "3.71.4",
     "generatorConfig": {
         "namespaceExport": "phenoml",
         "allowCustomFetcher": true,
         "packageManager": "pnpm",
-        "testFramework": "vitest"
+        "testFramework": "vitest",
+        "packageJson": {
+            "exports": {
+                "./openapi.json": "./openapi/openapi.json"
+            },
+            "files": ["openapi"]
+        }
     },
-    "originGitCommit": "29e0b858e2cf7f5819be0c2c6a4a094c74ae1eed",
+    "originGitCommit": "f063af0e8ddd9e9322b47bb8bc90c378af75764a",
     "originGitCommitIsDirty": true,
     "invokedBy": "ci",
     "requestedVersion": "AUTO",
     "ciProvider": "unknown",
-    "sdkVersion": "17.0.1"
+    "sdkVersion": "17.1.0"
 }
