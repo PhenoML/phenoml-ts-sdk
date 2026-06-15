@@ -1,13 +1,12 @@
 ## [17.4.0] - 2026-06-15
 ### Added
-- **`client.fhir2Omop`** — new service client with a `create()` method that maps FHIR R4 resources or Bundles to OMOP CDM v5.4 rows via `POST /fhir2omop/create`, resolving clinical codings to standard OMOP concept IDs.
-- **`phenoml.fhir2Omop.OmopTables`** and typed row types (`PersonRow`, `VisitOccurrenceRow`, `ConditionOccurrenceRow`, `DrugExposureRow`, `ProcedureOccurrenceRow`, `MeasurementRow`, `ObservationRow`) — fully typed OMOP CDM v5.4 table output grouped by destination table.
-- **`phenoml.fhir2Omop.MappingEntry`**, **`DroppedResource`**, **`Summary`**, and **`CreateOmopResponse`** — per-coding resolution report, dropped-resource tracking, data-quality headline counts, and the top-level response envelope returned by `create()`.
-- **Typed fhir2Omop errors** (`BadRequestError`, `UnauthorizedError`, `InternalServerError`, `ServiceUnavailableError`) — typed error classes thrown by `client.fhir2Omop.create()` for HTTP 400, 401, 500, and 503 responses.
-- **`./fhir2Omop` subpath export** and **`./openapi.json`** — new package entry points for fhir2Omop types and the bundled OpenAPI spec.
+- **`ConditionOccurrenceRow.visit_occurrence_id`**, **`DrugExposureRow.visit_occurrence_id`**, **`MeasurementRow.visit_occurrence_id`**, **`ObservationRow.visit_occurrence_id`**, and **`ProcedureOccurrenceRow.visit_occurrence_id`** — new optional field linking each clinical OMOP row back to its `visit_occurrence` row.
+- **`MeasurementRow.operator_concept_id`** — new optional field carrying the OMOP "Meas Value Operator" standard concept (`<`, `<=`, `>`, `>=`) parsed from a FHIR `valueQuantity.comparator` or numeric-string value; `0` when no operator is present.
 
-### Fixed
-- **`anySignal()`** — fixes a race condition where an `AbortSignal` that fired between the initial `aborted` check and `addEventListener` would silently fail to propagate to the combined controller.
+### Changed
+- **`MappingEntry.target_code`** — value semantics updated: now the standard concept's own code for `ALREADY_STANDARD`, `MAPPED`, and `UNCHECKED` rows; omitted only for `UNMAPPED` rows.
+- **`Summary`** — count-field docs clarify each `codes_*` total is counted once per resolved concept (not per coding), unlike `mappings`, which has one entry per coding.
+- **`client.fhir2Omop.create()` docstring** — clarifies that a clinical `concept_id` of `0` covers both `UNMAPPED` and `UNCHECKED`, and that `operator_concept_id` is the one non-zero non-resolved concept on measurement rows.
 
 ## [17.3.0] - 2026-06-15
 ### Added
