@@ -76,8 +76,7 @@ describe("Fhir2OmopClient", () => {
         };
         const rawResponseBody = {
             success: true,
-            message: "FHIR resources mapped to OMOP CDM v5.4 with vocabulary concept resolution",
-            mode: "resolved",
+            message: "FHIR resources mapped to OMOP CDM v5.4",
             tables: {
                 person: [
                     {
@@ -122,11 +121,12 @@ describe("Fhir2OmopClient", () => {
                 measurement: [{}],
                 observation: [{}],
             },
-            report: [
+            mappings: [
                 {
                     resource_type: "Condition",
                     resource_id: "condition-1",
                     omop_table: "condition_occurrence",
+                    omop_id: 1,
                     source_system: "http://snomed.info/sct",
                     source_code: "44054006",
                     source_name: "Type 2 diabetes mellitus",
@@ -140,6 +140,7 @@ describe("Fhir2OmopClient", () => {
                     resource_type: "MedicationRequest",
                     resource_id: "medreq-1",
                     omop_table: "drug_exposure",
+                    omop_id: 1,
                     source_system: "http://www.nlm.nih.gov/research/umls/rxnorm",
                     source_code: "860975",
                     source_name: "metformin hydrochloride 500 MG",
@@ -150,22 +151,9 @@ describe("Fhir2OmopClient", () => {
                     note: "note",
                 },
             ],
-            scan_summary: {
-                total_resources: 3,
-                resource_counts: { Patient: 1, Condition: 1, MedicationRequest: 1 },
-                tables_populated: { person: 1, condition_occurrence: 1, drug_exposure: 1 },
-                coding_systems: { "http://snomed.info/sct": 1, "http://www.nlm.nih.gov/research/umls/rxnorm": 1 },
-                codes_already_standard: 2,
-                codes_normalized: 0,
-                codes_unmapped: 0,
-                off_vocab_rate: 0,
-                dropped_resources: [{}],
-                resolved_vocab_version: "v20240229",
-                concept_resolver_note: "concept_resolver_note",
-                concepts_bridged: 1,
-                concept_candidates_truncated: 1,
-                construe_resolutions: 1,
-            },
+            dropped: [{ resource_type: "resource_type", resource_id: "resource_id", reason: "reason" }],
+            vocab_version: "v20240229",
+            summary: { codes_already_standard: 2, codes_normalized: 0, codes_unmapped: 0, off_vocab_rate: 0 },
         };
 
         server
@@ -254,244 +242,6 @@ describe("Fhir2OmopClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = {
-            fhir_resources: {
-                resourceType: "Bundle",
-                type: "collection",
-                entry: [
-                    {
-                        resource: {
-                            resourceType: "Patient",
-                            id: "patient-1",
-                            gender: "female",
-                            birthDate: "1985-07-22",
-                        },
-                    },
-                    {
-                        resource: {
-                            resourceType: "Condition",
-                            id: "condition-1",
-                            subject: { reference: "Patient/patient-1" },
-                            code: {
-                                coding: [
-                                    {
-                                        system: "http://snomed.info/sct",
-                                        code: "44054006",
-                                        display: "Type 2 diabetes mellitus",
-                                    },
-                                ],
-                            },
-                            onsetDateTime: "2024-01-15",
-                        },
-                    },
-                    {
-                        resource: {
-                            resourceType: "MedicationRequest",
-                            id: "medreq-1",
-                            status: "active",
-                            subject: { reference: "Patient/patient-1" },
-                            medicationReference: { reference: "#med0" },
-                            authoredOn: "2024-01-16",
-                            contained: [
-                                {
-                                    resourceType: "Medication",
-                                    id: "med0",
-                                    code: {
-                                        coding: [
-                                            {
-                                                system: "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                                code: "860975",
-                                                display: "metformin hydrochloride 500 MG",
-                                            },
-                                        ],
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                ],
-            },
-        };
-        const rawResponseBody = {
-            success: true,
-            message: "FHIR resources mapped to OMOP CDM v5.4 (structural; concept_ids pending vocabulary crosswalk)",
-            mode: "structural",
-            tables: {
-                person: [
-                    {
-                        person_id: 1,
-                        gender_concept_id: 0,
-                        year_of_birth: 1985,
-                        month_of_birth: 7,
-                        day_of_birth: 22,
-                        birth_datetime: "1985-07-22",
-                        race_concept_id: 0,
-                        ethnicity_concept_id: 0,
-                        person_source_value: "patient-1",
-                        gender_source_value: "female",
-                    },
-                ],
-                visit_occurrence: [{}],
-                condition_occurrence: [
-                    {
-                        condition_occurrence_id: 1,
-                        person_id: 1,
-                        condition_concept_id: 0,
-                        condition_start_date: "2024-01-15",
-                        condition_start_datetime: "2024-01-15",
-                        condition_type_concept_id: 32817,
-                        condition_source_value: "http://snomed.info/sct#44054006",
-                        condition_source_concept_id: 0,
-                    },
-                ],
-                drug_exposure: [
-                    {
-                        drug_exposure_id: 1,
-                        person_id: 1,
-                        drug_concept_id: 0,
-                        drug_exposure_start_date: "2024-01-16",
-                        drug_exposure_start_datetime: "2024-01-16",
-                        drug_type_concept_id: 32817,
-                        drug_source_value: "http://www.nlm.nih.gov/research/umls/rxnorm#860975",
-                        drug_source_concept_id: 0,
-                    },
-                ],
-                procedure_occurrence: [{}],
-                measurement: [{}],
-                observation: [{}],
-            },
-            report: [
-                {
-                    resource_type: "Condition",
-                    resource_id: "condition-1",
-                    omop_table: "condition_occurrence",
-                    source_system: "http://snomed.info/sct",
-                    source_code: "44054006",
-                    source_name: "Type 2 diabetes mellitus",
-                    target_vocabulary: "SNOMED",
-                    target_code: "44054006",
-                    target_name: "Type 2 diabetes mellitus",
-                    mapping_status: "ALREADY_STANDARD",
-                    note: "note",
-                },
-                {
-                    resource_type: "MedicationRequest",
-                    resource_id: "medreq-1",
-                    omop_table: "drug_exposure",
-                    source_system: "http://www.nlm.nih.gov/research/umls/rxnorm",
-                    source_code: "860975",
-                    source_name: "metformin hydrochloride 500 MG",
-                    target_vocabulary: "RXNORM",
-                    target_code: "860975",
-                    target_name: "metformin hydrochloride 500 MG",
-                    mapping_status: "ALREADY_STANDARD",
-                    note: "note",
-                },
-            ],
-            scan_summary: {
-                total_resources: 3,
-                resource_counts: { Patient: 1, Condition: 1, MedicationRequest: 1 },
-                tables_populated: { person: 1, condition_occurrence: 1, drug_exposure: 1 },
-                coding_systems: { "http://snomed.info/sct": 1, "http://www.nlm.nih.gov/research/umls/rxnorm": 1 },
-                codes_already_standard: 2,
-                codes_normalized: 0,
-                codes_unmapped: 0,
-                off_vocab_rate: 0,
-                dropped_resources: [{}],
-                resolved_vocab_version: "resolved_vocab_version",
-                concept_resolver_note: "concept_resolver_note",
-                concepts_bridged: 1,
-                concept_candidates_truncated: 1,
-                construe_resolutions: 1,
-            },
-        };
-
-        server
-            .mockEndpoint()
-            .post("/fhir2omop/create")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.fhir2Omop.create({
-            fhir_resources: {
-                resourceType: "Bundle",
-                type: "collection",
-                entry: [
-                    {
-                        resource: {
-                            resourceType: "Patient",
-                            id: "patient-1",
-                            gender: "female",
-                            birthDate: "1985-07-22",
-                        },
-                    },
-                    {
-                        resource: {
-                            resourceType: "Condition",
-                            id: "condition-1",
-                            subject: {
-                                reference: "Patient/patient-1",
-                            },
-                            code: {
-                                coding: [
-                                    {
-                                        system: "http://snomed.info/sct",
-                                        code: "44054006",
-                                        display: "Type 2 diabetes mellitus",
-                                    },
-                                ],
-                            },
-                            onsetDateTime: "2024-01-15",
-                        },
-                    },
-                    {
-                        resource: {
-                            resourceType: "MedicationRequest",
-                            id: "medreq-1",
-                            status: "active",
-                            subject: {
-                                reference: "Patient/patient-1",
-                            },
-                            medicationReference: {
-                                reference: "#med0",
-                            },
-                            authoredOn: "2024-01-16",
-                            contained: [
-                                {
-                                    resourceType: "Medication",
-                                    id: "med0",
-                                    code: {
-                                        coding: [
-                                            {
-                                                system: "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                                code: "860975",
-                                                display: "metformin hydrochloride 500 MG",
-                                            },
-                                        ],
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                ],
-            },
-        });
-        expect(response).toEqual(rawResponseBody);
-    });
-
-    test("create (3)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
         const rawRequestBody = { fhir_resources: { fhir_resources: { key: "value" } } };
         const rawResponseBody = { key: "value" };
 
@@ -515,7 +265,7 @@ describe("Fhir2OmopClient", () => {
         }).rejects.toThrow(phenoml.fhir2Omop.BadRequestError);
     });
 
-    test("create (4)", async () => {
+    test("create (3)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -548,7 +298,7 @@ describe("Fhir2OmopClient", () => {
         }).rejects.toThrow(phenoml.fhir2Omop.UnauthorizedError);
     });
 
-    test("create (5)", async () => {
+    test("create (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -579,5 +329,38 @@ describe("Fhir2OmopClient", () => {
                 },
             });
         }).rejects.toThrow(phenoml.fhir2Omop.InternalServerError);
+    });
+
+    test("create (5)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { fhir_resources: { fhir_resources: { key: "value" } } };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/fhir2omop/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(503)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.fhir2Omop.create({
+                fhir_resources: {
+                    fhir_resources: {
+                        key: "value",
+                    },
+                },
+            });
+        }).rejects.toThrow(phenoml.fhir2Omop.ServiceUnavailableError);
     });
 });
