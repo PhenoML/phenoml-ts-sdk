@@ -1,3 +1,13 @@
+## [17.4.0] - 2026-06-15
+### Added
+- **`ConditionOccurrenceRow.visit_occurrence_id`**, **`DrugExposureRow.visit_occurrence_id`**, **`MeasurementRow.visit_occurrence_id`**, **`ObservationRow.visit_occurrence_id`**, and **`ProcedureOccurrenceRow.visit_occurrence_id`** — new optional field linking each clinical OMOP row back to its `visit_occurrence` row.
+- **`MeasurementRow.operator_concept_id`** — new optional field carrying the OMOP "Meas Value Operator" standard concept (`<`, `<=`, `>`, `>=`) parsed from a FHIR `valueQuantity.comparator` or numeric-string value; `0` when no operator is present.
+
+### Changed
+- **`MappingEntry.target_code`** — value semantics updated: now the standard concept's own code for `ALREADY_STANDARD`, `MAPPED`, and `UNCHECKED` rows; omitted only for `UNMAPPED` rows.
+- **`Summary`** — count-field docs clarify each `codes_*` total is counted once per resolved concept (not per coding), unlike `mappings`, which has one entry per coding.
+- **`client.fhir2Omop.create()` docstring** — clarifies that a clinical `concept_id` of `0` covers both `UNMAPPED` and `UNCHECKED`, and that `operator_concept_id` is the one non-zero non-resolved concept on measurement rows.
+
 ## [17.3.0] - 2026-06-15
 ### Added
 - **`client.fhir2Omop`** — new service client exposing `create()` to map FHIR R4 resources or Bundles to OMOP CDM v5.4 rows via `POST /fhir2omop/create`, supporting `resolved` and `structural` resolution modes.

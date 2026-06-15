@@ -11,6 +11,7 @@ export interface ObservationRow {
     value_as_string?: string | undefined;
     value_as_concept_id?: number | undefined;
     unit_concept_id?: number | undefined;
+    visit_occurrence_id?: number | undefined;
     observation_source_value?: string | undefined;
     observation_source_concept_id?: number | undefined;
     unit_source_value?: string | undefined;
