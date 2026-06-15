@@ -7,6 +7,7 @@
  * It is used on shared instances.
  */
 export const Provider = {
+    Aidbox: "aidbox",
     Athenahealth: "athenahealth",
     Canvas: "canvas",
     Cerner: "cerner",
