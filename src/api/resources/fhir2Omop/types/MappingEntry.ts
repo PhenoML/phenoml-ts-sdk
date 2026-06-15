@@ -18,12 +18,10 @@ export interface MappingEntry {
     source_name?: string | undefined;
     target_vocabulary?: string | undefined;
     /**
-     * The standard concept's code, when present. Populated only for an
-     * `UNCHECKED` suggestion (where the API normalized a text-only resource
-     * to a suggested code); omitted for codings resolved through concept
-     * resolution (`ALREADY_STANDARD` / `MAPPED` / `UNMAPPED`), which are
-     * identified by `target_vocabulary`, `target_name`, and the row's
-     * `*_concept_id` rather than by code.
+     * The standard concept's own code: the source code itself for an
+     * ALREADY_STANDARD row, the standard concept's code for a MAPPED row,
+     * or the suggested code for an UNCHECKED row. Omitted for UNMAPPED
+     * rows.
      */
     target_code?: string | undefined;
     target_name?: string | undefined;
