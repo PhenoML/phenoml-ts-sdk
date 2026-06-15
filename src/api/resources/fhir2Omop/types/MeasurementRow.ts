@@ -8,10 +8,13 @@ export interface MeasurementRow {
     measurement_datetime?: string | undefined;
     measurement_type_concept_id?: number | undefined;
     value_as_number?: number | undefined;
+    /** OMOP "Meas Value Operator" standard concept qualifying value_as_number (<, <=, >, >=), parsed from a numeric-string value or a FHIR valueQuantity.comparator. 0 when no operator (a bare number). */
+    operator_concept_id?: number | undefined;
     value_as_concept_id?: number | undefined;
     unit_concept_id?: number | undefined;
     range_low?: number | undefined;
     range_high?: number | undefined;
+    visit_occurrence_id?: number | undefined;
     measurement_source_value?: string | undefined;
     measurement_source_concept_id?: number | undefined;
     unit_source_value?: string | undefined;
