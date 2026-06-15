@@ -1,3 +1,13 @@
+## [17.3.0] - 2026-06-15
+### Added
+- **`client.fhir2Omop`** — new accessor exposing the alpha `fhir2omop` service; call `client.fhir2Omop.create({ fhir_resources: ... })` to map a FHIR R4 resource or Bundle into OMOP CDM v5.4 rows in either `"resolved"` or `"structural"` mode.
+- **`phenoml.fhir2Omop.OmopTables`** and row types (`PersonRow`, `VisitOccurrenceRow`, `ConditionOccurrenceRow`, `DrugExposureRow`, `ProcedureOccurrenceRow`, `MeasurementRow`, `ObservationRow`) — typed OMOP CDM v5.4 table output grouped by destination table.
+- **`phenoml.fhir2Omop.MappingReportEntry`**, **`DroppedResource`**, and **`ScanSummary`** — Usagi-shaped per-coding mapping report and White Rabbit-style scan summary with full resolver telemetry fields.
+- **`phenoml.fhir2Omop.BadRequestError`**, **`UnauthorizedError`**, and **`InternalServerError`** — typed error classes thrown by `fhir2Omop.create()` for HTTP 400, 401, and 500 responses respectively.
+
+### Fixed
+- **`anySignal`** — fixed a race condition where an `AbortSignal` that fired between the initial `.aborted` check and the `addEventListener` call would silently fail to abort the combined signal.
+
 ## 17.2.0 - 2026-06-09
 ### Added
 * **`phenoml.fhir2Omop.ScanSummary`** — five resolver-telemetry fields added (`resolved_vocab_version`, `concept_resolver_note`, `concepts_bridged`, `concept_candidates_truncated`, `construe_resolutions`) reporting the OMOP vocabulary release used and where concept resolution was degraded, bridged, truncated, or fell back to (and billed) the construe tier.
