@@ -5,16 +5,16 @@ import type * as phenoml from "../../../index.js";
 export interface CreateOmopResponse {
     success?: boolean | undefined;
     message?: string | undefined;
-    /**
-     * Resolution mode. `resolved` (default) means clinical `concept_id`s were
-     * filled by the concept-resolver service; `structural` means no resolver
-     * was configured, so all clinical `concept_id`s are `0`. Reflects which
-     * resolver is wired, not the path an individual coding took — per-coding
-     * degradation is surfaced in `scan_summary`, not the mode.
-     */
-    mode?: string | undefined;
     tables?: phenoml.fhir2Omop.OmopTables | undefined;
-    /** One Usagi-shaped entry per source coding routed through concept resolution. */
-    report?: phenoml.fhir2Omop.MappingReportEntry[] | undefined;
-    scan_summary?: phenoml.fhir2Omop.ScanSummary | undefined;
+    /** One entry per source coding (or one entry for a text-only resource with no coding), describing how it resolved and linking back to the row it produced. */
+    mappings?: phenoml.fhir2Omop.MappingEntry[] | undefined;
+    /** Resources that could not be shaped into an OMOP row (rather than emitted as blank rows). */
+    dropped?: phenoml.fhir2Omop.DroppedResource[] | undefined;
+    /**
+     * The OMOP vocabulary release the clinical codes were resolved against
+     * (e.g. "v20240229"), for reproducibility. Present when at least one
+     * coded concept was resolved.
+     */
+    vocab_version?: string | undefined;
+    summary?: phenoml.fhir2Omop.Summary | undefined;
 }
