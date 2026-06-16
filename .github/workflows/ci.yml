@@ -62,7 +62,7 @@ jobs:
         # Run before tag creation so a missing/stale spec doesn't leave a
         # ghost release (tag exists, npm publish skipped on retry because
         # the tag-existence check sets should_publish=false).
-        uses: PhenoML/sdk-shared-actions/verify-openapi-spec@1.0.0
+        uses: PhenoML/sdk-shared-actions/verify-openapi-spec@1.0.2
 
       - name: Extract version and check tag
         id: check
