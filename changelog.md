@@ -1,3 +1,14 @@
+## [17.6.0] - 2026-06-18
+### Added
+- **`client.fhir2Omop`** — new service client exposing `create()` to map FHIR R4 resources or Bundles to OMOP CDM v5.4 rows via `POST /fhir2omop/create`.
+- **`phenoml.fhir2Omop` row and report types** — fully typed OMOP CDM v5.4 output types (`OmopTables`, `PersonRow`, `VisitOccurrenceRow`, `ConditionOccurrenceRow`, `DrugExposureRow`, `ProcedureOccurrenceRow`, `MeasurementRow`, `ObservationRow`) plus resolution report types (`MappingEntry`, `DroppedResource`, `Summary`).
+- **`phenoml.fhir2Omop` typed errors** — `BadRequestError`, `UnauthorizedError`, `InternalServerError`, and `ServiceUnavailableError` thrown by `client.fhir2Omop.create()` for HTTP 400, 401, 500, and 503 responses.
+- **`Provider.Aidbox`** — `"aidbox"` is now a supported value in the `fhirProvider` `Provider` enum.
+- **`./openapi.json` package export** — the bundled OpenAPI spec is now directly importable from the package root.
+
+### Fixed
+- **`anySignal()`** — eliminates a race condition where an `AbortSignal` that fired between the initial `aborted` check and `addEventListener` would silently fail to propagate to the combined controller.
+
 ## [17.5.0] - 2026-06-15
 ### Added
 - **`Provider.Aidbox`** — `"aidbox"` is now a supported value in the `fhirProvider` `Provider` enum.
