@@ -8,7 +8,12 @@ export interface CreateOmopResponse {
     tables?: phenoml.fhir2Omop.OmopTables | undefined;
     /** One entry per source coding (or one entry for a text-only resource with no coding), describing how it resolved and linking back to the row it produced. */
     mappings?: phenoml.fhir2Omop.MappingEntry[] | undefined;
-    /** Resources that could not be shaped into an OMOP row (rather than emitted as blank rows). */
+    /**
+     * Supported resource instances that could not be shaped into an OMOP
+     * row because required subject/patient, code, or medication reference
+     * data was missing. Unsupported resource types are ignored and do not
+     * appear here.
+     */
     dropped?: phenoml.fhir2Omop.DroppedResource[] | undefined;
     /**
      * The OMOP vocabulary release the clinical codes were resolved against

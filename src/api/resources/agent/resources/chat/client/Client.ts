@@ -35,6 +35,7 @@ export class ChatClient {
      * @throws {@link phenoml.agent.UnauthorizedError}
      * @throws {@link phenoml.agent.ForbiddenError}
      * @throws {@link phenoml.agent.NotFoundError}
+     * @throws {@link phenoml.agent.ConflictError}
      * @throws {@link phenoml.agent.InternalServerError}
      * @throws {@link phenoml.agent.GatewayTimeoutError}
      *
@@ -116,6 +117,8 @@ export class ChatClient {
                     throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
                     throw new phenoml.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 409:
+                    throw new phenoml.agent.ConflictError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
                     throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 case 504:
@@ -207,6 +210,8 @@ export class ChatClient {
                     throw new phenoml.agent.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
                     throw new phenoml.agent.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 409:
+                    throw new phenoml.agent.ConflictError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
                     throw new phenoml.agent.InternalServerError(_response.error.body as unknown, _response.rawResponse);
                 case 504:

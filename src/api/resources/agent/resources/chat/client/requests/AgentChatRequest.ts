@@ -35,7 +35,7 @@ export interface AgentChatRequest {
     message: string;
     /** Optional context for the conversation */
     context?: string;
-    /** Optional session ID for conversation continuity */
+    /** Optional session ID for conversation continuity. Only one request may be active for a session at a time; overlapping turns for the same session return 409 Conflict. */
     session_id?: string;
     /** The ID of the agent to chat with */
     agent_id: string;
