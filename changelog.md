@@ -1,17 +1,11 @@
 ## [17.6.0] - 2026-06-18
 ### Added
-- **`client.fhir2Omop.create()`** — new service method that maps a FHIR R4 resource or Bundle to OMOP CDM v5.4 rows via `POST /fhir2omop/create`, supporting `resolved` and `structural` resolution modes.
-- **`fhir2Omop` type exports** — OMOP CDM v5.4 row types (`PersonRow`, `VisitOccurrenceRow`, `ConditionOccurrenceRow`, `DrugExposureRow`, `ProcedureOccurrenceRow`, `MeasurementRow`, `ObservationRow`) and response/utility types (`OmopTables`, `CreateOmopResponse`, `MappingEntry`, `DroppedResource`, `Summary`) are now exported from the `fhir2Omop` subpath and top-level namespace.
-- **`fhir2Omop` typed errors** — `BadRequestError`, `UnauthorizedError`, `InternalServerError`, and `ServiceUnavailableError` are thrown by `client.fhir2Omop.create()` for HTTP 400, 401, 500, and 503 responses respectively.
-- **`phenoml.agent.ConflictError`** — new typed error class thrown by agent chat methods on HTTP 409 Conflict responses.
-- **`Provider.Aidbox`** — `"aidbox"` is now a supported value in the `fhirProvider` `Provider` enum.
-- **`./openapi.json` package export** — the raw OpenAPI spec is now accessible as a named package export for tooling and documentation use.
+- **`phenoml.agent.ConflictError`** — new typed error class thrown by `client.agent.chat.send()` and `client.agent.chat.stream()` for HTTP 409 responses when a session already has an active turn.
 
 ### Changed
-- **`AgentChatRequest.session_id`** and **`AgentStreamChatRequest.session_id`** — JSDoc updated to document that only one request may be active per session at a time; overlapping turns return `409 Conflict`.
-
-### Fixed
-- **`anySignal()`** — fixes a race condition where an `AbortSignal` that fired between the initial `aborted` check and `addEventListener` would silently fail to propagate to the combined controller.
+- **`AgentChatRequest.session_id`** and **`AgentStreamChatRequest.session_id`** — JSDoc now states that only one request may be active per session at a time and overlapping turns return `409 Conflict`.
+- **`client.fhir2Omop.create()`** — JSDoc now lists the supported FHIR resource-to-OMOP table mappings and clarifies that unsupported resource types are accepted but ignored.
+- **`CreateOmopResponse.dropped`** — JSDoc now clarifies that only supported resources missing required subject/patient, code, or medication reference data appear in `dropped`; unsupported resource types are ignored.
 
 ## [17.5.0] - 2026-06-15
 ### Added
@@ -592,4 +586,3 @@ import { phenomlClient } from "phenoml";
 * Maintain SDK identification through X-Fern-* headers
 * Simplify client initialization configuration
 * 🌿 Generated with Fern
-
