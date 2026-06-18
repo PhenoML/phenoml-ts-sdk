@@ -244,6 +244,36 @@ describe("ChatClient", () => {
             .post("/agent/chat")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.chat.send({
+                message: "message",
+                agent_id: "agent_id",
+            });
+        }).rejects.toThrow(phenoml.agent.ConflictError);
+    });
+
+    test("send (8)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { message: "message", agent_id: "agent_id" };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/agent/chat")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -256,7 +286,7 @@ describe("ChatClient", () => {
         }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
 
-    test("send (8)", async () => {
+    test("send (9)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -486,6 +516,36 @@ describe("ChatClient", () => {
             .post("/agent/stream-chat")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.chat.stream({
+                message: "message",
+                agent_id: "agent_id",
+            });
+        }).rejects.toThrow(phenoml.agent.ConflictError);
+    });
+
+    test("stream (7)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { message: "message", agent_id: "agent_id" };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/agent/stream-chat")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -498,7 +558,7 @@ describe("ChatClient", () => {
         }).rejects.toThrow(phenoml.agent.InternalServerError);
     });
 
-    test("stream (7)", async () => {
+    test("stream (8)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 

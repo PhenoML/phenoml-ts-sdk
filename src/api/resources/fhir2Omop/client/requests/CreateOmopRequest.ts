@@ -70,9 +70,12 @@
 export interface CreateOmopRequest {
     /**
      * FHIR resources (single resource or Bundle). Must contain at least one
-     * Patient resource. Resources are mapped to OMOP rows; standalone
-     * Medication resources are consumed by medication references rather than
-     * mapped to their own table.
+     * Patient resource. Supported row-producing resources are Patient,
+     * Encounter, Condition, Procedure, MedicationRequest,
+     * MedicationStatement, MedicationAdministration, Immunization,
+     * Observation, and AllergyIntolerance. Standalone Medication resources
+     * are consumed by medication references rather than mapped to their own
+     * table. Other resource types are accepted but ignored.
      */
     fhir_resources: Record<string, unknown>;
 }
