@@ -105,7 +105,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = {
             name: "x",
-            provider: "athenahealth",
+            provider: "aidbox",
             base_url: "base_url",
             auth: { auth_method: "jwt", client_id: "client_id" },
         };
@@ -123,7 +123,7 @@ describe("FhirProviderClient", () => {
         await expect(async () => {
             return await client.fhirProvider.create({
                 name: "x",
-                provider: "athenahealth",
+                provider: "aidbox",
                 base_url: "base_url",
                 auth: {
                     auth_method: "jwt",
@@ -145,7 +145,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = {
             name: "x",
-            provider: "athenahealth",
+            provider: "aidbox",
             base_url: "base_url",
             auth: { auth_method: "jwt", client_id: "client_id" },
         };
@@ -163,7 +163,7 @@ describe("FhirProviderClient", () => {
         await expect(async () => {
             return await client.fhirProvider.create({
                 name: "x",
-                provider: "athenahealth",
+                provider: "aidbox",
                 base_url: "base_url",
                 auth: {
                     auth_method: "jwt",
@@ -185,7 +185,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = {
             name: "x",
-            provider: "athenahealth",
+            provider: "aidbox",
             base_url: "base_url",
             auth: { auth_method: "jwt", client_id: "client_id" },
         };
@@ -203,7 +203,7 @@ describe("FhirProviderClient", () => {
         await expect(async () => {
             return await client.fhirProvider.create({
                 name: "x",
-                provider: "athenahealth",
+                provider: "aidbox",
                 base_url: "base_url",
                 auth: {
                     auth_method: "jwt",
@@ -225,7 +225,7 @@ describe("FhirProviderClient", () => {
         });
         const rawRequestBody = {
             name: "x",
-            provider: "athenahealth",
+            provider: "aidbox",
             base_url: "base_url",
             auth: { auth_method: "jwt", client_id: "client_id" },
         };
@@ -243,7 +243,7 @@ describe("FhirProviderClient", () => {
         await expect(async () => {
             return await client.fhirProvider.create({
                 name: "x",
-                provider: "athenahealth",
+                provider: "aidbox",
                 base_url: "base_url",
                 auth: {
                     auth_method: "jwt",

@@ -2,8 +2,8 @@
   "metadata": {
     "language": "typescript",
     "packageName": "phenoml",
-    "sdkVersion": "17.4.0",
-    "specCommit": "788cec0a9a7651caf2b106634631d487dfa16704",
+    "sdkVersion": "17.5.0",
+    "specCommit": "64f369254225bd6c2d4c58d87f59165d7e8e8dc9",
     "generatorName": "fernapi/fern-typescript-sdk"
   },
   "renderRules": {
@@ -2701,6 +2701,7 @@
               "kind": "enum",
               "required": true,
               "enumValues": [
+                "aidbox",
                 "athenahealth",
                 "canvas",
                 "cerner",
@@ -2714,6 +2715,7 @@
                 "sandbox"
               ],
               "enumConstants": {
+                "aidbox": "Provider.Aidbox",
                 "athenahealth": "Provider.Athenahealth",
                 "canvas": "Provider.Canvas",
                 "cerner": "Provider.Cerner",
