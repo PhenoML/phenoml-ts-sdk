@@ -1,3 +1,10 @@
+## [17.7.0] - 2026-06-23
+### Added
+- **`client.voice.voice.transcribe()`** — new method that uploads raw audio bytes (WAV, FLAC, MP3, or OGG/WebM Opus) to `POST /transcribe` and returns a `TranscribeResponse`, supporting up to ~5 minutes of audio per request.
+- **`core.file.Uploadable`** — new upload helper and exported file types for buffers, blobs, streams, file paths, and metadata-backed binary requests.
+- **`phenoml.voice.TranscribeResponse`** — new response type with a `transcript` field returned by the transcription endpoint.
+- **`phenoml.voice` errors** — new typed errors (`BadRequestError`, `UnauthorizedError`, `PaymentRequiredError`, `ContentTooLargeError`, `BadGatewayError`, `ServiceUnavailableError`, `GatewayTimeoutError`) thrown by the voice service.
+
 ## [17.6.0] - 2026-06-18
 ### Added
 - **`phenoml.agent.ConflictError`** — new typed error class thrown by `client.agent.chat.send()` and `client.agent.chat.stream()` for HTTP 409 responses when a session already has an active turn.

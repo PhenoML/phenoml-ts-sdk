@@ -4913,6 +4913,7 @@ await client.tools.mcpTools.delete("mcp_server_tool_id");
 </dl>
 </details>
 
+## Voice
 ## Workflows
 <details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">list</a>({ ...params }) -> phenoml.ListWorkflowsResponse</code></summary>
 <dl>
