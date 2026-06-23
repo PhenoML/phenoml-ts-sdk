@@ -10,6 +10,7 @@ import { FhirProviderClient } from "./api/resources/fhirProvider/client/Client.j
 import { Lang2FhirClient } from "./api/resources/lang2Fhir/client/Client.js";
 import { SummaryClient } from "./api/resources/summary/client/Client.js";
 import { ToolsClient } from "./api/resources/tools/client/Client.js";
+import { VoiceClient } from "./api/resources/voice/client/Client.js";
 import { WorkflowsClient } from "./api/resources/workflows/client/Client.js";
 import type { BaseClientOptions, BaseRequestOptions } from "./BaseClient.js";
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "./BaseClient.js";
@@ -33,6 +34,7 @@ export class phenomlClient {
     protected _lang2Fhir: Lang2FhirClient | undefined;
     protected _summary: SummaryClient | undefined;
     protected _tools: ToolsClient | undefined;
+    protected _voice: VoiceClient | undefined;
     protected _workflows: WorkflowsClient | undefined;
 
     constructor(options: phenomlClient.Options = {}) {
@@ -77,6 +79,10 @@ export class phenomlClient {
 
     public get tools(): ToolsClient {
         return (this._tools ??= new ToolsClient(this._options));
+    }
+
+    public get voice(): VoiceClient {
+        return (this._voice ??= new VoiceClient(this._options));
     }
 
     public get workflows(): WorkflowsClient {
