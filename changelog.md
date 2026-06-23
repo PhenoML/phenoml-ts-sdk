@@ -1,3 +1,19 @@
+## [17.8.0] - 2026-06-23
+### Added
+- **`client.fhir2Omop.create()`** — new method that maps a FHIR R4 resource or Bundle to OMOP CDM v5.4 rows via `POST /fhir2omop/create`, returning a `CreateOmopResponse` with tables, mappings, dropped resources, vocab version, and a summary.
+- **`phenoml.fhir2Omop` type suite** — new request/response types and OMOP CDM v5.4 row interfaces (`CreateOmopRequest`, `CreateOmopResponse`, `OmopTables`, `PersonRow`, `VisitOccurrenceRow`, `ConditionOccurrenceRow`, `DrugExposureRow`, `MeasurementRow`, `ObservationRow`, `MappingEntry`, `DroppedResource`, `Summary`, and more) plus typed errors for the endpoint.
+- **`client.voice.voice.transcribe()`** — new method that uploads raw audio bytes (WAV, FLAC, MP3, or OGG/WebM Opus) to `POST /transcribe` and returns a `TranscribeResponse` with a `transcript` field, with typed errors for the endpoint.
+- **`core.file.Uploadable`** — new exported type and upload helpers (`toBinaryUploadRequest`) supporting buffers, blobs, streams, file paths, and metadata-backed binary requests.
+- **`phenoml.agent.ConflictError`** — new typed error thrown by `client.agent.chat.send()` and `client.agent.chat.stream()` for HTTP 409 when a session already has an active turn.
+- **`Provider.Aidbox`** — `"aidbox"` added as a supported value in the `fhirProvider` `Provider` enum.
+- **`./fhir2Omop`, `./voice`, and `./openapi.json` package exports** — new deep-import entry points added for tree-shaking and direct OpenAPI schema access.
+
+### Changed
+- **`AgentChatRequest.session_id`** and **`AgentStreamChatRequest.session_id`** — JSDoc updated to document that only one request may be active per session at a time; overlapping turns return `409 Conflict`.
+
+### Fixed
+- **`anySignal()`** — resolved a race condition where an `AbortSignal` that fired between the initial `aborted` check and the `addEventListener` call was silently dropped and never propagated.
+
 ## [17.7.0] - 2026-06-23
 ### Added
 - **`client.voice.voice.transcribe()`** — new method that uploads raw audio bytes (WAV, FLAC, MP3, or OGG/WebM Opus) to `POST /transcribe` and returns a `TranscribeResponse`, supporting up to ~5 minutes of audio per request.
