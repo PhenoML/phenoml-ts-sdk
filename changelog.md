@@ -1,16 +1,9 @@
 ## [17.7.0] - 2026-06-23
 ### Added
-- **`client.fhir2Omop.create()`** — new method (POST `/fhir2omop/create`) that maps a FHIR R4 resource or Bundle into OMOP CDM v5.4 rows, returning structured tables, per-coding mapping entries, dropped-resource diagnostics, and a resolution summary.
-- **`client.voice`** — new voice resource client exposing a `transcribe()` method for speech-to-text transcription of audio recordings (WAV, FLAC, MP3, OGG/WebM Opus), supporting up to ~5 minutes of audio per request.
-- **`ConflictError`** — new typed error class thrown by `client.agent.chat.send()` and `client.agent.chat.stream()` for HTTP 409 responses when a session already has an active turn.
-- **`Provider.Aidbox`** — `"aidbox"` is now a supported value in the `Provider` enum for `fhirProvider`.
-- **New types** — `CreateOmopRequest`, `CreateOmopResponse`, full suite of OMOP row types (`PersonRow`, `VisitOccurrenceRow`, `ConditionOccurrenceRow`, etc.), `Uploadable`, and voice-specific error types (`BadRequestError`, `UnauthorizedError`, `ContentTooLargeError`, etc.) added to support new endpoints.
-
-### Changed
-- **`AgentChatRequest.session_id`** and **`AgentStreamChatRequest.session_id`** — JSDoc now documents that only one request may be active per session at a time and overlapping turns return `409 Conflict`.
-
-### Fixed
-- **`anySignal()`** — re-checks signal state after registering event listeners to prevent missed abort events in concurrent scenarios.
+- **`client.voice.voice.transcribe()`** — new method that uploads raw audio bytes (WAV, FLAC, MP3, or OGG/WebM Opus) to `POST /transcribe` and returns a `TranscribeResponse`, supporting up to ~5 minutes of audio per request.
+- **`core.file.Uploadable`** — new upload helper and exported file types for buffers, blobs, streams, file paths, and metadata-backed binary requests.
+- **`phenoml.voice.TranscribeResponse`** — new response type with a `transcript` field returned by the transcription endpoint.
+- **`phenoml.voice` errors** — new typed errors (`BadRequestError`, `UnauthorizedError`, `PaymentRequiredError`, `ContentTooLargeError`, `BadGatewayError`, `ServiceUnavailableError`, `GatewayTimeoutError`) thrown by the voice service.
 
 ## [17.6.0] - 2026-06-18
 ### Added
