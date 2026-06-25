@@ -162,7 +162,12 @@ jobs:
         working-directory: artifact
         run: |
           TARBALL=$(ls *.tgz)
-          case "$TARBALL" in
+          # Match the version, not the tarball filename: the filename also
+          # carries the package name, which could spuriously contain
+          # alpha/beta. The tarball's own package.json is authoritative for
+          # the version being published.
+          VERSION=$(tar -xzOf "$TARBALL" package/package.json | jq -r .version)
+          case "$VERSION" in
             *alpha*) TAG=alpha ;;
             *beta*)  TAG=beta ;;
             *)       TAG=latest ;;
