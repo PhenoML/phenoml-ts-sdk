@@ -9,6 +9,7 @@ export interface PersonRow {
     birth_datetime?: string | undefined;
     race_concept_id?: number | undefined;
     ethnicity_concept_id?: number | undefined;
+    location_id?: number | undefined;
     person_source_value?: string | undefined;
     gender_source_value?: string | undefined;
     race_source_value?: string | undefined;

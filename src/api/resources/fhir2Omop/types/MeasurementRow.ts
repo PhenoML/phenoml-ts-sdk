@@ -15,6 +15,7 @@ export interface MeasurementRow {
     range_low?: number | undefined;
     range_high?: number | undefined;
     visit_occurrence_id?: number | undefined;
+    provider_id?: number | undefined;
     measurement_source_value?: string | undefined;
     measurement_source_concept_id?: number | undefined;
     unit_source_value?: string | undefined;

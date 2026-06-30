@@ -1,3 +1,20 @@
+## [17.8.0] - 2026-06-30
+### Added
+- **`client.fhir2Omop.create()`** — new method that posts a FHIR R4 resource or Bundle to `POST /fhir2omop/create` and returns a `CreateOmopResponse` with OMOP CDM v5.4 rows grouped by table, concept mappings, dropped resources, and a resolution summary.
+- **`client.voice.voice.transcribe()`** — new method that uploads raw audio bytes (WAV, FLAC, MP3, OGG/WebM Opus, up to ~5 minutes) to `POST /transcribe` and returns a `TranscribeResponse` with a full transcript.
+- **`phenoml.fhir2Omop` types** — new request/response types (`CreateOmopRequest`, `CreateOmopResponse`, `OmopTables`, all OMOP row types, `MappingEntry`, `DroppedResource`, `Summary`) and typed errors exported from the `./fhir2Omop` subpath.
+- **`phenoml.voice` typed errors** — new error classes (`BadRequestError`, `UnauthorizedError`, `PaymentRequiredError`, `ContentTooLargeError`, `BadGatewayError`, `ServiceUnavailableError`, `GatewayTimeoutError`) thrown by the voice transcription endpoint.
+- **`phenoml.agent.ConflictError`** — new typed error thrown by `client.agent.chat.send()` and `client.agent.chat.stream()` for HTTP 409 when a session already has an active turn.
+- **`CreateMultiResponse` `sourcePages`** — new optional `sourcePages: number[]` field on resource entries indicating the 1-indexed source document page(s) a resource was extracted from.
+- **`core.file.Uploadable`** — new exported type and upload helpers (`toBinaryUploadRequest`, `toMultipartDataPart`) supporting buffers, blobs, streams, file paths, and metadata-backed binary requests.
+- **`./openapi.json` package export** — the bundled OpenAPI spec is now accessible as a direct package import.
+
+### Changed
+- **`AgentChatRequest.session_id`** and **`AgentStreamChatRequest.session_id`** — JSDoc updated to document that only one request may be active per session at a time and overlapping turns return `409 Conflict`.
+
+### Fixed
+- **`core.anySignal()`** — resolves a race condition where an `AbortSignal` that fired between the initial `aborted` check and the `addEventListener` call would be silently ignored, causing requests to hang.
+
 ## [17.7.0] - 2026-06-23
 ### Added
 - **`client.voice.voice.transcribe()`** — new method that uploads raw audio bytes (WAV, FLAC, MP3, or OGG/WebM Opus) to `POST /transcribe` and returns a `TranscribeResponse`, supporting up to ~5 minutes of audio per request.

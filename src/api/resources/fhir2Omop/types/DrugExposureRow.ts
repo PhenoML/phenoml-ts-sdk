@@ -11,6 +11,7 @@ export interface DrugExposureRow {
     stop_reason?: string | undefined;
     sig?: string | undefined;
     visit_occurrence_id?: number | undefined;
+    provider_id?: number | undefined;
     drug_source_value?: string | undefined;
     drug_source_concept_id?: number | undefined;
 }
