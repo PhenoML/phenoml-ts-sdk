@@ -1,3 +1,20 @@
+## [17.8.0] - 2026-07-02
+### Added
+- **`client.fhir2Omop.create()`** — new method that maps a FHIR R4 resource or Bundle to OMOP CDM v5.4 rows, returning typed tables, concept mappings, dropped resources, vocab version, and a resolution summary.
+- **`client.voice.voice.transcribe()`** — new method that transcribes raw audio bytes (WAV, FLAC, MP3, or OGG/WebM Opus) and returns a `TranscribeResponse` with a `transcript` field, supporting up to ~5 minutes of audio per request.
+- **`ServerSentEvent<T>`** and **`Stream.withMetadata()`** — new interface and method exposing full SSE metadata (event id, retry interval, event type) alongside the parsed data payload without breaking existing `AsyncIterable<T>` iteration.
+- **`stream` reconnection options** — `Stream.Args`, `BaseClientOptions`, and `BaseRequestOptions` now accept `reconnectionEnabled` and `maxReconnectionAttempts` fields to configure transparent mid-stream reconnection on resumable SSE endpoints.
+- **New typed error classes and enum values** — `phenoml.agent.ConflictError` (HTTP 409), service-scoped errors for `fhir2Omop` and `voice`, `Provider.Aidbox` enum value, and `CreateMultiResponse.Resource.sourcePages` field added across the SDK.
+
+### Changed
+- **`phenomlTimeoutError`** — now extends `phenomlError` instead of `Error`, unifying the error class hierarchy so timeout errors are catchable as `phenomlError`.
+- **`phenomlError.requestId`** — new getter that returns the `x-request-id` response header, making it easier to correlate errors with server-side logs.
+
+### Fixed
+- **Error class `name` properties** — all typed error classes now assign `name` from a string literal instead of `this.constructor.name`, ensuring correct names in minified builds.
+- **`anySignal` race condition** — a signal that aborted between the initial `aborted` check and `addEventListener` now correctly propagates the abort.
+- **Query-string serialization** — `null` values are now skipped (in addition to `undefined`) when building query strings, preventing `"null"` from appearing in URLs.
+
 ## [17.7.0] - 2026-06-23
 ### Added
 - **`client.voice.voice.transcribe()`** — new method that uploads raw audio bytes (WAV, FLAC, MP3, or OGG/WebM Opus) to `POST /transcribe` and returns a `TranscribeResponse`, supporting up to ~5 minutes of audio per request.
