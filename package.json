@@ -1,6 +1,6 @@
 {
     "name": "phenoml",
-    "version": "17.7.0",
+    "version": "17.8.0",
     "private": false,
     "repository": {
         "type": "git",
@@ -154,6 +154,17 @@
             },
             "default": "./dist/cjs/api/resources/fhirProvider/resources/authConfig/exports.js"
         },
+        "./implementationGuides": {
+            "import": {
+                "types": "./dist/esm/api/resources/implementationGuides/resources/implementationGuides/exports.d.mts",
+                "default": "./dist/esm/api/resources/implementationGuides/resources/implementationGuides/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/implementationGuides/resources/implementationGuides/exports.d.ts",
+                "default": "./dist/cjs/api/resources/implementationGuides/resources/implementationGuides/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/implementationGuides/resources/implementationGuides/exports.js"
+        },
         "./lang2Fhir": {
             "import": {
                 "types": "./dist/esm/api/resources/lang2Fhir/exports.d.mts",
@@ -164,6 +175,17 @@
                 "default": "./dist/cjs/api/resources/lang2Fhir/exports.js"
             },
             "default": "./dist/cjs/api/resources/lang2Fhir/exports.js"
+        },
+        "./profiles": {
+            "import": {
+                "types": "./dist/esm/api/resources/profiles/resources/profiles/exports.d.mts",
+                "default": "./dist/esm/api/resources/profiles/resources/profiles/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/profiles/resources/profiles/exports.d.ts",
+                "default": "./dist/cjs/api/resources/profiles/resources/profiles/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/profiles/resources/profiles/exports.js"
         },
         "./summary": {
             "import": {

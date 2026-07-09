@@ -6,7 +6,12 @@ import type * as phenoml from "../../../index.js";
  * OMOP CDM v5.4 rows grouped by destination table.
  */
 export interface OmopTables {
+    location?: phenoml.fhir2Omop.LocationRow[] | undefined;
+    care_site?: phenoml.fhir2Omop.CareSiteRow[] | undefined;
+    provider?: phenoml.fhir2Omop.ProviderRow[] | undefined;
     person?: phenoml.fhir2Omop.PersonRow[] | undefined;
+    death?: phenoml.fhir2Omop.DeathRow[] | undefined;
+    observation_period?: phenoml.fhir2Omop.ObservationPeriodRow[] | undefined;
     visit_occurrence?: phenoml.fhir2Omop.VisitOccurrenceRow[] | undefined;
     condition_occurrence?: phenoml.fhir2Omop.ConditionOccurrenceRow[] | undefined;
     drug_exposure?: phenoml.fhir2Omop.DrugExposureRow[] | undefined;

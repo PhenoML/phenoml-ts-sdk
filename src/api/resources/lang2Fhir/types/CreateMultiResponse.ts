@@ -54,6 +54,8 @@ export namespace CreateMultiResponse {
             description?: string | undefined;
             /** Verbatim text excerpt from the original clinical document */
             originalText?: string | undefined;
+            /** 1-indexed source document page number(s) this resource was extracted from. Populated only by the /lang2fhir/document/multi endpoint; omitted when the source page could not be determined (e.g. raw-text create/multi, or a resource with no verbatim source text). */
+            sourcePages?: number[] | undefined;
         }
     }
 

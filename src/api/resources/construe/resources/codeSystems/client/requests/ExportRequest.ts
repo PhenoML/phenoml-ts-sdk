@@ -7,6 +7,6 @@
  *     }
  */
 export interface ExportRequest {
-    /** Specific version of the code system. Required if multiple versions exist. */
+    /** Specific version of the custom code system. */
     version?: string;
 }

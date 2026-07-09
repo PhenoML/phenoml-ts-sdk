@@ -7,7 +7,9 @@ import { ConstrueClient } from "./api/resources/construe/client/Client.js";
 import { FhirClient } from "./api/resources/fhir/client/Client.js";
 import { Fhir2OmopClient } from "./api/resources/fhir2Omop/client/Client.js";
 import { FhirProviderClient } from "./api/resources/fhirProvider/client/Client.js";
+import { ImplementationGuidesClient } from "./api/resources/implementationGuides/client/Client.js";
 import { Lang2FhirClient } from "./api/resources/lang2Fhir/client/Client.js";
+import { ProfilesClient } from "./api/resources/profiles/client/Client.js";
 import { SummaryClient } from "./api/resources/summary/client/Client.js";
 import { ToolsClient } from "./api/resources/tools/client/Client.js";
 import { VoiceClient } from "./api/resources/voice/client/Client.js";
@@ -31,7 +33,9 @@ export class phenomlClient {
     protected _fhir: FhirClient | undefined;
     protected _fhir2Omop: Fhir2OmopClient | undefined;
     protected _fhirProvider: FhirProviderClient | undefined;
+    protected _implementationGuides: ImplementationGuidesClient | undefined;
     protected _lang2Fhir: Lang2FhirClient | undefined;
+    protected _profiles: ProfilesClient | undefined;
     protected _summary: SummaryClient | undefined;
     protected _tools: ToolsClient | undefined;
     protected _voice: VoiceClient | undefined;
@@ -69,8 +73,16 @@ export class phenomlClient {
         return (this._fhirProvider ??= new FhirProviderClient(this._options));
     }
 
+    public get implementationGuides(): ImplementationGuidesClient {
+        return (this._implementationGuides ??= new ImplementationGuidesClient(this._options));
+    }
+
     public get lang2Fhir(): Lang2FhirClient {
         return (this._lang2Fhir ??= new Lang2FhirClient(this._options));
+    }
+
+    public get profiles(): ProfilesClient {
+        return (this._profiles ??= new ProfilesClient(this._options));
     }
 
     public get summary(): SummaryClient {

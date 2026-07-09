@@ -4,6 +4,7 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../../../Ba
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../../../BaseClient.js";
 import { mergeHeaders } from "../../../../../../core/headers.js";
 import * as core from "../../../../../../core/index.js";
+import { mergeAdditionalBodyParameters } from "../../../../../../core/requestBody.js";
 import * as environments from "../../../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../../../errors/index.js";
@@ -28,6 +29,9 @@ export class CodesClient {
     /**
      * Converts natural language text into structured medical codes.
      *
+     * Pass `system.version` to select a specific code system version, for example
+     * `umls-2026aa` for UMLS 2026AA-backed systems.
+     *
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
      *
      * @param {phenoml.construe.ExtractRequest} request
@@ -46,6 +50,18 @@ export class CodesClient {
      *         system: {
      *             name: "ICD-10-CM",
      *             version: "2025"
+     *         }
+     *     })
+     *
+     * @example
+     *     await client.construe.codes.extract({
+     *         text: "Patient has type 2 diabetes mellitus with diabetic chronic kidney disease.",
+     *         system: {
+     *             name: "ICD-10-CM",
+     *             version: "umls-2026aa"
+     *         },
+     *         config: {
+     *             validation_method: "simple"
      *         }
      *     })
      *
@@ -133,7 +149,7 @@ export class CodesClient {
             contentType: "application/json",
             queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

@@ -14,6 +14,18 @@ import type * as phenoml from "../../../../../../index.js";
  *
  * @example
  *     {
+ *         text: "Patient has type 2 diabetes mellitus with diabetic chronic kidney disease.",
+ *         system: {
+ *             name: "ICD-10-CM",
+ *             version: "umls-2026aa"
+ *         },
+ *         config: {
+ *             validation_method: "simple"
+ *         }
+ *     }
+ *
+ * @example
+ *     {
  *         text: "45-year-old male presents with chest pain radiating to left arm, shortness of breath, and diaphoresis. ECG shows ST elevation in leads II, III, and aVF.",
  *         system: {
  *             name: "SNOMED_CT_US_LITE",
