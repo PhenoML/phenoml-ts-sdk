@@ -1,3 +1,29 @@
+## [17.8.0] - 2026-07-09
+### Added
+- **`client.profiles.profiles`** — new sub-client for managing custom FHIR StructureDefinition profiles via `POST /fhir/profiles`, exposing `list({ ...params })`, `create({ ...params })`, `get(id)`, `update(id, { ...params })`, and `delete(id)`.
+- **`client.implementationGuides.implementationGuides`** — new sub-client for managing FHIR implementation-guide context via `/fhir/implementation-guides`, exposing `list()`, `get(name)`, `update(name, { ...params })`, and `delete(name)`.
+- **`phenoml.profiles.ProfileSummary`, `ProfileGetResponse`, `ProfileListResponse`, `ProfileUploadRequest`, `FhirResource`** — new types backing the profiles client.
+- **`phenoml.implementationGuides.ImplementationGuideDetail`, `ImplementationGuideSummary`, `ImplementationGuideListResponse`** — new types backing the implementation-guides client.
+- **`RequestOptions.additionalBodyParameters`** — every request-body method now accepts an optional `additionalBodyParameters` record that is merged into the JSON request body, for sending fields not yet modeled in the SDK.
+- **`ServerSentEvent<T>`** and **`Stream.withMetadata()`** — new interface and method exposing full SSE metadata (event id, retry interval, event type) alongside the parsed data payload without breaking existing `AsyncIterable<T>` iteration.
+- **`stream` reconnection options** — `Stream.Args`, `BaseClientOptions`, and `BaseRequestOptions` now accept `reconnectionEnabled` and `maxReconnectionAttempts` fields to configure transparent mid-stream reconnection on resumable SSE endpoints.
+- **`phenoml.fhir2Omop.CareSiteRow`, `DeathRow`, `LocationRow`, `ObservationPeriodRow`, and `ProviderRow`** — five new OMOP CDM v5.4 row types representing care site, death, location, observation period, and provider records.
+- **`OmopTables.location`, `care_site`, `provider`, `death`, and `observation_period`** — new optional table arrays returned by `client.fhir2Omop.create()` alongside the existing OMOP tables.
+- **`CreateMultiResponse.Resource.sourcePages`** — new optional field containing 1-indexed source document page numbers for resources extracted by `/lang2fhir/document/multi`.
+
+### Changed
+- **`ConditionOccurrenceRow`, `DrugExposureRow`, `MeasurementRow`, `ObservationRow`, and `ProcedureOccurrenceRow`** — each gains an optional `provider_id` field linking clinical events to OMOP provider records.
+- **`PersonRow.location_id`** — new optional field linking a person to an OMOP location record.
+- **`VisitOccurrenceRow.provider_id` and `VisitOccurrenceRow.care_site_id`** — new optional fields linking visits to OMOP provider and care-site records.
+- **`ExtractRequestSystem.name`** — JSDoc now documents the full set of built-in construe code systems (CPT, HCPCS, HPO, ICD-10, ICD-10-CM, ICD-10-PCS, LOINC, RXNORM, SNOMED_CT_US, SNOMED_CT_US_LITE) and `system.version` selection (e.g. `umls-2026aa`); the field types are unchanged.
+- **`client.lang2Fhir.uploadProfile()`** — now marked `@deprecated` in favor of `client.profiles.profiles.create()`; the endpoint still works, so no migration is required.
+- **`phenomlTimeoutError`** — now extends `phenomlError` instead of `Error`, unifying the error class hierarchy so timeout errors are catchable as `phenomlError`.
+- **`phenomlError.requestId`** — new getter that returns the `x-request-id` response header, making it easier to correlate errors with server-side logs.
+
+### Fixed
+- **Error class `name` properties** — all typed error classes now assign `name` from a string literal instead of `this.constructor.name`, ensuring correct names in minified builds.
+- **Query-string serialization** — `null` values are now skipped (in addition to `undefined`) when building query strings, preventing `"null"` from appearing in URLs.
+
 ## [17.7.0] - 2026-06-23
 ### Added
 - **`client.voice.voice.transcribe()`** — new method that uploads raw audio bytes (WAV, FLAC, MP3, or OGG/WebM Opus) to `POST /transcribe` and returns a `TranscribeResponse`, supporting up to ~5 minutes of audio per request.
