@@ -1627,6 +1627,9 @@ await client.construe.codeSystems.export("CUSTOM_CODES", {
 
 Converts natural language text into structured medical codes.
 
+Pass `system.version` to select a specific code system version, for example
+`umls-2026aa` for UMLS 2026AA-backed systems.
+
 Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
 </dd>
 </dl>
@@ -3340,6 +3343,269 @@ await client.fhirProvider.authConfig.remove("1716d214-de93-43a4-aa6b-a878d864e2a
 </dl>
 </details>
 
+## Implementation Guides
+<details><summary><code>client.implementationGuides.implementationGuides.<a href="/src/api/resources/implementationGuides/resources/implementationGuides/client/Client.ts">list</a>() -> phenoml.ImplementationGuideListResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns every implementation guide on this instance — both guides that
+have stored metadata (a profile_context) and guides referenced by at
+least one custom profile — with the number of profiles in each.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.implementationGuides.implementationGuides.list();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `ImplementationGuidesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.implementationGuides.implementationGuides.<a href="/src/api/resources/implementationGuides/resources/implementationGuides/client/Client.ts">get</a>(name) -> phenoml.ImplementationGuideDetail</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a single implementation guide, including its profile_context and
+the ids of the profiles that belong to it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.implementationGuides.implementationGuides.get("acme-cardiology");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `string` — The implementation guide name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ImplementationGuidesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.implementationGuides.implementationGuides.<a href="/src/api/resources/implementationGuides/resources/implementationGuides/client/Client.ts">update</a>(name, { ...params }) -> phenoml.ImplementationGuideSummary</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Sets (or clears, with an empty value) the natural-language profile_context
+for an implementation guide. The context is injected into the LLM during
+resource detection to help select the right profiles from this guide.
+It applies to every profile in the guide.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.implementationGuides.implementationGuides.update("acme-cardiology");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `string` — The implementation guide name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.implementationGuides.UpdateImplementationGuideRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ImplementationGuidesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.implementationGuides.implementationGuides.<a href="/src/api/resources/implementationGuides/resources/implementationGuides/client/Client.ts">delete</a>(name) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the stored metadata for an implementation guide — its
+profile_context and timestamps. Member profiles keep their
+implementation_guide assignment, so a guide still referenced by at least
+one profile continues to appear in listings, just without context or
+timestamps.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.implementationGuides.implementationGuides.delete("acme-cardiology");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `string` — The implementation guide name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ImplementationGuidesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Lang2Fhir
 <details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">create</a>({ ...params }) -> phenoml.FhirResource</code></summary>
 <dl>
@@ -3564,6 +3830,12 @@ await client.lang2Fhir.search({
 <dl>
 <dd>
 
+**Deprecated — use `POST /fhir/profiles` instead.** This route continues to work
+and operates on the same custom profiles, so no migration is required; it
+will be removed in a future release. Note that `POST /fhir/profiles` does not
+accept `profile_context`; set implementation-guide context with
+`PUT /fhir/implementation-guides/{name}`.
+
 Upload a custom FHIR StructureDefinition profile for use with the lang2fhir service.
 
 All metadata is derived from the StructureDefinition JSON itself. The lowercase `id` field
@@ -3608,7 +3880,7 @@ await client.lang2Fhir.uploadProfile({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.ProfileUploadRequest` 
+**request:** `phenoml.ProfileUploadRequest` 
     
 </dd>
 </dl>
@@ -3758,6 +4030,358 @@ await client.lang2Fhir.documentMulti({
 <dd>
 
 **requestOptions:** `Lang2FhirClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Profiles
+<details><summary><code>client.profiles.profiles.<a href="/src/api/resources/profiles/resources/profiles/client/Client.ts">list</a>({ ...params }) -> phenoml.ProfileListResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for every custom (uploaded) FHIR profile on this
+instance, across all implementation guides. The full StructureDefinition
+JSON is omitted from each entry; fetch a single profile by id to retrieve it.
+
+The `url` query parameter filters by canonical URL. The canonical URL is the
+stable key other platform features use to reference a profile (FHIR's
+`meta.profile`, `baseDefinition`), since StructureDefinition ids are only
+unique within a package. A non-matching filter returns an empty list, not a 404.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.profiles.profiles.list({
+    url: "http://phenoml.com/fhir/StructureDefinition/custom-patient|1.0.0"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.profiles.ListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProfilesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.profiles.profiles.<a href="/src/api/resources/profiles/resources/profiles/client/Client.ts">create</a>({ ...params }) -> phenoml.ProfileSummary</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a custom profile from a FHIR StructureDefinition supplied as a JSON
+object. All metadata (version, resource type, id, url) is derived from the
+StructureDefinition; the lowercase StructureDefinition id becomes the
+profile's lookup key. Code system configuration is auto-extracted from the
+snapshot. Optionally group the profile under a named implementation guide.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.profiles.profiles.create({
+    structure_definition: {
+        "key": "value"
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.ProfileUploadRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProfilesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.profiles.profiles.<a href="/src/api/resources/profiles/resources/profiles/client/Client.ts">get</a>(id) -> phenoml.ProfileGetResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a single custom profile by id, including its full StructureDefinition JSON.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.profiles.profiles.get("custom-patient");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — The lowercase StructureDefinition id of the custom profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProfilesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.profiles.profiles.<a href="/src/api/resources/profiles/resources/profiles/client/Client.ts">update</a>(id, { ...params }) -> phenoml.ProfileSummary</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Replaces an existing custom profile with a new StructureDefinition. The
+`id` path parameter is authoritative: if the StructureDefinition includes
+an `id` it must match the path parameter, and if it omits one the path
+parameter is used. The FHIR resource type of the profile cannot change.
+Code system configuration is
+re-derived from the new StructureDefinition. When `implementation_guide` is
+omitted, the profile keeps its existing implementation guide. The instance
+stores a single version per canonical URL, so this replaces it in place.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.profiles.profiles.update("custom-patient", {
+    structure_definition: {
+        "key": "value"
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — The lowercase StructureDefinition id of the custom profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.ProfileUploadRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProfilesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.profiles.profiles.<a href="/src/api/resources/profiles/resources/profiles/client/Client.ts">delete</a>(id) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently deletes a custom profile by id.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.profiles.profiles.delete("custom-patient");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — The lowercase StructureDefinition id of the custom profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProfilesClient.RequestOptions` 
     
 </dd>
 </dl>

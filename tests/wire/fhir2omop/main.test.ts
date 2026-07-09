@@ -78,6 +78,9 @@ describe("Fhir2OmopClient", () => {
             success: true,
             message: "FHIR resources mapped to OMOP CDM v5.4",
             tables: {
+                location: [{}],
+                care_site: [{}],
+                provider: [{}],
                 person: [
                     {
                         person_id: 1,
@@ -92,6 +95,8 @@ describe("Fhir2OmopClient", () => {
                         gender_source_value: "female",
                     },
                 ],
+                death: [{}],
+                observation_period: [{}],
                 visit_occurrence: [{}],
                 condition_occurrence: [
                     {

@@ -7,6 +7,6 @@
  *     }
  */
 export interface LookupRequest {
-    /** Specific version of the code system */
+    /** Specific version of the code system, such as `umls-2026aa`. */
     version?: string;
 }

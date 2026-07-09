@@ -8,6 +8,7 @@ export interface ProcedureOccurrenceRow {
     procedure_datetime?: string | undefined;
     procedure_type_concept_id?: number | undefined;
     visit_occurrence_id?: number | undefined;
+    provider_id?: number | undefined;
     procedure_source_value?: string | undefined;
     procedure_source_concept_id?: number | undefined;
 }

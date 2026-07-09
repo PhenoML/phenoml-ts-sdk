@@ -9,7 +9,7 @@
  *     }
  */
 export interface CodesListRequest {
-    /** Specific version of the code system. Required if multiple versions exist. */
+    /** Specific version of the code system, such as `umls-2026aa`. */
     version?: string;
     /** Pagination cursor from previous response */
     cursor?: string;
