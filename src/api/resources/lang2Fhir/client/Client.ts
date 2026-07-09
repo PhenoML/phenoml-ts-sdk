@@ -310,6 +310,14 @@ export class Lang2FhirClient {
     }
 
     /**
+     * @deprecated
+     *
+     * **Deprecated — use `POST /fhir/profiles` instead.** This route continues to work
+     * and operates on the same custom profiles, so no migration is required; it
+     * will be removed in a future release. Note that `POST /fhir/profiles` does not
+     * accept `profile_context`; set implementation-guide context with
+     * `PUT /fhir/implementation-guides/{name}`.
+     *
      * Upload a custom FHIR StructureDefinition profile for use with the lang2fhir service.
      *
      * All metadata is derived from the StructureDefinition JSON itself. The lowercase `id` field
