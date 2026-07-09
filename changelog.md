@@ -6,7 +6,6 @@
 - **`phenoml.implementationGuides.ImplementationGuideDetail`, `ImplementationGuideSummary`, `ImplementationGuideListResponse`** — new types backing the implementation-guides client.
 - **`RequestOptions.additionalBodyParameters`** — every request-body method now accepts an optional `additionalBodyParameters` record that is merged into the JSON request body, for sending fields not yet modeled in the SDK.
 - **`ServerSentEvent<T>`** and **`Stream.withMetadata()`** — new interface and method exposing full SSE metadata (event id, retry interval, event type) alongside the parsed data payload without breaking existing `AsyncIterable<T>` iteration.
-- **`stream` reconnection options** — `Stream.Args`, `BaseClientOptions`, and `BaseRequestOptions` now accept `reconnectionEnabled` and `maxReconnectionAttempts` fields to configure transparent mid-stream reconnection on resumable SSE endpoints.
 - **`phenoml.fhir2Omop.CareSiteRow`, `DeathRow`, `LocationRow`, `ObservationPeriodRow`, and `ProviderRow`** — five new OMOP CDM v5.4 row types representing care site, death, location, observation period, and provider records.
 - **`OmopTables.location`, `care_site`, `provider`, `death`, and `observation_period`** — new optional table arrays returned by `client.fhir2Omop.create()` alongside the existing OMOP tables.
 - **`CreateMultiResponse.Resource.sourcePages`** — new optional field containing 1-indexed source document page numbers for resources extracted by `/lang2fhir/document/multi`.
