@@ -83,6 +83,76 @@ describe("CodesClient", () => {
             environment: server.baseUrl,
         });
         const rawRequestBody = {
+            text: "Patient has type 2 diabetes mellitus with diabetic chronic kidney disease.",
+            system: { name: "ICD-10-CM", version: "umls-2026aa" },
+            config: { validation_method: "simple" },
+        };
+        const rawResponseBody = {
+            system: { name: "ICD-10-CM", version: "2025" },
+            codes: [
+                {
+                    code: "Q60.3",
+                    description: "Renal hypoplasia, unspecified",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+                {
+                    code: "R93.42",
+                    description: "Abnormal findings on diagnostic imaging of kidney",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+                {
+                    code: "N28.1",
+                    description: "Cyst of kidney, acquired",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+            ],
+        };
+
+        server
+            .mockEndpoint()
+            .post("/construe/extract")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.codes.extract({
+            text: "Patient has type 2 diabetes mellitus with diabetic chronic kidney disease.",
+            system: {
+                name: "ICD-10-CM",
+                version: "umls-2026aa",
+            },
+            config: {
+                validation_method: "simple",
+            },
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("extract (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
             text: "45-year-old male presents with chest pain radiating to left arm, shortness of breath, and diaphoresis. ECG shows ST elevation in leads II, III, and aVF.",
             system: { name: "SNOMED_CT_US_LITE", version: "20240901" },
             config: {
@@ -150,7 +220,7 @@ describe("CodesClient", () => {
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("extract (3)", async () => {
+    test("extract (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -221,7 +291,7 @@ describe("CodesClient", () => {
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("extract (4)", async () => {
+    test("extract (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -310,7 +380,7 @@ describe("CodesClient", () => {
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("extract (5)", async () => {
+    test("extract (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -395,7 +465,7 @@ describe("CodesClient", () => {
         expect(response).toEqual(rawResponseBody);
     });
 
-    test("extract (6)", async () => {
+    test("extract (7)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -424,7 +494,7 @@ describe("CodesClient", () => {
         }).rejects.toThrow(phenoml.construe.BadRequestError);
     });
 
-    test("extract (7)", async () => {
+    test("extract (8)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -453,7 +523,7 @@ describe("CodesClient", () => {
         }).rejects.toThrow(phenoml.construe.UnauthorizedError);
     });
 
-    test("extract (8)", async () => {
+    test("extract (9)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -482,7 +552,7 @@ describe("CodesClient", () => {
         }).rejects.toThrow(phenoml.construe.NotFoundError);
     });
 
-    test("extract (9)", async () => {
+    test("extract (10)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -511,7 +581,7 @@ describe("CodesClient", () => {
         }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
-    test("extract (10)", async () => {
+    test("extract (11)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -540,7 +610,7 @@ describe("CodesClient", () => {
         }).rejects.toThrow(phenoml.construe.ServiceUnavailableError);
     });
 
-    test("extract (11)", async () => {
+    test("extract (12)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 

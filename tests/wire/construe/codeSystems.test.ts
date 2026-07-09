@@ -293,13 +293,23 @@ describe("CodeSystemsClient", () => {
 
         const rawResponseBody = {
             systems: [
-                { name: "ICD-10-CM", version: "2025", code_count: 97584, builtin: true },
-                { name: "SNOMED_CT_US_LITE", version: "20240901", code_count: 102837, builtin: true },
-                { name: "RXNORM", version: "11042024", code_count: 257619, builtin: true },
-                { name: "LOINC", version: "2.78", code_count: 98123, builtin: true },
-                { name: "HPO", version: "2025", code_count: 19542, builtin: true },
+                { name: "CPT", version: "umls-2026aa", code_count: 10298, builtin: true },
                 { name: "CPT", version: "2025", code_count: 10192, builtin: true },
+                { name: "HCPCS", version: "umls-2026aa", code_count: 7322, builtin: true },
+                { name: "HPO", version: "umls-2026aa", code_count: 19698, builtin: true },
+                { name: "HPO", version: "2025", code_count: 19542, builtin: true },
+                { name: "ICD-10", version: "umls-2026aa", code_count: 12292, builtin: true },
+                { name: "ICD-10-CM", version: "umls-2026aa", code_count: 98506, builtin: true },
+                { name: "ICD-10-CM", version: "2025", code_count: 97584, builtin: true },
+                { name: "ICD-10-PCS", version: "umls-2026aa", code_count: 79232, builtin: true },
                 { name: "ICD-10-PCS", version: "2025", code_count: 78717, builtin: true },
+                { name: "LOINC", version: "umls-2026aa", code_count: 99231, builtin: true },
+                { name: "LOINC", version: "2.78", code_count: 98123, builtin: true },
+                { name: "RXNORM", version: "umls-2026aa", code_count: 259884, builtin: true },
+                { name: "RXNORM", version: "11042024", code_count: 257619, builtin: true },
+                { name: "SNOMED_CT_US", version: "umls-2026aa", code_count: 386110, builtin: true },
+                { name: "SNOMED_CT_US", version: "20240901", code_count: 371482, builtin: true },
+                { name: "SNOMED_CT_US_LITE", version: "20240901", code_count: 102837, builtin: true },
             ],
         };
 

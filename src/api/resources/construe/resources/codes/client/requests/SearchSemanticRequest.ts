@@ -11,7 +11,7 @@
 export interface SearchSemanticRequest {
     /** Natural language text to find semantically similar codes for */
     text: string;
-    /** Specific version of the code system */
+    /** Specific version of the code system, such as `umls-2026aa`. */
     version?: string;
     /** Maximum number of results (default 10, max 50) */
     limit?: number;

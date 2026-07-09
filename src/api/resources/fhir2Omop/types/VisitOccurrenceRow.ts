@@ -9,5 +9,7 @@ export interface VisitOccurrenceRow {
     visit_end_date?: string | undefined;
     visit_end_datetime?: string | undefined;
     visit_type_concept_id?: number | undefined;
+    provider_id?: number | undefined;
+    care_site_id?: number | undefined;
     visit_source_value?: string | undefined;
 }

@@ -11,7 +11,7 @@
 export interface SearchTextRequest {
     /** Search query (searches code IDs and descriptions) */
     q: string;
-    /** Specific version of the code system */
+    /** Specific version of the code system, such as `umls-2026aa`. */
     version?: string;
     /** Maximum number of results (default 20, max 100) */
     limit?: number;

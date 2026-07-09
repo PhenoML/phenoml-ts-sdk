@@ -9,6 +9,7 @@ export interface ConditionOccurrenceRow {
     condition_end_date?: string | undefined;
     condition_type_concept_id?: number | undefined;
     visit_occurrence_id?: number | undefined;
+    provider_id?: number | undefined;
     condition_source_value?: string | undefined;
     condition_source_concept_id?: number | undefined;
     condition_status_source_value?: string | undefined;
