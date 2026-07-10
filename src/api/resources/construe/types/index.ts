@@ -14,6 +14,7 @@ export * from "./GetCodeResponse.js";
 export * from "./GetCodeSystemDetailResponse.js";
 export * from "./ListCodeSystemsResponse.js";
 export * from "./ListCodesResponse.js";
+export * from "./PhenocrExtractRequestSystem.js";
 export * from "./SemanticSearchResponse.js";
 export * from "./SemanticSearchResult.js";
 export * from "./TextSearchResponse.js";
