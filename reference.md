@@ -1687,6 +1687,83 @@ await client.construe.codes.extract({
 </dl>
 </details>
 
+<details><summary><code>client.construe.codes.<a href="/src/api/resources/construe/resources/codes/client/Client.ts">phenocr</a>({ ...params }) -> phenoml.ExtractCodesResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**Alpha:** phenocr is an alpha feature. The API contract — request
+parameters and response shape — may change as its internals evolve, and
+results may vary between releases. Do not depend on it for production
+workloads yet.
+
+Extracts medical codes from natural language clinical text using phenocr.
+
+Supported code systems: HPO, ICD-10-CM, and SNOMED_CT_US. The code
+system name and version are both required.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.codes.phenocr({
+    text: "5-year-old male with seizures, severe intellectual disability, microcephaly, and hypotonia.",
+    system: {
+        name: "HPO",
+        version: "umls-2026AA"
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.construe.PhenoCrRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CodesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.construe.codes.<a href="/src/api/resources/construe/resources/codes/client/Client.ts">list</a>(codesystem, { ...params }) -> phenoml.ListCodesResponse</code></summary>
 <dl>
 <dd>
