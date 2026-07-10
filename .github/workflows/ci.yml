@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
 
       - name: Set up node
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
@@ -35,7 +35,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
 
       - name: Set up node
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
@@ -58,7 +58,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
 
       - name: Set up node
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
@@ -76,7 +76,7 @@ jobs:
         run: |
           mkdir -p artifact
           npm pack --pack-destination artifact
-          (cd artifact && sha256sum *.tgz > SHA256SUMS)
+          (cd artifact && sha256sum ./*.tgz > SHA256SUMS)
 
       - name: Upload artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -86,52 +86,20 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-  tag:
+  release_gate:
     needs: [compile, test, build-artifact]
     if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
     permissions:
-      contents: write
-    outputs:
-      should_publish: ${{ steps.check.outputs.should_publish }}
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-        with:
-          fetch-depth: 0
-
-      - name: Verify bundled OpenAPI spec
-        # Run before tag creation so a missing/stale spec doesn't leave a
-        # ghost release (tag exists, npm publish skipped on retry because
-        # the tag-existence check sets should_publish=false).
-        uses: PhenoML/sdk-shared-actions/verify-openapi-spec@1.0.3
-
-      - name: Extract version and check tag
-        id: check
-        run: |
-          VERSION=$(jq -r .version package.json)
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          if git ls-remote --tags origin "refs/tags/$VERSION" | grep -q .; then
-            echo "Tag $VERSION already exists, skipping"
-            echo "should_publish=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "should_publish=true" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Create tag and GitHub release
-        if: steps.check.outputs.should_publish == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release create "${{ steps.check.outputs.version }}" \
-            --target "${{ github.sha }}" \
-            --title "${{ steps.check.outputs.version }}" \
-            --generate-notes
+      contents: read
+    uses: PhenoML/sdk-shared-actions/.github/workflows/sdk-release-gate.yml@1.1.0
+    with:
+      version-source: package-json
+      version-path: package.json
+      spec-path: openapi/openapi.json
 
   publish:
-    needs: [compile, test, build-artifact, tag]
-    if: needs.tag.outputs.should_publish == 'true'
+    needs: [compile, test, build-artifact, release_gate]
+    if: needs.release_gate.outputs.should_publish == 'true'
     runs-on: ubuntu-latest
     environment: npm-production
     permissions:
@@ -161,7 +129,7 @@ jobs:
       - name: Publish to npm
         working-directory: artifact
         run: |
-          TARBALL=$(ls *.tgz)
+          TARBALL=$(find . -maxdepth 1 -name '*.tgz' -print -quit)
           # Match the version, not the tarball filename: the filename also
           # carries the package name, which could spuriously contain
           # alpha/beta. The tarball's own package.json is authoritative for
@@ -173,3 +141,14 @@ jobs:
             *)       TAG=latest ;;
           esac
           npm publish --access public --tag "$TAG" "$TARBALL"
+
+  release_finalize:
+    needs: [release_gate, publish]
+    if: needs.release_gate.outputs.should_publish == 'true'
+    permissions:
+      contents: write
+    uses: PhenoML/sdk-shared-actions/.github/workflows/sdk-release-finalize.yml@1.1.0
+    with:
+      version-tag: ${{ needs.release_gate.outputs.version_tag }}
+      origin-commit: ${{ needs.release_gate.outputs.origin_commit }}
+      origin-tag: ${{ needs.release_gate.outputs.origin_tag }}
