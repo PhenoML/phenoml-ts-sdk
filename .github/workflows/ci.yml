@@ -56,9 +56,46 @@ jobs:
       - name: Test
         run: pnpm test
 
-  build-artifact:
+  release_precheck:
     needs: [compile, test]
     if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      run_release_gate: ${{ steps.check.outputs.run_release_gate }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          fetch-depth: 0
+
+      - name: Check whether release gate should run
+        id: check
+        run: |
+          set -euo pipefail
+          git fetch --force --tags origin
+
+          version=$(jq -r '.version // empty' package.json)
+          if [ -z "$version" ]; then
+            echo "::error::Could not read SDK version from package.json."
+            exit 1
+          fi
+
+          target_commit=$(git rev-parse --verify "HEAD^{commit}")
+          existing_commit=$(git rev-parse -q --verify "refs/tags/${version}^{commit}" || true)
+          if [ -n "$existing_commit" ] && [ "$existing_commit" != "$target_commit" ]; then
+            echo "Tag $version already points at $existing_commit, not $target_commit; skipping release gate for this non-release commit."
+            echo "run_release_gate=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "run_release_gate=true" >> "$GITHUB_OUTPUT"
+
+  build-artifact:
+    needs: [compile, test, release_precheck]
+    if: github.ref == 'refs/heads/main' && needs.release_precheck.outputs.run_release_gate == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -94,8 +131,8 @@ jobs:
           retention-days: 7
 
   release_gate:
-    needs: [compile, test, build-artifact]
-    if: github.ref == 'refs/heads/main'
+    needs: [compile, test, release_precheck, build-artifact]
+    if: github.ref == 'refs/heads/main' && needs.release_precheck.outputs.run_release_gate == 'true'
     permissions:
       contents: read
     uses: PhenoML/sdk-shared-actions/.github/workflows/sdk-release-gate.yml@1.2.0
