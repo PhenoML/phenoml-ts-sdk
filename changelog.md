@@ -1,3 +1,8 @@
+## [17.10.0] - 2026-07-10
+### Added
+- **`getUserAgent(sdkName, sdkVersion)`** — new exported helper from the core runtime module that builds a structured `{sdkName}/{sdkVersion} ({os}; {arch}) {runtime}/{runtimeVersion}` User-Agent string, omitting platform or runtime segments gracefully in browser environments.
+- **`Runtime.os` and `Runtime.arch`** — new optional fields on the `Runtime` interface populated for Node, Deno, and Bun runtimes, enabling OS and CPU architecture detection at runtime.
+
 ## [17.9.0] - 2026-07-10
 ### Added
 - **`client.construe.codes.phenocr()`** — new alpha method that extracts medical codes (HPO, ICD-10-CM, SNOMED_CT_US) from natural language clinical text via `POST /construe/phenocr`; results may vary between releases and the endpoint is not yet recommended for production workloads.
