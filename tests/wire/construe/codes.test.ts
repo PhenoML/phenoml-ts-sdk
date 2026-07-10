@@ -639,6 +639,252 @@ describe("CodesClient", () => {
         }).rejects.toThrow(phenoml.construe.GatewayTimeoutError);
     });
 
+    test("phenocr (1)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
+            text: "5-year-old male with seizures, severe intellectual disability, microcephaly, and hypotonia.",
+            system: { name: "HPO", version: "umls-2026AA" },
+        };
+        const rawResponseBody = {
+            system: { name: "SNOMED_CT_US_LITE", version: "umls-2026aa" },
+            codes: [
+                {
+                    code: "195967001",
+                    description: "Asthma",
+                    valid: true,
+                    reason: "reason",
+                    is_ancestor: true,
+                    citations: [{ text: "Patient has type 2 diabetes", begin_offset: 0, end_offset: 27 }],
+                    categories: [{ uri: "HP:0025142", label: "Constitutional symptom" }],
+                },
+            ],
+        };
+
+        server
+            .mockEndpoint()
+            .post("/construe/phenocr")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.construe.codes.phenocr({
+            text: "5-year-old male with seizures, severe intellectual disability, microcephaly, and hypotonia.",
+            system: {
+                name: "HPO",
+                version: "umls-2026AA",
+            },
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("phenocr (2)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { text: "text", system: { name: "name", version: "version" } };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/construe/phenocr")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.codes.phenocr({
+                text: "text",
+                system: {
+                    name: "name",
+                    version: "version",
+                },
+            });
+        }).rejects.toThrow(phenoml.construe.BadRequestError);
+    });
+
+    test("phenocr (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { text: "text", system: { name: "name", version: "version" } };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/construe/phenocr")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.codes.phenocr({
+                text: "text",
+                system: {
+                    name: "name",
+                    version: "version",
+                },
+            });
+        }).rejects.toThrow(phenoml.construe.UnauthorizedError);
+    });
+
+    test("phenocr (4)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { text: "text", system: { name: "name", version: "version" } };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/construe/phenocr")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.codes.phenocr({
+                text: "text",
+                system: {
+                    name: "name",
+                    version: "version",
+                },
+            });
+        }).rejects.toThrow(phenoml.construe.NotFoundError);
+    });
+
+    test("phenocr (5)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { text: "text", system: { name: "name", version: "version" } };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/construe/phenocr")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.codes.phenocr({
+                text: "text",
+                system: {
+                    name: "name",
+                    version: "version",
+                },
+            });
+        }).rejects.toThrow(phenoml.construe.InternalServerError);
+    });
+
+    test("phenocr (6)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { text: "text", system: { name: "name", version: "version" } };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/construe/phenocr")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(503)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.codes.phenocr({
+                text: "text",
+                system: {
+                    name: "name",
+                    version: "version",
+                },
+            });
+        }).rejects.toThrow(phenoml.construe.ServiceUnavailableError);
+    });
+
+    test("phenocr (7)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { text: "text", system: { name: "name", version: "version" } };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/construe/phenocr")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(504)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.construe.codes.phenocr({
+                text: "text",
+                system: {
+                    name: "name",
+                    version: "version",
+                },
+            });
+        }).rejects.toThrow(phenoml.construe.GatewayTimeoutError);
+    });
+
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);

@@ -1,3 +1,9 @@
+## [17.9.0] - 2026-07-10
+### Added
+- **`client.construe.codes.phenocr()`** — new alpha method that extracts medical codes (HPO, ICD-10-CM, SNOMED_CT_US) from natural language clinical text via `POST /construe/phenocr`; results may vary between releases and the endpoint is not yet recommended for production workloads.
+- **`phenoml.construe.PhenoCrRequest`** — new request type with required `text` (clinical text) and `system` (`PhenocrExtractRequestSystem`) fields used by `phenocr()`.
+- **`phenoml.construe.PhenocrExtractRequestSystem`** — new type specifying the code system `name` and `version` to run phenocr against.
+
 ## [17.8.0] - 2026-07-09
 ### Added
 - **`client.profiles.profiles`** — new sub-client for managing custom FHIR StructureDefinition profiles via `POST /fhir/profiles`, exposing `list({ ...params })`, `create({ ...params })`, `get(id)`, `update(id, { ...params })`, and `delete(id)`.

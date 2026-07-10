@@ -199,6 +199,114 @@ export class CodesClient {
     }
 
     /**
+     * **Alpha:** phenocr is an alpha feature. The API contract — request
+     * parameters and response shape — may change as its internals evolve, and
+     * results may vary between releases. Do not depend on it for production
+     * workloads yet.
+     *
+     * Extracts medical codes from natural language clinical text using phenocr.
+     *
+     * Supported code systems: HPO, ICD-10-CM, and SNOMED_CT_US. The code
+     * system name and version are both required.
+     *
+     * @param {phenoml.construe.PhenoCrRequest} request
+     * @param {CodesClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.construe.BadRequestError}
+     * @throws {@link phenoml.construe.UnauthorizedError}
+     * @throws {@link phenoml.construe.NotFoundError}
+     * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link phenoml.construe.ServiceUnavailableError}
+     * @throws {@link phenoml.construe.GatewayTimeoutError}
+     *
+     * @example
+     *     await client.construe.codes.phenocr({
+     *         text: "5-year-old male with seizures, severe intellectual disability, microcephaly, and hypotonia.",
+     *         system: {
+     *             name: "HPO",
+     *             version: "umls-2026AA"
+     *         }
+     *     })
+     */
+    public phenocr(
+        request: phenoml.construe.PhenoCrRequest,
+        requestOptions?: CodesClient.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.construe.ExtractCodesResult> {
+        return core.HttpResponsePromise.fromPromise(this.__phenocr(request, requestOptions));
+    }
+
+    private async __phenocr(
+        request: phenoml.construe.PhenoCrRequest,
+        requestOptions?: CodesClient.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.construe.ExtractCodesResult>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                "construe/phenocr",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            requestType: "json",
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as phenoml.construe.ExtractCodesResult, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.construe.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new phenoml.construe.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.construe.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 503:
+                    throw new phenoml.construe.ServiceUnavailableError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 504:
+                    throw new phenoml.construe.GatewayTimeoutError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/construe/phenocr");
+    }
+
+    /**
      * Returns a paginated list of all codes in the specified code system from the terminology server.
      *
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
