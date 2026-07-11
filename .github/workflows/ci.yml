@@ -61,7 +61,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     permissions:
       contents: read
-    uses: PhenoML/sdk-shared-actions/.github/workflows/sdk-release-gate.yml@1.3.0
+    uses: PhenoML/sdk-shared-actions/.github/workflows/sdk-release-gate.yml@1.3.1
     with:
       version-source: package-json
       version-path: package.json
@@ -113,7 +113,7 @@ jobs:
       contents: read
       id-token: write
     outputs:
-      published: ${{ steps.verify.outputs.published }}
+      published: ${{ steps.publish.outputs.published }}
 
     steps:
       # Node 24 ships npm >= 11.5, which supports OIDC Trusted Publishing
@@ -136,6 +136,7 @@ jobs:
         run: sha256sum -c SHA256SUMS
 
       - name: Publish to npm
+        id: publish
         working-directory: artifact
         run: |
           set -euo pipefail
@@ -152,6 +153,7 @@ jobs:
             *)       TAG=latest ;;
           esac
           if npm publish --access public --tag "$TAG" "$TARBALL"; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
             exit 0
           else
             status=$?
@@ -160,22 +162,10 @@ jobs:
           published_version=$(npm view "${NAME}@${VERSION}" version --registry "https://registry.npmjs.org" 2>/dev/null || true)
           if [ "$published_version" = "$VERSION" ]; then
             echo "${NAME}@${VERSION} is already available on npm; continuing to finalization."
+            echo "published=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           exit "$status"
-
-      - name: Verify npm version availability
-        id: verify
-        env:
-          VERSION: ${{ needs.release_gate.outputs.version }}
-        run: |
-          set -euo pipefail
-          published_version=$(npm view "${NPM_PACKAGE_NAME}@${VERSION}" version --registry "https://registry.npmjs.org" 2>/dev/null || true)
-          if [ "$published_version" != "$VERSION" ]; then
-            echo "::error::${NPM_PACKAGE_NAME}@${VERSION} is not available on npm."
-            exit 1
-          fi
-          echo "published=true" >> "$GITHUB_OUTPUT"
 
   confirm_registry_release:
     needs: [release_gate]
@@ -191,19 +181,25 @@ jobs:
           VERSION: ${{ needs.release_gate.outputs.version }}
         run: |
           set -euo pipefail
-          published_version=$(npm view "${NPM_PACKAGE_NAME}@${VERSION}" version --registry "https://registry.npmjs.org" 2>/dev/null || true)
-          if [ "$published_version" != "$VERSION" ]; then
-            echo "::error::${NPM_PACKAGE_NAME}@${VERSION} is not available on npm."
-            exit 1
-          fi
-          echo "published=true" >> "$GITHUB_OUTPUT"
+          for attempt in {1..24}; do
+            published_version=$(npm view "${NPM_PACKAGE_NAME}@${VERSION}" version --registry "https://registry.npmjs.org" 2>/dev/null || true)
+            if [ "$published_version" = "$VERSION" ]; then
+              echo "published=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            if [ "$attempt" -lt 24 ]; then
+              sleep 5
+            fi
+          done
+          echo "::error::${NPM_PACKAGE_NAME}@${VERSION} is not available on npm after waiting for registry propagation."
+          exit 1
 
   release_finalize:
     needs: [release_gate, publish, confirm_registry_release]
     if: always() && needs.release_gate.result == 'success' && (needs.publish.outputs.published == 'true' || needs.confirm_registry_release.outputs.published == 'true')
     permissions:
       contents: write
-    uses: PhenoML/sdk-shared-actions/.github/workflows/sdk-release-finalize.yml@1.3.0
+    uses: PhenoML/sdk-shared-actions/.github/workflows/sdk-release-finalize.yml@1.3.1
     with:
       version-tag: ${{ needs.release_gate.outputs.version_tag }}
       origin-commit: ${{ needs.release_gate.outputs.origin_commit }}
