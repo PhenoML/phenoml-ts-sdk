@@ -17,7 +17,7 @@ export interface DocumentRequest {
     resource: string;
     /**
      * Base64 encoded file content.
-     * Supported file types: PDF (application/pdf), PNG (image/png), JPEG (image/jpeg).
+     * Supported file types: PDF (application/pdf), PNG (image/png), JPEG (image/jpeg), TIFF (image/tiff).
      * File type is auto-detected from content magic bytes.
      */
     content: string;
