@@ -1,3 +1,5 @@
+## [17.10.2] - 2026-07-21
+
 ## [17.10.1] - 2026-07-11
 ### Fixed
 - **`getUserAgent(sdkName, sdkVersion)`** — now normalizes 64-bit x86 architecture aliases and percent-encodes scoped SDK package names so generated User-Agent headers are stable and HTTP-token compliant.
