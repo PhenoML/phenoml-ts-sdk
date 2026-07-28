@@ -1,4 +1,7 @@
 ## [17.10.2] - 2026-07-28
+### Changed
+- **`client.lang2Fhir.document()` and `client.lang2Fhir.documentMulti()`** — the `content` field now accepts TIFF (`image/tiff`) files in addition to PDF, PNG, and JPEG; file type is still auto-detected from content magic bytes.
+- **`phenoml.construe.PhenocrExtractRequestSystem.name`** — phenocr now supports the RXNORM code system alongside HPO, ICD-10-CM, and SNOMED_CT_US.
 
 ## [17.10.1] - 2026-07-11
 ### Fixed
