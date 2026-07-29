@@ -307,6 +307,109 @@ export class CodesClient {
     }
 
     /**
+     * Maps one source medical code to one or more target code-system URIs using
+     * shared UMLS CUIs. A successful response is HTTP 200 even when the source
+     * code or a target has no matches; inspect `reason_code` on the item and
+     * target entries for miss details.
+     *
+     * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
+     *
+     * @param {phenoml.construe.CrosswalkRequest} request
+     * @param {CodesClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.construe.BadRequestError}
+     * @throws {@link phenoml.construe.UnauthorizedError}
+     * @throws {@link phenoml.construe.ContentTooLargeError}
+     * @throws {@link phenoml.construe.NotImplementedError}
+     * @throws {@link phenoml.construe.BadGatewayError}
+     * @throws {@link phenoml.construe.ServiceUnavailableError}
+     *
+     * @example
+     *     await client.construe.codes.crosswalk({
+     *         system: "http://hl7.org/fhir/sid/icd-10-cm",
+     *         code: "A02.24",
+     *         targets: ["http://human-phenotype-ontology.org"]
+     *     })
+     */
+    public crosswalk(
+        request: phenoml.construe.CrosswalkRequest,
+        requestOptions?: CodesClient.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.construe.CrosswalkResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__crosswalk(request, requestOptions));
+    }
+
+    private async __crosswalk(
+        request: phenoml.construe.CrosswalkRequest,
+        requestOptions?: CodesClient.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.construe.CrosswalkResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                "construe/codes/crosswalk",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            requestType: "json",
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as phenoml.construe.CrosswalkResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.construe.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.construe.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 413:
+                    throw new phenoml.construe.ContentTooLargeError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 501:
+                    throw new phenoml.construe.NotImplementedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 502:
+                    throw new phenoml.construe.BadGatewayError(_response.error.body as unknown, _response.rawResponse);
+                case 503:
+                    throw new phenoml.construe.ServiceUnavailableError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/construe/codes/crosswalk");
+    }
+
+    /**
      * Returns a paginated list of all codes in the specified code system from the terminology server.
      *
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
