@@ -1,3 +1,9 @@
+## [17.11.0] - 2026-07-29
+### Added
+- **`client.construe.codes.crosswalk()`** — new method that maps a source medical code to one or more target FHIR code-system URIs using shared UMLS CUIs; returns a `CrosswalkResponse` grouping matches by target system.
+- **`CrosswalkRequest`, `CrosswalkResponse`, `CrosswalkTarget`, and `CrosswalkMatch`** — new types supporting the crosswalk endpoint, exported from the `construe` namespace.
+- **`BadGatewayError` (502) and `ContentTooLargeError` (413)** — new error classes in the `construe` namespace thrown by the crosswalk endpoint on upstream failures or oversized payloads.
+
 ## [17.10.2] - 2026-07-28
 ### Changed
 - **`client.lang2Fhir.document()` and `client.lang2Fhir.documentMulti()`** — the `content` field now accepts TIFF (`image/tiff`) files in addition to PDF, PNG, and JPEG; file type is still auto-detected from content magic bytes.
