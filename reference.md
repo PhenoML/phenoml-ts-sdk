@@ -1764,6 +1764,78 @@ await client.construe.codes.phenocr({
 </dl>
 </details>
 
+<details><summary><code>client.construe.codes.<a href="/src/api/resources/construe/resources/codes/client/Client.ts">crosswalk</a>({ ...params }) -> phenoml.CrosswalkResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Maps one source medical code to one or more target code-system URIs using
+shared UMLS CUIs. A successful response is HTTP 200 even when the source
+code or a target has no matches; inspect `reason_code` on the item and
+target entries for miss details.
+
+Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.construe.codes.crosswalk({
+    system: "http://hl7.org/fhir/sid/icd-10-cm",
+    code: "A02.24",
+    targets: ["http://human-phenotype-ontology.org"]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.construe.CrosswalkRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CodesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.construe.codes.<a href="/src/api/resources/construe/resources/codes/client/Client.ts">list</a>(codesystem, { ...params }) -> phenoml.ListCodesResponse</code></summary>
 <dl>
 <dd>
