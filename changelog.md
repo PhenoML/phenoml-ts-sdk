@@ -1,3 +1,11 @@
+## [17.12.0] - 2026-07-30
+### Added
+- **`client.construe.codes.crosswalk()`** — new method that maps a source medical code to one or more target FHIR code-system URIs using shared UMLS CUIs; returns a `CrosswalkResponse` grouping matches by target system.
+- **`CrosswalkRequest`, `CrosswalkResponse`, `CrosswalkTarget`, and `CrosswalkMatch`** — new types supporting the crosswalk endpoint, exported from the `construe` namespace.
+
+### Changed
+- **`ProfileUploadRequest.structure_definition`** — documentation clarifies that when `id` is omitted from the StructureDefinition, a random UUID is now assigned as the profile's lookup key (previously it was derived from the canonical URL's final path segment).
+
 ## [17.11.0] - 2026-07-29
 ### Added
 - **`client.construe.codes.crosswalk()`** — new method that maps a source medical code to one or more target FHIR code-system URIs using shared UMLS CUIs; returns a `CrosswalkResponse` grouping matches by target system.
