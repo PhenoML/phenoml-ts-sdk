@@ -6,5 +6,8 @@ import type * as phenoml from "../../../index.js";
  * Optional processing configuration shared across document endpoints.
  */
 export interface DocumentConfig {
+    /** Deprecated. Use split_classifications instead. */
     page_filter?: phenoml.lang2Fhir.PageFilter | undefined;
+    /** Optional per-page split classifications. Mutually exclusive with page_filter. This is a caller-defined list, not a fixed taxonomy: choose each classification id and write a natural-language description for the per-page classifier. For each page, the classifier assigns the best-matching classification or leaves the page ungrouped. Pages matching operation=drop are removed before extraction. Pages matching operation=group are kept, and extracted resources attributed to those pages include the classification id in response metadata and FHIR meta.tag. Example ids such as clinical and admin are illustrative, not a fixed set. */
+    split_classifications?: phenoml.lang2Fhir.SplitClassification[] | undefined;
 }
