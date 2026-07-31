@@ -312,6 +312,7 @@ describe("Lang2FhirClient", () => {
                     description:
                         "John Smith (DOB 1980-05-12) was diagnosed with Type 2 Diabetes during office visit on 2025-03-01 with Dr. Chen",
                     originalText: "diagnosed with Type 2 Diabetes",
+                    group: "clinical",
                     sourcePages: [2],
                 },
             ],
@@ -1026,6 +1027,20 @@ describe("Lang2FhirClient", () => {
             version: "R4",
             content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
             provider: "medplum",
+            config: {
+                split_classifications: [
+                    {
+                        id: "clinical",
+                        description: "Clinical notes, diagnoses, medications, observations, and patient demographics.",
+                        operation: "group",
+                    },
+                    {
+                        id: "admin",
+                        description: "Administrative boilerplate, insurance forms, and cover sheets.",
+                        operation: "drop",
+                    },
+                ],
+            },
         };
         const rawResponseBody = {
             success: true,
@@ -1038,6 +1053,9 @@ describe("Lang2FhirClient", () => {
                         fullUrl: "urn:uuid:patient-001",
                         resource: {
                             resourceType: "Patient",
+                            meta: {
+                                tag: [{ system: "https://phenoml.com/fhir/split-classification", code: "clinical" }],
+                            },
                             name: [{ given: ["John"], family: "Doe" }],
                             gender: "male",
                             birthDate: "1979-03-15",
@@ -1048,6 +1066,9 @@ describe("Lang2FhirClient", () => {
                         fullUrl: "urn:uuid:condition-001",
                         resource: {
                             resourceType: "Condition",
+                            meta: {
+                                tag: [{ system: "https://phenoml.com/fhir/split-classification", code: "clinical" }],
+                            },
                             code: { text: "Type 2 Diabetes Mellitus" },
                             subject: { reference: "urn:uuid:patient-001" },
                         },
@@ -1057,6 +1078,9 @@ describe("Lang2FhirClient", () => {
                         fullUrl: "urn:uuid:medication-001",
                         resource: {
                             resourceType: "MedicationRequest",
+                            meta: {
+                                tag: [{ system: "https://phenoml.com/fhir/split-classification", code: "clinical" }],
+                            },
                             medicationCodeableConcept: { text: "Metformin 500mg" },
                             subject: { reference: "urn:uuid:patient-001" },
                         },
@@ -1070,6 +1094,7 @@ describe("Lang2FhirClient", () => {
                     resourceType: "Patient",
                     description: "John Doe, born 1979-03-15",
                     originalText: "John Doe, DOB 1979-03-15",
+                    group: "clinical",
                     sourcePages: [1],
                 },
                 {
@@ -1077,6 +1102,7 @@ describe("Lang2FhirClient", () => {
                     resourceType: "Condition",
                     description: "Type 2 Diabetes Mellitus diagnosis",
                     originalText: "diagnosed with Type 2 Diabetes",
+                    group: "clinical",
                     sourcePages: [1],
                 },
                 {
@@ -1084,11 +1110,21 @@ describe("Lang2FhirClient", () => {
                     resourceType: "MedicationRequest",
                     description: "Metformin 500mg prescription",
                     originalText: "Prescribed Metformin 500mg",
+                    group: "clinical",
                     sourcePages: [2],
                 },
             ],
             validation: { passes: [{}], fixed: true, attempts: 1, summary: "summary" },
-            page_classifications: [{ page_number: 1, include: true, reason: "clinical notes with diagnoses" }],
+            page_classifications: [
+                {
+                    page_number: 1,
+                    include: true,
+                    classification_id: "clinical",
+                    reason: "clinical demographics and diagnosis",
+                },
+                { page_number: 2, include: true, classification_id: "clinical", reason: "clinical medication details" },
+                { page_number: 3, include: false, classification_id: "admin", reason: "administrative cover sheet" },
+            ],
         };
 
         server
@@ -1104,6 +1140,20 @@ describe("Lang2FhirClient", () => {
             version: "R4",
             content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
             provider: "medplum",
+            config: {
+                split_classifications: [
+                    {
+                        id: "clinical",
+                        description: "Clinical notes, diagnoses, medications, observations, and patient demographics.",
+                        operation: "group",
+                    },
+                    {
+                        id: "admin",
+                        description: "Administrative boilerplate, insurance forms, and cover sheets.",
+                        operation: "drop",
+                    },
+                ],
+            },
         });
         expect(response).toEqual(rawResponseBody);
     });

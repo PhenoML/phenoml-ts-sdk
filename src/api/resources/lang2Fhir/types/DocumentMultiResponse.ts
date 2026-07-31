@@ -3,6 +3,6 @@
 import type * as phenoml from "../../../index.js";
 
 export interface DocumentMultiResponse extends phenoml.lang2Fhir.CreateMultiResponse {
-    /** Per-page classifier decisions. Populated only when a page_filter was supplied in the request. Contains one entry per input page, including both kept and dropped pages. */
+    /** Per-page classifier decisions. Populated when page_filter or split_classifications was supplied in the request. Contains one entry per input page, including both kept and dropped pages. */
     page_classifications?: phenoml.lang2Fhir.PageClassification[] | undefined;
 }

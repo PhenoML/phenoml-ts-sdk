@@ -7,7 +7,18 @@ import type * as phenoml from "../../../../index.js";
  *     {
  *         version: "R4",
  *         content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
- *         provider: "medplum"
+ *         provider: "medplum",
+ *         config: {
+ *             split_classifications: [{
+ *                     id: "clinical",
+ *                     description: "Clinical notes, diagnoses, medications, observations, and patient demographics.",
+ *                     operation: "group"
+ *                 }, {
+ *                     id: "admin",
+ *                     description: "Administrative boilerplate, insurance forms, and cover sheets.",
+ *                     operation: "drop"
+ *                 }]
+ *         }
  *     }
  */
 export interface DocumentMultiRequest {

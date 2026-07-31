@@ -1,3 +1,14 @@
+## [17.12.0] - 2026-07-31
+### Added
+- **`SplitClassification`** — new exported type in the `lang2Fhir` namespace representing a caller-defined page classification with an `id`, `description`, and `operation` (`"group"` or `"drop"`).
+- **`DocumentConfig.split_classifications`** — new optional field accepting a `SplitClassification[]` that instructs the `/lang2fhir/document/multi` endpoint to classify pages and either keep (group) or discard (drop) them before FHIR extraction; mutually exclusive with the now-deprecated `page_filter`.
+- **`PageClassification.classification_id`** — new optional field on per-page classifier results that surfaces which split classification was assigned to the page.
+- **`CreateMultiResponse` resource metadata `group`** — new optional field indicating the split classification id attributed to each extracted FHIR resource.
+
+### Changed
+- **`DocumentMultiResponse.page_classifications`** — doc updated to reflect that the field is now populated when either `page_filter` or `split_classifications` is supplied in the request.
+- **`ProfileUploadRequest.structure_definition`** — doc updated to clarify that when `id` is omitted from the StructureDefinition, a random UUID is assigned as the profile's lookup key.
+
 ## [17.11.0] - 2026-07-29
 ### Added
 - **`client.construe.codes.crosswalk()`** — new method that maps a source medical code to one or more target FHIR code-system URIs using shared UMLS CUIs; returns a `CrosswalkResponse` grouping matches by target system.
