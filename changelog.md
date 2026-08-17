@@ -1,3 +1,14 @@
+## [17.12.0] - 2026-08-17
+### Added
+- **`SplitClassification`** — new type representing a caller-defined per-page classification; add it to `DocumentConfig.split_classifications` to group or drop pages before FHIR extraction in `client.lang2Fhir.documentMulti()`.
+- **`ResourceReview`, `ResourceReviewTarget`, `ResourceReviewFinding`, `ResourceReviewFlagged`, and `ResourceReviewResult`** — new types supporting an opt-in faithfulness audit; set `config.resource_review` in a `documentMulti()` request to have unsupported resources pulled from the bundle and reported in `response.resource_review`.
+- **`PageClassification.classification_id`** — new optional field carrying the split classification id assigned to each page when `split_classifications` is used.
+- **`CreateMultiResponse.Resources.Item.group`** — new optional field indicating which split classification id was assigned to each extracted FHIR resource.
+
+### Changed
+- **`DocumentConfig.page_filter`** — deprecated in favour of the new `split_classifications` field; existing usage continues to work unchanged.
+- **`DocumentMultiResponse.page_classifications`** — now populated when either `page_filter` or `split_classifications` is supplied in the request (previously only `page_filter`).
+
 ## [17.11.0] - 2026-07-29
 ### Added
 - **`client.construe.codes.crosswalk()`** — new method that maps a source medical code to one or more target FHIR code-system URIs using shared UMLS CUIs; returns a `CrosswalkResponse` grouping matches by target system.
