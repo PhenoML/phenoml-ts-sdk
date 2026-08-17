@@ -1,3 +1,15 @@
+## [17.12.0] - 2026-08-17
+### Added
+- **`SplitClassification`** — new type representing a caller-defined per-page classification with an `id`, `description`, and `operation` (`"group"` or `"drop"`); used to route document pages before FHIR extraction.
+- **`DocumentConfig.split_classifications`** — new optional field accepting `SplitClassification[]`; mutually exclusive with the now-deprecated `page_filter`; matched pages are tagged with the classification id in response metadata and FHIR `meta.tag`.
+- **`ResourceReview`, `ResourceReviewTarget`, `ResourceReviewResult`, `ResourceReviewFlagged`, and `ResourceReviewFinding`** — new types supporting an opt-in faithfulness audit; resources whose fields are not supported by the source document are pulled from the bundle and reported under `resource_review` in the response.
+- **`DocumentConfig.resource_review`** and **`CreateMultiResponse.resource_review`** — new optional fields to request and receive the faithfulness audit result from the `/lang2fhir/document/multi` endpoint.
+- **`PageClassification.classification_id`** and **`CreateMultiResponse.Resources.Item.group`** — new optional fields that surface the split classification id assigned to each page and extracted resource respectively.
+
+### Changed
+- **`DocumentMultiResponse.page_classifications`** — doc updated to reflect that the field is now populated when either `page_filter` or `split_classifications` is supplied in the request.
+- **`ProfileUploadRequest.structure_definition`** — doc clarified: when `id` is omitted from the StructureDefinition, a random UUID is now assigned as the profile's lookup key instead of being derived from the canonical URL path segment.
+
 ## [17.11.0] - 2026-07-29
 ### Added
 - **`client.construe.codes.crosswalk()`** — new method that maps a source medical code to one or more target FHIR code-system URIs using shared UMLS CUIs; returns a `CrosswalkResponse` grouping matches by target system.
