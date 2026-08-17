@@ -8,6 +8,8 @@ export interface PageClassification {
     page_number?: number | undefined;
     /** Whether the page was kept (true) or dropped (false) from FHIR extraction. */
     include?: boolean | undefined;
+    /** Split classification id assigned to the page. Omitted or empty for the ungrouped/default bucket. */
+    classification_id?: string | undefined;
     /** Short LLM-generated explanation of the decision. */
     reason?: string | undefined;
 }
