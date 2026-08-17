@@ -2,8 +2,8 @@
   "metadata": {
     "language": "typescript",
     "packageName": "phenoml",
-    "sdkVersion": "17.11.0",
-    "specCommit": "39a46d3227b4dab72fda53e1ee095b0dae45c530",
+    "sdkVersion": "17.12.0",
+    "specCommit": "009c5b058e72874370fdceab5faa28382f414e1b",
     "generatorName": "fernapi/fern-typescript-sdk"
   },
   "renderRules": {
@@ -3623,15 +3623,94 @@
                     "jsonKey": "page_filter",
                     "fieldTemplate": "\"page_filter\": {{value}}",
                     "kind": "object",
+                    "required": false
+                  },
+                  {
+                    "jsonKey": "split_classifications",
+                    "fieldTemplate": "\"split_classifications\": {{value}}",
+                    "kind": "list",
+                    "required": false,
+                    "items": {
+                      "jsonKey": "",
+                      "fieldTemplate": "{{value}}",
+                      "kind": "object",
+                      "required": true,
+                      "nested": {
+                        "fieldSeparator": ", ",
+                        "fields": [
+                          {
+                            "jsonKey": "id",
+                            "fieldTemplate": "\"id\": {{value}}",
+                            "kind": "string",
+                            "required": true
+                          },
+                          {
+                            "jsonKey": "description",
+                            "fieldTemplate": "\"description\": {{value}}",
+                            "kind": "string",
+                            "required": true
+                          },
+                          {
+                            "jsonKey": "operation",
+                            "fieldTemplate": "\"operation\": {{value}}",
+                            "kind": "enum",
+                            "required": true,
+                            "enumValues": [
+                              "group",
+                              "drop"
+                            ]
+                          }
+                        ],
+                        "wrap": "{ {{__body__}} }"
+                      }
+                    }
+                  },
+                  {
+                    "jsonKey": "resource_review",
+                    "fieldTemplate": "\"resource_review\": {{value}}",
+                    "kind": "object",
                     "required": false,
                     "nested": {
                       "fieldSeparator": ", ",
                       "fields": [
                         {
-                          "jsonKey": "context",
-                          "fieldTemplate": "\"context\": {{value}}",
-                          "kind": "string",
-                          "required": true
+                          "jsonKey": "targets",
+                          "fieldTemplate": "\"targets\": {{value}}",
+                          "kind": "list",
+                          "required": true,
+                          "items": {
+                            "jsonKey": "",
+                            "fieldTemplate": "{{value}}",
+                            "kind": "object",
+                            "required": true,
+                            "nested": {
+                              "fieldSeparator": ", ",
+                              "fields": [
+                                {
+                                  "jsonKey": "resource_type",
+                                  "fieldTemplate": "\"resource_type\": {{value}}",
+                                  "kind": "string",
+                                  "required": true
+                                },
+                                {
+                                  "jsonKey": "fields",
+                                  "fieldTemplate": "\"fields\": {{value}}",
+                                  "kind": "list",
+                                  "required": false,
+                                  "items": {
+                                    "jsonKey": "",
+                                    "fieldTemplate": "{{value}}",
+                                    "kind": "enum",
+                                    "required": true,
+                                    "enumValues": [
+                                      "dates"
+                                    ]
+                                  }
+                                }
+                              ],
+                              "wrap": "{ {{__body__}} }"
+                            }
+                          }
                         }
                       ],
                       "wrap": "{ {{__body__}} }"
@@ -3652,7 +3731,21 @@
         "body": {
           "version": "R4",
           "content": "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
-          "provider": "medplum"
+          "provider": "medplum",
+          "config": {
+            "split_classifications": [
+              {
+                "id": "clinical",
+                "description": "Clinical notes, diagnoses, medications, observations, and patient demographics.",
+                "operation": "group"
+              },
+              {
+                "id": "admin",
+                "description": "Administrative boilerplate, insurance forms, and cover sheets.",
+                "operation": "drop"
+              }
+            ]
+          }
         }
       },
       "response": {
@@ -3667,6 +3760,14 @@
                 "fullUrl": "urn:uuid:patient-001",
                 "resource": {
                   "resourceType": "Patient",
+                  "meta": {
+                    "tag": [
+                      {
+                        "system": "https://phenoml.com/fhir/split-classification",
+                        "code": "clinical"
+                      }
+                    ]
+                  },
                   "name": [
                     {
                       "given": [
@@ -3687,6 +3788,14 @@
                 "fullUrl": "urn:uuid:condition-001",
                 "resource": {
                   "resourceType": "Condition",
+                  "meta": {
+                    "tag": [
+                      {
+                        "system": "https://phenoml.com/fhir/split-classification",
+                        "code": "clinical"
+                      }
+                    ]
+                  },
                   "code": {
                     "text": "Type 2 Diabetes Mellitus"
                   },
@@ -3703,6 +3812,14 @@
                 "fullUrl": "urn:uuid:medication-001",
                 "resource": {
                   "resourceType": "MedicationRequest",
+                  "meta": {
+                    "tag": [
+                      {
+                        "system": "https://phenoml.com/fhir/split-classification",
+                        "code": "clinical"
+                      }
+                    ]
+                  },
                   "medicationCodeableConcept": {
                     "text": "Metformin 500mg"
                   },
@@ -3723,6 +3840,7 @@
               "resourceType": "Patient",
               "description": "John Doe, born 1979-03-15",
               "originalText": "John Doe, DOB 1979-03-15",
+              "group": "clinical",
               "sourcePages": [
                 1
               ]
@@ -3732,6 +3850,7 @@
               "resourceType": "Condition",
               "description": "Type 2 Diabetes Mellitus diagnosis",
               "originalText": "diagnosed with Type 2 Diabetes",
+              "group": "clinical",
               "sourcePages": [
                 1
               ]
@@ -3741,9 +3860,30 @@
               "resourceType": "MedicationRequest",
               "description": "Metformin 500mg prescription",
               "originalText": "Prescribed Metformin 500mg",
+              "group": "clinical",
               "sourcePages": [
                 2
               ]
+            }
+          ],
+          "page_classifications": [
+            {
+              "page_number": 1,
+              "include": true,
+              "classification_id": "clinical",
+              "reason": "clinical demographics and diagnosis"
+            },
+            {
+              "page_number": 2,
+              "include": true,
+              "classification_id": "clinical",
+              "reason": "clinical medication details"
+            },
+            {
+              "page_number": 3,
+              "include": false,
+              "classification_id": "admin",
+              "reason": "administrative cover sheet"
             }
           ]
         }
@@ -3811,15 +3951,94 @@
                     "jsonKey": "page_filter",
                     "fieldTemplate": "\"page_filter\": {{value}}",
                     "kind": "object",
+                    "required": false
+                  },
+                  {
+                    "jsonKey": "split_classifications",
+                    "fieldTemplate": "\"split_classifications\": {{value}}",
+                    "kind": "list",
+                    "required": false,
+                    "items": {
+                      "jsonKey": "",
+                      "fieldTemplate": "{{value}}",
+                      "kind": "object",
+                      "required": true,
+                      "nested": {
+                        "fieldSeparator": ", ",
+                        "fields": [
+                          {
+                            "jsonKey": "id",
+                            "fieldTemplate": "\"id\": {{value}}",
+                            "kind": "string",
+                            "required": true
+                          },
+                          {
+                            "jsonKey": "description",
+                            "fieldTemplate": "\"description\": {{value}}",
+                            "kind": "string",
+                            "required": true
+                          },
+                          {
+                            "jsonKey": "operation",
+                            "fieldTemplate": "\"operation\": {{value}}",
+                            "kind": "enum",
+                            "required": true,
+                            "enumValues": [
+                              "group",
+                              "drop"
+                            ]
+                          }
+                        ],
+                        "wrap": "{ {{__body__}} }"
+                      }
+                    }
+                  },
+                  {
+                    "jsonKey": "resource_review",
+                    "fieldTemplate": "\"resource_review\": {{value}}",
+                    "kind": "object",
                     "required": false,
                     "nested": {
                       "fieldSeparator": ", ",
                       "fields": [
                         {
-                          "jsonKey": "context",
-                          "fieldTemplate": "\"context\": {{value}}",
-                          "kind": "string",
-                          "required": true
+                          "jsonKey": "targets",
+                          "fieldTemplate": "\"targets\": {{value}}",
+                          "kind": "list",
+                          "required": true,
+                          "items": {
+                            "jsonKey": "",
+                            "fieldTemplate": "{{value}}",
+                            "kind": "object",
+                            "required": true,
+                            "nested": {
+                              "fieldSeparator": ", ",
+                              "fields": [
+                                {
+                                  "jsonKey": "resource_type",
+                                  "fieldTemplate": "\"resource_type\": {{value}}",
+                                  "kind": "string",
+                                  "required": true
+                                },
+                                {
+                                  "jsonKey": "fields",
+                                  "fieldTemplate": "\"fields\": {{value}}",
+                                  "kind": "list",
+                                  "required": false,
+                                  "items": {
+                                    "jsonKey": "",
+                                    "fieldTemplate": "{{value}}",
+                                    "kind": "enum",
+                                    "required": true,
+                                    "enumValues": [
+                                      "dates"
+                                    ]
+                                  }
+                                }
+                              ],
+                              "wrap": "{ {{__body__}} }"
+                            }
+                          }
                         }
                       ],
                       "wrap": "{ {{__body__}} }"
