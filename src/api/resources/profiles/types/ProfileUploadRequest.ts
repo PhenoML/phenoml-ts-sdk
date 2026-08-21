@@ -3,7 +3,7 @@
 import type * as phenoml from "../../../index.js";
 
 export interface ProfileUploadRequest {
-    /** A FHIR StructureDefinition as a JSON object. Must include url, type, and a snapshot with elements. All metadata (version, resource type, id) is derived from the StructureDefinition itself. The lowercase id becomes the profile's lookup key; when omitted, it is derived from the final path segment of the canonical url. */
+    /** A FHIR StructureDefinition as a JSON object. Must include url, type, and a snapshot with elements. Metadata such as version, resource type, and url is read from the StructureDefinition itself. The lowercase id becomes the profile's lookup key; when omitted, a random UUID is assigned. */
     structure_definition: phenoml.profiles.FhirResource;
     /** Implementation Guide name to group this profile under. On create, defaults to "custom" if omitted; on update, omitting it preserves the profile's current guide. Cannot be "us_core" (reserved). Use this to organize custom profiles into named IGs that can be referenced when calling create/multi or document/multi endpoints. */
     implementation_guide?: string | undefined;
