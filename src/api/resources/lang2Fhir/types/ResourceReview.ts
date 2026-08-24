@@ -3,7 +3,7 @@
 import type * as phenoml from "../../../index.js";
 
 /**
- * Opt-in, report-only faithfulness audit (honored by /lang2fhir/document/multi). For each selected resource type an LLM checks whether selected dates and clinical code concepts are actually supported by the full source document. Resources with an unsupported field are pulled out of the returned bundle and reported under resource_review in the response.
+ * Opt-in, report-only faithfulness audit (honored by /lang2fhir/create/multi and /lang2fhir/document/multi). For each selected resource type an LLM checks whether selected dates and clinical code concepts are actually supported by the full source document. Resources with an unsupported field are pulled out of the returned bundle and reported under resource_review in the response.
  */
 export interface ResourceReview {
     /** The resource types to audit and which date or clinical code field kinds to check. */
