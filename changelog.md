@@ -1,3 +1,5 @@
+## [17.13.0] - 2026-08-24
+
 ## [17.12.0] - 2026-08-21
 ### Added
 - **`SplitClassification`** — new type representing a caller-defined per-page classification rule; added to `DocumentConfig.split_classifications` so callers can route document pages to named groups or drop them before FHIR extraction.
