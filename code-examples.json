@@ -2,8 +2,8 @@
   "metadata": {
     "language": "typescript",
     "packageName": "phenoml",
-    "sdkVersion": "17.12.0",
-    "specCommit": "b40035cbf3c545acdcd1ba3d1a922bee5a5c5ffa",
+    "sdkVersion": "17.13.0",
+    "specCommit": "1eecbce7240c958d0701162afa2d62091218e063",
     "generatorName": "fernapi/fern-typescript-sdk"
   },
   "renderRules": {
@@ -3477,6 +3477,58 @@
                 "check",
                 "fix"
               ]
+            },
+            {
+              "jsonKey": "resource_review",
+              "fieldTemplate": "\"resource_review\": {{value}}",
+              "kind": "object",
+              "required": false,
+              "nested": {
+                "fieldSeparator": ", ",
+                "fields": [
+                  {
+                    "jsonKey": "targets",
+                    "fieldTemplate": "\"targets\": {{value}}",
+                    "kind": "list",
+                    "required": true,
+                    "items": {
+                      "jsonKey": "",
+                      "fieldTemplate": "{{value}}",
+                      "kind": "object",
+                      "required": true,
+                      "nested": {
+                        "fieldSeparator": ", ",
+                        "fields": [
+                          {
+                            "jsonKey": "resource_type",
+                            "fieldTemplate": "\"resource_type\": {{value}}",
+                            "kind": "string",
+                            "required": true
+                          },
+                          {
+                            "jsonKey": "fields",
+                            "fieldTemplate": "\"fields\": {{value}}",
+                            "kind": "list",
+                            "required": false,
+                            "items": {
+                              "jsonKey": "",
+                              "fieldTemplate": "{{value}}",
+                              "kind": "enum",
+                              "required": true,
+                              "enumValues": [
+                                "dates",
+                                "codes"
+                              ]
+                            }
+                          }
+                        ],
+                        "wrap": "{ {{__body__}} }"
+                      }
+                    }
+                  }
+                ],
+                "wrap": "{ {{__body__}} }"
+              }
             }
           ]
         }
