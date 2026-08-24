@@ -1,3 +1,14 @@
+## [17.13.0] - 2026-08-24
+### Added
+- **`SplitClassification`** — new type representing a caller-defined per-page classification rule; added to `DocumentConfig.split_classifications` so callers can route document pages to named groups or drop them before FHIR extraction.
+- **`ResourceReview`, `ResourceReviewTarget`, `ResourceReviewResult`, `ResourceReviewFlagged`, and `ResourceReviewFinding`** — new types powering an opt-in faithfulness audit; configure via `DocumentConfig.resource_review` (or `CreateMultiRequest.resource_review`) and inspect flagged resources in `CreateMultiResponse.resource_review`.
+- **`PageClassification.classification_id`** — new optional field on page-classifier results indicating which split classification was assigned to each page.
+- **`CreateMultiResponse.Resources.Item.group`** — new optional field on each extracted resource indicating the split classification it was attributed to.
+
+### Changed
+- **`DocumentConfig.page_filter`** — marked deprecated in favour of the new `split_classifications` field; existing callers are unaffected but should migrate to `split_classifications` for richer per-page routing.
+- **`ResourceReview`** — doc comment updated to clarify the audit is also honored by the `/lang2fhir/create/multi` endpoint in addition to `/lang2fhir/document/multi`.
+
 ## [17.12.0] - 2026-08-21
 ### Added
 - **`SplitClassification`** — new type representing a caller-defined per-page classification rule; added to `DocumentConfig.split_classifications` so callers can route document pages to named groups or drop them before FHIR extraction.
