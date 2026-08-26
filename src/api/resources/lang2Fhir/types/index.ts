@@ -4,6 +4,7 @@ export * from "./DocumentMultiResponse.js";
 export * from "./FhirResource.js";
 export * from "./PageClassification.js";
 export * from "./PageFilter.js";
+export * from "./PatientReference.js";
 export * from "./ProfileUploadRequest.js";
 export * from "./ResourceReview.js";
 export * from "./ResourceReviewFinding.js";
