@@ -1,3 +1,12 @@
+## [17.14.0] - 2026-08-26
+### Added
+- **`PatientReference`** — new type representing an existing patient by business identifier (`system` + `value`); exported from the `lang2Fhir` namespace.
+- **`CreateMultiRequest.patient_reference`** — new optional field that links extracted clinical resources to an existing patient without requiring a Patient resource in the source text.
+- **`DocumentMultiRequest.patient_reference`** — same optional patient-linking field added to the document-based multi-extraction request.
+
+### Changed
+- **`ResourceReview`** — the opt-in faithfulness audit is now also honored by the `/lang2fhir/create/multi` endpoint (previously only `/lang2fhir/document/multi`); the `targets` array now enforces a minimum of 1 and a maximum of 25 entries.
+
 ## [17.13.0] - 2026-08-24
 ### Added
 - **`SplitClassification`** — new type representing a caller-defined per-page classification rule; added to `DocumentConfig.split_classifications` so callers can route document pages to named groups or drop them before FHIR extraction.
