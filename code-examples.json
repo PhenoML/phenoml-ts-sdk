@@ -2,8 +2,8 @@
   "metadata": {
     "language": "typescript",
     "packageName": "phenoml",
-    "sdkVersion": "17.13.0",
-    "specCommit": "3d276be6c4d898b4ef76a16567887c9cac2e42a0",
+    "sdkVersion": "17.14.0",
+    "specCommit": "4a08550f5db230949c7423d0ce5aa7055e8f0d65",
     "generatorName": "fernapi/fern-typescript-sdk"
   },
   "renderRules": {
@@ -3452,6 +3452,30 @@
               "required": false
             },
             {
+              "jsonKey": "patient_reference",
+              "fieldTemplate": "\"patient_reference\": {{value}}",
+              "kind": "object",
+              "required": false,
+              "nested": {
+                "fieldSeparator": ", ",
+                "fields": [
+                  {
+                    "jsonKey": "system",
+                    "fieldTemplate": "\"system\": {{value}}",
+                    "kind": "string",
+                    "required": true
+                  },
+                  {
+                    "jsonKey": "value",
+                    "fieldTemplate": "\"value\": {{value}}",
+                    "kind": "string",
+                    "required": true
+                  }
+                ],
+                "wrap": "{ {{__body__}} }"
+              }
+            },
+            {
               "jsonKey": "implementation_guide",
               "fieldTemplate": "\"implementation_guide\": {{value}}",
               "kind": "string",
@@ -3964,6 +3988,30 @@
               "fieldTemplate": "\"provider\": {{value}}",
               "kind": "string",
               "required": false
+            },
+            {
+              "jsonKey": "patient_reference",
+              "fieldTemplate": "\"patient_reference\": {{value}}",
+              "kind": "object",
+              "required": false,
+              "nested": {
+                "fieldSeparator": ", ",
+                "fields": [
+                  {
+                    "jsonKey": "system",
+                    "fieldTemplate": "\"system\": {{value}}",
+                    "kind": "string",
+                    "required": true
+                  },
+                  {
+                    "jsonKey": "value",
+                    "fieldTemplate": "\"value\": {{value}}",
+                    "kind": "string",
+                    "required": true
+                  }
+                ],
+                "wrap": "{ {{__body__}} }"
+              }
             },
             {
               "jsonKey": "implementation_guide",
