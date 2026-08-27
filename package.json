@@ -1,6 +1,6 @@
 {
     "name": "phenoml",
-    "version": "17.14.0",
+    "version": "0.0.0-fern-placeholder",
     "private": false,
     "repository": {
         "type": "git",
@@ -186,6 +186,17 @@
                 "default": "./dist/cjs/api/resources/profiles/resources/profiles/exports.js"
             },
             "default": "./dist/cjs/api/resources/profiles/resources/profiles/exports.js"
+        },
+        "./profiles/versions": {
+            "import": {
+                "types": "./dist/esm/api/resources/profiles/resources/versions/exports.d.mts",
+                "default": "./dist/esm/api/resources/profiles/resources/versions/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/profiles/resources/versions/exports.d.ts",
+                "default": "./dist/cjs/api/resources/profiles/resources/versions/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/profiles/resources/versions/exports.js"
         },
         "./summary": {
             "import": {
