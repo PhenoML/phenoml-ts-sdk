@@ -2,8 +2,8 @@
   "metadata": {
     "language": "typescript",
     "packageName": "phenoml",
-    "sdkVersion": "17.14.0",
-    "specCommit": "4a08550f5db230949c7423d0ce5aa7055e8f0d65",
+    "sdkVersion": "18.0.0",
+    "specCommit": "16acd5eee3fa79f3b9acf08b06be4dceccbea836",
     "generatorName": "fernapi/fern-typescript-sdk"
   },
   "renderRules": {
@@ -4699,6 +4699,102 @@
         "params": [
           {
             "name": "id",
+            "kind": "string"
+          }
+        ]
+      }
+    },
+    "GET /fhir/profiles/{id}/versions": {
+      "httpMethod": "GET",
+      "httpPath": "/fhir/profiles/{id}/versions",
+      "request": {
+        "body": null
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.profiles.versions.list({{id}})",
+        "params": [
+          {
+            "name": "id",
+            "kind": "string"
+          }
+        ]
+      }
+    },
+    "POST /fhir/profiles/{id}/versions": {
+      "httpMethod": "POST",
+      "httpPath": "/fhir/profiles/{id}/versions",
+      "request": {
+        "body": null
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.profiles.versions.create({{id}}, {{__body__}})",
+        "params": [
+          {
+            "name": "id",
+            "kind": "string"
+          }
+        ],
+        "body": {
+          "fieldSeparator": ", ",
+          "fields": [
+            {
+              "jsonKey": "",
+              "fieldTemplate": "{{value}}",
+              "kind": "object",
+              "required": true,
+              "passthroughBody": true
+            }
+          ]
+        }
+      }
+    },
+    "GET /fhir/profiles/{id}/versions/{version}": {
+      "httpMethod": "GET",
+      "httpPath": "/fhir/profiles/{id}/versions/{version}",
+      "request": {
+        "body": null
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.profiles.versions.get({{id}}, {{version}})",
+        "params": [
+          {
+            "name": "id",
+            "kind": "string"
+          },
+          {
+            "name": "version",
+            "kind": "string"
+          }
+        ]
+      }
+    },
+    "DELETE /fhir/profiles/{id}/versions/{version}": {
+      "httpMethod": "DELETE",
+      "httpPath": "/fhir/profiles/{id}/versions/{version}",
+      "request": {
+        "body": null
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.profiles.versions.delete({{id}}, {{version}})",
+        "params": [
+          {
+            "name": "id",
+            "kind": "string"
+          },
+          {
+            "name": "version",
             "kind": "string"
           }
         ]

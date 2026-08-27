@@ -4223,7 +4223,12 @@ JSON is omitted from each entry; fetch a single profile by id to retrieve it.
 The `url` query parameter filters by canonical URL. The canonical URL is the
 stable key other platform features use to reference a profile (FHIR's
 `meta.profile`, `baseDefinition`), since StructureDefinition ids are only
-unique within a package. A non-matching filter returns an empty list, not a 404.
+unique within a package. An unpinned `url` filter returns metadata for
+the profile's current StructureDefinition. Pinned `url|version` filters
+resolve a retained version when present; otherwise they can fall back to
+the profile's current StructureDefinition, whose content can change
+through the profile update endpoint. A non-matching filter returns an
+empty list, not a 404.
 </dd>
 </dl>
 </dd>
@@ -4291,9 +4296,8 @@ await client.profiles.profiles.list({
 Creates a custom profile from a FHIR StructureDefinition supplied as a JSON
 object. Metadata such as version, resource type, and url is read from the
 StructureDefinition; the lowercase StructureDefinition id becomes the
-profile's lookup key. When id is omitted, a random UUID is assigned. Code
-system configuration is auto-extracted from the snapshot. Optionally group
-the profile under a named implementation guide.
+profile's lookup key. When id is omitted, a random UUID is assigned.
+Optionally group the profile under a named implementation guide.
 </dd>
 </dl>
 </dd>
@@ -4310,8 +4314,29 @@ the profile under a named implementation guide.
 ```typescript
 await client.profiles.profiles.create({
     structure_definition: {
-        "key": "value"
-    }
+        "resourceType": "StructureDefinition",
+        "id": "custom-patient",
+        "url": "http://phenoml.com/fhir/StructureDefinition/custom-patient",
+        "name": "CustomPatient",
+        "status": "active",
+        "fhirVersion": "4.0.1",
+        "kind": "resource",
+        "abstract": false,
+        "type": "Patient",
+        "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Patient",
+        "derivation": "constraint",
+        "snapshot": {
+            "element": [
+                {
+                    "id": "Patient",
+                    "path": "Patient",
+                    "min": 0,
+                    "max": "*"
+                }
+            ]
+        }
+    },
+    implementation_guide: "acme-cardiology"
 });
 
 ```
@@ -4360,7 +4385,8 @@ await client.profiles.profiles.create({
 <dl>
 <dd>
 
-Returns a single custom profile by id, including its full StructureDefinition JSON.
+Returns a single custom profile by id, including its full StructureDefinition
+JSON.
 </dd>
 </dl>
 </dd>
@@ -4427,10 +4453,12 @@ Replaces an existing custom profile with a new StructureDefinition. The
 `id` path parameter is authoritative: if the StructureDefinition includes
 an `id` it must match the path parameter, and if it omits one the path
 parameter is used. The FHIR resource type of the profile cannot change.
-Code system configuration is
-re-derived from the new StructureDefinition. When `implementation_guide` is
-omitted, the profile keeps its existing implementation guide. The instance
-stores a single version per canonical URL, so this replaces it in place.
+When `implementation_guide` is omitted, the profile keeps its existing
+implementation guide. A retained version string is allowed only when
+re-submitting the profile's current version with an unchanged
+StructureDefinition; otherwise it returns a conflict. While the profile
+has retained versions, its
+canonical URL cannot be changed.
 </dd>
 </dl>
 </dd>
@@ -4447,8 +4475,29 @@ stores a single version per canonical URL, so this replaces it in place.
 ```typescript
 await client.profiles.profiles.update("custom-patient", {
     structure_definition: {
-        "key": "value"
-    }
+        "resourceType": "StructureDefinition",
+        "id": "custom-patient",
+        "url": "http://phenoml.com/fhir/StructureDefinition/custom-patient",
+        "name": "CustomPatient",
+        "status": "active",
+        "fhirVersion": "4.0.1",
+        "kind": "resource",
+        "abstract": false,
+        "type": "Patient",
+        "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Patient",
+        "derivation": "constraint",
+        "snapshot": {
+            "element": [
+                {
+                    "id": "Patient",
+                    "path": "Patient",
+                    "min": 0,
+                    "max": "*"
+                }
+            ]
+        }
+    },
+    implementation_guide: "acme-cardiology"
 });
 
 ```
@@ -4505,7 +4554,9 @@ await client.profiles.profiles.update("custom-patient", {
 <dl>
 <dd>
 
-Permanently deletes a custom profile by id.
+Permanently deletes a custom profile by id. This also deletes all retained
+versions for that profile so the canonical URL can be reused by a later
+upload.
 </dd>
 </dl>
 </dd>
@@ -4545,6 +4596,299 @@ await client.profiles.profiles.delete("custom-patient");
 <dd>
 
 **requestOptions:** `ProfilesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Profiles Versions
+<details><summary><code>client.profiles.versions.<a href="/src/api/resources/profiles/resources/versions/client/Client.ts">list</a>(id) -> phenoml.ProfileVersionListResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns retained versions for a custom profile.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.profiles.versions.list("custom-patient");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — The lowercase StructureDefinition id of the custom profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VersionsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.profiles.versions.<a href="/src/api/resources/profiles/resources/versions/client/Client.ts">create</a>(id, { ...params }) -> phenoml.ProfileSummary</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Adds an immutable StructureDefinition version to a custom profile. If
+the profile does not exist, it is created from the submitted version.
+The StructureDefinition must include a non-empty `version`; its
+canonical URL and resource type must match the profile when one already
+exists. If it includes an `id`, that id must match the path parameter;
+if it omits `id`, the path parameter is used. Profiles created through
+this endpoint are grouped under `custom`. Posting the profile's current
+StructureDefinition unchanged retains it as a version.
+Version strings may contain letters, numbers, and the punctuation
+characters `.`, `_`, `~`, `+`, and `-`; they cannot be exactly `.` or
+`..`. Each profile can retain up to 250 versions; delete old
+versions before adding more.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.profiles.versions.create("custom-patient", {
+    "key": "value"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — The lowercase StructureDefinition id of the custom profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.ProfileVersionCreateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VersionsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.profiles.versions.<a href="/src/api/resources/profiles/resources/versions/client/Client.ts">get</a>(id, version) -> phenoml.ProfileGetResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata and the full StructureDefinition for one retained
+version. The returned StructureDefinition's id is the profile id. The
+path version is the authored `StructureDefinition.version` value.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.profiles.versions.get("custom-patient", "2.0.0");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — The lowercase StructureDefinition id of the custom profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `string` — The authored StructureDefinition.version. It may contain letters, numbers, and the punctuation characters `.`, `_`, `~`, `+`, and `-`; it cannot be exactly `.` or `..`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VersionsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.profiles.versions.<a href="/src/api/resources/profiles/resources/versions/client/Client.ts">delete</a>(id, version) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes one retained version from a custom profile. The path
+version is the authored `StructureDefinition.version` value.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.profiles.versions.delete("custom-patient", "2.0.0");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — The lowercase StructureDefinition id of the custom profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `string` — The authored StructureDefinition.version. It may contain letters, numbers, and the punctuation characters `.`, `_`, `~`, `+`, and `-`; it cannot be exactly `.` or `..`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VersionsClient.RequestOptions` 
     
 </dd>
 </dl>
