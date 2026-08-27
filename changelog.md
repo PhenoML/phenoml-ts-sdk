@@ -1,3 +1,17 @@
+## [18.0.0] - 2026-08-27
+### Breaking Changes
+- **`ProfileSummary`** — nine fields (`id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, `updated_at`) are now required instead of `T | undefined`; remove `undefined` guards and ensure all object literals supply every required field.
+- **`ProfileListResponse.profiles`** — changed from `ProfileSummary[] | undefined` to `ProfileSummary[]`; remove null-checks on this field to avoid TypeScript errors.
+- **`ProfileGetResponse.structure_definition`** — changed from `FhirResource | undefined` to `FhirResource`; remove null-checks on this field to avoid TypeScript errors.
+
+### Added
+- **`ProfileSummary.canonical`** — new required field containing the canonical profile reference, including the version pin when present.
+- **`ProfileSummary.status`** and **`ProfileSummary.date`** — new optional fields surfacing the StructureDefinition's publication status and authored date.
+- **`VersionsClient`** — new sub-client at `client.profiles.versions` exposing `list`, `create`, `get`, and `delete` for managing retained StructureDefinition versions; also exported via the `./profiles/versions` package entry point.
+- **`ProfileVersionCreateRequest`** and **`ProfileVersionListResponse`** — new types supporting the `VersionsClient` API.
+- **`ConflictError`** — new HTTP 409 error class thrown by `profiles.profiles.update()` on version conflicts; catch via `phenoml.profiles.ConflictError`.
+- **`CreateMultiRequest.patient_reference`** and **`DocumentMultiRequest.patient_reference`** — new optional `PatientReference` field for linking extracted clinical resources to an existing patient.
+
 ## [17.14.0] - 2026-08-26
 ### Added
 - **`PatientReference`** — new type representing an existing patient by business identifier (`system` + `value`); exported from the `lang2Fhir` namespace.
