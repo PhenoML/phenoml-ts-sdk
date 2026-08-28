@@ -5,7 +5,7 @@ import { phenomlClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
 import { mockPhenoMloAuth } from "../mockAuth";
 
-describe("ProfilesClient", () => {
+describe("VersionsClient", () => {
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
@@ -18,7 +18,21 @@ describe("ProfilesClient", () => {
         });
 
         const rawResponseBody = {
-            profiles: [
+            versions: [
+                {
+                    id: "custom-patient",
+                    source: "custom",
+                    resource_type: "Patient",
+                    url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
+                    version: "2.0.0",
+                    status: "active",
+                    date: "2026-08-26",
+                    canonical: "http://phenoml.com/fhir/StructureDefinition/custom-patient|2.0.0",
+                    fhir_version: "4.0.1",
+                    implementation_guide: "acme-cardiology",
+                    created_at: "2026-08-26T15:04:05Z",
+                    updated_at: "2026-08-26T15:04:05Z",
+                },
                 {
                     id: "custom-patient",
                     source: "custom",
@@ -31,16 +45,20 @@ describe("ProfilesClient", () => {
                     fhir_version: "4.0.1",
                     implementation_guide: "acme-cardiology",
                     created_at: "2026-08-24T15:04:05Z",
-                    updated_at: "2026-08-25T16:04:05Z",
+                    updated_at: "2026-08-24T15:04:05Z",
                 },
             ],
         };
 
-        server.mockEndpoint().get("/fhir/profiles").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/fhir/profiles/custom-patient/versions")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
-        const response = await client.profiles.profiles.list({
-            url: "http://phenoml.com/fhir/StructureDefinition/custom-patient|1.0.0",
-        });
+        const response = await client.profiles.versions.list("custom-patient");
         expect(response).toEqual(rawResponseBody);
     });
 
@@ -57,11 +75,17 @@ describe("ProfilesClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/fhir/profiles").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/fhir/profiles/id/versions")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.list();
-        }).rejects.toThrow(phenoml.profiles.UnauthorizedError);
+            return await client.profiles.versions.list("id");
+        }).rejects.toThrow(phenoml.profiles.BadRequestError);
     });
 
     test("list (3)", async () => {
@@ -77,11 +101,17 @@ describe("ProfilesClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/fhir/profiles").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/fhir/profiles/id/versions")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.list();
-        }).rejects.toThrow(phenoml.profiles.ForbiddenError);
+            return await client.profiles.versions.list("id");
+        }).rejects.toThrow(phenoml.profiles.UnauthorizedError);
     });
 
     test("list (4)", async () => {
@@ -97,10 +127,68 @@ describe("ProfilesClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/fhir/profiles").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/fhir/profiles/id/versions")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.list();
+            return await client.profiles.versions.list("id");
+        }).rejects.toThrow(phenoml.profiles.ForbiddenError);
+    });
+
+    test("list (5)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .get("/fhir/profiles/id/versions")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.profiles.versions.list("id");
+        }).rejects.toThrow(phenoml.profiles.NotFoundError);
+    });
+
+    test("list (6)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .get("/fhir/profiles/id/versions")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.profiles.versions.list("id");
         }).rejects.toThrow(phenoml.profiles.InternalServerError);
     });
 
@@ -114,23 +202,7 @@ describe("ProfilesClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = {
-            structure_definition: {
-                resourceType: "StructureDefinition",
-                id: "custom-patient",
-                url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
-                name: "CustomPatient",
-                status: "active",
-                fhirVersion: "4.0.1",
-                kind: "resource",
-                abstract: false,
-                type: "Patient",
-                baseDefinition: "http://hl7.org/fhir/StructureDefinition/Patient",
-                derivation: "constraint",
-                snapshot: { element: [{ id: "Patient", path: "Patient", min: 0, max: "*" }] },
-            },
-            implementation_guide: "acme-cardiology",
-        };
+        const rawRequestBody = { key: "value" };
         const rawResponseBody = {
             id: "custom-patient",
             source: "custom",
@@ -148,38 +220,15 @@ describe("ProfilesClient", () => {
 
         server
             .mockEndpoint()
-            .post("/fhir/profiles")
+            .post("/fhir/profiles/custom-patient/versions")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.profiles.profiles.create({
-            structure_definition: {
-                resourceType: "StructureDefinition",
-                id: "custom-patient",
-                url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
-                name: "CustomPatient",
-                status: "active",
-                fhirVersion: "4.0.1",
-                kind: "resource",
-                abstract: false,
-                type: "Patient",
-                baseDefinition: "http://hl7.org/fhir/StructureDefinition/Patient",
-                derivation: "constraint",
-                snapshot: {
-                    element: [
-                        {
-                            id: "Patient",
-                            path: "Patient",
-                            min: 0,
-                            max: "*",
-                        },
-                    ],
-                },
-            },
-            implementation_guide: "acme-cardiology",
+        const response = await client.profiles.versions.create("custom-patient", {
+            key: "value",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -194,12 +243,12 @@ describe("ProfilesClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { structure_definition: { structure_definition: { key: "value" } } };
+        const rawRequestBody = { string: { key: "value" } };
         const rawResponseBody = { key: "value" };
 
         server
             .mockEndpoint()
-            .post("/fhir/profiles")
+            .post("/fhir/profiles/id/versions")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -207,11 +256,9 @@ describe("ProfilesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.create({
-                structure_definition: {
-                    structure_definition: {
-                        key: "value",
-                    },
+            return await client.profiles.versions.create("id", {
+                string: {
+                    key: "value",
                 },
             });
         }).rejects.toThrow(phenoml.profiles.BadRequestError);
@@ -227,12 +274,12 @@ describe("ProfilesClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { structure_definition: { structure_definition: { key: "value" } } };
+        const rawRequestBody = { string: { key: "value" } };
         const rawResponseBody = { key: "value" };
 
         server
             .mockEndpoint()
-            .post("/fhir/profiles")
+            .post("/fhir/profiles/id/versions")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -240,11 +287,9 @@ describe("ProfilesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.create({
-                structure_definition: {
-                    structure_definition: {
-                        key: "value",
-                    },
+            return await client.profiles.versions.create("id", {
+                string: {
+                    key: "value",
                 },
             });
         }).rejects.toThrow(phenoml.profiles.UnauthorizedError);
@@ -260,12 +305,12 @@ describe("ProfilesClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { structure_definition: { structure_definition: { key: "value" } } };
+        const rawRequestBody = { string: { key: "value" } };
         const rawResponseBody = { key: "value" };
 
         server
             .mockEndpoint()
-            .post("/fhir/profiles")
+            .post("/fhir/profiles/id/versions")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(403)
@@ -273,11 +318,9 @@ describe("ProfilesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.create({
-                structure_definition: {
-                    structure_definition: {
-                        key: "value",
-                    },
+            return await client.profiles.versions.create("id", {
+                string: {
+                    key: "value",
                 },
             });
         }).rejects.toThrow(phenoml.profiles.ForbiddenError);
@@ -293,12 +336,74 @@ describe("ProfilesClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { structure_definition: { structure_definition: { key: "value" } } };
+        const rawRequestBody = { string: { key: "value" } };
         const rawResponseBody = { key: "value" };
 
         server
             .mockEndpoint()
-            .post("/fhir/profiles")
+            .post("/fhir/profiles/id/versions")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.profiles.versions.create("id", {
+                string: {
+                    key: "value",
+                },
+            });
+        }).rejects.toThrow(phenoml.profiles.NotFoundError);
+    });
+
+    test("create (6)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { string: { key: "value" } };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/fhir/profiles/id/versions")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.profiles.versions.create("id", {
+                string: {
+                    key: "value",
+                },
+            });
+        }).rejects.toThrow(phenoml.profiles.ConflictError);
+    });
+
+    test("create (7)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { string: { key: "value" } };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/fhir/profiles/id/versions")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -306,11 +411,9 @@ describe("ProfilesClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.create({
-                structure_definition: {
-                    structure_definition: {
-                        key: "value",
-                    },
+            return await client.profiles.versions.create("id", {
+                string: {
+                    key: "value",
                 },
             });
         }).rejects.toThrow(phenoml.profiles.InternalServerError);
@@ -359,13 +462,13 @@ describe("ProfilesClient", () => {
 
         server
             .mockEndpoint()
-            .get("/fhir/profiles/custom-patient")
+            .get("/fhir/profiles/custom-patient/versions/2.0.0")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.profiles.profiles.get("custom-patient");
+        const response = await client.profiles.versions.get("custom-patient", "2.0.0");
         expect(response).toEqual(rawResponseBody);
     });
 
@@ -382,10 +485,16 @@ describe("ProfilesClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/fhir/profiles/id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/fhir/profiles/id/versions/version")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.get("id");
+            return await client.profiles.versions.get("id", "version");
         }).rejects.toThrow(phenoml.profiles.BadRequestError);
     });
 
@@ -402,10 +511,16 @@ describe("ProfilesClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/fhir/profiles/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/fhir/profiles/id/versions/version")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.get("id");
+            return await client.profiles.versions.get("id", "version");
         }).rejects.toThrow(phenoml.profiles.UnauthorizedError);
     });
 
@@ -422,10 +537,16 @@ describe("ProfilesClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/fhir/profiles/id").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/fhir/profiles/id/versions/version")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.get("id");
+            return await client.profiles.versions.get("id", "version");
         }).rejects.toThrow(phenoml.profiles.ForbiddenError);
     });
 
@@ -442,10 +563,16 @@ describe("ProfilesClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/fhir/profiles/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/fhir/profiles/id/versions/version")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.get("id");
+            return await client.profiles.versions.get("id", "version");
         }).rejects.toThrow(phenoml.profiles.NotFoundError);
     });
 
@@ -462,288 +589,16 @@ describe("ProfilesClient", () => {
 
         const rawResponseBody = { key: "value" };
 
-        server.mockEndpoint().get("/fhir/profiles/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
-
-        await expect(async () => {
-            return await client.profiles.profiles.get("id");
-        }).rejects.toThrow(phenoml.profiles.InternalServerError);
-    });
-
-    test("update (1)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = {
-            structure_definition: {
-                resourceType: "StructureDefinition",
-                id: "custom-patient",
-                url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
-                name: "CustomPatient",
-                status: "active",
-                fhirVersion: "4.0.1",
-                kind: "resource",
-                abstract: false,
-                type: "Patient",
-                baseDefinition: "http://hl7.org/fhir/StructureDefinition/Patient",
-                derivation: "constraint",
-                snapshot: { element: [{ id: "Patient", path: "Patient", min: 0, max: "*" }] },
-            },
-            implementation_guide: "acme-cardiology",
-        };
-        const rawResponseBody = {
-            id: "custom-patient",
-            source: "custom",
-            resource_type: "Patient",
-            url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
-            version: "1.0.0",
-            status: "active",
-            date: "2026-08-24",
-            canonical: "http://phenoml.com/fhir/StructureDefinition/custom-patient|1.0.0",
-            fhir_version: "4.0.1",
-            implementation_guide: "acme-cardiology",
-            created_at: "2026-08-24T15:04:05Z",
-            updated_at: "2026-08-25T16:04:05Z",
-        };
-
         server
             .mockEndpoint()
-            .put("/fhir/profiles/custom-patient")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.profiles.profiles.update("custom-patient", {
-            structure_definition: {
-                resourceType: "StructureDefinition",
-                id: "custom-patient",
-                url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
-                name: "CustomPatient",
-                status: "active",
-                fhirVersion: "4.0.1",
-                kind: "resource",
-                abstract: false,
-                type: "Patient",
-                baseDefinition: "http://hl7.org/fhir/StructureDefinition/Patient",
-                derivation: "constraint",
-                snapshot: {
-                    element: [
-                        {
-                            id: "Patient",
-                            path: "Patient",
-                            min: 0,
-                            max: "*",
-                        },
-                    ],
-                },
-            },
-            implementation_guide: "acme-cardiology",
-        });
-        expect(response).toEqual(rawResponseBody);
-    });
-
-    test("update (2)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { structure_definition: { structure_definition: { key: "value" } } };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .put("/fhir/profiles/id")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(400)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.profiles.profiles.update("id", {
-                structure_definition: {
-                    structure_definition: {
-                        key: "value",
-                    },
-                },
-            });
-        }).rejects.toThrow(phenoml.profiles.BadRequestError);
-    });
-
-    test("update (3)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { structure_definition: { structure_definition: { key: "value" } } };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .put("/fhir/profiles/id")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(401)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.profiles.profiles.update("id", {
-                structure_definition: {
-                    structure_definition: {
-                        key: "value",
-                    },
-                },
-            });
-        }).rejects.toThrow(phenoml.profiles.UnauthorizedError);
-    });
-
-    test("update (4)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { structure_definition: { structure_definition: { key: "value" } } };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .put("/fhir/profiles/id")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(403)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.profiles.profiles.update("id", {
-                structure_definition: {
-                    structure_definition: {
-                        key: "value",
-                    },
-                },
-            });
-        }).rejects.toThrow(phenoml.profiles.ForbiddenError);
-    });
-
-    test("update (5)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { structure_definition: { structure_definition: { key: "value" } } };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .put("/fhir/profiles/id")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(404)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.profiles.profiles.update("id", {
-                structure_definition: {
-                    structure_definition: {
-                        key: "value",
-                    },
-                },
-            });
-        }).rejects.toThrow(phenoml.profiles.NotFoundError);
-    });
-
-    test("update (6)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { structure_definition: { structure_definition: { key: "value" } } };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .put("/fhir/profiles/id")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(409)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.profiles.profiles.update("id", {
-                structure_definition: {
-                    structure_definition: {
-                        key: "value",
-                    },
-                },
-            });
-        }).rejects.toThrow(phenoml.profiles.ConflictError);
-    });
-
-    test("update (7)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { structure_definition: { structure_definition: { key: "value" } } };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .put("/fhir/profiles/id")
-            .jsonBody(rawRequestBody)
+            .get("/fhir/profiles/id/versions/version")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.update("id", {
-                structure_definition: {
-                    structure_definition: {
-                        key: "value",
-                    },
-                },
-            });
+            return await client.profiles.versions.get("id", "version");
         }).rejects.toThrow(phenoml.profiles.InternalServerError);
     });
 
@@ -758,9 +613,14 @@ describe("ProfilesClient", () => {
             environment: server.baseUrl,
         });
 
-        server.mockEndpoint().delete("/fhir/profiles/custom-patient").respondWith().statusCode(200).build();
+        server
+            .mockEndpoint()
+            .delete("/fhir/profiles/custom-patient/versions/2.0.0")
+            .respondWith()
+            .statusCode(200)
+            .build();
 
-        const response = await client.profiles.profiles.delete("custom-patient");
+        const response = await client.profiles.versions.delete("custom-patient", "2.0.0");
         expect(response).toEqual(undefined);
     });
 
@@ -779,14 +639,14 @@ describe("ProfilesClient", () => {
 
         server
             .mockEndpoint()
-            .delete("/fhir/profiles/id")
+            .delete("/fhir/profiles/id/versions/version")
             .respondWith()
             .statusCode(400)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.delete("id");
+            return await client.profiles.versions.delete("id", "version");
         }).rejects.toThrow(phenoml.profiles.BadRequestError);
     });
 
@@ -805,14 +665,14 @@ describe("ProfilesClient", () => {
 
         server
             .mockEndpoint()
-            .delete("/fhir/profiles/id")
+            .delete("/fhir/profiles/id/versions/version")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.delete("id");
+            return await client.profiles.versions.delete("id", "version");
         }).rejects.toThrow(phenoml.profiles.UnauthorizedError);
     });
 
@@ -831,14 +691,14 @@ describe("ProfilesClient", () => {
 
         server
             .mockEndpoint()
-            .delete("/fhir/profiles/id")
+            .delete("/fhir/profiles/id/versions/version")
             .respondWith()
             .statusCode(403)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.delete("id");
+            return await client.profiles.versions.delete("id", "version");
         }).rejects.toThrow(phenoml.profiles.ForbiddenError);
     });
 
@@ -857,14 +717,14 @@ describe("ProfilesClient", () => {
 
         server
             .mockEndpoint()
-            .delete("/fhir/profiles/id")
+            .delete("/fhir/profiles/id/versions/version")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.delete("id");
+            return await client.profiles.versions.delete("id", "version");
         }).rejects.toThrow(phenoml.profiles.NotFoundError);
     });
 
@@ -883,14 +743,14 @@ describe("ProfilesClient", () => {
 
         server
             .mockEndpoint()
-            .delete("/fhir/profiles/id")
+            .delete("/fhir/profiles/id/versions/version")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.profiles.profiles.delete("id");
+            return await client.profiles.versions.delete("id", "version");
         }).rejects.toThrow(phenoml.profiles.InternalServerError);
     });
 });
