@@ -1,3 +1,16 @@
+## [18.0.0] - 2026-08-28
+### Breaking Changes
+- **`ProfileSummary`** — fields `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (no longer `| undefined`); remove any undefined guards on these fields.
+- **`ProfileListResponse.profiles`** — changed from `ProfileSummary[] | undefined` to `ProfileSummary[]`; remove any absent-field guards on this property.
+- **`ProfileGetResponse.structure_definition`** — changed from `FhirResource | undefined` to `FhirResource`; remove any absent-field guards on this property.
+
+### Added
+- **`ProfileSummary.canonical`** — new required field containing the canonical profile reference, including the version pin when present.
+- **`ProfileSummary.status`** and **`ProfileSummary.date`** — new optional fields surfacing the StructureDefinition's publication status and authored date.
+- **`VersionsClient`** — new sub-client at `client.profiles.versions` exposing `list`, `create`, `get`, and `delete` for managing retained StructureDefinition versions; accompanied by new types `ProfileVersionListResponse` and `ProfileVersionCreateRequest`, exported from `./profiles/versions`.
+- **`ConflictError`** — new error class (HTTP 409) thrown by `profiles.profiles.update()` when a version conflict is detected.
+- **`patient_reference`** (`PatientReference`) — new optional field on `CreateMultiRequest` and `DocumentMultiRequest` for linking extracted clinical resources to an existing patient by business identifier.
+
 ## [17.14.0] - 2026-08-26
 ### Added
 - **`PatientReference`** — new type representing an existing patient by business identifier (`system` + `value`); exported from the `lang2Fhir` namespace.

@@ -3,6 +3,7 @@
 import type { BaseClientOptions } from "../../../../BaseClient.js";
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
 import { ProfilesClient as ProfilesClient_ } from "../resources/profiles/client/Client.js";
+import { VersionsClient } from "../resources/versions/client/Client.js";
 
 export declare namespace ProfilesClient {
     export type Options = BaseClientOptions;
@@ -11,6 +12,7 @@ export declare namespace ProfilesClient {
 export class ProfilesClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<ProfilesClient.Options>;
     protected _profiles: ProfilesClient_ | undefined;
+    protected _versions: VersionsClient | undefined;
 
     constructor(options: ProfilesClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
@@ -18,5 +20,9 @@ export class ProfilesClient {
 
     public get profiles(): ProfilesClient_ {
         return (this._profiles ??= new ProfilesClient_(this._options));
+    }
+
+    public get versions(): VersionsClient {
+        return (this._versions ??= new VersionsClient(this._options));
     }
 }
