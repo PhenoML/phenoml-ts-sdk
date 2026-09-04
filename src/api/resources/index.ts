@@ -7,6 +7,7 @@ export * as fhir2Omop from "./fhir2Omop/index.js";
 export * as fhirProvider from "./fhirProvider/index.js";
 export * as implementationGuides from "./implementationGuides/index.js";
 export * as lang2Fhir from "./lang2Fhir/index.js";
+export * as lang2FhirBatch from "./lang2FhirBatch/index.js";
 export * as profiles from "./profiles/index.js";
 export * as summary from "./summary/index.js";
 export * as tools from "./tools/index.js";

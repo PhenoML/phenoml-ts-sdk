@@ -4203,6 +4203,568 @@ await client.lang2Fhir.documentMulti({
 </dl>
 </details>
 
+## Lang2FhirBatch
+<details><summary><code>client.lang2FhirBatch.<a href="/src/api/resources/lang2FhirBatch/client/Client.ts">list</a>({ ...params }) -> phenoml.JobListResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a page of the instance's batch jobs, newest first, without
+per-job counts. Jobs are shared across the instance's credentials, so
+this lists every batch job on the instance, not just the calling
+credential's.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.lang2FhirBatch.list({
+    cursor: "cursor",
+    limit: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.lang2FhirBatch.ListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lang2FhirBatch.<a href="/src/api/resources/lang2FhirBatch/client/Client.ts">create</a>({ ...params }) -> phenoml.BatchJob</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Opens an empty batch job. Items arrive on later upload calls and the set
+is sealed at finalize.
+
+Supplying `request_id` makes the create idempotent on that token: a
+retried submit whose response was lost returns the original job rather
+than opening a second one. This dedupe is scoped to the calling
+credential.
+
+An instance may hold at most 4 active (pending or processing) jobs at
+once; a create past that limit returns `409`. The limit is instance-wide
+— jobs are shared across the instance's credentials — so another
+credential's jobs count against it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.lang2FhirBatch.create({
+    request_id: "submit-2025-09-02-batch-001"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `phenoml.lang2FhirBatch.CreateBatchRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lang2FhirBatch.<a href="/src/api/resources/lang2FhirBatch/client/Client.ts">uploadItem</a>(job_id, { ...params }) -> phenoml.UploadItemResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Stores one item of a job from a multipart upload. A batch's items arrive
+one per request. The item carries **either** a `document` extraction
+(whose input file rides as raw bytes in the `file` part) **or** a
+`create` extraction (JSON only, no file).
+
+The upload enforces these rules:
+- Set **exactly one** of `document` or `create`. Setting both, or
+  neither, is a `400`.
+- When `document` is set, `file` is **required** — it supplies the
+  document's binary content (PDF or image).
+- When `create` is set, `file` is **forbidden** — a create item carries
+  no file.
+- `document` and `create` must each be a JSON **object**.
+
+Only the item's structure is checked here: the fields inside `document`
+or `create` are not validated at upload. A body that is well-formed JSON
+but not a valid request for its endpoint is still accepted with `202`
+and fails later during processing, recorded as an item `error`. A
+wrong-typed field the endpoint cannot decode fails as `invalid_input`; a
+body that decodes but the pipeline rejects (for example, a missing
+required field) fails as `processing_failed`.
+
+Supplying `request_id` makes the upload idempotent on that token. A
+re-upload under the same token overwrites the same item rather than
+adding a second, so a client that lost an upload's response can safely
+re-send it. The response's `deduplicated` is `true` only when the
+re-uploaded payload matches the one already stored; a same-token upload
+with a changed payload overwrites in place and returns `false`.
+
+Set a `request_id` on **every** upload: re-sending under the same token
+is the only way to repair a lost or incomplete upload, including the one
+a finalize `409` reports. Without one, a re-send adds a new item instead
+of replacing the missing one, and the job cannot be finalized.
+
+Uploads are rejected once the job has been finalized (`409`), once it
+holds its 500-item limit (`409`), or when the item is too large (`413` —
+see the raw-file limit in the API description).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.lang2FhirBatch.uploadItem("job_id", {});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**job_id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.lang2FhirBatch.UploadItemRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lang2FhirBatch.<a href="/src/api/resources/lang2FhirBatch/client/Client.ts">finalize</a>(job_id) -> phenoml.BatchJob</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Seals the job's item set and starts processing. Takes no request body.
+Finalize is idempotent: a retried finalize succeeds again.
+
+If a previous upload did not complete, finalize returns a `409`; re-send
+the missing upload (with the same `request_id`), then finalize.
+Finalizing a job with no items is a `400`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.lang2FhirBatch.finalize("job_id");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**job_id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lang2FhirBatch.<a href="/src/api/resources/lang2FhirBatch/client/Client.ts">get</a>(job_id, { ...params }) -> phenoml.JobDetailResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a job's record, its per-status item counts, and one page of
+per-item statuses.
+
+Items are listed in a stable order that is not upload order and is the
+same across pages. Match each entry to your own records by its `id`
+(your correlation label) or `item_id` (from the upload response),
+never by position.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.lang2FhirBatch.get("job_id", {
+    cursor: "cursor",
+    limit: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**job_id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.lang2FhirBatch.GetRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lang2FhirBatch.<a href="/src/api/resources/lang2FhirBatch/client/Client.ts">getResults</a>(job_id, { ...params }) -> phenoml.ResultsPageResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+A lighter status page. Returns the same per-item status entries as
+`GET /lang2fhir/batch/{job_id}`, but without the job record or counts,
+and the entries carry `result_size` rather than any result content. Use
+each entry's `item_id` to fetch that item's result from
+`GET /lang2fhir/batch/{job_id}/results/{item_id}`.
+
+Entries are listed in a stable order that is not upload order and is
+the same across pages. Match each entry to your own records by its `id`
+(your correlation label) or `item_id` (from the upload response),
+never by position.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.lang2FhirBatch.getResults("job_id", {
+    cursor: "cursor",
+    limit: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**job_id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.lang2FhirBatch.GetResultsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.lang2FhirBatch.<a href="/src/api/resources/lang2FhirBatch/client/Client.ts">getResult</a>(job_id, item_id) -> Record&lt;string, unknown&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Streams one item's stored result bytes verbatim as `application/json`.
+The body is the response the item's synchronous multi endpoint would have
+returned — a `DocumentMultiResponse` for a document item or a
+`CreateMultiResponse` for a create item.
+
+Only a succeeded item has a result: an item that has not succeeded
+(pending, processing, or failed) is a `409`, and a result that has
+expired is a `404`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.lang2FhirBatch.getResult("job_id", "item_id");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**job_id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**item_id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Profiles
 <details><summary><code>client.profiles.profiles.<a href="/src/api/resources/profiles/resources/profiles/client/Client.ts">list</a>({ ...params }) -> phenoml.ProfileListResponse</code></summary>
 <dl>
@@ -4223,7 +4785,12 @@ JSON is omitted from each entry; fetch a single profile by id to retrieve it.
 The `url` query parameter filters by canonical URL. The canonical URL is the
 stable key other platform features use to reference a profile (FHIR's
 `meta.profile`, `baseDefinition`), since StructureDefinition ids are only
-unique within a package. A non-matching filter returns an empty list, not a 404.
+unique within a package. An unpinned `url` filter returns metadata for
+the profile's current StructureDefinition. Pinned `url|version` filters
+resolve a retained version when present; otherwise they can fall back to
+the profile's current StructureDefinition, whose content can change
+through the profile update endpoint. A non-matching filter returns an
+empty list, not a 404.
 </dd>
 </dl>
 </dd>
@@ -4291,9 +4858,8 @@ await client.profiles.profiles.list({
 Creates a custom profile from a FHIR StructureDefinition supplied as a JSON
 object. Metadata such as version, resource type, and url is read from the
 StructureDefinition; the lowercase StructureDefinition id becomes the
-profile's lookup key. When id is omitted, a random UUID is assigned. Code
-system configuration is auto-extracted from the snapshot. Optionally group
-the profile under a named implementation guide.
+profile's lookup key. When id is omitted, a random UUID is assigned.
+Optionally group the profile under a named implementation guide.
 </dd>
 </dl>
 </dd>
@@ -4310,8 +4876,29 @@ the profile under a named implementation guide.
 ```typescript
 await client.profiles.profiles.create({
     structure_definition: {
-        "key": "value"
-    }
+        "resourceType": "StructureDefinition",
+        "id": "custom-patient",
+        "url": "http://phenoml.com/fhir/StructureDefinition/custom-patient",
+        "name": "CustomPatient",
+        "status": "active",
+        "fhirVersion": "4.0.1",
+        "kind": "resource",
+        "abstract": false,
+        "type": "Patient",
+        "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Patient",
+        "derivation": "constraint",
+        "snapshot": {
+            "element": [
+                {
+                    "id": "Patient",
+                    "path": "Patient",
+                    "min": 0,
+                    "max": "*"
+                }
+            ]
+        }
+    },
+    implementation_guide: "acme-cardiology"
 });
 
 ```
@@ -4360,7 +4947,8 @@ await client.profiles.profiles.create({
 <dl>
 <dd>
 
-Returns a single custom profile by id, including its full StructureDefinition JSON.
+Returns a single custom profile by id, including its full StructureDefinition
+JSON.
 </dd>
 </dl>
 </dd>
@@ -4427,10 +5015,12 @@ Replaces an existing custom profile with a new StructureDefinition. The
 `id` path parameter is authoritative: if the StructureDefinition includes
 an `id` it must match the path parameter, and if it omits one the path
 parameter is used. The FHIR resource type of the profile cannot change.
-Code system configuration is
-re-derived from the new StructureDefinition. When `implementation_guide` is
-omitted, the profile keeps its existing implementation guide. The instance
-stores a single version per canonical URL, so this replaces it in place.
+When `implementation_guide` is omitted, the profile keeps its existing
+implementation guide. A retained version string is allowed only when
+re-submitting the profile's current version with an unchanged
+StructureDefinition; otherwise it returns a conflict. While the profile
+has retained versions, its
+canonical URL cannot be changed.
 </dd>
 </dl>
 </dd>
@@ -4447,8 +5037,29 @@ stores a single version per canonical URL, so this replaces it in place.
 ```typescript
 await client.profiles.profiles.update("custom-patient", {
     structure_definition: {
-        "key": "value"
-    }
+        "resourceType": "StructureDefinition",
+        "id": "custom-patient",
+        "url": "http://phenoml.com/fhir/StructureDefinition/custom-patient",
+        "name": "CustomPatient",
+        "status": "active",
+        "fhirVersion": "4.0.1",
+        "kind": "resource",
+        "abstract": false,
+        "type": "Patient",
+        "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Patient",
+        "derivation": "constraint",
+        "snapshot": {
+            "element": [
+                {
+                    "id": "Patient",
+                    "path": "Patient",
+                    "min": 0,
+                    "max": "*"
+                }
+            ]
+        }
+    },
+    implementation_guide: "acme-cardiology"
 });
 
 ```
@@ -4505,7 +5116,9 @@ await client.profiles.profiles.update("custom-patient", {
 <dl>
 <dd>
 
-Permanently deletes a custom profile by id.
+Permanently deletes a custom profile by id. This also deletes all retained
+versions for that profile so the canonical URL can be reused by a later
+upload.
 </dd>
 </dl>
 </dd>
@@ -4545,6 +5158,299 @@ await client.profiles.profiles.delete("custom-patient");
 <dd>
 
 **requestOptions:** `ProfilesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Profiles Versions
+<details><summary><code>client.profiles.versions.<a href="/src/api/resources/profiles/resources/versions/client/Client.ts">list</a>(id) -> phenoml.ProfileVersionListResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns retained versions for a custom profile.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.profiles.versions.list("custom-patient");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — The lowercase StructureDefinition id of the custom profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VersionsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.profiles.versions.<a href="/src/api/resources/profiles/resources/versions/client/Client.ts">create</a>(id, { ...params }) -> phenoml.ProfileSummary</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Adds an immutable StructureDefinition version to a custom profile. If
+the profile does not exist, it is created from the submitted version.
+The StructureDefinition must include a non-empty `version`; its
+canonical URL and resource type must match the profile when one already
+exists. If it includes an `id`, that id must match the path parameter;
+if it omits `id`, the path parameter is used. Profiles created through
+this endpoint are grouped under `custom`. Posting the profile's current
+StructureDefinition unchanged retains it as a version.
+Version strings may contain letters, numbers, and the punctuation
+characters `.`, `_`, `~`, `+`, and `-`; they cannot be exactly `.` or
+`..`. Each profile can retain up to 250 versions; delete old
+versions before adding more.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.profiles.versions.create("custom-patient", {
+    "key": "value"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — The lowercase StructureDefinition id of the custom profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.ProfileVersionCreateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VersionsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.profiles.versions.<a href="/src/api/resources/profiles/resources/versions/client/Client.ts">get</a>(id, version) -> phenoml.ProfileGetResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata and the full StructureDefinition for one retained
+version. The returned StructureDefinition's id is the profile id. The
+path version is the authored `StructureDefinition.version` value.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.profiles.versions.get("custom-patient", "2.0.0");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — The lowercase StructureDefinition id of the custom profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `string` — The authored StructureDefinition.version. It may contain letters, numbers, and the punctuation characters `.`, `_`, `~`, `+`, and `-`; it cannot be exactly `.` or `..`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VersionsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.profiles.versions.<a href="/src/api/resources/profiles/resources/versions/client/Client.ts">delete</a>(id, version) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes one retained version from a custom profile. The path
+version is the authored `StructureDefinition.version` value.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.profiles.versions.delete("custom-patient", "2.0.0");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — The lowercase StructureDefinition id of the custom profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `string` — The authored StructureDefinition.version. It may contain letters, numbers, and the punctuation characters `.`, `_`, `~`, `+`, and `-`; it cannot be exactly `.` or `..`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VersionsClient.RequestOptions` 
     
 </dd>
 </dl>
