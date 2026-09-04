@@ -1,3 +1,20 @@
+## [18.0.0] - 2026-09-04
+### Breaking Changes
+- **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (previously `T | undefined`); remove undefined-guards or update type assertions at call sites.
+- **`ProfileListResponse.profiles`** — changed from `ProfileSummary[] | undefined` to `ProfileSummary[]`; remove undefined-guards at call sites.
+- **`ProfileGetResponse.structure_definition`** — changed from `FhirResource | undefined` to `FhirResource`; remove undefined-guards at call sites.
+
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new client for managing asynchronous FHIR extraction batch jobs; exposes `create()`, `uploadItem()`, `finalize()`, `get()`, `getResults()`, and `getResult()` methods supporting up to 500 items per job and 4 concurrent active jobs.
+- **`BatchJob`, `BatchItemStatus`, `BatchCounts`, `BatchError`** — new core data types describing a batch job's lifecycle, per-item status, aggregate counts, and structured error information.
+- **`JobDetailResponse`, `JobListResponse`, `ResultsPageResponse`, `UploadItemResponse`** — new paginated response types for the `lang2FhirBatch` namespace.
+- **`VersionsClient`** (`client.profiles.versions`) — new sub-client for managing immutable StructureDefinition versions on custom FHIR profiles via `list()`, `create()`, `get()`, and `delete()`.
+- **`ConflictError`**, **`ContentTooLargeError`**, **`GatewayTimeoutError`**, **`ClientClosedRequestError`** — new error classes added across the `profiles` and `lang2FhirBatch` namespaces; `profiles.update()` now throws `ConflictError` (HTTP 409) on retained-version conflicts.
+
+### Changed
+- **`ProfileSummary`** — new optional fields `status`, `date`, and `canonical` surface publication status, authored date, and the canonical URL with version pin.
+- **`CreateMultiRequest.patient_reference`** and **`DocumentMultiRequest.patient_reference`** — `PatientReference` type is now reflected in code examples and the OpenAPI spec.
+
 ## [17.14.0] - 2026-08-26
 ### Added
 - **`PatientReference`** — new type representing an existing patient by business identifier (`system` + `value`); exported from the `lang2Fhir` namespace.
