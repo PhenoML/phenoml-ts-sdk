@@ -2,6 +2,6 @@
 
 import type * as phenoml from "../../../index.js";
 
-export interface ProfileListResponse {
-    profiles: phenoml.profiles.ProfileSummary[];
+export interface ProfileVersionListResponse {
+    versions: phenoml.profiles.ProfileSummary[];
 }

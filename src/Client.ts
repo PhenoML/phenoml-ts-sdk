@@ -9,6 +9,7 @@ import { Fhir2OmopClient } from "./api/resources/fhir2Omop/client/Client.js";
 import { FhirProviderClient } from "./api/resources/fhirProvider/client/Client.js";
 import { ImplementationGuidesClient } from "./api/resources/implementationGuides/client/Client.js";
 import { Lang2FhirClient } from "./api/resources/lang2Fhir/client/Client.js";
+import { Lang2FhirBatchClient } from "./api/resources/lang2FhirBatch/client/Client.js";
 import { ProfilesClient } from "./api/resources/profiles/client/Client.js";
 import { SummaryClient } from "./api/resources/summary/client/Client.js";
 import { ToolsClient } from "./api/resources/tools/client/Client.js";
@@ -35,6 +36,7 @@ export class phenomlClient {
     protected _fhirProvider: FhirProviderClient | undefined;
     protected _implementationGuides: ImplementationGuidesClient | undefined;
     protected _lang2Fhir: Lang2FhirClient | undefined;
+    protected _lang2FhirBatch: Lang2FhirBatchClient | undefined;
     protected _profiles: ProfilesClient | undefined;
     protected _summary: SummaryClient | undefined;
     protected _tools: ToolsClient | undefined;
@@ -79,6 +81,10 @@ export class phenomlClient {
 
     public get lang2Fhir(): Lang2FhirClient {
         return (this._lang2Fhir ??= new Lang2FhirClient(this._options));
+    }
+
+    public get lang2FhirBatch(): Lang2FhirBatchClient {
+        return (this._lang2FhirBatch ??= new Lang2FhirBatchClient(this._options));
     }
 
     public get profiles(): ProfilesClient {

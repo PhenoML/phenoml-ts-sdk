@@ -7,6 +7,6 @@
  *     }
  */
 export interface ListRequest {
-    /** Filter by canonical URL. Accepts the FHIR pinned form `url|version` (split on the last `|`); the bare form matches the current version. */
+    /** Filter by canonical URL. Accepts the FHIR pinned form `url|version`; without a version pin, returns the profile's current StructureDefinition metadata. */
     url?: string;
 }
