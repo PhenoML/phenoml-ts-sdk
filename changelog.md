@@ -1,3 +1,16 @@
+## [18.0.0] - 2026-09-09
+### Breaking Changes
+- **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.
+- **`ProfileListResponse.profiles`** — changed from `ProfileSummary[] | undefined` to `ProfileSummary[]`; remove any `undefined` guards on this field.
+- **`ProfileGetResponse.structure_definition`** — changed from `FhirResource | undefined` to `FhirResource`; remove any `undefined` guards on this field.
+
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction supporting `create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, and `list()` across the full job lifecycle.
+- **`BatchJob`, `BatchItemStatus`, `BatchCounts`, `BatchError`, `JobDetailResponse`, `JobListResponse`, `ResultsPageResponse`, `UploadItemResponse`** — new model and response types supporting the batch extraction API.
+- **`VersionsClient`** (`client.profiles.versions`) — new sub-client on `ProfilesClient` for managing immutable StructureDefinition versions with `list()`, `create()`, `get()`, and `delete()` methods.
+- **`PatientReference`** — new type accepted by `CreateMultiRequest.patient_reference` and `DocumentMultiRequest.patient_reference` to link extracted resources to an existing patient.
+- **`ProfileSummary.status`, `.date`, and `.canonical`** — new optional fields surfacing publication status, authored date, and canonical URL for each profile; `ConflictError` (HTTP 409) is also now thrown by the profile update and batch endpoints.
+
 ## [17.14.0] - 2026-08-26
 ### Added
 - **`PatientReference`** — new type representing an existing patient by business identifier (`system` + `value`); exported from the `lang2Fhir` namespace.
