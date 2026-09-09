@@ -2,7 +2,10 @@
 
 import type * as phenoml from "../../../index.js";
 
+/**
+ * Metadata and full StructureDefinition JSON for either a custom profile's current StructureDefinition or one retained version.
+ */
 export interface ProfileGetResponse extends phenoml.profiles.ProfileSummary {
     /** The full FHIR StructureDefinition JSON. */
-    structure_definition?: phenoml.profiles.FhirResource | undefined;
+    structure_definition: phenoml.profiles.FhirResource;
 }
