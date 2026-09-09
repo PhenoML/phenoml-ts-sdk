@@ -17,7 +17,7 @@ export declare namespace ProfilesClient {
 }
 
 /**
- * Manage custom FHIR profiles (StructureDefinitions) as instance-level FHIR artifacts.
+ * Manage custom FHIR profiles (StructureDefinitions).
  */
 export class ProfilesClient {
     protected readonly _options: NormalizedClientOptionsWithAuth<ProfilesClient.Options>;
@@ -34,7 +34,12 @@ export class ProfilesClient {
      * The `url` query parameter filters by canonical URL. The canonical URL is the
      * stable key other platform features use to reference a profile (FHIR's
      * `meta.profile`, `baseDefinition`), since StructureDefinition ids are only
-     * unique within a package. A non-matching filter returns an empty list, not a 404.
+     * unique within a package. An unpinned `url` filter returns metadata for
+     * the profile's current StructureDefinition. Pinned `url|version` filters
+     * resolve a retained version when present; otherwise they can fall back to
+     * the profile's current StructureDefinition, whose content can change
+     * through the profile update endpoint. A non-matching filter returns an
+     * empty list, not a 404.
      *
      * @param {phenoml.profiles.ListRequest} request
      * @param {ProfilesClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -123,9 +128,8 @@ export class ProfilesClient {
      * Creates a custom profile from a FHIR StructureDefinition supplied as a JSON
      * object. Metadata such as version, resource type, and url is read from the
      * StructureDefinition; the lowercase StructureDefinition id becomes the
-     * profile's lookup key. When id is omitted, a random UUID is assigned. Code
-     * system configuration is auto-extracted from the snapshot. Optionally group
-     * the profile under a named implementation guide.
+     * profile's lookup key. When id is omitted, a random UUID is assigned.
+     * Optionally group the profile under a named implementation guide.
      *
      * @param {phenoml.profiles.ProfileUploadRequest} request
      * @param {ProfilesClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -138,8 +142,29 @@ export class ProfilesClient {
      * @example
      *     await client.profiles.profiles.create({
      *         structure_definition: {
-     *             "key": "value"
-     *         }
+     *             "resourceType": "StructureDefinition",
+     *             "id": "custom-patient",
+     *             "url": "http://phenoml.com/fhir/StructureDefinition/custom-patient",
+     *             "name": "CustomPatient",
+     *             "status": "active",
+     *             "fhirVersion": "4.0.1",
+     *             "kind": "resource",
+     *             "abstract": false,
+     *             "type": "Patient",
+     *             "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Patient",
+     *             "derivation": "constraint",
+     *             "snapshot": {
+     *                 "element": [
+     *                     {
+     *                         "id": "Patient",
+     *                         "path": "Patient",
+     *                         "min": 0,
+     *                         "max": "*"
+     *                     }
+     *                 ]
+     *             }
+     *         },
+     *         implementation_guide: "acme-cardiology"
      *     })
      */
     public create(
@@ -211,7 +236,8 @@ export class ProfilesClient {
     }
 
     /**
-     * Returns a single custom profile by id, including its full StructureDefinition JSON.
+     * Returns a single custom profile by id, including its full StructureDefinition
+     * JSON.
      *
      * @param {string} id - The lowercase StructureDefinition id of the custom profile.
      * @param {ProfilesClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -297,10 +323,12 @@ export class ProfilesClient {
      * `id` path parameter is authoritative: if the StructureDefinition includes
      * an `id` it must match the path parameter, and if it omits one the path
      * parameter is used. The FHIR resource type of the profile cannot change.
-     * Code system configuration is
-     * re-derived from the new StructureDefinition. When `implementation_guide` is
-     * omitted, the profile keeps its existing implementation guide. The instance
-     * stores a single version per canonical URL, so this replaces it in place.
+     * When `implementation_guide` is omitted, the profile keeps its existing
+     * implementation guide. A retained version string is allowed only when
+     * re-submitting the profile's current version with an unchanged
+     * StructureDefinition; otherwise it returns a conflict. While the profile
+     * has retained versions, its
+     * canonical URL cannot be changed.
      *
      * @param {string} id - The lowercase StructureDefinition id of the custom profile.
      * @param {phenoml.profiles.ProfileUploadRequest} request
@@ -310,13 +338,35 @@ export class ProfilesClient {
      * @throws {@link phenoml.profiles.UnauthorizedError}
      * @throws {@link phenoml.profiles.ForbiddenError}
      * @throws {@link phenoml.profiles.NotFoundError}
+     * @throws {@link phenoml.profiles.ConflictError}
      * @throws {@link phenoml.profiles.InternalServerError}
      *
      * @example
      *     await client.profiles.profiles.update("custom-patient", {
      *         structure_definition: {
-     *             "key": "value"
-     *         }
+     *             "resourceType": "StructureDefinition",
+     *             "id": "custom-patient",
+     *             "url": "http://phenoml.com/fhir/StructureDefinition/custom-patient",
+     *             "name": "CustomPatient",
+     *             "status": "active",
+     *             "fhirVersion": "4.0.1",
+     *             "kind": "resource",
+     *             "abstract": false,
+     *             "type": "Patient",
+     *             "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Patient",
+     *             "derivation": "constraint",
+     *             "snapshot": {
+     *                 "element": [
+     *                     {
+     *                         "id": "Patient",
+     *                         "path": "Patient",
+     *                         "min": 0,
+     *                         "max": "*"
+     *                     }
+     *                 ]
+     *             }
+     *         },
+     *         implementation_guide: "acme-cardiology"
      *     })
      */
     public update(
@@ -374,6 +424,8 @@ export class ProfilesClient {
                     throw new phenoml.profiles.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
                     throw new phenoml.profiles.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 409:
+                    throw new phenoml.profiles.ConflictError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
                     throw new phenoml.profiles.InternalServerError(
                         _response.error.body as unknown,
@@ -392,7 +444,9 @@ export class ProfilesClient {
     }
 
     /**
-     * Permanently deletes a custom profile by id.
+     * Permanently deletes a custom profile by id. This also deletes all retained
+     * versions for that profile so the canonical URL can be reused by a later
+     * upload.
      *
      * @param {string} id - The lowercase StructureDefinition id of the custom profile.
      * @param {ProfilesClient.RequestOptions} requestOptions - Request-specific configuration.

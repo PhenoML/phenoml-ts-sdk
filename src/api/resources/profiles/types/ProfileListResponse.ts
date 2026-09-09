@@ -3,5 +3,5 @@
 import type * as phenoml from "../../../index.js";
 
 export interface ProfileListResponse {
-    profiles?: phenoml.profiles.ProfileSummary[] | undefined;
+    profiles: phenoml.profiles.ProfileSummary[];
 }

@@ -25,10 +25,13 @@ describe("ProfilesClient", () => {
                     resource_type: "Patient",
                     url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
                     version: "1.0.0",
+                    status: "active",
+                    date: "2026-08-24",
+                    canonical: "http://phenoml.com/fhir/StructureDefinition/custom-patient|1.0.0",
                     fhir_version: "4.0.1",
                     implementation_guide: "acme-cardiology",
-                    created_at: "2024-01-15T09:30:00Z",
-                    updated_at: "2024-01-15T09:30:00Z",
+                    created_at: "2026-08-24T15:04:05Z",
+                    updated_at: "2026-08-25T16:04:05Z",
                 },
             ],
         };
@@ -111,17 +114,36 @@ describe("ProfilesClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { structure_definition: { key: "value" } };
+        const rawRequestBody = {
+            structure_definition: {
+                resourceType: "StructureDefinition",
+                id: "custom-patient",
+                url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
+                name: "CustomPatient",
+                status: "active",
+                fhirVersion: "4.0.1",
+                kind: "resource",
+                abstract: false,
+                type: "Patient",
+                baseDefinition: "http://hl7.org/fhir/StructureDefinition/Patient",
+                derivation: "constraint",
+                snapshot: { element: [{ id: "Patient", path: "Patient", min: 0, max: "*" }] },
+            },
+            implementation_guide: "acme-cardiology",
+        };
         const rawResponseBody = {
             id: "custom-patient",
             source: "custom",
             resource_type: "Patient",
             url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
             version: "1.0.0",
+            status: "active",
+            date: "2026-08-24",
+            canonical: "http://phenoml.com/fhir/StructureDefinition/custom-patient|1.0.0",
             fhir_version: "4.0.1",
             implementation_guide: "acme-cardiology",
-            created_at: "2024-01-15T09:30:00Z",
-            updated_at: "2024-01-15T09:30:00Z",
+            created_at: "2026-08-24T15:04:05Z",
+            updated_at: "2026-08-25T16:04:05Z",
         };
 
         server
@@ -135,8 +157,29 @@ describe("ProfilesClient", () => {
 
         const response = await client.profiles.profiles.create({
             structure_definition: {
-                key: "value",
+                resourceType: "StructureDefinition",
+                id: "custom-patient",
+                url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
+                name: "CustomPatient",
+                status: "active",
+                fhirVersion: "4.0.1",
+                kind: "resource",
+                abstract: false,
+                type: "Patient",
+                baseDefinition: "http://hl7.org/fhir/StructureDefinition/Patient",
+                derivation: "constraint",
+                snapshot: {
+                    element: [
+                        {
+                            id: "Patient",
+                            path: "Patient",
+                            min: 0,
+                            max: "*",
+                        },
+                    ],
+                },
             },
+            implementation_guide: "acme-cardiology",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -290,11 +333,28 @@ describe("ProfilesClient", () => {
             resource_type: "Patient",
             url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
             version: "1.0.0",
+            status: "active",
+            date: "2026-08-24",
+            canonical: "http://phenoml.com/fhir/StructureDefinition/custom-patient|1.0.0",
             fhir_version: "4.0.1",
             implementation_guide: "acme-cardiology",
-            created_at: "2024-01-15T09:30:00Z",
-            updated_at: "2024-01-15T09:30:00Z",
-            structure_definition: { key: "value" },
+            created_at: "2026-08-24T15:04:05Z",
+            updated_at: "2026-08-25T16:04:05Z",
+            structure_definition: {
+                resourceType: "StructureDefinition",
+                id: "custom-patient",
+                url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
+                version: "1.0.0",
+                name: "CustomPatient",
+                status: "active",
+                fhirVersion: "4.0.1",
+                kind: "resource",
+                abstract: false,
+                type: "Patient",
+                baseDefinition: "http://hl7.org/fhir/StructureDefinition/Patient",
+                derivation: "constraint",
+                snapshot: { element: [{ id: "Patient", path: "Patient", min: 0, max: "*" }] },
+            },
         };
 
         server
@@ -419,17 +479,36 @@ describe("ProfilesClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
-        const rawRequestBody = { structure_definition: { key: "value" } };
+        const rawRequestBody = {
+            structure_definition: {
+                resourceType: "StructureDefinition",
+                id: "custom-patient",
+                url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
+                name: "CustomPatient",
+                status: "active",
+                fhirVersion: "4.0.1",
+                kind: "resource",
+                abstract: false,
+                type: "Patient",
+                baseDefinition: "http://hl7.org/fhir/StructureDefinition/Patient",
+                derivation: "constraint",
+                snapshot: { element: [{ id: "Patient", path: "Patient", min: 0, max: "*" }] },
+            },
+            implementation_guide: "acme-cardiology",
+        };
         const rawResponseBody = {
             id: "custom-patient",
             source: "custom",
             resource_type: "Patient",
             url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
             version: "1.0.0",
+            status: "active",
+            date: "2026-08-24",
+            canonical: "http://phenoml.com/fhir/StructureDefinition/custom-patient|1.0.0",
             fhir_version: "4.0.1",
             implementation_guide: "acme-cardiology",
-            created_at: "2024-01-15T09:30:00Z",
-            updated_at: "2024-01-15T09:30:00Z",
+            created_at: "2026-08-24T15:04:05Z",
+            updated_at: "2026-08-25T16:04:05Z",
         };
 
         server
@@ -443,8 +522,29 @@ describe("ProfilesClient", () => {
 
         const response = await client.profiles.profiles.update("custom-patient", {
             structure_definition: {
-                key: "value",
+                resourceType: "StructureDefinition",
+                id: "custom-patient",
+                url: "http://phenoml.com/fhir/StructureDefinition/custom-patient",
+                name: "CustomPatient",
+                status: "active",
+                fhirVersion: "4.0.1",
+                kind: "resource",
+                abstract: false,
+                type: "Patient",
+                baseDefinition: "http://hl7.org/fhir/StructureDefinition/Patient",
+                derivation: "constraint",
+                snapshot: {
+                    element: [
+                        {
+                            id: "Patient",
+                            path: "Patient",
+                            min: 0,
+                            max: "*",
+                        },
+                    ],
+                },
             },
+            implementation_guide: "acme-cardiology",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -582,6 +682,39 @@ describe("ProfilesClient", () => {
     });
 
     test("update (6)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { structure_definition: { structure_definition: { key: "value" } } };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .put("/fhir/profiles/id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.profiles.profiles.update("id", {
+                structure_definition: {
+                    structure_definition: {
+                        key: "value",
+                    },
+                },
+            });
+        }).rejects.toThrow(phenoml.profiles.ConflictError);
+    });
+
+    test("update (7)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
