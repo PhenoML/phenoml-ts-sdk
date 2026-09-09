@@ -33,6 +33,8 @@ export class TemplatesClient {
      *
      * @throws {@link phenoml.summary.UnauthorizedError}
      * @throws {@link phenoml.summary.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.summary.templates.list()
@@ -102,6 +104,8 @@ export class TemplatesClient {
      * @throws {@link phenoml.summary.BadRequestError}
      * @throws {@link phenoml.summary.UnauthorizedError}
      * @throws {@link phenoml.summary.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.summary.templates.create({
@@ -187,6 +191,8 @@ export class TemplatesClient {
      * @throws {@link phenoml.summary.ForbiddenError}
      * @throws {@link phenoml.summary.NotFoundError}
      * @throws {@link phenoml.summary.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.summary.templates.get("id")
@@ -265,6 +271,8 @@ export class TemplatesClient {
      * @throws {@link phenoml.summary.ForbiddenError}
      * @throws {@link phenoml.summary.NotFoundError}
      * @throws {@link phenoml.summary.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.summary.templates.update("id", {
@@ -353,6 +361,8 @@ export class TemplatesClient {
      * @throws {@link phenoml.summary.ForbiddenError}
      * @throws {@link phenoml.summary.NotFoundError}
      * @throws {@link phenoml.summary.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.summary.templates.delete("id")

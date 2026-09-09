@@ -36,6 +36,8 @@ export class ImplementationGuidesClient {
      * @throws {@link phenoml.implementationGuides.UnauthorizedError}
      * @throws {@link phenoml.implementationGuides.ForbiddenError}
      * @throws {@link phenoml.implementationGuides.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.implementationGuides.implementationGuides.list()
@@ -119,6 +121,8 @@ export class ImplementationGuidesClient {
      * @throws {@link phenoml.implementationGuides.ForbiddenError}
      * @throws {@link phenoml.implementationGuides.NotFoundError}
      * @throws {@link phenoml.implementationGuides.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.implementationGuides.implementationGuides.get("acme-cardiology")
@@ -221,6 +225,8 @@ export class ImplementationGuidesClient {
      * @throws {@link phenoml.implementationGuides.UnauthorizedError}
      * @throws {@link phenoml.implementationGuides.ForbiddenError}
      * @throws {@link phenoml.implementationGuides.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.implementationGuides.implementationGuides.update("acme-cardiology")
@@ -324,6 +330,8 @@ export class ImplementationGuidesClient {
      * @throws {@link phenoml.implementationGuides.ForbiddenError}
      * @throws {@link phenoml.implementationGuides.NotFoundError}
      * @throws {@link phenoml.implementationGuides.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.implementationGuides.implementationGuides.delete("acme-cardiology")

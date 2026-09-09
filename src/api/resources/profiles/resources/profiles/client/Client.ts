@@ -47,6 +47,8 @@ export class ProfilesClient {
      * @throws {@link phenoml.profiles.UnauthorizedError}
      * @throws {@link phenoml.profiles.ForbiddenError}
      * @throws {@link phenoml.profiles.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.profiles.profiles.list({
@@ -138,6 +140,8 @@ export class ProfilesClient {
      * @throws {@link phenoml.profiles.UnauthorizedError}
      * @throws {@link phenoml.profiles.ForbiddenError}
      * @throws {@link phenoml.profiles.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.profiles.profiles.create({
@@ -247,6 +251,8 @@ export class ProfilesClient {
      * @throws {@link phenoml.profiles.ForbiddenError}
      * @throws {@link phenoml.profiles.NotFoundError}
      * @throws {@link phenoml.profiles.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.profiles.profiles.get("custom-patient")
@@ -340,6 +346,8 @@ export class ProfilesClient {
      * @throws {@link phenoml.profiles.NotFoundError}
      * @throws {@link phenoml.profiles.ConflictError}
      * @throws {@link phenoml.profiles.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.profiles.profiles.update("custom-patient", {
@@ -456,6 +464,8 @@ export class ProfilesClient {
      * @throws {@link phenoml.profiles.ForbiddenError}
      * @throws {@link phenoml.profiles.NotFoundError}
      * @throws {@link phenoml.profiles.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.profiles.profiles.delete("custom-patient")

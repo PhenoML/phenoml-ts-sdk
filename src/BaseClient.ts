@@ -3,7 +3,7 @@
 import { OAuthAuthProvider } from "./auth/OAuthAuthProvider.js";
 import { mergeHeaders } from "./core/headers.js";
 import * as core from "./core/index.js";
-import type * as environments from "./environments.js";
+import * as environments from "./environments.js";
 
 export type AuthOption =
     | false
@@ -15,6 +15,8 @@ export type BaseClientOptions = {
     environment?: core.Supplier<environments.phenomlEnvironment | string>;
     /** Specify a custom URL to connect the client to. */
     baseUrl?: core.Supplier<string>;
+    /** Defaults to "experiment.app.pheno.ml". */
+    instanceUrl?: string;
     /** Additional headers to include in requests. */
     headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     /** The default maximum time to wait for a response in seconds. */
@@ -66,16 +68,28 @@ export function normalizeClientOptions<T extends BaseClientOptions = BaseClientO
         {
             "X-Fern-Language": "JavaScript",
             "X-Fern-SDK-Name": "phenoml",
-            "X-Fern-SDK-Version": "18.0.0",
-            "User-Agent": "phenoml/18.0.0",
+            "X-Fern-SDK-Version": "18.1.0",
+            "User-Agent": "phenoml/18.1.0",
             "X-Fern-Runtime": core.RUNTIME.type,
             "X-Fern-Runtime-Version": core.RUNTIME.version,
         },
         options?.headers,
     );
 
+    let baseUrl = options?.baseUrl;
+    if (options?.instanceUrl != null) {
+        const _instanceUrl = options?.instanceUrl ?? "experiment.app.pheno.ml";
+        if (baseUrl == null) {
+            const _environmentUrls = new Map<unknown, string>([
+                [environments.phenomlEnvironment.Default, `https://${_instanceUrl}`],
+            ]);
+            baseUrl = _environmentUrls.get(options?.environment) ?? `https://${_instanceUrl}`;
+        }
+    }
+
     return {
         ...options,
+        baseUrl,
         logging: core.logging.createLogger(options?.logging),
         headers,
     } as NormalizedClientOptions<T>;

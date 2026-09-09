@@ -34,6 +34,8 @@ export class VersionsClient {
      * @throws {@link phenoml.profiles.ForbiddenError}
      * @throws {@link phenoml.profiles.NotFoundError}
      * @throws {@link phenoml.profiles.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.profiles.versions.list("custom-patient")
@@ -132,6 +134,8 @@ export class VersionsClient {
      * @throws {@link phenoml.profiles.NotFoundError}
      * @throws {@link phenoml.profiles.ConflictError}
      * @throws {@link phenoml.profiles.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.profiles.versions.create("custom-patient", {
@@ -226,6 +230,8 @@ export class VersionsClient {
      * @throws {@link phenoml.profiles.ForbiddenError}
      * @throws {@link phenoml.profiles.NotFoundError}
      * @throws {@link phenoml.profiles.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.profiles.versions.get("custom-patient", "2.0.0")
@@ -317,6 +323,8 @@ export class VersionsClient {
      * @throws {@link phenoml.profiles.ForbiddenError}
      * @throws {@link phenoml.profiles.NotFoundError}
      * @throws {@link phenoml.profiles.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.profiles.versions.delete("custom-patient", "2.0.0")

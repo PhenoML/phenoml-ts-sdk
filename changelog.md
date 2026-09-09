@@ -1,3 +1,17 @@
+## [18.1.0] - 2026-09-09
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction supporting the full job lifecycle via `create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, and `list()`.
+- **Batch model and response types** (`BatchJob`, `BatchError`, `BatchCounts`, `BatchItemStatus`, `UploadItemResponse`, `JobDetailResponse`, `ResultsPageResponse`, `JobListResponse`) — new types supporting the batch extraction API.
+- **`ProfilesVersionsClient`** (`client.profiles.versions`) — new sub-client for managing immutable retained StructureDefinition versions with `list()`, `createVersion()`, `getVersion()`, and `deleteVersion()` methods, along with supporting `ProfileVersionCreateRequest` and `ProfileVersionListResponse` types.
+- **`BaseClientOptions.instanceUrl`** — new optional string parameter (defaulting to `"experiment.app.pheno.ml"`) that lets callers specify a custom instance hostname without constructing a full `baseUrl`.
+
+### Changed
+- **`ProfileSummary`** — gains new optional fields `status`, `date`, and `canonical` surfacing publication status, authored date, and canonical URL for each profile.
+- **422 error responses** on extraction endpoints now also cover terminology constraint failures in addition to FHIR validation failures.
+
+### Fixed
+- **`OAuthAuthProvider`** — token requests now correctly include `grant_type: "client_credentials"`, resolving authentication failures against OAuth servers that require this field.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.

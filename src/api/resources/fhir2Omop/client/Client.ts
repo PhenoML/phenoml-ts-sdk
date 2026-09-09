@@ -87,6 +87,8 @@ export class Fhir2OmopClient {
      * @throws {@link phenoml.fhir2Omop.UnauthorizedError}
      * @throws {@link phenoml.fhir2Omop.InternalServerError}
      * @throws {@link phenoml.fhir2Omop.ServiceUnavailableError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.fhir2Omop.create({
