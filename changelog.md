@@ -1,3 +1,19 @@
+## [18.0.0] - 2026-09-09
+### Breaking Changes
+- **`ProfileSummary`** — fields `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required instead of optional; remove any `undefined` guards on these fields.
+- **`ProfileListResponse.profiles`** — changed from `ProfileSummary[] | undefined` to `ProfileSummary[]`; remove any `undefined` guard around this field.
+- **`ProfileGetResponse.structure_definition`** — changed from `FhirResource | undefined` to `FhirResource`; remove any `undefined` guard around this field.
+
+### Added
+- **`Lang2FhirBatchClient`** — new top-level client (`client.lang2FhirBatch`) for managing the full lifecycle of asynchronous FHIR extraction batch jobs, including `create`, `uploadItem`, `finalize`, `cancel`, `get`, `getResults`, and `getResult` methods.
+- **`VersionsClient`** — new sub-client (`client.profiles.versions`) with `list`, `create`, `get`, and `delete` methods for managing immutable StructureDefinition versions on custom FHIR profiles.
+- **`BatchJob`, `BatchItemStatus`, `BatchCounts`, `BatchError`** — new core domain types and response types (`JobDetailResponse`, `JobListResponse`, `ResultsPageResponse`, `UploadItemResponse`) for the batch API.
+- **`ProfileSummary.status`, `.date`, `.canonical`** — new fields surfacing publication status, authored date, and canonical URL with version pin.
+- **`profiles.ConflictError`** — new HTTP 409 error class thrown by `ProfilesClient.update` when a retained version string is submitted with a changed StructureDefinition; callers should handle this new error case.
+
+### Changed
+- **`CreateMultiRequest.patient_reference`** and **`DocumentMultiRequest.patient_reference`** — new optional `PatientReference` field is now reflected across the `lang2FhirBatch` code path.
+
 ## [17.14.0] - 2026-08-26
 ### Added
 - **`PatientReference`** — new type representing an existing patient by business identifier (`system` + `value`); exported from the `lang2Fhir` namespace.
