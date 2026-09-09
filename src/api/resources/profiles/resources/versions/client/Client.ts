@@ -10,237 +10,24 @@ import { handleNonStatusCodeError } from "../../../../../../errors/handleNonStat
 import * as errors from "../../../../../../errors/index.js";
 import * as phenoml from "../../../../../index.js";
 
-export declare namespace ProfilesClient {
+export declare namespace VersionsClient {
     export type Options = BaseClientOptions;
 
     export interface RequestOptions extends BaseRequestOptions {}
 }
 
-/**
- * Manage custom FHIR profiles (StructureDefinitions).
- */
-export class ProfilesClient {
-    protected readonly _options: NormalizedClientOptionsWithAuth<ProfilesClient.Options>;
+export class VersionsClient {
+    protected readonly _options: NormalizedClientOptionsWithAuth<VersionsClient.Options>;
 
-    constructor(options: ProfilesClient.Options = {}) {
+    constructor(options: VersionsClient.Options = {}) {
         this._options = normalizeClientOptionsWithAuth(options);
     }
 
     /**
-     * Returns metadata for every custom (uploaded) FHIR profile on this
-     * instance, across all implementation guides. The full StructureDefinition
-     * JSON is omitted from each entry; fetch a single profile by id to retrieve it.
-     *
-     * The `url` query parameter filters by canonical URL. The canonical URL is the
-     * stable key other platform features use to reference a profile (FHIR's
-     * `meta.profile`, `baseDefinition`), since StructureDefinition ids are only
-     * unique within a package. An unpinned `url` filter returns metadata for
-     * the profile's current StructureDefinition. Pinned `url|version` filters
-     * resolve a retained version when present; otherwise they can fall back to
-     * the profile's current StructureDefinition, whose content can change
-     * through the profile update endpoint. A non-matching filter returns an
-     * empty list, not a 404.
-     *
-     * @param {phenoml.profiles.ListRequest} request
-     * @param {ProfilesClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link phenoml.profiles.UnauthorizedError}
-     * @throws {@link phenoml.profiles.ForbiddenError}
-     * @throws {@link phenoml.profiles.InternalServerError}
-     *
-     * @example
-     *     await client.profiles.profiles.list({
-     *         url: "http://phenoml.com/fhir/StructureDefinition/custom-patient|1.0.0"
-     *     })
-     */
-    public list(
-        request: phenoml.profiles.ListRequest = {},
-        requestOptions?: ProfilesClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.profiles.ProfileListResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
-    }
-
-    private async __list(
-        request: phenoml.profiles.ListRequest = {},
-        requestOptions?: ProfilesClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.profiles.ProfileListResponse>> {
-        const { url } = request;
-        const _queryParams: Record<string, unknown> = {
-            url,
-        };
-        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            _authRequest.headers,
-            this._options?.headers,
-            requestOptions?.headers,
-        );
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
-                "fhir/profiles",
-            ),
-            method: "GET",
-            headers: _headers,
-            queryString: core.url
-                .queryBuilder()
-                .addMany(_queryParams)
-                .mergeAdditional(requestOptions?.queryParams)
-                .build(),
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-            fetchFn: this._options?.fetch,
-            logging: this._options.logging,
-        });
-        if (_response.ok) {
-            return { data: _response.body as phenoml.profiles.ProfileListResponse, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new phenoml.profiles.UnauthorizedError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                case 403:
-                    throw new phenoml.profiles.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new phenoml.profiles.InternalServerError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/fhir/profiles");
-    }
-
-    /**
-     * Creates a custom profile from a FHIR StructureDefinition supplied as a JSON
-     * object. Metadata such as version, resource type, and url is read from the
-     * StructureDefinition; the lowercase StructureDefinition id becomes the
-     * profile's lookup key. When id is omitted, a random UUID is assigned.
-     * Optionally group the profile under a named implementation guide.
-     *
-     * @param {phenoml.profiles.ProfileUploadRequest} request
-     * @param {ProfilesClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link phenoml.profiles.BadRequestError}
-     * @throws {@link phenoml.profiles.UnauthorizedError}
-     * @throws {@link phenoml.profiles.ForbiddenError}
-     * @throws {@link phenoml.profiles.InternalServerError}
-     *
-     * @example
-     *     await client.profiles.profiles.create({
-     *         structure_definition: {
-     *             "resourceType": "StructureDefinition",
-     *             "id": "custom-patient",
-     *             "url": "http://phenoml.com/fhir/StructureDefinition/custom-patient",
-     *             "name": "CustomPatient",
-     *             "status": "active",
-     *             "fhirVersion": "4.0.1",
-     *             "kind": "resource",
-     *             "abstract": false,
-     *             "type": "Patient",
-     *             "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Patient",
-     *             "derivation": "constraint",
-     *             "snapshot": {
-     *                 "element": [
-     *                     {
-     *                         "id": "Patient",
-     *                         "path": "Patient",
-     *                         "min": 0,
-     *                         "max": "*"
-     *                     }
-     *                 ]
-     *             }
-     *         },
-     *         implementation_guide: "acme-cardiology"
-     *     })
-     */
-    public create(
-        request: phenoml.profiles.ProfileUploadRequest,
-        requestOptions?: ProfilesClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.profiles.ProfileSummary> {
-        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
-    }
-
-    private async __create(
-        request: phenoml.profiles.ProfileUploadRequest,
-        requestOptions?: ProfilesClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.profiles.ProfileSummary>> {
-        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            _authRequest.headers,
-            this._options?.headers,
-            requestOptions?.headers,
-        );
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.phenomlEnvironment.Default,
-                "fhir/profiles",
-            ),
-            method: "POST",
-            headers: _headers,
-            contentType: "application/json",
-            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
-            requestType: "json",
-            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-            fetchFn: this._options?.fetch,
-            logging: this._options.logging,
-        });
-        if (_response.ok) {
-            return { data: _response.body as phenoml.profiles.ProfileSummary, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new phenoml.profiles.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new phenoml.profiles.UnauthorizedError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                case 403:
-                    throw new phenoml.profiles.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new phenoml.profiles.InternalServerError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.phenomlError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/fhir/profiles");
-    }
-
-    /**
-     * Returns a single custom profile by id, including its full StructureDefinition
-     * JSON.
+     * Returns retained versions for a custom profile.
      *
      * @param {string} id - The lowercase StructureDefinition id of the custom profile.
-     * @param {ProfilesClient.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {VersionsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.profiles.BadRequestError}
      * @throws {@link phenoml.profiles.UnauthorizedError}
@@ -249,19 +36,19 @@ export class ProfilesClient {
      * @throws {@link phenoml.profiles.InternalServerError}
      *
      * @example
-     *     await client.profiles.profiles.get("custom-patient")
+     *     await client.profiles.versions.list("custom-patient")
      */
-    public get(
+    public list(
         id: string,
-        requestOptions?: ProfilesClient.RequestOptions,
-    ): core.HttpResponsePromise<phenoml.profiles.ProfileGetResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
+        requestOptions?: VersionsClient.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.profiles.ProfileVersionListResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__list(id, requestOptions));
     }
 
-    private async __get(
+    private async __list(
         id: string,
-        requestOptions?: ProfilesClient.RequestOptions,
-    ): Promise<core.WithRawResponse<phenoml.profiles.ProfileGetResponse>> {
+        requestOptions?: VersionsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.profiles.ProfileVersionListResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -273,7 +60,7 @@ export class ProfilesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/profiles/${core.url.encodePathParam(id)}`,
+                `fhir/profiles/${core.url.encodePathParam(id)}/versions`,
             ),
             method: "GET",
             headers: _headers,
@@ -285,7 +72,10 @@ export class ProfilesClient {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as phenoml.profiles.ProfileGetResponse, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as phenoml.profiles.ProfileVersionListResponse,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -315,24 +105,26 @@ export class ProfilesClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/fhir/profiles/{id}");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/fhir/profiles/{id}/versions");
     }
 
     /**
-     * Replaces an existing custom profile with a new StructureDefinition. The
-     * `id` path parameter is authoritative: if the StructureDefinition includes
-     * an `id` it must match the path parameter, and if it omits one the path
-     * parameter is used. The FHIR resource type of the profile cannot change.
-     * When `implementation_guide` is omitted, the profile keeps its existing
-     * implementation guide. A retained version string is allowed only when
-     * re-submitting the profile's current version with an unchanged
-     * StructureDefinition; otherwise it returns a conflict. While the profile
-     * has retained versions, its
-     * canonical URL cannot be changed.
+     * Adds an immutable StructureDefinition version to a custom profile. If
+     * the profile does not exist, it is created from the submitted version.
+     * The StructureDefinition must include a non-empty `version`; its
+     * canonical URL and resource type must match the profile when one already
+     * exists. If it includes an `id`, that id must match the path parameter;
+     * if it omits `id`, the path parameter is used. Profiles created through
+     * this endpoint are grouped under `custom`. Posting the profile's current
+     * StructureDefinition unchanged retains it as a version.
+     * Version strings may contain letters, numbers, and the punctuation
+     * characters `.`, `_`, `~`, `+`, and `-`; they cannot be exactly `.` or
+     * `..`. Each profile can retain up to 250 versions; delete old
+     * versions before adding more.
      *
      * @param {string} id - The lowercase StructureDefinition id of the custom profile.
-     * @param {phenoml.profiles.ProfileUploadRequest} request
-     * @param {ProfilesClient.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {phenoml.profiles.ProfileVersionCreateRequest} request
+     * @param {VersionsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.profiles.BadRequestError}
      * @throws {@link phenoml.profiles.UnauthorizedError}
@@ -342,45 +134,22 @@ export class ProfilesClient {
      * @throws {@link phenoml.profiles.InternalServerError}
      *
      * @example
-     *     await client.profiles.profiles.update("custom-patient", {
-     *         structure_definition: {
-     *             "resourceType": "StructureDefinition",
-     *             "id": "custom-patient",
-     *             "url": "http://phenoml.com/fhir/StructureDefinition/custom-patient",
-     *             "name": "CustomPatient",
-     *             "status": "active",
-     *             "fhirVersion": "4.0.1",
-     *             "kind": "resource",
-     *             "abstract": false,
-     *             "type": "Patient",
-     *             "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Patient",
-     *             "derivation": "constraint",
-     *             "snapshot": {
-     *                 "element": [
-     *                     {
-     *                         "id": "Patient",
-     *                         "path": "Patient",
-     *                         "min": 0,
-     *                         "max": "*"
-     *                     }
-     *                 ]
-     *             }
-     *         },
-     *         implementation_guide: "acme-cardiology"
+     *     await client.profiles.versions.create("custom-patient", {
+     *         "key": "value"
      *     })
      */
-    public update(
+    public create(
         id: string,
-        request: phenoml.profiles.ProfileUploadRequest,
-        requestOptions?: ProfilesClient.RequestOptions,
+        request: phenoml.profiles.ProfileVersionCreateRequest,
+        requestOptions?: VersionsClient.RequestOptions,
     ): core.HttpResponsePromise<phenoml.profiles.ProfileSummary> {
-        return core.HttpResponsePromise.fromPromise(this.__update(id, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__create(id, request, requestOptions));
     }
 
-    private async __update(
+    private async __create(
         id: string,
-        request: phenoml.profiles.ProfileUploadRequest,
-        requestOptions?: ProfilesClient.RequestOptions,
+        request: phenoml.profiles.ProfileVersionCreateRequest,
+        requestOptions?: VersionsClient.RequestOptions,
     ): Promise<core.WithRawResponse<phenoml.profiles.ProfileSummary>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -393,9 +162,9 @@ export class ProfilesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/profiles/${core.url.encodePathParam(id)}`,
+                `fhir/profiles/${core.url.encodePathParam(id)}/versions`,
             ),
-            method: "PUT",
+            method: "POST",
             headers: _headers,
             contentType: "application/json",
             queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
@@ -440,16 +209,17 @@ export class ProfilesClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "PUT", "/fhir/profiles/{id}");
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/fhir/profiles/{id}/versions");
     }
 
     /**
-     * Permanently deletes a custom profile by id. This also deletes all retained
-     * versions for that profile so the canonical URL can be reused by a later
-     * upload.
+     * Returns metadata and the full StructureDefinition for one retained
+     * version. The returned StructureDefinition's id is the profile id. The
+     * path version is the authored `StructureDefinition.version` value.
      *
      * @param {string} id - The lowercase StructureDefinition id of the custom profile.
-     * @param {ProfilesClient.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} version - The authored StructureDefinition.version. It may contain letters, numbers, and the punctuation characters `.`, `_`, `~`, `+`, and `-`; it cannot be exactly `.` or `..`.
+     * @param {VersionsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.profiles.BadRequestError}
      * @throws {@link phenoml.profiles.UnauthorizedError}
@@ -458,15 +228,111 @@ export class ProfilesClient {
      * @throws {@link phenoml.profiles.InternalServerError}
      *
      * @example
-     *     await client.profiles.profiles.delete("custom-patient")
+     *     await client.profiles.versions.get("custom-patient", "2.0.0")
      */
-    public delete(id: string, requestOptions?: ProfilesClient.RequestOptions): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(id, requestOptions));
+    public get(
+        id: string,
+        version: string,
+        requestOptions?: VersionsClient.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.profiles.ProfileGetResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__get(id, version, requestOptions));
+    }
+
+    private async __get(
+        id: string,
+        version: string,
+        requestOptions?: VersionsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.profiles.ProfileGetResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `fhir/profiles/${core.url.encodePathParam(id)}/versions/${core.url.encodePathParam(version)}`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as phenoml.profiles.ProfileGetResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.profiles.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new phenoml.profiles.UnauthorizedError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new phenoml.profiles.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
+                case 404:
+                    throw new phenoml.profiles.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new phenoml.profiles.InternalServerError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/fhir/profiles/{id}/versions/{version}",
+        );
+    }
+
+    /**
+     * Deletes one retained version from a custom profile. The path
+     * version is the authored `StructureDefinition.version` value.
+     *
+     * @param {string} id - The lowercase StructureDefinition id of the custom profile.
+     * @param {string} version - The authored StructureDefinition.version. It may contain letters, numbers, and the punctuation characters `.`, `_`, `~`, `+`, and `-`; it cannot be exactly `.` or `..`.
+     * @param {VersionsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.profiles.BadRequestError}
+     * @throws {@link phenoml.profiles.UnauthorizedError}
+     * @throws {@link phenoml.profiles.ForbiddenError}
+     * @throws {@link phenoml.profiles.NotFoundError}
+     * @throws {@link phenoml.profiles.InternalServerError}
+     *
+     * @example
+     *     await client.profiles.versions.delete("custom-patient", "2.0.0")
+     */
+    public delete(
+        id: string,
+        version: string,
+        requestOptions?: VersionsClient.RequestOptions,
+    ): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__delete(id, version, requestOptions));
     }
 
     private async __delete(
         id: string,
-        requestOptions?: ProfilesClient.RequestOptions,
+        version: string,
+        requestOptions?: VersionsClient.RequestOptions,
     ): Promise<core.WithRawResponse<void>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -479,7 +345,7 @@ export class ProfilesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/profiles/${core.url.encodePathParam(id)}`,
+                `fhir/profiles/${core.url.encodePathParam(id)}/versions/${core.url.encodePathParam(version)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -521,6 +387,11 @@ export class ProfilesClient {
             }
         }
 
-        return handleNonStatusCodeError(_response.error, _response.rawResponse, "DELETE", "/fhir/profiles/{id}");
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "DELETE",
+            "/fhir/profiles/{id}/versions/{version}",
+        );
     }
 }
