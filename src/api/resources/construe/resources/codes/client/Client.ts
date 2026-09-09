@@ -43,6 +43,8 @@ export class CodesClient {
      * @throws {@link phenoml.construe.InternalServerError}
      * @throws {@link phenoml.construe.ServiceUnavailableError}
      * @throws {@link phenoml.construe.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codes.extract({
@@ -218,6 +220,8 @@ export class CodesClient {
      * @throws {@link phenoml.construe.InternalServerError}
      * @throws {@link phenoml.construe.ServiceUnavailableError}
      * @throws {@link phenoml.construe.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codes.phenocr({
@@ -323,6 +327,8 @@ export class CodesClient {
      * @throws {@link phenoml.construe.NotImplementedError}
      * @throws {@link phenoml.construe.BadGatewayError}
      * @throws {@link phenoml.construe.ServiceUnavailableError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codes.crosswalk({
@@ -422,6 +428,8 @@ export class CodesClient {
      * @throws {@link phenoml.construe.UnauthorizedError}
      * @throws {@link phenoml.construe.NotFoundError}
      * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codes.list("ICD-10-CM", {
@@ -522,6 +530,8 @@ export class CodesClient {
      * @throws {@link phenoml.construe.UnauthorizedError}
      * @throws {@link phenoml.construe.NotFoundError}
      * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codes.lookup("ICD-10-CM", "E1165", {
@@ -639,6 +649,8 @@ export class CodesClient {
      * @throws {@link phenoml.construe.UnauthorizedError}
      * @throws {@link phenoml.construe.NotFoundError}
      * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codes.searchSemantic("ICD-10-CM", {
@@ -767,6 +779,8 @@ export class CodesClient {
      * @throws {@link phenoml.construe.NotFoundError}
      * @throws {@link phenoml.construe.InternalServerError}
      * @throws {@link phenoml.construe.NotImplementedError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codes.searchText("ICD-10-CM", {

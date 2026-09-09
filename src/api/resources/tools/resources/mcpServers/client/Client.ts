@@ -36,6 +36,8 @@ export class McpServersClient {
      * @throws {@link phenoml.tools.UnauthorizedError}
      * @throws {@link phenoml.tools.ForbiddenError}
      * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.tools.mcpServers.create({
@@ -113,6 +115,8 @@ export class McpServersClient {
      * @throws {@link phenoml.tools.UnauthorizedError}
      * @throws {@link phenoml.tools.ForbiddenError}
      * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.tools.mcpServers.list()
@@ -182,6 +186,8 @@ export class McpServersClient {
      * @throws {@link phenoml.tools.ForbiddenError}
      * @throws {@link phenoml.tools.NotFoundError}
      * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.tools.mcpServers.get("mcp_server_id")
@@ -260,6 +266,8 @@ export class McpServersClient {
      * @throws {@link phenoml.tools.ForbiddenError}
      * @throws {@link phenoml.tools.NotFoundError}
      * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.tools.mcpServers.delete("mcp_server_id")

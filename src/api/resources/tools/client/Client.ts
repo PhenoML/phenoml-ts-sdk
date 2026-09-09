@@ -45,6 +45,8 @@ export class ToolsClient {
      * @throws {@link phenoml.tools.UnauthorizedError}
      * @throws {@link phenoml.tools.ForbiddenError}
      * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.tools.createFhirResource({
@@ -143,6 +145,8 @@ export class ToolsClient {
      * @throws {@link phenoml.tools.UnauthorizedError}
      * @throws {@link phenoml.tools.ForbiddenError}
      * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.tools.createFhirResourcesMulti({
@@ -242,6 +246,8 @@ export class ToolsClient {
      * @throws {@link phenoml.tools.UnauthorizedError}
      * @throws {@link phenoml.tools.ForbiddenError}
      * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.tools.searchFhirResources({
@@ -336,6 +342,8 @@ export class ToolsClient {
      * @throws {@link phenoml.tools.UnauthorizedError}
      * @throws {@link phenoml.tools.ForbiddenError}
      * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.tools.analyzeCohort({
