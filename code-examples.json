@@ -2,8 +2,8 @@
   "metadata": {
     "language": "typescript",
     "packageName": "phenoml",
-    "sdkVersion": "18.0.0",
-    "specCommit": "26224ef37e22adb507f28c21e8991d4a27822bde",
+    "sdkVersion": "18.1.0",
+    "specCommit": "bcc6fe3b73d3ac5a6c208e00c2a1ffce7b318c7d",
     "generatorName": "fernapi/fern-typescript-sdk"
   },
   "renderRules": {
@@ -4779,6 +4779,140 @@
         "params": [
           {
             "name": "name",
+            "kind": "string"
+          }
+        ]
+      }
+    },
+    "POST /fhir/implementation-guides/{name}/versions": {
+      "httpMethod": "POST",
+      "httpPath": "/fhir/implementation-guides/{name}/versions",
+      "request": {
+        "body": null
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.implementationGuides.implementationGuides.createVersion({{name}}, { {{__body__}} })",
+        "params": [
+          {
+            "name": "name",
+            "kind": "string"
+          }
+        ],
+        "body": {
+          "fieldSeparator": ", ",
+          "fields": [
+            {
+              "jsonKey": "implementation_guide",
+              "fieldTemplate": "\"implementation_guide\": {{value}}",
+              "kind": "object",
+              "required": true,
+              "nested": {
+                "fieldSeparator": ", ",
+                "fields": [
+                  {
+                    "jsonKey": "resourceType",
+                    "fieldTemplate": "\"resourceType\": {{value}}",
+                    "kind": "enum",
+                    "required": true,
+                    "enumValues": [
+                      "ImplementationGuide"
+                    ]
+                  },
+                  {
+                    "jsonKey": "url",
+                    "fieldTemplate": "\"url\": {{value}}",
+                    "kind": "string",
+                    "required": true
+                  },
+                  {
+                    "jsonKey": "version",
+                    "fieldTemplate": "\"version\": {{value}}",
+                    "kind": "string",
+                    "required": true
+                  },
+                  {
+                    "jsonKey": "id",
+                    "fieldTemplate": "\"id\": {{value}}",
+                    "kind": "string",
+                    "required": false
+                  },
+                  {
+                    "jsonKey": "name",
+                    "fieldTemplate": "\"name\": {{value}}",
+                    "kind": "string",
+                    "required": false
+                  },
+                  {
+                    "jsonKey": "status",
+                    "fieldTemplate": "\"status\": {{value}}",
+                    "kind": "string",
+                    "required": false
+                  },
+                  {
+                    "jsonKey": "packageId",
+                    "fieldTemplate": "\"packageId\": {{value}}",
+                    "kind": "string",
+                    "required": false
+                  },
+                  {
+                    "jsonKey": "fhirVersion",
+                    "fieldTemplate": "\"fhirVersion\": {{value}}",
+                    "kind": "list",
+                    "required": false,
+                    "items": {
+                      "jsonKey": "",
+                      "fieldTemplate": "{{value}}",
+                      "kind": "string",
+                      "required": true
+                    }
+                  }
+                ],
+                "wrap": "{ {{__body__}} }"
+              }
+            },
+            {
+              "jsonKey": "profile_refs",
+              "fieldTemplate": "\"profile_refs\": {{value}}",
+              "kind": "list",
+              "required": true,
+              "items": {
+                "jsonKey": "",
+                "fieldTemplate": "{{value}}",
+                "kind": "string",
+                "required": true
+              }
+            },
+            {
+              "jsonKey": "profile_context",
+              "fieldTemplate": "\"profile_context\": {{value}}",
+              "kind": "string",
+              "required": false
+            }
+          ]
+        }
+      }
+    },
+    "GET /fhir/implementation-guides/{name}/versions/{version}": {
+      "httpMethod": "GET",
+      "httpPath": "/fhir/implementation-guides/{name}/versions/{version}",
+      "request": {
+        "body": null
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.implementationGuides.implementationGuides.getVersion({{name}}, {{version}})",
+        "params": [
+          {
+            "name": "name",
+            "kind": "string"
+          },
+          {
+            "name": "version",
             "kind": "string"
           }
         ]

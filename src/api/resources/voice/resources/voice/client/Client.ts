@@ -47,6 +47,8 @@ export class VoiceClient {
      * @throws {@link phenoml.voice.BadGatewayError}
      * @throws {@link phenoml.voice.ServiceUnavailableError}
      * @throws {@link phenoml.voice.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      */
     public transcribe(
         uploadable: core.file.Uploadable,
