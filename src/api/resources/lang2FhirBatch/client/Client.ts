@@ -38,6 +38,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.list({
@@ -158,6 +160,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.create({
@@ -299,6 +303,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     import { createReadStream } from "fs";
@@ -449,6 +455,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.finalize("job_id")
@@ -567,6 +575,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.cancel("job_id")
@@ -676,6 +686,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.get("job_id", {
@@ -800,6 +812,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.getResults("job_id", {
@@ -928,6 +942,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.getResult("job_id", "item_id")
