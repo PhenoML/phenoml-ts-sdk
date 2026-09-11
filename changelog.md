@@ -1,3 +1,17 @@
+## [18.1.0] - 2026-09-11
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction supporting the full job lifecycle (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`), along with supporting model types `BatchJob`, `BatchError`, `BatchCounts`, `BatchItemStatus`, `UploadItemResponse`, `JobDetailResponse`, `ResultsPageResponse`, and `JobListResponse`.
+- **`ImplementationGuidesClient.createVersion()` and `.getVersion()`** — new methods for publishing and retrieving canonical `ImplementationGuide` package versions, backed by new types `ImplementationGuideVersionDetail`, `FhirImplementationGuide`, `CreateCanonicalImplementationGuideRequest`, and `implementationGuides.ConflictError` (HTTP 409).
+- **`ProfilesClient` version management methods** — new `profiles_listVersions()`, `profiles_createVersion()`, `profiles_getVersion()`, and `profiles_deleteVersion()` methods for managing immutable retained StructureDefinition versions, with supporting types `ProfileVersionListResponse` and `ProfileVersionCreateRequest`.
+- **`ProfileSummary.status`, `.date`, and `.canonical`** — new optional fields surfacing publication status, authored date, and canonical URL for each profile summary; `ImplementationGuideSummary` gains optional `canonical_url` and `version_count` fields.
+- **`BaseClientOptions.instanceUrl`** — new optional string option (defaulting to `"experiment.app.pheno.ml"`) for resolving the base URL in multi-tenant deployments without a full `baseUrl` override.
+
+### Changed
+- **`OAuthAuthProvider`** — token refresh requests now explicitly include `grant_type: "client_credentials"`, aligning with the OAuth 2.0 specification.
+
+### Fixed
+- **Passthrough fetch credential leak** — SDK auth headers are now only forwarded when the resolved request URL targets the same origin as the configured base URL, preventing credential exposure to unrelated hosts.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.
