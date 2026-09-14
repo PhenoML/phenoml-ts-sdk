@@ -256,33 +256,6 @@ describe("Lang2FhirBatchClient", () => {
             .post("/lang2fhir/batch")
             .jsonBody(rawRequestBody)
             .respondWith()
-            .statusCode(409)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.lang2FhirBatch.create();
-        }).rejects.toThrow(phenoml.lang2FhirBatch.ConflictError);
-    });
-
-    test("create (5)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = {};
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/lang2fhir/batch")
-            .jsonBody(rawRequestBody)
-            .respondWith()
             .statusCode(499)
             .jsonBody(rawResponseBody)
             .build();
@@ -292,7 +265,7 @@ describe("Lang2FhirBatchClient", () => {
         }).rejects.toThrow(phenoml.lang2FhirBatch.ClientClosedRequestError);
     });
 
-    test("create (6)", async () => {
+    test("create (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -319,7 +292,7 @@ describe("Lang2FhirBatchClient", () => {
         }).rejects.toThrow(phenoml.lang2FhirBatch.InternalServerError);
     });
 
-    test("create (7)", async () => {
+    test("create (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
