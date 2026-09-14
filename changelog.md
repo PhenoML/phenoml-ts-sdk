@@ -1,3 +1,18 @@
+## [18.1.0] - 2026-09-14
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction with full job lifecycle support (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`), along with supporting model types `BatchJob`, `BatchError`, `BatchCounts`, `BatchItemStatus`, `UploadItemResponse`, `JobDetailResponse`, `ResultsPageResponse`, and `JobListResponse`.
+- **`ProfileVersionsClient`** (`client.profiles.versions`) — new sub-client for managing immutable StructureDefinition versions with `list()`, `createVersion()`, `getVersion()`, and `deleteVersion()`; adds supporting types `ProfileVersionCreateRequest` and `ProfileVersionListResponse`.
+- **`ImplementationGuidesClient.createVersion()`** and **`.getVersion()`** — new methods for publishing and retrieving exact canonical ImplementationGuide package versions; adds supporting types `FhirImplementationGuide`, `ImplementationGuideVersionDetail`, and `CreateCanonicalImplementationGuideRequest`.
+- **`BaseClientOptions.instanceUrl`** — new optional string option (defaults to `"experiment.app.pheno.ml"`) that resolves the base URL for a named instance without requiring a manual `baseUrl` override.
+- **New optional fields** on `ProfileSummary` (`status`, `date`, `canonical`) and `ImplementationGuideSummary` (`canonical_url`, `version_count`) surfacing publication metadata and version counts.
+
+### Changed
+- **`Lang2FhirBatchClient.create()`** — the 4-active-job limit has been removed; `ConflictError` (HTTP 409) is no longer thrown on job creation.
+- **Passthrough auth header security** — credentials are now forwarded only when the resolved request URL shares the same origin as the configured base URL, preventing credential leakage to third-party hosts.
+- **`redactUrl` / `SENSITIVE_QUERY_PARAMS`** — URL-redaction logic extracted into a shared internal module; debug logs for passthrough requests now redact sensitive query parameters and embedded credentials.
+- **`OAuthAuthProvider`** — token requests now explicitly include `grant_type: "client_credentials"` in the request body.
+- **`@throws` annotations** — `phenomlError` and `phenomlTimeoutError` documented as possible throws across all client methods; `ProfilesClient.delete()` and `VersionsClient.delete()` now also throw `ConflictError` (HTTP 409) on conflict.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.
