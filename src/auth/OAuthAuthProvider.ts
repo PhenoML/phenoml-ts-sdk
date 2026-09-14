@@ -106,11 +106,13 @@ export class OAuthAuthProvider implements core.AuthProvider {
                 const tokenResponse = await this.authClient.getToken({
                     client_id: clientId,
                     client_secret: clientSecret,
+                    grant_type: "client_credentials",
                 });
 
-                this.accessToken = tokenResponse.access_token;
+                const accessToken = tokenResponse.access_token;
+                this.accessToken = accessToken;
                 this.expiresAt = this.getExpiresAt(tokenResponse.expires_in, BUFFER_IN_MINUTES);
-                return this.accessToken;
+                return accessToken;
             } finally {
                 this.refreshPromise = undefined;
             }

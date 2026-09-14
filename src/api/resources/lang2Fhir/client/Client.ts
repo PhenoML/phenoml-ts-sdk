@@ -36,6 +36,8 @@ export class Lang2FhirClient {
      * @throws {@link phenoml.lang2Fhir.NotFoundError}
      * @throws {@link phenoml.lang2Fhir.UnprocessableEntityError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2Fhir.create({
@@ -139,6 +141,8 @@ export class Lang2FhirClient {
      * @throws {@link phenoml.lang2Fhir.NotFoundError}
      * @throws {@link phenoml.lang2Fhir.UnprocessableEntityError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2Fhir.createMulti({
@@ -238,6 +242,8 @@ export class Lang2FhirClient {
      * @throws {@link phenoml.lang2Fhir.BadRequestError}
      * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2Fhir.search({
@@ -337,6 +343,8 @@ export class Lang2FhirClient {
      * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
      * @throws {@link phenoml.lang2Fhir.ForbiddenError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2Fhir.uploadProfile({
@@ -431,6 +439,8 @@ export class Lang2FhirClient {
      * @throws {@link phenoml.lang2Fhir.ClientClosedRequestError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
      * @throws {@link phenoml.lang2Fhir.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2Fhir.document({
@@ -542,6 +552,8 @@ export class Lang2FhirClient {
      * @throws {@link phenoml.lang2Fhir.ClientClosedRequestError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
      * @throws {@link phenoml.lang2Fhir.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2Fhir.documentMulti({
