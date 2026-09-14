@@ -1,3 +1,18 @@
+## [18.1.0] - 2026-09-14
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction with full job lifecycle support (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`), along with supporting model types (`BatchJob`, `BatchError`, `BatchCounts`, `BatchItemStatus`, `UploadItemResponse`, `JobDetailResponse`, `ResultsPageResponse`, `JobListResponse`).
+- **`ProfileVersionsClient`** (`client.profiles.versions`) — new sub-client on `ProfilesClient` for managing immutable StructureDefinition versions with `listVersions()`, `createVersion()`, `getVersion()`, and `deleteVersion()`, plus new `ProfileVersionCreateRequest` and `ProfileVersionListResponse` types.
+- **`ImplementationGuidesClient.createVersion()`** and **`.getVersion()`** — new methods for publishing and retrieving exact canonical package versions beneath an implementation guide family; `createVersion()` throws `implementationGuides.ConflictError` (HTTP 409) on conflict.
+- **`instanceUrl`** — new optional `BaseClientOptions` field (defaults to `"experiment.app.pheno.ml"`) for resolving the base URL in multi-tenant deployments without a custom `baseUrl`.
+- **New types** — `FhirImplementationGuide`, `ImplementationGuideVersionDetail`, `CreateCanonicalImplementationGuideRequest`, `implementationGuides.ConflictError`, and new optional fields `ImplementationGuideSummary.canonical_url`/`.version_count` and `ProfileSummary.status`/`.date`/`.canonical` added to support implementation guide and profile versioning.
+
+### Changed
+- **`Lang2FhirBatchClient.create()`** — the 4-active-job concurrency limit has been removed; the method no longer throws `ConflictError` and the batch model is now item-parallel rather than job-count-limited.
+- **`OAuthAuthProvider`** — OAuth token requests now explicitly include `grant_type: "client_credentials"` for stricter server compatibility.
+
+### Fixed
+- **Passthrough auth header leak** — SDK credentials are no longer forwarded to cross-origin hosts when an absolute URL is passed to the passthrough fetch escape hatch; auth headers are now only attached when the resolved URL targets the configured base URL origin.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.

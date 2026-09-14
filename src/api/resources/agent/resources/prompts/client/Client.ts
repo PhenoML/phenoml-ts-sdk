@@ -33,6 +33,8 @@ export class PromptsClient {
      * @throws {@link phenoml.agent.UnauthorizedError}
      * @throws {@link phenoml.agent.ForbiddenError}
      * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.agent.prompts.create({
@@ -113,6 +115,8 @@ export class PromptsClient {
      * @throws {@link phenoml.agent.UnauthorizedError}
      * @throws {@link phenoml.agent.ForbiddenError}
      * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.agent.prompts.list()
@@ -182,6 +186,8 @@ export class PromptsClient {
      * @throws {@link phenoml.agent.ForbiddenError}
      * @throws {@link phenoml.agent.NotFoundError}
      * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.agent.prompts.get("id")
@@ -257,6 +263,8 @@ export class PromptsClient {
      * @throws {@link phenoml.agent.ForbiddenError}
      * @throws {@link phenoml.agent.NotFoundError}
      * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.agent.prompts.update("id", {
@@ -343,6 +351,8 @@ export class PromptsClient {
      * @throws {@link phenoml.agent.ForbiddenError}
      * @throws {@link phenoml.agent.NotFoundError}
      * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.agent.prompts.delete("id")
@@ -418,6 +428,8 @@ export class PromptsClient {
      * @throws {@link phenoml.agent.ForbiddenError}
      * @throws {@link phenoml.agent.NotFoundError}
      * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.agent.prompts.patch("id", [{
