@@ -3700,11 +3700,9 @@ await client.implementationGuides.implementationGuides.update("acme-cardiology")
 <dl>
 <dd>
 
-Deletes the stored metadata for an implementation guide — its
-profile_context and timestamps. Member profiles keep their
-implementation_guide assignment, so a guide still referenced by at least
-one profile continues to appear in listings, just without context or
-timestamps.
+Deletes the stored name-level metadata and any exact canonical package
+versions beneath the guide. Legacy member profile assignments are not
+changed.
 </dd>
 </dl>
 </dd>
@@ -3736,6 +3734,143 @@ await client.implementationGuides.implementationGuides.delete("acme-cardiology")
 <dd>
 
 **name:** `string` — The implementation guide name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ImplementationGuidesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.implementationGuides.implementationGuides.<a href="/src/api/resources/implementationGuides/resources/implementationGuides/client/Client.ts">createVersion</a>(name, { ...params }) -> phenoml.ImplementationGuideVersionDetail</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Publishes an exact package beneath this guide family. PR 2 temporarily
+permits one exact package version per guide family; publishing another
+version returns `409 Conflict` until multi-version package support lands.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.implementationGuides.implementationGuides.createVersion("name", {
+    implementation_guide: {
+        resourceType: "ImplementationGuide",
+        url: "url",
+        version: "version"
+    },
+    profile_refs: ["profile_refs"]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.implementationGuides.CreateCanonicalImplementationGuideRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ImplementationGuidesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.implementationGuides.implementationGuides.<a href="/src/api/resources/implementationGuides/resources/implementationGuides/client/Client.ts">getVersion</a>(name, version) -> phenoml.ImplementationGuideVersionDetail</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.implementationGuides.implementationGuides.getVersion("name", "1.0.0");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `string` — The authored ImplementationGuide.version. It may contain letters, numbers, and the punctuation characters `.`, `_`, `~`, `+`, and `-`; it cannot be exactly `.` or `..`.
     
 </dd>
 </dl>
@@ -4295,10 +4430,8 @@ credential. A `request_id` whose job was canceled or failed before it
 finalized is released for a fresh replay; once a job is finalized, its
 `request_id` keeps resolving to it even after cancellation.
 
-An instance may hold at most 4 active (pending or processing) jobs at
-once; a create past that limit returns `409`. The limit is instance-wide
-— jobs are shared across the instance's credentials — so another
-credential's jobs count against it.
+There is no limit on how many jobs an instance may hold at once; how many
+items run in parallel is a property of the instance, not of the job count.
 </dd>
 </dl>
 </dd>
@@ -4538,8 +4671,8 @@ await client.lang2FhirBatch.finalize("job_id");
 <dl>
 <dd>
 
-Drives a job to the terminal `canceled` state on request, freeing its
-active-job slot immediately. Takes no request body.
+Drives a job to the terminal `canceled` state on request. Takes no
+request body.
 
 Cancel does not delete the job: the job record and any results already
 produced are preserved for the normal retention window, the same as a

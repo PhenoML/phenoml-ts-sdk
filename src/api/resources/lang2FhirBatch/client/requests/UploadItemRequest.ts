@@ -35,16 +35,17 @@ export interface UploadItemRequest {
      */
     file?: core.file.Uploadable | undefined;
     /**
-     * Optional idempotency token (max 256 bytes). Re-uploading under
-     * the same token overwrites the same item instead of adding a
-     * new one. The token is scoped to this job; the same token in
-     * another job is independent and creates a separate item.
+     * Optional idempotency token (at most 256 UTF-8 bytes).
+     * Re-uploading under the same token overwrites the same item
+     * instead of adding a new one. The token is scoped to this job;
+     * the same token in another job is independent and creates a
+     * separate item.
      */
     request_id?: string;
     /**
-     * Optional caller-supplied correlation label (max 512 bytes),
-     * echoed back on status and result listings so you can match the
-     * server's item_id to your own record.
+     * Optional caller-supplied correlation label (at most 512 UTF-8
+     * bytes), echoed back on status and result listings so you can
+     * match the server's item_id to your own record.
      */
     id?: string;
 }

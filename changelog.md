@@ -1,3 +1,17 @@
+## [18.1.0] - 2026-09-16
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction with full job lifecycle support (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`), along with supporting model types (`BatchJob`, `BatchItemStatus`, `BatchCounts`, `BatchError`, `JobDetailResponse`, `JobListResponse`, `ResultsPageResponse`, `UploadItemResponse`).
+- **`ImplementationGuidesClient.createVersion()` and `.getVersion()`** — new methods for publishing and retrieving versioned canonical IG packages; `createVersion()` returns `ImplementationGuideVersionDetail` and throws `implementationGuides.ConflictError` (HTTP 409) on duplicate; new supporting types `FhirImplementationGuide`, `ImplementationGuideVersionDetail`, and `CreateCanonicalImplementationGuideRequest` are also exported.
+- **Profile version management** (`client.profiles.versions`) — new `listVersions()`, `createVersion()`, `getVersion()`, and `deleteVersion()` methods for managing immutable retained StructureDefinition versions, with new `ProfileVersionListResponse` and `ProfileVersionCreateRequest` types.
+- **`BaseClientOptions.instanceUrl`** — new optional field (defaults to `"experiment.app.pheno.ml"`) for resolving the base URL per-instance without a full `baseUrl` override.
+- **New optional fields across several types** — `ProfileSummary.status`, `.date`, and `.canonical`; `ImplementationGuideSummary.canonical_url` and `.version_count`; `ResourceReviewFinding.unaudited`; and `ResourceReviewResult.remediated` (backed by new type `ResourceReviewRemediated`).
+
+### Changed
+- **Passthrough auth-header injection** — SDK credentials are now forwarded only when the request URL targets the same origin as the configured base URL, preventing accidental credential leakage to cross-origin hosts.
+- **URL redaction** — sensitive query-string parameters (`token`, `key`, `password`, `secret`, `session`, `auth`, and variants) are automatically redacted to `[REDACTED]` in error messages and logs.
+- **`Lang2FhirBatchClient.create()`** — no longer throws `ConflictError` (HTTP 409); the per-instance active-job limit has been removed and parallelism is now an instance-level property.
+- **`OAuthAuthProvider`** — now explicitly sends `grant_type: "client_credentials"` in token requests.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.
