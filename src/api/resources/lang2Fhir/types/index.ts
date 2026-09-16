@@ -9,6 +9,7 @@ export * from "./ProfileUploadRequest.js";
 export * from "./ResourceReview.js";
 export * from "./ResourceReviewFinding.js";
 export * from "./ResourceReviewFlagged.js";
+export * from "./ResourceReviewRemediated.js";
 export * from "./ResourceReviewResult.js";
 export * from "./ResourceReviewTarget.js";
 export * from "./SearchResponse.js";

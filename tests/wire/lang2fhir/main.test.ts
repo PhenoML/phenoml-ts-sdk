@@ -327,6 +327,22 @@ describe("Lang2FhirClient", () => {
                                 fieldPath: "onsetDateTime",
                                 value: "2024-01-15",
                                 supported: false,
+                                unaudited: true,
+                                rationale: "Date is the visit date, not when the condition began.",
+                            },
+                        ],
+                    },
+                ],
+                remediated: [
+                    {
+                        tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
+                        resourceType: "Condition",
+                        findings: [
+                            {
+                                fieldPath: "onsetDateTime",
+                                value: "2024-01-15",
+                                supported: false,
+                                unaudited: true,
                                 rationale: "Date is the visit date, not when the condition began.",
                             },
                         ],
@@ -1141,6 +1157,22 @@ describe("Lang2FhirClient", () => {
                                 fieldPath: "onsetDateTime",
                                 value: "2024-01-15",
                                 supported: false,
+                                unaudited: true,
+                                rationale: "Date is the visit date, not when the condition began.",
+                            },
+                        ],
+                    },
+                ],
+                remediated: [
+                    {
+                        tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
+                        resourceType: "Condition",
+                        findings: [
+                            {
+                                fieldPath: "onsetDateTime",
+                                value: "2024-01-15",
+                                supported: false,
+                                unaudited: true,
                                 rationale: "Date is the visit date, not when the condition began.",
                             },
                         ],
