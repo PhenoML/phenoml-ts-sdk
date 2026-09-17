@@ -1,3 +1,20 @@
+## [18.1.0] - 2026-09-17
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction with full job lifecycle support (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`), along with supporting model types (`BatchJob`, `BatchError`, `BatchCounts`, `BatchItemStatus`, `UploadItemResponse`, `JobDetailResponse`, `ResultsPageResponse`, `JobListResponse`).
+- **`ProfileVersionsClient`** — new sub-client on `ProfilesClient` for managing immutable retained StructureDefinition versions via `list()`, `create()`, `get()`, and `delete()`; includes new `ProfileVersionCreateRequest` and `ProfileVersionListResponse` types.
+- **`ImplementationGuidesClient.createVersion()`** and **`.getVersion()`** — new methods for publishing and retrieving canonical `ImplementationGuide` package versions; supported by new `ImplementationGuideVersionDetail`, `CreateCanonicalImplementationGuideRequest`, and `FhirImplementationGuide` types.
+- **`BaseClientOptions.instanceUrl`** — new optional string option (defaulting to `"experiment.app.pheno.ml"`) that resolves the base URL for dedicated instances without requiring a manual `baseUrl`.
+- **`ResourceReviewResult.remediated`**, **`ResourceReviewFinding.unaudited`**, **`ProfileSummary.status`/`.date`/`.canonical`**, and **`ImplementationGuideSummary.canonical_url`/`.version_count`** — new optional fields across review, profile, and implementation guide summary types.
+
+### Changed
+- **`document` and `documentMulti`** — now accept RTF (`application/rtf`) and XML/C-CDA (`text/xml`) documents in addition to PDF and images (dedicated instances only), and now throw `ForbiddenError` (HTTP 403) where that status was previously unhandled.
+- **`Lang2FhirBatchClient.create()`** — the 4-active-job limit has been removed; the endpoint no longer throws `ConflictError` (HTTP 409) for exceeding a job cap.
+- **`ProfilesClient.list()`** — the `url` query parameter now documents pinned `url|version` resolution behavior, clarifying fallback to the current StructureDefinition when no retained version matches.
+
+### Fixed
+- **Passthrough auth header leak** — SDK credentials are now only forwarded in passthrough requests when the resolved URL targets the same origin as the configured base URL, preventing accidental credential exposure to third-party hosts.
+- **`OAuthAuthProvider`** — now explicitly sends `grant_type: "client_credentials"` when fetching tokens, fixing compatibility with servers that require the field.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.
