@@ -45,6 +45,8 @@ export class AgentClient {
      * @throws {@link phenoml.agent.UnauthorizedError}
      * @throws {@link phenoml.agent.ForbiddenError}
      * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.agent.create({
@@ -126,6 +128,8 @@ export class AgentClient {
      * @throws {@link phenoml.agent.UnauthorizedError}
      * @throws {@link phenoml.agent.ForbiddenError}
      * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.agent.list({
@@ -207,6 +211,8 @@ export class AgentClient {
      * @throws {@link phenoml.agent.ForbiddenError}
      * @throws {@link phenoml.agent.NotFoundError}
      * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.agent.get("id")
@@ -282,6 +288,8 @@ export class AgentClient {
      * @throws {@link phenoml.agent.ForbiddenError}
      * @throws {@link phenoml.agent.NotFoundError}
      * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.agent.update("id", {
@@ -368,6 +376,8 @@ export class AgentClient {
      * @throws {@link phenoml.agent.ForbiddenError}
      * @throws {@link phenoml.agent.NotFoundError}
      * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.agent.delete("id")
@@ -443,6 +453,8 @@ export class AgentClient {
      * @throws {@link phenoml.agent.ForbiddenError}
      * @throws {@link phenoml.agent.NotFoundError}
      * @throws {@link phenoml.agent.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.agent.patch("id", [{

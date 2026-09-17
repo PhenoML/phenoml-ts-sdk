@@ -3700,11 +3700,9 @@ await client.implementationGuides.implementationGuides.update("acme-cardiology")
 <dl>
 <dd>
 
-Deletes the stored metadata for an implementation guide — its
-profile_context and timestamps. Member profiles keep their
-implementation_guide assignment, so a guide still referenced by at least
-one profile continues to appear in listings, just without context or
-timestamps.
+Deletes the stored name-level metadata and any exact canonical package
+versions beneath the guide. Legacy member profile assignments are not
+changed.
 </dd>
 </dl>
 </dd>
@@ -3736,6 +3734,143 @@ await client.implementationGuides.implementationGuides.delete("acme-cardiology")
 <dd>
 
 **name:** `string` — The implementation guide name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ImplementationGuidesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.implementationGuides.implementationGuides.<a href="/src/api/resources/implementationGuides/resources/implementationGuides/client/Client.ts">createVersion</a>(name, { ...params }) -> phenoml.ImplementationGuideVersionDetail</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Publishes an exact package beneath this guide family. PR 2 temporarily
+permits one exact package version per guide family; publishing another
+version returns `409 Conflict` until multi-version package support lands.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.implementationGuides.implementationGuides.createVersion("name", {
+    implementation_guide: {
+        resourceType: "ImplementationGuide",
+        url: "url",
+        version: "version"
+    },
+    profile_refs: ["profile_refs"]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `phenoml.implementationGuides.CreateCanonicalImplementationGuideRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ImplementationGuidesClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.implementationGuides.implementationGuides.<a href="/src/api/resources/implementationGuides/resources/implementationGuides/client/Client.ts">getVersion</a>(name, version) -> phenoml.ImplementationGuideVersionDetail</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.implementationGuides.implementationGuides.getVersion("name", "1.0.0");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `string` — The authored ImplementationGuide.version. It may contain letters, numbers, and the punctuation characters `.`, `_`, `~`, `+`, and `-`; it cannot be exactly `.` or `..`.
     
 </dd>
 </dl>
@@ -4061,7 +4196,7 @@ await client.lang2Fhir.uploadProfile({
 <dl>
 <dd>
 
-Extracts text from a document (PDF or image) and converts it into a structured FHIR resource.
+Extracts text from a PDF, image, RTF, or XML/C-CDA document and converts it into a structured FHIR resource.
 
 **Patient identifier handling.** When generating a `patient` (or `patient-canvas`) resource, US Core requires `Patient.identifier` (a business identifier such as an MRN). When the source text contains an identifier, it is extracted with an appropriate URI system. When the source text does not contain a detectable identifier, a synthetic one is generated with `system: "urn:phenoml:lang2fhir-generated-id"` and a UUID `value` so the resource remains FHIR-valid and US Core conformant. Callers who need a tenant-specific namespace should rewrite the synthetic system after extraction.
 </dd>
@@ -4081,7 +4216,7 @@ Extracts text from a document (PDF or image) and converts it into a structured F
 await client.lang2Fhir.document({
     version: "R4",
     resource: "questionnaire",
-    content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)"
+    content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)"
 });
 
 ```
@@ -4130,7 +4265,7 @@ await client.lang2Fhir.document({
 <dl>
 <dd>
 
-Extracts text from a document (PDF or image) and converts it into multiple FHIR resources,
+Extracts text from a PDF, image, RTF, or XML/C-CDA document and converts it into multiple FHIR resources,
 returned as a transaction Bundle. Combines document text extraction with multi-resource detection.
 Automatically detects Patient, Condition, MedicationRequest, Observation, and other resource types.
 Resources are linked with proper references (e.g., Conditions reference the Patient).
@@ -4154,7 +4289,7 @@ Resources are linked with proper references (e.g., Conditions reference the Pati
 ```typescript
 await client.lang2Fhir.documentMulti({
     version: "R4",
-    content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
+    content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)",
     provider: "medplum",
     config: {
         split_classifications: [{
@@ -4295,10 +4430,8 @@ credential. A `request_id` whose job was canceled or failed before it
 finalized is released for a fresh replay; once a job is finalized, its
 `request_id` keeps resolving to it even after cancellation.
 
-An instance may hold at most 4 active (pending or processing) jobs at
-once; a create past that limit returns `409`. The limit is instance-wide
-— jobs are shared across the instance's credentials — so another
-credential's jobs count against it.
+There is no limit on how many jobs an instance may hold at once; how many
+items run in parallel is a property of the instance, not of the job count.
 </dd>
 </dl>
 </dd>
@@ -4372,7 +4505,7 @@ The upload enforces these rules:
 - Set **exactly one** of `document` or `create`. Setting both, or
   neither, is a `400`.
 - When `document` is set, `file` is **required** — it supplies the
-  document's binary content (PDF or image).
+  document's file content (PDF, image, RTF, or XML/C-CDA).
 - When `create` is set, `file` is **forbidden** — a create item carries
   no file.
 - `document` and `create` must each be a JSON **object**.
@@ -4538,8 +4671,8 @@ await client.lang2FhirBatch.finalize("job_id");
 <dl>
 <dd>
 
-Drives a job to the terminal `canceled` state on request, freeing its
-active-job slot immediately. Takes no request body.
+Drives a job to the terminal `canceled` state on request. Takes no
+request body.
 
 Cancel does not delete the job: the job record and any results already
 produced are preserved for the normal retention window, the same as a
