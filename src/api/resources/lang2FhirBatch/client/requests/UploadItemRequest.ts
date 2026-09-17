@@ -30,21 +30,28 @@ export interface UploadItemRequest {
      */
     create?: Record<string, unknown>;
     /**
-     * The document's binary content (PDF, PNG, JPEG, or TIFF).
+     * The document's file content (PDF, PNG, JPEG, TIFF, RTF, or
+     * XML/C-CDA). The document pipeline accepts files up to 20 MiB;
+     * an upload that passes the storage cap but exceeds this limit
+     * fails during processing. RTF and XML/C-CDA documents whose
+     * extracted text exceeds 1 MiB also fail during processing.
+     * Generic XML must include an XML declaration; C-CDA documents
+     * rooted at `ClinicalDocument` may omit it.
      * Required with `document`; forbidden with `create`.
      */
     file?: core.file.Uploadable | undefined;
     /**
-     * Optional idempotency token (max 256 bytes). Re-uploading under
-     * the same token overwrites the same item instead of adding a
-     * new one. The token is scoped to this job; the same token in
-     * another job is independent and creates a separate item.
+     * Optional idempotency token (at most 256 UTF-8 bytes).
+     * Re-uploading under the same token overwrites the same item
+     * instead of adding a new one. The token is scoped to this job;
+     * the same token in another job is independent and creates a
+     * separate item.
      */
     request_id?: string;
     /**
-     * Optional caller-supplied correlation label (max 512 bytes),
-     * echoed back on status and result listings so you can match the
-     * server's item_id to your own record.
+     * Optional caller-supplied correlation label (at most 512 UTF-8
+     * bytes), echoed back on status and result listings so you can
+     * match the server's item_id to your own record.
      */
     id?: string;
 }
