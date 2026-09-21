@@ -1,3 +1,18 @@
+## [18.1.0] - 2026-09-21
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction with full job lifecycle support (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`), along with supporting model types (`BatchJob`, `BatchError`, `BatchCounts`, `BatchItemStatus`, `UploadItemResponse`, `JobDetailResponse`, `ResultsPageResponse`, `JobListResponse`).
+- **`ProfileVersionsClient`** — new sub-client on `ProfilesClient` for managing immutable StructureDefinition versions (`list()`, `create()`, `get()`, `delete()`) with supporting types `ProfileVersionCreateRequest` and `ProfileVersionListResponse`.
+- **`ImplementationGuidesClient.createVersion()` and `.getVersion()`** — new methods for publishing and retrieving canonical package versions beneath an implementation guide family.
+- **New types across several namespaces** — `FhirImplementationGuide`, `ImplementationGuideVersionDetail`, `CreateCanonicalImplementationGuideRequest`, `ResourceReviewRemediated`, `MappingEntry.MappingStatus` (typed string-enum replacing plain `string`), and `implementationGuides.ConflictError` (HTTP 409).
+- **`ProfileSummary`** — new optional fields `status`, `date`, and `canonical` surfacing publication metadata for each profile summary.
+
+### Changed
+- **Passthrough auth-header injection** — SDK credentials are now forwarded only when the request URL targets the same origin as the configured base URL, preventing accidental credential leakage to cross-origin hosts.
+- **`UploadItemRequest.file`** — now accepts RTF and XML/C-CDA files in addition to PDF, PNG, JPEG, and TIFF, with document items up to 20 MiB supported.
+- **`OAuthAuthProvider`** — token requests now always include `grant_type: "client_credentials"`, fixing OAuth flows that require this field explicitly.
+- **`ProfilesClient.delete()` and `ProfileVersionsClient.delete()`** — now throw `ConflictError` (HTTP 409) when a delete is rejected due to a conflict; previously this status code was unhandled.
+- **All client methods** — `phenomlError` and `phenomlTimeoutError` are now documented in JSDoc `@throws` annotations across every namespace.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.
