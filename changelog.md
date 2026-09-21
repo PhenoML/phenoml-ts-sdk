@@ -1,3 +1,19 @@
+## [18.1.0] - 2026-09-21
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction covering the full job lifecycle (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`), along with supporting model types such as `BatchJob`, `BatchError`, `BatchCounts`, `JobDetailResponse`, and related types.
+- **`ProfileVersionsClient`** (`client.profiles.versions`) — new sub-client for managing immutable StructureDefinition versions per profile (`list()`, `createVersion()`, `getVersion()`, `deleteVersion()`), with new `ProfileVersionCreateRequest` and `ProfileVersionListResponse` types and new optional `status`, `date`, and `canonical` fields on `ProfileSummary`.
+- **`ImplementationGuidesClient.createVersion()`** and **`.getVersion()`** — new methods for publishing and retrieving canonical package versions beneath an implementation guide family, backed by new `FhirImplementationGuide`, `ImplementationGuideVersionDetail`, `CreateCanonicalImplementationGuideRequest`, and `implementationGuides.ConflictError` types.
+- **`MappingEntry.MappingStatus`** — new typed string-enum (`ALREADY_STANDARD`, `MAPPED`, `UNCHECKED`, `UNMAPPED`) replacing the previous untyped `string` for `MappingEntry.mapping_status`; existing string values remain valid at runtime.
+- **`ResourceReviewRemediated`** — new type in the `lang2Fhir` namespace representing a resource automatically remediated during a faithfulness audit.
+
+### Changed
+- **`UploadItemRequest.file`** — now accepts RTF and XML/C-CDA documents in addition to PDF, PNG, JPEG, and TIFF (20 MiB file limit; 1 MiB extracted-text limit for RTF and XML/C-CDA).
+- **`profiles.profiles.delete`** and **`profiles.versions.delete`** — now throw `ConflictError` (HTTP 409) when deletion is blocked by a conflict.
+- **`OAuthAuthProvider`** — token refresh requests now include `grant_type: "client_credentials"` as required by the OAuth 2.0 spec.
+
+### Fixed
+- **Passthrough fetcher** — auth headers are now only attached when the resolved request URL targets the same origin as the configured base URL, preventing SDK credentials from leaking to cross-origin hosts.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.
