@@ -41,6 +41,8 @@ export class AuthConfigClient {
      * @throws {@link phenoml.fhirProvider.ForbiddenError}
      * @throws {@link phenoml.fhirProvider.NotFoundError}
      * @throws {@link phenoml.fhirProvider.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.fhirProvider.authConfig.add("1716d214-de93-43a4-aa6b-a878d864e2ad", {
@@ -156,6 +158,8 @@ export class AuthConfigClient {
      * @throws {@link phenoml.fhirProvider.ForbiddenError}
      * @throws {@link phenoml.fhirProvider.NotFoundError}
      * @throws {@link phenoml.fhirProvider.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.fhirProvider.authConfig.setActive("1716d214-de93-43a4-aa6b-a878d864e2ad", {
@@ -266,6 +270,8 @@ export class AuthConfigClient {
      * @throws {@link phenoml.fhirProvider.ForbiddenError}
      * @throws {@link phenoml.fhirProvider.NotFoundError}
      * @throws {@link phenoml.fhirProvider.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.fhirProvider.authConfig.remove("1716d214-de93-43a4-aa6b-a878d864e2ad", {

@@ -46,6 +46,8 @@ export class ConstrueClient {
      * @throws {@link phenoml.construe.UnauthorizedError}
      * @throws {@link phenoml.construe.InternalServerError}
      * @throws {@link phenoml.construe.ServiceUnavailableError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.submitFeedback({
