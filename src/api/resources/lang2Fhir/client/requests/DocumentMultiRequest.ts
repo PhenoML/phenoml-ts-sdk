@@ -6,7 +6,7 @@ import type * as phenoml from "../../../../index.js";
  * @example
  *     {
  *         version: "R4",
- *         content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
+ *         content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)",
  *         provider: "medplum",
  *         config: {
  *             split_classifications: [{
@@ -26,14 +26,17 @@ export interface DocumentMultiRequest {
     version: string;
     /**
      * Base64 encoded file content.
-     * Supported file types: PDF (application/pdf), PNG (image/png), JPEG (image/jpeg), TIFF (image/tiff).
+     * Supported file types: PDF (application/pdf), PNG (image/png), JPEG (image/jpeg), TIFF (image/tiff), RTF (application/rtf), XML/C-CDA (text/xml).
+     * RTF and XML/C-CDA uploads are available on dedicated instances only.
      * File type is auto-detected from content magic bytes.
+     * The decoded file must not exceed 20 MiB. RTF and XML/C-CDA documents whose extracted text exceeds 1 MiB are rejected.
+     * Generic XML must include an XML declaration; C-CDA documents rooted at `ClinicalDocument` may omit it.
      */
     content: string;
     /** Optional FHIR provider name for provider-specific profiles */
     provider?: string;
     patient_reference?: phenoml.lang2Fhir.PatientReference;
-    /** Custom Implementation Guide name. When specified, profiles from this IG are included alongside US Core profiles during resource detection. US Core is always the base layer; custom IG profiles are additive. */
+    /** Custom Implementation Guide name. When specified, profiles from this IG are included alongside the default profiles during resource detection. Default profiles are always the base layer; custom IG profiles are additive. */
     implementation_guide?: string;
     /** Detection effort. 'standard' runs detection once, 'deep' runs detection multiple times for higher recall. */
     detection_effort?: DocumentMultiRequest.DetectionEffort;

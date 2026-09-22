@@ -1,3 +1,20 @@
+## [18.1.0] - 2026-09-22
+### Added
+- **`client.implementationGuides.implementationGuides.createVersion()` / `.getVersion()`** — publish and retrieve exact canonical implementation-guide packages using `FhirImplementationGuide`, `CreateCanonicalImplementationGuideRequest`, and `ImplementationGuideVersionDetail`.
+- **`ResourceReviewResult.remediated`** — surfaces resources retained after unsupported codings are safely removed, alongside the existing quarantined `flagged` resources.
+- **`CreateRequest.Resource`** — adds `familymemberhistory`, `medicationadministration`, and `medicationstatement` extraction profiles.
+- **`MappingEntry.MappingStatus`** — adds named status values while preserving the established response contract for `mapping_status`.
+- **`BaseClientOptions.instanceUrl`** — configure a custom PhenoML instance URL without overriding an explicitly supplied `baseUrl`.
+
+### Changed
+- **`client.fhir2Omop.create()`** — now maps additional administrative FHIR resources and reports the expanded OMOP conversion semantics in the typed client documentation.
+- **`client.lang2Fhir.document()` / `.documentMulti()`** — now accept RTF and XML/C-CDA documents in addition to PDF and image inputs, subject to the documented dedicated-instance and size limits.
+- **`client.lang2FhirBatch.create()`** — no longer limits an instance to four pending or processing batch jobs; item parallelism remains controlled by the instance configuration.
+- **`OAuthAuthProvider`** — client-credentials token requests now explicitly send `grant_type=client_credentials`.
+
+### Fixed
+- **`ProfilesClient.delete()` / `VersionsClient.delete()`** — now raise the typed `ConflictError` when the service rejects a deletion with HTTP 409.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.
