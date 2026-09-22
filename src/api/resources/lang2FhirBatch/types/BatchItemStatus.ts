@@ -13,9 +13,8 @@ export interface BatchItemStatus {
     /** Item status. */
     status: BatchItemStatus.Status;
     /**
-     * Number of processing attempts so far. An item runs up to 3 attempts,
-     * and only an interruption — a worker preemption or a recovered internal
-     * error — is retried; a conversion error fails the item with no retry.
+     * Number of processing attempts started so far. The service may retry
+     * interrupted work; a conversion error fails the item without retry.
      */
     attempts: number;
     /**

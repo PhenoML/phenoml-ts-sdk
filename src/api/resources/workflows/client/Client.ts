@@ -32,6 +32,8 @@ export class WorkflowsClient {
      * @throws {@link phenoml.workflows.UnauthorizedError}
      * @throws {@link phenoml.workflows.ForbiddenError}
      * @throws {@link phenoml.workflows.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.workflows.list({
@@ -122,6 +124,8 @@ export class WorkflowsClient {
      * @throws {@link phenoml.workflows.UnauthorizedError}
      * @throws {@link phenoml.workflows.ForbiddenError}
      * @throws {@link phenoml.workflows.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.workflows.create({
@@ -228,6 +232,8 @@ export class WorkflowsClient {
      * @throws {@link phenoml.workflows.NotFoundError}
      * @throws {@link phenoml.workflows.InternalServerError}
      * @throws {@link phenoml.workflows.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.workflows.get("id", {
@@ -327,6 +333,8 @@ export class WorkflowsClient {
      * @throws {@link phenoml.workflows.NotFoundError}
      * @throws {@link phenoml.workflows.InternalServerError}
      * @throws {@link phenoml.workflows.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.workflows.update("id", {
@@ -438,6 +446,8 @@ export class WorkflowsClient {
      * @throws {@link phenoml.workflows.NotFoundError}
      * @throws {@link phenoml.workflows.InternalServerError}
      * @throws {@link phenoml.workflows.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.workflows.delete("id")
@@ -525,6 +535,8 @@ export class WorkflowsClient {
      * @throws {@link phenoml.workflows.NotFoundError}
      * @throws {@link phenoml.workflows.InternalServerError}
      * @throws {@link phenoml.workflows.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.workflows.execute("7a8b9c0d-1234-5678-abcd-ef9876543210", {

@@ -16,9 +16,9 @@ export interface CreateOmopResponse {
      */
     dropped?: phenoml.fhir2Omop.DroppedResource[] | undefined;
     /**
-     * The OMOP vocabulary release the clinical codes were resolved against
-     * (e.g. "v20240229"), for reproducibility. Present when at least one
-     * coded concept was resolved.
+     * The OMOP vocabulary release returned for coded concept resolution
+     * (for example, "v20240229"), for reproducibility. It is generally
+     * absent for requests containing only text-only resources.
      */
     vocab_version?: string | undefined;
     summary?: phenoml.fhir2Omop.Summary | undefined;
