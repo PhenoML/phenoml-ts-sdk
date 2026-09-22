@@ -1,3 +1,18 @@
+## [18.1.0] - 2026-09-22
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction covering the full job lifecycle (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`), along with supporting model types (`BatchJob`, `BatchError`, `BatchCounts`, `BatchItemStatus`, `UploadItemResponse`, `JobDetailResponse`, `ResultsPageResponse`, `JobListResponse`).
+- **`ProfileVersionsClient`** (`client.profiles.versions`) — new sub-client for managing immutable StructureDefinition versions per profile (`list()`, `createVersion()`, `getVersion()`, `deleteVersion()`), with new `ProfileVersionCreateRequest` and `ProfileVersionListResponse` types.
+- **`ImplementationGuidesClient.createVersion()`** and **`.getVersion()`** — new methods for publishing and retrieving exact canonical package versions beneath an implementation guide family.
+- **New types across namespaces** — `PrimaryPatient`, `PrimaryPatientName`, `ResourceReviewRemediated`, `FhirImplementationGuide`, `ImplementationGuideVersionDetail`, `CreateCanonicalImplementationGuideRequest`, and `implementationGuides.ConflictError` added to support new extraction and IG features.
+- **`MappingEntry.MappingStatus`** — new typed string-enum (`ALREADY_STANDARD`, `MAPPED`, `UNCHECKED`, `UNMAPPED`) replacing the previous `string` type for `MappingEntry.mapping_status`; existing string values remain valid at runtime.
+
+### Changed
+- **`ImplementationGuidesClient.delete()`** — now also removes any exact canonical package versions stored beneath the guide.
+- **`Lang2FhirBatchClient.create()`** — the 4-active-job limit has been removed, `ConflictError` is no longer thrown, and the `file` field now accepts RTF and XML/C-CDA documents in addition to PDF and images.
+- **`ProfilesClient.delete()`** and **`VersionsClient.delete()`** — now throw `ConflictError` (HTTP 409) in addition to previously documented errors; update error-handling code if you catch errors from these methods.
+- **`OAuthAuthProvider`** — token refresh requests now always include `grant_type: "client_credentials"` for spec-compliant OAuth 2.0 client-credentials flow.
+- **Passthrough fetcher** — auth headers are now only attached when the request URL targets the same origin as the configured base URL, preventing credential leakage to cross-origin hosts.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.
