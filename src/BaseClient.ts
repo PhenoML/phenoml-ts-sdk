@@ -68,8 +68,8 @@ export function normalizeClientOptions<T extends BaseClientOptions = BaseClientO
         {
             "X-Fern-Language": "JavaScript",
             "X-Fern-SDK-Name": "phenoml",
-            "X-Fern-SDK-Version": "19.0.0",
-            "User-Agent": "phenoml/19.0.0",
+            "X-Fern-SDK-Version": "18.1.0",
+            "User-Agent": "phenoml/18.1.0",
             "X-Fern-Runtime": core.RUNTIME.type,
             "X-Fern-Runtime-Version": core.RUNTIME.version,
         },

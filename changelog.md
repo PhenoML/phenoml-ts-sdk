@@ -1,11 +1,9 @@
-## [19.0.0] - 2026-09-22
-### Breaking Changes
-- **`MappingEntry.mapping_status`** — now uses the `MappingEntry.MappingStatus` enum instead of `string`; update manually constructed values to `ALREADY_STANDARD`, `MAPPED`, `UNCHECKED`, or `UNMAPPED`.
-
+## [18.1.0] - 2026-09-22
 ### Added
 - **`client.implementationGuides.implementationGuides.createVersion()` / `.getVersion()`** — publish and retrieve exact canonical implementation-guide packages using `FhirImplementationGuide`, `CreateCanonicalImplementationGuideRequest`, and `ImplementationGuideVersionDetail`.
 - **`ResourceReviewResult.remediated`** — surfaces resources retained after unsupported codings are safely removed, alongside the existing quarantined `flagged` resources.
 - **`CreateRequest.Resource`** — adds `familymemberhistory`, `medicationadministration`, and `medicationstatement` extraction profiles.
+- **`MappingEntry.MappingStatus`** — adds named status values while preserving the established response contract for `mapping_status`.
 
 ### Changed
 - **`client.fhir2Omop.create()`** — now maps additional administrative FHIR resources and reports the expanded OMOP conversion semantics in the typed client documentation.
@@ -14,21 +12,6 @@
 
 ### Fixed
 - **`ProfilesClient.delete()` / `VersionsClient.delete()`** — now raise the typed `ConflictError` when the service rejects a deletion with HTTP 409.
-
-## [18.1.0] - 2026-09-21
-### Added
-- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction with full job lifecycle support (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`), along with supporting model types (`BatchJob`, `BatchError`, `BatchCounts`, `BatchItemStatus`, `UploadItemResponse`, `JobDetailResponse`, `ResultsPageResponse`, `JobListResponse`).
-- **`ProfileVersionsClient`** — new sub-client on `ProfilesClient` for managing immutable StructureDefinition versions (`list()`, `create()`, `get()`, `delete()`) with supporting types `ProfileVersionCreateRequest` and `ProfileVersionListResponse`.
-- **`ImplementationGuidesClient.createVersion()` and `.getVersion()`** — new methods for publishing and retrieving canonical package versions beneath an implementation guide family.
-- **New types across several namespaces** — `FhirImplementationGuide`, `ImplementationGuideVersionDetail`, `CreateCanonicalImplementationGuideRequest`, `ResourceReviewRemediated`, `MappingEntry.MappingStatus` (typed string-enum replacing plain `string`), and `implementationGuides.ConflictError` (HTTP 409).
-- **`ProfileSummary`** — new optional fields `status`, `date`, and `canonical` surfacing publication metadata for each profile summary.
-
-### Changed
-- **Passthrough auth-header injection** — SDK credentials are now forwarded only when the request URL targets the same origin as the configured base URL, preventing accidental credential leakage to cross-origin hosts.
-- **`UploadItemRequest.file`** — now accepts RTF and XML/C-CDA files in addition to PDF, PNG, JPEG, and TIFF, with document items up to 20 MiB supported.
-- **`OAuthAuthProvider`** — token requests now always include `grant_type: "client_credentials"`, fixing OAuth flows that require this field explicitly.
-- **`ProfilesClient.delete()` and `ProfileVersionsClient.delete()`** — now throw `ConflictError` (HTTP 409) when a delete is rejected due to a conflict; previously this status code was unhandled.
-- **All client methods** — `phenomlError` and `phenomlTimeoutError` are now documented in JSDoc `@throws` annotations across every namespace.
 
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
