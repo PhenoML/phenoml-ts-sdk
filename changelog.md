@@ -1,3 +1,21 @@
+## [18.1.0] - 2026-09-22
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction with full job lifecycle support (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`), along with supporting model types (`BatchJob`, `BatchError`, `BatchCounts`, `BatchItemStatus`, `UploadItemResponse`, `JobDetailResponse`, `ResultsPageResponse`, `JobListResponse`).
+- **`ImplementationGuidesClient.createVersion()` and `.getVersion()`** — new methods for publishing and retrieving canonical package versions beneath an implementation guide family; `ImplementationGuideVersionDetail`, `CreateCanonicalImplementationGuideRequest`, `FhirImplementationGuide`, and `implementationGuides.ConflictError` are also new.
+- **`ProfilesClient` version management methods** — new `profiles_listVersions()`, `profiles_createVersion()`, `profiles_getVersion()`, and `profiles_deleteVersion()` methods for managing immutable retained StructureDefinition versions, with supporting types `ProfileVersionListResponse` and `ProfileVersionCreateRequest`.
+- **`MappingEntry.MappingStatus`** — new typed string enum (`ALREADY_STANDARD`, `MAPPED`, `UNCHECKED`, `UNMAPPED`) replacing the plain `string` type for `MappingEntry.mapping_status`; existing string values remain valid at runtime.
+- **`PrimaryPatient`, `PrimaryPatientName`, and `ResourceReviewRemediated`** — new types in the `lang2Fhir` namespace for supplying partial patient context and representing auto-remediated resources in faithfulness reviews.
+
+### Changed
+- **`UploadItemRequest`** — `document` and `create` fields now accept `primary_patient` (alongside the deprecated `patient_reference`), and `file` now supports RTF and XML/C-CDA documents up to 20 MiB in addition to PDF and image formats.
+- **`ProfilesClient.delete()` and `VersionsClient.delete()`** — now throw `ConflictError` (HTTP 409) when a delete is rejected due to a conflict; callers should handle this new error case.
+- **`Lang2FhirBatchClient.create()`** — the 4-active-job limit has been removed; parallelism is now governed by instance configuration rather than job count, and `ConflictError` is no longer thrown by this method.
+- **`ProfileSummary`** — new optional `status`, `date`, and `canonical` fields surface publication metadata for each profile summary.
+
+### Fixed
+- **Passthrough HTTP client** — auth headers are now only attached when the request URL targets the same origin as the configured base URL, preventing credential leakage to cross-origin hosts.
+- **`OAuthAuthProvider`** — token requests now explicitly include `grant_type: "client_credentials"`, fixing OAuth flows that require this field.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.

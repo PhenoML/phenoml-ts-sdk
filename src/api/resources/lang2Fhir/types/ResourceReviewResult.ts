@@ -3,9 +3,11 @@
 import type * as phenoml from "../../../index.js";
 
 /**
- * Present when resource_review was requested and at least one resource was flagged.
+ * Present when resource_review was requested and at least one resource was quarantined or safely remediated. The returned bundle is authoritative and contains the post-review representation of every retained resource.
  */
 export interface ResourceReviewResult {
-    /** Resources pulled from the bundle because a reviewed field was not supported by the source. */
+    /** Resources pulled from the bundle because an unsupported finding could not be safely repaired. */
     flagged?: phenoml.lang2Fhir.ResourceReviewFlagged[] | undefined;
+    /** Resources retained in the bundle after unsupported codings were safely removed. */
+    remediated?: phenoml.lang2Fhir.ResourceReviewRemediated[] | undefined;
 }
