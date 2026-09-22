@@ -1,3 +1,20 @@
+## [19.0.0] - 2026-09-22
+### Breaking Changes
+- **`MappingEntry.mapping_status`** — now uses the `MappingEntry.MappingStatus` enum instead of `string`; update manually constructed values to `ALREADY_STANDARD`, `MAPPED`, `UNCHECKED`, or `UNMAPPED`.
+
+### Added
+- **`client.implementationGuides.implementationGuides.createVersion()` / `.getVersion()`** — publish and retrieve exact canonical implementation-guide packages using `FhirImplementationGuide`, `CreateCanonicalImplementationGuideRequest`, and `ImplementationGuideVersionDetail`.
+- **`ResourceReviewResult.remediated`** — surfaces resources retained after unsupported codings are safely removed, alongside the existing quarantined `flagged` resources.
+- **`CreateRequest.Resource`** — adds `familymemberhistory`, `medicationadministration`, and `medicationstatement` extraction profiles.
+
+### Changed
+- **`client.fhir2Omop.create()`** — now maps additional administrative FHIR resources and reports the expanded OMOP conversion semantics in the typed client documentation.
+- **`client.lang2Fhir.document()` / `.documentMulti()`** — now accept RTF and XML/C-CDA documents in addition to PDF and image inputs, subject to the documented dedicated-instance and size limits.
+- **`OAuthAuthProvider`** — client-credentials token requests now explicitly send `grant_type=client_credentials`.
+
+### Fixed
+- **`ProfilesClient.delete()` / `VersionsClient.delete()`** — now raise the typed `ConflictError` when the service rejects a deletion with HTTP 409.
+
 ## [18.1.0] - 2026-09-21
 ### Added
 - **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction with full job lifecycle support (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`), along with supporting model types (`BatchJob`, `BatchError`, `BatchCounts`, `BatchItemStatus`, `UploadItemResponse`, `JobDetailResponse`, `ResultsPageResponse`, `JobListResponse`).
