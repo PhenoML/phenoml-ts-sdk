@@ -38,6 +38,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.list({
@@ -144,20 +146,19 @@ export class Lang2FhirBatchClient {
      * finalized is released for a fresh replay; once a job is finalized, its
      * `request_id` keeps resolving to it even after cancellation.
      *
-     * An instance may hold at most 4 active (pending or processing) jobs at
-     * once; a create past that limit returns `409`. The limit is instance-wide
-     * — jobs are shared across the instance's credentials — so another
-     * credential's jobs count against it.
+     * There is no limit on how many jobs an instance may hold at once; how many
+     * items run in parallel is a property of the instance, not of the job count.
      *
      * @param {phenoml.lang2FhirBatch.CreateBatchRequest} request
      * @param {Lang2FhirBatchClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.lang2FhirBatch.BadRequestError}
      * @throws {@link phenoml.lang2FhirBatch.UnauthorizedError}
-     * @throws {@link phenoml.lang2FhirBatch.ConflictError}
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.create({
@@ -216,11 +217,6 @@ export class Lang2FhirBatchClient {
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
-                case 409:
-                    throw new phenoml.lang2FhirBatch.ConflictError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
                 case 499:
                     throw new phenoml.lang2FhirBatch.ClientClosedRequestError(
                         _response.error.body as unknown,
@@ -258,7 +254,7 @@ export class Lang2FhirBatchClient {
      * - Set **exactly one** of `document` or `create`. Setting both, or
      *   neither, is a `400`.
      * - When `document` is set, `file` is **required** — it supplies the
-     *   document's binary content (PDF or image).
+     *   document's file content (PDF, image, RTF, or XML/C-CDA).
      * - When `create` is set, `file` is **forbidden** — a create item carries
      *   no file.
      * - `document` and `create` must each be a JSON **object**.
@@ -299,6 +295,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     import { createReadStream } from "fs";
@@ -449,6 +447,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.finalize("job_id")
@@ -545,8 +545,8 @@ export class Lang2FhirBatchClient {
     }
 
     /**
-     * Drives a job to the terminal `canceled` state on request, freeing its
-     * active-job slot immediately. Takes no request body.
+     * Drives a job to the terminal `canceled` state on request. Takes no
+     * request body.
      *
      * Cancel does not delete the job: the job record and any results already
      * produced are preserved for the normal retention window, the same as a
@@ -567,6 +567,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.cancel("job_id")
@@ -676,6 +678,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.get("job_id", {
@@ -800,6 +804,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.getResults("job_id", {
@@ -928,6 +934,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.getResult("job_id", "item_id")

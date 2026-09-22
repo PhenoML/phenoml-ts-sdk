@@ -32,6 +32,23 @@ export interface MappingEntry {
      * verified against the OMOP vocabulary, so `concept_id` stays `0`), or
      * UNMAPPED (no standard concept found).
      */
-    mapping_status?: string | undefined;
+    mapping_status?: MappingEntry.MappingStatus | undefined;
     note?: string | undefined;
+}
+
+export namespace MappingEntry {
+    /**
+     * ALREADY_STANDARD (source coding is already a standard OMOP concept),
+     * MAPPED (source coding was mapped to a standard concept), UNCHECKED (a
+     * standard code was suggested — e.g. for a text-only resource — but not
+     * verified against the OMOP vocabulary, so `concept_id` stays `0`), or
+     * UNMAPPED (no standard concept found).
+     */
+    export const MappingStatus = {
+        AlreadyStandard: "ALREADY_STANDARD",
+        Mapped: "MAPPED",
+        Unchecked: "UNCHECKED",
+        Unmapped: "UNMAPPED",
+    } as const;
+    export type MappingStatus = (typeof MappingStatus)[keyof typeof MappingStatus];
 }

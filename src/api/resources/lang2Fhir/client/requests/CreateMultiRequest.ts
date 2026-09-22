@@ -16,8 +16,10 @@ export interface CreateMultiRequest {
     version?: string;
     /** Optional FHIR provider name for provider-specific profiles */
     provider?: string;
+    primary_patient?: phenoml.lang2Fhir.PrimaryPatient;
+    /** Deprecated compatibility alias for primary_patient.identifier. Cannot be combined with primary_patient. */
     patient_reference?: phenoml.lang2Fhir.PatientReference;
-    /** Custom Implementation Guide name. When specified, profiles from this IG are included alongside US Core profiles during resource detection. US Core is always the base layer; custom IG profiles are additive. */
+    /** Custom Implementation Guide name. When specified, profiles from this IG are included alongside the default profiles during resource detection. Default profiles are always the base layer; custom IG profiles are additive. */
     implementation_guide?: string;
     /** Detection effort. 'standard' runs detection once, 'deep' runs detection multiple times for higher recall. */
     detection_effort?: CreateMultiRequest.DetectionEffort;
