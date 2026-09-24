@@ -24,6 +24,8 @@ describe("ImplementationGuidesClient", () => {
                     profile_context:
                         "When the text mentions phenotypic features, prefer the hpo-observation profile over Condition.",
                     profile_count: 3,
+                    canonical_url: "canonical_url",
+                    version_count: 1,
                     created_at: "2024-01-15T09:30:00Z",
                     updated_at: "2024-01-15T09:30:00Z",
                 },
@@ -136,6 +138,8 @@ describe("ImplementationGuidesClient", () => {
             profile_context:
                 "When the text mentions phenotypic features, prefer the hpo-observation profile over Condition.",
             profile_count: 3,
+            canonical_url: "canonical_url",
+            version_count: 1,
             created_at: "2024-01-15T09:30:00Z",
             updated_at: "2024-01-15T09:30:00Z",
             profiles: ["custom-patient", "acme-vital-signs"],
@@ -299,6 +303,8 @@ describe("ImplementationGuidesClient", () => {
             profile_context:
                 "When the text mentions phenotypic features, prefer the hpo-observation profile over Condition.",
             profile_count: 3,
+            canonical_url: "canonical_url",
+            version_count: 1,
             created_at: "2024-01-15T09:30:00Z",
             updated_at: "2024-01-15T09:30:00Z",
         };
@@ -574,5 +580,267 @@ describe("ImplementationGuidesClient", () => {
         await expect(async () => {
             return await client.implementationGuides.implementationGuides.delete("name");
         }).rejects.toThrow(phenoml.implementationGuides.InternalServerError);
+    });
+
+    test("createVersion (1)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
+            implementation_guide: { resourceType: "ImplementationGuide", url: "url", version: "version" },
+            profile_refs: ["profile_refs"],
+        };
+        const rawResponseBody = {
+            name: "name",
+            url: "url",
+            version: "version",
+            profile_context: "profile_context",
+            profiles: ["profiles"],
+            profile_refs: ["profile_refs"],
+            implementation_guide: {
+                resourceType: "ImplementationGuide",
+                id: "id",
+                url: "url",
+                version: "version",
+                name: "name",
+                status: "status",
+                packageId: "packageId",
+                fhirVersion: ["fhirVersion"],
+            },
+            created_at: "2024-01-15T09:30:00Z",
+            updated_at: "2024-01-15T09:30:00Z",
+        };
+
+        server
+            .mockEndpoint()
+            .post("/fhir/implementation-guides/name/versions")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.implementationGuides.implementationGuides.createVersion("name", {
+            implementation_guide: {
+                resourceType: "ImplementationGuide",
+                url: "url",
+                version: "version",
+            },
+            profile_refs: ["profile_refs"],
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("createVersion (2)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
+            implementation_guide: { resourceType: "ImplementationGuide", url: "url", version: "version" },
+            profile_refs: ["profile_refs", "profile_refs"],
+        };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/fhir/implementation-guides/name/versions")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.implementationGuides.implementationGuides.createVersion("name", {
+                implementation_guide: {
+                    resourceType: "ImplementationGuide",
+                    url: "url",
+                    version: "version",
+                },
+                profile_refs: ["profile_refs", "profile_refs"],
+            });
+        }).rejects.toThrow(phenoml.implementationGuides.BadRequestError);
+    });
+
+    test("createVersion (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
+            implementation_guide: { resourceType: "ImplementationGuide", url: "url", version: "version" },
+            profile_refs: ["profile_refs", "profile_refs"],
+        };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/fhir/implementation-guides/name/versions")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.implementationGuides.implementationGuides.createVersion("name", {
+                implementation_guide: {
+                    resourceType: "ImplementationGuide",
+                    url: "url",
+                    version: "version",
+                },
+                profile_refs: ["profile_refs", "profile_refs"],
+            });
+        }).rejects.toThrow(phenoml.implementationGuides.NotFoundError);
+    });
+
+    test("createVersion (4)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = {
+            implementation_guide: { resourceType: "ImplementationGuide", url: "url", version: "version" },
+            profile_refs: ["profile_refs", "profile_refs"],
+        };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/fhir/implementation-guides/name/versions")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.implementationGuides.implementationGuides.createVersion("name", {
+                implementation_guide: {
+                    resourceType: "ImplementationGuide",
+                    url: "url",
+                    version: "version",
+                },
+                profile_refs: ["profile_refs", "profile_refs"],
+            });
+        }).rejects.toThrow(phenoml.implementationGuides.ConflictError);
+    });
+
+    test("getVersion (1)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = {
+            name: "name",
+            url: "url",
+            version: "version",
+            profile_context: "profile_context",
+            profiles: ["profiles"],
+            profile_refs: ["profile_refs"],
+            implementation_guide: {
+                resourceType: "ImplementationGuide",
+                id: "id",
+                url: "url",
+                version: "version",
+                name: "name",
+                status: "status",
+                packageId: "packageId",
+                fhirVersion: ["fhirVersion"],
+            },
+            created_at: "2024-01-15T09:30:00Z",
+            updated_at: "2024-01-15T09:30:00Z",
+        };
+
+        server
+            .mockEndpoint()
+            .get("/fhir/implementation-guides/name/versions/1.0.0")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.implementationGuides.implementationGuides.getVersion("name", "1.0.0");
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("getVersion (2)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .get("/fhir/implementation-guides/name/versions/version")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.implementationGuides.implementationGuides.getVersion("name", "version");
+        }).rejects.toThrow(phenoml.implementationGuides.BadRequestError);
+    });
+
+    test("getVersion (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .get("/fhir/implementation-guides/name/versions/version")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.implementationGuides.implementationGuides.getVersion("name", "version");
+        }).rejects.toThrow(phenoml.implementationGuides.NotFoundError);
     });
 });
