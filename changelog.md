@@ -1,3 +1,18 @@
+## [18.1.0] - 2026-09-24
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction with full job lifecycle support (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`), along with supporting model types (`BatchJob`, `BatchError`, `BatchCounts`, `BatchItemStatus`, etc.).
+- **`ProfileVersionsClient`** (`client.profiles.versions`) — new sub-client for managing immutable StructureDefinition versions with `list()`, `createVersion()`, `getVersion()`, and `deleteVersion()` methods; `ProfileVersionCreateRequest` and `ProfileVersionListResponse` types added.
+- **`ImplementationGuidesClient.createVersion()` and `.getVersion()`** — new methods for publishing and retrieving canonical IG package versions; `ImplementationGuideVersionDetail`, `FhirImplementationGuide`, `CreateCanonicalImplementationGuideRequest`, and `implementationGuides.ConflictError` (HTTP 409) added.
+- **`PrimaryPatient`** and **`PrimaryPatientName`** — new types for supplying partial patient context during extraction; `CreateMultiRequest.primary_patient` and `DocumentMultiRequest.primary_patient` added as the preferred replacement for the deprecated `patient_reference` alias.
+- **New fields across several types** — `ProfileSummary.status`, `.date`, and `.canonical`; `ImplementationGuideSummary.canonical_url` and `.version_count`; `ResourceReviewFinding.unaudited`; `ResourceReviewResult.remediated` (`ResourceReviewRemediated[]`); `DrugExposureRow` additional OMOP drug exposure fields; `CreateRequest.Resource` new enum values (`Familymemberhistory`, `Medicationadministration`, `Medicationstatement`).
+
+### Changed
+- **`MappingEntry.mapping_status`** — type narrowed from `string | undefined` to `MappingEntry.MappingStatus | undefined`; migrate raw string values to the new `MappingStatus` enum (`ALREADY_STANDARD`, `MAPPED`, `UNCHECKED`, `UNMAPPED`).
+- **`OAuthAuthProvider`** — token requests now include `grant_type: "client_credentials"` to comply with the OAuth 2.0 client-credentials flow; existing integrations using a compliant authorization server are unaffected.
+- **Passthrough HTTP client** — auth headers are now only attached when the request URL targets the same origin as the configured base URL, preventing credential leakage to cross-origin hosts.
+- **`Fhir2OmopClient.create`** — expanded resource coverage now includes `Location`, `Organization`, `HealthcareService`, `Practitioner`, and `PractitionerRole`; `lang2Fhir.document` and `lang2Fhir.documentMulti` now throw `ForbiddenError` on HTTP 403.
+- **`DocumentRequest` / `DocumentMultiRequest` content** — now accepts RTF (`application/rtf`) and XML/C-CDA (`text/xml`) documents on dedicated instances (decoded file must not exceed 20 MiB); `Lang2FhirBatchClient.create()` 4-active-job limit removed and `ConflictError` no longer thrown.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.
