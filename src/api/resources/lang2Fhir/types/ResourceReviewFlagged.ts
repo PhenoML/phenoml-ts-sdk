@@ -8,6 +8,6 @@ export interface ResourceReviewFlagged {
     resourceType?: string | undefined;
     /** The full generated FHIR resource that was pulled from the bundle. */
     resource?: Record<string, unknown> | undefined;
-    /** The unsupported fields that caused the resource to be flagged. */
+    /** The findings that caused the resource to be quarantined. */
     findings?: phenoml.lang2Fhir.ResourceReviewFinding[] | undefined;
 }

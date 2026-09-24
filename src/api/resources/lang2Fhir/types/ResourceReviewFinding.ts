@@ -5,8 +5,10 @@ export interface ResourceReviewFinding {
     /** JSON path of the field within the resource. */
     fieldPath?: string | undefined;
     value?: string | undefined;
-    /** Always false for a flagged finding. */
+    /** False when the reviewer found the field unsupported. Do not treat this field as a verdict when unaudited is true. */
     supported?: boolean | undefined;
+    /** True when the reviewer did not return a verdict for this field; the resource was quarantined without treating the finding as evidence that the value is unsupported. */
+    unaudited?: boolean | undefined;
     /** Short explanation of why the value is not supported by the source. */
     rationale?: string | undefined;
 }

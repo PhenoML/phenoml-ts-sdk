@@ -1,3 +1,21 @@
+## [18.1.0] - 2026-09-24
+### Breaking Changes
+- **`Lang2FhirBatchClient.create()`** — `ConflictError` (HTTP 409) is no longer thrown for the active-job limit; remove any catch blocks that handled `ConflictError` from `create()` for that specific case.
+
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction with full job lifecycle support (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`), backed by new model types `BatchJob`, `BatchError`, `BatchCounts`, `BatchItemStatus`, `UploadItemResponse`, `JobDetailResponse`, `ResultsPageResponse`, and `JobListResponse`.
+- **`ProfileVersionsClient`** — new sub-client on `ProfilesClient` exposing `listVersions()`, `createVersion()`, `getVersion()`, and `deleteVersion()` for managing immutable retained StructureDefinition versions, with new `ProfileVersionCreateRequest` and `ProfileVersionListResponse` types; `profiles.profiles.delete` and `profiles.versions.delete` now also throw `ConflictError` (HTTP 409).
+- **`ImplementationGuidesClient.createVersion()` and `.getVersion()`** — new methods for publishing and retrieving exact canonical package versions beneath an implementation guide family, returning the new `ImplementationGuideVersionDetail` type; `ConflictError` (HTTP 409) is thrown if a version already exists.
+- **New model types** — `ReferenceDiagnostic`, `PrimaryPatient`, `PrimaryPatientName`, `ResourceReviewRemediated`, `FhirImplementationGuide`, and `CreateCanonicalImplementationGuideRequest` added to support OMOP diagnostics, patient context, faithfulness review remediations, and canonical IG versioning.
+- **New optional fields across multiple types** — `CreateOmopResponse.diagnostics`, `CreateMultiRequest.primary_patient`, `DocumentMultiRequest.primary_patient`, `ProfileSummary.status`/`.date`/`.canonical`, `ImplementationGuideSummary.canonical_url`/`.version_count`, `ResourceReviewResult.remediated`, `ResourceReviewFinding.unaudited`, `BaseClientOptions.instanceUrl`, and additional columns on `DrugExposureRow` and `PersonRow`.
+- **`MappingEntry.MappingStatus`** — new typed string enum (`ALREADY_STANDARD`, `MAPPED`, `UNCHECKED`, `UNMAPPED`) replacing the previous untyped `string` for `MappingEntry.mapping_status`.
+- **RTF and XML/C-CDA document support** — `DocumentRequest` and `UploadItemRequest` now accept `application/rtf` and `text/xml` files; available on dedicated instances only with a 1 MiB extracted-text limit.
+- **`CreateRequest.Resource`** — new enum values `Familymemberhistory`, `Medicationadministration`, and `Medicationstatement` for single-resource text extraction.
+
+### Changed
+- **`OAuthAuthProvider`** — token requests now include `grant_type: "client_credentials"` in the request body automatically.
+- **Passthrough HTTP client** — auth headers are now forwarded only when the resolved request URL targets the same origin as the configured base URL, preventing credential leakage to cross-origin hosts.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.
