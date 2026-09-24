@@ -1,3 +1,19 @@
+## [18.1.0] - 2026-09-24
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction with full job-lifecycle methods (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`) and supporting model types (`BatchJob`, `BatchError`, `BatchCounts`, `BatchItemStatus`, etc.).
+- **`ProfileVersionsClient`** (`client.profiles.versions`) — new sub-client for managing immutable StructureDefinition versions with `listVersions()`, `createVersion()`, `getVersion()`, and `deleteVersion()`; adds `ProfileVersionCreateRequest`, `ProfileVersionListResponse`, and new optional fields on `ProfileSummary`.
+- **`ImplementationGuidesClient.createVersion()`** and **`.getVersion()`** — new methods for publishing and retrieving canonical IG package versions; new `FhirImplementationGuide`, `ImplementationGuideVersionDetail`, and `CreateCanonicalImplementationGuideRequest` types; `ImplementationGuideSummary` gains `canonical_url` and `version_count` fields.
+- **`ReferenceDiagnostic`**, **`PrimaryPatient`**, and **`ResourceReviewRemediated`** — new types for OMOP reference diagnostics, primary-patient context in extraction requests, and remediated-resource inspection in faithfulness-audit results; `CreateOmopResponse.diagnostics`, `CreateMultiRequest.primary_patient`, and `ResourceReviewResult.remediated` surface these respectively.
+- **New enum values and fields across several types** — `MappingEntry.MappingStatus` typed enum (`ALREADY_STANDARD`, `MAPPED`, `UNCHECKED`, `UNMAPPED`); `CreateRequest.Resource` gains `Familymemberhistory`, `Medicationadministration`, and `Medicationstatement`; `DrugExposureRow` gains seven OMOP CDM fields; `PersonRow` gains `provider_id` and `care_site_id`; `ResourceReviewFinding.unaudited` and `BaseClientOptions.instanceUrl` added.
+- See full changelog for all changes
+
+### Changed
+- **`OAuthAuthProvider`** — token requests now include `grant_type: "client_credentials"` to align with the OAuth 2.0 client-credentials flow; callers using the built-in OAuth provider should re-test token acquisition.
+- **Passthrough HTTP client** — auth headers are now forwarded only when the request URL targets the same origin as the configured base URL, preventing credential leakage to cross-origin hosts.
+- **URL redaction** — sensitive query parameters (`api_key`, `token`, `password`, `secret`, `session`, etc.) are automatically redacted to `[REDACTED]` in SDK error message URLs.
+- **`Lang2FhirBatchClient.create()`** — the per-instance active-job limit has been removed; the method no longer throws `ConflictError` (HTTP 409) on job creation.
+- **RTF and XML/C-CDA document support** — `DocumentRequest.content` and `UploadItemRequest.file` now accept `application/rtf` and `text/xml` in addition to PDF, PNG, JPEG, and TIFF (dedicated instances only).
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.
