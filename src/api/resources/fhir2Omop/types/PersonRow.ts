@@ -10,6 +10,8 @@ export interface PersonRow {
     race_concept_id?: number | undefined;
     ethnicity_concept_id?: number | undefined;
     location_id?: number | undefined;
+    provider_id?: number | undefined;
+    care_site_id?: number | undefined;
     person_source_value?: string | undefined;
     gender_source_value?: string | undefined;
     race_source_value?: string | undefined;
