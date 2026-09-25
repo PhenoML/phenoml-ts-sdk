@@ -38,6 +38,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.list({
@@ -134,30 +136,22 @@ export class Lang2FhirBatchClient {
     }
 
     /**
-     * Opens an empty batch job. Items arrive on later upload calls and the set
-     * is sealed at finalize.
+     * Opens an empty job; upload items, then finalize it to start processing.
      *
-     * Supplying `request_id` makes the create idempotent on that token: a
-     * retried submit whose response was lost returns the original job rather
-     * than opening a second one. This dedupe is scoped to the calling
-     * credential. A `request_id` whose job was canceled or failed before it
-     * finalized is released for a fresh replay; once a job is finalized, its
-     * `request_id` keeps resolving to it even after cancellation.
-     *
-     * An instance may hold at most 4 active (pending or processing) jobs at
-     * once; a create past that limit returns `409`. The limit is instance-wide
-     * — jobs are shared across the instance's credentials — so another
-     * credential's jobs count against it.
+     * `request_id` makes creation idempotent: a retry returns the original
+     * job. A token is released when its job is canceled or fails before
+     * finalization; otherwise it continues to resolve to that job.
      *
      * @param {phenoml.lang2FhirBatch.CreateBatchRequest} request
      * @param {Lang2FhirBatchClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.lang2FhirBatch.BadRequestError}
      * @throws {@link phenoml.lang2FhirBatch.UnauthorizedError}
-     * @throws {@link phenoml.lang2FhirBatch.ConflictError}
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.create({
@@ -216,11 +210,6 @@ export class Lang2FhirBatchClient {
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
-                case 409:
-                    throw new phenoml.lang2FhirBatch.ConflictError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
                 case 499:
                     throw new phenoml.lang2FhirBatch.ClientClosedRequestError(
                         _response.error.body as unknown,
@@ -249,43 +238,22 @@ export class Lang2FhirBatchClient {
     }
 
     /**
-     * Stores one item of a job from a multipart upload. A batch's items arrive
-     * one per request. The item carries **either** a `document` extraction
-     * (whose input file rides as raw bytes in the `file` part) **or** a
-     * `create` extraction (JSON only, no file).
+     * Stores one multipart item. Set **either** `document` with a raw `file`,
+     * or JSON-only `create`.
      *
-     * The upload enforces these rules:
-     * - Set **exactly one** of `document` or `create`. Setting both, or
-     *   neither, is a `400`.
-     * - When `document` is set, `file` is **required** — it supplies the
-     *   document's binary content (PDF or image).
-     * - When `create` is set, `file` is **forbidden** — a create item carries
-     *   no file.
-     * - `document` and `create` must each be a JSON **object**.
+     * Set exactly one JSON object. `document` requires `file`; `create`
+     * forbids it. Violations return `400`.
      *
-     * Only the item's structure is checked here: the fields inside `document`
-     * or `create` are not validated at upload. A body that is well-formed JSON
-     * but not a valid request for its endpoint is still accepted with `202`
-     * and fails later during processing, recorded as an item `error`. A
-     * wrong-typed field the endpoint cannot decode fails as `invalid_input`; a
-     * body that decodes but the pipeline rejects (for example, a missing
-     * required field) fails as `processing_failed`.
+     * Upload validates only the envelope. Endpoint request validation happens
+     * during processing: decoding failures are `invalid_input`; other pipeline
+     * failures are `processing_failed`.
      *
-     * Supplying `request_id` makes the upload idempotent on that token. A
-     * re-upload under the same token overwrites the same item rather than
-     * adding a second, so a client that lost an upload's response can safely
-     * re-send it. The response's `deduplicated` is `true` only when the
-     * re-uploaded payload matches the one already stored; a same-token upload
-     * with a changed payload overwrites in place and returns `false`.
+     * Use `request_id` for every upload so retries replace the same item.
+     * `deduplicated` is true only for an unchanged payload; a changed payload
+     * overwrites the item and returns false.
      *
-     * Set a `request_id` on **every** upload: re-sending under the same token
-     * is the only way to repair a lost or incomplete upload, including the one
-     * a finalize `409` reports. Without one, a re-send adds a new item instead
-     * of replacing the missing one, and the job cannot be finalized.
-     *
-     * Uploads are rejected once the job has been finalized (`409`), once it
-     * holds its 500-item limit (`409`), or when the item is too large (`413` —
-     * see the raw-file limit in the API description).
+     * Uploads return `409` after finalization or at the item limit, and `413`
+     * when the item is too large.
      *
      * @param {string} job_id
      * @param {phenoml.lang2FhirBatch.UploadItemRequest} request
@@ -299,6 +267,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     import { createReadStream } from "fs";
@@ -449,6 +419,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.finalize("job_id")
@@ -545,8 +517,8 @@ export class Lang2FhirBatchClient {
     }
 
     /**
-     * Drives a job to the terminal `canceled` state on request, freeing its
-     * active-job slot immediately. Takes no request body.
+     * Drives a job to the terminal `canceled` state on request. Takes no
+     * request body.
      *
      * Cancel does not delete the job: the job record and any results already
      * produced are preserved for the normal retention window, the same as a
@@ -567,6 +539,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.cancel("job_id")
@@ -676,6 +650,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.get("job_id", {
@@ -800,6 +776,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.getResults("job_id", {
@@ -928,6 +906,8 @@ export class Lang2FhirBatchClient {
      * @throws {@link phenoml.lang2FhirBatch.ClientClosedRequestError}
      * @throws {@link phenoml.lang2FhirBatch.InternalServerError}
      * @throws {@link phenoml.lang2FhirBatch.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2FhirBatch.getResult("job_id", "item_id")

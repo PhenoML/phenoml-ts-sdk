@@ -13,5 +13,6 @@ export * from "./OmopTables.js";
 export * from "./PersonRow.js";
 export * from "./ProcedureOccurrenceRow.js";
 export * from "./ProviderRow.js";
+export * from "./ReferenceDiagnostic.js";
 export * from "./Summary.js";
 export * from "./VisitOccurrenceRow.js";
