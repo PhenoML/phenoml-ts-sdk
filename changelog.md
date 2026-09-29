@@ -1,3 +1,21 @@
+## [18.1.0] - 2026-09-29
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction supporting the full job lifecycle (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`), along with supporting model types (`BatchJob`, `BatchItemStatus`, `BatchCounts`, `BatchError`, etc.).
+- **`ImplementationGuidesClient.createVersion()` and `.getVersion()`** — new methods for publishing and retrieving canonical package versions beneath an implementation guide family, returning the new `ImplementationGuideVersionDetail` type; `ImplementationGuideSummary` gains `canonical_url` and `version_count` fields.
+- **Profile version management** (`client.profiles.versions`) — new sub-client with `listVersions()`, `createVersion()`, `getVersion()`, and `deleteVersion()` for managing immutable retained StructureDefinition snapshots, with new `ProfileVersionCreateRequest` and `ProfileVersionListResponse` types.
+- **`MappingEntry.MappingStatus`** — new typed string enum (`ALREADY_STANDARD`, `MAPPED`, `UNCHECKED`, `UNMAPPED`) replacing the previous untyped `string` on `MappingEntry.mapping_status`.
+- **New fields across several types** — `CreateOmopResponse.diagnostics` (`ReferenceDiagnostic[]`), `CreateMultiRequest.primary_patient` / `DocumentMultiRequest.primary_patient` / `UploadItemRequest.primary_patient` (with `patient_reference` deprecated as a compatibility alias), `ResourceReviewResult.remediated`, `ResourceReviewFinding.unaudited`, `ProfileSummary.status` / `.date` / `.canonical`, and `BaseClientOptions.instanceUrl`.
+- See full changelog for all changes
+
+### Changed
+- **`lang2Fhir.document()` and `lang2Fhir.documentMulti()`** — now throw `ForbiddenError` (HTTP 403) and accept RTF (`application/rtf`) and XML/C-CDA (`text/xml`) documents in addition to PDF and image formats (dedicated instances only; decoded files ≤ 20 MiB, extracted text ≤ 1 MiB).
+- **`CreateOmopRequest`** — `Location`, `Organization`, `HealthcareService`, `Practitioner`, and `PractitionerRole` are now supported row-producing resource types.
+- **`OAuthAuthProvider`** — token requests now automatically include `grant_type: "client_credentials"` as required by the OAuth 2.0 client-credentials flow.
+- **`CreateRequest.Resource` enum** — `Familymemberhistory`, `Medicationadministration`, and `Medicationstatement` added as supported single-resource extraction targets.
+
+### Fixed
+- **Passthrough auth header leak** — SDK credentials are no longer forwarded when a caller passes an absolute cross-origin URL into the passthrough fetch escape hatch; auth headers are now only attached when the resolved URL targets the configured base URL origin.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.
