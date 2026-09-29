@@ -6,19 +6,29 @@ export interface CreateOmopResponse {
     success?: boolean | undefined;
     message?: string | undefined;
     tables?: phenoml.fhir2Omop.OmopTables | undefined;
-    /** One entry per source coding (or one entry for a text-only resource with no coding), describing how it resolved and linking back to the row it produced. */
+    /** One entry per supported source coding (or one entry for a text-only primary resource with no coding), describing how it resolved and linking back to the row it produced. A coded route is a separate entry linked to its medication or vaccine row. */
     mappings?: phenoml.fhir2Omop.MappingEntry[] | undefined;
     /**
      * Supported resource instances that could not be shaped into an OMOP
-     * row because required subject/patient, code, or medication reference
-     * data was missing. Unsupported resource types are ignored and do not
-     * appear here.
+     * row because required clinical data was missing, or an explicit
+     * subject/patient reference was unresolved, ambiguous, or unsupported.
+     * Unsupported resource types are ignored and do not appear here.
      */
     dropped?: phenoml.fhir2Omop.DroppedResource[] | undefined;
     /**
-     * The OMOP vocabulary release the clinical codes were resolved against
-     * (e.g. "v20240229"), for reproducibility. Present when at least one
-     * coded concept was resolved.
+     * Explanations for explicit references that could not safely produce
+     * an OMOP link or enrich a `PractitionerRole` provider row, or explicit
+     * subject/patient references that caused a clinical row to be dropped.
+     * Missing optional references are normal and do not produce a diagnostic.
+     * References resolve only against resources supplied in this request.
+     * Outcomes distinguish unresolved, ambiguous, conflicting, and unsupported
+     * references.
+     */
+    diagnostics?: phenoml.fhir2Omop.ReferenceDiagnostic[] | undefined;
+    /**
+     * The OMOP vocabulary release returned for coded concept resolution
+     * (for example, "v20240229"), for reproducibility. It is generally
+     * absent for requests containing only text-only resources.
      */
     vocab_version?: string | undefined;
     summary?: phenoml.fhir2Omop.Summary | undefined;
