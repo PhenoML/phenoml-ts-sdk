@@ -3,7 +3,9 @@
 export interface ObservationPeriodRow {
     observation_period_id?: number | undefined;
     person_id?: number | undefined;
+    /** Request-local earliest valid clinical, visit, or death date; not enrollment evidence. */
     observation_period_start_date?: string | undefined;
+    /** Request-local latest valid clinical, visit, or death date, including supported clinical end dates; not enrollment evidence. */
     observation_period_end_date?: string | undefined;
     period_type_concept_id?: number | undefined;
 }
