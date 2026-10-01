@@ -16,8 +16,8 @@ export interface BatchJob {
      * failure (the job could not run at all), distinct from individual item
      * failures, which never fail the job. `canceled` is a caller-requested
      * cancellation via `POST /lang2fhir/batch/{job_id}/cancel`; like the
-     * other terminal states it frees the job's active-job slot and keeps any
-     * results already produced readable for the retention window.
+     * other terminal states it keeps any results already produced readable
+     * for the retention window.
      */
     status: BatchJob.Status;
     /** Whether the job's item set has been sealed. */
@@ -49,8 +49,8 @@ export namespace BatchJob {
      * failure (the job could not run at all), distinct from individual item
      * failures, which never fail the job. `canceled` is a caller-requested
      * cancellation via `POST /lang2fhir/batch/{job_id}/cancel`; like the
-     * other terminal states it frees the job's active-job slot and keeps any
-     * results already produced readable for the retention window.
+     * other terminal states it keeps any results already produced readable
+     * for the retention window.
      */
     export const Status = {
         Pending: "pending",

@@ -11,40 +11,49 @@ export interface UploadItemRequest {
      * The JSON body of `POST /lang2fhir/document/multi`, **without**
      * its base64 `content` field — the uploaded `file` supplies the
      * content. Accepts that endpoint's fields (`version`, `provider`,
-     * `patient_reference`, `implementation_guide`, `detection_effort`,
+     * `primary_patient`, `patient_reference` (deprecated), `implementation_guide`, `detection_effort`,
      * `validation_method`, `config`). This is the **multi**-resource
      * body: it has no single-`resource` field, and the item's result
      * is a `DocumentMultiResponse` (a Bundle of resources). Mutually
-     * exclusive with `create`; requires `file`.
+     * exclusive with `create`; requires `file`. Do not combine
+     * `primary_patient` with `patient_reference`.
      */
     document?: Record<string, unknown>;
     /**
      * The JSON body of `POST /lang2fhir/create/multi`. Accepts that
      * endpoint's fields (`text`, `version`, `provider`,
-     * `patient_reference`, `implementation_guide`, `detection_effort`,
+     * `primary_patient`, `patient_reference` (deprecated), `implementation_guide`, `detection_effort`,
      * `validation_method`, `resource_review`). This is the
      * **multi**-resource body: it has no single-`resource` field, and
      * the item's result is a `CreateMultiResponse` (a Bundle of
      * resources). Mutually exclusive with `document`; must **not** be
-     * accompanied by a `file`.
+     * accompanied by a `file`. Do not combine `primary_patient` with
+     * `patient_reference`.
      */
     create?: Record<string, unknown>;
     /**
-     * The document's binary content (PDF, PNG, JPEG, or TIFF).
+     * The document's file content (PDF, PNG, JPEG, TIFF, RTF, or
+     * XML/C-CDA). The document pipeline accepts files up to 20 MiB;
+     * an upload that passes the storage cap but exceeds this limit
+     * fails during processing. RTF and XML/C-CDA documents whose
+     * extracted text exceeds 1 MiB also fail during processing.
+     * Generic XML must include an XML declaration; C-CDA documents
+     * rooted at `ClinicalDocument` may omit it.
      * Required with `document`; forbidden with `create`.
      */
     file?: core.file.Uploadable | undefined;
     /**
-     * Optional idempotency token (max 256 bytes). Re-uploading under
-     * the same token overwrites the same item instead of adding a
-     * new one. The token is scoped to this job; the same token in
-     * another job is independent and creates a separate item.
+     * Optional idempotency token (at most 256 UTF-8 bytes).
+     * Re-uploading under the same token overwrites the same item
+     * instead of adding a new one. The token is scoped to this job;
+     * the same token in another job is independent and creates a
+     * separate item.
      */
     request_id?: string;
     /**
-     * Optional caller-supplied correlation label (max 512 bytes),
-     * echoed back on status and result listings so you can match the
-     * server's item_id to your own record.
+     * Optional caller-supplied correlation label (at most 512 UTF-8
+     * bytes), echoed back on status and result listings so you can
+     * match the server's item_id to your own record.
      */
     id?: string;
 }
