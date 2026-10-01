@@ -36,6 +36,8 @@ export class ImplementationGuidesClient {
      * @throws {@link phenoml.implementationGuides.UnauthorizedError}
      * @throws {@link phenoml.implementationGuides.ForbiddenError}
      * @throws {@link phenoml.implementationGuides.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.implementationGuides.implementationGuides.list()
@@ -119,6 +121,8 @@ export class ImplementationGuidesClient {
      * @throws {@link phenoml.implementationGuides.ForbiddenError}
      * @throws {@link phenoml.implementationGuides.NotFoundError}
      * @throws {@link phenoml.implementationGuides.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.implementationGuides.implementationGuides.get("acme-cardiology")
@@ -221,6 +225,8 @@ export class ImplementationGuidesClient {
      * @throws {@link phenoml.implementationGuides.UnauthorizedError}
      * @throws {@link phenoml.implementationGuides.ForbiddenError}
      * @throws {@link phenoml.implementationGuides.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.implementationGuides.implementationGuides.update("acme-cardiology")
@@ -310,11 +316,9 @@ export class ImplementationGuidesClient {
     }
 
     /**
-     * Deletes the stored metadata for an implementation guide — its
-     * profile_context and timestamps. Member profiles keep their
-     * implementation_guide assignment, so a guide still referenced by at least
-     * one profile continues to appear in listings, just without context or
-     * timestamps.
+     * Deletes the stored name-level metadata and any exact canonical package
+     * versions beneath the guide. Legacy member profile assignments are not
+     * changed.
      *
      * @param {string} name - The implementation guide name.
      * @param {ImplementationGuidesClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -324,6 +328,8 @@ export class ImplementationGuidesClient {
      * @throws {@link phenoml.implementationGuides.ForbiddenError}
      * @throws {@link phenoml.implementationGuides.NotFoundError}
      * @throws {@link phenoml.implementationGuides.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.implementationGuides.implementationGuides.delete("acme-cardiology")
@@ -406,6 +412,194 @@ export class ImplementationGuidesClient {
             _response.rawResponse,
             "DELETE",
             "/fhir/implementation-guides/{name}",
+        );
+    }
+
+    /**
+     * Publishes an exact package beneath this guide family. PR 2 temporarily
+     * permits one exact package version per guide family; publishing another
+     * version returns `409 Conflict` until multi-version package support lands.
+     *
+     * @param {string} name
+     * @param {phenoml.implementationGuides.CreateCanonicalImplementationGuideRequest} request
+     * @param {ImplementationGuidesClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.implementationGuides.BadRequestError}
+     * @throws {@link phenoml.implementationGuides.NotFoundError}
+     * @throws {@link phenoml.implementationGuides.ConflictError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
+     *
+     * @example
+     *     await client.implementationGuides.implementationGuides.createVersion("name", {
+     *         implementation_guide: {
+     *             resourceType: "ImplementationGuide",
+     *             url: "url",
+     *             version: "version"
+     *         },
+     *         profile_refs: ["profile_refs"]
+     *     })
+     */
+    public createVersion(
+        name: string,
+        request: phenoml.implementationGuides.CreateCanonicalImplementationGuideRequest,
+        requestOptions?: ImplementationGuidesClient.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.implementationGuides.ImplementationGuideVersionDetail> {
+        return core.HttpResponsePromise.fromPromise(this.__createVersion(name, request, requestOptions));
+    }
+
+    private async __createVersion(
+        name: string,
+        request: phenoml.implementationGuides.CreateCanonicalImplementationGuideRequest,
+        requestOptions?: ImplementationGuidesClient.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.implementationGuides.ImplementationGuideVersionDetail>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `fhir/implementation-guides/${core.url.encodePathParam(name)}/versions`,
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            requestType: "json",
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as phenoml.implementationGuides.ImplementationGuideVersionDetail,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.implementationGuides.BadRequestError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new phenoml.implementationGuides.NotFoundError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new phenoml.implementationGuides.ConflictError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "POST",
+            "/fhir/implementation-guides/{name}/versions",
+        );
+    }
+
+    /**
+     * @param {string} name
+     * @param {string} version - The authored ImplementationGuide.version. It may contain letters, numbers, and the punctuation characters `.`, `_`, `~`, `+`, and `-`; it cannot be exactly `.` or `..`.
+     * @param {ImplementationGuidesClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link phenoml.implementationGuides.BadRequestError}
+     * @throws {@link phenoml.implementationGuides.NotFoundError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
+     *
+     * @example
+     *     await client.implementationGuides.implementationGuides.getVersion("name", "1.0.0")
+     */
+    public getVersion(
+        name: string,
+        version: string,
+        requestOptions?: ImplementationGuidesClient.RequestOptions,
+    ): core.HttpResponsePromise<phenoml.implementationGuides.ImplementationGuideVersionDetail> {
+        return core.HttpResponsePromise.fromPromise(this.__getVersion(name, version, requestOptions));
+    }
+
+    private async __getVersion(
+        name: string,
+        version: string,
+        requestOptions?: ImplementationGuidesClient.RequestOptions,
+    ): Promise<core.WithRawResponse<phenoml.implementationGuides.ImplementationGuideVersionDetail>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.phenomlEnvironment.Default,
+                `fhir/implementation-guides/${core.url.encodePathParam(name)}/versions/${core.url.encodePathParam(version)}`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as phenoml.implementationGuides.ImplementationGuideVersionDetail,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new phenoml.implementationGuides.BadRequestError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new phenoml.implementationGuides.NotFoundError(
+                        _response.error.body as unknown,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.phenomlError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/fhir/implementation-guides/{name}/versions/{version}",
         );
     }
 }

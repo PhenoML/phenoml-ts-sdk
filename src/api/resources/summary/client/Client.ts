@@ -43,6 +43,8 @@ export class SummaryClient {
      * @throws {@link phenoml.summary.ForbiddenError}
      * @throws {@link phenoml.summary.NotFoundError}
      * @throws {@link phenoml.summary.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.summary.create({
