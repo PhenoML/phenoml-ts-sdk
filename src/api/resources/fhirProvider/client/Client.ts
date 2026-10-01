@@ -41,6 +41,8 @@ export class FhirProviderClient {
      * @throws {@link phenoml.fhirProvider.UnauthorizedError}
      * @throws {@link phenoml.fhirProvider.ForbiddenError}
      * @throws {@link phenoml.fhirProvider.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.fhirProvider.create({
@@ -142,6 +144,8 @@ export class FhirProviderClient {
      *
      * @throws {@link phenoml.fhirProvider.UnauthorizedError}
      * @throws {@link phenoml.fhirProvider.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.fhirProvider.list()
@@ -220,6 +224,8 @@ export class FhirProviderClient {
      * @throws {@link phenoml.fhirProvider.UnauthorizedError}
      * @throws {@link phenoml.fhirProvider.NotFoundError}
      * @throws {@link phenoml.fhirProvider.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.fhirProvider.get("fhir_provider_id")
@@ -310,6 +316,8 @@ export class FhirProviderClient {
      * @throws {@link phenoml.fhirProvider.ForbiddenError}
      * @throws {@link phenoml.fhirProvider.NotFoundError}
      * @throws {@link phenoml.fhirProvider.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.fhirProvider.delete("fhir_provider_id")

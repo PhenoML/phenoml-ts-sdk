@@ -51,6 +51,9 @@ export class FhirClient {
      * @param {phenoml.fhir.SearchRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
+     *
      * @example
      *     await client.fhir.search("550e8400-e29b-41d4-a716-446655440000", "Patient", {
      *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
@@ -136,6 +139,9 @@ export class FhirClient {
      *                             - "Patient/123/_history" (for history operations)
      * @param {phenoml.fhir.CreateRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.fhir.create("550e8400-e29b-41d4-a716-446655440000", "Patient", {
@@ -232,6 +238,9 @@ export class FhirClient {
      *                             - "Patient/123/_history" (for history operations)
      * @param {phenoml.fhir.UpsertRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.fhir.upsert("550e8400-e29b-41d4-a716-446655440000", "Patient", {
@@ -330,6 +339,9 @@ export class FhirClient {
      * @param {phenoml.fhir.DeleteRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
+     *
      * @example
      *     await client.fhir.delete("550e8400-e29b-41d4-a716-446655440000", "Patient", {
      *         "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
@@ -424,6 +436,9 @@ export class FhirClient {
      *                             - "Patient/123/_history" (for history operations)
      * @param {phenoml.fhir.PatchRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.fhir.patch("550e8400-e29b-41d4-a716-446655440000", "Patient", {
@@ -568,6 +583,9 @@ export class FhirClient {
      *                                    - A provider name (legacy support - will just use the most recently updated provider with this name)
      * @param {phenoml.fhir.ExecuteBundleRequest} request
      * @param {FhirClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.fhir.executeBundle("550e8400-e29b-41d4-a716-446655440000", {
