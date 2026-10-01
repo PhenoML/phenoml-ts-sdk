@@ -3,13 +3,19 @@
 export interface PersonRow {
     person_id?: number | undefined;
     gender_concept_id?: number | undefined;
+    /** Year from Patient.birthDate. */
     year_of_birth?: number | undefined;
+    /** Month from Patient.birthDate, when it supplies one. */
     month_of_birth?: number | undefined;
+    /** Day from Patient.birthDate, when it supplies one. */
     day_of_birth?: number | undefined;
+    /** Not set; Patient.birthDate has no time of day. */
     birth_datetime?: string | undefined;
     race_concept_id?: number | undefined;
     ethnicity_concept_id?: number | undefined;
     location_id?: number | undefined;
+    provider_id?: number | undefined;
+    care_site_id?: number | undefined;
     person_source_value?: string | undefined;
     gender_source_value?: string | undefined;
     race_source_value?: string | undefined;

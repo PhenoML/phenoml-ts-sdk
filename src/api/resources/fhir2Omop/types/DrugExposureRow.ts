@@ -4,14 +4,30 @@ export interface DrugExposureRow {
     drug_exposure_id?: number | undefined;
     person_id?: number | undefined;
     drug_concept_id?: number | undefined;
+    /** Date from the resource's timing source, such as effective[x], occurrenceDateTime, or MedicationRequest.authoredOn. */
     drug_exposure_start_date?: string | undefined;
     drug_exposure_start_datetime?: string | undefined;
+    /** Date from an explicit FHIR Period end, or the same day as the start for a single-event administration or immunization. Unset when the source supplies neither. */
     drug_exposure_end_date?: string | undefined;
+    drug_exposure_end_datetime?: string | undefined;
+    /** Date from an explicit FHIR Period.end only; inferred same-day ends are not verbatim source values. */
+    verbatim_end_date?: string | undefined;
     drug_type_concept_id?: number | undefined;
     stop_reason?: string | undefined;
+    /** Direct MedicationRequest.dispenseRequest.numberOfRepeatsAllowed value, when supplied. */
+    refills?: number | undefined;
+    /** Direct positive whole-day MedicationRequest.dispenseRequest.expectedSupplyDuration; no dose or quantity conversion is applied. */
+    days_supply?: number | undefined;
+    /** Newline-joined non-empty FHIR Dosage.text instructions in source order. */
     sig?: string | undefined;
+    /** Target-valid OMOP Route concept for an unambiguous coded FHIR route; `0` for an unmapped coded route, omitted for absent, text-only, or conflicting routes. */
+    route_concept_id?: number | undefined;
+    /** Direct FHIR R4 Immunization.lotNumber value. */
+    lot_number?: string | undefined;
     visit_occurrence_id?: number | undefined;
     provider_id?: number | undefined;
     drug_source_value?: string | undefined;
     drug_source_concept_id?: number | undefined;
+    /** Selected source coding or text for an unambiguous FHIR route. */
+    route_source_value?: string | undefined;
 }
