@@ -4,6 +4,7 @@ export interface ObservationRow {
     observation_id?: number | undefined;
     person_id?: number | undefined;
     observation_concept_id?: number | undefined;
+    /** For an Observation, date from effectiveDateTime, effectivePeriod.start, or effectiveInstant. For an AllergyIntolerance, date from recordedDate, otherwise onsetDateTime or onsetPeriod.start. */
     observation_date?: string | undefined;
     observation_datetime?: string | undefined;
     observation_type_concept_id?: number | undefined;
