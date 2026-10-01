@@ -6,6 +6,7 @@ export interface ConditionOccurrenceRow {
     condition_concept_id?: number | undefined;
     condition_start_date?: string | undefined;
     condition_start_datetime?: string | undefined;
+    /** Date from FHIR R4 Condition.abatementDateTime or abatementPeriod.end when supplied. */
     condition_end_date?: string | undefined;
     condition_type_concept_id?: number | undefined;
     visit_occurrence_id?: number | undefined;
