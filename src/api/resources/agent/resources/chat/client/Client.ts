@@ -39,6 +39,8 @@ export class ChatClient {
      * @throws {@link phenoml.agent.ConflictError}
      * @throws {@link phenoml.agent.InternalServerError}
      * @throws {@link phenoml.agent.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.agent.chat.send({
@@ -240,6 +242,8 @@ export class ChatClient {
      * @throws {@link phenoml.agent.NotFoundError}
      * @throws {@link phenoml.agent.InternalServerError}
      * @throws {@link phenoml.agent.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.agent.chat.listMessages({

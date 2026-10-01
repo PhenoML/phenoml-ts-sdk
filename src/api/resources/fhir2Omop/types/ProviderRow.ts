@@ -9,6 +9,7 @@ export interface ProviderRow {
     care_site_id?: number | undefined;
     year_of_birth?: number | undefined;
     gender_concept_id?: number | undefined;
+    /** The source practitioner identity. A Practitioner contained by a PractitionerRole is scoped as `PractitionerRole/<role-source-value>#<contained-id>` so identical local contained IDs do not collide; an id-less parent uses an explicitly marked response-local role ordinal such as `@role-index:1`. */
     provider_source_value?: string | undefined;
     specialty_source_value?: string | undefined;
     specialty_source_concept_id?: number | undefined;
