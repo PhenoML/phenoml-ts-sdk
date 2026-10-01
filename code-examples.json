@@ -2,8 +2,8 @@
   "metadata": {
     "language": "typescript",
     "packageName": "phenoml",
-    "sdkVersion": "18.0.0",
-    "specCommit": "26224ef37e22adb507f28c21e8991d4a27822bde",
+    "sdkVersion": "19.0.0",
+    "specCommit": "bf9bfeac3aedb2f1b46fc90b6a9c92917e2162d6",
     "generatorName": "fernapi/fern-typescript-sdk"
   },
   "renderRules": {
@@ -2451,7 +2451,7 @@
                 "condition_start_date": "2024-01-15",
                 "condition_start_datetime": "2024-01-15",
                 "condition_type_concept_id": 32817,
-                "condition_source_value": "http://snomed.info/sct#44054006",
+                "condition_source_value": "44054006",
                 "condition_source_concept_id": 201826
               }
             ],
@@ -2462,8 +2462,8 @@
                 "drug_concept_id": 40163924,
                 "drug_exposure_start_date": "2024-01-16",
                 "drug_exposure_start_datetime": "2024-01-16",
-                "drug_type_concept_id": 32817,
-                "drug_source_value": "http://www.nlm.nih.gov/research/umls/rxnorm#860975",
+                "drug_type_concept_id": 32838,
+                "drug_source_value": "860975",
                 "drug_source_concept_id": 40163924
               }
             ]
@@ -2473,6 +2473,7 @@
               "resource_type": "Condition",
               "resource_id": "condition-1",
               "omop_table": "condition_occurrence",
+              "omop_field": "condition_concept_id",
               "omop_id": 1,
               "source_system": "http://snomed.info/sct",
               "source_code": "44054006",
@@ -2480,12 +2481,14 @@
               "target_vocabulary": "SNOMED",
               "target_code": "44054006",
               "target_name": "Type 2 diabetes mellitus",
-              "mapping_status": "ALREADY_STANDARD"
+              "mapping_status": "ALREADY_STANDARD",
+              "selected": true
             },
             {
               "resource_type": "MedicationRequest",
               "resource_id": "medreq-1",
               "omop_table": "drug_exposure",
+              "omop_field": "drug_concept_id",
               "omop_id": 1,
               "source_system": "http://www.nlm.nih.gov/research/umls/rxnorm",
               "source_code": "860975",
@@ -2493,7 +2496,8 @@
               "target_vocabulary": "RXNORM",
               "target_code": "860975",
               "target_name": "metformin hydrochloride 500 MG",
-              "mapping_status": "ALREADY_STANDARD"
+              "mapping_status": "ALREADY_STANDARD",
+              "selected": true
             }
           ],
           "vocab_version": "v20240229",
@@ -3545,7 +3549,10 @@
                 "auto",
                 "appointment",
                 "condition-encounter-diagnosis",
+                "familymemberhistory",
+                "medicationadministration",
                 "medicationrequest",
+                "medicationstatement",
                 "careplan",
                 "condition-problems-health-concerns",
                 "coverage",
@@ -3660,6 +3667,90 @@
               "fieldTemplate": "\"provider\": {{value}}",
               "kind": "string",
               "required": false
+            },
+            {
+              "jsonKey": "primary_patient",
+              "fieldTemplate": "\"primary_patient\": {{value}}",
+              "kind": "object",
+              "required": false,
+              "nested": {
+                "fieldSeparator": ", ",
+                "fields": [
+                  {
+                    "jsonKey": "identifier",
+                    "fieldTemplate": "\"identifier\": {{value}}",
+                    "kind": "object",
+                    "required": false,
+                    "nested": {
+                      "fieldSeparator": ", ",
+                      "fields": [
+                        {
+                          "jsonKey": "system",
+                          "fieldTemplate": "\"system\": {{value}}",
+                          "kind": "string",
+                          "required": true
+                        },
+                        {
+                          "jsonKey": "value",
+                          "fieldTemplate": "\"value\": {{value}}",
+                          "kind": "string",
+                          "required": true
+                        }
+                      ],
+                      "wrap": "{ {{__body__}} }"
+                    }
+                  },
+                  {
+                    "jsonKey": "name",
+                    "fieldTemplate": "\"name\": {{value}}",
+                    "kind": "object",
+                    "required": false,
+                    "nested": {
+                      "fieldSeparator": ", ",
+                      "fields": [
+                        {
+                          "jsonKey": "family",
+                          "fieldTemplate": "\"family\": {{value}}",
+                          "kind": "string",
+                          "required": false
+                        },
+                        {
+                          "jsonKey": "given",
+                          "fieldTemplate": "\"given\": {{value}}",
+                          "kind": "list",
+                          "required": false,
+                          "items": {
+                            "jsonKey": "",
+                            "fieldTemplate": "{{value}}",
+                            "kind": "string",
+                            "required": true
+                          }
+                        }
+                      ],
+                      "wrap": "{ {{__body__}} }"
+                    }
+                  },
+                  {
+                    "jsonKey": "birthDate",
+                    "fieldTemplate": "\"birthDate\": {{value}}",
+                    "kind": "string",
+                    "required": false
+                  },
+                  {
+                    "jsonKey": "gender",
+                    "fieldTemplate": "\"gender\": {{value}}",
+                    "kind": "enum",
+                    "required": false,
+                    "enumValues": [
+                      "male",
+                      "female",
+                      "other",
+                      "unknown"
+                    ]
+                  }
+                ],
+                "wrap": "{ {{__body__}} }"
+              }
             },
             {
               "jsonKey": "patient_reference",
@@ -3851,7 +3942,7 @@
         "body": {
           "version": "R4",
           "resource": "questionnaire",
-          "content": "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)"
+          "content": "JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)"
         }
       },
       "response": {
@@ -4017,7 +4108,7 @@
       "request": {
         "body": {
           "version": "R4",
-          "content": "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
+          "content": "JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)",
           "provider": "medplum",
           "config": {
             "split_classifications": [
@@ -4198,6 +4289,90 @@
               "fieldTemplate": "\"provider\": {{value}}",
               "kind": "string",
               "required": false
+            },
+            {
+              "jsonKey": "primary_patient",
+              "fieldTemplate": "\"primary_patient\": {{value}}",
+              "kind": "object",
+              "required": false,
+              "nested": {
+                "fieldSeparator": ", ",
+                "fields": [
+                  {
+                    "jsonKey": "identifier",
+                    "fieldTemplate": "\"identifier\": {{value}}",
+                    "kind": "object",
+                    "required": false,
+                    "nested": {
+                      "fieldSeparator": ", ",
+                      "fields": [
+                        {
+                          "jsonKey": "system",
+                          "fieldTemplate": "\"system\": {{value}}",
+                          "kind": "string",
+                          "required": true
+                        },
+                        {
+                          "jsonKey": "value",
+                          "fieldTemplate": "\"value\": {{value}}",
+                          "kind": "string",
+                          "required": true
+                        }
+                      ],
+                      "wrap": "{ {{__body__}} }"
+                    }
+                  },
+                  {
+                    "jsonKey": "name",
+                    "fieldTemplate": "\"name\": {{value}}",
+                    "kind": "object",
+                    "required": false,
+                    "nested": {
+                      "fieldSeparator": ", ",
+                      "fields": [
+                        {
+                          "jsonKey": "family",
+                          "fieldTemplate": "\"family\": {{value}}",
+                          "kind": "string",
+                          "required": false
+                        },
+                        {
+                          "jsonKey": "given",
+                          "fieldTemplate": "\"given\": {{value}}",
+                          "kind": "list",
+                          "required": false,
+                          "items": {
+                            "jsonKey": "",
+                            "fieldTemplate": "{{value}}",
+                            "kind": "string",
+                            "required": true
+                          }
+                        }
+                      ],
+                      "wrap": "{ {{__body__}} }"
+                    }
+                  },
+                  {
+                    "jsonKey": "birthDate",
+                    "fieldTemplate": "\"birthDate\": {{value}}",
+                    "kind": "string",
+                    "required": false
+                  },
+                  {
+                    "jsonKey": "gender",
+                    "fieldTemplate": "\"gender\": {{value}}",
+                    "kind": "enum",
+                    "required": false,
+                    "enumValues": [
+                      "male",
+                      "female",
+                      "other",
+                      "unknown"
+                    ]
+                  }
+                ],
+                "wrap": "{ {{__body__}} }"
+              }
             },
             {
               "jsonKey": "patient_reference",
@@ -4779,6 +4954,140 @@
         "params": [
           {
             "name": "name",
+            "kind": "string"
+          }
+        ]
+      }
+    },
+    "POST /fhir/implementation-guides/{name}/versions": {
+      "httpMethod": "POST",
+      "httpPath": "/fhir/implementation-guides/{name}/versions",
+      "request": {
+        "body": null
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.implementationGuides.implementationGuides.createVersion({{name}}, { {{__body__}} })",
+        "params": [
+          {
+            "name": "name",
+            "kind": "string"
+          }
+        ],
+        "body": {
+          "fieldSeparator": ", ",
+          "fields": [
+            {
+              "jsonKey": "implementation_guide",
+              "fieldTemplate": "\"implementation_guide\": {{value}}",
+              "kind": "object",
+              "required": true,
+              "nested": {
+                "fieldSeparator": ", ",
+                "fields": [
+                  {
+                    "jsonKey": "resourceType",
+                    "fieldTemplate": "\"resourceType\": {{value}}",
+                    "kind": "enum",
+                    "required": true,
+                    "enumValues": [
+                      "ImplementationGuide"
+                    ]
+                  },
+                  {
+                    "jsonKey": "url",
+                    "fieldTemplate": "\"url\": {{value}}",
+                    "kind": "string",
+                    "required": true
+                  },
+                  {
+                    "jsonKey": "version",
+                    "fieldTemplate": "\"version\": {{value}}",
+                    "kind": "string",
+                    "required": true
+                  },
+                  {
+                    "jsonKey": "id",
+                    "fieldTemplate": "\"id\": {{value}}",
+                    "kind": "string",
+                    "required": false
+                  },
+                  {
+                    "jsonKey": "name",
+                    "fieldTemplate": "\"name\": {{value}}",
+                    "kind": "string",
+                    "required": false
+                  },
+                  {
+                    "jsonKey": "status",
+                    "fieldTemplate": "\"status\": {{value}}",
+                    "kind": "string",
+                    "required": false
+                  },
+                  {
+                    "jsonKey": "packageId",
+                    "fieldTemplate": "\"packageId\": {{value}}",
+                    "kind": "string",
+                    "required": false
+                  },
+                  {
+                    "jsonKey": "fhirVersion",
+                    "fieldTemplate": "\"fhirVersion\": {{value}}",
+                    "kind": "list",
+                    "required": false,
+                    "items": {
+                      "jsonKey": "",
+                      "fieldTemplate": "{{value}}",
+                      "kind": "string",
+                      "required": true
+                    }
+                  }
+                ],
+                "wrap": "{ {{__body__}} }"
+              }
+            },
+            {
+              "jsonKey": "profile_refs",
+              "fieldTemplate": "\"profile_refs\": {{value}}",
+              "kind": "list",
+              "required": true,
+              "items": {
+                "jsonKey": "",
+                "fieldTemplate": "{{value}}",
+                "kind": "string",
+                "required": true
+              }
+            },
+            {
+              "jsonKey": "profile_context",
+              "fieldTemplate": "\"profile_context\": {{value}}",
+              "kind": "string",
+              "required": false
+            }
+          ]
+        }
+      }
+    },
+    "GET /fhir/implementation-guides/{name}/versions/{version}": {
+      "httpMethod": "GET",
+      "httpPath": "/fhir/implementation-guides/{name}/versions/{version}",
+      "request": {
+        "body": null
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.implementationGuides.implementationGuides.getVersion({{name}}, {{version}})",
+        "params": [
+          {
+            "name": "name",
+            "kind": "string"
+          },
+          {
+            "name": "version",
             "kind": "string"
           }
         ]
