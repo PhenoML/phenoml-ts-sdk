@@ -4,8 +4,10 @@ export interface VisitOccurrenceRow {
     visit_occurrence_id?: number | undefined;
     person_id?: number | undefined;
     visit_concept_id?: number | undefined;
+    /** Date from Encounter.period.start. */
     visit_start_date?: string | undefined;
     visit_start_datetime?: string | undefined;
+    /** Date from Encounter.period.end. */
     visit_end_date?: string | undefined;
     visit_end_datetime?: string | undefined;
     visit_type_concept_id?: number | undefined;

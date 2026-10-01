@@ -327,6 +327,22 @@ describe("Lang2FhirClient", () => {
                                 fieldPath: "onsetDateTime",
                                 value: "2024-01-15",
                                 supported: false,
+                                unaudited: true,
+                                rationale: "Date is the visit date, not when the condition began.",
+                            },
+                        ],
+                    },
+                ],
+                remediated: [
+                    {
+                        tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
+                        resourceType: "Condition",
+                        findings: [
+                            {
+                                fieldPath: "onsetDateTime",
+                                value: "2024-01-15",
+                                supported: false,
+                                unaudited: true,
                                 rationale: "Date is the visit date, not when the condition began.",
                             },
                         ],
@@ -783,7 +799,7 @@ describe("Lang2FhirClient", () => {
         const rawRequestBody = {
             version: "R4",
             resource: "questionnaire",
-            content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
+            content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)",
         };
         const rawResponseBody = {
             resourceType: "Questionnaire",
@@ -807,7 +823,7 @@ describe("Lang2FhirClient", () => {
         const response = await client.lang2Fhir.document({
             version: "R4",
             resource: "questionnaire",
-            content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
+            content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -892,6 +908,37 @@ describe("Lang2FhirClient", () => {
             .post("/lang2fhir/document")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.document({
+                version: "version",
+                resource: "resource",
+                content: "content",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.ForbiddenError);
+    });
+
+    test("document (5)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { version: "version", resource: "resource", content: "content" };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/document")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
@@ -905,7 +952,7 @@ describe("Lang2FhirClient", () => {
         }).rejects.toThrow(phenoml.lang2Fhir.NotFoundError);
     });
 
-    test("document (5)", async () => {
+    test("document (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -936,7 +983,7 @@ describe("Lang2FhirClient", () => {
         }).rejects.toThrow(phenoml.lang2Fhir.UnprocessableEntityError);
     });
 
-    test("document (6)", async () => {
+    test("document (7)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -967,7 +1014,7 @@ describe("Lang2FhirClient", () => {
         }).rejects.toThrow(phenoml.lang2Fhir.ClientClosedRequestError);
     });
 
-    test("document (7)", async () => {
+    test("document (8)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -998,7 +1045,7 @@ describe("Lang2FhirClient", () => {
         }).rejects.toThrow(phenoml.lang2Fhir.InternalServerError);
     });
 
-    test("document (8)", async () => {
+    test("document (9)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1041,7 +1088,7 @@ describe("Lang2FhirClient", () => {
         });
         const rawRequestBody = {
             version: "R4",
-            content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
+            content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)",
             provider: "medplum",
             config: {
                 split_classifications: [
@@ -1141,6 +1188,22 @@ describe("Lang2FhirClient", () => {
                                 fieldPath: "onsetDateTime",
                                 value: "2024-01-15",
                                 supported: false,
+                                unaudited: true,
+                                rationale: "Date is the visit date, not when the condition began.",
+                            },
+                        ],
+                    },
+                ],
+                remediated: [
+                    {
+                        tempId: "urn:uuid:a842c4bc-f6cb-4555-9741-ac3aec4ef0b8",
+                        resourceType: "Condition",
+                        findings: [
+                            {
+                                fieldPath: "onsetDateTime",
+                                value: "2024-01-15",
+                                supported: false,
+                                unaudited: true,
                                 rationale: "Date is the visit date, not when the condition began.",
                             },
                         ],
@@ -1170,7 +1233,7 @@ describe("Lang2FhirClient", () => {
 
         const response = await client.lang2Fhir.documentMulti({
             version: "R4",
-            content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
+            content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)",
             provider: "medplum",
             config: {
                 split_classifications: [
@@ -1268,6 +1331,36 @@ describe("Lang2FhirClient", () => {
             .post("/lang2fhir/document/multi")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.lang2Fhir.documentMulti({
+                version: "version",
+                content: "content",
+            });
+        }).rejects.toThrow(phenoml.lang2Fhir.ForbiddenError);
+    });
+
+    test("documentMulti (5)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+        const rawRequestBody = { version: "version", content: "content" };
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .post("/lang2fhir/document/multi")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
@@ -1280,7 +1373,7 @@ describe("Lang2FhirClient", () => {
         }).rejects.toThrow(phenoml.lang2Fhir.NotFoundError);
     });
 
-    test("documentMulti (5)", async () => {
+    test("documentMulti (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1310,7 +1403,7 @@ describe("Lang2FhirClient", () => {
         }).rejects.toThrow(phenoml.lang2Fhir.UnprocessableEntityError);
     });
 
-    test("documentMulti (6)", async () => {
+    test("documentMulti (7)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1340,7 +1433,7 @@ describe("Lang2FhirClient", () => {
         }).rejects.toThrow(phenoml.lang2Fhir.ClientClosedRequestError);
     });
 
-    test("documentMulti (7)", async () => {
+    test("documentMulti (8)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -1370,7 +1463,7 @@ describe("Lang2FhirClient", () => {
         }).rejects.toThrow(phenoml.lang2Fhir.InternalServerError);
     });
 
-    test("documentMulti (8)", async () => {
+    test("documentMulti (9)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 

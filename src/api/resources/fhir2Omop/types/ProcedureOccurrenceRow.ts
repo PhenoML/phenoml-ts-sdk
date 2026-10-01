@@ -4,8 +4,12 @@ export interface ProcedureOccurrenceRow {
     procedure_occurrence_id?: number | undefined;
     person_id?: number | undefined;
     procedure_concept_id?: number | undefined;
+    /** Date from Procedure.performedDateTime or performedPeriod.start. */
     procedure_date?: string | undefined;
     procedure_datetime?: string | undefined;
+    /** Date from Procedure.performedPeriod.end. */
+    procedure_end_date?: string | undefined;
+    procedure_end_datetime?: string | undefined;
     procedure_type_concept_id?: number | undefined;
     visit_occurrence_id?: number | undefined;
     provider_id?: number | undefined;
