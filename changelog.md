@@ -1,3 +1,21 @@
+## [19.0.0] - 2026-10-01
+### Breaking Changes
+- **`MappingEntry.selected`** — new required `boolean` field; add `selected: false` (or the appropriate value) to all `MappingEntry` object literals to restore compilation.
+- **`MappingEntry.mapping_status`** — type narrowed from `string | undefined` to `MappingEntry.MappingStatus | undefined`; replace arbitrary string assignments with the `MappingEntry.MappingStatus` enum values (`"ALREADY_STANDARD"`, `"MAPPED"`, `"UNCHECKED"`, `"UNMAPPED"`).
+
+### Added
+- **`Lang2FhirBatchClient`** (`client.lang2FhirBatch`) — new top-level client for asynchronous batch FHIR extraction with full job-lifecycle methods (`create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, `list()`) and accompanying model types (`BatchJob`, `BatchError`, `BatchCounts`, `BatchItemStatus`, `UploadItemResponse`, `JobDetailResponse`, `ResultsPageResponse`, `JobListResponse`).
+- **`ProfileVersionsClient`** (`client.profiles.versions`) — new sub-client on `ProfilesClient` for managing immutable StructureDefinition versions with `list()`, `createVersion()`, `getVersion()`, and `deleteVersion()`; adds `ProfileVersionCreateRequest`, `ProfileVersionListResponse`, and new optional fields on `ProfileSummary` (`status`, `date`, `canonical`).
+- **`ImplementationGuidesClient.createVersion()`** and **`.getVersion()`** — new methods for publishing and retrieving exact canonical package versions, returning `ImplementationGuideVersionDetail`.
+- **New fields across several types** — `CreateOmopResponse` gains `provider_role_contexts` and `diagnostics`; `CreateMultiRequest` and `DocumentMultiRequest` gain `primary_patient` (deprecating `patient_reference`); `MappingEntry` gains `omop_field`; `ResourceReviewResult` gains `remediated`; `ResourceReviewFinding` gains `unaudited`; `ImplementationGuideSummary` gains `canonical_url` and `version_count`; `BaseClientOptions` gains `instanceUrl`.
+- See full changelog for all changes
+
+### Changed
+- **`DocumentMultiRequest.content` / `DocumentRequest.content`** — now accept RTF (`application/rtf`) and XML/C-CDA (`text/xml`) in addition to existing formats; a 20 MiB decoded-file limit and 1 MiB extracted-text limit apply (dedicated instances only).
+- **Passthrough auth header forwarding** — credentials are now only attached when the request URL targets the same origin as the configured base URL, preventing accidental credential leakage to cross-origin hosts.
+- **`OAuthAuthProvider`** — token requests now include `grant_type: "client_credentials"`, fixing OAuth flows for servers that require this field.
+- **`CreateRequest.Resource` enum** — new values `familymemberhistory`, `medicationadministration`, and `medicationstatement` added; `lang2Fhir.document` and `lang2Fhir.documentMulti` now throw `ForbiddenError` on HTTP 403.
+
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
 - **`ProfileSummary`** — `id`, `source`, `resource_type`, `url`, `version`, `fhir_version`, `implementation_guide`, `created_at`, and `updated_at` are now required (non-optional); remove any `undefined` guards or optional-chaining on these fields.

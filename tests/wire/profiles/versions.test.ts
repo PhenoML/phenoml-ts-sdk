@@ -745,6 +745,32 @@ describe("VersionsClient", () => {
             .mockEndpoint()
             .delete("/fhir/profiles/id/versions/version")
             .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.profiles.versions.delete("id", "version");
+        }).rejects.toThrow(phenoml.profiles.ConflictError);
+    });
+
+    test("delete (7)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
+
+        const rawResponseBody = { key: "value" };
+
+        server
+            .mockEndpoint()
+            .delete("/fhir/profiles/id/versions/version")
+            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
