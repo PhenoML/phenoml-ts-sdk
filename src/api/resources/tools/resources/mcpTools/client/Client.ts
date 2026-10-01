@@ -31,6 +31,8 @@ export class McpToolsClient {
      * @throws {@link phenoml.tools.UnauthorizedError}
      * @throws {@link phenoml.tools.ForbiddenError}
      * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.tools.mcpTools.list("mcp_server_id")
@@ -107,6 +109,8 @@ export class McpToolsClient {
      * @throws {@link phenoml.tools.ForbiddenError}
      * @throws {@link phenoml.tools.NotFoundError}
      * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.tools.mcpTools.get("mcp_server_tool_id")
@@ -185,6 +189,8 @@ export class McpToolsClient {
      * @throws {@link phenoml.tools.ForbiddenError}
      * @throws {@link phenoml.tools.NotFoundError}
      * @throws {@link phenoml.tools.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.tools.mcpTools.delete("mcp_server_tool_id")
