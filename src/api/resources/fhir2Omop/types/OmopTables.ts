@@ -3,7 +3,11 @@
 import type * as phenoml from "../../../index.js";
 
 /**
- * OMOP CDM v5.4 rows grouped by destination table.
+ * OMOP CDM v5.4 rows grouped by destination table. IDs are sequential and
+ * scoped to one response; they are not stable keys across requests.
+ * Fields with no value are unset (omitted from the row), except concept
+ * IDs reported as `0`. Each `*_datetime` comes from the same source as its
+ * `*_date` and is set only when that source has a time of day.
  */
 export interface OmopTables {
     location?: phenoml.fhir2Omop.LocationRow[] | undefined;

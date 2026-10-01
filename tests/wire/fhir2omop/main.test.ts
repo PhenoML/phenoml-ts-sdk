@@ -84,19 +84,29 @@ describe("Fhir2OmopClient", () => {
                 person: [
                     {
                         person_id: 1,
-                        gender_concept_id: 0,
+                        gender_concept_id: 8532,
                         year_of_birth: 1985,
                         month_of_birth: 7,
                         day_of_birth: 22,
-                        birth_datetime: "1985-07-22",
                         race_concept_id: 0,
                         ethnicity_concept_id: 0,
                         person_source_value: "patient-1",
                         gender_source_value: "female",
+                        gender_source_concept_id: 0,
+                        race_source_concept_id: 0,
+                        ethnicity_source_concept_id: 0,
                     },
                 ],
                 death: [{}],
-                observation_period: [{}],
+                observation_period: [
+                    {
+                        observation_period_id: 1,
+                        person_id: 1,
+                        observation_period_start_date: "2024-01-15",
+                        observation_period_end_date: "2024-01-16",
+                        period_type_concept_id: 32817,
+                    },
+                ],
                 visit_occurrence: [{}],
                 condition_occurrence: [
                     {
@@ -104,9 +114,8 @@ describe("Fhir2OmopClient", () => {
                         person_id: 1,
                         condition_concept_id: 201826,
                         condition_start_date: "2024-01-15",
-                        condition_start_datetime: "2024-01-15",
                         condition_type_concept_id: 32817,
-                        condition_source_value: "http://snomed.info/sct#44054006",
+                        condition_source_value: "44054006",
                         condition_source_concept_id: 201826,
                     },
                 ],
@@ -116,9 +125,8 @@ describe("Fhir2OmopClient", () => {
                         person_id: 1,
                         drug_concept_id: 40163924,
                         drug_exposure_start_date: "2024-01-16",
-                        drug_exposure_start_datetime: "2024-01-16",
-                        drug_type_concept_id: 32817,
-                        drug_source_value: "http://www.nlm.nih.gov/research/umls/rxnorm#860975",
+                        drug_type_concept_id: 32838,
+                        drug_source_value: "860975",
                         drug_source_concept_id: 40163924,
                     },
                 ],
@@ -128,10 +136,27 @@ describe("Fhir2OmopClient", () => {
             },
             mappings: [
                 {
+                    resource_type: "Patient",
+                    resource_id: "patient-1",
+                    omop_table: "person",
+                    omop_id: 1,
+                    omop_field: "gender_concept_id",
+                    source_system: "http://hl7.org/fhir/administrative-gender",
+                    source_code: "female",
+                    source_name: "female",
+                    target_vocabulary: "Gender",
+                    target_code: "F",
+                    target_name: "FEMALE",
+                    mapping_status: "MAPPED",
+                    selected: true,
+                    note: "FHIR administrative gender; assumed sex at birth",
+                },
+                {
                     resource_type: "Condition",
                     resource_id: "condition-1",
                     omop_table: "condition_occurrence",
                     omop_id: 1,
+                    omop_field: "condition_concept_id",
                     source_system: "http://snomed.info/sct",
                     source_code: "44054006",
                     source_name: "Type 2 diabetes mellitus",
@@ -139,6 +164,7 @@ describe("Fhir2OmopClient", () => {
                     target_code: "44054006",
                     target_name: "Type 2 diabetes mellitus",
                     mapping_status: "ALREADY_STANDARD",
+                    selected: true,
                     note: "note",
                 },
                 {
@@ -146,6 +172,7 @@ describe("Fhir2OmopClient", () => {
                     resource_id: "medreq-1",
                     omop_table: "drug_exposure",
                     omop_id: 1,
+                    omop_field: "drug_concept_id",
                     source_system: "http://www.nlm.nih.gov/research/umls/rxnorm",
                     source_code: "860975",
                     source_name: "metformin hydrochloride 500 MG",
@@ -153,12 +180,42 @@ describe("Fhir2OmopClient", () => {
                     target_code: "860975",
                     target_name: "metformin hydrochloride 500 MG",
                     mapping_status: "ALREADY_STANDARD",
+                    selected: true,
                     note: "note",
                 },
             ],
+            provider_role_contexts: [
+                {
+                    provider_id: 1000000,
+                    role_source_value: "role_source_value",
+                    practitioner_reference: "practitioner_reference",
+                    practitioner_identifier: { value: "value" },
+                    role_codes: [{}],
+                    specialties: [{}],
+                    care_sites: [{ path: "path", reference: "reference" }],
+                    active: true,
+                    period_start: "period_start",
+                    period_end: "period_end",
+                },
+            ],
             dropped: [{ resource_type: "resource_type", resource_id: "resource_id", reason: "reason" }],
-            vocab_version: "v20240229",
-            summary: { codes_already_standard: 2, codes_normalized: 0, codes_unmapped: 0, off_vocab_rate: 0 },
+            diagnostics: [
+                {
+                    resource_type: "resource_type",
+                    resource_id: "resource_id",
+                    path: "path",
+                    reference: "reference",
+                    outcome: "UNRESOLVED",
+                    reason: "reason",
+                },
+            ],
+            vocab_version: "v20260227",
+            summary: {
+                codes_already_standard: 2,
+                codes_normalized: 1,
+                codes_unmapped: 0,
+                off_vocab_rate: 0.3333333333333333,
+            },
         };
 
         server
@@ -247,6 +304,230 @@ describe("Fhir2OmopClient", () => {
             clientSecret: "your_client_secret",
             environment: server.baseUrl,
         });
+        const rawRequestBody = {
+            fhir_resources: {
+                resourceType: "Bundle",
+                type: "collection",
+                entry: [
+                    { resource: { resourceType: "Patient", id: "patient-1" } },
+                    {
+                        resource: {
+                            resourceType: "Observation",
+                            id: "hemoglobin-1",
+                            subject: { reference: "Patient/patient-1" },
+                            code: {
+                                coding: [
+                                    { system: "urn:oid:2.16.840.1.113883.6.1", code: "718-7", display: "Hemoglobin" },
+                                ],
+                            },
+                            valueQuantity: { value: 13.5, unit: "g/dL" },
+                        },
+                    },
+                ],
+            },
+        };
+        const rawResponseBody = {
+            success: true,
+            message: "FHIR resources mapped to OMOP CDM v5.4",
+            tables: {
+                location: [{}],
+                care_site: [{}],
+                provider: [{}],
+                person: [
+                    {
+                        person_id: 1,
+                        gender_concept_id: 8532,
+                        year_of_birth: 1985,
+                        month_of_birth: 7,
+                        day_of_birth: 22,
+                        race_concept_id: 0,
+                        ethnicity_concept_id: 0,
+                        person_source_value: "patient-1",
+                        gender_source_value: "female",
+                        gender_source_concept_id: 0,
+                        race_source_concept_id: 0,
+                        ethnicity_source_concept_id: 0,
+                    },
+                ],
+                death: [{}],
+                observation_period: [
+                    {
+                        observation_period_id: 1,
+                        person_id: 1,
+                        observation_period_start_date: "2024-01-15",
+                        observation_period_end_date: "2024-01-16",
+                        period_type_concept_id: 32817,
+                    },
+                ],
+                visit_occurrence: [{}],
+                condition_occurrence: [
+                    {
+                        condition_occurrence_id: 1,
+                        person_id: 1,
+                        condition_concept_id: 201826,
+                        condition_start_date: "2024-01-15",
+                        condition_type_concept_id: 32817,
+                        condition_source_value: "44054006",
+                        condition_source_concept_id: 201826,
+                    },
+                ],
+                drug_exposure: [
+                    {
+                        drug_exposure_id: 1,
+                        person_id: 1,
+                        drug_concept_id: 40163924,
+                        drug_exposure_start_date: "2024-01-16",
+                        drug_type_concept_id: 32838,
+                        drug_source_value: "860975",
+                        drug_source_concept_id: 40163924,
+                    },
+                ],
+                procedure_occurrence: [{}],
+                measurement: [{}],
+                observation: [{}],
+            },
+            mappings: [
+                {
+                    resource_type: "Patient",
+                    resource_id: "patient-1",
+                    omop_table: "person",
+                    omop_id: 1,
+                    omop_field: "gender_concept_id",
+                    source_system: "http://hl7.org/fhir/administrative-gender",
+                    source_code: "female",
+                    source_name: "female",
+                    target_vocabulary: "Gender",
+                    target_code: "F",
+                    target_name: "FEMALE",
+                    mapping_status: "MAPPED",
+                    selected: true,
+                    note: "FHIR administrative gender; assumed sex at birth",
+                },
+                {
+                    resource_type: "Condition",
+                    resource_id: "condition-1",
+                    omop_table: "condition_occurrence",
+                    omop_id: 1,
+                    omop_field: "condition_concept_id",
+                    source_system: "http://snomed.info/sct",
+                    source_code: "44054006",
+                    source_name: "Type 2 diabetes mellitus",
+                    target_vocabulary: "SNOMED",
+                    target_code: "44054006",
+                    target_name: "Type 2 diabetes mellitus",
+                    mapping_status: "ALREADY_STANDARD",
+                    selected: true,
+                    note: "note",
+                },
+                {
+                    resource_type: "MedicationRequest",
+                    resource_id: "medreq-1",
+                    omop_table: "drug_exposure",
+                    omop_id: 1,
+                    omop_field: "drug_concept_id",
+                    source_system: "http://www.nlm.nih.gov/research/umls/rxnorm",
+                    source_code: "860975",
+                    source_name: "metformin hydrochloride 500 MG",
+                    target_vocabulary: "RXNORM",
+                    target_code: "860975",
+                    target_name: "metformin hydrochloride 500 MG",
+                    mapping_status: "ALREADY_STANDARD",
+                    selected: true,
+                    note: "note",
+                },
+            ],
+            provider_role_contexts: [
+                {
+                    provider_id: 1000000,
+                    role_source_value: "role_source_value",
+                    practitioner_reference: "practitioner_reference",
+                    practitioner_identifier: { value: "value" },
+                    role_codes: [{}],
+                    specialties: [{}],
+                    care_sites: [{ path: "path", reference: "reference" }],
+                    active: true,
+                    period_start: "period_start",
+                    period_end: "period_end",
+                },
+            ],
+            dropped: [{ resource_type: "resource_type", resource_id: "resource_id", reason: "reason" }],
+            diagnostics: [
+                {
+                    resource_type: "resource_type",
+                    resource_id: "resource_id",
+                    path: "path",
+                    reference: "reference",
+                    outcome: "UNRESOLVED",
+                    reason: "reason",
+                },
+            ],
+            vocab_version: "v20260227",
+            summary: {
+                codes_already_standard: 2,
+                codes_normalized: 1,
+                codes_unmapped: 0,
+                off_vocab_rate: 0.3333333333333333,
+            },
+        };
+
+        server
+            .mockEndpoint()
+            .post("/fhir2omop/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.fhir2Omop.create({
+            fhir_resources: {
+                resourceType: "Bundle",
+                type: "collection",
+                entry: [
+                    {
+                        resource: {
+                            resourceType: "Patient",
+                            id: "patient-1",
+                        },
+                    },
+                    {
+                        resource: {
+                            resourceType: "Observation",
+                            id: "hemoglobin-1",
+                            subject: {
+                                reference: "Patient/patient-1",
+                            },
+                            code: {
+                                coding: [
+                                    {
+                                        system: "urn:oid:2.16.840.1.113883.6.1",
+                                        code: "718-7",
+                                        display: "Hemoglobin",
+                                    },
+                                ],
+                            },
+                            valueQuantity: {
+                                value: 13.5,
+                                unit: "g/dL",
+                            },
+                        },
+                    },
+                ],
+            },
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("create (3)", async () => {
+        const server = mockServerPool.createServer();
+        mockPhenoMloAuth(server);
+
+        const client = new phenomlClient({
+            maxRetries: 0,
+            clientId: "your_client_id",
+            clientSecret: "your_client_secret",
+            environment: server.baseUrl,
+        });
         const rawRequestBody = { fhir_resources: { fhir_resources: { key: "value" } } };
         const rawResponseBody = { key: "value" };
 
@@ -270,7 +551,7 @@ describe("Fhir2OmopClient", () => {
         }).rejects.toThrow(phenoml.fhir2Omop.BadRequestError);
     });
 
-    test("create (3)", async () => {
+    test("create (4)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -303,7 +584,7 @@ describe("Fhir2OmopClient", () => {
         }).rejects.toThrow(phenoml.fhir2Omop.UnauthorizedError);
     });
 
-    test("create (4)", async () => {
+    test("create (5)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
@@ -336,7 +617,7 @@ describe("Fhir2OmopClient", () => {
         }).rejects.toThrow(phenoml.fhir2Omop.InternalServerError);
     });
 
-    test("create (5)", async () => {
+    test("create (6)", async () => {
         const server = mockServerPool.createServer();
         mockPhenoMloAuth(server);
 
