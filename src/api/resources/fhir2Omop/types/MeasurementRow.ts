@@ -4,6 +4,7 @@ export interface MeasurementRow {
     measurement_id?: number | undefined;
     person_id?: number | undefined;
     measurement_concept_id?: number | undefined;
+    /** Date from Observation.effectiveDateTime, effectivePeriod.start, or effectiveInstant. */
     measurement_date?: string | undefined;
     measurement_datetime?: string | undefined;
     measurement_type_concept_id?: number | undefined;
