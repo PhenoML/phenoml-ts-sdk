@@ -16,10 +16,12 @@ export interface CreateMultiRequest {
     version?: string;
     /** Optional FHIR provider name for provider-specific profiles */
     provider?: string;
+    primary_patient?: phenoml.lang2Fhir.PrimaryPatient;
+    /** Deprecated compatibility alias for primary_patient.identifier. Cannot be combined with primary_patient. */
     patient_reference?: phenoml.lang2Fhir.PatientReference;
-    /** Custom Implementation Guide name. When specified, profiles from this IG are included alongside US Core profiles during resource detection. US Core is always the base layer; custom IG profiles are additive. */
+    /** Custom Implementation Guide name. When specified, profiles from this IG are included alongside the default profiles during resource detection. Default profiles are always the base layer; custom IG profiles are additive. */
     implementation_guide?: string;
-    /** Detection effort. 'standard' runs detection once, 'deep' runs detection multiple times for higher recall. */
+    /** Deprecated; use the default 'standard' value. This field will be removed in a future release. 'standard' runs detection once; 'deep' runs detection multiple times for higher recall. */
     detection_effort?: CreateMultiRequest.DetectionEffort;
     /** FHIR validation method to apply to the generated bundle. 'none' skips validation (default). 'check' runs the bundle through a FHIR structure validator and includes the results in the response. 'fix' runs validation and attempts to auto-correct errors using an LLM (up to 3 validation passes). The response includes results from each pass. Warning: 'fix' can significantly increase latency due to multiple LLM and validation round-trips. */
     validation_method?: CreateMultiRequest.ValidationMethod;
@@ -27,7 +29,7 @@ export interface CreateMultiRequest {
 }
 
 export namespace CreateMultiRequest {
-    /** Detection effort. 'standard' runs detection once, 'deep' runs detection multiple times for higher recall. */
+    /** Deprecated; use the default 'standard' value. This field will be removed in a future release. 'standard' runs detection once; 'deep' runs detection multiple times for higher recall. */
     export const DetectionEffort = {
         Standard: "standard",
         Deep: "deep",

@@ -43,6 +43,8 @@ export class CodesClient {
      * @throws {@link phenoml.construe.InternalServerError}
      * @throws {@link phenoml.construe.ServiceUnavailableError}
      * @throws {@link phenoml.construe.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codes.extract({
@@ -199,10 +201,9 @@ export class CodesClient {
     }
 
     /**
-     * **Alpha:** phenocr is an alpha feature. The API contract — request
-     * parameters and response shape — may change as its internals evolve, and
-     * results may vary between releases. Do not depend on it for production
-     * workloads yet.
+     * **Alpha:** phenocr is an alpha feature. Request parameters, response
+     * shape, and results may change between releases. Do not depend on it for
+     * production workloads yet.
      *
      * Extracts medical codes from natural language clinical text using phenocr.
      *
@@ -218,6 +219,8 @@ export class CodesClient {
      * @throws {@link phenoml.construe.InternalServerError}
      * @throws {@link phenoml.construe.ServiceUnavailableError}
      * @throws {@link phenoml.construe.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codes.phenocr({
@@ -320,9 +323,9 @@ export class CodesClient {
      * @throws {@link phenoml.construe.BadRequestError}
      * @throws {@link phenoml.construe.UnauthorizedError}
      * @throws {@link phenoml.construe.ContentTooLargeError}
-     * @throws {@link phenoml.construe.NotImplementedError}
-     * @throws {@link phenoml.construe.BadGatewayError}
-     * @throws {@link phenoml.construe.ServiceUnavailableError}
+     * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codes.crosswalk({
@@ -385,15 +388,8 @@ export class CodesClient {
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
-                case 501:
-                    throw new phenoml.construe.NotImplementedError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                case 502:
-                    throw new phenoml.construe.BadGatewayError(_response.error.body as unknown, _response.rawResponse);
-                case 503:
-                    throw new phenoml.construe.ServiceUnavailableError(
+                case 500:
+                    throw new phenoml.construe.InternalServerError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
@@ -410,7 +406,7 @@ export class CodesClient {
     }
 
     /**
-     * Returns a paginated list of all codes in the specified code system from the terminology server.
+     * Returns a paginated list of all codes in the specified code system.
      *
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
      *
@@ -422,6 +418,8 @@ export class CodesClient {
      * @throws {@link phenoml.construe.UnauthorizedError}
      * @throws {@link phenoml.construe.NotFoundError}
      * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codes.list("ICD-10-CM", {
@@ -508,7 +506,7 @@ export class CodesClient {
     }
 
     /**
-     * Looks up a specific code in the terminology server and returns its details.
+     * Looks up a specific code and returns its details.
      *
      * Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
      *
@@ -522,6 +520,8 @@ export class CodesClient {
      * @throws {@link phenoml.construe.UnauthorizedError}
      * @throws {@link phenoml.construe.NotFoundError}
      * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codes.lookup("ICD-10-CM", "E1165", {
@@ -639,6 +639,8 @@ export class CodesClient {
      * @throws {@link phenoml.construe.UnauthorizedError}
      * @throws {@link phenoml.construe.NotFoundError}
      * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codes.searchSemantic("ICD-10-CM", {
@@ -767,6 +769,8 @@ export class CodesClient {
      * @throws {@link phenoml.construe.NotFoundError}
      * @throws {@link phenoml.construe.InternalServerError}
      * @throws {@link phenoml.construe.NotImplementedError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codes.searchText("ICD-10-CM", {
