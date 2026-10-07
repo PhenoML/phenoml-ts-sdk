@@ -6,7 +6,7 @@
 export interface ProfileSummary {
     /** The lowercase StructureDefinition id, used as the profile's lookup key. */
     id: string;
-    /** The profile's origin. Profile management responses currently return custom (uploaded) profiles, so this is always "custom" today. */
+    /** The profile's origin. Profile management responses return custom (uploaded) profiles, so this value is always "custom". */
     source: ProfileSummary.Source;
     /** The FHIR resource type from the StructureDefinition. */
     resource_type: string;
@@ -30,7 +30,7 @@ export interface ProfileSummary {
 }
 
 export namespace ProfileSummary {
-    /** The profile's origin. Profile management responses currently return custom (uploaded) profiles, so this is always "custom" today. */
+    /** The profile's origin. Profile management responses return custom (uploaded) profiles, so this value is always "custom". */
     export const Source = {
         Custom: "custom",
         Builtin: "builtin",

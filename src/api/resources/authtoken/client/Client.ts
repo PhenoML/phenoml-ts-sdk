@@ -35,6 +35,8 @@ export class AuthtokenClient {
      * @throws {@link phenoml.authtoken.BadRequestError}
      * @throws {@link phenoml.authtoken.UnauthorizedError}
      * @throws {@link phenoml.authtoken.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.authtoken.getToken({
