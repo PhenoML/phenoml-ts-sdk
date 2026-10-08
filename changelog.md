@@ -1,4 +1,31 @@
-## [18.0.1] - 2026-10-08
+## [19.0.0] - 2026-10-08
+### Breaking Changes
+- **`phenoml.construe.BadGatewayError`, `phenoml.construe.ContentTooLargeError`, `phenoml.fhir2Omop.ServiceUnavailableError`, `phenoml.lang2FhirBatch.ContentTooLargeError`, and `phenoml.voice.ContentTooLargeError`** — removed exported error classes; replace their imports and catches with `phenomlError` and inspect `statusCode`.
+- **`phenoml.fhir2Omop.MappingEntry.selected`** — now required on mapping models; add the selected-coding boolean to manually constructed mappings, fixtures, and adapters.
+
+### Added
+- **`client.fhir2Omop.create()` / `CreateOmopRequest.vocab_version`** — accepts an optional OMOP vocabulary release for reproducible coded-concept resolution.
+- **`phenoml.fhir2Omop.CreateOmopResponse.provider_role_contexts` and `.diagnostics`** — add practitioner-role provenance and reference-resolution diagnostics with `ProviderRoleContext`, its supporting types, `Coding`, and `ReferenceDiagnostic`.
+- **`phenoml.fhir2Omop.MappingEntry.omop_field`, `PersonRow`, `DrugExposureRow`, `ConditionOccurrenceRow`, and `ProcedureOccurrenceRow`** — add concept-field provenance, person provider/care-site and demographic source-concept fields, drug route/refill/supply/lot/end-date fields, and condition/procedure end timestamps.
+- **`client.implementationGuides.implementationGuides.createVersion()` and `.getVersion()`** — create and retrieve exact canonical implementation-guide packages using `CreateCanonicalImplementationGuideRequest`, `FhirImplementationGuide`, and `ImplementationGuideVersionDetail`, with a new `phenoml.implementationGuides.ConflictError` for HTTP 409.
+- **`phenoml.implementationGuides.ImplementationGuideSummary.canonical_url` and `.version_count`** — expose an implementation-guide family's canonical URL and retained version count.
+- **`CreateMultiRequest.primary_patient` and `DocumentMultiRequest.primary_patient`** — accept optional `PrimaryPatient` / `PrimaryPatientName` context with identifier, name, birth date, and gender to identify the primary patient.
+- **`CreateRequest.Resource`** — adds `familymemberhistory`, `medicationadministration`, and `medicationstatement` extraction targets.
+- **`ResourceReviewResult.remediated`, `ResourceReviewRemediated`, and `ResourceReviewFinding.unaudited`** — report safe coding removals and distinguish fields without an audit verdict.
+- **`BaseClientOptions.instanceUrl`** — accepts an instance hostname while preserving an explicitly supplied `baseUrl`.
+
+### Changed
+- **`phenoml.fhir2Omop.MappingEntry.MappingStatus`** — describes response mapping statuses with named literal values instead of unrestricted strings; this is response typing and does not add request validation or reject unknown response values at runtime.
+- **`client.fhir2Omop.create()` / `phenoml.fhir2Omop.Summary`** — documentation now describes expanded resource coverage, source-supported dates, clinical-event eligibility, demographic resolution, and outcome-based summary counts; conversion remains server-side.
+- **`CreateMultiRequest.patient_reference`, `DocumentMultiRequest.patient_reference`, and Lang2FHIR `detection_effort` fields** — marked deprecated with existing call sites retained; use `primary_patient.identifier` for patient identifiers and do not combine it with `patient_reference`.
+- **`client.lang2Fhir.document()` and `.documentMulti()`** — documentation adds dedicated-instance TIFF, RTF, and XML/C-CDA support, a 20 MiB decoded-file limit, and a 1 MiB extracted-text limit for RTF/XML.
+- **`ResourceReview`** — documentation describes retaining resources after safe removal of unsupported codings and quarantining findings that cannot be safely repaired; read retained resources from the returned bundle.
+- **`client.construe.codes.crosswalk()`, `client.lang2FhirBatch.uploadItem()`, and `client.voice.voice.create()`** — undocumented status responses now fall back to `phenomlError`; update status-specific catch logic, including crosswalk HTTP 501/502/503 and batch upload HTTP 409/413.
+- **`client.profiles.profiles.delete()` and `client.profiles.versions.delete()`** — explicitly raise `phenoml.profiles.ConflictError` for profiles pinned by an implementation-guide package.
+
+### Fixed
+- **`OAuthAuthProvider`** — credential-based token refresh explicitly sends `grant_type=client_credentials`.
+- **`client.fetch()`** — automatic authentication is limited to the configured API origin and sensitive URL values are redacted from passthrough request logs.
 
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
