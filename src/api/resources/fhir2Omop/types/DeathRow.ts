@@ -2,6 +2,7 @@
 
 export interface DeathRow {
     person_id?: number | undefined;
+    /** Date from Patient.deceasedDateTime; unset for a boolean-only or partial value. */
     death_date?: string | undefined;
     death_datetime?: string | undefined;
     death_type_concept_id?: number | undefined;

@@ -30,11 +30,12 @@ export class VoiceClient {
      * Send the raw audio bytes as the request body; the audio format is
      * detected automatically (WAV, FLAC, MP3, OGG/WebM Opus).
      *
-     * Supports up to ~5 minutes of audio per request. This limit is on audio
-     * duration regardless of file size or format, so a compressed recording
-     * within the size limit can still be rejected for being too long. Pair the
-     * transcript with a downstream text step (e.g. `POST /lang2fhir/create`)
-     * to turn it into a FHIR resource.
+     * The raw audio request body is limited to 32 MiB. Supports up to ~5
+     * minutes of audio per request. This duration limit is independent of file
+     * size or format, so a compressed recording within the body-size limit can
+     * still be rejected for being too long. Pair the transcript with a
+     * downstream text step (e.g. `POST /lang2fhir/create`) to turn it into a
+     * FHIR resource.
      *
      * @param {core.file.Uploadable} uploadable
      * @param {phenoml.voice.TranscribeRequest} request
@@ -43,10 +44,11 @@ export class VoiceClient {
      * @throws {@link phenoml.voice.BadRequestError}
      * @throws {@link phenoml.voice.UnauthorizedError}
      * @throws {@link phenoml.voice.PaymentRequiredError}
-     * @throws {@link phenoml.voice.ContentTooLargeError}
      * @throws {@link phenoml.voice.BadGatewayError}
      * @throws {@link phenoml.voice.ServiceUnavailableError}
      * @throws {@link phenoml.voice.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      */
     public transcribe(
         uploadable: core.file.Uploadable,
@@ -108,11 +110,6 @@ export class VoiceClient {
                     throw new phenoml.voice.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
                 case 402:
                     throw new phenoml.voice.PaymentRequiredError(
-                        _response.error.body as unknown,
-                        _response.rawResponse,
-                    );
-                case 413:
-                    throw new phenoml.voice.ContentTooLargeError(
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );

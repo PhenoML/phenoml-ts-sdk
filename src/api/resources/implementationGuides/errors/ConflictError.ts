@@ -3,11 +3,11 @@
 import type * as core from "../../../../core/index.js";
 import * as errors from "../../../../errors/index.js";
 
-export class ServiceUnavailableError extends errors.phenomlError {
+export class ConflictError extends errors.phenomlError {
     constructor(body?: unknown, rawResponse?: core.RawResponse) {
         super({
-            message: "ServiceUnavailableError",
-            statusCode: 503,
+            message: "ConflictError",
+            statusCode: 409,
             body: body,
             rawResponse: rawResponse,
         });
@@ -16,6 +16,6 @@ export class ServiceUnavailableError extends errors.phenomlError {
             Error.captureStackTrace(this, this.constructor);
         }
 
-        this.name = "ServiceUnavailableError";
+        this.name = "ConflictError";
     }
 }

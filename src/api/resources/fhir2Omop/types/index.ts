@@ -1,4 +1,5 @@
 export * from "./CareSiteRow.js";
+export * from "./Coding.js";
 export * from "./ConditionOccurrenceRow.js";
 export * from "./CreateOmopResponse.js";
 export * from "./DeathRow.js";
@@ -12,6 +13,11 @@ export * from "./ObservationRow.js";
 export * from "./OmopTables.js";
 export * from "./PersonRow.js";
 export * from "./ProcedureOccurrenceRow.js";
+export * from "./ProviderRoleCareSite.js";
+export * from "./ProviderRoleCodeableConcept.js";
+export * from "./ProviderRoleContext.js";
+export * from "./ProviderRolePractitionerIdentifier.js";
 export * from "./ProviderRow.js";
+export * from "./ReferenceDiagnostic.js";
 export * from "./Summary.js";
 export * from "./VisitOccurrenceRow.js";

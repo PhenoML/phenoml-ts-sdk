@@ -32,6 +32,8 @@ export class CohortClient {
      * @throws {@link phenoml.cohort.BadRequestError}
      * @throws {@link phenoml.cohort.UnauthorizedError}
      * @throws {@link phenoml.cohort.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.cohort.analyze({
