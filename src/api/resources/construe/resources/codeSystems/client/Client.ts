@@ -41,6 +41,8 @@ export class CodeSystemsClient {
      * @throws {@link phenoml.construe.ConflictError}
      * @throws {@link phenoml.construe.FailedDependencyError}
      * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codeSystems.upload({
@@ -142,12 +144,14 @@ export class CodeSystemsClient {
     }
 
     /**
-     * Returns the terminology server's catalog of available code systems, including both built-in standard terminologies and custom uploaded systems.
+     * Returns the catalog of available code systems, including both built-in standard terminologies and custom uploaded systems.
      *
      * @param {CodeSystemsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link phenoml.construe.UnauthorizedError}
      * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codeSystems.list()
@@ -225,6 +229,8 @@ export class CodeSystemsClient {
      * @throws {@link phenoml.construe.UnauthorizedError}
      * @throws {@link phenoml.construe.NotFoundError}
      * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codeSystems.find("ICD-10-CM", {
@@ -327,6 +333,8 @@ export class CodeSystemsClient {
      * @throws {@link phenoml.construe.ForbiddenError}
      * @throws {@link phenoml.construe.NotFoundError}
      * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codeSystems.delete("CUSTOM_CODES", {
@@ -434,6 +442,8 @@ export class CodeSystemsClient {
      * @throws {@link phenoml.construe.ConflictError}
      * @throws {@link phenoml.construe.FailedDependencyError}
      * @throws {@link phenoml.construe.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.construe.codeSystems.export("CUSTOM_CODES", {

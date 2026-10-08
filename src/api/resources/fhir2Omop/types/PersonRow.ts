@@ -2,16 +2,34 @@
 
 export interface PersonRow {
     person_id?: number | undefined;
+    /** Standard OMOP Gender concept for sex at birth, from US Core birth sex when supplied, otherwise from Patient `gender` `male` or `female`. `0` for absent, unknown, other, unsupported, or conflicting values. */
     gender_concept_id?: number | undefined;
+    /** Year from Patient.birthDate. */
     year_of_birth?: number | undefined;
+    /** Month from Patient.birthDate, when it supplies one. */
     month_of_birth?: number | undefined;
+    /** Day from Patient.birthDate, when it supplies one. */
     day_of_birth?: number | undefined;
+    /** Not set; Patient.birthDate has no time of day. */
     birth_datetime?: string | undefined;
+    /** Standard OMOP Race concept from a US Core race OMB category; `1546847` (More than one race) when more than one distinct race resolves, with each race in an `observation` row. `0` when no category resolves. */
     race_concept_id?: number | undefined;
+    /** Standard OMOP Ethnicity concept from the US Core ethnicity OMB category. `0` when absent, unresolved, or conflicting; never derived from race. */
     ethnicity_concept_id?: number | undefined;
     location_id?: number | undefined;
+    provider_id?: number | undefined;
+    care_site_id?: number | undefined;
     person_source_value?: string | undefined;
+    /** The selected sex-at-birth source code: the US Core birth sex `valueCode`, or Patient `gender` when no birth sex is supplied. Conflicting birth sex values are joined with `|`; empty when the birth sex has no `valueCode`. */
     gender_source_value?: string | undefined;
+    /** OMOP source concept of the selected sex-at-birth code, when that code is itself an OMOP source concept; `0` otherwise, as for FHIR administrative gender codes. */
+    gender_source_concept_id?: number | undefined;
+    /** Every supplied US Core race category and detailed code, joined with `|` in source order, or the extension text when no code is supplied. */
     race_source_value?: string | undefined;
+    /** OMOP source concept of a single resolved race code, when that code is itself an OMOP source concept; `0` otherwise, including when more than one race resolves. */
+    race_source_concept_id?: number | undefined;
+    /** Every supplied US Core ethnicity category and detailed code, joined with `|` in source order, or the extension text when no code is supplied. */
     ethnicity_source_value?: string | undefined;
+    /** OMOP source concept of the resolved ethnicity code, when that code is itself an OMOP source concept; `0` otherwise. */
+    ethnicity_source_concept_id?: number | undefined;
 }

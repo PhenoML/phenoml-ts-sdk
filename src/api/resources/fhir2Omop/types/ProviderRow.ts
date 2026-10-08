@@ -7,11 +7,16 @@ export interface ProviderRow {
     dea?: string | undefined;
     specialty_concept_id?: number | undefined;
     care_site_id?: number | undefined;
+    /** Year from Practitioner.birthDate. */
     year_of_birth?: number | undefined;
+    /** For recorded `Practitioner.gender`, `male` and `female` resolve to validated OMOP Gender concepts. `other`, `unknown`, and absent values remain `0`. */
     gender_concept_id?: number | undefined;
+    /** The source practitioner identity. A Practitioner contained by a PractitionerRole is scoped as `PractitionerRole/<role-source-value>#<contained-id>` so identical local contained IDs do not collide; an id-less parent uses an explicitly marked response-local role ordinal such as `@role-index:1`. */
     provider_source_value?: string | undefined;
     specialty_source_value?: string | undefined;
     specialty_source_concept_id?: number | undefined;
+    /** The recorded FHIR administrative-gender value for this Provider. */
     gender_source_value?: string | undefined;
+    /** Remains `0` for FHIR administrative-gender enum-policy results. */
     gender_source_concept_id?: number | undefined;
 }
