@@ -1,9 +1,13 @@
 ## [19.0.0] - 2026-10-08
 ### Breaking Changes
+
 - **`phenoml.construe.BadGatewayError`, `phenoml.construe.ContentTooLargeError`, `phenoml.fhir2Omop.ServiceUnavailableError`, `phenoml.lang2FhirBatch.ContentTooLargeError`, and `phenoml.voice.ContentTooLargeError`** — removed exported error classes; replace their imports and catches with `phenomlError` and inspect `statusCode`.
-- **`phenoml.fhir2Omop.MappingEntry.selected`** — now required on mapping models; add the selected-coding boolean to manually constructed mappings, fixtures, and adapters.
+- **`phenoml.fhir2Omop.MappingEntry.selected`** — new required boolean field; add it to manually constructed mappings, fixtures, and adapters. TypeScript does not validate response models at runtime.
+- **`phenoml.fhir2Omop.MappingEntry.mapping_status` / `MappingEntry.MappingStatus`** — narrowed from `string` to `ALREADY_STANDARD`, `MAPPED`, `UNCHECKED`, or `UNMAPPED`; fixtures and adapters assigning arbitrary strings must use an allowed value. Unknown response values are not rejected at runtime.
+- **FHIR-to-OMOP backend output** — clinical `*_source_value` fields now contain the selected bare code instead of `system#code`; read the coding system from `mappings[].source_system`. For `MedicationRequest`, `drug_type_concept_id` changes from `32817` (EHR) to `32838` (EHR prescription). Update loaders and comparisons that depend on the previous values; these are server-side behavior changes reflected in this SDK's contract.
 
 ### Added
+
 - **`client.fhir2Omop.create()` / `CreateOmopRequest.vocab_version`** — accepts an optional OMOP vocabulary release for reproducible coded-concept resolution.
 - **`phenoml.fhir2Omop.CreateOmopResponse.provider_role_contexts` and `.diagnostics`** — add practitioner-role provenance and reference-resolution diagnostics with `ProviderRoleContext`, its supporting types, `Coding`, and `ReferenceDiagnostic`.
 - **`phenoml.fhir2Omop.MappingEntry.omop_field`, `PersonRow`, `DrugExposureRow`, `ConditionOccurrenceRow`, and `ProcedureOccurrenceRow`** — add concept-field provenance, person provider/care-site and demographic source-concept fields, drug route/refill/supply/lot/end-date fields, and condition/procedure end timestamps.
@@ -13,19 +17,24 @@
 - **`CreateRequest.Resource`** — adds `familymemberhistory`, `medicationadministration`, and `medicationstatement` extraction targets.
 - **`ResourceReviewResult.remediated`, `ResourceReviewRemediated`, and `ResourceReviewFinding.unaudited`** — report safe coding removals and distinguish fields without an audit verdict.
 - **`BaseClientOptions.instanceUrl`** — accepts an instance hostname while preserving an explicitly supplied `baseUrl`.
+- **`client.lang2Fhir.document()` and `.documentMulti()`** — now throw `phenoml.lang2Fhir.ForbiddenError` on HTTP 403, including dedicated-instance format restrictions; previously these responses used the generic SDK error.
+- **`client.construe.codes.crosswalk()`** — now throws `phenoml.construe.InternalServerError` on HTTP 500.
 
 ### Changed
-- **`phenoml.fhir2Omop.MappingEntry.MappingStatus`** — describes response mapping statuses with named literal values instead of unrestricted strings; this is response typing and does not add request validation or reject unknown response values at runtime.
-- **`client.fhir2Omop.create()` / `phenoml.fhir2Omop.Summary`** — documentation now describes expanded resource coverage, source-supported dates, clinical-event eligibility, demographic resolution, and outcome-based summary counts; conversion remains server-side.
+
+- **FHIR-to-OMOP conversion / `phenoml.fhir2Omop.Summary`** — documentation describes expanded resource coverage, source-supported dates, clinical-event eligibility, demographic resolution, and outcome-based summary counts.
 - **`CreateMultiRequest.patient_reference`, `DocumentMultiRequest.patient_reference`, and Lang2FHIR `detection_effort` fields** — marked deprecated with existing call sites retained; use `primary_patient.identifier` for patient identifiers and do not combine it with `patient_reference`.
-- **`client.lang2Fhir.document()` and `.documentMulti()`** — documentation adds dedicated-instance TIFF, RTF, and XML/C-CDA support, a 20 MiB decoded-file limit, and a 1 MiB extracted-text limit for RTF/XML.
+- **`client.lang2Fhir.document()` and `.documentMulti()`** — TIFF support is now restricted to dedicated instances; TIFF was already supported by the previous SDK. RTF and XML/C-CDA are also dedicated-instance formats. Documentation specifies a 20 MiB decoded-file limit and a 1 MiB extracted-text limit for RTF/XML.
 - **`ResourceReview`** — documentation describes retaining resources after safe removal of unsupported codings and quarantining findings that cannot be safely repaired; read retained resources from the returned bundle.
-- **`client.construe.codes.crosswalk()`, `client.lang2FhirBatch.uploadItem()`, and `client.voice.voice.create()`** — undocumented status responses now fall back to `phenomlError`; update status-specific catch logic, including crosswalk HTTP 501/502/503 and batch upload HTTP 409/413.
+- **`client.construe.codes.crosswalk()`, `client.lang2FhirBatch.create()`, `client.lang2FhirBatch.uploadItem()`, and `client.voice.voice.transcribe()`** — removed typed status handling now falls back to `phenomlError`: crosswalk HTTP 413/501/502/503, batch create HTTP 409, and upload/transcribe HTTP 413. Batch upload still throws `phenoml.lang2FhirBatch.ConflictError` on HTTP 409; batch creation no longer documents the four-active-jobs limit.
 - **`client.profiles.profiles.delete()` and `client.profiles.versions.delete()`** — explicitly raise `phenoml.profiles.ConflictError` for profiles pinned by an implementation-guide package.
+- **`client.lang2Fhir.create()`, `.createMulti()`, `.document()`, `.documentMulti()`, and `client.voice.voice.transcribe()`** — documentation now specifies a 32 MiB request-body limit, including the full JSON envelope and base64 content for document methods and the raw audio body for transcription.
+- **`BatchError.kind`** — removes `budget_exceeded` from documented values; the field remains a string.
 
 ### Fixed
+
 - **`OAuthAuthProvider`** — credential-based token refresh explicitly sends `grant_type=client_credentials`.
-- **`client.fetch()`** — automatic authentication is limited to the configured API origin and sensitive URL values are redacted from passthrough request logs.
+- **`client.fetch()`** — automatic authentication is limited to the configured API origin and sensitive URL values are redacted from passthrough request logs. Configure `baseUrl`, `environment`, or `instanceUrl` to forward automatic auth; when none is set, even an absolute URL targeting the default host receives no automatic auth.
 
 ## [18.0.0] - 2026-09-09
 ### Breaking Changes
