@@ -1,7 +1,5 @@
-export * from "./BadGatewayError.js";
 export * from "./BadRequestError.js";
 export * from "./ConflictError.js";
-export * from "./ContentTooLargeError.js";
 export * from "./FailedDependencyError.js";
 export * from "./ForbiddenError.js";
 export * from "./GatewayTimeoutError.js";

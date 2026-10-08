@@ -1011,7 +1011,7 @@ describe("CodesClient", () => {
             .post("/construe/codes/crosswalk")
             .jsonBody(rawRequestBody)
             .respondWith()
-            .statusCode(413)
+            .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
 
@@ -1021,100 +1021,7 @@ describe("CodesClient", () => {
                 code: "code",
                 targets: ["targets", "targets"],
             });
-        }).rejects.toThrow(phenoml.construe.ContentTooLargeError);
-    });
-
-    test("crosswalk (5)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { system: "system", code: "code", targets: ["targets", "targets"] };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/construe/codes/crosswalk")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(501)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.construe.codes.crosswalk({
-                system: "system",
-                code: "code",
-                targets: ["targets", "targets"],
-            });
-        }).rejects.toThrow(phenoml.construe.NotImplementedError);
-    });
-
-    test("crosswalk (6)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { system: "system", code: "code", targets: ["targets", "targets"] };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/construe/codes/crosswalk")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(502)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.construe.codes.crosswalk({
-                system: "system",
-                code: "code",
-                targets: ["targets", "targets"],
-            });
-        }).rejects.toThrow(phenoml.construe.BadGatewayError);
-    });
-
-    test("crosswalk (7)", async () => {
-        const server = mockServerPool.createServer();
-        mockPhenoMloAuth(server);
-
-        const client = new phenomlClient({
-            maxRetries: 0,
-            clientId: "your_client_id",
-            clientSecret: "your_client_secret",
-            environment: server.baseUrl,
-        });
-        const rawRequestBody = { system: "system", code: "code", targets: ["targets", "targets"] };
-        const rawResponseBody = { key: "value" };
-
-        server
-            .mockEndpoint()
-            .post("/construe/codes/crosswalk")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(503)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.construe.codes.crosswalk({
-                system: "system",
-                code: "code",
-                targets: ["targets", "targets"],
-            });
-        }).rejects.toThrow(phenoml.construe.ServiceUnavailableError);
+        }).rejects.toThrow(phenoml.construe.InternalServerError);
     });
 
     test("list (1)", async () => {

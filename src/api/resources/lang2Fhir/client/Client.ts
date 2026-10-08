@@ -26,6 +26,8 @@ export class Lang2FhirClient {
     /**
      * Converts natural language text into a structured FHIR resource.
      *
+     * The complete JSON request body is limited to 32 MiB (33,554,432 bytes). The application enforces this whole-envelope limit.
+     *
      * **Patient identifier handling.** When generating a `patient` (or `patient-canvas`) resource, US Core requires `Patient.identifier` (a business identifier such as an MRN). When the source text contains an identifier, it is extracted with an appropriate URI system. When the source text does not contain a detectable identifier, a synthetic one is generated with `system: "urn:phenoml:lang2fhir-generated-id"` and a UUID `value` so the resource remains FHIR-valid and US Core conformant. Callers who need a tenant-specific namespace should rewrite the synthetic system after extraction.
      *
      * @param {phenoml.lang2Fhir.CreateRequest} request
@@ -36,6 +38,8 @@ export class Lang2FhirClient {
      * @throws {@link phenoml.lang2Fhir.NotFoundError}
      * @throws {@link phenoml.lang2Fhir.UnprocessableEntityError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2Fhir.create({
@@ -129,6 +133,8 @@ export class Lang2FhirClient {
      * Automatically detects Patient, Condition, MedicationRequest, Observation, and other resource types from the text.
      * Resources are linked with proper references (e.g., Conditions reference the Patient).
      *
+     * The complete JSON request body is limited to 32 MiB (33,554,432 bytes). The application enforces this whole-envelope limit.
+     *
      * **Patient identifier handling.** US Core requires `Patient.identifier` (a business identifier such as an MRN). When the source text contains an identifier, it is extracted with an appropriate URI system. When the source text does not contain a detectable identifier, a synthetic one is generated with `system: "urn:phenoml:lang2fhir-generated-id"` and a UUID `value` so the bundle remains FHIR-valid and US Core conformant. Callers who need a tenant-specific namespace should rewrite the synthetic system after extraction.
      *
      * @param {phenoml.lang2Fhir.CreateMultiRequest} request
@@ -139,6 +145,8 @@ export class Lang2FhirClient {
      * @throws {@link phenoml.lang2Fhir.NotFoundError}
      * @throws {@link phenoml.lang2Fhir.UnprocessableEntityError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2Fhir.createMulti({
@@ -238,6 +246,8 @@ export class Lang2FhirClient {
      * @throws {@link phenoml.lang2Fhir.BadRequestError}
      * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2Fhir.search({
@@ -337,6 +347,8 @@ export class Lang2FhirClient {
      * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
      * @throws {@link phenoml.lang2Fhir.ForbiddenError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2Fhir.uploadProfile({
@@ -417,7 +429,9 @@ export class Lang2FhirClient {
     }
 
     /**
-     * Extracts text from a document (PDF or image) and converts it into a structured FHIR resource.
+     * Extracts text from a PDF, image, RTF, or XML/C-CDA document and converts it into a structured FHIR resource.
+     *
+     * The complete JSON request body is limited to 32 MiB (33,554,432 bytes). The application enforces this whole-envelope limit, including base64-encoded document `content`.
      *
      * **Patient identifier handling.** When generating a `patient` (or `patient-canvas`) resource, US Core requires `Patient.identifier` (a business identifier such as an MRN). When the source text contains an identifier, it is extracted with an appropriate URI system. When the source text does not contain a detectable identifier, a synthetic one is generated with `system: "urn:phenoml:lang2fhir-generated-id"` and a UUID `value` so the resource remains FHIR-valid and US Core conformant. Callers who need a tenant-specific namespace should rewrite the synthetic system after extraction.
      *
@@ -426,17 +440,20 @@ export class Lang2FhirClient {
      *
      * @throws {@link phenoml.lang2Fhir.BadRequestError}
      * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
+     * @throws {@link phenoml.lang2Fhir.ForbiddenError}
      * @throws {@link phenoml.lang2Fhir.NotFoundError}
      * @throws {@link phenoml.lang2Fhir.UnprocessableEntityError}
      * @throws {@link phenoml.lang2Fhir.ClientClosedRequestError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
      * @throws {@link phenoml.lang2Fhir.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2Fhir.document({
      *         version: "R4",
      *         resource: "questionnaire",
-     *         content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)"
+     *         content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)"
      *     })
      */
     public document(
@@ -488,6 +505,8 @@ export class Lang2FhirClient {
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new phenoml.lang2Fhir.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
                     throw new phenoml.lang2Fhir.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 422:
@@ -523,10 +542,12 @@ export class Lang2FhirClient {
     }
 
     /**
-     * Extracts text from a document (PDF or image) and converts it into multiple FHIR resources,
+     * Extracts text from a PDF, image, RTF, or XML/C-CDA document and converts it into multiple FHIR resources,
      * returned as a transaction Bundle. Combines document text extraction with multi-resource detection.
      * Automatically detects Patient, Condition, MedicationRequest, Observation, and other resource types.
      * Resources are linked with proper references (e.g., Conditions reference the Patient).
+     *
+     * The complete JSON request body is limited to 32 MiB (33,554,432 bytes). The application enforces this whole-envelope limit, including base64-encoded document `content`.
      *
      * **Patient identifier handling.** US Core requires `Patient.identifier` (a business identifier such as an MRN). When the source text contains an identifier, it is extracted with an appropriate URI system. When the source text does not contain a detectable identifier, a synthetic one is generated with `system: "urn:phenoml:lang2fhir-generated-id"` and a UUID `value` so the bundle remains FHIR-valid and US Core conformant. Callers who need a tenant-specific namespace should rewrite the synthetic system after extraction.
      *
@@ -537,16 +558,19 @@ export class Lang2FhirClient {
      *
      * @throws {@link phenoml.lang2Fhir.BadRequestError}
      * @throws {@link phenoml.lang2Fhir.UnauthorizedError}
+     * @throws {@link phenoml.lang2Fhir.ForbiddenError}
      * @throws {@link phenoml.lang2Fhir.NotFoundError}
      * @throws {@link phenoml.lang2Fhir.UnprocessableEntityError}
      * @throws {@link phenoml.lang2Fhir.ClientClosedRequestError}
      * @throws {@link phenoml.lang2Fhir.InternalServerError}
      * @throws {@link phenoml.lang2Fhir.GatewayTimeoutError}
+     * @throws {@link errors.phenomlError}
+     * @throws {@link errors.phenomlTimeoutError}
      *
      * @example
      *     await client.lang2Fhir.documentMulti({
      *         version: "R4",
-     *         content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded PDF or image bytes)",
+     *         content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)",
      *         provider: "medplum",
      *         config: {
      *             split_classifications: [{
@@ -613,6 +637,8 @@ export class Lang2FhirClient {
                         _response.error.body as unknown,
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new phenoml.lang2Fhir.ForbiddenError(_response.error.body as unknown, _response.rawResponse);
                 case 404:
                     throw new phenoml.lang2Fhir.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 422:

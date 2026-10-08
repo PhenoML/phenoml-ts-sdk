@@ -39,6 +39,7 @@
  *                         "resourceType": "MedicationRequest",
  *                         "id": "medreq-1",
  *                         "status": "active",
+ *                         "intent": "order",
  *                         "subject": {
  *                             "reference": "Patient/patient-1"
  *                         },
@@ -66,16 +67,62 @@
  *             ]
  *         }
  *     }
+ *
+ * @example
+ *     {
+ *         fhir_resources: {
+ *             "resourceType": "Bundle",
+ *             "type": "collection",
+ *             "entry": [
+ *                 {
+ *                     "resource": {
+ *                         "resourceType": "Patient",
+ *                         "id": "patient-1"
+ *                     }
+ *                 },
+ *                 {
+ *                     "resource": {
+ *                         "resourceType": "Observation",
+ *                         "id": "hemoglobin-1",
+ *                         "subject": {
+ *                             "reference": "Patient/patient-1"
+ *                         },
+ *                         "code": {
+ *                             "coding": [
+ *                                 {
+ *                                     "system": "urn:oid:2.16.840.1.113883.6.1",
+ *                                     "code": "718-7",
+ *                                     "display": "Hemoglobin"
+ *                                 }
+ *                             ]
+ *                         },
+ *                         "valueQuantity": {
+ *                             "value": 13.5,
+ *                             "unit": "g/dL"
+ *                         }
+ *                     }
+ *                 }
+ *             ]
+ *         }
+ *     }
  */
 export interface CreateOmopRequest {
     /**
+     * OMOP vocabulary release to use for coded concept resolution. If
+     * omitted or empty, the API uses its default release. Specify a
+     * release explicitly when reproducibility matters. The response's
+     * `vocab_version`, when present, identifies the release used.
+     */
+    vocab_version?: string;
+    /**
      * FHIR resources (single resource or Bundle). Must contain at least one
      * Patient resource. Supported row-producing resources are Patient,
-     * Encounter, Condition, Procedure, MedicationRequest,
+     * Location, Organization, HealthcareService, Practitioner,
+     * PractitionerRole, Encounter, Condition, Procedure, MedicationRequest,
      * MedicationStatement, MedicationAdministration, Immunization,
      * Observation, and AllergyIntolerance. Standalone Medication resources
      * are consumed by medication references rather than mapped to their own
-     * table. Other resource types are accepted but ignored.
+     * table. Unsupported resource types are accepted in a Bundle but ignored.
      */
     fhir_resources: Record<string, unknown>;
 }

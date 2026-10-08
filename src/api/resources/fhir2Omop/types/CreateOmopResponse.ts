@@ -6,19 +6,44 @@ export interface CreateOmopResponse {
     success?: boolean | undefined;
     message?: string | undefined;
     tables?: phenoml.fhir2Omop.OmopTables | undefined;
-    /** One entry per source coding (or one entry for a text-only resource with no coding), describing how it resolved and linking back to the row it produced. */
+    /** One entry per supported source coding from a resource that shaped a row (or one entry for a text-only primary resource with no coding), describing how it resolved and linking back to the row it produced. A coded route or Observation valueCodeableConcept is a separate entry linked to its medication, vaccine, or observation row. A Patient demographic code links to its person row, or to its `observation` race row when the person has more than one race. */
     mappings?: phenoml.fhir2Omop.MappingEntry[] | undefined;
     /**
+     * Additive FHIR provenance for every supplied PractitionerRole. Each
+     * context identifies the canonical or role-fallback provider row and
+     * preserves source role facts that OMOP's singular provider columns
+     * cannot represent together.
+     */
+    provider_role_contexts?: phenoml.fhir2Omop.ProviderRoleContext[] | undefined;
+    /**
      * Supported resource instances that could not be shaped into an OMOP
-     * row because required subject/patient, code, or medication reference
-     * data was missing. Unsupported resource types are ignored and do not
-     * appear here.
+     * row because the subject/patient, clinical code or text, or medication
+     * data was missing or unusable, including an explicit subject/patient
+     * reference that was unresolved, ambiguous, or unsupported, or because
+     * their clinical-event eligibility status excluded them. A resource that
+     * lacks only a date or another CDM-required field is returned as a row
+     * instead. Unsupported resource types are ignored and do not appear here.
+     * Eligibility exclusions use stable, resource-specific `reason` codes;
+     * other shaping failures retain an explanatory reason string.
      */
     dropped?: phenoml.fhir2Omop.DroppedResource[] | undefined;
     /**
-     * The OMOP vocabulary release the clinical codes were resolved against
-     * (e.g. "v20240229"), for reproducibility. Present when at least one
-     * coded concept was resolved.
+     * Explanations for explicit references that could not safely produce
+     * an OMOP link or canonicalize a `PractitionerRole` provider identity, or explicit
+     * subject/patient references that caused a clinical row to be dropped.
+     * Missing optional references are normal and do not produce a diagnostic.
+     * References resolve only against resources supplied in this request.
+     * Outcomes distinguish unresolved, ambiguous, conflicting, and unsupported
+     * references. Patient demographic extensions that conflict, or a birth
+     * sex without `valueCode`, are also reported here; their `path` is
+     * `extension:birthsex` or `extension:ethnicity` and they have no
+     * `reference`.
+     */
+    diagnostics?: phenoml.fhir2Omop.ReferenceDiagnostic[] | undefined;
+    /**
+     * The OMOP vocabulary release used for coded concept resolution
+     * (for example, "v20260227"), for reproducibility. Omitted when no
+     * vocabulary resolution was performed.
      */
     vocab_version?: string | undefined;
     summary?: phenoml.fhir2Omop.Summary | undefined;
