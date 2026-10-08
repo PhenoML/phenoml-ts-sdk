@@ -2,11 +2,11 @@
 ### Breaking Changes
 
 - **`phenoml.construe.BadGatewayError`, `phenoml.construe.ContentTooLargeError`, `phenoml.fhir2Omop.ServiceUnavailableError`, `phenoml.lang2FhirBatch.ContentTooLargeError`, and `phenoml.voice.ContentTooLargeError`** — removed exported error classes; replace their imports and catches with `phenomlError` and inspect `statusCode`.
-- **`phenoml.fhir2Omop.MappingEntry.selected`** — new required boolean field; add it to manually constructed mappings, fixtures, and adapters. TypeScript does not validate response models at runtime.
-- **`phenoml.fhir2Omop.MappingEntry.mapping_status` / `MappingEntry.MappingStatus`** — narrowed from `string` to `ALREADY_STANDARD`, `MAPPED`, `UNCHECKED`, or `UNMAPPED`; fixtures and adapters assigning arbitrary strings must use an allowed value. Unknown response values are not rejected at runtime.
 - **FHIR-to-OMOP backend output** — clinical `*_source_value` fields now contain the selected bare code instead of `system#code`; read the coding system from `mappings[].source_system`. For `MedicationRequest`, `drug_type_concept_id` changes from `32817` (EHR) to `32838` (EHR prescription). Update loaders and comparisons that depend on the previous values; these are server-side behavior changes reflected in this SDK's contract.
 
 ### Added
+
+- **`phenoml.fhir2Omop.MappingEntry.selected`** — identifies whether a source coding was selected for the linked row's `*_source_value`; returned on every mapping entry and false for alternate codings and text-only rows.
 
 - **`client.fhir2Omop.create()` / `CreateOmopRequest.vocab_version`** — accepts an optional OMOP vocabulary release for reproducible coded-concept resolution.
 - **`phenoml.fhir2Omop.CreateOmopResponse.provider_role_contexts` and `.diagnostics`** — add practitioner-role provenance and reference-resolution diagnostics with `ProviderRoleContext`, its supporting types, `Coding`, and `ReferenceDiagnostic`.
@@ -21,6 +21,8 @@
 - **`client.construe.codes.crosswalk()`** — now throws `phenoml.construe.InternalServerError` on HTTP 500.
 
 ### Changed
+
+- **`phenoml.fhir2Omop.MappingEntry.mapping_status` / `MappingEntry.MappingStatus`** — uses named literal values for the API's existing `ALREADY_STANDARD`, `MAPPED`, `UNCHECKED`, and `UNMAPPED` statuses; unknown response values are not rejected at runtime.
 
 - **FHIR-to-OMOP conversion / `phenoml.fhir2Omop.Summary`** — documentation describes expanded resource coverage, source-supported dates, clinical-event eligibility, demographic resolution, and outcome-based summary counts.
 - **`CreateMultiRequest.patient_reference`, `DocumentMultiRequest.patient_reference`, and Lang2FHIR `detection_effort` fields** — marked deprecated with existing call sites retained; use `primary_patient.identifier` for patient identifiers and do not combine it with `patient_reference`.
