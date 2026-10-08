@@ -1,3 +1,6 @@
+## [19.1.0] - 2026-10-08
+New backward-compatible capabilities are added: `PrimaryPatient` context type, expanded FHIR-to-OMOP resource coverage with new schema types, implementation guide versioning endpoints, and `ResourceReviewRemediated` — none of which remove or rename existing public symbols.
+
 ## [19.0.0] - 2026-10-08
 ### Breaking Changes
 - **`phenoml.construe.BadGatewayError`, `phenoml.construe.ContentTooLargeError`, `phenoml.fhir2Omop.ServiceUnavailableError`, `phenoml.lang2FhirBatch.ContentTooLargeError`, and `phenoml.voice.ContentTooLargeError`** — removed exported error classes; replace their imports and catches with `phenomlError` and inspect `statusCode`.
