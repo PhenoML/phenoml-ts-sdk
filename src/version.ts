@@ -1,1 +1,1 @@
-export const SDK_VERSION = "19.1.0";
+export const SDK_VERSION = "0.0.0-fern-placeholder";
