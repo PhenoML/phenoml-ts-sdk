@@ -204,6 +204,8 @@ describe("Fhir2OmopClient", () => {
                 {
                     resource_type: "resource_type",
                     resource_id: "resource_id",
+                    omop_table: "omop_table",
+                    omop_id: 1000000,
                     path: "path",
                     reference: "reference",
                     outcome: "UNRESOLVED",
@@ -457,6 +459,8 @@ describe("Fhir2OmopClient", () => {
                 {
                     resource_type: "resource_type",
                     resource_id: "resource_id",
+                    omop_table: "omop_table",
+                    omop_id: 1000000,
                     path: "path",
                     reference: "reference",
                     outcome: "UNRESOLVED",
