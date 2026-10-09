@@ -1,3 +1,7 @@
+## [19.1.0] - 2026-10-09
+### Added
+- **`phenoml.fhir2Omop.ReferenceDiagnostic.omop_table` and `.omop_id`** — new optional fields that identify the OMOP output row affected by a diagnostic; `omop_table` names the table and `omop_id` gives its response-local primary key. Both fields are omitted when no output row is associated with the diagnostic.
+
 ## [19.0.0] - 2026-10-08
 ### Breaking Changes
 - **`phenoml.construe.BadGatewayError`, `phenoml.construe.ContentTooLargeError`, `phenoml.fhir2Omop.ServiceUnavailableError`, `phenoml.lang2FhirBatch.ContentTooLargeError`, and `phenoml.voice.ContentTooLargeError`** — removed exported error classes; replace their imports and catches with `phenomlError` and inspect `statusCode`.
