@@ -1,3 +1,10 @@
+## [19.2.0] - 2026-10-13
+### Changed
+- **`phenoml.fhir2Omop.ReferenceDiagnostic`** — `outcome` and `reason` fields now carry full JSDoc describing all four outcome values (`UNRESOLVED`, `AMBIGUOUS`, `CONFLICTING`, `UNSUPPORTED`) and when each applies, including Practitioner identity conflicts and multiple-NPI conditions.
+- **`phenoml.fhir2Omop.ProviderRow.npi`** — documented as the single distinct source NPI; omitted when a Practitioner carries multiple distinct NPIs. `provider_source_value` is now described as a cross-request deduplication key when one unambiguous NPI is present.
+- **`phenoml.fhir2Omop.CreateOmopResponse.diagnostics`** — documentation expanded to cover Practitioner identity-conflict diagnostics (paths `name`, `gender`, `birthDate`, `identifier`) linked by `omop_table: provider` and `omop_id`, including the rule that every member of a conflicting NPI group is flagged.
+- **`client.fhir2Omop.create()`** — method documentation now describes the full NPI-based Practitioner merge policy: merge conditions, conflict detection, per-response row IDs, and cross-request deduplication guidance.
+
 ## [19.1.0] - 2026-10-09
 ### Added
 - **`phenoml.fhir2Omop.ReferenceDiagnostic.omop_table` and `.omop_id`** — new optional fields that identify the OMOP output row affected by a diagnostic; `omop_table` names the table and `omop_id` gives its response-local primary key. Both fields are omitted when no output row is associated with the diagnostic.
