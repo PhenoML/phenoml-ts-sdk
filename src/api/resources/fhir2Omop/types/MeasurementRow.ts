@@ -12,6 +12,7 @@ export interface MeasurementRow {
     /** OMOP "Meas Value Operator" standard concept qualifying value_as_number (<, <=, >, >=), parsed from a numeric-string value or a FHIR valueQuantity.comparator. 0 when no operator (a bare number). */
     operator_concept_id?: number | undefined;
     value_as_concept_id?: number | undefined;
+    /** Valid standard Unit concept for coded UCUM; 0 for supplied but unmapped units, null for absent units. Always present in JSON. */
     unit_concept_id?: number | undefined;
     range_low?: number | undefined;
     range_high?: number | undefined;
@@ -19,6 +20,9 @@ export interface MeasurementRow {
     provider_id?: number | undefined;
     measurement_source_value?: string | undefined;
     measurement_source_concept_id?: number | undefined;
+    /** OMOP source concept ID corresponding to Quantity.system/code; 0 for supplied units without a matching source concept, null for absent units. Always present in JSON. */
+    unit_source_concept_id?: number | undefined;
+    /** Original Quantity.code if supplied, otherwise Quantity.unit; human-readable unit text is preserved in the unit mapping's source_name. */
     unit_source_value?: string | undefined;
     value_source_value?: string | undefined;
 }

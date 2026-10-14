@@ -11,11 +11,13 @@ export interface ObservationRow {
     value_as_number?: number | undefined;
     value_as_string?: string | undefined;
     value_as_concept_id?: number | undefined;
+    /** Valid standard Unit concept for coded UCUM; 0 for supplied but unmapped units, null for absent units. Always present in JSON. */
     unit_concept_id?: number | undefined;
     visit_occurrence_id?: number | undefined;
     provider_id?: number | undefined;
     observation_source_value?: string | undefined;
     observation_source_concept_id?: number | undefined;
+    /** Original Quantity.code if supplied, otherwise Quantity.unit; human-readable unit text is preserved in the unit mapping's source_name. */
     unit_source_value?: string | undefined;
     value_source_value?: string | undefined;
 }
