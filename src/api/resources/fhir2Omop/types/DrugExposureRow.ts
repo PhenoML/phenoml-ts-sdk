@@ -4,10 +4,10 @@ export interface DrugExposureRow {
     drug_exposure_id?: number | undefined;
     person_id?: number | undefined;
     drug_concept_id?: number | undefined;
-    /** Date from the resource's timing source, such as effective[x], occurrenceDateTime, or MedicationRequest.authoredOn. */
+    /** Start date selected by the source resource's timing rules, such as effective[x], occurrenceDateTime, or MedicationRequest.authoredOn; see the endpoint's timing sources for all supported resources. */
     drug_exposure_start_date?: string | undefined;
     drug_exposure_start_datetime?: string | undefined;
-    /** Date from an explicit FHIR Period end, or the same day as the start for a single-event administration or immunization. Unset when the source supplies neither. */
+    /** End date selected by the source resource's timing rules, when available. For medication resources, an explicit effectivePeriod.end or the start date of a single-event administration or immunization; see the endpoint's timing sources for other resources. */
     drug_exposure_end_date?: string | undefined;
     drug_exposure_end_datetime?: string | undefined;
     /** Date from an explicit FHIR Period.end only; inferred same-day ends are not verbatim source values. */

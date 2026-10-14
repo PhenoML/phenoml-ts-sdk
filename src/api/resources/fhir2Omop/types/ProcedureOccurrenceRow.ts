@@ -4,10 +4,10 @@ export interface ProcedureOccurrenceRow {
     procedure_occurrence_id?: number | undefined;
     person_id?: number | undefined;
     procedure_concept_id?: number | undefined;
-    /** Date from Procedure.performedDateTime or performedPeriod.start. */
+    /** Start date selected by the source resource's timing rules. For a Procedure, performedDateTime or performedPeriod.start; see the endpoint's timing sources for other resources. */
     procedure_date?: string | undefined;
     procedure_datetime?: string | undefined;
-    /** Date from Procedure.performedPeriod.end. */
+    /** End date selected by the source resource's timing rules, when available. For a Procedure, performedPeriod.end; see the endpoint's timing sources for other resources. */
     procedure_end_date?: string | undefined;
     procedure_end_datetime?: string | undefined;
     procedure_type_concept_id?: number | undefined;
