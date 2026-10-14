@@ -14,11 +14,44 @@ export interface ReferenceDiagnostic {
     path?: string | undefined;
     /** The supplied Reference.reference value, when present. */
     reference?: string | undefined;
+    /**
+     * UNRESOLVED: a supported reference cannot resolve to a resource or
+     * emitted target supplied in this request.
+     * AMBIGUOUS: a reference or identifier matches multiple possible
+     * targets. Identifier-only `PractitionerRole.practitioner` references
+     * are unambiguous when all matches map to one canonical provider.
+     * Literal references matching multiple source resources remain
+     * ambiguous even if those Practitioners merge into one provider.
+     * CONFLICTING: supplied values or relationships cannot be combined
+     * under the mapping policy, such as differing mapped provider identity
+     * attributes, multiple distinct NPIs on one Practitioner, conflicting
+     * Patient demographic extensions, or an Encounter belonging to a
+     * different patient.
+     * UNSUPPORTED: a supplied reference form, resource type, or value
+     * shape is outside the supported mapping policy.
+     */
     outcome?: ReferenceDiagnostic.Outcome | undefined;
+    /** Explanation of the condition and, when applicable, its effect on mapping. */
     reason?: string | undefined;
 }
 
 export namespace ReferenceDiagnostic {
+    /**
+     * UNRESOLVED: a supported reference cannot resolve to a resource or
+     * emitted target supplied in this request.
+     * AMBIGUOUS: a reference or identifier matches multiple possible
+     * targets. Identifier-only `PractitionerRole.practitioner` references
+     * are unambiguous when all matches map to one canonical provider.
+     * Literal references matching multiple source resources remain
+     * ambiguous even if those Practitioners merge into one provider.
+     * CONFLICTING: supplied values or relationships cannot be combined
+     * under the mapping policy, such as differing mapped provider identity
+     * attributes, multiple distinct NPIs on one Practitioner, conflicting
+     * Patient demographic extensions, or an Encounter belonging to a
+     * different patient.
+     * UNSUPPORTED: a supplied reference form, resource type, or value
+     * shape is outside the supported mapping policy.
+     */
     export const Outcome = {
         Unresolved: "UNRESOLVED",
         Ambiguous: "AMBIGUOUS",

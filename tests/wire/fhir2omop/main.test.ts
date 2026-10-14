@@ -150,6 +150,7 @@ describe("Fhir2OmopClient", () => {
                     target_name: "FEMALE",
                     mapping_status: "MAPPED",
                     selected: true,
+                    resolution: { status: "RESOLVED" },
                     note: "FHIR administrative gender; assumed sex at birth",
                 },
                 {
@@ -166,6 +167,7 @@ describe("Fhir2OmopClient", () => {
                     target_name: "Type 2 diabetes mellitus",
                     mapping_status: "ALREADY_STANDARD",
                     selected: true,
+                    resolution: { status: "RESOLVED" },
                     note: "note",
                 },
                 {
@@ -182,6 +184,7 @@ describe("Fhir2OmopClient", () => {
                     target_name: "metformin hydrochloride 500 MG",
                     mapping_status: "ALREADY_STANDARD",
                     selected: true,
+                    resolution: { status: "RESOLVED" },
                     note: "note",
                 },
             ],
@@ -405,6 +408,7 @@ describe("Fhir2OmopClient", () => {
                     target_name: "FEMALE",
                     mapping_status: "MAPPED",
                     selected: true,
+                    resolution: { status: "RESOLVED" },
                     note: "FHIR administrative gender; assumed sex at birth",
                 },
                 {
@@ -421,6 +425,7 @@ describe("Fhir2OmopClient", () => {
                     target_name: "Type 2 diabetes mellitus",
                     mapping_status: "ALREADY_STANDARD",
                     selected: true,
+                    resolution: { status: "RESOLVED" },
                     note: "note",
                 },
                 {
@@ -437,6 +442,7 @@ describe("Fhir2OmopClient", () => {
                     target_name: "metformin hydrochloride 500 MG",
                     mapping_status: "ALREADY_STANDARD",
                     selected: true,
+                    resolution: { status: "RESOLVED" },
                     note: "note",
                 },
             ],
