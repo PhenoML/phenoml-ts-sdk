@@ -1,3 +1,13 @@
+## [19.2.0] - 2026-10-14
+### Added
+- **`phenoml.fhir2Omop.MappingResolution` and `phenoml.fhir2Omop.MappingPath`** — new exported types providing field-level vocabulary resolution outcome (`RESOLVED`, `UNRESOLVED`, `DOMAIN_MISMATCH`, `AMBIGUOUS`), machine-readable reason codes, resolution path (`DIRECT` or `UMLS_BRIDGE`), and per-path provenance for each mapping entry.
+- **`MappingEntry.resolution`** — new optional field on every mapping entry (coding or Quantity unit) carrying its `MappingResolution`; omitted for unchecked text suggestions, text-only units, and unsupported unit systems.
+- **`MeasurementRow.unit_source_concept_id`** — new optional field holding the OMOP source concept ID for `Quantity.system/code`; `0` for supplied units without a matching source concept, `null` for absent units.
+
+### Changed
+- **`MeasurementRow.unit_concept_id` and `ObservationRow.unit_concept_id`** — now resolve coded UCUM units to standard OMOP Unit concepts; `null` for absent units (previously `0`), `0` for supplied but unmapped units; `unit_source_value` now contains `Quantity.code` rather than human-readable text.
+- **`ReferenceDiagnostic.outcome` and `ReferenceDiagnostic.reason`** — expanded documentation covers Practitioner NPI-group identity conflict diagnostics (paths `name`, `gender`, `birthDate`, `identifier`) linked via `omop_table: provider` and `omop_id`, and multiple-distinct-NPI conflicts on a single Practitioner.
+
 ## [19.1.0] - 2026-10-09
 ### Added
 - **`phenoml.fhir2Omop.ReferenceDiagnostic.omop_table` and `.omop_id`** — new optional fields that identify the OMOP output row affected by a diagnostic; `omop_table` names the table and `omop_id` gives its response-local primary key. Both fields are omitted when no output row is associated with the diagnostic.
