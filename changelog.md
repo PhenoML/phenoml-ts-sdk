@@ -1,3 +1,14 @@
+## [19.2.0] - 2026-10-14
+### Added
+- **`phenoml.fhir2Omop.MappingResolution` and `phenoml.fhir2Omop.MappingPath`** — new exported types that surface vocabulary resolution outcome, machine-readable reason codes (`NO_SOURCE_CODE`, `NO_OMOP_SOURCE_CONCEPT`, `NO_STANDARD_MAP`, `AMBIGUOUS`, `DOMAIN_MISMATCH`, `UNSUPPORTED_SYSTEM`, `UNSUPPORTED_CODE`), resolution route (`DIRECT` or `UMLS_BRIDGE`), and per-path provenance for each source coding.
+- **`MappingEntry.resolution`** — new optional field on every mapping entry that links to the entry's `MappingResolution`, providing structured provenance for resolved and unresolved codings; omitted for unchecked text suggestions and unsupported unit systems.
+- **`MeasurementRow.unit_source_concept_id`** — new optional field returning the OMOP source concept ID for `Quantity.system/code`; `0` for supplied units without a matching source concept, `null` for absent units.
+- **Quantity unit mapping entries** — `CreateOmopResponse.mappings` now includes a separate `MappingEntry` for each supplied Quantity unit (coded UCUM units resolve against the selected `vocab_version`; absent units have no entry), and `Summary` counts each supplied unit once.
+
+### Changed
+- **`CreateOmopRequest.vocab_version` and `CreateOmopResponse.vocab_version`** — documentation now names `v20260829` as the default OMOP vocabulary release used when the field is omitted or empty.
+- **`ReferenceDiagnostic.outcome` and `ProviderRow.provider_source_value`** — documentation expanded to describe Practitioner NPI merging, identity-conflict diagnostics (`CONFLICTING` at `name`, `gender`, `birthDate`, or `identifier` linked by `omop_table: provider` and `omop_id`), and cross-request deduplication guidance using `provider_source_value`.
+
 ## [19.1.0] - 2026-10-09
 ### Added
 - **`phenoml.fhir2Omop.ReferenceDiagnostic.omop_table` and `.omop_id`** — new optional fields that identify the OMOP output row affected by a diagnostic; `omop_table` names the table and `omop_id` gives its response-local primary key. Both fields are omitted when no output row is associated with the diagnostic.
