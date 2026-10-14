@@ -84,6 +84,7 @@
  *                     "resource": {
  *                         "resourceType": "Observation",
  *                         "id": "hemoglobin-1",
+ *                         "status": "final",
  *                         "subject": {
  *                             "reference": "Patient/patient-1"
  *                         },
@@ -109,8 +110,8 @@
 export interface CreateOmopRequest {
     /**
      * OMOP vocabulary release to use for coded concept resolution. If
-     * omitted or empty, the API uses its default release. Specify a
-     * release explicitly when reproducibility matters. The response's
+     * omitted or empty, the API uses its default release (`v20260829`).
+     * Specify a release explicitly when reproducibility matters. The response's
      * `vocab_version`, when present, identifies the release used.
      */
     vocab_version?: string;
