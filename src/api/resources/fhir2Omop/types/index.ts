@@ -7,6 +7,8 @@ export * from "./DroppedResource.js";
 export * from "./DrugExposureRow.js";
 export * from "./LocationRow.js";
 export * from "./MappingEntry.js";
+export * from "./MappingPath.js";
+export * from "./MappingResolution.js";
 export * from "./MeasurementRow.js";
 export * from "./ObservationPeriodRow.js";
 export * from "./ObservationRow.js";

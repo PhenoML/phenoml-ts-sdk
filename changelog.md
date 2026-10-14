@@ -1,3 +1,13 @@
+## [19.2.0] - 2026-10-14
+### Added
+- **`phenoml.fhir2Omop.MappingPath`** — new type describing one mapping path to a selected OMOP concept, including `mapping_status` (`ALREADY_STANDARD`, `MAPPED`, `POLICY_MAPPED`), `source_concept_id`, `source_vocabulary`, `source_code`, and an optional `cui` for UMLS bridge paths.
+- **`phenoml.fhir2Omop.MappingResolution`** — new type providing field-level vocabulary resolution outcomes (`status`, `reason_code`, `via`, `paths`, `truncated`) with nested `Status`, `ReasonCode`, and `Via` enums for machine-readable mapping provenance.
+
+### Changed
+- **`phenoml.fhir2Omop.ProviderRow.npi` and `.provider_source_value`** — documentation expanded to describe NPI-based cross-request deduplication semantics, multi-NPI fallback behavior, and identity-diagnostic guidance.
+- **`phenoml.fhir2Omop.Summary`** — documentation expanded to include Quantity unit counting rules (text-only units count once; absent units do not count) and clarifies that observation values retained only in `mappings` do not add resolution outcomes.
+- **`phenoml.fhir2Omop.ReferenceDiagnostic.outcome` and `.reason`** — documentation expanded with detailed descriptions of `UNRESOLVED`, `AMBIGUOUS`, `CONFLICTING`, and `UNSUPPORTED` outcomes and their effects on mapping.
+
 ## [19.1.0] - 2026-10-09
 ### Added
 - **`phenoml.fhir2Omop.ReferenceDiagnostic.omop_table` and `.omop_id`** — new optional fields that identify the OMOP output row affected by a diagnostic; `omop_table` names the table and `omop_id` gives its response-local primary key. Both fields are omitted when no output row is associated with the diagnostic.

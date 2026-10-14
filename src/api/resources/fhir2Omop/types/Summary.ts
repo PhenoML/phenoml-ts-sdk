@@ -2,25 +2,33 @@
 
 /**
  * The request's data-quality headline: how row-producing coded concepts,
- * selected routes, and Patient demographic fields split, and the share
+ * supplied Quantity units on measurement or observation rows,
+ * coded medication/immunization routes (including those reported only in
+ * `mappings` when the output table is not `drug_exposure`), and Patient
+ * demographic fields split, and the share
  * that was not already in a target standard vocabulary. Each is counted
  * once even when it carried several codings — unlike `mappings`, which has
  * one entry per coding. For example, a medication code and its selected
  * coded route on the same `drug_exposure` row are separate outcomes;
+ * each supplied Quantity unit on a measurement or observation row also
+ * counts once, including text-only units;
+ * absent units do not count;
  * independently checked report-only alternate route codings do not alter
  * `summary`. A Patient demographic counts once per PERSON field, or per
  * race `observation` row, that received a non-null value; conflicting
  * values count once as unmapped. Null flavors, Patient `gender` `other` or
  * `unknown`, a Patient `gender` overridden by birth sex, and race
  * categories that did not determine the field are reported in `mappings`
- * only.
+ * only. Observation values retained only in `mappings` because the output
+ * table is neither `measurement` nor `observation` do not add resolution
+ * outcomes.
  */
 export interface Summary {
     /** Resolution outcomes already a standard OMOP concept (ALREADY_STANDARD). */
     codes_already_standard?: number | undefined;
     /** Resolution outcomes mapped or suggested to a standard concept (MAPPED or UNCHECKED). */
     codes_normalized?: number | undefined;
-    /** Resolution outcomes with no standard concept found (UNMAPPED). */
+    /** Resolution outcomes with no standard concept valid for the destination selected (UNMAPPED). */
     codes_unmapped?: number | undefined;
     /** Share of resolution outcomes not already standard ((normalized + unmapped) / total). */
     off_vocab_rate?: number | undefined;
