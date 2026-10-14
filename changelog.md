@@ -1,3 +1,18 @@
+## [19.2.0] - 2026-10-14
+### Added
+- **`MappingEntry.resolution`** — new optional `MappingResolution` field providing per-coding resolution detail (outcome, reason code, and provenance) for each mapping entry.
+- **`MappingPath` and `MappingResolution`** — new exported types under `phenoml.fhir2Omop` describing field-level vocabulary resolution outcomes and mapping provenance, including `MappingStatus`, `Status`, `ReasonCode`, and `Via` nested enums.
+- **`MeasurementRow.unit_source_concept_id`** — new optional field reporting the OMOP source concept ID for a Quantity's system/code unit.
+- **`VisitOccurrenceRow.visit_source_concept_id`** — new optional field reporting the OMOP source concept for the selected `Encounter.class` or `Encounter.type` coding.
+- **`ReferenceDiagnostic.omop_table` and `.omop_id`** — new fields identifying the affected OMOP output row for Practitioner identity-conflict and Encounter classification-conflict diagnostics.
+
+### Changed
+- **`CreateOmopResponse.diagnostics`** — now reports Practitioner NPI merge conflicts and Encounter class/type conflicts in addition to existing reference-resolution diagnostics.
+- **`CreateOmopResponse.mappings`** — now includes entries for supplied Quantity units and for Observation values and medication routes returned outside their default tables.
+- **`ProviderRow.provider_source_value` and `.npi`** — documentation expanded to clarify NPI-based deduplication semantics, multi-NPI conflict behavior, and fallback logic.
+- **`ReferenceDiagnostic.outcome` and `.reason`** — documentation expanded with detailed descriptions of `CONFLICTING` and `UNSUPPORTED` outcomes and their effect on mapping.
+- **`ConditionOccurrenceRow` and `DrugExposureRow` timing fields** — descriptions updated to reflect vocabulary-driven domain assignment routing to non-default OMOP tables.
+
 ## [19.1.0] - 2026-10-09
 ### Added
 - **`phenoml.fhir2Omop.ReferenceDiagnostic.omop_table` and `.omop_id`** — new optional fields that identify the OMOP output row affected by a diagnostic; `omop_table` names the table and `omop_id` gives its response-local primary key. Both fields are omitted when no output row is associated with the diagnostic.
