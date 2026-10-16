@@ -133,6 +133,14 @@ describe("Fhir2OmopClient", () => {
                 ],
                 procedure_occurrence: [{}],
                 measurement: [{}],
+                specimen: [
+                    {
+                        specimen_id: 1000000,
+                        person_id: 1000000,
+                        specimen_concept_id: 1000000,
+                        specimen_type_concept_id: 1000000,
+                    },
+                ],
                 observation: [{}],
             },
             mappings: [
@@ -150,6 +158,7 @@ describe("Fhir2OmopClient", () => {
                     target_name: "FEMALE",
                     mapping_status: "MAPPED",
                     selected: true,
+                    resolution: { status: "RESOLVED" },
                     note: "FHIR administrative gender; assumed sex at birth",
                 },
                 {
@@ -166,6 +175,7 @@ describe("Fhir2OmopClient", () => {
                     target_name: "Type 2 diabetes mellitus",
                     mapping_status: "ALREADY_STANDARD",
                     selected: true,
+                    resolution: { status: "RESOLVED" },
                     note: "note",
                 },
                 {
@@ -182,7 +192,19 @@ describe("Fhir2OmopClient", () => {
                     target_name: "metformin hydrochloride 500 MG",
                     mapping_status: "ALREADY_STANDARD",
                     selected: true,
+                    resolution: { status: "RESOLVED" },
                     note: "note",
+                },
+            ],
+            specimen_source_contexts: [
+                {
+                    specimen_id: 1000000,
+                    resource_id: "resource_id",
+                    full_url: "full_url",
+                    status: "available",
+                    identifiers: [{ value: "value" }],
+                    accession_identifier: { value: "value" },
+                    source_id_path: "source_id_path",
                 },
             ],
             provider_role_contexts: [
@@ -212,7 +234,7 @@ describe("Fhir2OmopClient", () => {
                     reason: "reason",
                 },
             ],
-            vocab_version: "v20260227",
+            vocab_version: "v20260829",
             summary: {
                 codes_already_standard: 2,
                 codes_normalized: 1,
@@ -318,6 +340,7 @@ describe("Fhir2OmopClient", () => {
                         resource: {
                             resourceType: "Observation",
                             id: "hemoglobin-1",
+                            status: "final",
                             subject: { reference: "Patient/patient-1" },
                             code: {
                                 coding: [
@@ -388,6 +411,14 @@ describe("Fhir2OmopClient", () => {
                 ],
                 procedure_occurrence: [{}],
                 measurement: [{}],
+                specimen: [
+                    {
+                        specimen_id: 1000000,
+                        person_id: 1000000,
+                        specimen_concept_id: 1000000,
+                        specimen_type_concept_id: 1000000,
+                    },
+                ],
                 observation: [{}],
             },
             mappings: [
@@ -405,6 +436,7 @@ describe("Fhir2OmopClient", () => {
                     target_name: "FEMALE",
                     mapping_status: "MAPPED",
                     selected: true,
+                    resolution: { status: "RESOLVED" },
                     note: "FHIR administrative gender; assumed sex at birth",
                 },
                 {
@@ -421,6 +453,7 @@ describe("Fhir2OmopClient", () => {
                     target_name: "Type 2 diabetes mellitus",
                     mapping_status: "ALREADY_STANDARD",
                     selected: true,
+                    resolution: { status: "RESOLVED" },
                     note: "note",
                 },
                 {
@@ -437,7 +470,19 @@ describe("Fhir2OmopClient", () => {
                     target_name: "metformin hydrochloride 500 MG",
                     mapping_status: "ALREADY_STANDARD",
                     selected: true,
+                    resolution: { status: "RESOLVED" },
                     note: "note",
+                },
+            ],
+            specimen_source_contexts: [
+                {
+                    specimen_id: 1000000,
+                    resource_id: "resource_id",
+                    full_url: "full_url",
+                    status: "available",
+                    identifiers: [{ value: "value" }],
+                    accession_identifier: { value: "value" },
+                    source_id_path: "source_id_path",
                 },
             ],
             provider_role_contexts: [
@@ -467,7 +512,7 @@ describe("Fhir2OmopClient", () => {
                     reason: "reason",
                 },
             ],
-            vocab_version: "v20260227",
+            vocab_version: "v20260829",
             summary: {
                 codes_already_standard: 2,
                 codes_normalized: 1,
@@ -500,6 +545,7 @@ describe("Fhir2OmopClient", () => {
                         resource: {
                             resourceType: "Observation",
                             id: "hemoglobin-1",
+                            status: "final",
                             subject: {
                                 reference: "Patient/patient-1",
                             },
