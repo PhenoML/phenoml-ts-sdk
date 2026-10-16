@@ -84,6 +84,7 @@
  *                     "resource": {
  *                         "resourceType": "Observation",
  *                         "id": "hemoglobin-1",
+ *                         "status": "final",
  *                         "subject": {
  *                             "reference": "Patient/patient-1"
  *                         },
@@ -109,8 +110,8 @@
 export interface CreateOmopRequest {
     /**
      * OMOP vocabulary release to use for coded concept resolution. If
-     * omitted or empty, the API uses its default release. Specify a
-     * release explicitly when reproducibility matters. The response's
+     * omitted or empty, the API uses its default release (`v20260829`).
+     * Specify a release explicitly when reproducibility matters. The response's
      * `vocab_version`, when present, identifies the release used.
      */
     vocab_version?: string;
@@ -118,9 +119,9 @@ export interface CreateOmopRequest {
      * FHIR resources (single resource or Bundle). Must contain at least one
      * Patient resource. Supported row-producing resources are Patient,
      * Location, Organization, HealthcareService, Practitioner,
-     * PractitionerRole, Encounter, Condition, Procedure, MedicationRequest,
-     * MedicationStatement, MedicationAdministration, Immunization,
-     * Observation, and AllergyIntolerance. Standalone Medication resources
+     * PractitionerRole, Encounter, Specimen, Condition, Procedure,
+     * MedicationRequest, MedicationStatement, MedicationAdministration,
+     * Immunization, Observation, and AllergyIntolerance. Standalone Medication resources
      * are consumed by medication references rather than mapped to their own
      * table. Unsupported resource types are accepted in a Bundle but ignored.
      */

@@ -4,10 +4,10 @@ export interface ConditionOccurrenceRow {
     condition_occurrence_id?: number | undefined;
     person_id?: number | undefined;
     condition_concept_id?: number | undefined;
-    /** Date from Condition.onsetDateTime or onsetPeriod.start, otherwise Condition.recordedDate. */
+    /** Start date selected by the source resource's timing rules. For a Condition, onsetDateTime or onsetPeriod.start, otherwise recordedDate; see the endpoint's timing sources for other resources. */
     condition_start_date?: string | undefined;
     condition_start_datetime?: string | undefined;
-    /** Date from Condition.abatementDateTime or abatementPeriod.end. */
+    /** End date selected by the source resource's timing rules, when available. For a Condition, abatementDateTime or abatementPeriod.end; see the endpoint's timing sources for other resources. */
     condition_end_date?: string | undefined;
     condition_end_datetime?: string | undefined;
     condition_type_concept_id?: number | undefined;
