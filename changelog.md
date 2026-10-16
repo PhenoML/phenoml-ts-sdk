@@ -1,3 +1,16 @@
+## [19.2.0] - 2026-10-16
+### Added
+- **`phenoml.fhir2Omop.SpecimenRow`, `SpecimenSourceContext`, `SpecimenIdentifier`, `SpecimenCollectionTiming`, and `SpecimenCollectionPeriod`** — new types representing OMOP specimen rows and their FHIR source context, including status, identifiers, accession identifier, and collection timing.
+- **`Specimen` support in `client.fhir2Omop.create()`** — `Specimen` resources now map to the OMOP `specimen` table, with partial rows retained when collection date or material is missing.
+- **`phenoml.fhir2Omop.MappingPath` and `MappingResolution`** — new types exposing concept-mapping provenance for FHIR-to-OMOP conversions.
+- **`phenoml.fhir2Omop.VisitOccurrenceRow.visit_source_concept_id`** — new optional field carrying the OMOP source concept for the selected `Encounter.class` or `Encounter.type` coding.
+- **`phenoml.fhir2Omop.ReferenceDiagnostic.omop_table` and `.omop_id`** — new optional fields identifying the affected OMOP output row within a diagnostic; omitted when no output row is associated.
+- **Encounter classification mapping** — `Encounter.class` and `Encounter.type` now resolve to `visit_concept_id` via HL7 v3 ActCode mappings; conflicting classifications produce `CONFLICTING` diagnostics.
+
+### Changed
+- **`phenoml.fhir2Omop.ConditionOccurrenceRow.condition_start_date` / `.condition_end_date`** — documentation updated to reflect that dates follow the source resource's timing rules, not only Condition-specific fields, due to domain routing.
+- **`CreateOmopRequest.vocab_version`** — documentation now names the default vocabulary release (`v20260829`) when the field is omitted or empty; behavior is unchanged.
+
 ## [19.1.0] - 2026-10-09
 ### Added
 - **`phenoml.fhir2Omop.ReferenceDiagnostic.omop_table` and `.omop_id`** — new optional fields that identify the OMOP output row affected by a diagnostic; `omop_table` names the table and `omop_id` gives its response-local primary key. Both fields are omitted when no output row is associated with the diagnostic.
