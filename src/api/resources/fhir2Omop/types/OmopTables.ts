@@ -21,5 +21,6 @@ export interface OmopTables {
     drug_exposure?: phenoml.fhir2Omop.DrugExposureRow[] | undefined;
     procedure_occurrence?: phenoml.fhir2Omop.ProcedureOccurrenceRow[] | undefined;
     measurement?: phenoml.fhir2Omop.MeasurementRow[] | undefined;
+    specimen?: phenoml.fhir2Omop.SpecimenRow[] | undefined;
     observation?: phenoml.fhir2Omop.ObservationRow[] | undefined;
 }

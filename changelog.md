@@ -1,3 +1,17 @@
+## [19.2.0] - 2026-10-16
+### Changed
+- **`unit_concept_id` on `MeasurementRow` and `ObservationRow`** — absent units now return `null` instead of `0`; UCUM `unit_source_value` now uses the machine code rather than human-readable text; migrate by treating `null` (not `0`) as "no unit supplied".
+- **Clinical domain assignment** — Condition, Procedure, Medication, Immunization, Observation, and AllergyIntolerance resources now follow vocabulary-driven domain assignment per the Vulcan IG; the FHIR resource type alone no longer determines the output table; use `mappings[].omop_table` and `mappings[].omop_id` to locate each result.
+- **`phenoml.fhir2Omop.Summary`** — `codes_unmapped` now also counts domain-mismatch and ambiguous outcomes, and the summary tracks supplied Quantity units and specimen sites.
+
+### Added
+- **`phenoml.fhir2Omop.SpecimenRow`, `SpecimenSourceContext`, `SpecimenIdentifier`, `SpecimenCollectionTiming`, and `SpecimenCollectionPeriod`** — new types supporting OMOP CDM 5.4 specimen output derived from FHIR `Specimen` resources, including collection date/time, material, quantity, anatomic site, and provenance.
+- **`Specimen` support in `client.fhir2Omop.create()`** — `Specimen` resources now produce `specimen` rows; partial rows with linked diagnostics are retained when collection date or material is missing.
+- **`phenoml.fhir2Omop.MappingResolution` and `MappingPath`** — new types providing field-level concept-resolution provenance on `MappingEntry.resolution`, including status, `reason_code`, resolution strategy, source concept IDs, and optional UMLS CUI.
+- **`MeasurementRow.unit_source_concept_id`** — new field carrying the OMOP source concept ID for the supplied Quantity unit (`0` for unmapped, `null` for absent).
+- **`ReferenceDiagnostic.omop_table` and `.omop_id`** — new optional fields identifying the affected OMOP output row within a diagnostic; omitted when no output row is associated.
+- **`VisitOccurrenceRow.visit_source_concept_id`** — new optional field providing the OMOP source concept for the selected `Encounter.class` or `Encounter.type` coding; Encounter classification now maps to `visit_concept_id` using HL7 v3 ActCode codings.
+
 ## [19.1.0] - 2026-10-09
 ### Added
 - **`phenoml.fhir2Omop.ReferenceDiagnostic.omop_table` and `.omop_id`** — new optional fields that identify the OMOP output row affected by a diagnostic; `omop_table` names the table and `omop_id` gives its response-local primary key. Both fields are omitted when no output row is associated with the diagnostic.
