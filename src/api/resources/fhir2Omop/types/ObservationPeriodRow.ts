@@ -3,9 +3,9 @@
 export interface ObservationPeriodRow {
     observation_period_id?: number | undefined;
     person_id?: number | undefined;
-    /** Earliest populated date among the person's visit, clinical, and death rows in this request; not enrollment evidence. */
+    /** Earliest date selected by the source timing rules from the person's visit, clinical, and death records in this request; not enrollment evidence. */
     observation_period_start_date?: string | undefined;
-    /** Latest populated date, including end dates, among the person's visit, clinical, and death rows in this request; not enrollment evidence. */
+    /** Latest date selected by the source timing rules from the person's visit, clinical, and death records in this request, including source end dates even when the output table has no end column; not enrollment evidence. */
     observation_period_end_date?: string | undefined;
     period_type_concept_id?: number | undefined;
 }
