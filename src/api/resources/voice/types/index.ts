@@ -1,1 +1,1 @@
-export * from "./TranscribeResponse.js";
+export * from './TranscribeResponse.js';

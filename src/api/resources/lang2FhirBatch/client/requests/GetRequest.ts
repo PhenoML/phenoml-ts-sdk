@@ -8,8 +8,8 @@
  *     }
  */
 export interface GetRequest {
-    /** Opaque pagination cursor from a previous page's next_cursor. */
-    cursor?: string;
-    /** Page size for the item-status page. Defaults to 20; values above 100 are clamped to 100. */
-    limit?: number;
+  /** Opaque pagination cursor from a previous page's next_cursor. */
+  cursor?: string;
+  /** Page size for the item-status page. Defaults to 20; values above 100 are clamped to 100. */
+  limit?: number;
 }

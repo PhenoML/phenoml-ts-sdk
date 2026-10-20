@@ -11,24 +11,24 @@
  *     }
  */
 export interface AgentStreamChatRequest {
-    /**
-     * Optional header for on-behalf-of authentication. Used when making requests on behalf of another user or entity.
-     * Must be in the format: Patient/{uuid} or Practitioner/{uuid}
-     */
-    "X-Phenoml-On-Behalf-Of"?: string;
-    /**
-     * Optional header for FHIR provider authentication. Contains credentials in the format {fhir_provider_id}:{oauth2_token}.
-     * Multiple FHIR provider integrations can be provided as comma-separated values.
-     */
-    "X-Phenoml-Fhir-Provider"?: string;
-    /** The message to send to the agent */
-    message: string;
-    /** Optional context for the conversation */
-    context?: string;
-    /** Optional session ID for conversation continuity. Only one request may be active for a session at a time; overlapping turns for the same session return 409 Conflict. */
-    session_id?: string;
-    /** The ID of the agent to chat with */
-    agent_id: string;
-    /** Enable enhanced reasoning capabilities. Increases latency but improves response quality and reliability. */
-    enhanced_reasoning?: boolean;
+  /**
+   * Optional header for on-behalf-of authentication. Used when making requests on behalf of another user or entity.
+   * Must be in the format: Patient/{uuid} or Practitioner/{uuid}
+   */
+  'X-Phenoml-On-Behalf-Of'?: string;
+  /**
+   * Optional header for FHIR provider authentication. Contains credentials in the format {fhir_provider_id}:{oauth2_token}.
+   * Multiple FHIR provider integrations can be provided as comma-separated values.
+   */
+  'X-Phenoml-Fhir-Provider'?: string;
+  /** The message to send to the agent */
+  message: string;
+  /** Optional context for the conversation */
+  context?: string;
+  /** Optional session ID for conversation continuity. Only one request may be active for a session at a time; overlapping turns for the same session return 409 Conflict. */
+  session_id?: string;
+  /** The ID of the agent to chat with */
+  agent_id: string;
+  /** Enable enhanced reasoning capabilities. Increases latency but improves response quality and reliability. */
+  enhanced_reasoning?: boolean;
 }

@@ -7,6 +7,6 @@
  *     }
  */
 export interface FhirProviderSetActiveAuthConfigRequest {
-    /** ID of the auth configuration to set as active */
-    auth_config_id: string;
+  /** ID of the auth configuration to set as active */
+  auth_config_id: string;
 }

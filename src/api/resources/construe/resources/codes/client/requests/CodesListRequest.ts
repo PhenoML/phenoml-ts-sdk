@@ -9,10 +9,10 @@
  *     }
  */
 export interface CodesListRequest {
-    /** Specific version of the code system, such as `umls-2026aa`. */
-    version?: string;
-    /** Pagination cursor from previous response */
-    cursor?: string;
-    /** Maximum number of codes to return (default 20) */
-    limit?: number;
+  /** Specific version of the code system, such as `umls-2026aa`. */
+  version?: string;
+  /** Pagination cursor from previous response */
+  cursor?: string;
+  /** Maximum number of codes to return (default 20) */
+  limit?: number;
 }

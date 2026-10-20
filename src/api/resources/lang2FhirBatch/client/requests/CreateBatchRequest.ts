@@ -7,10 +7,10 @@
  *     }
  */
 export interface CreateBatchRequest {
-    /**
-     * Optional client idempotency token (at most 256 UTF-8 bytes). A
-     * retried create with the same token returns the original job instead
-     * of opening a second one.
-     */
-    request_id?: string;
+  /**
+   * Optional client idempotency token (at most 256 UTF-8 bytes). A
+   * retried create with the same token returns the original job instead
+   * of opening a second one.
+   */
+  request_id?: string;
 }

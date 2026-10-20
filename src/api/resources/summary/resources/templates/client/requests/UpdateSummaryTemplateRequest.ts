@@ -10,11 +10,11 @@
  *     }
  */
 export interface UpdateSummaryTemplateRequest {
-    name: string;
-    description?: string;
-    /** Updated template with placeholders */
-    template: string;
-    target_resources: string[];
-    /** Template mode */
-    mode: string;
+  name: string;
+  description?: string;
+  /** Updated template with placeholders */
+  template: string;
+  target_resources: string[];
+  /** Template mode */
+  mode: string;
 }

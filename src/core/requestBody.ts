@@ -10,17 +10,17 @@
  * SDK, which only merges additional body parameters into mapping bodies.
  */
 export function mergeAdditionalBodyParameters(
-    body: unknown,
-    additionalBodyParameters: Record<string, unknown> | undefined,
+  body: unknown,
+  additionalBodyParameters: Record<string, unknown> | undefined,
 ): unknown {
-    if (additionalBodyParameters == null) {
-        return body;
-    }
-    if (body == null) {
-        return { ...additionalBodyParameters };
-    }
-    if (typeof body === "object" && !Array.isArray(body)) {
-        return { ...body, ...additionalBodyParameters };
-    }
+  if (additionalBodyParameters == null) {
     return body;
+  }
+  if (body == null) {
+    return { ...additionalBodyParameters };
+  }
+  if (typeof body === 'object' && !Array.isArray(body)) {
+    return { ...body, ...additionalBodyParameters };
+  }
+  return body;
 }

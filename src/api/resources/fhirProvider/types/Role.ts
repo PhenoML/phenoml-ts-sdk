@@ -33,8 +33,8 @@
  * auth methods do not use scopes at all.
  */
 export const Role = {
-    Admin: "admin",
-    Read: "read",
-    Write: "write",
+  Admin: 'admin',
+  Read: 'read',
+  Write: 'write',
 } as const;
 export type Role = (typeof Role)[keyof typeof Role];

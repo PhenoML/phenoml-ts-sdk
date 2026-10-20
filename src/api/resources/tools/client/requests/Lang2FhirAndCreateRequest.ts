@@ -11,44 +11,44 @@
  *     }
  */
 export interface Lang2FhirAndCreateRequest {
-    /**
-     * Optional header for on-behalf-of authentication. Used when making requests on behalf of another user or entity.
-     * Must be in the format: Patient/{uuid} or Practitioner/{uuid}
-     */
-    "X-Phenoml-On-Behalf-Of"?: string;
-    /**
-     * Optional header for FHIR provider authentication. Contains credentials in the format {fhir_provider_id}:{oauth2_token}.
-     * Multiple FHIR provider integrations can be provided as comma-separated values.
-     */
-    "X-Phenoml-Fhir-Provider"?: string;
-    /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported US Core profile. */
-    resource: Lang2FhirAndCreateRequest.Resource;
-    /** Natural language text to convert to FHIR resource */
-    text: string;
-    /** FHIR provider ID - must be a valid UUID from existing FHIR providers. also supports provider by name (e.g. medplum) */
-    provider?: string;
+  /**
+   * Optional header for on-behalf-of authentication. Used when making requests on behalf of another user or entity.
+   * Must be in the format: Patient/{uuid} or Practitioner/{uuid}
+   */
+  'X-Phenoml-On-Behalf-Of'?: string;
+  /**
+   * Optional header for FHIR provider authentication. Contains credentials in the format {fhir_provider_id}:{oauth2_token}.
+   * Multiple FHIR provider integrations can be provided as comma-separated values.
+   */
+  'X-Phenoml-Fhir-Provider'?: string;
+  /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported US Core profile. */
+  resource: Lang2FhirAndCreateRequest.Resource;
+  /** Natural language text to convert to FHIR resource */
+  text: string;
+  /** FHIR provider ID - must be a valid UUID from existing FHIR providers. also supports provider by name (e.g. medplum) */
+  provider?: string;
 }
 
 export namespace Lang2FhirAndCreateRequest {
-    /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported US Core profile. */
-    export const Resource = {
-        Auto: "auto",
-        Appointment: "appointment",
-        ConditionEncounterDiagnosis: "condition-encounter-diagnosis",
-        Medicationrequest: "medicationrequest",
-        Careplan: "careplan",
-        ConditionProblemsHealthConcerns: "condition-problems-health-concerns",
-        Coverage: "coverage",
-        Encounter: "encounter",
-        ObservationClinicalResult: "observation-clinical-result",
-        ObservationLab: "observation-lab",
-        Patient: "patient",
-        Procedure: "procedure",
-        Questionnaire: "questionnaire",
-        Questionnaireresponse: "questionnaireresponse",
-        Servicerequest: "servicerequest",
-        SimpleObservation: "simple-observation",
-        VitalSigns: "vital-signs",
-    } as const;
-    export type Resource = (typeof Resource)[keyof typeof Resource];
+  /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported US Core profile. */
+  export const Resource = {
+    Auto: 'auto',
+    Appointment: 'appointment',
+    ConditionEncounterDiagnosis: 'condition-encounter-diagnosis',
+    Medicationrequest: 'medicationrequest',
+    Careplan: 'careplan',
+    ConditionProblemsHealthConcerns: 'condition-problems-health-concerns',
+    Coverage: 'coverage',
+    Encounter: 'encounter',
+    ObservationClinicalResult: 'observation-clinical-result',
+    ObservationLab: 'observation-lab',
+    Patient: 'patient',
+    Procedure: 'procedure',
+    Questionnaire: 'questionnaire',
+    Questionnaireresponse: 'questionnaireresponse',
+    Servicerequest: 'servicerequest',
+    SimpleObservation: 'simple-observation',
+    VitalSigns: 'vital-signs',
+  } as const;
+  export type Resource = (typeof Resource)[keyof typeof Resource];
 }

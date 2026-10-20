@@ -4,19 +4,19 @@
  * One caller-defined page classification and the operation to apply when it matches.
  */
 export interface SplitClassification {
-    /** Unique classification id. The reserved id "__ungrouped__" is not allowed. */
-    id: string;
-    /** Natural-language description of pages that belong to this classification. */
-    description: string;
-    /** Operation applied to pages assigned this classification. */
-    operation: SplitClassification.Operation;
+  /** Unique classification id. The reserved id "__ungrouped__" is not allowed. */
+  id: string;
+  /** Natural-language description of pages that belong to this classification. */
+  description: string;
+  /** Operation applied to pages assigned this classification. */
+  operation: SplitClassification.Operation;
 }
 
 export namespace SplitClassification {
-    /** Operation applied to pages assigned this classification. */
-    export const Operation = {
-        Group: "group",
-        Drop: "drop",
-    } as const;
-    export type Operation = (typeof Operation)[keyof typeof Operation];
+  /** Operation applied to pages assigned this classification. */
+  export const Operation = {
+    Group: 'group',
+    Drop: 'drop',
+  } as const;
+  export type Operation = (typeof Operation)[keyof typeof Operation];
 }

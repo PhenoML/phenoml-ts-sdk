@@ -9,10 +9,10 @@
  *     }
  */
 export interface CrosswalkRequest {
-    /** Source FHIR code-system URI. */
-    system: string;
-    /** Source code to map. */
-    code: string;
-    /** Target FHIR code-system URIs. */
-    targets: string[];
+  /** Source FHIR code-system URI. */
+  system: string;
+  /** Source code to map. */
+  code: string;
+  /** Target FHIR code-system URIs. */
+  targets: string[];
 }

@@ -4,6 +4,6 @@
  * The logical identifier supplied on a PractitionerRole's practitioner reference.
  */
 export interface ProviderRolePractitionerIdentifier {
-    system?: string | undefined;
-    value: string;
+  system?: string | undefined;
+  value: string;
 }

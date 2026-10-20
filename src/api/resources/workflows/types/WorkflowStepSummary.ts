@@ -4,25 +4,25 @@
  * Simplified workflow step without implementation details
  */
 export interface WorkflowStepSummary {
-    /** Unique identifier for the step */
-    id?: string | undefined;
-    /** Human-readable name for the step */
-    name?: string | undefined;
-    /** Detailed description of what the step does */
-    description?: string | undefined;
-    /** Type of operation this step performs */
-    type?: WorkflowStepSummary.Type | undefined;
-    /** Selected FHIR provider ID for this step */
-    provider_id?: string | undefined;
+  /** Unique identifier for the step */
+  id?: string | undefined;
+  /** Human-readable name for the step */
+  name?: string | undefined;
+  /** Detailed description of what the step does */
+  description?: string | undefined;
+  /** Type of operation this step performs */
+  type?: WorkflowStepSummary.Type | undefined;
+  /** Selected FHIR provider ID for this step */
+  provider_id?: string | undefined;
 }
 
 export namespace WorkflowStepSummary {
-    /** Type of operation this step performs */
-    export const Type = {
-        Search: "search",
-        Create: "create",
-        Workflow: "workflow",
-        DecisionNode: "decision_node",
-    } as const;
-    export type Type = (typeof Type)[keyof typeof Type];
+  /** Type of operation this step performs */
+  export const Type = {
+    Search: 'search',
+    Create: 'create',
+    Workflow: 'workflow',
+    DecisionNode: 'decision_node',
+  } as const;
+  export type Type = (typeof Type)[keyof typeof Type];
 }

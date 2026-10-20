@@ -1,10 +1,10 @@
-import { afterAll, beforeAll } from "vitest";
+import { afterAll, beforeAll } from 'vitest';
 
-import { mockServerPool } from "./MockServerPool";
+import { mockServerPool } from './MockServerPool';
 
 beforeAll(() => {
-    mockServerPool.listen();
+  mockServerPool.listen();
 });
 afterAll(() => {
-    mockServerPool.close();
+  mockServerPool.close();
 });

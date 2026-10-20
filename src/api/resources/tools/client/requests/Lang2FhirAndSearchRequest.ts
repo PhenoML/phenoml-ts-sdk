@@ -11,22 +11,22 @@
  *     }
  */
 export interface Lang2FhirAndSearchRequest {
-    /**
-     * Optional header for on-behalf-of authentication. Used when making requests on behalf of another user or entity.
-     * Must be in the format: Patient/{uuid} or Practitioner/{uuid}
-     */
-    "X-Phenoml-On-Behalf-Of"?: string;
-    /**
-     * Optional header for FHIR provider authentication. Contains credentials in the format {fhir_provider_id}:{oauth2_token}.
-     * Multiple FHIR provider integrations can be provided as comma-separated values.
-     */
-    "X-Phenoml-Fhir-Provider"?: string;
-    /** Natural language text to convert to FHIR search parameters */
-    text: string;
-    /** Patient ID to filter results */
-    patient_id?: string;
-    /** Maximum number of results to return */
-    count?: number;
-    /** FHIR provider ID - must be a valid UUID from existing FHIR providers. also supports provider by name (e.g. medplum) */
-    provider?: string;
+  /**
+   * Optional header for on-behalf-of authentication. Used when making requests on behalf of another user or entity.
+   * Must be in the format: Patient/{uuid} or Practitioner/{uuid}
+   */
+  'X-Phenoml-On-Behalf-Of'?: string;
+  /**
+   * Optional header for FHIR provider authentication. Contains credentials in the format {fhir_provider_id}:{oauth2_token}.
+   * Multiple FHIR provider integrations can be provided as comma-separated values.
+   */
+  'X-Phenoml-Fhir-Provider'?: string;
+  /** Natural language text to convert to FHIR search parameters */
+  text: string;
+  /** Patient ID to filter results */
+  patient_id?: string;
+  /** Maximum number of results to return */
+  count?: number;
+  /** FHIR provider ID - must be a valid UUID from existing FHIR providers. also supports provider by name (e.g. medplum) */
+  provider?: string;
 }

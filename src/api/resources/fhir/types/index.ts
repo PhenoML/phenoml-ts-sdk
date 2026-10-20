@@ -1,1 +1,1 @@
-export * from "./PatchRequestBodyItem.js";
+export * from './PatchRequestBodyItem.js';

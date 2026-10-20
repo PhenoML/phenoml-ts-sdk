@@ -1,7 +1,7 @@
-export type { CodesListRequest } from "./CodesListRequest.js";
-export type { CrosswalkRequest } from "./CrosswalkRequest.js";
-export type { ExtractRequest } from "./ExtractRequest.js";
-export type { LookupRequest } from "./LookupRequest.js";
-export type { PhenoCrRequest } from "./PhenoCrRequest.js";
-export type { SearchSemanticRequest } from "./SearchSemanticRequest.js";
-export type { SearchTextRequest } from "./SearchTextRequest.js";
+export type { CodesListRequest } from './CodesListRequest.js';
+export type { CrosswalkRequest } from './CrosswalkRequest.js';
+export type { ExtractRequest } from './ExtractRequest.js';
+export type { LookupRequest } from './LookupRequest.js';
+export type { PhenoCrRequest } from './PhenoCrRequest.js';
+export type { SearchSemanticRequest } from './SearchSemanticRequest.js';
+export type { SearchTextRequest } from './SearchTextRequest.js';

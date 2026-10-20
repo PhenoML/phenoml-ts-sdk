@@ -4,8 +4,8 @@
  * A higher-level grouping (e.g. HPO category) for an extracted code.
  */
 export interface CodeCategory {
-    /** Identifier for the category term (e.g. an HPO URI). */
-    uri: string;
-    /** Human-readable label for the category term. */
-    label: string;
+  /** Identifier for the category term (e.g. an HPO URI). */
+  uri: string;
+  /** Human-readable label for the category term. */
+  label: string;
 }

@@ -5,6 +5,6 @@
  *     {}
  */
 export interface UpdateImplementationGuideRequest {
-    /** Natural-language context that helps the LLM select the right profiles from this implementation guide during resource detection. An empty value clears the context. Max 2000 characters. */
-    profile_context?: string;
+  /** Natural-language context that helps the LLM select the right profiles from this implementation guide during resource detection. An empty value clears the context. Max 2000 characters. */
+  profile_context?: string;
 }

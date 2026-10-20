@@ -1,1 +1,1 @@
-export * from "./UploadResponse.js";
+export * from './UploadResponse.js';

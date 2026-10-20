@@ -4,6 +4,6 @@
  * Configures per-page pre-extraction filtering. When set, each page of text extracted from the document is classified by an LLM, and pages classified as irrelevant to the supplied context are dropped before FHIR extraction.
  */
 export interface PageFilter {
-    /** Natural-language description of what IS relevant to the extraction goal. Pages that do not match are dropped from downstream FHIR extraction. */
-    context: string;
+  /** Natural-language description of what IS relevant to the extraction goal. Pages that do not match are dropped from downstream FHIR extraction. */
+  context: string;
 }

@@ -4,18 +4,18 @@
  * Metadata for an implementation guide. Canonical fields are present only for published canonical packages; guides without a published package omit them.
  */
 export interface ImplementationGuideSummary {
-    /** The instance-local implementation guide name (the stable key). */
-    name?: string | undefined;
-    /** Natural-language context injected into the LLM during resource detection. */
-    profile_context?: string | undefined;
-    /** The number of custom profiles in this implementation guide. */
-    profile_count?: number | undefined;
-    /** Canonical FHIR ImplementationGuide URL, when the family has an exact package. */
-    canonical_url?: string | undefined;
-    /** Number of retained exact package versions. */
-    version_count?: number | undefined;
-    /** Present only for guides that have stored metadata (a profile_context has been set). Omitted for guides that exist solely because a profile references them. */
-    created_at?: string | undefined;
-    /** Present only for guides that have stored metadata. Omitted for guides that exist solely because a profile references them. */
-    updated_at?: string | undefined;
+  /** The instance-local implementation guide name (the stable key). */
+  name?: string | undefined;
+  /** Natural-language context injected into the LLM during resource detection. */
+  profile_context?: string | undefined;
+  /** The number of custom profiles in this implementation guide. */
+  profile_count?: number | undefined;
+  /** Canonical FHIR ImplementationGuide URL, when the family has an exact package. */
+  canonical_url?: string | undefined;
+  /** Number of retained exact package versions. */
+  version_count?: number | undefined;
+  /** Present only for guides that have stored metadata (a profile_context has been set). Omitted for guides that exist solely because a profile references them. */
+  created_at?: string | undefined;
+  /** Present only for guides that have stored metadata. Omitted for guides that exist solely because a profile references them. */
+  updated_at?: string | undefined;
 }

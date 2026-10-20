@@ -8,8 +8,8 @@
  *     }
  */
 export interface McpServerCreateRequest {
-    /** Name of the MCP server */
-    name: string;
-    /** URL of the MCP server */
-    mcp_server_url: string;
+  /** Name of the MCP server */
+  name: string;
+  /** URL of the MCP server */
+  mcp_server_url: string;
 }

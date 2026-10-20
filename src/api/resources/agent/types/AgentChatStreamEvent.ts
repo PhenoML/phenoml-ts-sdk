@@ -7,33 +7,33 @@
  * Event types: message_start, content_delta, tool_use, tool_result, message_end, error.
  */
 export interface AgentChatStreamEvent {
-    /** The event type */
-    type?: AgentChatStreamEvent.Type | undefined;
-    /** Chat session ID */
-    session_id?: string | undefined;
-    /** Incremental text content (present in content_delta events) */
-    content?: string | undefined;
-    /** Whether the operation was successful */
-    success?: boolean | undefined;
-    /** Status message */
-    message?: string | undefined;
-    /** Tool/function name (present in tool_use and tool_result events) */
-    function_name?: string | undefined;
-    /** Tool arguments (present in tool_use events) */
-    function_args?: Record<string, unknown> | undefined;
-    /** Tool execution result (present in tool_result events) */
-    function_result?: Record<string, unknown> | undefined;
+  /** The event type */
+  type?: AgentChatStreamEvent.Type | undefined;
+  /** Chat session ID */
+  session_id?: string | undefined;
+  /** Incremental text content (present in content_delta events) */
+  content?: string | undefined;
+  /** Whether the operation was successful */
+  success?: boolean | undefined;
+  /** Status message */
+  message?: string | undefined;
+  /** Tool/function name (present in tool_use and tool_result events) */
+  function_name?: string | undefined;
+  /** Tool arguments (present in tool_use events) */
+  function_args?: Record<string, unknown> | undefined;
+  /** Tool execution result (present in tool_result events) */
+  function_result?: Record<string, unknown> | undefined;
 }
 
 export namespace AgentChatStreamEvent {
-    /** The event type */
-    export const Type = {
-        MessageStart: "message_start",
-        ContentDelta: "content_delta",
-        ToolUse: "tool_use",
-        ToolResult: "tool_result",
-        MessageEnd: "message_end",
-        Error: "error",
-    } as const;
-    export type Type = (typeof Type)[keyof typeof Type];
+  /** The event type */
+  export const Type = {
+    MessageStart: 'message_start',
+    ContentDelta: 'content_delta',
+    ToolUse: 'tool_use',
+    ToolResult: 'tool_result',
+    MessageEnd: 'message_end',
+    Error: 'error',
+  } as const;
+  export type Type = (typeof Type)[keyof typeof Type];
 }

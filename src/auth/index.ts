@@ -1,1 +1,1 @@
-export { OAuthAuthProvider } from "./OAuthAuthProvider.js";
+export { OAuthAuthProvider } from './OAuthAuthProvider.js';

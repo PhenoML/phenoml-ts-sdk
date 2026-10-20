@@ -7,6 +7,6 @@
  *     }
  */
 export interface FhirProviderRemoveAuthConfigRequest {
-    /** ID of the auth configuration to remove */
-    auth_config_id: string;
+  /** ID of the auth configuration to remove */
+  auth_config_id: string;
 }

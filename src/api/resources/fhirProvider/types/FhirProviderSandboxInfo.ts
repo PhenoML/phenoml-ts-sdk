@@ -6,12 +6,12 @@
  * distinguishes this shape from `FhirProviderTemplate` in `oneOf`.
  */
 export interface FhirProviderSandboxInfo {
-    /** Unique identifier for the FHIR provider */
-    id: string;
-    /** Display name for the FHIR provider */
-    name: string;
-    /** Optional description of the FHIR provider */
-    description?: string | undefined;
-    /** Provider type (always "sandbox" for this schema) */
-    provider: "sandbox";
+  /** Unique identifier for the FHIR provider */
+  id: string;
+  /** Display name for the FHIR provider */
+  name: string;
+  /** Optional description of the FHIR provider */
+  description?: string | undefined;
+  /** Provider type (always "sandbox" for this schema) */
+  provider: 'sandbox';
 }

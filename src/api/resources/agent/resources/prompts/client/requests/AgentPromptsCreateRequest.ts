@@ -11,14 +11,14 @@
  *     }
  */
 export interface AgentPromptsCreateRequest {
-    /** Prompt name */
-    name: string;
-    /** Prompt description */
-    description?: string;
-    /** Prompt content */
-    content: string;
-    /** Whether this is a default prompt */
-    is_default?: boolean;
-    /** Tags for categorizing the prompt */
-    tags?: string[];
+  /** Prompt name */
+  name: string;
+  /** Prompt description */
+  description?: string;
+  /** Prompt content */
+  content: string;
+  /** Whether this is a default prompt */
+  is_default?: boolean;
+  /** Tags for categorizing the prompt */
+  tags?: string[];
 }

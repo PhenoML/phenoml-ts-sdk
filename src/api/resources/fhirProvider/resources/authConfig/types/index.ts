@@ -1,1 +1,1 @@
-export * from "./RemoveResponse.js";
+export * from './RemoveResponse.js';

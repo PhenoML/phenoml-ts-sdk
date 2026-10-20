@@ -7,6 +7,6 @@
  *     }
  */
 export interface CohortRequest {
-    /** Natural language text describing patient cohort criteria */
-    text: string;
+  /** Natural language text describing patient cohort criteria */
+  text: string;
 }

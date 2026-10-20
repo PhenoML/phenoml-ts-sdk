@@ -1,23 +1,21 @@
 {
-    "cliVersion": "5.151.0",
-    "generatorName": "fernapi/fern-typescript-sdk",
-    "generatorVersion": "3.98.3",
-    "generatorConfig": {
-        "namespaceExport": "phenoml",
-        "allowCustomFetcher": true,
-        "packageManager": "pnpm",
-        "testFramework": "vitest",
-        "packageJson": {
-            "exports": {
-                "./openapi.json": "./openapi/openapi.json"
-            },
-            "files": ["openapi"]
-        }
-    },
-    "originGitCommit": "49f1258330df448935b5304a1d8c405a2834d227",
-    "originGitCommitIsDirty": true,
-    "invokedBy": "ci",
-    "requestedVersion": "AUTO",
-    "ciProvider": "unknown",
-    "sdkVersion": "19.1.0"
+  "cliVersion": "5.168.1",
+  "generatorName": "fernapi/fern-typescript-sdk",
+  "generatorVersion": "3.107.3",
+  "generatorConfig": {
+    "namespaceExport": "phenoml",
+    "allowCustomFetcher": true,
+    "packageManager": "pnpm",
+    "testFramework": "vitest",
+    "packageJson": {
+      "exports": {
+        "./openapi.json": "./openapi/openapi.json"
+      },
+      "files": ["openapi"]
+    }
+  },
+  "originGitCommit": "ddf9d368679a65de88aafb05840703f790100796",
+  "originGitCommitIsDirty": true,
+  "invokedBy": "manual",
+  "sdkVersion": "19.1.1"
 }

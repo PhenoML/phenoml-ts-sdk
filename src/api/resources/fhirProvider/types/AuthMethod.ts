@@ -25,11 +25,11 @@
  * Agent documentation.
  */
 export const AuthMethod = {
-    ClientSecret: "client_secret",
-    GoogleHealthcare: "google_healthcare",
-    Jwt: "jwt",
-    OnBehalfOf: "on_behalf_of",
-    TokenPassthrough: "token_passthrough",
-    None: "none",
+  ClientSecret: 'client_secret',
+  GoogleHealthcare: 'google_healthcare',
+  Jwt: 'jwt',
+  OnBehalfOf: 'on_behalf_of',
+  TokenPassthrough: 'token_passthrough',
+  None: 'none',
 } as const;
 export type AuthMethod = (typeof AuthMethod)[keyof typeof AuthMethod];

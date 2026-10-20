@@ -4,14 +4,14 @@
  * SMART on FHIR configuration for OAuth-based providers
  */
 export interface SmartConfiguration {
-    /** OAuth2 authorization endpoint */
-    authorization_endpoint?: string | undefined;
-    /** OAuth2 token endpoint */
-    token_endpoint?: string | undefined;
-    /** OIDC issuer URL */
-    issuer?: string | undefined;
-    /** JSON Web Key Set URI */
-    jwks_uri?: string | undefined;
-    /** List of supported scopes */
-    scopes_supported?: string[] | undefined;
+  /** OAuth2 authorization endpoint */
+  authorization_endpoint?: string | undefined;
+  /** OAuth2 token endpoint */
+  token_endpoint?: string | undefined;
+  /** OIDC issuer URL */
+  issuer?: string | undefined;
+  /** JSON Web Key Set URI */
+  jwks_uri?: string | undefined;
+  /** List of supported scopes */
+  scopes_supported?: string[] | undefined;
 }

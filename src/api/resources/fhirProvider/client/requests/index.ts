@@ -1,1 +1,1 @@
-export type { FhirProviderCreateRequest } from "./FhirProviderCreateRequest.js";
+export type { FhirProviderCreateRequest } from './FhirProviderCreateRequest.js';

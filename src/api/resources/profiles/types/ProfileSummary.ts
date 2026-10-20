@@ -4,36 +4,36 @@
  * Metadata for either a custom profile's current StructureDefinition or one retained version. For retained versions, `source` is always `custom` and `updated_at` is equal to `created_at`.
  */
 export interface ProfileSummary {
-    /** The lowercase StructureDefinition id, used as the profile's lookup key. */
-    id: string;
-    /** The profile's origin. Profile management responses return custom (uploaded) profiles, so this value is always "custom". */
-    source: ProfileSummary.Source;
-    /** The FHIR resource type from the StructureDefinition. */
-    resource_type: string;
-    /** The canonical URL from the StructureDefinition. */
-    url: string;
-    /** The version from the StructureDefinition.version field. */
-    version: string;
-    /** The publication status from StructureDefinition.status. Expected FHIR values include `draft`, `active`, `retired`, and `unknown`; the server preserves authored strings. */
-    status?: string | undefined;
-    /** The authored publication date from StructureDefinition.date, when present. This is a FHIR dateTime string and may be less precise than a full timestamp. */
-    date?: string | undefined;
-    /** The canonical profile reference, including the version pin when present. */
-    canonical: string;
-    /** The base FHIR version the StructureDefinition targets. */
-    fhir_version: string;
-    /** The implementation guide the profile belongs to. */
-    implementation_guide: string;
-    created_at: string;
-    /** Last update timestamp for the profile's current StructureDefinition. For retained versions, this equals `created_at`. */
-    updated_at: string;
+  /** The lowercase StructureDefinition id, used as the profile's lookup key. */
+  id: string;
+  /** The profile's origin. Profile management responses return custom (uploaded) profiles, so this value is always "custom". */
+  source: ProfileSummary.Source;
+  /** The FHIR resource type from the StructureDefinition. */
+  resource_type: string;
+  /** The canonical URL from the StructureDefinition. */
+  url: string;
+  /** The version from the StructureDefinition.version field. */
+  version: string;
+  /** The publication status from StructureDefinition.status. Expected FHIR values include `draft`, `active`, `retired`, and `unknown`; the server preserves authored strings. */
+  status?: string | undefined;
+  /** The authored publication date from StructureDefinition.date, when present. This is a FHIR dateTime string and may be less precise than a full timestamp. */
+  date?: string | undefined;
+  /** The canonical profile reference, including the version pin when present. */
+  canonical: string;
+  /** The base FHIR version the StructureDefinition targets. */
+  fhir_version: string;
+  /** The implementation guide the profile belongs to. */
+  implementation_guide: string;
+  created_at: string;
+  /** Last update timestamp for the profile's current StructureDefinition. For retained versions, this equals `created_at`. */
+  updated_at: string;
 }
 
 export namespace ProfileSummary {
-    /** The profile's origin. Profile management responses return custom (uploaded) profiles, so this value is always "custom". */
-    export const Source = {
-        Custom: "custom",
-        Builtin: "builtin",
-    } as const;
-    export type Source = (typeof Source)[keyof typeof Source];
+  /** The profile's origin. Profile management responses return custom (uploaded) profiles, so this value is always "custom". */
+  export const Source = {
+    Custom: 'custom',
+    Builtin: 'builtin',
+  } as const;
+  export type Source = (typeof Source)[keyof typeof Source];
 }

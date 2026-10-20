@@ -4,8 +4,8 @@
  * The known portions of the primary patient's name. Provide a non-empty family name or at least one non-empty given name.
  */
 export interface PrimaryPatientName {
-    /** Family name. */
-    family?: string | undefined;
-    /** Given names. Matching succeeds when a generated name has a supplied given name. */
-    given?: string[] | undefined;
+  /** Family name. */
+  family?: string | undefined;
+  /** Given names. Matching succeeds when a generated name has a supplied given name. */
+  given?: string[] | undefined;
 }

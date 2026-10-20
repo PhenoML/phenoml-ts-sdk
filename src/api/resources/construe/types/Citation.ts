@@ -4,10 +4,10 @@
  * A reference to source text that led to a code extraction
  */
 export interface Citation {
-    /** The exact text span containing evidence for the code */
-    text: string;
-    /** Starting byte offset in the original input text (0-indexed) */
-    begin_offset: number;
-    /** Ending byte offset (exclusive), such that input[begin_offset:end_offset] == text */
-    end_offset: number;
+  /** The exact text span containing evidence for the code */
+  text: string;
+  /** Starting byte offset in the original input text (0-indexed) */
+  begin_offset: number;
+  /** Ending byte offset (exclusive), such that input[begin_offset:end_offset] == text */
+  end_offset: number;
 }

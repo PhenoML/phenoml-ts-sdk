@@ -8,10 +8,10 @@
  *     }
  */
 export interface ClientCredentialsRequest {
-    /** Must be "client_credentials" if provided */
-    grant_type?: string;
-    /** The client ID (credential username) */
-    client_id?: string;
-    /** The client secret (credential password) */
-    client_secret?: string;
+  /** Must be "client_credentials" if provided */
+  grant_type?: string;
+  /** The client ID (credential username) */
+  client_id?: string;
+  /** The client secret (credential password) */
+  client_secret?: string;
 }

@@ -7,6 +7,6 @@
  *     }
  */
 export interface ListRequest {
-    /** Filter by tags */
-    tags?: string;
+  /** Filter by tags */
+  tags?: string;
 }

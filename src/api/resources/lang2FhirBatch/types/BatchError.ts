@@ -4,17 +4,17 @@
  * A job- or item-level failure. Never contains document or patient content.
  */
 export interface BatchError {
-    /**
-     * Short stable token to branch on. Item-level kinds: `invalid_input`
-     * (the stored body was not a valid create/document request),
-     * `processing_failed` (the conversion failed), `result_too_large` (the
-     * result exceeded the storage cap), `input_unavailable` (the input
-     * could not be read), and `retries_exhausted` / `attempts_exhausted`
-     * (the item could not complete after repeated interruptions).
-     * Job-level kinds: `timeout` (the job did not finish within 36 hours
-     * of creation).
-     */
-    kind: string;
-    /** Human-readable description of the failure. */
-    message: string;
+  /**
+   * Short stable token to branch on. Item-level kinds: `invalid_input`
+   * (the stored body was not a valid create/document request),
+   * `processing_failed` (the conversion failed), `result_too_large` (the
+   * result exceeded the storage cap), `input_unavailable` (the input
+   * could not be read), and `retries_exhausted` / `attempts_exhausted`
+   * (the item could not complete after repeated interruptions).
+   * Job-level kinds: `timeout` (the job did not finish within 36 hours
+   * of creation).
+   */
+  kind: string;
+  /** Human-readable description of the failure. */
+  message: string;
 }

@@ -4,14 +4,14 @@
  * A complete authored FHIR ImplementationGuide JSON resource.
  */
 export interface FhirImplementationGuide {
-    resourceType: "ImplementationGuide";
-    id?: string | undefined;
-    url: string;
-    version: string;
-    name?: string | undefined;
-    status?: string | undefined;
-    packageId?: string | undefined;
-    fhirVersion?: string[] | undefined;
-    /** Accepts any additional properties */
-    [key: string]: any;
+  resourceType: 'ImplementationGuide';
+  id?: string | undefined;
+  url: string;
+  version: string;
+  name?: string | undefined;
+  status?: string | undefined;
+  packageId?: string | undefined;
+  fhirVersion?: string[] | undefined;
+  /** Accepts any additional properties */
+  [key: string]: any;
 }

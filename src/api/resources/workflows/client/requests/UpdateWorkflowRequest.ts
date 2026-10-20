@@ -16,29 +16,29 @@
  *     }
  */
 export interface UpdateWorkflowRequest {
-    /** If true, includes full workflow implementation details in workflow_details field */
-    verbose?: boolean;
-    /** Human-readable name for the workflow */
-    name: string;
-    /** Natural language instructions that define the workflow logic */
-    workflow_instructions: string;
-    /** Sample data to use for workflow graph generation */
-    sample_data: Record<string, unknown>;
-    /** FHIR provider ID(s) - must be valid UUID(s) from existing FHIR providers */
-    fhir_provider_id: UpdateWorkflowRequest.FhirProviderId;
-    /** Enable dynamic lang2fhir calls instead of pre-populated templates */
-    dynamic_generation?: boolean;
+  /** If true, includes full workflow implementation details in workflow_details field */
+  verbose?: boolean;
+  /** Human-readable name for the workflow */
+  name: string;
+  /** Natural language instructions that define the workflow logic */
+  workflow_instructions: string;
+  /** Sample data to use for workflow graph generation */
+  sample_data: Record<string, unknown>;
+  /** FHIR provider ID(s) - must be valid UUID(s) from existing FHIR providers */
+  fhir_provider_id: UpdateWorkflowRequest.FhirProviderId;
+  /** Enable dynamic lang2fhir calls instead of pre-populated templates */
+  dynamic_generation?: boolean;
 }
 
 export namespace UpdateWorkflowRequest {
+  /**
+   * FHIR provider ID(s) - must be valid UUID(s) from existing FHIR providers
+   */
+  export type FhirProviderId =
     /**
-     * FHIR provider ID(s) - must be valid UUID(s) from existing FHIR providers
-     */
-    export type FhirProviderId =
-        /**
-         * Single FHIR provider ID */
-        | string
-        /**
-         * Multiple FHIR provider IDs */
-        | string[];
+     * Single FHIR provider ID */
+    | string
+    /**
+     * Multiple FHIR provider IDs */
+    | string[];
 }

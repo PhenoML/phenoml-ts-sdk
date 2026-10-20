@@ -4,12 +4,12 @@
  * A single search concept detected in cohort mode
  */
 export interface SearchConcept {
-    /** The FHIR resource type identified for this concept */
-    resource_type?: string | undefined;
-    /** FHIR search parameters for this concept */
-    search_params?: string | undefined;
-    /** Description of what this search represents */
-    concept?: string | undefined;
-    /** Whether this is an exclusion criteria */
-    exclude?: boolean | undefined;
+  /** The FHIR resource type identified for this concept */
+  resource_type?: string | undefined;
+  /** FHIR search parameters for this concept */
+  search_params?: string | undefined;
+  /** Description of what this search represents */
+  concept?: string | undefined;
+  /** Whether this is an exclusion criteria */
+  exclude?: boolean | undefined;
 }

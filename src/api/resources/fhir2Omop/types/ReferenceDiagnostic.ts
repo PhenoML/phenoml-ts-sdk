@@ -4,26 +4,63 @@
  * Explains why a source value or reference could not be used. When an affected OMOP row is emitted, omop_table and omop_id identify that row within this response, regardless of diagnostic outcome. They identify the affected output row, not a missing or rejected reference target. Multiple source resources can link to the same row. Both fields are omitted when there is no affected output row, including when the source resource is dropped. These IDs are response-local and are not stable across requests.
  */
 export interface ReferenceDiagnostic {
-    resource_type?: string | undefined;
-    resource_id?: string | undefined;
-    /** Table containing the affected row in this response. Present together with omop_id when that row is emitted. */
-    omop_table?: string | undefined;
-    /** Primary key of the affected row within omop_table in this response. Present together with omop_table when that row is emitted. */
-    omop_id?: number | undefined;
-    /** FHIR element path on the source resource. */
-    path?: string | undefined;
-    /** The supplied Reference.reference value, when present. */
-    reference?: string | undefined;
-    outcome?: ReferenceDiagnostic.Outcome | undefined;
-    reason?: string | undefined;
+  resource_type?: string | undefined;
+  resource_id?: string | undefined;
+  /** Table containing the affected row in this response. Present together with omop_id when that row is emitted. */
+  omop_table?: string | undefined;
+  /** Primary key of the affected row within omop_table in this response. Present together with omop_table when that row is emitted. */
+  omop_id?: number | undefined;
+  /** FHIR element path on the source resource. */
+  path?: string | undefined;
+  /** The supplied Reference.reference value, when present. */
+  reference?: string | undefined;
+  /**
+   * UNRESOLVED: a source value needed to populate a field is missing,
+   * such as specimen material or collection start, or a supported
+   * reference cannot resolve to a resource or emitted target supplied
+   * in this request.
+   * AMBIGUOUS: a reference or identifier matches multiple possible
+   * targets. Identifier-only `PractitionerRole.practitioner` references
+   * are unambiguous when all matches map to one canonical provider.
+   * Literal references matching multiple source resources remain
+   * ambiguous even if those Practitioners merge into one provider.
+   * CONFLICTING: supplied values or relationships cannot be combined
+   * under the mapping policy, such as differing mapped provider identity
+   * attributes, multiple distinct NPIs on one Practitioner, conflicting
+   * Patient demographic extensions, or an Encounter belonging to a
+   * different patient.
+   * UNSUPPORTED: a supplied reference form, resource type, or value
+   * shape is outside the supported mapping policy.
+   */
+  outcome?: ReferenceDiagnostic.Outcome | undefined;
+  /** Explanation of the condition and, when applicable, its effect on mapping. */
+  reason?: string | undefined;
 }
 
 export namespace ReferenceDiagnostic {
-    export const Outcome = {
-        Unresolved: "UNRESOLVED",
-        Ambiguous: "AMBIGUOUS",
-        Conflicting: "CONFLICTING",
-        Unsupported: "UNSUPPORTED",
-    } as const;
-    export type Outcome = (typeof Outcome)[keyof typeof Outcome];
+  /**
+   * UNRESOLVED: a source value needed to populate a field is missing,
+   * such as specimen material or collection start, or a supported
+   * reference cannot resolve to a resource or emitted target supplied
+   * in this request.
+   * AMBIGUOUS: a reference or identifier matches multiple possible
+   * targets. Identifier-only `PractitionerRole.practitioner` references
+   * are unambiguous when all matches map to one canonical provider.
+   * Literal references matching multiple source resources remain
+   * ambiguous even if those Practitioners merge into one provider.
+   * CONFLICTING: supplied values or relationships cannot be combined
+   * under the mapping policy, such as differing mapped provider identity
+   * attributes, multiple distinct NPIs on one Practitioner, conflicting
+   * Patient demographic extensions, or an Encounter belonging to a
+   * different patient.
+   * UNSUPPORTED: a supplied reference form, resource type, or value
+   * shape is outside the supported mapping policy.
+   */
+  export const Outcome = {
+    Unresolved: 'UNRESOLVED',
+    Ambiguous: 'AMBIGUOUS',
+    Conflicting: 'CONFLICTING',
+    Unsupported: 'UNSUPPORTED',
+  } as const;
+  export type Outcome = (typeof Outcome)[keyof typeof Outcome];
 }

@@ -10,16 +10,16 @@
  *     }
  */
 export interface CreateSummaryTemplateRequest {
-    /** Name of the template */
-    name: string;
-    /** Description of the template */
-    description?: string;
-    /** Example summary note to generate template from */
-    example_summary: string;
-    /** List of target FHIR resources */
-    target_resources: string[];
-    /** Optional example FHIR data that corresponds to the example summary */
-    example_fhir_data?: Record<string, unknown>;
-    /** Template mode (stored with the template) */
-    mode: string;
+  /** Name of the template */
+  name: string;
+  /** Description of the template */
+  description?: string;
+  /** Example summary note to generate template from */
+  example_summary: string;
+  /** List of target FHIR resources */
+  target_resources: string[];
+  /** Optional example FHIR data that corresponds to the example summary */
+  example_fhir_data?: Record<string, unknown>;
+  /** Template mode (stored with the template) */
+  mode: string;
 }

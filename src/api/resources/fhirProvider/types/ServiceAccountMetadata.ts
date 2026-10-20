@@ -4,12 +4,12 @@
  * Non-sensitive metadata from a Google Cloud Service Account, exposed in API responses to help identify auth configurations without revealing sensitive credentials.
  */
 export interface ServiceAccountMetadata {
-    /** Account type (always "service_account") */
-    type?: string | undefined;
-    /** Google Cloud project ID */
-    project_id?: string | undefined;
-    /** Service account email address */
-    client_email?: string | undefined;
-    /** Service account client ID */
-    client_id?: string | undefined;
+  /** Account type (always "service_account") */
+  type?: string | undefined;
+  /** Google Cloud project ID */
+  project_id?: string | undefined;
+  /** Service account email address */
+  client_email?: string | undefined;
+  /** Service account client ID */
+  client_id?: string | undefined;
 }

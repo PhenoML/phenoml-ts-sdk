@@ -7,17 +7,17 @@
  * It is used on shared instances.
  */
 export const Provider = {
-    Aidbox: "aidbox",
-    Athenahealth: "athenahealth",
-    Canvas: "canvas",
-    Cerner: "cerner",
-    Elation: "elation",
-    Epic: "epic",
-    GoogleHealthcare: "google_healthcare",
-    Hapi: "hapi",
-    Meditech: "meditech",
-    Medplum: "medplum",
-    Phenostore: "phenostore",
-    Sandbox: "sandbox",
+  Aidbox: 'aidbox',
+  Athenahealth: 'athenahealth',
+  Canvas: 'canvas',
+  Cerner: 'cerner',
+  Elation: 'elation',
+  Epic: 'epic',
+  GoogleHealthcare: 'google_healthcare',
+  Hapi: 'hapi',
+  Meditech: 'meditech',
+  Medplum: 'medplum',
+  Phenostore: 'phenostore',
+  Sandbox: 'sandbox',
 } as const;
 export type Provider = (typeof Provider)[keyof typeof Provider];

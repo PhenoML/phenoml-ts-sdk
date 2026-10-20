@@ -1,5 +1,7 @@
 # Reference
+
 ## Agent
+
 <details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">create</a>({ ...params }) -> phenoml.AgentResponse</code></summary>
 <dl>
 <dd>
@@ -13,6 +15,7 @@
 <dd>
 
 Creates a new PhenoAgent with specified configuration
+
 </dd>
 </dl>
 </dd>
@@ -28,14 +31,14 @@ Creates a new PhenoAgent with specified configuration
 
 ```typescript
 await client.agent.create({
-    name: "Medical Assistant",
-    description: "An AI assistant for medical information processing",
-    prompts: ["prompt_123"],
-    tags: ["medical", "fhir"],
-    provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35"
+  name: 'Medical Assistant',
+  description: 'An AI assistant for medical information processing',
+  prompts: ['prompt_123'],
+  tags: ['medical', 'fhir'],
+  provider: '7002b0b4-8d09-445a-bf65-0fafdaf26c35',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -49,21 +52,20 @@ await client.agent.create({
 <dl>
 <dd>
 
-**request:** `phenoml.AgentCreateRequest` 
-    
+**request:** `phenoml.AgentCreateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `AgentClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `AgentClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -82,6 +84,7 @@ await client.agent.create({
 <dd>
 
 Retrieves a list of PhenoAgents belonging to the authenticated user
+
 </dd>
 </dl>
 </dd>
@@ -97,10 +100,10 @@ Retrieves a list of PhenoAgents belonging to the authenticated user
 
 ```typescript
 await client.agent.list({
-    tags: "tags"
+  tags: 'tags',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -114,21 +117,20 @@ await client.agent.list({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.ListRequest` 
-    
+**request:** `phenoml.agent.ListRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `AgentClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `AgentClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -147,6 +149,7 @@ await client.agent.list({
 <dd>
 
 Retrieves a specific agent by its ID
+
 </dd>
 </dl>
 </dd>
@@ -161,9 +164,9 @@ Retrieves a specific agent by its ID
 <dd>
 
 ```typescript
-await client.agent.get("id");
-
+await client.agent.get('id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -178,20 +181,19 @@ await client.agent.get("id");
 <dd>
 
 **id:** `string` — Agent ID
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `AgentClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `AgentClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -210,6 +212,7 @@ await client.agent.get("id");
 <dd>
 
 Updates an existing agent's configuration
+
 </dd>
 </dl>
 </dd>
@@ -224,15 +227,15 @@ Updates an existing agent's configuration
 <dd>
 
 ```typescript
-await client.agent.update("id", {
-    name: "Medical Assistant",
-    description: "Updated description for the medical assistant",
-    prompts: ["prompt_123"],
-    tags: ["medical", "fhir", "updated"],
-    provider: "7002b0b4-8d09-445a-bf65-0fafdaf26c35"
+await client.agent.update('id', {
+  name: 'Medical Assistant',
+  description: 'Updated description for the medical assistant',
+  prompts: ['prompt_123'],
+  tags: ['medical', 'fhir', 'updated'],
+  provider: '7002b0b4-8d09-445a-bf65-0fafdaf26c35',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -247,28 +250,27 @@ await client.agent.update("id", {
 <dd>
 
 **id:** `string` — Agent ID
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.AgentCreateRequest` 
-    
+**request:** `phenoml.AgentCreateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `AgentClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `AgentClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -287,6 +289,7 @@ await client.agent.update("id", {
 <dd>
 
 Deletes an existing agent
+
 </dd>
 </dl>
 </dd>
@@ -301,9 +304,9 @@ Deletes an existing agent
 <dd>
 
 ```typescript
-await client.agent.delete("id");
-
+await client.agent.delete('id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -318,20 +321,19 @@ await client.agent.delete("id");
 <dd>
 
 **id:** `string` — Agent ID
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `AgentClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `AgentClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -350,6 +352,7 @@ await client.agent.delete("id");
 <dd>
 
 Patches an existing agent's configuration
+
 </dd>
 </dl>
 </dd>
@@ -364,17 +367,20 @@ Patches an existing agent's configuration
 <dd>
 
 ```typescript
-await client.agent.patch("id", [{
-        op: "replace",
-        path: "/description",
-        value: "patched description"
-    }, {
-        op: "add",
-        path: "/tags/-",
-        value: "updated"
-    }]);
-
+await client.agent.patch('id', [
+  {
+    op: 'replace',
+    path: '/description',
+    value: 'patched description',
+  },
+  {
+    op: 'add',
+    path: '/tags/-',
+    value: 'updated',
+  },
+]);
 ```
+
 </dd>
 </dl>
 </dd>
@@ -389,34 +395,34 @@ await client.agent.patch("id", [{
 <dd>
 
 **id:** `string` — Agent ID
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.JsonPatch` 
-    
+**request:** `phenoml.JsonPatch`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `AgentClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `AgentClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Chat
+
 <details><summary><code>client.agent.chat.<a href="/src/api/resources/agent/resources/chat/client/Client.ts">send</a>({ ...params }) -> phenoml.AgentChatResponse</code></summary>
 <dl>
 <dd>
@@ -430,6 +436,7 @@ await client.agent.patch("id", [{
 <dd>
 
 Send a message to an agent and receive a JSON response.
+
 </dd>
 </dl>
 </dd>
@@ -445,14 +452,15 @@ Send a message to an agent and receive a JSON response.
 
 ```typescript
 await client.agent.chat.send({
-    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-    message: "What is the patient's current condition?",
-    session_id: "session-abc123",
-    agent_id: "agent-123"
+  'X-Phenoml-On-Behalf-Of': 'Patient/550e8400-e29b-41d4-a716-446655440000',
+  'X-Phenoml-Fhir-Provider':
+    '550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...',
+  message: "What is the patient's current condition?",
+  session_id: 'session-abc123',
+  agent_id: 'agent-123',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -466,21 +474,20 @@ await client.agent.chat.send({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentChatRequest` 
-    
+**request:** `phenoml.agent.AgentChatRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ChatClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ChatClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -501,6 +508,7 @@ await client.agent.chat.send({
 Send a message to an agent and receive the response as a Server-Sent Events
 (SSE) stream. Events include message_start, content_delta, tool_use,
 tool_result, message_end, and error.
+
 </dd>
 </dl>
 </dd>
@@ -516,17 +524,18 @@ tool_result, message_end, and error.
 
 ```typescript
 const response = await client.agent.chat.stream({
-    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-    message: "What is the patient's current condition?",
-    session_id: "session-abc123",
-    agent_id: "agent-123"
+  'X-Phenoml-On-Behalf-Of': 'Patient/550e8400-e29b-41d4-a716-446655440000',
+  'X-Phenoml-Fhir-Provider':
+    '550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...',
+  message: "What is the patient's current condition?",
+  session_id: 'session-abc123',
+  agent_id: 'agent-123',
 });
 for await (const item of response) {
-    console.log(item);
+  console.log(item);
 }
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -540,21 +549,20 @@ for await (const item of response) {
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentStreamChatRequest` 
-    
+**request:** `phenoml.agent.AgentStreamChatRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ChatClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ChatClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -573,6 +581,7 @@ for await (const item of response) {
 <dd>
 
 Retrieves a list of chat messages for a given chat session
+
 </dd>
 </dl>
 </dd>
@@ -588,13 +597,13 @@ Retrieves a list of chat messages for a given chat session
 
 ```typescript
 await client.agent.chat.listMessages({
-    chat_session_id: "chat_session_id",
-    num_messages: 1,
-    role: "user",
-    order: "asc"
+  chat_session_id: 'chat_session_id',
+  num_messages: 1,
+  role: 'user',
+  order: 'asc',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -608,27 +617,27 @@ await client.agent.chat.listMessages({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.ListMessagesRequest` 
-    
+**request:** `phenoml.agent.ListMessagesRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ChatClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ChatClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Agent Prompts
+
 <details><summary><code>client.agent.prompts.<a href="/src/api/resources/agent/resources/prompts/client/Client.ts">create</a>({ ...params }) -> phenoml.AgentPromptsResponse</code></summary>
 <dl>
 <dd>
@@ -642,6 +651,7 @@ await client.agent.chat.listMessages({
 <dd>
 
 Creates a new agent prompt
+
 </dd>
 </dl>
 </dd>
@@ -657,14 +667,14 @@ Creates a new agent prompt
 
 ```typescript
 await client.agent.prompts.create({
-    name: "Medical Assistant System Prompt",
-    description: "System prompt for medical assistant agent",
-    content: "You are a helpful medical assistant specialized in FHIR data processing.",
-    is_default: false,
-    tags: ["medical", "system"]
+  name: 'Medical Assistant System Prompt',
+  description: 'System prompt for medical assistant agent',
+  content: 'You are a helpful medical assistant specialized in FHIR data processing.',
+  is_default: false,
+  tags: ['medical', 'system'],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -678,21 +688,20 @@ await client.agent.prompts.create({
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentPromptsCreateRequest` 
-    
+**request:** `phenoml.agent.AgentPromptsCreateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `PromptsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `PromptsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -711,6 +720,7 @@ await client.agent.prompts.create({
 <dd>
 
 Retrieves a list of agent prompts belonging to the authenticated user
+
 </dd>
 </dl>
 </dd>
@@ -726,8 +736,8 @@ Retrieves a list of agent prompts belonging to the authenticated user
 
 ```typescript
 await client.agent.prompts.list();
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -741,13 +751,12 @@ await client.agent.prompts.list();
 <dl>
 <dd>
 
-**requestOptions:** `PromptsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `PromptsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -766,6 +775,7 @@ await client.agent.prompts.list();
 <dd>
 
 Retrieves a specific prompt by its ID
+
 </dd>
 </dl>
 </dd>
@@ -780,9 +790,9 @@ Retrieves a specific prompt by its ID
 <dd>
 
 ```typescript
-await client.agent.prompts.get("id");
-
+await client.agent.prompts.get('id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -797,20 +807,19 @@ await client.agent.prompts.get("id");
 <dd>
 
 **id:** `string` — Prompt ID
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `PromptsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `PromptsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -829,6 +838,7 @@ await client.agent.prompts.get("id");
 <dd>
 
 Updates an existing prompt
+
 </dd>
 </dl>
 </dd>
@@ -843,15 +853,16 @@ Updates an existing prompt
 <dd>
 
 ```typescript
-await client.agent.prompts.update("id", {
-    name: "Medical Assistant System Prompt",
-    description: "Updated system prompt",
-    content: "You are a helpful medical assistant. Always cite ICD-10 codes when discussing diagnoses.",
-    is_default: false,
-    tags: ["medical", "system", "updated"]
+await client.agent.prompts.update('id', {
+  name: 'Medical Assistant System Prompt',
+  description: 'Updated system prompt',
+  content:
+    'You are a helpful medical assistant. Always cite ICD-10 codes when discussing diagnoses.',
+  is_default: false,
+  tags: ['medical', 'system', 'updated'],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -866,28 +877,27 @@ await client.agent.prompts.update("id", {
 <dd>
 
 **id:** `string` — Prompt ID
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.agent.AgentPromptsUpdateRequest` 
-    
+**request:** `phenoml.agent.AgentPromptsUpdateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `PromptsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `PromptsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -906,6 +916,7 @@ await client.agent.prompts.update("id", {
 <dd>
 
 Deletes a prompt
+
 </dd>
 </dl>
 </dd>
@@ -920,9 +931,9 @@ Deletes a prompt
 <dd>
 
 ```typescript
-await client.agent.prompts.delete("id");
-
+await client.agent.prompts.delete('id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -937,20 +948,19 @@ await client.agent.prompts.delete("id");
 <dd>
 
 **id:** `string` — Prompt ID
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `PromptsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `PromptsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -969,6 +979,7 @@ await client.agent.prompts.delete("id");
 <dd>
 
 Patches an existing prompt
+
 </dd>
 </dl>
 </dd>
@@ -983,13 +994,15 @@ Patches an existing prompt
 <dd>
 
 ```typescript
-await client.agent.prompts.patch("id", [{
-        op: "replace",
-        path: "/content",
-        value: "Updated prompt content."
-    }]);
-
+await client.agent.prompts.patch('id', [
+  {
+    op: 'replace',
+    path: '/content',
+    value: 'Updated prompt content.',
+  },
+]);
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1004,34 +1017,34 @@ await client.agent.prompts.patch("id", [{
 <dd>
 
 **id:** `string` — Agent Prompt ID
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.JsonPatch` 
-    
+**request:** `phenoml.JsonPatch`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `PromptsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `PromptsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Authtoken
+
 <details><summary><code>client.authtoken.<a href="/src/api/resources/authtoken/client/Client.ts">getToken</a>({ ...params }) -> phenoml.TokenResponse</code></summary>
 <dl>
 <dd>
@@ -1048,6 +1061,7 @@ OAuth 2.0 client credentials token endpoint (RFC 6749 §4.4).
 Accepts client_id and client_secret in the request body (JSON or
 form-encoded) or via Basic Auth header (RFC 6749 §2.3.1), and
 returns an access token with token expiration information.
+
 </dd>
 </dl>
 </dd>
@@ -1063,11 +1077,11 @@ returns an access token with token expiration information.
 
 ```typescript
 await client.authtoken.getToken({
-    client_id: "your_client_id",
-    client_secret: "your_client_secret"
+  client_id: 'your_client_id',
+  client_secret: 'your_client_secret',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1081,27 +1095,27 @@ await client.authtoken.getToken({
 <dl>
 <dd>
 
-**request:** `phenoml.authtoken.ClientCredentialsRequest` 
-    
+**request:** `phenoml.authtoken.ClientCredentialsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `AuthtokenClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `AuthtokenClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Cohort
+
 <details><summary><code>client.cohort.<a href="/src/api/resources/cohort/client/Client.ts">analyze</a>({ ...params }) -> phenoml.CohortResponse</code></summary>
 <dl>
 <dd>
@@ -1115,6 +1129,7 @@ await client.authtoken.getToken({
 <dd>
 
 Converts natural language text into structured FHIR search queries for patient cohort analysis
+
 </dd>
 </dl>
 </dd>
@@ -1130,10 +1145,10 @@ Converts natural language text into structured FHIR search queries for patient c
 
 ```typescript
 await client.cohort.analyze({
-    text: "female patients over 65 with diabetes but not hypertension"
+  text: 'female patients over 65 with diabetes but not hypertension',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1147,27 +1162,27 @@ await client.cohort.analyze({
 <dl>
 <dd>
 
-**request:** `phenoml.cohort.CohortRequest` 
-    
+**request:** `phenoml.cohort.CohortRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `CohortClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `CohortClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Construe
+
 <details><summary><code>client.construe.<a href="/src/api/resources/construe/client/Client.ts">submitFeedback</a>({ ...params }) -> phenoml.FeedbackResponse</code></summary>
 <dl>
 <dd>
@@ -1182,6 +1197,7 @@ await client.cohort.analyze({
 
 Submits user feedback on results from the Construe extraction endpoint.
 Feedback includes the full extraction result received and the result the user expected.
+
 </dd>
 </dl>
 </dd>
@@ -1197,33 +1213,37 @@ Feedback includes the full extraction result received and the result the user ex
 
 ```typescript
 await client.construe.submitFeedback({
-    text: "Patient has type 2 diabetes with hyperglycemia",
-    received_result: {
-        system: {
-            name: "ICD-10-CM",
-            version: "2025"
-        },
-        codes: [{
-                code: "E11.9",
-                description: "Type 2 diabetes mellitus without complications",
-                valid: true
-            }]
+  text: 'Patient has type 2 diabetes with hyperglycemia',
+  received_result: {
+    system: {
+      name: 'ICD-10-CM',
+      version: '2025',
     },
-    expected_result: {
-        system: {
-            name: "ICD-10-CM",
-            version: "2025"
-        },
-        codes: [{
-                code: "E11.65",
-                description: "Type 2 diabetes mellitus with hyperglycemia",
-                valid: true
-            }]
+    codes: [
+      {
+        code: 'E11.9',
+        description: 'Type 2 diabetes mellitus without complications',
+        valid: true,
+      },
+    ],
+  },
+  expected_result: {
+    system: {
+      name: 'ICD-10-CM',
+      version: '2025',
     },
-    detail: "Expected code E11.65 because the text mentions hyperglycemia"
+    codes: [
+      {
+        code: 'E11.65',
+        description: 'Type 2 diabetes mellitus with hyperglycemia',
+        valid: true,
+      },
+    ],
+  },
+  detail: 'Expected code E11.65 because the text mentions hyperglycemia',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1237,27 +1257,27 @@ await client.construe.submitFeedback({
 <dl>
 <dd>
 
-**request:** `phenoml.construe.FeedbackRequest` 
-    
+**request:** `phenoml.construe.FeedbackRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ConstrueClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ConstrueClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Code Systems
+
 <details><summary><code>client.construe.codeSystems.<a href="/src/api/resources/construe/resources/codeSystems/client/Client.ts">upload</a>({ ...params }) -> phenoml.UploadResponse</code></summary>
 <dl>
 <dd>
@@ -1274,6 +1294,7 @@ Upload a custom medical code system with codes and descriptions for use in code 
 Returns 202 immediately; embedding generation runs asynchronously. Poll
 GET /construe/codes/systems/{codesystem}?version={version} to check when status
 transitions from "processing" to "ready" or "failed".
+
 </dd>
 </dl>
 </dd>
@@ -1289,19 +1310,22 @@ transitions from "processing" to "ready" or "failed".
 
 ```typescript
 await client.construe.codeSystems.upload({
-    name: "CUSTOM_CODES",
-    version: "1.0",
-    format: "json",
-    codes: [{
-            code: "X001",
-            description: "Example custom code 1"
-        }, {
-            code: "X002",
-            description: "Example custom code 2"
-        }]
+  name: 'CUSTOM_CODES',
+  version: '1.0',
+  format: 'json',
+  codes: [
+    {
+      code: 'X001',
+      description: 'Example custom code 1',
+    },
+    {
+      code: 'X002',
+      description: 'Example custom code 2',
+    },
+  ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1315,21 +1339,20 @@ await client.construe.codeSystems.upload({
 <dl>
 <dd>
 
-**request:** `phenoml.construe.UploadRequest` 
-    
+**request:** `phenoml.construe.UploadRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `CodeSystemsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `CodeSystemsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1348,6 +1371,7 @@ await client.construe.codeSystems.upload({
 <dd>
 
 Returns the catalog of available code systems, including both built-in standard terminologies and custom uploaded systems.
+
 </dd>
 </dl>
 </dd>
@@ -1363,8 +1387,8 @@ Returns the catalog of available code systems, including both built-in standard 
 
 ```typescript
 await client.construe.codeSystems.list();
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1378,13 +1402,12 @@ await client.construe.codeSystems.list();
 <dl>
 <dd>
 
-**requestOptions:** `CodeSystemsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `CodeSystemsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1403,6 +1426,7 @@ await client.construe.codeSystems.list();
 <dd>
 
 Returns full metadata for a single code system, including timestamps and builtin status.
+
 </dd>
 </dl>
 </dd>
@@ -1417,11 +1441,11 @@ Returns full metadata for a single code system, including timestamps and builtin
 <dd>
 
 ```typescript
-await client.construe.codeSystems.find("ICD-10-CM", {
-    version: "2025"
+await client.construe.codeSystems.find('ICD-10-CM', {
+  version: '2025',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1436,28 +1460,27 @@ await client.construe.codeSystems.find("ICD-10-CM", {
 <dd>
 
 **codesystem:** `string` — Code system name (e.g., "ICD-10-CM", "SNOMED_CT_US_LITE")
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.construe.FindRequest` 
-    
+**request:** `phenoml.construe.FindRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `CodeSystemsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `CodeSystemsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1477,6 +1500,7 @@ await client.construe.codeSystems.find("ICD-10-CM", {
 
 Deletes a custom (non-builtin) code system and all its codes. Builtin systems cannot be deleted.
 Only available on dedicated instances. Large systems may take up to a minute to delete.
+
 </dd>
 </dl>
 </dd>
@@ -1491,11 +1515,11 @@ Only available on dedicated instances. Large systems may take up to a minute to 
 <dd>
 
 ```typescript
-await client.construe.codeSystems.delete("CUSTOM_CODES", {
-    version: "version"
+await client.construe.codeSystems.delete('CUSTOM_CODES', {
+  version: 'version',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1510,28 +1534,27 @@ await client.construe.codeSystems.delete("CUSTOM_CODES", {
 <dd>
 
 **codesystem:** `string` — Code system name
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.construe.DeleteRequest` 
-    
+**request:** `phenoml.construe.DeleteRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `CodeSystemsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `CodeSystemsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1552,6 +1575,7 @@ await client.construe.codeSystems.delete("CUSTOM_CODES", {
 Exports a custom (non-builtin) code system as a JSON file compatible with the upload format.
 The exported file can be re-uploaded directly via POST /construe/upload with format "json".
 Only available on dedicated instances. Builtin systems cannot be exported.
+
 </dd>
 </dl>
 </dd>
@@ -1566,11 +1590,11 @@ Only available on dedicated instances. Builtin systems cannot be exported.
 <dd>
 
 ```typescript
-await client.construe.codeSystems.export("CUSTOM_CODES", {
-    version: "version"
+await client.construe.codeSystems.export('CUSTOM_CODES', {
+  version: 'version',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1585,34 +1609,34 @@ await client.construe.codeSystems.export("CUSTOM_CODES", {
 <dd>
 
 **codesystem:** `string` — Code system name
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.construe.ExportRequest` 
-    
+**request:** `phenoml.construe.ExportRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `CodeSystemsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `CodeSystemsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Codes
+
 <details><summary><code>client.construe.codes.<a href="/src/api/resources/construe/resources/codes/client/Client.ts">extract</a>({ ...params }) -> phenoml.ExtractCodesResult</code></summary>
 <dl>
 <dd>
@@ -1631,6 +1655,7 @@ Pass `system.version` to select a specific code system version, for example
 `umls-2026aa` for UMLS 2026AA-backed systems.
 
 Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
+
 </dd>
 </dl>
 </dd>
@@ -1646,14 +1671,14 @@ Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
 
 ```typescript
 await client.construe.codes.extract({
-    text: "Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney.",
-    system: {
-        name: "ICD-10-CM",
-        version: "2025"
-    }
+  text: 'Patient is a 14-year-old female, previously healthy, who is here for evaluation of abnormal renal ultrasound with atrophic right kidney.',
+  system: {
+    name: 'ICD-10-CM',
+    version: '2025',
+  },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1667,21 +1692,20 @@ await client.construe.codes.extract({
 <dl>
 <dd>
 
-**request:** `phenoml.construe.ExtractRequest` 
-    
+**request:** `phenoml.construe.ExtractRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `CodesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `CodesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1707,6 +1731,7 @@ Extracts medical codes from natural language clinical text using phenocr.
 
 Supported code systems: HPO, ICD-10-CM, RXNORM, and SNOMED_CT_US. The
 code system name and version are both required.
+
 </dd>
 </dl>
 </dd>
@@ -1722,14 +1747,14 @@ code system name and version are both required.
 
 ```typescript
 await client.construe.codes.phenocr({
-    text: "5-year-old male with seizures, severe intellectual disability, microcephaly, and hypotonia.",
-    system: {
-        name: "HPO",
-        version: "umls-2026AA"
-    }
+  text: '5-year-old male with seizures, severe intellectual disability, microcephaly, and hypotonia.',
+  system: {
+    name: 'HPO',
+    version: 'umls-2026AA',
+  },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1743,21 +1768,20 @@ await client.construe.codes.phenocr({
 <dl>
 <dd>
 
-**request:** `phenoml.construe.PhenoCrRequest` 
-    
+**request:** `phenoml.construe.PhenoCrRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `CodesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `CodesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1781,6 +1805,7 @@ code or a target has no matches; inspect `reason_code` on the item and
 target entries for miss details.
 
 Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
+
 </dd>
 </dl>
 </dd>
@@ -1796,12 +1821,12 @@ Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
 
 ```typescript
 await client.construe.codes.crosswalk({
-    system: "http://hl7.org/fhir/sid/icd-10-cm",
-    code: "A02.24",
-    targets: ["http://human-phenotype-ontology.org"]
+  system: 'http://hl7.org/fhir/sid/icd-10-cm',
+  code: 'A02.24',
+  targets: ['http://human-phenotype-ontology.org'],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1815,21 +1840,20 @@ await client.construe.codes.crosswalk({
 <dl>
 <dd>
 
-**request:** `phenoml.construe.CrosswalkRequest` 
-    
+**request:** `phenoml.construe.CrosswalkRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `CodesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `CodesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1850,6 +1874,7 @@ await client.construe.codes.crosswalk({
 Returns a paginated list of all codes in the specified code system.
 
 Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
+
 </dd>
 </dl>
 </dd>
@@ -1864,13 +1889,13 @@ Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
 <dd>
 
 ```typescript
-await client.construe.codes.list("ICD-10-CM", {
-    version: "2025",
-    cursor: "cursor",
-    limit: 1
+await client.construe.codes.list('ICD-10-CM', {
+  version: '2025',
+  cursor: 'cursor',
+  limit: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1885,28 +1910,27 @@ await client.construe.codes.list("ICD-10-CM", {
 <dd>
 
 **codesystem:** `string` — Code system name (e.g., "ICD-10-CM", "SNOMED_CT_US_LITE")
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.construe.CodesListRequest` 
-    
+**request:** `phenoml.construe.CodesListRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `CodesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `CodesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -1927,6 +1951,7 @@ await client.construe.codes.list("ICD-10-CM", {
 Looks up a specific code and returns its details.
 
 Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
+
 </dd>
 </dl>
 </dd>
@@ -1941,11 +1966,11 @@ Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
 <dd>
 
 ```typescript
-await client.construe.codes.lookup("ICD-10-CM", "E1165", {
-    version: "version"
+await client.construe.codes.lookup('ICD-10-CM', 'E1165', {
+  version: 'version',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -1960,39 +1985,38 @@ await client.construe.codes.lookup("ICD-10-CM", "E1165", {
 <dd>
 
 **codesystem:** `string` — Code system name
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**codeID:** `string` 
+**codeID:** `string`
 
 The code identifier. ICD-10-CM codes are stored without their
 cosmetic dot (use "E1165", not "E11.65").
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.construe.LookupRequest` 
-    
+**request:** `phenoml.construe.LookupRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `CodesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `CodesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2019,6 +2043,7 @@ related codes, even when different terminology is used. The search understands m
 not just keywords.
 
 **Examples**:
+
 - Query "trouble breathing at night" finds codes like "Sleep apnea", "Orthopnea",
   "Nocturnal dyspnea" — semantically related but no exact keyword matches
 - Query "heart problems" finds "Myocardial infarction", "Cardiac arrest", "Arrhythmia"
@@ -2029,6 +2054,7 @@ conceptually similar results that keyword search would miss.
 See also: `/search/text` for faster keyword-based lookup with typo tolerance.
 
 Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
+
 </dd>
 </dl>
 </dd>
@@ -2043,13 +2069,13 @@ Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
 <dd>
 
 ```typescript
-await client.construe.codes.searchSemantic("ICD-10-CM", {
-    text: "patient has trouble breathing at night and wakes up gasping",
-    version: "version",
-    limit: 1
+await client.construe.codes.searchSemantic('ICD-10-CM', {
+  text: 'patient has trouble breathing at night and wakes up gasping',
+  version: 'version',
+  limit: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2064,28 +2090,27 @@ await client.construe.codes.searchSemantic("ICD-10-CM", {
 <dd>
 
 **codesystem:** `string` — Code system name
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.construe.SearchSemanticRequest` 
-    
+**request:** `phenoml.construe.SearchSemanticRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `CodesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `CodesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2113,11 +2138,13 @@ and will return empty results. Use `/search/semantic` to search custom code syst
 the code ID or specific keywords. Fast response times suitable for typeahead interfaces.
 
 **Features**:
+
 - Substring matching on code IDs (e.g., "11.65" finds "E11.65")
 - Typo tolerance on descriptions (not on code IDs)
 - Fast response times (~10-50ms)
 
 **Examples**:
+
 - Query "E11" finds all codes starting with E11 (diabetes codes)
 - Query "diabtes" (typo) still finds "diabetes" codes
 
@@ -2127,6 +2154,7 @@ Won't find conceptually related codes with different terminology.
 See also: `/search/semantic` for finding conceptually similar codes.
 
 Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
+
 </dd>
 </dl>
 </dd>
@@ -2141,13 +2169,13 @@ Usage of CPT is subject to AMA requirements: see PhenoML Terms of Service.
 <dd>
 
 ```typescript
-await client.construe.codes.searchText("ICD-10-CM", {
-    q: "E11.65",
-    version: "version",
-    limit: 1
+await client.construe.codes.searchText('ICD-10-CM', {
+  q: 'E11.65',
+  version: 'version',
+  limit: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2162,34 +2190,34 @@ await client.construe.codes.searchText("ICD-10-CM", {
 <dd>
 
 **codesystem:** `string` — Code system name
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.construe.SearchTextRequest` 
-    
+**request:** `phenoml.construe.SearchTextRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `CodesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `CodesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Fhir
+
 <details><summary><code>client.fhir.<a href="/src/api/resources/fhir/client/Client.ts">search</a>(fhir_provider_id, fhir_path, { ...params }) -> unknown</code></summary>
 <dl>
 <dd>
@@ -2205,18 +2233,21 @@ await client.construe.codes.searchText("ICD-10-CM", {
 Retrieves FHIR resources from the specified provider. Supports both individual resource retrieval (e.g. `Patient/123` via the path) and search operations.
 
 FHIR search parameters are passed through to the upstream server verbatim as native query-string parameters; this proxy does not model, validate, or transform them. Append standard FHIR search parameters directly to the request URL. Supported parameters include:
+
 - Resource-specific search parameters (e.g. `name` for Patient, `status` for Observation)
 - Common search parameters (`_id`, `_lastUpdated`, `_tag`, `_profile`, `_security`, `_text`, `_content`, `_filter`)
 - Result parameters (`_count`, `_offset`, `_sort`, `_include`, `_revinclude`, `_summary`, `_elements`)
 - Search prefixes for dates, numbers, and quantities (`eq`, `ne`, `gt`, `ge`, `lt`, `le`, `sa`, `eb`, `ap`)
 
 Examples:
+
 - `Patient?name=John%20Doe&_count=10&_sort=family`
 - `Observation?patient=Patient/123&date=ge2023-01-01&category=vital-signs&_sort=-date`
 
 When using a generated SDK, supply these via the client's request-level query-parameter option (the SDK escape hatch) rather than a typed argument.
 
 The request is proxied to the configured FHIR server with appropriate authentication headers.
+
 </dd>
 </dl>
 </dd>
@@ -2231,12 +2262,13 @@ The request is proxied to the configured FHIR server with appropriate authentica
 <dd>
 
 ```typescript
-await client.fhir.search("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c..."
+await client.fhir.search('550e8400-e29b-41d4-a716-446655440000', 'Patient', {
+  'X-Phenoml-On-Behalf-Of': 'Patient/550e8400-e29b-41d4-a716-446655440000',
+  'X-Phenoml-Fhir-Provider':
+    '550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2250,47 +2282,48 @@ await client.fhir.search("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhir_provider_id:** `string` 
+**fhir_provider_id:** `string`
 
 The ID of the FHIR provider to use. Can be either:
+
 - A UUID representing the provider ID
 - A provider name (legacy support - will just use the most recently updated provider with this name)
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**fhir_path:** `string` 
+**fhir_path:** `string`
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
+
 - "Patient" (for resource type operations)
 - "Patient/123" (for specific resource operations)
-- "Patient/123/_history" (for history operations)
-    
+- "Patient/123/\_history" (for history operations)
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.SearchRequest` 
-    
+**request:** `phenoml.fhir.SearchRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `FhirClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2311,6 +2344,7 @@ Examples:
 Creates a new FHIR resource on the specified provider. The request body should contain a valid FHIR resource in JSON format.
 
 The request is proxied to the configured FHIR server with appropriate authentication headers.
+
 </dd>
 </dl>
 </dd>
@@ -2325,15 +2359,16 @@ The request is proxied to the configured FHIR server with appropriate authentica
 <dd>
 
 ```typescript
-await client.fhir.create("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-    body: {
-        "resourceType": "Patient"
-    }
+await client.fhir.create('550e8400-e29b-41d4-a716-446655440000', 'Patient', {
+  'X-Phenoml-On-Behalf-Of': 'Patient/550e8400-e29b-41d4-a716-446655440000',
+  'X-Phenoml-Fhir-Provider':
+    '550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...',
+  body: {
+    resourceType: 'Patient',
+  },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2347,47 +2382,48 @@ await client.fhir.create("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhir_provider_id:** `string` 
+**fhir_provider_id:** `string`
 
 The ID of the FHIR provider to use. Can be either:
+
 - A UUID representing the provider ID
 - A provider name (legacy support - will just use the most recently updated provider with this name)
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**fhir_path:** `string` 
+**fhir_path:** `string`
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
+
 - "Patient" (for resource type operations)
 - "Patient/123" (for specific resource operations)
-- "Patient/123/_history" (for history operations)
-    
+- "Patient/123/\_history" (for history operations)
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.CreateRequest` 
-    
+**request:** `phenoml.fhir.CreateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `FhirClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2408,6 +2444,7 @@ Examples:
 Creates or updates a FHIR resource on the specified provider. If the resource exists, it will be updated; otherwise, it will be created.
 
 The request is proxied to the configured FHIR server with appropriate authentication headers.
+
 </dd>
 </dl>
 </dd>
@@ -2422,16 +2459,17 @@ The request is proxied to the configured FHIR server with appropriate authentica
 <dd>
 
 ```typescript
-await client.fhir.upsert("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-    body: {
-        "resourceType": "Patient",
-        "id": "123"
-    }
+await client.fhir.upsert('550e8400-e29b-41d4-a716-446655440000', 'Patient', {
+  'X-Phenoml-On-Behalf-Of': 'Patient/550e8400-e29b-41d4-a716-446655440000',
+  'X-Phenoml-Fhir-Provider':
+    '550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...',
+  body: {
+    resourceType: 'Patient',
+    id: '123',
+  },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2445,47 +2483,48 @@ await client.fhir.upsert("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhir_provider_id:** `string` 
+**fhir_provider_id:** `string`
 
 The ID of the FHIR provider to use. Can be either:
+
 - A UUID representing the provider ID
 - A provider name (legacy support - will just use the most recently updated provider with this name)
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**fhir_path:** `string` 
+**fhir_path:** `string`
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
+
 - "Patient" (for resource type operations)
 - "Patient/123" (for specific resource operations)
-- "Patient/123/_history" (for history operations)
-    
+- "Patient/123/\_history" (for history operations)
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.UpsertRequest` 
-    
+**request:** `phenoml.fhir.UpsertRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `FhirClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2506,6 +2545,7 @@ Examples:
 Deletes a FHIR resource from the specified provider.
 
 The request is proxied to the configured FHIR server with appropriate authentication headers.
+
 </dd>
 </dl>
 </dd>
@@ -2520,12 +2560,13 @@ The request is proxied to the configured FHIR server with appropriate authentica
 <dd>
 
 ```typescript
-await client.fhir.delete("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c..."
+await client.fhir.delete('550e8400-e29b-41d4-a716-446655440000', 'Patient', {
+  'X-Phenoml-On-Behalf-Of': 'Patient/550e8400-e29b-41d4-a716-446655440000',
+  'X-Phenoml-Fhir-Provider':
+    '550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2539,47 +2580,48 @@ await client.fhir.delete("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhir_provider_id:** `string` 
+**fhir_provider_id:** `string`
 
 The ID of the FHIR provider to use. Can be either:
+
 - A UUID representing the provider ID
 - A provider name (legacy support - will just use the most recently updated provider with this name)
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**fhir_path:** `string` 
+**fhir_path:** `string`
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
+
 - "Patient" (for resource type operations)
 - "Patient/123" (for specific resource operations)
-- "Patient/123/_history" (for history operations)
-    
+- "Patient/123/\_history" (for history operations)
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.DeleteRequest` 
-    
+**request:** `phenoml.fhir.DeleteRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `FhirClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2600,6 +2642,7 @@ Examples:
 Partially updates a FHIR resource on the specified provider.
 
 Two body formats are supported, selected by request content type:
+
 - `application/json-patch+json` — an array of JSON Patch operations as defined in RFC 6902. Each operation specifies:
   - `op`: The operation type (add, remove, replace, move, copy, test)
   - `path`: JSON Pointer to the target location in the resource
@@ -2609,6 +2652,7 @@ Two body formats are supported, selected by request content type:
 **Note:** This proxy currently forwards the request body to the upstream FHIR server with `Content-Type: application/fhir+json` regardless of the declared request content type. JSON Patch (RFC 6902) therefore only succeeds against upstream servers that accept patch arrays under `application/fhir+json`; servers that strictly enforce patch media types may reject or misinterpret it. Support for either format ultimately depends on the upstream FHIR server.
 
 The request is proxied to the configured FHIR server with appropriate authentication headers.
+
 </dd>
 </dl>
 </dd>
@@ -2623,17 +2667,20 @@ The request is proxied to the configured FHIR server with appropriate authentica
 <dd>
 
 ```typescript
-await client.fhir.patch("550e8400-e29b-41d4-a716-446655440000", "Patient", {
-    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-    body: [{
-            op: "replace",
-            path: "/name/0/family",
-            value: "NewFamilyName"
-        }]
+await client.fhir.patch('550e8400-e29b-41d4-a716-446655440000', 'Patient', {
+  'X-Phenoml-On-Behalf-Of': 'Patient/550e8400-e29b-41d4-a716-446655440000',
+  'X-Phenoml-Fhir-Provider':
+    '550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...',
+  body: [
+    {
+      op: 'replace',
+      path: '/name/0/family',
+      value: 'NewFamilyName',
+    },
+  ],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2647,47 +2694,48 @@ await client.fhir.patch("550e8400-e29b-41d4-a716-446655440000", "Patient", {
 <dl>
 <dd>
 
-**fhir_provider_id:** `string` 
+**fhir_provider_id:** `string`
 
 The ID of the FHIR provider to use. Can be either:
+
 - A UUID representing the provider ID
 - A provider name (legacy support - will just use the most recently updated provider with this name)
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**fhir_path:** `string` 
+**fhir_path:** `string`
 
 The FHIR resource path to operate on. This follows FHIR RESTful API conventions.
 Examples:
+
 - "Patient" (for resource type operations)
 - "Patient/123" (for specific resource operations)
-- "Patient/123/_history" (for history operations)
-    
+- "Patient/123/\_history" (for history operations)
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.PatchRequest` 
-    
+**request:** `phenoml.fhir.PatchRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `FhirClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -2710,6 +2758,7 @@ Executes a FHIR Bundle transaction or batch operation on the specified provider.
 The request body should contain a valid FHIR Bundle resource with transaction or batch type.
 
 The request is proxied to the configured FHIR server with appropriate authentication headers.
+
 </dd>
 </dl>
 </dd>
@@ -2724,48 +2773,47 @@ The request is proxied to the configured FHIR server with appropriate authentica
 <dd>
 
 ```typescript
-await client.fhir.executeBundle("550e8400-e29b-41d4-a716-446655440000", {
-    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-    body: {
-        "resourceType": "Bundle",
-        "type": "transaction",
-        "entry": [
+await client.fhir.executeBundle('550e8400-e29b-41d4-a716-446655440000', {
+  'X-Phenoml-On-Behalf-Of': 'Patient/550e8400-e29b-41d4-a716-446655440000',
+  'X-Phenoml-Fhir-Provider':
+    '550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...',
+  body: {
+    resourceType: 'Bundle',
+    type: 'transaction',
+    entry: [
+      {
+        request: {
+          method: 'POST',
+          url: 'Patient',
+        },
+        resource: {
+          resourceType: 'Patient',
+          name: [
             {
-                "request": {
-                    "method": "POST",
-                    "url": "Patient"
-                },
-                "resource": {
-                    "resourceType": "Patient",
-                    "name": [
-                        {
-                            "family": "Doe",
-                            "given": [
-                                "John"
-                            ]
-                        }
-                    ]
-                }
+              family: 'Doe',
+              given: ['John'],
             },
-            {
-                "request": {
-                    "method": "POST",
-                    "url": "Observation"
-                },
-                "resource": {
-                    "resourceType": "Observation",
-                    "status": "final",
-                    "subject": {
-                        "reference": "Patient/123"
-                    }
-                }
-            }
-        ]
-    }
+          ],
+        },
+      },
+      {
+        request: {
+          method: 'POST',
+          url: 'Observation',
+        },
+        resource: {
+          resourceType: 'Observation',
+          status: 'final',
+          subject: {
+            reference: 'Patient/123',
+          },
+        },
+      },
+    ],
+  },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -2779,39 +2827,40 @@ await client.fhir.executeBundle("550e8400-e29b-41d4-a716-446655440000", {
 <dl>
 <dd>
 
-**fhir_provider_id:** `string` 
+**fhir_provider_id:** `string`
 
 The ID of the FHIR provider to use. Can be either:
+
 - A UUID representing the provider ID
 - A provider name (legacy support - will just use the most recently updated provider with this name)
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhir.ExecuteBundleRequest` 
-    
+**request:** `phenoml.fhir.ExecuteBundleRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `FhirClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Fhir2Omop
+
 <details><summary><code>client.fhir2Omop.<a href="/src/api/resources/fhir2Omop/client/Client.ts">create</a>({ ...params }) -> phenoml.CreateOmopResponse</code></summary>
 <dl>
 <dd>
@@ -2851,27 +2900,79 @@ least day precision. Apply your own policy to such rows before loading
 them into a strictly conformant CDM instance.
 
 Current resource coverage:
+
 - `Patient` -> `person`; `deceased[x]` can also produce `death`, the
   first address can produce `location`, and more than one supplied race
   produces `observation` race rows (see Patient demographics below)
 - `observation_period` -> one request-local derived row per person,
-  spanning the populated dates of that person's visit, clinical, and
-  death rows; this is not enrollment or capture-completeness evidence
+  spanning dates from that person's visit, clinical, and death records,
+  including source end dates even when the output table has no end column;
+  this is not enrollment or capture-completeness evidence
 - `Location` -> `location` and `care_site`
 - `Organization` -> `care_site`; its first address can produce `location`
 - `HealthcareService` -> `care_site`
 - `Practitioner` and `PractitionerRole` -> `provider`
 - `Encounter` -> `visit_occurrence`
-- `Condition` -> `condition_occurrence`
-- `Procedure` -> `procedure_occurrence`
+- `Specimen` -> `specimen`, with an explicit Patient subject; missing
+  collection date or material retains a partial row with diagnostics
+- `Condition` -> domain-selected clinical table; default `condition_occurrence`
+- `Procedure` -> domain-selected clinical table; default `procedure_occurrence`
 - `MedicationRequest`, `MedicationStatement`, and
-  `MedicationAdministration` -> `drug_exposure`
-- `Immunization` -> `drug_exposure`
-- `Observation` -> `measurement` or `observation`. For coded
-  Observations, the resolved OMOP concept domain selects the table; value
-  form only breaks ties. For text-only Observations, numeric values route
+  `MedicationAdministration` -> domain-selected clinical table; default `drug_exposure`
+- `Immunization` -> domain-selected clinical table; default `drug_exposure`
+- `Observation` -> domain-selected clinical table. Numeric values prefer
+  `measurement` and other values prefer `observation` when the code is
+  valid for both tables.
+  For text-only Observations, numeric values route
   to `measurement` and nonnumeric values to `observation`.
-- `AllergyIntolerance` -> `observation`
+- `AllergyIntolerance` -> domain-selected clinical table excluding
+  `drug_exposure`; default `observation`
+
+Clinical placement follows the informative Vulcan IG's vocabulary-driven
+domain assignment. Supported destinations are `condition_occurrence`,
+`procedure_occurrence`, `drug_exposure`, `measurement`, and `observation`.
+Coded clinical records are returned in the table corresponding to the
+domain of their mapped OMOP standard concept. The source resource
+determines eligibility, field values, and the default table when no
+supported mapping is available.
+Allergy substance codes must not create drug exposures.
+
+For example, a Condition coded with ICD10CM `Z79.4` can produce a mapped
+`observation` row. `Z86.73` and ICD-O-3 `8140/3` also map to concepts in
+the Observation domain. Use `mappings.omop_table` and `mappings.omop_id`
+to locate each result; the FHIR resource type alone does not determine
+the output table.
+
+Clinical rows include available person/visit/provider links, concept and
+source concept IDs, source value, source type provenance, and start
+timing. Dates follow the source resource's timing rules below, regardless
+of the output table. For example, a Condition follows its
+`onset[x]` / `recordedDate` timing rule even when returned as an
+`observation`. End dates are populated only in tables with end columns;
+they also contribute to the request-local observation period when the
+output table has no end column.
+
+Source-specific fields are populated only for the corresponding source
+and destination: Condition status in `condition_occurrence`, medication
+dosage/supply and Immunization lot details in `drug_exposure`, and
+Observation values/units/ranges in `measurement` or `observation` where
+those columns exist. Mapping notes explain the output table and which
+fields are populated. Coded medication/immunization routes on rows outside
+`drug_exposure`, and Observation values on rows outside `measurement` /
+`observation`, are retained in `mappings` linked to the output row, with
+`omop_field` omitted and `selected: false`. Coded routes are checked
+against the OMOP Route domain; those Observation values are preserved
+without concept resolution.
+
+Device and Note destinations are unsupported. If no standard concept
+valid for a supported destination is found, the resource produces a row
+in its default table with concept and source concept IDs of `0` and
+`UNMAPPED` status. A `DOMAIN_MISMATCH` outcome is identified in the mapping
+note. For example, a Procedure coded with HCPCS `C5271` produces a partial
+`procedure_occurrence` row because its mapped domain is Device. Text-only
+inputs use their default tables. A resource produces one clinical row
+even when its code has multiple vocabulary mapping targets. Vocabulary
+`Maps to value` mappings are not applied.
 
 `Medication` is reference data for medication resources; it does not
 create its own row because OMOP CDM has no Medication table. Administrative
@@ -2884,19 +2985,50 @@ concepts in `provider.gender_concept_id`; `other`, `unknown`, and absent
 gender remain unmapped. `Address.country` is resolved to `location.country_concept_id`,
 and CMS Place of Service codings in `Location.type` are resolved to
 `care_site.place_of_service_concept_id`.
+Within one request, Practitioners with the same single distinct non-empty
+NPI under `http://hl7.org/fhir/sid/us-npi` merge into one provider row only
+when all supplied mapped identity attributes in the entire NPI group agree.
+This includes Practitioners contained in valid role references. System and
+value matches are exact; other identifier systems and names do not trigger
+a merge. Missing attributes can enrich a compatible merged row.
+Compatibility compares the name rendered from each Practitioner's first
+`name` entry, its gender, its first non-empty DEA identifier, and its parsed
+birth year. Differences in birth month/day within one year do not conflict.
+Rendered names are compared exactly: `Jane Smith` and `Dr. Jane Smith`
+conflict even when they share an NPI.
+If any of these attributes conflict, every resource in that NPI group stays
+separate, including resources missing the conflicting attribute. Source
+attributes and unambiguous structural reference links are preserved; no
+conflicting value is selected. Each affected row has `CONFLICTING`
+diagnostics at `name`, `gender`, `identifier`, or `birthDate`, linked by
+`omop_table: provider` and `omop_id`. All source gender mappings link to
+their retained or merged provider row.
+Repeated copies of one NPI on a resource are allowed. A resource with
+multiple distinct NPIs stays separate, leaves `npi` unset, preserves its
+source-resource identity in `provider_source_value`, and reports a
+`CONFLICTING` diagnostic at `identifier` linked by
+`omop_table: provider` and `omop_id`.
+Row IDs are per response. The API does not merge across requests. For a
+Practitioner with one NPI, `provider_source_value` is that NPI, even when
+its group conflicts. Consumers can use it to deduplicate compatible
+providers across requests, but must preserve rows flagged by identity
+conflict diagnostics and check compatibility across responses. Without
+one unambiguous NPI, source-resource identity is preserved without a
+person-level deduplication guarantee.
 A `PractitionerRole` that identifies one supplied `Practitioner` aliases
 that canonical provider: by a top-level structural reference, a
 parent-contained `#id` reference, or an exact `identifier.system` and
 `identifier.value` match against a top-level Practitioner. No remote
 identifier lookup is performed. When `Reference.type` is present it must
-be `Practitioner`; duplicate contained IDs and identifier matches are
-ambiguous. An explicit reference that is unresolved, ambiguous, or
-unsupported retains a role-fallback provider row and is returned in
-`diagnostics`. `provider_role_contexts` preserves role-specific
+be `Practitioner`; duplicate contained IDs and identifier matches to
+different canonical providers are ambiguous. An explicit reference that
+is unresolved, ambiguous, or unsupported retains a role-fallback provider
+row and is returned in `diagnostics`. `provider_role_contexts` preserves role-specific
 specialty and care-site context that a canonical OMOP provider row cannot
 represent together.
 
 Patient demographics:
+
 - Sex at birth, race, and ethnicity are read from these US Core
   extensions, with their US Core 6.1.0 structures and value sets, on
   any Patient (US Core profile conformance is not required). Sex at
@@ -2955,8 +3087,59 @@ Patient demographics:
   `0`; and Vulcan's suggested `observation` rows for multiple
   ethnicities are not produced.
 
+`Specimen` produces a `specimen` row only with an explicitly resolvable
+top-level Patient subject. Missing collection dates or material retain
+useful partial rows with linked diagnostics; those rows may require
+downstream completion before loading into a strict CDM instance.
+References support `Patient/id` and exact Bundle
+fullUrl matches (including URNs and absolute URLs); contained, logical,
+display-only, missing, non-Patient, and unresolved subjects never use the
+sole Patient fallback. Reference.type, when supplied, must identify Patient.
+Unsafe patient attribution and ineligible status drop only that Specimen
+with `dropped` and `diagnostics`; a missing Patient in the entire request
+remains a 400. Missing material is concept ID 0 with a `type` diagnostic
+and no terminology mapping/summary count. Supplied unmapped material is
+also 0, with its separate vocabulary mapping outcome and retained source code.
+Material (`type`) resolves against the Specimen domain, coded UCUM
+collection quantity units against Unit, and `collection.bodySite` against
+Spec Anatomic Site. Supplied unmapped optional concepts are 0; absent
+unit and site IDs are explicit null. Text-only body sites preserve their
+source text with site concept ID 0 and an `UNMAPPED` mapping; they do not
+produce a text-based concept suggestion. Text-only material can produce
+an `UNCHECKED` suggestion with material concept ID 0.
+Numeric quantity is copied without
+unit conversion; invalid or comparator-bearing quantities are omitted
+with diagnostics without dropping the row. Missing optional data is allowed.
+Collection time uses `collection.collectedDateTime` or
+`collection.collectedPeriod.start`; end-only, partial, invalid, and absent
+dates leave specimen_date/specimen_datetime omitted with linked diagnostics.
+Both collected forms together are conflicting: retain the row without
+selecting a date. Period end and receivedTime never substitute for collection
+start. `specimen_source_contexts.collection_timing` preserves raw dateTime,
+Period boundaries, receivedTime, and the selected source path when a date
+is populated, including partial precision and original timezone offsets.
+`specimen_collection_date_missing`, `specimen_collection_date_partial`, and
+`specimen_collection_date_unusable` distinguish absent, partial, and invalid
+source dates; `specimen_collection_multiple_forms` reports conflicting choices.
+`specimen_type_concept_id: 32817` is EHR provenance, independent of material
+and availability. Status absent/available/unavailable/unsatisfactory is
+supported; entered-in-error and unrecognized statuses drop the specimen.
+`specimen_source_contexts.status` preserves the supplied availability
+status for emitted rows; it is omitted when no status was supplied.
+Disease status is not inferred. Source identity precedence is resource id,
+then first identifier with a nonempty value in source array order, then
+accessionIdentifier.value, then Bundle fullUrl. No identity is fabricated;
+`specimen_source_contexts` preserves all valued identifier system/value
+pairs, accession identity, resource id/fullUrl, and the selected source path.
+Parent/derived specimens emit independently when each has its own Patient;
+missing date/material remains partial rather than being inherited. Parent
+and Measurement-to-Specimen links are not represented. Consuming CDM
+loaders own required-date completion, durable IDs, and dataset completeness.
+Source baseline is FHIR R4 4.0.1, with supported common fields reviewed against
+US Core Specimen 7.0.0; full profile conformance is not validated here.
+
 `DiagnosticReport`, `ServiceRequest`, `CarePlan`, `DocumentReference`,
-`Composition`, `Specimen`, `DeviceUseStatement`, `Coverage`, `Claim`, and
+`Composition`, `DeviceUseStatement`, `Coverage`, `Claim`, and
 other unsupported resource types are accepted in a Bundle but ignored: they
 create no row and no `dropped` entry. `dropped` is reserved for supported
 row-producing resources that cannot safely produce a positive OMOP row:
@@ -2968,9 +3151,9 @@ reference that is unresolved, ambiguous, or unsupported drops the clinical
 resource in every request scope.
 
 Eligibility distinguishes clinical validity, performed/taken evidence, and
-administrative workflow state. Checks run before terminology resolution;
-entered-in-error and explicitly non-performed events never produce a positive
-clinical-event row, and an unrecognized required status fails closed. Condition
+administrative workflow state. Entered-in-error and explicitly
+non-performed events never produce a positive clinical-event row, and
+an unrecognized required status fails closed. Condition
 requires absent or confirmed canonical-HL7 `verificationStatus`; clinical course is not a
 diagnosis-role mapping. Procedures accept completed or stopped events.
 Medication requests are prescription evidence only: `doNotPerform`, drafts,
@@ -2991,28 +3174,77 @@ accepts arrived, triaged, in-progress, onleave, or finished status, but drops
 planned, cancelled, entered-in-error, unknown, and missing statuses. An eligible
 encounter without `Period.end` remains a partial visit; no end date is invented.
 
-Coded Observation routing is selected from the resolved OMOP concept
-domain. Numeric and nonnumeric `value[x]` forms establish the preferred
-target only when the code is valid for both tables. A text-only
-Observation has no resolver target, so numeric values route to
-`measurement` and nonnumeric values to `observation`. Numeric values
-populate `value_as_number` in the selected row; other non-coded values
+The mapped OMOP concept's domain determines the clinical output table.
+For Observations, numeric and nonnumeric `value[x]` forms determine the
+preferred table only when the code is valid for both `measurement` and
+`observation`. Text-only Observations produce `measurement` rows for
+numeric values and `observation` rows for other values. In these two
+tables, numeric values populate `value_as_number`; other non-coded values
 populate `value_as_string` for an `observation` or `value_source_value`
 for a `measurement`. Coded `valueCodeableConcept` values are resolved
-against the selected row's `value_as_concept_id` and use the selected
+against `value_as_concept_id` in these tables and use the selected
 bare code in `value_source_value`, leaving an `observation`'s
 `value_as_string` empty; unmapped or target-invalid coded values remain
-`0`.
+`0`. Active standard concepts from any OMOP domain are valid for
+`value_as_concept_id` per CDM 5.4. For example, a blood-culture Measurement
+can record _Staphylococcus aureus_ as its coded result, even though the
+organism concept belongs to OMOP's Observation domain.
+For other clinical output tables, Observation values are retained only
+in `mappings`, without concept resolution or an `omop_field`, and with
+`selected: false`.
 Other unsupported `value[x]` forms and Observation components do not
 populate separate converted values. A
 numeric comparator (`<`, `<=`, `>`, `>=`) is represented only by a
-measurement's `operator_concept_id`; units remain source text and have
-`unit_concept_id` of `0`.
+measurement's `operator_concept_id`.
+
+For Observations returned as `measurement` or `observation` rows,
+Quantity units resolve independently against the table's
+`unit_concept_id`. Other clinical output tables have no unit columns;
+their units are not resolved or included as separate mapping outcomes.
+Only coded UCUM (`http://unitsofmeasure.org` or its
+OID `2.16.840.1.113883.6.8`, bare or `urn:oid:`) is supported. Codes are
+case-sensitive: no spelling aliases, text-only guesses, or numeric
+conversion are applied. Coded UCUM units map to valid standard OMOP
+Unit concepts using the release selected by `vocab_version` (default
+`v20260227` when omitted or empty). Mappings are direct or follow an
+active OMOP `Maps to` relationship; UCUM units do not use a UMLS bridge.
+Unknown codes,
+vocabulary gaps, text-only units, missing coding, and unsupported
+systems keep the row and use `0`; absent units use JSON `null` (the
+field is present). Explicit dimensionless code `1` is a supplied unit
+and resolves or remains `0`; it is never treated as absent.
+`unit_source_value` contains Quantity.code when supplied, otherwise
+Quantity.unit. A separate unit `mappings` entry preserves the original
+Quantity.system/code in `source_system`/`source_code` and the exact
+human-readable Quantity.unit in `source_name`, with its own outcome.
+Quantity.unit provides display text and does not affect unit matching.
+Measurement also returns nullable `unit_source_concept_id`, identifying
+the OMOP source concept for Quantity.system/code when available,
+otherwise `0` for a supplied unit.
+Observation has no such column. Resolving a unit does not change
+numeric values, comparators, or reference ranges.
+Supported coded UCUM units include `resolution` in their mappings,
+whether the unit resolves or remains unmapped:
+its outcome and reason code distinguish vocabulary gaps, target-domain
+mismatches, and ambiguity. Unresolved or ambiguous units retain the row
+with concept ID `0`. Resolved mappings retain the selected concept's
+direct or crosswalk provenance. Text-only units, units with missing
+coding, and unsupported unit systems omit `resolution`; their `note`
+explains the unmapped outcome.
+
+Compatibility: absent `unit_concept_id` values previously returned `0`
+and now return `null`. Coded units use their code in `unit_source_value`
+rather than their human-readable text; the text remains in `mappings`.
+The Measurement `unit_source_concept_id` field is new.
 
 A standard OMOP `concept_id` is selected for each eligible primary clinical coding
 after considering all of the resource's supplied codings. An unambiguous
-coded medication route is resolved independently to
-`drug_exposure.route_concept_id`. Alongside the OMOP rows grouped by
+coded medication or immunization route is checked independently against
+the OMOP Route domain. For `drug_exposure` rows, `route_concept_id`
+contains the resolved concept ID, or `0` if unmapped; for other output
+tables the route is reported only in
+`mappings`, without `omop_field` and with `selected: false`.
+Alongside the OMOP rows grouped by
 table (`tables`), the response carries `mappings` (an entry for every
 supported source coding from a resource that shaped a row, linked back to
 that row; some, such
@@ -3020,29 +3252,31 @@ as demographic null flavors, are reported without being resolved),
 `provider_role_contexts` (source role details linked to provider rows),
 `dropped` (resources that could not be shaped into a row),
 `diagnostics` (explicit references that could not safely create a link,
-and conflicting or unsupported Patient demographic extensions),
+conflicting Practitioner identity attributes, conflicting or unsupported
+Patient demographic extensions, and conflicting Encounter classifications),
 `vocab_version` (the OMOP vocabulary release codes were resolved
 against), and a small `summary` of the resolution outcomes.
 
 A `concept_id` of `0` is reported, not omitted (OMOP "no matching
 concept" semantics): it covers both a coding with no standard match
 (`UNMAPPED`) and an unverified suggestion for a text-only resource
-(`UNCHECKED`). Visit and unit concept fields currently remain `0`;
-Person demographics and Provider recorded gender follow the policies
-above. Coded Observation values may populate `value_as_concept_id`.
-Concepts set by a fixed convention rather than terminology resolution
-are measurement `operator_concept_id`, set from a value comparator (`<`,
-`<=`, `>`, `>=`), and the multiple-race concepts described above. Clinical
-`*_source_value` fields contain the selected FHIR code (or source text
-for text-only resources).
+(`UNCHECKED`). Supported `Encounter.class` or `Encounter.type` values
+may populate `visit_concept_id`. Person demographics and Provider
+recorded gender follow the policies above.
+Coded Observation values may populate `value_as_concept_id`.
+Measurement `operator_concept_id` represents a value comparator (`<`,
+`<=`, `>`, `>=`); multiple-race concepts follow the conventions described
+above. Clinical `*_source_value` fields contain the selected FHIR code
+(or source text for text-only resources).
 The corresponding selected `mappings` entry preserves the coding system
 and full source-coding provenance.
 Known OID-form coding systems are accepted as either FHIR OID URNs (for
 example, `urn:oid:2.16.840.1.113883.6.1` for LOINC) or bare OIDs, and
-are normalized to their canonical system URLs before terminology
-resolution. `mappings[].source_system` reports that canonical URL, so the
-OID and URL forms produce the same mapping. An unknown OID is not
-rewritten and may be `UNMAPPED`.
+produce the same mappings as their canonical system URLs. Coding
+mappings report that canonical URL in `source_system`; Quantity unit
+mappings preserve the original Quantity.system, including OID spelling.
+An unknown OID remains unchanged in `source_system` and may be
+`UNMAPPED`.
 Other `*_source_value` fields preserve row-specific raw source values,
 such as resource identifiers, names, units, or status codes.
 `MedicationRequest` uses `32838` (EHR prescription) for
@@ -3052,14 +3286,15 @@ medication-history, or other more-specific type concepts from FHIR
 status fields.
 
 Dates and datetimes:
+
 - A `*_date` is the calendar date (`YYYY-MM-DD`) of a source value with
   at least day precision. A `*_datetime` is set only when that value
   has a time of day, as local time without a UTC offset
   (`YYYY-MM-DDTHH:MM:SS`, with fractional seconds to microseconds when
   supplied): `2024-01-15T23:30:00-05:00` becomes `2024-01-15T23:30:00`.
   A datetime without a timezone is read as local time.
-- A partial date (`2024` or `2024-03`) leaves both columns unset. It
-  still counts as that source's value, so later sources in the list
+- A partial date (`2024` or `2024-03`) leaves both columns unset.
+  It still counts as that source's value, so later sources in the list
   below are not used.
 - Free-text timing (such as `onsetString`), `Age` and `Range` forms, and
   values that are not dates are ignored, so a later source in the list
@@ -3069,11 +3304,17 @@ Dates and datetimes:
   completed, and a row is not dated from another resource such as its
   Encounter.
 - Valid date values never cause a request to be rejected, and the response
-  does not report which date elements were unusable. An on-hold
+  reports unusable date elements for Specimen while retaining the partial
+  row for downstream load completion. Other rows do not report which
+  date elements were unusable. An on-hold
   MedicationAdministration is an eligibility exception: it needs a supplied
   effective start as evidence that administration began.
 
-Timing sources, in priority order where several are listed:
+Timing sources, in priority order where several are listed. These rules
+apply regardless of the clinical output table; end dates are populated
+only where the table has an end column, and `verbatim_end_date` is set
+only for medication resources returned as `drug_exposure` rows:
+
 - `Patient`: `birthDate` sets `year_of_birth`, `month_of_birth`, and
   `day_of_birth` from the parts it supplies; `birth_datetime` is not
   set. `deceasedDateTime` sets the `death` dates.
@@ -3084,6 +3325,8 @@ Timing sources, in priority order where several are listed:
   end from `abatementDateTime` or `abatementPeriod.end`.
 - `Procedure`: start from `performedDateTime` or
   `performedPeriod.start`; end from `performedPeriod.end` only.
+- `Specimen`: `collection.collectedDateTime` or `collection.collectedPeriod.start`;
+  missing day precision retains an undated specimen with diagnostics.
 - `Observation`: `effectiveDateTime`, `effectivePeriod.start`, or
   `effectiveInstant`.
 - `AllergyIntolerance`: `recordedDate`, then `onsetDateTime` or
@@ -3105,7 +3348,8 @@ Timing sources, in priority order where several are listed:
   AllergyIntolerance falls back to its onset when `recordedDate` is
   missing.
 
-Medication details:
+Medication details for resources returned as `drug_exposure` rows:
+
 - For `MedicationRequest`, `dispenseRequest.numberOfRepeatsAllowed` sets
   `refills` and a whole-day `expectedSupplyDuration` sets `days_supply`.
 - All non-empty dosage text is preserved in `sig`.
@@ -3113,6 +3357,126 @@ Medication details:
   the OMOP Route domain. Conflicting routes are left unset; route
   codings shared by every dosage instruction identify the same route.
 - `Immunization.lotNumber` is preserved in `lot_number`.
+
+Encounter details:
+
+- Encounter classifications must supply both `Coding.system` and
+  `Coding.code` to map to a standard OMOP Visit concept. For HL7
+  encounter class codes with system
+  `http://terminology.hl7.org/CodeSystem/v3-ActCode` or
+  `http://hl7.org/fhir/v3/ActCode`, the supported mappings are:
+
+  - `IMP` (inpatient encounter) -> 9201 (Inpatient Visit)
+  - `AMB` (ambulatory encounter) -> 9202 (Outpatient Visit)
+  - `EMER` (emergency encounter) -> 9203 (Emergency Room Visit)
+  - `VR` (virtual encounter) -> 722455 (Telehealth)
+  - `HH` (home health encounter) -> 581476 (Home Visit)
+
+  `OBSENC` (observation encounter) has no direct class mapping. Other
+  class or type codes can be used when they have a valid standard OMOP
+  Visit mapping in the selected vocabulary release. Unsupported
+  classifications retain `visit_concept_id` of `0` unless a supported
+  type supplies the Visit as described below; they never default to
+  outpatient.
+
+- A mapped `Encounter.class` determines `visit_concept_id`. A mapped
+  type that disagrees with it produces a `CONFLICTING` diagnostic with
+  path `class/type`, while the class mapping remains selected.
+  If class is missing or unmapped, type supplies the Visit only when
+  all mapped type classifications agree on the same standard Visit
+  concept. Codings within one type CodeableConcept are alternative
+  encodings of that classification. When separate type classifications
+  map to different Visit concepts, no type is selected,
+  `visit_concept_id` remains `0`, and a `CONFLICTING` diagnostic has
+  path `type`.
+- `visit_source_value` contains the selected class or type code;
+  `mappings` preserves its coding system and identifies which
+  classification was selected. `visit_source_concept_id` identifies
+  the selected original source coding's OMOP concept when available,
+  and is `0` otherwise, including for the HL7 encounter class codes
+  listed above. Each eligible Encounter produces one Visit;
+  `classHistory`, `partOf`, and admission/discharge concepts are not
+  mapped.
+
+- Direct `MedicationRequest.dispenseRequest.quantity`,
+  `MedicationAdministration.dosage.dose`, and `Immunization.doseQuantity`
+  can set `quantity` under the formulation policies below. Quantities
+  must be positive finite numbers with a supported `system`/`code` pair
+  and no supplied `comparator`. Ingredient amounts and injection volumes
+  use `http://unitsofmeasure.org` (or its bare OID or
+  `urn:oid:2.16.840.1.113883.6.8`) with codes matching vocabulary units exactly.
+  The original source system is preserved in the quantity audit.
+  Fixed-form counts also accept the explicit codings below. No unit
+  conversion or interpretation of free-text units is performed.
+
+Drug quantity policies follow [CDM v5.4 DRUG_EXPOSURE conventions](https://ohdsi.github.io/CommonDataModel/cdm54.html#drug_exposure).
+The selected drug must be a `Clinical Drug` or `Branded Drug`, with one
+active dose form and valid vocabulary evidence for the chosen policy.
+Strength-based conversions also require one ingredient strength. Supported RxNorm dose forms:
+
+- `fixed_dose_form_count`: Oral Tablet (`317541`), Oral Capsule
+  (`316965`), Extended Release Oral Tablet (`316945`), Extended
+  Release Oral Capsule (`316943`), Delayed Release Oral Tablet (`10312`),
+  or Delayed Release Oral Capsule (`316995`). A source ingredient amount is divided
+  by the single positive per-unit ingredient amount, in exactly the same unit.
+  Concentration-based strengths cannot derive counts from ingredient amounts. The
+  result is a count of the selected dose form, limited to whole units or
+  multiples of one-half or one-third. For example, 1,000 mg for a drug
+  with 500 mg per tablet produces `quantity: 2` tablets (`DERIVED`).
+  Explicit counts are copied (`DIRECT`) when their coding matches the
+  selected tablet or capsule form, including the corresponding extended-
+  and delayed-release forms: `TAB` / `CAP` under
+  `http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm`, or
+  `{tbl}` / `{Capsule}` under `http://unitsofmeasure.org`. These exact
+  case-sensitive count codings identify the supplied form; they are not
+  dimensionally converted as UCUM units. Direct counts do not require
+  ingredient strength: combination products and missing/invalid strengths
+  do not change the supplied count. Ingredient-strength gaps, including
+  missing ingredient or strength-unit references, do not prevent copying
+  an explicit count. Drug or dose-form evidence gaps, unclassified or
+  ambiguous forms, and gaps whose relevance cannot be established still
+  prevent conversion. The whole/half/third rules still apply.
+  For example, 20 `TAB` for amoxicillin/clavulanate is 20 tablets, and 30 `TAB` for
+  a supported tablet produces `quantity: 30`; `CAP` for that tablet is
+  omitted with `unit_mismatch`. Generic counts (`1`, `{Each}`), other
+  annotations, packs, and free-text counts are not interpreted.
+  See the [FHIR R4 count example](https://hl7.org/fhir/R4/medicationrequest0301.html).
+- `clinical_injection_ingredient_amount`: Injectable Solution (`316949`),
+  Injectable Suspension (`316950`), or Injection (`1649574`). A source
+  amount already in the ingredient unit is copied directly. Otherwise,
+  a source amount matching the concentration's denominator unit is
+  multiplied by numerator value / the effective denominator reported in
+  the audit evidence. Volume conversion requires a positive finite numerator,
+  distinct validated UCUM units, a null raw denominator value, and
+  `evidence.strength.denominator_basis` with `kind: PER_UNIT` and
+  `value: 1`. A null denominator alone is not interpreted as 1. Missing, unknown,
+  non-applicable, quantified, or conflicting denominator evidence does
+  not support volume conversion. For example, 80 mL with 2 mg/mL
+  strength and a `PER_UNIT` basis produces `quantity: 160` mg. A supplied
+  160 mg amount for the same drug produces `quantity: 160` directly. This output is already
+  the ingredient amount: do not apply the drug-dose guide's
+  `dose = quantity × numerator` formula to these injection rows, which
+  would multiply by the concentration a second time. Use
+  `quantity_transformations.result_unit` to identify the output unit.
+
+Quantified products, packs, prefilled syringes, other liquids and dose
+forms, strength-based conversions of combination products, conflicting or incomplete required evidence, and
+unsupported source quantities leave `quantity` unset. Other supported
+fields and the clinical row are still returned. For example, a quantity
+supplied only as `value: 2, unit: tablet` is omitted with
+`unsupported_unit`, because a free-text unit cannot establish this policy.
+Rate-only administrations and MedicationStatement dosages do not establish
+a supported total quantity and are not used for quantity conversion.
+
+`quantity_transformations` audits each supplied quantity at one of the
+three direct paths above on a row-producing resource, including an
+explicit null or malformed quantity. Each entry preserves the source,
+identifies the destination row, and reports `DIRECT`, `DERIVED`, or
+`OMITTED`. Successful entries identify their policy, evidence, result,
+and result unit; omitted entries give a stable reason. Dose-form and unit
+concept IDs refer to the response's `vocab_version`. Missing quantities
+produce no entry. Unsupported rates and statement dosages produce no
+entry, and resources in `dropped` have no quantity entry or destination row.
 
 Medication codes are resolved whether they appear inline
 (`medicationCodeableConcept`) or via a `medicationReference` to a contained,
@@ -3146,6 +3510,7 @@ not uniformly carry a FHIR resource ID. Input resources without those
 source identifiers cannot be correlated across responses from the
 returned rows alone. Consumers combining responses need to establish
 their own stable keys and remap every primary and foreign key together.
+
 </dd>
 </dl>
 </dd>
@@ -3161,72 +3526,72 @@ their own stable keys and remap every primary and foreign key together.
 
 ```typescript
 await client.fhir2Omop.create({
-    fhir_resources: {
-        "resourceType": "Bundle",
-        "type": "collection",
-        "entry": [
+  fhir_resources: {
+    resourceType: 'Bundle',
+    type: 'collection',
+    entry: [
+      {
+        resource: {
+          resourceType: 'Patient',
+          id: 'patient-1',
+          gender: 'female',
+          birthDate: '1985-07-22',
+        },
+      },
+      {
+        resource: {
+          resourceType: 'Condition',
+          id: 'condition-1',
+          subject: {
+            reference: 'Patient/patient-1',
+          },
+          code: {
+            coding: [
+              {
+                system: 'http://snomed.info/sct',
+                code: '44054006',
+                display: 'Type 2 diabetes mellitus',
+              },
+            ],
+          },
+          onsetDateTime: '2024-01-15',
+        },
+      },
+      {
+        resource: {
+          resourceType: 'MedicationRequest',
+          id: 'medreq-1',
+          status: 'active',
+          intent: 'order',
+          subject: {
+            reference: 'Patient/patient-1',
+          },
+          medicationReference: {
+            reference: '#med0',
+          },
+          authoredOn: '2024-01-16',
+          contained: [
             {
-                "resource": {
-                    "resourceType": "Patient",
-                    "id": "patient-1",
-                    "gender": "female",
-                    "birthDate": "1985-07-22"
-                }
+              resourceType: 'Medication',
+              id: 'med0',
+              code: {
+                coding: [
+                  {
+                    system: 'http://www.nlm.nih.gov/research/umls/rxnorm',
+                    code: '860975',
+                    display: 'metformin hydrochloride 500 MG',
+                  },
+                ],
+              },
             },
-            {
-                "resource": {
-                    "resourceType": "Condition",
-                    "id": "condition-1",
-                    "subject": {
-                        "reference": "Patient/patient-1"
-                    },
-                    "code": {
-                        "coding": [
-                            {
-                                "system": "http://snomed.info/sct",
-                                "code": "44054006",
-                                "display": "Type 2 diabetes mellitus"
-                            }
-                        ]
-                    },
-                    "onsetDateTime": "2024-01-15"
-                }
-            },
-            {
-                "resource": {
-                    "resourceType": "MedicationRequest",
-                    "id": "medreq-1",
-                    "status": "active",
-                    "intent": "order",
-                    "subject": {
-                        "reference": "Patient/patient-1"
-                    },
-                    "medicationReference": {
-                        "reference": "#med0"
-                    },
-                    "authoredOn": "2024-01-16",
-                    "contained": [
-                        {
-                            "resourceType": "Medication",
-                            "id": "med0",
-                            "code": {
-                                "coding": [
-                                    {
-                                        "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-                                        "code": "860975",
-                                        "display": "metformin hydrochloride 500 MG"
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            }
-        ]
-    }
+          ],
+        },
+      },
+    ],
+  },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3240,27 +3605,27 @@ await client.fhir2Omop.create({
 <dl>
 <dd>
 
-**request:** `phenoml.fhir2Omop.CreateOmopRequest` 
-    
+**request:** `phenoml.fhir2Omop.CreateOmopRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Fhir2OmopClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Fhir2OmopClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## FhirProvider
+
 <details><summary><code>client.fhirProvider.<a href="/src/api/resources/fhirProvider/client/Client.ts">create</a>({ ...params }) -> phenoml.FhirProviderResponse</code></summary>
 <dl>
 <dd>
@@ -3276,6 +3641,7 @@ await client.fhir2Omop.create({
 Creates a new FHIR provider configuration with authentication credentials.
 
 Note: The "sandbox" provider type cannot be created via this API - it is managed internally.
+
 </dd>
 </dl>
 </dd>
@@ -3291,18 +3657,18 @@ Note: The "sandbox" provider type cannot be created via this API - it is managed
 
 ```typescript
 await client.fhirProvider.create({
-    name: "Epic Sandbox",
-    description: "Epic sandbox environment for testing",
-    provider: "epic",
-    base_url: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
-    auth: {
-        auth_method: "client_secret",
-        client_id: "your-client-id",
-        client_secret: "your-client-secret"
-    }
+  name: 'Epic Sandbox',
+  description: 'Epic sandbox environment for testing',
+  provider: 'epic',
+  base_url: 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4',
+  auth: {
+    auth_method: 'client_secret',
+    client_id: 'your-client-id',
+    client_secret: 'your-client-secret',
+  },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3316,21 +3682,20 @@ await client.fhirProvider.create({
 <dl>
 <dd>
 
-**request:** `phenoml.fhirProvider.FhirProviderCreateRequest` 
-    
+**request:** `phenoml.fhirProvider.FhirProviderCreateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirProviderClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `FhirProviderClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3352,6 +3717,7 @@ Retrieves a list of all active FHIR providers for the authenticated user.
 
 On shared instances, only sandbox providers are returned.
 Sandbox providers return FhirProviderSandboxInfo.
+
 </dd>
 </dl>
 </dd>
@@ -3367,8 +3733,8 @@ Sandbox providers return FhirProviderSandboxInfo.
 
 ```typescript
 await client.fhirProvider.list();
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3382,13 +3748,12 @@ await client.fhirProvider.list();
 <dl>
 <dd>
 
-**requestOptions:** `FhirProviderClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `FhirProviderClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3410,6 +3775,7 @@ Retrieves a specific FHIR provider configuration by its ID.
 
 Sandbox providers return FhirProviderSandboxInfo.
 On shared instances, only sandbox providers can be accessed.
+
 </dd>
 </dl>
 </dd>
@@ -3424,9 +3790,9 @@ On shared instances, only sandbox providers can be accessed.
 <dd>
 
 ```typescript
-await client.fhirProvider.get("fhir_provider_id");
-
+await client.fhirProvider.get('fhir_provider_id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3441,20 +3807,19 @@ await client.fhirProvider.get("fhir_provider_id");
 <dd>
 
 **fhir_provider_id:** `string` — ID of the FHIR provider to retrieve
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirProviderClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `FhirProviderClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3475,6 +3840,7 @@ await client.fhirProvider.get("fhir_provider_id");
 Deletes a FHIR provider.
 
 Note: Sandbox providers cannot be deleted.
+
 </dd>
 </dl>
 </dd>
@@ -3489,9 +3855,9 @@ Note: Sandbox providers cannot be deleted.
 <dd>
 
 ```typescript
-await client.fhirProvider.delete("fhir_provider_id");
-
+await client.fhirProvider.delete('fhir_provider_id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3506,26 +3872,26 @@ await client.fhirProvider.delete("fhir_provider_id");
 <dd>
 
 **fhir_provider_id:** `string` — ID of the FHIR provider to delete
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `FhirProviderClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `FhirProviderClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Auth Config
+
 <details><summary><code>client.fhirProvider.authConfig.<a href="/src/api/resources/fhirProvider/resources/authConfig/client/Client.ts">add</a>(fhir_provider_id, { ...params }) -> phenoml.FhirProviderResponse</code></summary>
 <dl>
 <dd>
@@ -3542,6 +3908,7 @@ Adds a new authentication configuration to an existing FHIR provider.
 This enables key rotation and multiple auth configurations per provider.
 
 Note: Sandbox providers cannot be modified.
+
 </dd>
 </dl>
 </dd>
@@ -3556,13 +3923,13 @@ Note: Sandbox providers cannot be modified.
 <dd>
 
 ```typescript
-await client.fhirProvider.authConfig.add("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-    auth_method: "client_secret",
-    client_id: "your-client-id",
-    client_secret: "your-client-secret"
+await client.fhirProvider.authConfig.add('1716d214-de93-43a4-aa6b-a878d864e2ad', {
+  auth_method: 'client_secret',
+  client_id: 'your-client-id',
+  client_secret: 'your-client-secret',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3577,28 +3944,27 @@ await client.fhirProvider.authConfig.add("1716d214-de93-43a4-aa6b-a878d864e2ad",
 <dd>
 
 **fhir_provider_id:** `string` — ID of the FHIR provider to add auth config to
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.FhirProviderAddAuthConfigRequest` 
-    
+**request:** `phenoml.FhirProviderAddAuthConfigRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `AuthConfigClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `AuthConfigClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3623,6 +3989,7 @@ If the specified auth config is already active, the request succeeds without
 making any changes and returns a message indicating the config is already active.
 
 Note: Sandbox providers cannot be modified.
+
 </dd>
 </dl>
 </dd>
@@ -3637,11 +4004,11 @@ Note: Sandbox providers cannot be modified.
 <dd>
 
 ```typescript
-await client.fhirProvider.authConfig.setActive("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-    auth_config_id: "auth-config-456"
+await client.fhirProvider.authConfig.setActive('1716d214-de93-43a4-aa6b-a878d864e2ad', {
+  auth_config_id: 'auth-config-456',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3656,28 +4023,27 @@ await client.fhirProvider.authConfig.setActive("1716d214-de93-43a4-aa6b-a878d864
 <dd>
 
 **fhir_provider_id:** `string` — ID of the FHIR provider
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhirProvider.FhirProviderSetActiveAuthConfigRequest` 
-    
+**request:** `phenoml.fhirProvider.FhirProviderSetActiveAuthConfigRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `AuthConfigClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `AuthConfigClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3699,6 +4065,7 @@ Removes an authentication configuration from a FHIR provider.
 Cannot remove the currently active auth configuration.
 
 Note: Sandbox providers cannot be modified.
+
 </dd>
 </dl>
 </dd>
@@ -3713,11 +4080,11 @@ Note: Sandbox providers cannot be modified.
 <dd>
 
 ```typescript
-await client.fhirProvider.authConfig.remove("1716d214-de93-43a4-aa6b-a878d864e2ad", {
-    auth_config_id: "auth-config-456"
+await client.fhirProvider.authConfig.remove('1716d214-de93-43a4-aa6b-a878d864e2ad', {
+  auth_config_id: 'auth-config-456',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3732,34 +4099,34 @@ await client.fhirProvider.authConfig.remove("1716d214-de93-43a4-aa6b-a878d864e2a
 <dd>
 
 **fhir_provider_id:** `string` — ID of the FHIR provider
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.fhirProvider.FhirProviderRemoveAuthConfigRequest` 
-    
+**request:** `phenoml.fhirProvider.FhirProviderRemoveAuthConfigRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `AuthConfigClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `AuthConfigClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Implementation Guides
+
 <details><summary><code>client.implementationGuides.implementationGuides.<a href="/src/api/resources/implementationGuides/resources/implementationGuides/client/Client.ts">list</a>() -> phenoml.ImplementationGuideListResponse</code></summary>
 <dl>
 <dd>
@@ -3775,6 +4142,7 @@ await client.fhirProvider.authConfig.remove("1716d214-de93-43a4-aa6b-a878d864e2a
 Returns every implementation guide on this instance — both guides that
 have stored metadata (a profile_context) and guides referenced by at
 least one custom profile — with the number of profiles in each.
+
 </dd>
 </dl>
 </dd>
@@ -3790,8 +4158,8 @@ least one custom profile — with the number of profiles in each.
 
 ```typescript
 await client.implementationGuides.implementationGuides.list();
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3805,13 +4173,12 @@ await client.implementationGuides.implementationGuides.list();
 <dl>
 <dd>
 
-**requestOptions:** `ImplementationGuidesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ImplementationGuidesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3831,6 +4198,7 @@ await client.implementationGuides.implementationGuides.list();
 
 Returns a single implementation guide, including its profile_context and
 the ids of the profiles that belong to it.
+
 </dd>
 </dl>
 </dd>
@@ -3845,9 +4213,9 @@ the ids of the profiles that belong to it.
 <dd>
 
 ```typescript
-await client.implementationGuides.implementationGuides.get("acme-cardiology");
-
+await client.implementationGuides.implementationGuides.get('acme-cardiology');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3862,20 +4230,19 @@ await client.implementationGuides.implementationGuides.get("acme-cardiology");
 <dd>
 
 **name:** `string` — The implementation guide name.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ImplementationGuidesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ImplementationGuidesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3897,6 +4264,7 @@ Sets (or clears, with an empty value) the natural-language profile_context
 for an implementation guide. The context is injected into the LLM during
 resource detection to help select the right profiles from this guide.
 It applies to every profile in the guide.
+
 </dd>
 </dl>
 </dd>
@@ -3911,9 +4279,9 @@ It applies to every profile in the guide.
 <dd>
 
 ```typescript
-await client.implementationGuides.implementationGuides.update("acme-cardiology");
-
+await client.implementationGuides.implementationGuides.update('acme-cardiology');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -3928,28 +4296,27 @@ await client.implementationGuides.implementationGuides.update("acme-cardiology")
 <dd>
 
 **name:** `string` — The implementation guide name.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.implementationGuides.UpdateImplementationGuideRequest` 
-    
+**request:** `phenoml.implementationGuides.UpdateImplementationGuideRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ImplementationGuidesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ImplementationGuidesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -3969,6 +4336,7 @@ await client.implementationGuides.implementationGuides.update("acme-cardiology")
 
 Deletes the guide's metadata and all its canonical package versions.
 Custom profiles and their implementation-guide assignments are preserved.
+
 </dd>
 </dl>
 </dd>
@@ -3983,9 +4351,9 @@ Custom profiles and their implementation-guide assignments are preserved.
 <dd>
 
 ```typescript
-await client.implementationGuides.implementationGuides.delete("acme-cardiology");
-
+await client.implementationGuides.implementationGuides.delete('acme-cardiology');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4000,20 +4368,19 @@ await client.implementationGuides.implementationGuides.delete("acme-cardiology")
 <dd>
 
 **name:** `string` — The implementation guide name.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ImplementationGuidesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ImplementationGuidesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4034,6 +4401,7 @@ await client.implementationGuides.implementationGuides.delete("acme-cardiology")
 Publishes an exact package beneath this guide family. Each guide family
 supports one exact package version. Publishing another version returns
 `409 Conflict`.
+
 </dd>
 </dl>
 </dd>
@@ -4048,16 +4416,16 @@ supports one exact package version. Publishing another version returns
 <dd>
 
 ```typescript
-await client.implementationGuides.implementationGuides.createVersion("name", {
-    implementation_guide: {
-        resourceType: "ImplementationGuide",
-        url: "url",
-        version: "version"
-    },
-    profile_refs: ["profile_refs"]
+await client.implementationGuides.implementationGuides.createVersion('name', {
+  implementation_guide: {
+    resourceType: 'ImplementationGuide',
+    url: 'url',
+    version: 'version',
+  },
+  profile_refs: ['profile_refs'],
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4071,29 +4439,28 @@ await client.implementationGuides.implementationGuides.createVersion("name", {
 <dl>
 <dd>
 
-**name:** `string` 
-    
+**name:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.implementationGuides.CreateCanonicalImplementationGuideRequest` 
-    
+**request:** `phenoml.implementationGuides.CreateCanonicalImplementationGuideRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ImplementationGuidesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ImplementationGuidesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4112,9 +4479,9 @@ await client.implementationGuides.implementationGuides.createVersion("name", {
 <dd>
 
 ```typescript
-await client.implementationGuides.implementationGuides.getVersion("name", "1.0.0");
-
+await client.implementationGuides.implementationGuides.getVersion('name', '1.0.0');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4128,8 +4495,8 @@ await client.implementationGuides.implementationGuides.getVersion("name", "1.0.0
 <dl>
 <dd>
 
-**name:** `string` 
-    
+**name:** `string`
+
 </dd>
 </dl>
 
@@ -4137,26 +4504,26 @@ await client.implementationGuides.implementationGuides.getVersion("name", "1.0.0
 <dd>
 
 **version:** `string` — The authored ImplementationGuide.version. It may contain letters, numbers, and the punctuation characters `.`, `_`, `~`, `+`, and `-`; it cannot be exactly `.` or `..`.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ImplementationGuidesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ImplementationGuidesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Lang2Fhir
+
 <details><summary><code>client.lang2Fhir.<a href="/src/api/resources/lang2Fhir/client/Client.ts">create</a>({ ...params }) -> phenoml.FhirResource</code></summary>
 <dl>
 <dd>
@@ -4174,6 +4541,7 @@ Converts natural language text into a structured FHIR resource.
 The complete JSON request body is limited to 32 MiB (33,554,432 bytes). The application enforces this whole-envelope limit.
 
 **Patient identifier handling.** When generating a `patient` (or `patient-canvas`) resource, US Core requires `Patient.identifier` (a business identifier such as an MRN). When the source text contains an identifier, it is extracted with an appropriate URI system. When the source text does not contain a detectable identifier, a synthetic one is generated with `system: "urn:phenoml:lang2fhir-generated-id"` and a UUID `value` so the resource remains FHIR-valid and US Core conformant. Callers who need a tenant-specific namespace should rewrite the synthetic system after extraction.
+
 </dd>
 </dl>
 </dd>
@@ -4189,12 +4557,12 @@ The complete JSON request body is limited to 32 MiB (33,554,432 bytes). The appl
 
 ```typescript
 await client.lang2Fhir.create({
-    version: "R4",
-    resource: "condition-encounter-diagnosis",
-    text: "Patient has severe persistent asthma with acute exacerbation"
+  version: 'R4',
+  resource: 'condition-encounter-diagnosis',
+  text: 'Patient has severe persistent asthma with acute exacerbation',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4208,21 +4576,20 @@ await client.lang2Fhir.create({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.CreateRequest` 
-    
+**request:** `phenoml.lang2Fhir.CreateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2FhirClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Lang2FhirClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4247,6 +4614,7 @@ Resources are linked with proper references (e.g., Conditions reference the Pati
 The complete JSON request body is limited to 32 MiB (33,554,432 bytes). The application enforces this whole-envelope limit.
 
 **Patient identifier handling.** US Core requires `Patient.identifier` (a business identifier such as an MRN). When the source text contains an identifier, it is extracted with an appropriate URI system. When the source text does not contain a detectable identifier, a synthetic one is generated with `system: "urn:phenoml:lang2fhir-generated-id"` and a UUID `value` so the bundle remains FHIR-valid and US Core conformant. Callers who need a tenant-specific namespace should rewrite the synthetic system after extraction.
+
 </dd>
 </dl>
 </dd>
@@ -4262,11 +4630,11 @@ The complete JSON request body is limited to 32 MiB (33,554,432 bytes). The appl
 
 ```typescript
 await client.lang2Fhir.createMulti({
-    text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily. Blood pressure 140/90.",
-    version: "R4"
+  text: 'John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily. Blood pressure 140/90.',
+  version: 'R4',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4280,21 +4648,20 @@ await client.lang2Fhir.createMulti({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.CreateMultiRequest` 
-    
+**request:** `phenoml.lang2Fhir.CreateMultiRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2FhirClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Lang2FhirClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4320,6 +4687,7 @@ Coverage, Device, DiagnosticReport, DocumentReference, Encounter, Goal, Immuniza
 Medication, MedicationRequest, Observation, Organization, Patient, PlanDefinition, Practitioner,
 PractitionerRole, Procedure, Provenance, Questionnaire, QuestionnaireResponse, RelatedPerson,
 Schedule, ServiceRequest, Slot, and Specimen.
+
 </dd>
 </dl>
 </dd>
@@ -4335,10 +4703,10 @@ Schedule, ServiceRequest, Slot, and Specimen.
 
 ```typescript
 await client.lang2Fhir.search({
-    text: "Appointments between March 2-9, 2025"
+  text: 'Appointments between March 2-9, 2025',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4352,21 +4720,20 @@ await client.lang2Fhir.search({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.SearchRequest` 
-    
+**request:** `phenoml.lang2Fhir.SearchRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2FhirClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Lang2FhirClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4397,6 +4764,7 @@ from the StructureDefinition is used as the profile's unique identifier and look
 To use the uploaded profile with `/lang2fhir/create`, pass this id as the `resource` parameter.
 
 Uploads will be rejected if:
+
 - A built-in US Core or R4 base profile already exists with the same id
 - A custom profile with the same id has already been uploaded
 - A custom profile with the same url has already been uploaded
@@ -4415,12 +4783,14 @@ Uploads will be rejected if:
 
 ```typescript
 await client.lang2Fhir.uploadProfile({
-    profile: "eyJyZXNvdXJjZVR5cGUiOiJTdHJ1Y3R1cmVEZWZpbml0aW9uIiwiaWQiOiJjdXN0b20tcGF0aWVudCIsInVybCI6Imh0dHA6Ly9waGVub21sLmNvbS9maGlyL1N0cnVjdHVyZURlZmluaXRpb24vY3VzdG9tLXBhdGllbnQiLCJuYW1lIjoiQ3VzdG9tUGF0aWVudCIsInN0YXR1cyI6ImFjdGl2ZSIsImZoaXJWZXJzaW9uIjoiNC4wLjEiLCJraW5kIjoicmVzb3VyY2UiLCJhYnN0cmFjdCI6ZmFsc2UsInR5cGUiOiJQYXRpZW50IiwiYmFzZURlZmluaXRpb24iOiJodHRwOi8vaGw3Lm9yZy9maGlyL1N0cnVjdHVyZURlZmluaXRpb24vUGF0aWVudCIsImRlcml2YXRpb24iOiJjb25zdHJhaW50Iiwic25hcHNob3QiOnsiZWxlbWVudCI6W3siaWQiOiJQYXRpZW50IiwicGF0aCI6IlBhdGllbnQiLCJtaW4iOjAsIm1heCI6IioifSx7ImlkIjoiUGF0aWVudC5uYW1lIiwicGF0aCI6IlBhdGllbnQubmFtZSIsIm1pbiI6MSwibWF4IjoiKiJ9XX19Cg==",
-    implementation_guide: "acme-cardiology",
-    profile_context: "When clinical text describes cardiology-specific findings, prefer this profile over the generic US Core Condition."
+  profile:
+    'eyJyZXNvdXJjZVR5cGUiOiJTdHJ1Y3R1cmVEZWZpbml0aW9uIiwiaWQiOiJjdXN0b20tcGF0aWVudCIsInVybCI6Imh0dHA6Ly9waGVub21sLmNvbS9maGlyL1N0cnVjdHVyZURlZmluaXRpb24vY3VzdG9tLXBhdGllbnQiLCJuYW1lIjoiQ3VzdG9tUGF0aWVudCIsInN0YXR1cyI6ImFjdGl2ZSIsImZoaXJWZXJzaW9uIjoiNC4wLjEiLCJraW5kIjoicmVzb3VyY2UiLCJhYnN0cmFjdCI6ZmFsc2UsInR5cGUiOiJQYXRpZW50IiwiYmFzZURlZmluaXRpb24iOiJodHRwOi8vaGw3Lm9yZy9maGlyL1N0cnVjdHVyZURlZmluaXRpb24vUGF0aWVudCIsImRlcml2YXRpb24iOiJjb25zdHJhaW50Iiwic25hcHNob3QiOnsiZWxlbWVudCI6W3siaWQiOiJQYXRpZW50IiwicGF0aCI6IlBhdGllbnQiLCJtaW4iOjAsIm1heCI6IioifSx7ImlkIjoiUGF0aWVudC5uYW1lIiwicGF0aCI6IlBhdGllbnQubmFtZSIsIm1pbiI6MSwibWF4IjoiKiJ9XX19Cg==',
+  implementation_guide: 'acme-cardiology',
+  profile_context:
+    'When clinical text describes cardiology-specific findings, prefer this profile over the generic US Core Condition.',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4434,21 +4804,20 @@ await client.lang2Fhir.uploadProfile({
 <dl>
 <dd>
 
-**request:** `phenoml.ProfileUploadRequest` 
-    
+**request:** `phenoml.ProfileUploadRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2FhirClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Lang2FhirClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4471,6 +4840,7 @@ Extracts text from a PDF, image, RTF, or XML/C-CDA document and converts it into
 The complete JSON request body is limited to 32 MiB (33,554,432 bytes). The application enforces this whole-envelope limit, including base64-encoded document `content`.
 
 **Patient identifier handling.** When generating a `patient` (or `patient-canvas`) resource, US Core requires `Patient.identifier` (a business identifier such as an MRN). When the source text contains an identifier, it is extracted with an appropriate URI system. When the source text does not contain a detectable identifier, a synthetic one is generated with `system: "urn:phenoml:lang2fhir-generated-id"` and a UUID `value` so the resource remains FHIR-valid and US Core conformant. Callers who need a tenant-specific namespace should rewrite the synthetic system after extraction.
+
 </dd>
 </dl>
 </dd>
@@ -4486,12 +4856,12 @@ The complete JSON request body is limited to 32 MiB (33,554,432 bytes). The appl
 
 ```typescript
 await client.lang2Fhir.document({
-    version: "R4",
-    resource: "questionnaire",
-    content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)"
+  version: 'R4',
+  resource: 'questionnaire',
+  content: 'JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4505,21 +4875,20 @@ await client.lang2Fhir.document({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.DocumentRequest` 
-    
+**request:** `phenoml.lang2Fhir.DocumentRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2FhirClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Lang2FhirClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4547,6 +4916,7 @@ The complete JSON request body is limited to 32 MiB (33,554,432 bytes). The appl
 **Patient identifier handling.** US Core requires `Patient.identifier` (a business identifier such as an MRN). When the source text contains an identifier, it is extracted with an appropriate URI system. When the source text does not contain a detectable identifier, a synthetic one is generated with `system: "urn:phenoml:lang2fhir-generated-id"` and a UUID `value` so the bundle remains FHIR-valid and US Core conformant. Callers who need a tenant-specific namespace should rewrite the synthetic system after extraction.
 
 **Split classifications (optional).** `config.split_classifications` is a caller-defined list, not a fixed taxonomy. Choose each classification `id` and write a natural-language `description` for the per-page classifier. For each page, the classifier assigns the best-matching classification or leaves the page ungrouped. Classifications with `operation: "group"` keep matching pages and label resources extracted from those pages; classifications with `operation: "drop"` remove matching pages before extraction. The `clinical` and `admin` ids in the example are illustrative, not a fixed set.
+
 </dd>
 </dl>
 </dd>
@@ -4562,23 +4932,27 @@ The complete JSON request body is limited to 32 MiB (33,554,432 bytes). The appl
 
 ```typescript
 await client.lang2Fhir.documentMulti({
-    version: "R4",
-    content: "JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)",
-    provider: "medplum",
-    config: {
-        split_classifications: [{
-                id: "clinical",
-                description: "Clinical notes, diagnoses, medications, observations, and patient demographics.",
-                operation: "group"
-            }, {
-                id: "admin",
-                description: "Administrative boilerplate, insurance forms, and cover sheets.",
-                operation: "drop"
-            }]
-    }
+  version: 'R4',
+  content: 'JVBERi0xLjQKJeLjz9MK...(base64-encoded document bytes)',
+  provider: 'medplum',
+  config: {
+    split_classifications: [
+      {
+        id: 'clinical',
+        description:
+          'Clinical notes, diagnoses, medications, observations, and patient demographics.',
+        operation: 'group',
+      },
+      {
+        id: 'admin',
+        description: 'Administrative boilerplate, insurance forms, and cover sheets.',
+        operation: 'drop',
+      },
+    ],
+  },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4592,27 +4966,27 @@ await client.lang2Fhir.documentMulti({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2Fhir.DocumentMultiRequest` 
-    
+**request:** `phenoml.lang2Fhir.DocumentMultiRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2FhirClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Lang2FhirClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Lang2FhirBatch
+
 <details><summary><code>client.lang2FhirBatch.<a href="/src/api/resources/lang2FhirBatch/client/Client.ts">list</a>({ ...params }) -> phenoml.JobListResponse</code></summary>
 <dl>
 <dd>
@@ -4629,6 +5003,7 @@ Returns a page of the instance's batch jobs, newest first, without
 per-job counts. Jobs are shared across the instance's credentials, so
 this lists every batch job on the instance, not just the calling
 credential's.
+
 </dd>
 </dl>
 </dd>
@@ -4644,11 +5019,11 @@ credential's.
 
 ```typescript
 await client.lang2FhirBatch.list({
-    cursor: "cursor",
-    limit: 1
+  cursor: 'cursor',
+  limit: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4662,21 +5037,20 @@ await client.lang2FhirBatch.list({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2FhirBatch.ListRequest` 
-    
+**request:** `phenoml.lang2FhirBatch.ListRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4699,6 +5073,7 @@ Opens an empty job; upload items, then finalize it to start processing.
 `request_id` makes creation idempotent: a retry returns the original
 job. A token is released when its job is canceled or fails before
 finalization; otherwise it continues to resolve to that job.
+
 </dd>
 </dl>
 </dd>
@@ -4714,10 +5089,10 @@ finalization; otherwise it continues to resolve to that job.
 
 ```typescript
 await client.lang2FhirBatch.create({
-    request_id: "submit-2025-09-02-batch-001"
+  request_id: 'submit-2025-09-02-batch-001',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4731,21 +5106,20 @@ await client.lang2FhirBatch.create({
 <dl>
 <dd>
 
-**request:** `phenoml.lang2FhirBatch.CreateBatchRequest` 
-    
+**request:** `phenoml.lang2FhirBatch.CreateBatchRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4779,6 +5153,7 @@ overwrites the item and returns false.
 
 Uploads return `409` after finalization or at the item limit, and `413`
 when the item is too large.
+
 </dd>
 </dl>
 </dd>
@@ -4793,9 +5168,9 @@ when the item is too large.
 <dd>
 
 ```typescript
-await client.lang2FhirBatch.uploadItem("job_id", {});
-
+await client.lang2FhirBatch.uploadItem('job_id', {});
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4809,29 +5184,28 @@ await client.lang2FhirBatch.uploadItem("job_id", {});
 <dl>
 <dd>
 
-**job_id:** `string` 
-    
+**job_id:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.lang2FhirBatch.UploadItemRequest` 
-    
+**request:** `phenoml.lang2FhirBatch.UploadItemRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4855,6 +5229,7 @@ Finalize is idempotent: a retried finalize succeeds again.
 If a previous upload did not complete, finalize returns a `409`; re-send
 the missing upload (with the same `request_id`), then finalize.
 Finalizing a job with no items is a `400`.
+
 </dd>
 </dl>
 </dd>
@@ -4869,9 +5244,9 @@ Finalizing a job with no items is a `400`.
 <dd>
 
 ```typescript
-await client.lang2FhirBatch.finalize("job_id");
-
+await client.lang2FhirBatch.finalize('job_id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4885,21 +5260,20 @@ await client.lang2FhirBatch.finalize("job_id");
 <dl>
 <dd>
 
-**job_id:** `string` 
-    
+**job_id:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4929,6 +5303,7 @@ unfinished items that never resolve.
 Cancel is idempotent: canceling an already-`canceled` job returns `200`
 with the job. Canceling a job that has already `completed` or `failed` is
 a `409`.
+
 </dd>
 </dl>
 </dd>
@@ -4943,9 +5318,9 @@ a `409`.
 <dd>
 
 ```typescript
-await client.lang2FhirBatch.cancel("job_id");
-
+await client.lang2FhirBatch.cancel('job_id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -4959,21 +5334,20 @@ await client.lang2FhirBatch.cancel("job_id");
 <dl>
 <dd>
 
-**job_id:** `string` 
-    
+**job_id:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -4998,6 +5372,7 @@ Items are listed in a stable order that is not upload order and is the
 same across pages. Match each entry to your own records by its `id`
 (your correlation label) or `item_id` (from the upload response),
 never by position.
+
 </dd>
 </dl>
 </dd>
@@ -5012,12 +5387,12 @@ never by position.
 <dd>
 
 ```typescript
-await client.lang2FhirBatch.get("job_id", {
-    cursor: "cursor",
-    limit: 1
+await client.lang2FhirBatch.get('job_id', {
+  cursor: 'cursor',
+  limit: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5031,29 +5406,28 @@ await client.lang2FhirBatch.get("job_id", {
 <dl>
 <dd>
 
-**job_id:** `string` 
-    
+**job_id:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.lang2FhirBatch.GetRequest` 
-    
+**request:** `phenoml.lang2FhirBatch.GetRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5081,6 +5455,7 @@ Entries are listed in a stable order that is not upload order and is
 the same across pages. Match each entry to your own records by its `id`
 (your correlation label) or `item_id` (from the upload response),
 never by position.
+
 </dd>
 </dl>
 </dd>
@@ -5095,12 +5470,12 @@ never by position.
 <dd>
 
 ```typescript
-await client.lang2FhirBatch.getResults("job_id", {
-    cursor: "cursor",
-    limit: 1
+await client.lang2FhirBatch.getResults('job_id', {
+  cursor: 'cursor',
+  limit: 1,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5114,29 +5489,28 @@ await client.lang2FhirBatch.getResults("job_id", {
 <dl>
 <dd>
 
-**job_id:** `string` 
-    
+**job_id:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.lang2FhirBatch.GetResultsRequest` 
-    
+**request:** `phenoml.lang2FhirBatch.GetResultsRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5162,6 +5536,7 @@ returned — a `DocumentMultiResponse` for a document item or a
 Only a succeeded item has a result: an item that has not succeeded
 (pending, processing, or failed) is a `409`, and a result that has
 expired is a `404`.
+
 </dd>
 </dl>
 </dd>
@@ -5176,9 +5551,9 @@ expired is a `404`.
 <dd>
 
 ```typescript
-await client.lang2FhirBatch.getResult("job_id", "item_id");
-
+await client.lang2FhirBatch.getResult('job_id', 'item_id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5192,35 +5567,35 @@ await client.lang2FhirBatch.getResult("job_id", "item_id");
 <dl>
 <dd>
 
-**job_id:** `string` 
-    
+**job_id:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**item_id:** `string` 
-    
+**item_id:** `string`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Lang2FhirBatchClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `Lang2FhirBatchClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Profiles
+
 <details><summary><code>client.profiles.profiles.<a href="/src/api/resources/profiles/resources/profiles/client/Client.ts">list</a>({ ...params }) -> phenoml.ProfileListResponse</code></summary>
 <dl>
 <dd>
@@ -5246,6 +5621,7 @@ resolve a retained version when present; otherwise they can fall back to
 the profile's current StructureDefinition, whose content can change
 through the profile update endpoint. A non-matching filter returns an
 empty list, not a 404.
+
 </dd>
 </dl>
 </dd>
@@ -5261,10 +5637,10 @@ empty list, not a 404.
 
 ```typescript
 await client.profiles.profiles.list({
-    url: "http://phenoml.com/fhir/StructureDefinition/custom-patient|1.0.0"
+  url: 'http://phenoml.com/fhir/StructureDefinition/custom-patient|1.0.0',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5278,21 +5654,20 @@ await client.profiles.profiles.list({
 <dl>
 <dd>
 
-**request:** `phenoml.profiles.ListRequest` 
-    
+**request:** `phenoml.profiles.ListRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ProfilesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ProfilesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5315,6 +5690,7 @@ object. Metadata such as version, resource type, and url is read from the
 StructureDefinition; the lowercase StructureDefinition id becomes the
 profile's lookup key. When id is omitted, a random UUID is assigned.
 Optionally group the profile under a named implementation guide.
+
 </dd>
 </dl>
 </dd>
@@ -5330,33 +5706,33 @@ Optionally group the profile under a named implementation guide.
 
 ```typescript
 await client.profiles.profiles.create({
-    structure_definition: {
-        "resourceType": "StructureDefinition",
-        "id": "custom-patient",
-        "url": "http://phenoml.com/fhir/StructureDefinition/custom-patient",
-        "name": "CustomPatient",
-        "status": "active",
-        "fhirVersion": "4.0.1",
-        "kind": "resource",
-        "abstract": false,
-        "type": "Patient",
-        "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Patient",
-        "derivation": "constraint",
-        "snapshot": {
-            "element": [
-                {
-                    "id": "Patient",
-                    "path": "Patient",
-                    "min": 0,
-                    "max": "*"
-                }
-            ]
-        }
+  structure_definition: {
+    resourceType: 'StructureDefinition',
+    id: 'custom-patient',
+    url: 'http://phenoml.com/fhir/StructureDefinition/custom-patient',
+    name: 'CustomPatient',
+    status: 'active',
+    fhirVersion: '4.0.1',
+    kind: 'resource',
+    abstract: false,
+    type: 'Patient',
+    baseDefinition: 'http://hl7.org/fhir/StructureDefinition/Patient',
+    derivation: 'constraint',
+    snapshot: {
+      element: [
+        {
+          id: 'Patient',
+          path: 'Patient',
+          min: 0,
+          max: '*',
+        },
+      ],
     },
-    implementation_guide: "acme-cardiology"
+  },
+  implementation_guide: 'acme-cardiology',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5370,21 +5746,20 @@ await client.profiles.profiles.create({
 <dl>
 <dd>
 
-**request:** `phenoml.ProfileUploadRequest` 
-    
+**request:** `phenoml.ProfileUploadRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ProfilesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ProfilesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5404,6 +5779,7 @@ await client.profiles.profiles.create({
 
 Returns a single custom profile by id, including its full StructureDefinition
 JSON.
+
 </dd>
 </dl>
 </dd>
@@ -5418,9 +5794,9 @@ JSON.
 <dd>
 
 ```typescript
-await client.profiles.profiles.get("custom-patient");
-
+await client.profiles.profiles.get('custom-patient');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5435,20 +5811,19 @@ await client.profiles.profiles.get("custom-patient");
 <dd>
 
 **id:** `string` — The lowercase StructureDefinition id of the custom profile.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ProfilesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ProfilesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5476,6 +5851,7 @@ re-submitting the profile's current version with an unchanged
 StructureDefinition; otherwise it returns a conflict. While the profile
 has retained versions, its
 canonical URL cannot be changed.
+
 </dd>
 </dl>
 </dd>
@@ -5490,34 +5866,34 @@ canonical URL cannot be changed.
 <dd>
 
 ```typescript
-await client.profiles.profiles.update("custom-patient", {
-    structure_definition: {
-        "resourceType": "StructureDefinition",
-        "id": "custom-patient",
-        "url": "http://phenoml.com/fhir/StructureDefinition/custom-patient",
-        "name": "CustomPatient",
-        "status": "active",
-        "fhirVersion": "4.0.1",
-        "kind": "resource",
-        "abstract": false,
-        "type": "Patient",
-        "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Patient",
-        "derivation": "constraint",
-        "snapshot": {
-            "element": [
-                {
-                    "id": "Patient",
-                    "path": "Patient",
-                    "min": 0,
-                    "max": "*"
-                }
-            ]
-        }
+await client.profiles.profiles.update('custom-patient', {
+  structure_definition: {
+    resourceType: 'StructureDefinition',
+    id: 'custom-patient',
+    url: 'http://phenoml.com/fhir/StructureDefinition/custom-patient',
+    name: 'CustomPatient',
+    status: 'active',
+    fhirVersion: '4.0.1',
+    kind: 'resource',
+    abstract: false,
+    type: 'Patient',
+    baseDefinition: 'http://hl7.org/fhir/StructureDefinition/Patient',
+    derivation: 'constraint',
+    snapshot: {
+      element: [
+        {
+          id: 'Patient',
+          path: 'Patient',
+          min: 0,
+          max: '*',
+        },
+      ],
     },
-    implementation_guide: "acme-cardiology"
+  },
+  implementation_guide: 'acme-cardiology',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5532,28 +5908,27 @@ await client.profiles.profiles.update("custom-patient", {
 <dd>
 
 **id:** `string` — The lowercase StructureDefinition id of the custom profile.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.ProfileUploadRequest` 
-    
+**request:** `phenoml.ProfileUploadRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ProfilesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ProfilesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5574,6 +5949,7 @@ await client.profiles.profiles.update("custom-patient", {
 Permanently deletes a custom profile by id. This also deletes all retained
 versions for that profile so the canonical URL can be reused by a later
 upload.
+
 </dd>
 </dl>
 </dd>
@@ -5588,9 +5964,9 @@ upload.
 <dd>
 
 ```typescript
-await client.profiles.profiles.delete("custom-patient");
-
+await client.profiles.profiles.delete('custom-patient');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5605,26 +5981,26 @@ await client.profiles.profiles.delete("custom-patient");
 <dd>
 
 **id:** `string` — The lowercase StructureDefinition id of the custom profile.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ProfilesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ProfilesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Profiles Versions
+
 <details><summary><code>client.profiles.versions.<a href="/src/api/resources/profiles/resources/versions/client/Client.ts">list</a>(id) -> phenoml.ProfileVersionListResponse</code></summary>
 <dl>
 <dd>
@@ -5638,6 +6014,7 @@ await client.profiles.profiles.delete("custom-patient");
 <dd>
 
 Returns retained versions for a custom profile.
+
 </dd>
 </dl>
 </dd>
@@ -5652,9 +6029,9 @@ Returns retained versions for a custom profile.
 <dd>
 
 ```typescript
-await client.profiles.versions.list("custom-patient");
-
+await client.profiles.versions.list('custom-patient');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5669,20 +6046,19 @@ await client.profiles.versions.list("custom-patient");
 <dd>
 
 **id:** `string` — The lowercase StructureDefinition id of the custom profile.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `VersionsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `VersionsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5712,6 +6088,7 @@ Version strings may contain letters, numbers, and the punctuation
 characters `.`, `_`, `~`, `+`, and `-`; they cannot be exactly `.` or
 `..`. Each profile can retain up to 250 versions; delete old
 versions before adding more.
+
 </dd>
 </dl>
 </dd>
@@ -5726,11 +6103,11 @@ versions before adding more.
 <dd>
 
 ```typescript
-await client.profiles.versions.create("custom-patient", {
-    "key": "value"
+await client.profiles.versions.create('custom-patient', {
+  key: 'value',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5745,28 +6122,27 @@ await client.profiles.versions.create("custom-patient", {
 <dd>
 
 **id:** `string` — The lowercase StructureDefinition id of the custom profile.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.ProfileVersionCreateRequest` 
-    
+**request:** `phenoml.ProfileVersionCreateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `VersionsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `VersionsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5787,6 +6163,7 @@ await client.profiles.versions.create("custom-patient", {
 Returns metadata and the full StructureDefinition for one retained
 version. The returned StructureDefinition's id is the profile id. The
 path version is the authored `StructureDefinition.version` value.
+
 </dd>
 </dl>
 </dd>
@@ -5801,9 +6178,9 @@ path version is the authored `StructureDefinition.version` value.
 <dd>
 
 ```typescript
-await client.profiles.versions.get("custom-patient", "2.0.0");
-
+await client.profiles.versions.get('custom-patient', '2.0.0');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5818,7 +6195,7 @@ await client.profiles.versions.get("custom-patient", "2.0.0");
 <dd>
 
 **id:** `string` — The lowercase StructureDefinition id of the custom profile.
-    
+
 </dd>
 </dl>
 
@@ -5826,20 +6203,19 @@ await client.profiles.versions.get("custom-patient", "2.0.0");
 <dd>
 
 **version:** `string` — The authored StructureDefinition.version. It may contain letters, numbers, and the punctuation characters `.`, `_`, `~`, `+`, and `-`; it cannot be exactly `.` or `..`.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `VersionsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `VersionsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -5859,6 +6235,7 @@ await client.profiles.versions.get("custom-patient", "2.0.0");
 
 Deletes one retained version from a custom profile. The path
 version is the authored `StructureDefinition.version` value.
+
 </dd>
 </dl>
 </dd>
@@ -5873,9 +6250,9 @@ version is the authored `StructureDefinition.version` value.
 <dd>
 
 ```typescript
-await client.profiles.versions.delete("custom-patient", "2.0.0");
-
+await client.profiles.versions.delete('custom-patient', '2.0.0');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5890,7 +6267,7 @@ await client.profiles.versions.delete("custom-patient", "2.0.0");
 <dd>
 
 **id:** `string` — The lowercase StructureDefinition id of the custom profile.
-    
+
 </dd>
 </dl>
 
@@ -5898,26 +6275,26 @@ await client.profiles.versions.delete("custom-patient", "2.0.0");
 <dd>
 
 **version:** `string` — The authored StructureDefinition.version. It may contain letters, numbers, and the punctuation characters `.`, `_`, `~`, `+`, and `-`; it cannot be exactly `.` or `..`.
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `VersionsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `VersionsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Summary
+
 <details><summary><code>client.summary.<a href="/src/api/resources/summary/client/Client.ts">create</a>({ ...params }) -> phenoml.CreateSummaryResponse</code></summary>
 <dl>
 <dd>
@@ -5931,6 +6308,7 @@ await client.profiles.versions.delete("custom-patient", "2.0.0");
 <dd>
 
 Creates a summary from FHIR resources using one of three modes:
+
 - **narrative**: Uses a template to substitute FHIR data into placeholders (requires template_id)
 - **flatten**: Flattens FHIR resources into a searchable format for RAG/search (no template needed)
 - **ips**: Generates an International Patient Summary (IPS) narrative per ISO 27269/HL7 FHIR IPS IG. Requires a Bundle with exactly one Patient resource (returns 400 error if no Patient or multiple Patients are present). Automatically filters resources to those referencing the patient and generates sections for allergies, medications, problems, immunizations, procedures, and vital signs.
@@ -5949,41 +6327,39 @@ Creates a summary from FHIR resources using one of three modes:
 
 ```typescript
 await client.summary.create({
-    mode: "narrative",
-    template_id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-    fhir_resources: {
-        "resourceType": "Bundle",
-        "type": "collection",
-        "entry": [
+  mode: 'narrative',
+  template_id: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+  fhir_resources: {
+    resourceType: 'Bundle',
+    type: 'collection',
+    entry: [
+      {
+        resource: {
+          resourceType: 'Patient',
+          name: [
             {
-                "resource": {
-                    "resourceType": "Patient",
-                    "name": [
-                        {
-                            "given": [
-                                "John"
-                            ],
-                            "family": "Doe"
-                        }
-                    ],
-                    "gender": "male",
-                    "birthDate": "1979-03-15"
-                }
+              given: ['John'],
+              family: 'Doe',
             },
-            {
-                "resource": {
-                    "resourceType": "Condition",
-                    "code": {
-                        "text": "Type 2 Diabetes Mellitus"
-                    },
-                    "onsetDateTime": "2024-01-15"
-                }
-            }
-        ]
-    }
+          ],
+          gender: 'male',
+          birthDate: '1979-03-15',
+        },
+      },
+      {
+        resource: {
+          resourceType: 'Condition',
+          code: {
+            text: 'Type 2 Diabetes Mellitus',
+          },
+          onsetDateTime: '2024-01-15',
+        },
+      },
+    ],
+  },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -5997,27 +6373,27 @@ await client.summary.create({
 <dl>
 <dd>
 
-**request:** `phenoml.summary.CreateSummaryRequest` 
-    
+**request:** `phenoml.summary.CreateSummaryRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `SummaryClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `SummaryClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Templates
+
 <details><summary><code>client.summary.templates.<a href="/src/api/resources/summary/resources/templates/client/Client.ts">list</a>() -> phenoml.ListResponse</code></summary>
 <dl>
 <dd>
@@ -6031,6 +6407,7 @@ await client.summary.create({
 <dd>
 
 Retrieves all summary templates for the authenticated user
+
 </dd>
 </dl>
 </dd>
@@ -6046,8 +6423,8 @@ Retrieves all summary templates for the authenticated user
 
 ```typescript
 await client.summary.templates.list();
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6061,13 +6438,12 @@ await client.summary.templates.list();
 <dl>
 <dd>
 
-**requestOptions:** `TemplatesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `TemplatesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6086,6 +6462,7 @@ await client.summary.templates.list();
 <dd>
 
 Creates a summary template from an example using LLM function calling
+
 </dd>
 </dl>
 </dd>
@@ -6101,13 +6478,14 @@ Creates a summary template from an example using LLM function calling
 
 ```typescript
 await client.summary.templates.create({
-    name: "Discharge Summary",
-    example_summary: "Patient John Doe, age 45, was admitted on 2024-01-10 with Type 2 Diabetes. Discharged on 2024-01-15 with Metformin 500mg BID.",
-    target_resources: ["Patient", "Condition", "MedicationRequest"],
-    mode: "narrative"
+  name: 'Discharge Summary',
+  example_summary:
+    'Patient John Doe, age 45, was admitted on 2024-01-10 with Type 2 Diabetes. Discharged on 2024-01-15 with Metformin 500mg BID.',
+  target_resources: ['Patient', 'Condition', 'MedicationRequest'],
+  mode: 'narrative',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6121,21 +6499,20 @@ await client.summary.templates.create({
 <dl>
 <dd>
 
-**request:** `phenoml.summary.CreateSummaryTemplateRequest` 
-    
+**request:** `phenoml.summary.CreateSummaryTemplateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `TemplatesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `TemplatesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6154,6 +6531,7 @@ await client.summary.templates.create({
 <dd>
 
 Retrieves a specific summary template
+
 </dd>
 </dl>
 </dd>
@@ -6168,9 +6546,9 @@ Retrieves a specific summary template
 <dd>
 
 ```typescript
-await client.summary.templates.get("id");
-
+await client.summary.templates.get('id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6185,20 +6563,19 @@ await client.summary.templates.get("id");
 <dd>
 
 **id:** `string` — Template ID
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `TemplatesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `TemplatesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6217,6 +6594,7 @@ await client.summary.templates.get("id");
 <dd>
 
 Updates an existing summary template
+
 </dd>
 </dl>
 </dd>
@@ -6231,14 +6609,15 @@ Updates an existing summary template
 <dd>
 
 ```typescript
-await client.summary.templates.update("id", {
-    name: "Discharge Summary",
-    template: "Patient {{Patient.name[0].text}} was discharged on {{Encounter[0].period.end}} with {{MedicationRequest[0].medicationCodeableConcept.coding[0].display}} {{MedicationRequest[0].dosageInstruction[0].text}}.",
-    target_resources: ["Patient", "Encounter", "MedicationRequest"],
-    mode: "narrative"
+await client.summary.templates.update('id', {
+  name: 'Discharge Summary',
+  template:
+    'Patient {{Patient.name[0].text}} was discharged on {{Encounter[0].period.end}} with {{MedicationRequest[0].medicationCodeableConcept.coding[0].display}} {{MedicationRequest[0].dosageInstruction[0].text}}.',
+  target_resources: ['Patient', 'Encounter', 'MedicationRequest'],
+  mode: 'narrative',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6253,28 +6632,27 @@ await client.summary.templates.update("id", {
 <dd>
 
 **id:** `string` — Template ID
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.summary.UpdateSummaryTemplateRequest` 
-    
+**request:** `phenoml.summary.UpdateSummaryTemplateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `TemplatesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `TemplatesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6293,6 +6671,7 @@ await client.summary.templates.update("id", {
 <dd>
 
 Deletes a summary template
+
 </dd>
 </dl>
 </dd>
@@ -6307,9 +6686,9 @@ Deletes a summary template
 <dd>
 
 ```typescript
-await client.summary.templates.delete("id");
-
+await client.summary.templates.delete('id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6324,26 +6703,26 @@ await client.summary.templates.delete("id");
 <dd>
 
 **id:** `string` — Template ID
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `TemplatesClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `TemplatesClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Tools
+
 <details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">createFhirResource</a>({ ...params }) -> phenoml.Lang2FhirAndCreateResponse</code></summary>
 <dl>
 <dd>
@@ -6357,6 +6736,7 @@ await client.summary.templates.delete("id");
 <dd>
 
 Converts natural language to FHIR resource and optionally stores it in a FHIR server
+
 </dd>
 </dl>
 </dd>
@@ -6372,14 +6752,15 @@ Converts natural language to FHIR resource and optionally stores it in a FHIR se
 
 ```typescript
 await client.tools.createFhirResource({
-    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-    resource: "condition-encounter-diagnosis",
-    text: "Patient has severe persistent asthma with acute exacerbation",
-    provider: "550e8400-e29b-41d4-a716-446655440000"
+  'X-Phenoml-On-Behalf-Of': 'Patient/550e8400-e29b-41d4-a716-446655440000',
+  'X-Phenoml-Fhir-Provider':
+    '550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...',
+  resource: 'condition-encounter-diagnosis',
+  text: 'Patient has severe persistent asthma with acute exacerbation',
+  provider: '550e8400-e29b-41d4-a716-446655440000',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6393,21 +6774,20 @@ await client.tools.createFhirResource({
 <dl>
 <dd>
 
-**request:** `phenoml.tools.Lang2FhirAndCreateRequest` 
-    
+**request:** `phenoml.tools.Lang2FhirAndCreateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ToolsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ToolsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6430,6 +6810,7 @@ Automatically detects Patient, Condition, MedicationRequest, Observation, and ot
 Resources are linked with proper references and submitted as a transaction bundle.
 For FHIR servers that don't auto-resolve urn:uuid references, this endpoint will automatically
 resolve them via PUT requests after the initial bundle creation.
+
 </dd>
 </dl>
 </dd>
@@ -6445,14 +6826,15 @@ resolve them via PUT requests after the initial bundle creation.
 
 ```typescript
 await client.tools.createFhirResourcesMulti({
-    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-    text: "John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.",
-    version: "R4",
-    provider: "medplum"
+  'X-Phenoml-On-Behalf-Of': 'Patient/550e8400-e29b-41d4-a716-446655440000',
+  'X-Phenoml-Fhir-Provider':
+    '550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...',
+  text: 'John Smith, 45-year-old male, diagnosed with Type 2 Diabetes. Prescribed Metformin 500mg twice daily.',
+  version: 'R4',
+  provider: 'medplum',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6466,21 +6848,20 @@ await client.tools.createFhirResourcesMulti({
 <dl>
 <dd>
 
-**request:** `phenoml.tools.Lang2FhirAndCreateMultiRequest` 
-    
+**request:** `phenoml.tools.Lang2FhirAndCreateMultiRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ToolsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ToolsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6499,6 +6880,7 @@ await client.tools.createFhirResourcesMulti({
 <dd>
 
 Converts natural language to FHIR search parameters and executes search in FHIR server
+
 </dd>
 </dl>
 </dd>
@@ -6514,14 +6896,15 @@ Converts natural language to FHIR search parameters and executes search in FHIR 
 
 ```typescript
 await client.tools.searchFhirResources({
-    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-    text: "Find all appointments for patient John Doe next week",
-    count: 10,
-    provider: "550e8400-e29b-41d4-a716-446655440000"
+  'X-Phenoml-On-Behalf-Of': 'Patient/550e8400-e29b-41d4-a716-446655440000',
+  'X-Phenoml-Fhir-Provider':
+    '550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...',
+  text: 'Find all appointments for patient John Doe next week',
+  count: 10,
+  provider: '550e8400-e29b-41d4-a716-446655440000',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6535,21 +6918,20 @@ await client.tools.searchFhirResources({
 <dl>
 <dd>
 
-**request:** `phenoml.tools.Lang2FhirAndSearchRequest` 
-    
+**request:** `phenoml.tools.Lang2FhirAndSearchRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ToolsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ToolsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6568,6 +6950,7 @@ await client.tools.searchFhirResources({
 <dd>
 
 Uses LLM to extract search concepts from natural language and builds patient cohorts with inclusion/exclusion criteria
+
 </dd>
 </dl>
 </dd>
@@ -6583,13 +6966,14 @@ Uses LLM to extract search concepts from natural language and builds patient coh
 
 ```typescript
 await client.tools.analyzeCohort({
-    "X-Phenoml-On-Behalf-Of": "Patient/550e8400-e29b-41d4-a716-446655440000",
-    "X-Phenoml-Fhir-Provider": "550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...",
-    text: "female patients over 20 with diabetes but not hypertension",
-    provider: "550e8400-e29b-41d4-a716-446655440000"
+  'X-Phenoml-On-Behalf-Of': 'Patient/550e8400-e29b-41d4-a716-446655440000',
+  'X-Phenoml-Fhir-Provider':
+    '550e8400-e29b-41d4-a716-446655440000:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c...',
+  text: 'female patients over 20 with diabetes but not hypertension',
+  provider: '550e8400-e29b-41d4-a716-446655440000',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6603,27 +6987,27 @@ await client.tools.analyzeCohort({
 <dl>
 <dd>
 
-**request:** `phenoml.tools.CohortRequest` 
-    
+**request:** `phenoml.tools.CohortRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ToolsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `ToolsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## MCP Servers
+
 <details><summary><code>client.tools.mcpServers.<a href="/src/api/resources/tools/resources/mcpServers/client/Client.ts">create</a>({ ...params }) -> phenoml.McpServerResponse</code></summary>
 <dl>
 <dd>
@@ -6637,6 +7021,7 @@ await client.tools.analyzeCohort({
 <dd>
 
 Creates a new MCP server
+
 </dd>
 </dl>
 </dd>
@@ -6652,11 +7037,11 @@ Creates a new MCP server
 
 ```typescript
 await client.tools.mcpServers.create({
-    name: "My MCP Server",
-    mcp_server_url: "https://mcp.example.com"
+  name: 'My MCP Server',
+  mcp_server_url: 'https://mcp.example.com',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6670,21 +7055,20 @@ await client.tools.mcpServers.create({
 <dl>
 <dd>
 
-**request:** `phenoml.tools.McpServerCreateRequest` 
-    
+**request:** `phenoml.tools.McpServerCreateRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `McpServersClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `McpServersClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6703,6 +7087,7 @@ await client.tools.mcpServers.create({
 <dd>
 
 Lists all MCP servers for a specific user
+
 </dd>
 </dl>
 </dd>
@@ -6718,8 +7103,8 @@ Lists all MCP servers for a specific user
 
 ```typescript
 await client.tools.mcpServers.list();
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6733,13 +7118,12 @@ await client.tools.mcpServers.list();
 <dl>
 <dd>
 
-**requestOptions:** `McpServersClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `McpServersClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6758,6 +7142,7 @@ await client.tools.mcpServers.list();
 <dd>
 
 Gets a MCP server by ID
+
 </dd>
 </dl>
 </dd>
@@ -6772,9 +7157,9 @@ Gets a MCP server by ID
 <dd>
 
 ```typescript
-await client.tools.mcpServers.get("mcp_server_id");
-
+await client.tools.mcpServers.get('mcp_server_id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6789,20 +7174,19 @@ await client.tools.mcpServers.get("mcp_server_id");
 <dd>
 
 **mcp_server_id:** `string` — ID of the MCP server to retrieve
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `McpServersClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `McpServersClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6821,6 +7205,7 @@ await client.tools.mcpServers.get("mcp_server_id");
 <dd>
 
 Deletes a MCP server by ID
+
 </dd>
 </dl>
 </dd>
@@ -6835,9 +7220,9 @@ Deletes a MCP server by ID
 <dd>
 
 ```typescript
-await client.tools.mcpServers.delete("mcp_server_id");
-
+await client.tools.mcpServers.delete('mcp_server_id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6852,26 +7237,26 @@ await client.tools.mcpServers.delete("mcp_server_id");
 <dd>
 
 **mcp_server_id:** `string` — ID of the MCP server to delete
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `McpServersClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `McpServersClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Tools McpTools
+
 <details><summary><code>client.tools.mcpTools.<a href="/src/api/resources/tools/resources/mcpTools/client/Client.ts">list</a>(mcp_server_id) -> phenoml.McpServerToolResponse</code></summary>
 <dl>
 <dd>
@@ -6885,6 +7270,7 @@ await client.tools.mcpServers.delete("mcp_server_id");
 <dd>
 
 Lists all MCP server tools for a specific MCP server
+
 </dd>
 </dl>
 </dd>
@@ -6899,9 +7285,9 @@ Lists all MCP server tools for a specific MCP server
 <dd>
 
 ```typescript
-await client.tools.mcpTools.list("mcp_server_id");
-
+await client.tools.mcpTools.list('mcp_server_id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6916,20 +7302,19 @@ await client.tools.mcpTools.list("mcp_server_id");
 <dd>
 
 **mcp_server_id:** `string` — ID of the MCP server to list tools for
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `McpToolsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `McpToolsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -6948,6 +7333,7 @@ await client.tools.mcpTools.list("mcp_server_id");
 <dd>
 
 Gets a MCP server tool by ID
+
 </dd>
 </dl>
 </dd>
@@ -6962,9 +7348,9 @@ Gets a MCP server tool by ID
 <dd>
 
 ```typescript
-await client.tools.mcpTools.get("mcp_server_tool_id");
-
+await client.tools.mcpTools.get('mcp_server_tool_id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -6979,20 +7365,19 @@ await client.tools.mcpTools.get("mcp_server_tool_id");
 <dd>
 
 **mcp_server_tool_id:** `string` — ID of the MCP server tool to retrieve
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `McpToolsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `McpToolsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -7011,6 +7396,7 @@ await client.tools.mcpTools.get("mcp_server_tool_id");
 <dd>
 
 Deletes a MCP server tool by ID
+
 </dd>
 </dl>
 </dd>
@@ -7025,9 +7411,9 @@ Deletes a MCP server tool by ID
 <dd>
 
 ```typescript
-await client.tools.mcpTools.delete("mcp_server_tool_id");
-
+await client.tools.mcpTools.delete('mcp_server_tool_id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7042,27 +7428,28 @@ await client.tools.mcpTools.delete("mcp_server_tool_id");
 <dd>
 
 **mcp_server_tool_id:** `string` — ID of the MCP server tool to delete
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `McpToolsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `McpToolsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Voice
+
 ## Workflows
+
 <details><summary><code>client.workflows.<a href="/src/api/resources/workflows/client/Client.ts">list</a>({ ...params }) -> phenoml.ListWorkflowsResponse</code></summary>
 <dl>
 <dd>
@@ -7076,6 +7463,7 @@ await client.tools.mcpTools.delete("mcp_server_tool_id");
 <dd>
 
 Retrieves all workflow definitions for the authenticated user
+
 </dd>
 </dl>
 </dd>
@@ -7091,10 +7479,10 @@ Retrieves all workflow definitions for the authenticated user
 
 ```typescript
 await client.workflows.list({
-    verbose: true
+  verbose: true,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7108,21 +7496,20 @@ await client.workflows.list({
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.ListRequest` 
-    
+**request:** `phenoml.workflows.ListRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WorkflowsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `WorkflowsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -7141,6 +7528,7 @@ await client.workflows.list({
 <dd>
 
 Creates a new workflow definition with graph generation from workflow instructions
+
 </dd>
 </dl>
 </dd>
@@ -7156,19 +7544,20 @@ Creates a new workflow definition with graph generation from workflow instructio
 
 ```typescript
 await client.workflows.create({
-    verbose: true,
-    name: "Patient Data Mapping Workflow",
-    workflow_instructions: "Given diagnosis data, find the patient and create a condition record linked to their encounter",
-    sample_data: {
-        "patient_last_name": "Rippin",
-        "patient_first_name": "Clay",
-        "diagnosis_code": "I10",
-        "encounter_date": "2024-01-15"
-    },
-    fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000"
+  verbose: true,
+  name: 'Patient Data Mapping Workflow',
+  workflow_instructions:
+    'Given diagnosis data, find the patient and create a condition record linked to their encounter',
+  sample_data: {
+    patient_last_name: 'Rippin',
+    patient_first_name: 'Clay',
+    diagnosis_code: 'I10',
+    encounter_date: '2024-01-15',
+  },
+  fhir_provider_id: '550e8400-e29b-41d4-a716-446655440000',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7182,21 +7571,20 @@ await client.workflows.create({
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.CreateWorkflowRequest` 
-    
+**request:** `phenoml.workflows.CreateWorkflowRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WorkflowsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `WorkflowsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -7215,6 +7603,7 @@ await client.workflows.create({
 <dd>
 
 Retrieves a workflow definition by its ID
+
 </dd>
 </dl>
 </dd>
@@ -7229,11 +7618,11 @@ Retrieves a workflow definition by its ID
 <dd>
 
 ```typescript
-await client.workflows.get("id", {
-    verbose: true
+await client.workflows.get('id', {
+  verbose: true,
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7248,28 +7637,27 @@ await client.workflows.get("id", {
 <dd>
 
 **id:** `string` — ID of the workflow to retrieve
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.GetRequest` 
-    
+**request:** `phenoml.workflows.GetRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WorkflowsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `WorkflowsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -7288,6 +7676,7 @@ await client.workflows.get("id", {
 <dd>
 
 Updates an existing workflow definition
+
 </dd>
 </dl>
 </dd>
@@ -7302,20 +7691,21 @@ Updates an existing workflow definition
 <dd>
 
 ```typescript
-await client.workflows.update("id", {
-    verbose: true,
-    name: "Patient Data Mapping Workflow (v2)",
-    workflow_instructions: "Given diagnosis data, find the patient and create a condition record linked to their encounter",
-    sample_data: {
-        "patient_last_name": "Rippin",
-        "patient_first_name": "Clay",
-        "diagnosis_code": "I10",
-        "encounter_date": "2024-01-15"
-    },
-    fhir_provider_id: "550e8400-e29b-41d4-a716-446655440000"
+await client.workflows.update('id', {
+  verbose: true,
+  name: 'Patient Data Mapping Workflow (v2)',
+  workflow_instructions:
+    'Given diagnosis data, find the patient and create a condition record linked to their encounter',
+  sample_data: {
+    patient_last_name: 'Rippin',
+    patient_first_name: 'Clay',
+    diagnosis_code: 'I10',
+    encounter_date: '2024-01-15',
+  },
+  fhir_provider_id: '550e8400-e29b-41d4-a716-446655440000',
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7330,28 +7720,27 @@ await client.workflows.update("id", {
 <dd>
 
 **id:** `string` — ID of the workflow to update
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.UpdateWorkflowRequest` 
-    
+**request:** `phenoml.workflows.UpdateWorkflowRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WorkflowsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `WorkflowsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -7370,6 +7759,7 @@ await client.workflows.update("id", {
 <dd>
 
 Deletes a workflow definition by its ID
+
 </dd>
 </dl>
 </dd>
@@ -7384,9 +7774,9 @@ Deletes a workflow definition by its ID
 <dd>
 
 ```typescript
-await client.workflows.delete("id");
-
+await client.workflows.delete('id');
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7401,20 +7791,19 @@ await client.workflows.delete("id");
 <dd>
 
 **id:** `string` — ID of the workflow to delete
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WorkflowsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `WorkflowsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
@@ -7433,6 +7822,7 @@ await client.workflows.delete("id");
 <dd>
 
 Executes a workflow with provided input data and returns results
+
 </dd>
 </dl>
 </dd>
@@ -7447,16 +7837,16 @@ Executes a workflow with provided input data and returns results
 <dd>
 
 ```typescript
-await client.workflows.execute("7a8b9c0d-1234-5678-abcd-ef9876543210", {
-    input_data: {
-        "patient_last_name": "Johnson",
-        "patient_first_name": "Mary",
-        "diagnosis_code": "M79.3",
-        "encounter_date": "2024-03-20"
-    }
+await client.workflows.execute('7a8b9c0d-1234-5678-abcd-ef9876543210', {
+  input_data: {
+    patient_last_name: 'Johnson',
+    patient_first_name: 'Mary',
+    diagnosis_code: 'M79.3',
+    encounter_date: '2024-03-20',
+  },
 });
-
 ```
+
 </dd>
 </dl>
 </dd>
@@ -7471,30 +7861,28 @@ await client.workflows.execute("7a8b9c0d-1234-5678-abcd-ef9876543210", {
 <dd>
 
 **id:** `string` — ID of the workflow to execute
-    
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `phenoml.workflows.ExecuteWorkflowRequest` 
-    
+**request:** `phenoml.workflows.ExecuteWorkflowRequest`
+
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `WorkflowsClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
+**requestOptions:** `WorkflowsClient.RequestOptions`
 
+</dd>
+</dl>
+</dd>
+</dl>
 
 </dd>
 </dl>
 </details>
-

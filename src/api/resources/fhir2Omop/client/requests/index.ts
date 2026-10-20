@@ -1,1 +1,1 @@
-export type { CreateOmopRequest } from "./CreateOmopRequest.js";
+export type { CreateOmopRequest } from './CreateOmopRequest.js';

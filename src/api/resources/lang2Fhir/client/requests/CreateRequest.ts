@@ -16,37 +16,37 @@
  *     }
  */
 export interface CreateRequest {
-    /** FHIR version to use */
-    version: string;
-    /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported profile. The default profile set includes US Core profiles and selected base R4 resources; you can also use any custom profile you've uploaded (if you're a develop or launch customer). */
-    resource: CreateRequest.Resource;
-    /** Natural language text to convert */
-    text: string;
+  /** FHIR version to use */
+  version: string;
+  /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported profile. The default profile set includes US Core profiles and selected base R4 resources; you can also use any custom profile you've uploaded (if you're a develop or launch customer). */
+  resource: CreateRequest.Resource;
+  /** Natural language text to convert */
+  text: string;
 }
 
 export namespace CreateRequest {
-    /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported profile. The default profile set includes US Core profiles and selected base R4 resources; you can also use any custom profile you've uploaded (if you're a develop or launch customer). */
-    export const Resource = {
-        Auto: "auto",
-        Appointment: "appointment",
-        ConditionEncounterDiagnosis: "condition-encounter-diagnosis",
-        Familymemberhistory: "familymemberhistory",
-        Medicationadministration: "medicationadministration",
-        Medicationrequest: "medicationrequest",
-        Medicationstatement: "medicationstatement",
-        Careplan: "careplan",
-        ConditionProblemsHealthConcerns: "condition-problems-health-concerns",
-        Coverage: "coverage",
-        Encounter: "encounter",
-        ObservationClinicalResult: "observation-clinical-result",
-        ObservationLab: "observation-lab",
-        Patient: "patient",
-        Procedure: "procedure",
-        Questionnaire: "questionnaire",
-        Questionnaireresponse: "questionnaireresponse",
-        Servicerequest: "servicerequest",
-        SimpleObservation: "simple-observation",
-        VitalSigns: "vital-signs",
-    } as const;
-    export type Resource = (typeof Resource)[keyof typeof Resource];
+  /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported profile. The default profile set includes US Core profiles and selected base R4 resources; you can also use any custom profile you've uploaded (if you're a develop or launch customer). */
+  export const Resource = {
+    Auto: 'auto',
+    Appointment: 'appointment',
+    ConditionEncounterDiagnosis: 'condition-encounter-diagnosis',
+    Familymemberhistory: 'familymemberhistory',
+    Medicationadministration: 'medicationadministration',
+    Medicationrequest: 'medicationrequest',
+    Medicationstatement: 'medicationstatement',
+    Careplan: 'careplan',
+    ConditionProblemsHealthConcerns: 'condition-problems-health-concerns',
+    Coverage: 'coverage',
+    Encounter: 'encounter',
+    ObservationClinicalResult: 'observation-clinical-result',
+    ObservationLab: 'observation-lab',
+    Patient: 'patient',
+    Procedure: 'procedure',
+    Questionnaire: 'questionnaire',
+    Questionnaireresponse: 'questionnaireresponse',
+    Servicerequest: 'servicerequest',
+    SimpleObservation: 'simple-observation',
+    VitalSigns: 'vital-signs',
+  } as const;
+  export type Resource = (typeof Resource)[keyof typeof Resource];
 }

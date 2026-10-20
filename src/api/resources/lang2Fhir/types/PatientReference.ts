@@ -4,8 +4,8 @@
  * Business identifier for the document's primary patient. When Lang2FHIR identifies that Patient in generated output, it adds this identifier to the Patient's identifier list (preserving existing identifiers). If no Patient is generated, Lang2FHIR uses it in logical references on generated clinical resources. Supply the patient-level identifier (not an order or specimen identifier).
  */
 export interface PatientReference {
-    /** Identifier system (namespace) for the patient identifier. */
-    system: string;
-    /** Identifier value for the patient within that system. */
-    value: string;
+  /** Identifier system (namespace) for the patient identifier. */
+  system: string;
+  /** Identifier value for the patient within that system. */
+  value: string;
 }

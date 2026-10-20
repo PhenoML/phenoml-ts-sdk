@@ -4,9 +4,9 @@
  * A job's per-status item tally.
  */
 export interface BatchCounts {
-    total: number;
-    pending: number;
-    processing: number;
-    succeeded: number;
-    failed: number;
+  total: number;
+  pending: number;
+  processing: number;
+  succeeded: number;
+  failed: number;
 }

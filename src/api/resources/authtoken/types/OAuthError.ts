@@ -4,19 +4,19 @@
  * OAuth 2.0 error response (RFC 6749 §5.2)
  */
 export interface OAuthError {
-    /** Error code */
-    error: OAuthError.Error_;
-    /** Human-readable error description */
-    error_description?: string | undefined;
+  /** Error code */
+  error: OAuthError.Error_;
+  /** Human-readable error description */
+  error_description?: string | undefined;
 }
 
 export namespace OAuthError {
-    /** Error code */
-    export const Error_ = {
-        InvalidRequest: "invalid_request",
-        InvalidClient: "invalid_client",
-        UnsupportedGrantType: "unsupported_grant_type",
-        ServerError: "server_error",
-    } as const;
-    export type Error_ = (typeof Error_)[keyof typeof Error_];
+  /** Error code */
+  export const Error_ = {
+    InvalidRequest: 'invalid_request',
+    InvalidClient: 'invalid_client',
+    UnsupportedGrantType: 'unsupported_grant_type',
+    ServerError: 'server_error',
+  } as const;
+  export type Error_ = (typeof Error_)[keyof typeof Error_];
 }

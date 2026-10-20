@@ -1,1 +1,1 @@
-export type { ClientCredentialsRequest } from "./ClientCredentialsRequest.js";
+export type { ClientCredentialsRequest } from './ClientCredentialsRequest.js';

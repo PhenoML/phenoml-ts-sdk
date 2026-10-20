@@ -7,6 +7,6 @@
  *     }
  */
 export interface ListRequest {
-    /** If true, includes full workflow implementation details in workflow_details field */
-    verbose?: boolean;
+  /** If true, includes full workflow implementation details in workflow_details field */
+  verbose?: boolean;
 }
