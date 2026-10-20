@@ -1,3 +1,15 @@
+## [19.2.0] - 2026-10-20
+### Added
+- **`phenoml.fhir2Omop.QuantityTransformation`** — new type auditing quantity calculations on each emitted `drug_exposure` row, including outcome, formulation policy, omission reason, and evidence fields; accompanied by supporting types `QuantityEvidence`, `QuantityStrength`, `QuantityUnit`, and `QuantityDenominatorBasis`.
+- **`phenoml.fhir2Omop.MappingResolution` and `MappingPath`** — new types exposing field-level vocabulary resolution outcome, reason code, resolution path (`DIRECT` / `UMLS_BRIDGE`), and per-path provenance for FHIR-to-OMOP concept mapping.
+- **`phenoml.fhir2Omop.SpecimenRow`** — new OMOP Specimen table output type covering material, collection timing, quantity, anatomic site, and source identity; accompanied by supporting provenance types `SpecimenSourceContext`, `SpecimenCollectionTiming`, `SpecimenCollectionPeriod`, and `SpecimenIdentifier`.
+- **`phenoml.fhir2Omop.OmopTables.specimen`** — new optional `SpecimenRow[]` field surfaces OMOP specimen output rows alongside existing measurement and observation tables.
+- **`phenoml.fhir2Omop.RowForReview`** — new type identifying shaped rows that warrant attention, with a `Reasons` enum covering unconfirmed/provisional/differential conditions, unknown encounter status, and unresolved primary concepts.
+- **`phenoml.fhir2Omop.VisitOccurrenceRow.visit_source_concept_id`** — new optional field carrying the OMOP source concept for the selected `Encounter.class` or `Encounter.type` coding.
+
+### Fixed
+- **`phenomlError.requestId`** — now performs a case-insensitive header scan with `X-Request-Id` as the preferred key, ensuring the request ID is returned even when the server sends a differently-cased header name.
+
 ## [19.1.0] - 2026-10-09
 ### Added
 - **`phenoml.fhir2Omop.ReferenceDiagnostic.omop_table` and `.omop_id`** — new optional fields that identify the OMOP output row affected by a diagnostic; `omop_table` names the table and `omop_id` gives its response-local primary key. Both fields are omitted when no output row is associated with the diagnostic.
