@@ -3,6 +3,7 @@
 export interface ProviderRow {
     provider_id?: number | undefined;
     provider_name?: string | undefined;
+    /** Single distinct source NPI value, preserved without format or checksum validation, from an identifier with system `http://hl7.org/fhir/sid/us-npi`, `urn:oid:2.16.840.1.113883.4.6`, or `2.16.840.1.113883.4.6`. Blank values and `UNK`/`UNKNOWN` markers (case-insensitive, ignoring surrounding whitespace) are treated as missing. Omitted when no usable NPI value exists or multiple distinct values are supplied. */
     npi?: string | undefined;
     dea?: string | undefined;
     specialty_concept_id?: number | undefined;
@@ -11,12 +12,34 @@ export interface ProviderRow {
     year_of_birth?: number | undefined;
     /** For recorded `Practitioner.gender`, `male` and `female` resolve to validated OMOP Gender concepts. `other`, `unknown`, and absent values remain `0`. */
     gender_concept_id?: number | undefined;
-    /** The source practitioner identity. A Practitioner contained by a PractitionerRole is scoped as `PractitionerRole/<role-source-value>#<contained-id>` so identical local contained IDs do not collide; an id-less parent uses an explicitly marked response-local role ordinal such as `@role-index:1`. */
+    /**
+     * The single distinct source NPI, when present. Compatible providers
+     * can use this value as a cross-request deduplication key; row IDs are
+     * per response, and the API does not merge across requests. Conflicting
+     * NPI groups retain separate rows sharing this value. Preserve rows
+     * flagged by identity diagnostics using `omop_table: provider` and
+     * `omop_id`, and check identity compatibility across responses before
+     * deduplicating.
+     * Without one unambiguous NPI, this is the source identity of the
+     * Practitioner or fallback role.
+     * Missing NPI values and unknown markers are excluded when selecting
+     * that source identity. When no source identity is available, an
+     * explicitly marked response-local provider ordinal such as
+     * `@provider-index:1` supplies a local scope.
+     * Multiple distinct NPIs leave `npi` unset and use the resource ID,
+     * full URL, or an explicitly marked response-local provider ordinal
+     * such as `@provider-index:1` when neither is supplied.
+     * A Practitioner contained by a PractitionerRole without one unambiguous
+     * NPI is scoped as `PractitionerRole/<role-source-value>#<contained-id>`
+     * so identical local contained IDs do not collide; an id-less parent
+     * uses an explicitly marked response-local role ordinal such as
+     * `@role-index:1`.
+     */
     provider_source_value?: string | undefined;
     specialty_source_value?: string | undefined;
     specialty_source_concept_id?: number | undefined;
     /** The recorded FHIR administrative-gender value for this Provider. */
     gender_source_value?: string | undefined;
-    /** Remains `0` for FHIR administrative-gender enum-policy results. */
+    /** Remains `0` because FHIR administrative-gender codes do not themselves identify OMOP source concepts. */
     gender_source_concept_id?: number | undefined;
 }

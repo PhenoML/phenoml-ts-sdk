@@ -14,4 +14,6 @@ export interface VisitOccurrenceRow {
     provider_id?: number | undefined;
     care_site_id?: number | undefined;
     visit_source_value?: string | undefined;
+    /** OMOP source concept for the selected Encounter.class or Encounter.type coding when available; `0` when the source coding has no OMOP source concept, including the HL7 encounter class codes listed above. */
+    visit_source_concept_id?: number | undefined;
 }
