@@ -75,7 +75,7 @@ export class AuthConfigClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}/add-auth-config`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id, errors.phenomlError)}/add-auth-config`,
             ),
             method: "PATCH",
             headers: _headers,
@@ -190,7 +190,7 @@ export class AuthConfigClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}/set-active-auth-config`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id, errors.phenomlError)}/set-active-auth-config`,
             ),
             method: "PATCH",
             headers: _headers,
@@ -302,7 +302,7 @@ export class AuthConfigClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}/remove-auth-config`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id, errors.phenomlError)}/remove-auth-config`,
             ),
             method: "PATCH",
             headers: _headers,

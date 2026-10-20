@@ -320,7 +320,7 @@ export class Lang2FhirBatchClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `lang2fhir/batch/${core.url.encodePathParam(job_id)}/items`,
+                `lang2fhir/batch/${core.url.encodePathParam(job_id, errors.phenomlError)}/items`,
             ),
             method: "POST",
             headers: _headers,
@@ -441,7 +441,7 @@ export class Lang2FhirBatchClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `lang2fhir/batch/${core.url.encodePathParam(job_id)}/finalize`,
+                `lang2fhir/batch/${core.url.encodePathParam(job_id, errors.phenomlError)}/finalize`,
             ),
             method: "POST",
             headers: _headers,
@@ -561,7 +561,7 @@ export class Lang2FhirBatchClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `lang2fhir/batch/${core.url.encodePathParam(job_id)}/cancel`,
+                `lang2fhir/batch/${core.url.encodePathParam(job_id, errors.phenomlError)}/cancel`,
             ),
             method: "POST",
             headers: _headers,
@@ -682,7 +682,7 @@ export class Lang2FhirBatchClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `lang2fhir/batch/${core.url.encodePathParam(job_id)}`,
+                `lang2fhir/batch/${core.url.encodePathParam(job_id, errors.phenomlError)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -808,7 +808,7 @@ export class Lang2FhirBatchClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `lang2fhir/batch/${core.url.encodePathParam(job_id)}/results`,
+                `lang2fhir/batch/${core.url.encodePathParam(job_id, errors.phenomlError)}/results`,
             ),
             method: "GET",
             headers: _headers,
@@ -930,7 +930,7 @@ export class Lang2FhirBatchClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `lang2fhir/batch/${core.url.encodePathParam(job_id)}/results/${core.url.encodePathParam(item_id)}`,
+                `lang2fhir/batch/${core.url.encodePathParam(job_id, errors.phenomlError)}/results/${core.url.encodePathParam(item_id, errors.phenomlError)}`,
             ),
             method: "GET",
             headers: _headers,

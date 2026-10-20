@@ -214,7 +214,7 @@ export class PromptsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `agent/prompts/${core.url.encodePathParam(id)}`,
+                `agent/prompts/${core.url.encodePathParam(id, errors.phenomlError)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -299,7 +299,7 @@ export class PromptsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `agent/prompts/${core.url.encodePathParam(id)}`,
+                `agent/prompts/${core.url.encodePathParam(id, errors.phenomlError)}`,
             ),
             method: "PUT",
             headers: _headers,
@@ -379,7 +379,7 @@ export class PromptsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `agent/prompts/${core.url.encodePathParam(id)}`,
+                `agent/prompts/${core.url.encodePathParam(id, errors.phenomlError)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -462,7 +462,7 @@ export class PromptsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `agent/prompts/${core.url.encodePathParam(id)}`,
+                `agent/prompts/${core.url.encodePathParam(id, errors.phenomlError)}`,
             ),
             method: "PATCH",
             headers: _headers,
