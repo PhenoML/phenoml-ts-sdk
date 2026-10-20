@@ -1,3 +1,15 @@
+## [19.2.0] - 2026-10-20
+### Added
+- **`CreateRequest.Resource.PhenomlHpoCondition` and `.PhenomlHpoPhenotypicObservation`** — new built-in profile identifiers for coding FHIR findings with the Human Phenotype Ontology.
+- **`phenoml.fhir2Omop.SpecimenRow`** and supporting types (`SpecimenSourceContext`, `SpecimenCollectionTiming`, `SpecimenCollectionPeriod`, `SpecimenIdentifier`) — expose OMOP `specimen` table output with material, timing, quantity, anatomic site, and source-identity provenance.
+- **`phenoml.fhir2Omop.QuantityTransformation`** and supporting types (`QuantityUnit`, `QuantityEvidence`, `QuantityStrength`, `QuantityDenominatorBasis`) — provide a per-row audit trail for how a FHIR Quantity was mapped to `drug_exposure.quantity`.
+- **`phenoml.fhir2Omop.MappingPath` and `MappingResolution`** — new provenance types exposing per-field vocabulary resolution outcomes, reason codes, and resolution paths (direct or UMLS-bridge).
+- **`phenoml.fhir2Omop.RowForReview`** — identifies shaped OMOP rows carrying a review flag along with their source statuses; `OmopTables.specimen` and `VisitOccurrenceRow.visit_source_concept_id` also added.
+
+### Changed
+- **`phenomlError.requestId`** — now checks the canonical `X-Request-Id` header first and falls back to any header matching `request[-_]?id`; previously only the lowercase `x-request-id` header was checked.
+- **`ProfileUploadRequest.implementation_guide`** — `phenoml_hpo` is now documented as a reserved name alongside `us_core` and will be rejected by the server if used.
+
 ## [19.1.0] - 2026-10-09
 ### Added
 - **`phenoml.fhir2Omop.ReferenceDiagnostic.omop_table` and `.omop_id`** — new optional fields that identify the OMOP output row affected by a diagnostic; `omop_table` names the table and `omop_id` gives its response-local primary key. Both fields are omitted when no output row is associated with the diagnostic.
