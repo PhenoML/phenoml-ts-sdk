@@ -59,7 +59,7 @@ export class McpToolsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `tools/mcp-server/${core.url.encodePathParam(mcp_server_id)}/list`,
+                `tools/mcp-server/${core.url.encodePathParam(mcp_server_id, errors.phenomlError)}/list`,
             ),
             method: "GET",
             headers: _headers,
@@ -137,7 +137,7 @@ export class McpToolsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `tools/mcp-server/tool/${core.url.encodePathParam(mcp_server_tool_id)}`,
+                `tools/mcp-server/tool/${core.url.encodePathParam(mcp_server_tool_id, errors.phenomlError)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -217,7 +217,7 @@ export class McpToolsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `tools/mcp-server/tool/${core.url.encodePathParam(mcp_server_tool_id)}`,
+                `tools/mcp-server/tool/${core.url.encodePathParam(mcp_server_tool_id, errors.phenomlError)}`,
             ),
             method: "DELETE",
             headers: _headers,

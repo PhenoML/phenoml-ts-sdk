@@ -214,7 +214,7 @@ export class McpServersClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `tools/mcp-server/${core.url.encodePathParam(mcp_server_id)}`,
+                `tools/mcp-server/${core.url.encodePathParam(mcp_server_id, errors.phenomlError)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -294,7 +294,7 @@ export class McpServersClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `tools/mcp-server/${core.url.encodePathParam(mcp_server_id)}`,
+                `tools/mcp-server/${core.url.encodePathParam(mcp_server_id, errors.phenomlError)}`,
             ),
             method: "DELETE",
             headers: _headers,

@@ -62,7 +62,7 @@ export class VersionsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/profiles/${core.url.encodePathParam(id)}/versions`,
+                `fhir/profiles/${core.url.encodePathParam(id, errors.phenomlError)}/versions`,
             ),
             method: "GET",
             headers: _headers,
@@ -166,7 +166,7 @@ export class VersionsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/profiles/${core.url.encodePathParam(id)}/versions`,
+                `fhir/profiles/${core.url.encodePathParam(id, errors.phenomlError)}/versions`,
             ),
             method: "POST",
             headers: _headers,
@@ -260,7 +260,7 @@ export class VersionsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/profiles/${core.url.encodePathParam(id)}/versions/${core.url.encodePathParam(version)}`,
+                `fhir/profiles/${core.url.encodePathParam(id, errors.phenomlError)}/versions/${core.url.encodePathParam(version, errors.phenomlError)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -354,7 +354,7 @@ export class VersionsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/profiles/${core.url.encodePathParam(id)}/versions/${core.url.encodePathParam(version)}`,
+                `fhir/profiles/${core.url.encodePathParam(id, errors.phenomlError)}/versions/${core.url.encodePathParam(version, errors.phenomlError)}`,
             ),
             method: "DELETE",
             headers: _headers,
