@@ -268,7 +268,7 @@ export class WorkflowsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `workflows/${core.url.encodePathParam(id)}`,
+                `workflows/${core.url.encodePathParam(id, errors.phenomlError)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -378,7 +378,7 @@ export class WorkflowsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `workflows/${core.url.encodePathParam(id)}`,
+                `workflows/${core.url.encodePathParam(id, errors.phenomlError)}`,
             ),
             method: "PUT",
             headers: _headers,
@@ -474,7 +474,7 @@ export class WorkflowsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `workflows/${core.url.encodePathParam(id)}`,
+                `workflows/${core.url.encodePathParam(id, errors.phenomlError)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -582,7 +582,7 @@ export class WorkflowsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `workflows/${core.url.encodePathParam(id)}/execute`,
+                `workflows/${core.url.encodePathParam(id, errors.phenomlError)}/execute`,
             ),
             method: "POST",
             headers: _headers,

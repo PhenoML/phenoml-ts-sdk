@@ -252,7 +252,7 @@ export class FhirProviderClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id, errors.phenomlError)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -344,7 +344,7 @@ export class FhirProviderClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir-provider/${core.url.encodePathParam(fhir_provider_id)}`,
+                `fhir-provider/${core.url.encodePathParam(fhir_provider_id, errors.phenomlError)}`,
             ),
             method: "DELETE",
             headers: _headers,

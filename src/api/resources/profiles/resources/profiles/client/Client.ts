@@ -279,7 +279,7 @@ export class ProfilesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/profiles/${core.url.encodePathParam(id)}`,
+                `fhir/profiles/${core.url.encodePathParam(id, errors.phenomlError)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -401,7 +401,7 @@ export class ProfilesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/profiles/${core.url.encodePathParam(id)}`,
+                `fhir/profiles/${core.url.encodePathParam(id, errors.phenomlError)}`,
             ),
             method: "PUT",
             headers: _headers,
@@ -490,7 +490,7 @@ export class ProfilesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/profiles/${core.url.encodePathParam(id)}`,
+                `fhir/profiles/${core.url.encodePathParam(id, errors.phenomlError)}`,
             ),
             method: "DELETE",
             headers: _headers,

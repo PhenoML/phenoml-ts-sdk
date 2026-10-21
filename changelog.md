@@ -1,3 +1,15 @@
+## [19.2.0] - 2026-10-21
+### Added
+- **`CreateRequest.Resource.PhenomlHpoCondition` and `.PhenomlHpoPhenotypicObservation`** — two new built-in HPO extraction profiles for coding clinical findings with the Human Phenotype Ontology, requestable by id.
+- **`ExtractRequestConfig.ValidationMethod.SemanticMapping`** — new validation method requiring equivalent meaning for an entire local clinical term, preserving negation and specificity.
+- **`phenoml.fhir2Omop` FHIR-to-OMOP mapping types** — new types `MappingResolution`, `MappingPath`, `QuantityEvidence`, `QuantityStrength`, `QuantityDenominatorBasis`, and `QuantityTransformation` exposing vocabulary resolution outcomes, provenance, and drug-quantity audit details.
+- **`phenoml.fhir2Omop` specimen and review types** — new types `SpecimenRow`, `SpecimenSourceContext`, `SpecimenCollectionTiming`, `SpecimenCollectionPeriod`, `SpecimenIdentifier`, `SemanticMappingResult`, and `RowForReview` representing OMOP CDM specimen rows, semantic mapping outcomes, and rows flagged for downstream review.
+- **`phenoml.fhir2Omop.OmopTables.specimen`** — new optional `SpecimenRow[]` field on the OMOP output tables object; **`VisitOccurrenceRow.visit_source_concept_id`** — new optional field carrying the OMOP source concept for the selected encounter coding.
+
+### Changed
+- **`phenomlError.requestId`** — now checks `X-Request-Id` first, then falls back to a case-insensitive scan for any header ending in `request[-_]?id`, improving compatibility with non-standard gateway headers.
+- **`ProfileUploadRequest.implementation_guide`** — documents `phenoml_hpo` as an additional reserved implementation-guide name that the server will reject alongside `us_core`.
+
 ## [19.1.0] - 2026-10-09
 ### Added
 - **`phenoml.fhir2Omop.ReferenceDiagnostic.omop_table` and `.omop_id`** — new optional fields that identify the OMOP output row affected by a diagnostic; `omop_table` names the table and `omop_id` gives its response-local primary key. Both fields are omitted when no output row is associated with the diagnostic.

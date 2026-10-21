@@ -452,7 +452,7 @@ export class CodesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `construe/codes/${core.url.encodePathParam(codesystem)}`,
+                `construe/codes/${core.url.encodePathParam(codesystem, errors.phenomlError)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -552,7 +552,7 @@ export class CodesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `construe/codes/${core.url.encodePathParam(codesystem)}/${core.url.encodePathParam(codeID)}`,
+                `construe/codes/${core.url.encodePathParam(codesystem, errors.phenomlError)}/${core.url.encodePathParam(codeID, errors.phenomlError)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -673,7 +673,7 @@ export class CodesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `construe/codes/${core.url.encodePathParam(codesystem)}/search/semantic`,
+                `construe/codes/${core.url.encodePathParam(codesystem, errors.phenomlError)}/search/semantic`,
             ),
             method: "GET",
             headers: _headers,
@@ -803,7 +803,7 @@ export class CodesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `construe/codes/${core.url.encodePathParam(codesystem)}/search/text`,
+                `construe/codes/${core.url.encodePathParam(codesystem, errors.phenomlError)}/search/text`,
             ),
             method: "GET",
             headers: _headers,

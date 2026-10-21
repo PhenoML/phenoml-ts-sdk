@@ -149,7 +149,7 @@ export class ImplementationGuidesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/implementation-guides/${core.url.encodePathParam(name)}`,
+                `fhir/implementation-guides/${core.url.encodePathParam(name, errors.phenomlError)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -255,7 +255,7 @@ export class ImplementationGuidesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/implementation-guides/${core.url.encodePathParam(name)}`,
+                `fhir/implementation-guides/${core.url.encodePathParam(name, errors.phenomlError)}`,
             ),
             method: "PUT",
             headers: _headers,
@@ -355,7 +355,7 @@ export class ImplementationGuidesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/implementation-guides/${core.url.encodePathParam(name)}`,
+                `fhir/implementation-guides/${core.url.encodePathParam(name, errors.phenomlError)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -463,7 +463,7 @@ export class ImplementationGuidesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/implementation-guides/${core.url.encodePathParam(name)}/versions`,
+                `fhir/implementation-guides/${core.url.encodePathParam(name, errors.phenomlError)}/versions`,
             ),
             method: "POST",
             headers: _headers,
@@ -555,7 +555,7 @@ export class ImplementationGuidesClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `fhir/implementation-guides/${core.url.encodePathParam(name)}/versions/${core.url.encodePathParam(version)}`,
+                `fhir/implementation-guides/${core.url.encodePathParam(name, errors.phenomlError)}/versions/${core.url.encodePathParam(version, errors.phenomlError)}`,
             ),
             method: "GET",
             headers: _headers,
