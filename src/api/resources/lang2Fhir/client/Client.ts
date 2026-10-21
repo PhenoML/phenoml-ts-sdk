@@ -336,7 +336,7 @@ export class Lang2FhirClient {
      * To use the uploaded profile with `/lang2fhir/create`, pass this id as the `resource` parameter.
      *
      * Uploads will be rejected if:
-     * - A built-in US Core or R4 base profile already exists with the same id
+     * - A built-in profile (US Core, PhenoML HPO, or R4 base) already exists with the same id, or the id starts with a reserved prefix (`us-core-`, `phenoml-hpo-`)
      * - A custom profile with the same id has already been uploaded
      * - A custom profile with the same url has already been uploaded
      *

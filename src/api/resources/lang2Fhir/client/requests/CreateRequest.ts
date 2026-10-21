@@ -18,14 +18,14 @@
 export interface CreateRequest {
     /** FHIR version to use */
     version: string;
-    /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported profile. The default profile set includes US Core profiles and selected base R4 resources; you can also use any custom profile you've uploaded (if you're a develop or launch customer). */
+    /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported profile. The default profile set includes US Core profiles and selected base R4 resources. The built-in PhenoML HPO profiles (`phenoml-hpo-condition`, `phenoml-hpo-phenotypic-observation`) code findings with the Human Phenotype Ontology and must be requested by id. You can also use any custom profile you've uploaded (if you're a develop or launch customer). */
     resource: CreateRequest.Resource;
     /** Natural language text to convert */
     text: string;
 }
 
 export namespace CreateRequest {
-    /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported profile. The default profile set includes US Core profiles and selected base R4 resources; you can also use any custom profile you've uploaded (if you're a develop or launch customer). */
+    /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported profile. The default profile set includes US Core profiles and selected base R4 resources. The built-in PhenoML HPO profiles (`phenoml-hpo-condition`, `phenoml-hpo-phenotypic-observation`) code findings with the Human Phenotype Ontology and must be requested by id. You can also use any custom profile you've uploaded (if you're a develop or launch customer). */
     export const Resource = {
         Auto: "auto",
         Appointment: "appointment",
@@ -41,6 +41,8 @@ export namespace CreateRequest {
         ObservationClinicalResult: "observation-clinical-result",
         ObservationLab: "observation-lab",
         Patient: "patient",
+        PhenomlHpoCondition: "phenoml-hpo-condition",
+        PhenomlHpoPhenotypicObservation: "phenoml-hpo-phenotypic-observation",
         Procedure: "procedure",
         Questionnaire: "questionnaire",
         Questionnaireresponse: "questionnaireresponse",

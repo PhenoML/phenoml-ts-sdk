@@ -265,7 +265,7 @@ export class CodeSystemsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `construe/codes/systems/${core.url.encodePathParam(codesystem)}`,
+                `construe/codes/systems/${core.url.encodePathParam(codesystem, errors.phenomlError)}`,
             ),
             method: "GET",
             headers: _headers,
@@ -369,7 +369,7 @@ export class CodeSystemsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `construe/codes/systems/${core.url.encodePathParam(codesystem)}`,
+                `construe/codes/systems/${core.url.encodePathParam(codesystem, errors.phenomlError)}`,
             ),
             method: "DELETE",
             headers: _headers,
@@ -478,7 +478,7 @@ export class CodeSystemsClient {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.phenomlEnvironment.Default,
-                `construe/codes/systems/${core.url.encodePathParam(codesystem)}/export`,
+                `construe/codes/systems/${core.url.encodePathParam(codesystem, errors.phenomlError)}/export`,
             ),
             method: "GET",
             headers: _headers,

@@ -27,6 +27,7 @@ export interface ExtractRequestConfig {
      * Method for validating extracted codes:
      * * none - No validation, returns all candidate codes
      * * simple - LLM-based validation
+     * * semantic_mapping - LLM validation requiring equivalent meaning for an entire local clinical term, preserving negation and specificity. Disables code-to-code similarity filtering so distinct equivalent candidates remain visible
      * * medication_search - LLM-based validation tailored for medication concepts
      * * chunk_code_jaccard_similarity - Token-level Jaccard similarity between source text chunk and code description
      */
@@ -104,12 +105,14 @@ export namespace ExtractRequestConfig {
      * Method for validating extracted codes:
      * * none - No validation, returns all candidate codes
      * * simple - LLM-based validation
+     * * semantic_mapping - LLM validation requiring equivalent meaning for an entire local clinical term, preserving negation and specificity. Disables code-to-code similarity filtering so distinct equivalent candidates remain visible
      * * medication_search - LLM-based validation tailored for medication concepts
      * * chunk_code_jaccard_similarity - Token-level Jaccard similarity between source text chunk and code description
      */
     export const ValidationMethod = {
         None: "none",
         Simple: "simple",
+        SemanticMapping: "semantic_mapping",
         MedicationSearch: "medication_search",
         ChunkCodeJaccardSimilarity: "chunk_code_jaccard_similarity",
     } as const;
