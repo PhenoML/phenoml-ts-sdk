@@ -1,3 +1,8 @@
+## [19.3.0] - 2026-10-23
+### Added
+- **`CreateMultiRequest.small_note`** — new optional boolean field that bills the request at the lower small-note rate; when `true`, `text` must be at most 15,360 bytes (15 KiB) UTF-8 encoded or the server rejects it with a 400 error.
+- **`UploadItemRequest` batch body** — `small_note` is now documented as an accepted field in the multi-resource item body passed to batch upload.
+
 ## [19.2.0] - 2026-10-21
 ### Added
 - **`CreateRequest.Resource.PhenomlHpoCondition` and `.PhenomlHpoPhenotypicObservation`** — two new built-in HPO extraction profiles for coding clinical findings with the Human Phenotype Ontology, requestable by id.
