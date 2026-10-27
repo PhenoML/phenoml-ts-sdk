@@ -120,7 +120,7 @@ export interface CreateOmopRequest {
      * Patient resource. Supported row-producing resources are Patient,
      * Location, Organization, HealthcareService, Practitioner,
      * PractitionerRole, Encounter, Specimen, Condition, Procedure,
-     * MedicationRequest, MedicationStatement, MedicationAdministration,
+     * MedicationRequest, MedicationStatement, MedicationAdministration, MedicationDispense,
      * Immunization, Observation, and AllergyIntolerance. Standalone Medication resources
      * are consumed by medication references rather than mapped to their own
      * table. Unsupported resource types are accepted in a Bundle but ignored.
