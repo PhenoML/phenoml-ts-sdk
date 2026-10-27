@@ -6,7 +6,7 @@ export interface CreateOmopResponse {
     success?: boolean | undefined;
     message?: string | undefined;
     tables?: phenoml.fhir2Omop.OmopTables | undefined;
-    /** Audits supplied direct drug quantities on emitted rows, including derivations and omissions. Omitted when no applicable quantity was supplied. Entries use the response's vocabulary release and do not affect terminology mapping counts in summary. The examples use illustrative concept IDs; actual IDs and evidence belong to vocab_version. */
+    /** Audits supplied direct quantities on emitted drug_exposure rows, including derivations and omissions. Resources returned in other clinical tables have no quantity entry. Omitted when no applicable quantity was supplied on a drug_exposure row. Entries use the response's vocabulary release and do not affect terminology mapping counts in summary. The examples use illustrative concept IDs; actual IDs and evidence belong to vocab_version. */
     quantity_transformations?: phenoml.fhir2Omop.QuantityTransformation[] | undefined;
     /**
      * Index of otherwise shapeable clinical rows with uncertain source status
