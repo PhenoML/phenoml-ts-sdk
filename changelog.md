@@ -1,3 +1,13 @@
+## [20.0.0] - 2026-10-27
+### Added
+- **`phenoml.fhir2Omop.MedicationDispenseSourceContext`** — new type capturing original dispensing status, timing, instructions, and references linked to each emitted dispense row; exposed as the optional `medication_dispense_source_contexts` array on `CreateOmopResponse`.
+- **`MedicationDispense` FHIR-to-OMOP conversion** — `MedicationDispense` is now a supported row-producing resource; `whenHandedOver` sets the start date, `daysSupply` sets `days_supply` for coded UCUM days, and `drug_type_concept_id` is `32825` (EHR dispensing record). Handover, end-date, route, and medication-reference diagnostics are reported in `diagnostics`.
+- **`QuantityTransformation.ResourceType.MedicationDispense` and `QuantityTransformation.SourcePath.Quantity`** — quantity auditing now covers `MedicationDispense.quantity` alongside existing medication and immunization paths.
+- **`CreateMultiRequest.small_note`** — optional boolean that bills the request at the lower small-note rate; `text` must be at most 15,360 bytes (15 KiB) when UTF-8 encoded.
+
+### Changed
+- **`phenoml.fhir2Omop.OmopTables`** — documents that `unit_concept_id` (Measurement, Observation, Specimen), `unit_source_concept_id` (Measurement), and `anatomic_site_concept_id` (Specimen) are always present as nullable fields: `null` when the source value is absent and `0` when supplied but unmapped.
+
 ## [19.2.0] - 2026-10-21
 ### Added
 - **`CreateRequest.Resource.PhenomlHpoCondition` and `.PhenomlHpoPhenotypicObservation`** — two new built-in HPO extraction profiles for coding clinical findings with the Human Phenotype Ontology, requestable by id.
