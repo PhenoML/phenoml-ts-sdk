@@ -1,3 +1,6 @@
+## [20.0.0] - 2026-10-27
+`MeasurementRow.unit_concept_id` and `ObservationRow.unit_concept_id` change from a non-nullable integer (previously always `0` for absent units) to a nullable integer (now `null` for absent units), breaking existing callers that treat the field as always-present; `MeasurementRow` also gains a new required `unit_source_concept_id` field, and `fhir2omop_MeasurementRow` / `fhir2omop_ObservationRow` add `required` constraints on those fields.
+
 ## [19.2.0] - 2026-10-21
 ### Added
 - **`CreateRequest.Resource.PhenomlHpoCondition` and `.PhenomlHpoPhenotypicObservation`** — two new built-in HPO extraction profiles for coding clinical findings with the Human Phenotype Ontology, requestable by id.
