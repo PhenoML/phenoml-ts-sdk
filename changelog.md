@@ -1,3 +1,13 @@
+## [19.3.0] - 2026-10-27
+### Added
+- **`CreateMultiRequest.small_note`** — new optional boolean field that bills the request at the lower small-note rate; when `true`, `text` must be at most 15,360 bytes (15 KiB) UTF-8 encoded.
+- **`UploadItemRequest` batch body** — `small_note` is now documented as an accepted field in the multi-resource JSON body passed to batch upload items.
+
+### Changed
+- **`phenoml.fhir2Omop.OmopTables`** — documents that `unit_concept_id` (Measurement, Observation, Specimen), `unit_source_concept_id` (Measurement), and `anatomic_site_concept_id` (Specimen) are always present nullable fields: `null` when the source value is absent, `0` when supplied but unmapped.
+- **`phenoml.fhir2Omop.CreateOmopResponse.quantity_transformations`** — clarifies that quantity auditing applies only to `drug_exposure` rows; resources returned in other clinical tables have no quantity entry.
+- **`phenoml.fhir2Omop.Summary`** — expands the documented set of counted outcomes to include coded Observation result values, Encounter classification, Address.country, CMS Place of Service, Practitioner gender, and specimen material.
+
 ## [19.2.0] - 2026-10-21
 ### Added
 - **`CreateRequest.Resource.PhenomlHpoCondition` and `.PhenomlHpoPhenotypicObservation`** — two new built-in HPO extraction profiles for coding clinical findings with the Human Phenotype Ontology, requestable by id.
