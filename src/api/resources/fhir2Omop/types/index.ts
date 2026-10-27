@@ -10,6 +10,7 @@ export * from "./MappingEntry.js";
 export * from "./MappingPath.js";
 export * from "./MappingResolution.js";
 export * from "./MeasurementRow.js";
+export * from "./MedicationDispenseSourceContext.js";
 export * from "./ObservationPeriodRow.js";
 export * from "./ObservationRow.js";
 export * from "./OmopTables.js";

@@ -48,6 +48,7 @@ export interface QuantityTransformation {
 export namespace QuantityTransformation {
     export const ResourceType = {
         MedicationRequest: "MedicationRequest",
+        MedicationDispense: "MedicationDispense",
         MedicationAdministration: "MedicationAdministration",
         Immunization: "Immunization",
     } as const;
@@ -55,6 +56,7 @@ export namespace QuantityTransformation {
     /** Exact source element path relative to resource_type. */
     export const SourcePath = {
         DispenseRequestQuantity: "dispenseRequest.quantity",
+        Quantity: "quantity",
         DosageDose: "dosage.dose",
         DoseQuantity: "doseQuantity",
     } as const;

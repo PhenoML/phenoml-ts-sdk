@@ -322,6 +322,15 @@ describe("Fhir2OmopClient", () => {
                     source_id_path: "source_id_path",
                 },
             ],
+            medication_dispense_source_contexts: [
+                {
+                    resource_id: "resource_id",
+                    full_url: "full_url",
+                    omop_table: "drug_exposure",
+                    omop_id: 1000000,
+                    source: { key: "value" },
+                },
+            ],
             provider_role_contexts: [
                 {
                     provider_id: 1000000,
@@ -714,6 +723,15 @@ describe("Fhir2OmopClient", () => {
                     identifiers: [{ value: "value" }],
                     accession_identifier: { value: "value" },
                     source_id_path: "source_id_path",
+                },
+            ],
+            medication_dispense_source_contexts: [
+                {
+                    resource_id: "resource_id",
+                    full_url: "full_url",
+                    omop_table: "drug_exposure",
+                    omop_id: 1000000,
+                    source: { key: "value" },
                 },
             ],
             provider_role_contexts: [
