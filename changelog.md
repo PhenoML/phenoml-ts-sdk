@@ -1,3 +1,15 @@
+## [19.3.0] - 2026-10-27
+### Added
+- **`phenoml.fhir2Omop.DeviceExposureRow`, `DeviceExposureContext`, `DeviceExposureEvidence`, and `DeviceExposureLink`** — new types representing OMOP CDM device exposure rows, their shared source context, evidence paths, and row links.
+- **`OmopTables.device_exposure`** — new optional `DeviceExposureRow[]` field on the OMOP output tables object, surfacing device use and implant records alongside existing clinical tables.
+- **`phenoml.fhir2Omop.MedicationDispenseSourceContext`** — new type capturing the original dispensing context (status, timing, performer, dosage, etc.) linked to an emitted OMOP row via `omop_table` and `omop_id`.
+- **`QuantityTransformation.ResourceType.MedicationDispense` and `QuantityTransformation.SourcePath.Quantity`** — extend quantity-transformation auditing to cover `MedicationDispense.quantity` alongside existing medication request and administration paths.
+- **`CreateMultiRequest.small_note`** — new optional boolean that bills the request at the lower small-note rate; `text` must be at most 15,360 bytes (15 KiB) when set to `true`.
+
+### Changed
+- **`OmopTables` nullable concept fields** — `unit_concept_id` on Measurement, Observation, and Specimen rows; `unit_source_concept_id` on Measurement rows; and `anatomic_site_concept_id` on Specimen rows are now documented as always present (`null` when the source value is absent, `0` when supplied but unmapped); Device exposure `unit_concept_id` and `unit_source_concept_id` are always `null`.
+- **`ReferenceDiagnostic.path`** — now documents slash-separated related paths for joint rules such as `whenHandedOver/daysSupply`, in addition to single FHIR element paths.
+
 ## [19.2.0] - 2026-10-21
 ### Added
 - **`CreateRequest.Resource.PhenomlHpoCondition` and `.PhenomlHpoPhenotypicObservation`** — two new built-in HPO extraction profiles for coding clinical findings with the Human Phenotype Ontology, requestable by id.
