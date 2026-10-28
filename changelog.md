@@ -1,3 +1,11 @@
+## [19.3.0] - 2026-10-28
+### Added
+- **`phenoml.fhir2Omop.AllergyMappingResolution` and `AllergyCodingEvidence`** — new types exposing allergy intolerance finding policy, contextual method, status, date source, category derivation, and per-coding evidence for AllergyIntolerance rows.
+- **`phenoml.fhir2Omop.DeviceExposureRow`, `DeviceExposureContext`, `DeviceExposureEvidence`, and `DeviceExposureLink`** — new types representing OMOP CDM device exposure rows, shared source context, raw field evidence, and row-to-context links.
+- **`phenoml.fhir2Omop.SpecialtyResolution` and `SpecialtyCodingResult`** — new types surfacing specialty-level text-fallback decisions and independent per-coding resolution outcomes on provider mappings.
+- **`phenoml.fhir2Omop.MedicationDispenseSourceContext`** — new type preserving original MedicationDispense source values and linking them to their emitted OMOP table and row id.
+- **`phenoml.fhir2Omop.QuantityUnitConversion`** — new type recording successful UCUM unit conversions applied before strength arithmetic; **`RowForReview.Reason`** gains `medication_statement_status_unknown`, `observation_status_unknown`, and `procedure_status_unknown` values; **`CreateMultiRequest.small_note`** optional boolean enables the lower small-note billing rate (text must be ≤ 15 KiB UTF-8).
+
 ## [19.2.0] - 2026-10-21
 ### Added
 - **`CreateRequest.Resource.PhenomlHpoCondition` and `.PhenomlHpoPhenotypicObservation`** — two new built-in HPO extraction profiles for coding clinical findings with the Human Phenotype Ontology, requestable by id.
