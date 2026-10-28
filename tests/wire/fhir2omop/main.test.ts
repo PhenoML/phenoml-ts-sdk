@@ -133,6 +133,17 @@ describe("Fhir2OmopClient", () => {
                 ],
                 procedure_occurrence: [{}],
                 measurement: [{}],
+                device_exposure: [
+                    {
+                        device_exposure_id: 1000000,
+                        person_id: 1000000,
+                        device_concept_id: 1000000,
+                        device_exposure_start_datetime: "2026-01-01T23:30:00",
+                        device_exposure_end_datetime: "2026-01-03T08:00:00",
+                        device_type_concept_id: 1000000,
+                        device_source_concept_id: 1000000,
+                    },
+                ],
                 specimen: [
                     {
                         specimen_id: 1000000,
@@ -165,6 +176,11 @@ describe("Fhir2OmopClient", () => {
                             amount_unit: { concept_id: 400, code: "mg", vocabulary_id: "UCUM" },
                         },
                     },
+                    unit_conversion: {
+                        source_code: "source_code",
+                        result: 1.1,
+                        result_unit: { concept_id: 1000000, code: "code", vocabulary_id: "vocabulary_id" },
+                    },
                     result: 2,
                     result_unit: { concept_id: 200, code: "317541", vocabulary_id: "RxNorm" },
                 },
@@ -190,6 +206,11 @@ describe("Fhir2OmopClient", () => {
                             denominator_unit: { concept_id: 401, code: "mL", vocabulary_id: "UCUM" },
                             denominator_basis: { kind: "PER_UNIT", value: 1 },
                         },
+                    },
+                    unit_conversion: {
+                        source_code: "source_code",
+                        result: 1.1,
+                        result_unit: { concept_id: 1000000, code: "code", vocabulary_id: "vocabulary_id" },
                     },
                     result: 160,
                     result_unit: { concept_id: 400, code: "mg", vocabulary_id: "UCUM" },
@@ -219,6 +240,11 @@ describe("Fhir2OmopClient", () => {
                             amount_unit: { concept_id: 400, code: "mg", vocabulary_id: "UCUM" },
                         },
                     },
+                    unit_conversion: {
+                        source_code: "source_code",
+                        result: 1.1,
+                        result_unit: { concept_id: 1000000, code: "code", vocabulary_id: "vocabulary_id" },
+                    },
                     result: 30,
                     result_unit: { concept_id: 200, code: "317541", vocabulary_id: "RxNorm" },
                 },
@@ -234,6 +260,11 @@ describe("Fhir2OmopClient", () => {
                     policy: "fixed_dose_form_count",
                     reason: "unsupported_unit",
                     evidence: { drug_concept_id: 1000000 },
+                    unit_conversion: {
+                        source_code: "source_code",
+                        result: 1.1,
+                        result_unit: { concept_id: 1000000, code: "code", vocabulary_id: "vocabulary_id" },
+                    },
                     result: 1.1,
                     result_unit: { concept_id: 1000000, code: "code", vocabulary_id: "vocabulary_id" },
                 },
@@ -311,6 +342,21 @@ describe("Fhir2OmopClient", () => {
                     note: "note",
                 },
             ],
+            device_exposure_contexts: [
+                {
+                    resource_type: "DeviceUseStatement",
+                    resource_id: "use-1",
+                    source_full_url: "source_full_url",
+                    exposures: [
+                        { device_exposure_id: 1, event_index: 0 },
+                        { device_exposure_id: 2, event_index: 1 },
+                    ],
+                    quantity_basis: "default_absent_count",
+                    evidence: [
+                        { path: "timingTiming", value: { event: ["2026-01-01T09:00:00Z", "2026-01-03T09:00:00Z"] } },
+                    ],
+                },
+            ],
             specimen_source_contexts: [
                 {
                     specimen_id: 1000000,
@@ -320,6 +366,15 @@ describe("Fhir2OmopClient", () => {
                     identifiers: [{ value: "value" }],
                     accession_identifier: { value: "value" },
                     source_id_path: "source_id_path",
+                },
+            ],
+            medication_dispense_source_contexts: [
+                {
+                    resource_id: "resource_id",
+                    full_url: "full_url",
+                    omop_table: "drug_exposure",
+                    omop_id: 1000000,
+                    source: { key: "value" },
                 },
             ],
             provider_role_contexts: [
@@ -527,6 +582,17 @@ describe("Fhir2OmopClient", () => {
                 ],
                 procedure_occurrence: [{}],
                 measurement: [{}],
+                device_exposure: [
+                    {
+                        device_exposure_id: 1000000,
+                        person_id: 1000000,
+                        device_concept_id: 1000000,
+                        device_exposure_start_datetime: "2026-01-01T23:30:00",
+                        device_exposure_end_datetime: "2026-01-03T08:00:00",
+                        device_type_concept_id: 1000000,
+                        device_source_concept_id: 1000000,
+                    },
+                ],
                 specimen: [
                     {
                         specimen_id: 1000000,
@@ -559,6 +625,11 @@ describe("Fhir2OmopClient", () => {
                             amount_unit: { concept_id: 400, code: "mg", vocabulary_id: "UCUM" },
                         },
                     },
+                    unit_conversion: {
+                        source_code: "source_code",
+                        result: 1.1,
+                        result_unit: { concept_id: 1000000, code: "code", vocabulary_id: "vocabulary_id" },
+                    },
                     result: 2,
                     result_unit: { concept_id: 200, code: "317541", vocabulary_id: "RxNorm" },
                 },
@@ -584,6 +655,11 @@ describe("Fhir2OmopClient", () => {
                             denominator_unit: { concept_id: 401, code: "mL", vocabulary_id: "UCUM" },
                             denominator_basis: { kind: "PER_UNIT", value: 1 },
                         },
+                    },
+                    unit_conversion: {
+                        source_code: "source_code",
+                        result: 1.1,
+                        result_unit: { concept_id: 1000000, code: "code", vocabulary_id: "vocabulary_id" },
                     },
                     result: 160,
                     result_unit: { concept_id: 400, code: "mg", vocabulary_id: "UCUM" },
@@ -613,6 +689,11 @@ describe("Fhir2OmopClient", () => {
                             amount_unit: { concept_id: 400, code: "mg", vocabulary_id: "UCUM" },
                         },
                     },
+                    unit_conversion: {
+                        source_code: "source_code",
+                        result: 1.1,
+                        result_unit: { concept_id: 1000000, code: "code", vocabulary_id: "vocabulary_id" },
+                    },
                     result: 30,
                     result_unit: { concept_id: 200, code: "317541", vocabulary_id: "RxNorm" },
                 },
@@ -628,6 +709,11 @@ describe("Fhir2OmopClient", () => {
                     policy: "fixed_dose_form_count",
                     reason: "unsupported_unit",
                     evidence: { drug_concept_id: 1000000 },
+                    unit_conversion: {
+                        source_code: "source_code",
+                        result: 1.1,
+                        result_unit: { concept_id: 1000000, code: "code", vocabulary_id: "vocabulary_id" },
+                    },
                     result: 1.1,
                     result_unit: { concept_id: 1000000, code: "code", vocabulary_id: "vocabulary_id" },
                 },
@@ -705,6 +791,21 @@ describe("Fhir2OmopClient", () => {
                     note: "note",
                 },
             ],
+            device_exposure_contexts: [
+                {
+                    resource_type: "DeviceUseStatement",
+                    resource_id: "use-1",
+                    source_full_url: "source_full_url",
+                    exposures: [
+                        { device_exposure_id: 1, event_index: 0 },
+                        { device_exposure_id: 2, event_index: 1 },
+                    ],
+                    quantity_basis: "default_absent_count",
+                    evidence: [
+                        { path: "timingTiming", value: { event: ["2026-01-01T09:00:00Z", "2026-01-03T09:00:00Z"] } },
+                    ],
+                },
+            ],
             specimen_source_contexts: [
                 {
                     specimen_id: 1000000,
@@ -714,6 +815,15 @@ describe("Fhir2OmopClient", () => {
                     identifiers: [{ value: "value" }],
                     accession_identifier: { value: "value" },
                     source_id_path: "source_id_path",
+                },
+            ],
+            medication_dispense_source_contexts: [
+                {
+                    resource_id: "resource_id",
+                    full_url: "full_url",
+                    omop_table: "drug_exposure",
+                    omop_id: 1000000,
+                    source: { key: "value" },
                 },
             ],
             provider_role_contexts: [

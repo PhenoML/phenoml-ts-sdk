@@ -10,7 +10,7 @@ export interface ReferenceDiagnostic {
     omop_table?: string | undefined;
     /** Primary key of the affected row within omop_table in this response. Present together with omop_table when that row is emitted. */
     omop_id?: number | undefined;
-    /** FHIR element path on the source resource. */
+    /** FHIR element path on the source resource, or slash-separated related paths for a joint rule such as whenHandedOver/daysSupply. */
     path?: string | undefined;
     /** The supplied Reference.reference value, when present. */
     reference?: string | undefined;
