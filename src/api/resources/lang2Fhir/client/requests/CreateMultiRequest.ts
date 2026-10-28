@@ -26,6 +26,8 @@ export interface CreateMultiRequest {
     /** FHIR validation method to apply to the generated bundle. 'none' skips validation (default). 'check' runs the bundle through a FHIR structure validator and includes the results in the response. 'fix' runs validation and attempts to auto-correct errors using an LLM (up to 3 validation passes). The response includes results from each pass. Warning: 'fix' can significantly increase latency due to multiple LLM and validation round-trips. */
     validation_method?: CreateMultiRequest.ValidationMethod;
     resource_review?: phenoml.lang2Fhir.ResourceReview;
+    /** Bills the request at the lower small-note rate. When true, `text` must be at most 15,360 bytes (15 KiB) when UTF-8 encoded; longer text is rejected with a 400 error. Extraction behavior is the same as a standard request. */
+    small_note?: boolean;
 }
 
 export namespace CreateMultiRequest {

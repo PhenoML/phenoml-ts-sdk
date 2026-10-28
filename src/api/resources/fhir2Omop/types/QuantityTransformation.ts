@@ -17,7 +17,7 @@ export interface QuantityTransformation {
     omop_field: "quantity";
     /** The drug_exposure_id of the row in this response. */
     omop_id: number;
-    /** DIRECT copies a matched fixed-form count or supplied ingredient amount; DERIVED calculates a dose-form count or ingredient amount under the named policy; OMITTED leaves quantity unset while retaining the row. */
+    /** DIRECT copies a matched fixed-form count or an ingredient amount in the same unit; DERIVED converts units or calculates a dose-form count or ingredient amount under the named policy; OMITTED leaves quantity unset while retaining the row. */
     outcome: QuantityTransformation.Outcome;
     /** The formulation policy documented in the endpoint description. May be present for an omission occurring after policy selection. */
     policy?: QuantityTransformation.Policy | undefined;
@@ -34,12 +34,13 @@ export interface QuantityTransformation {
      * - unsupported_drug_class: the drug is outside Clinical Drug or Branded Drug, including quantified products and packs.
      * - unsupported_dose_form: the dose form has no supported classification for these policies.
      * - unsupported_strength: strength does not establish the selected policy, including missing, non-positive, non-finite, or conflicting values or an absent/unsupported denominator basis for volume conversion.
-     * - unit_mismatch: no exact validated UCUM strength unit matches the source coding, or an explicit count disagrees with the selected tablet/capsule form.
+     * - unit_mismatch: the source neither matches a validated vocabulary-backed strength unit nor converts within the documented supported unit groups, or an explicit count disagrees with the selected tablet/capsule form.
      * - unsupported_fraction: a fixed-form count is not whole units or multiples of one-half or one-third.
      * - invalid_result: arithmetic does not produce a positive finite result.
      */
     reason?: QuantityTransformation.Reason | undefined;
     evidence?: phenoml.fhir2Omop.QuantityEvidence | undefined;
+    unit_conversion?: phenoml.fhir2Omop.QuantityUnitConversion | undefined;
     /** Same numeric value as the linked row's quantity. */
     result?: number | undefined;
     result_unit?: phenoml.fhir2Omop.QuantityUnit | undefined;
@@ -48,6 +49,7 @@ export interface QuantityTransformation {
 export namespace QuantityTransformation {
     export const ResourceType = {
         MedicationRequest: "MedicationRequest",
+        MedicationDispense: "MedicationDispense",
         MedicationAdministration: "MedicationAdministration",
         Immunization: "Immunization",
     } as const;
@@ -55,11 +57,12 @@ export namespace QuantityTransformation {
     /** Exact source element path relative to resource_type. */
     export const SourcePath = {
         DispenseRequestQuantity: "dispenseRequest.quantity",
+        Quantity: "quantity",
         DosageDose: "dosage.dose",
         DoseQuantity: "doseQuantity",
     } as const;
     export type SourcePath = (typeof SourcePath)[keyof typeof SourcePath];
-    /** DIRECT copies a matched fixed-form count or supplied ingredient amount; DERIVED calculates a dose-form count or ingredient amount under the named policy; OMITTED leaves quantity unset while retaining the row. */
+    /** DIRECT copies a matched fixed-form count or an ingredient amount in the same unit; DERIVED converts units or calculates a dose-form count or ingredient amount under the named policy; OMITTED leaves quantity unset while retaining the row. */
     export const Outcome = {
         Direct: "DIRECT",
         Derived: "DERIVED",
@@ -85,7 +88,7 @@ export namespace QuantityTransformation {
      * - unsupported_drug_class: the drug is outside Clinical Drug or Branded Drug, including quantified products and packs.
      * - unsupported_dose_form: the dose form has no supported classification for these policies.
      * - unsupported_strength: strength does not establish the selected policy, including missing, non-positive, non-finite, or conflicting values or an absent/unsupported denominator basis for volume conversion.
-     * - unit_mismatch: no exact validated UCUM strength unit matches the source coding, or an explicit count disagrees with the selected tablet/capsule form.
+     * - unit_mismatch: the source neither matches a validated vocabulary-backed strength unit nor converts within the documented supported unit groups, or an explicit count disagrees with the selected tablet/capsule form.
      * - unsupported_fraction: a fixed-form count is not whole units or multiples of one-half or one-third.
      * - invalid_result: arithmetic does not produce a positive finite result.
      */

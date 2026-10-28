@@ -119,11 +119,11 @@ export interface CreateOmopRequest {
      * FHIR resources (single resource or Bundle). Must contain at least one
      * Patient resource. Supported row-producing resources are Patient,
      * Location, Organization, HealthcareService, Practitioner,
-     * PractitionerRole, Encounter, Specimen, Condition, Procedure,
-     * MedicationRequest, MedicationStatement, MedicationAdministration,
-     * Immunization, Observation, and AllergyIntolerance. Standalone Medication resources
-     * are consumed by medication references rather than mapped to their own
-     * table. Unsupported resource types are accepted in a Bundle but ignored.
+     * PractitionerRole, Encounter, Specimen, DeviceUseStatement, Condition, Procedure,
+     * MedicationRequest, MedicationStatement, MedicationAdministration, MedicationDispense,
+     * Immunization, Observation, and AllergyIntolerance. Medication and Device
+     * resources provide referenced details without independently producing rows.
+     * Unsupported resource types are accepted in a Bundle but ignored.
      */
     fhir_resources: Record<string, unknown>;
 }
