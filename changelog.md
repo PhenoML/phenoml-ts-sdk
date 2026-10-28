@@ -1,3 +1,19 @@
+## [20.0.0] - 2026-10-28
+### Breaking Changes
+- **`AllergyIntolerance` contextual finding policy** — coded `AllergyIntolerance` resources now resolve substance into `value_as_concept_id` separately from the OMOP finding concept, exclude `device_exposure` as a placement target, and drop the resource with an `allergy_type_unrecognized` or `allergy_category_unrecognized` diagnostic on invalid `type` or `category`; callers must ensure `type` and `category` carry recognized values.
+
+### Added
+- **`DeviceUseStatement` → `device_exposure` conversion** — `DeviceUseStatement` resources in a Bundle now produce `device_exposure` rows with multi-row expansion for `timingTiming` events, UDI carrier support, and a `device_exposure_contexts` audit structure.
+- **`MedicationDispense` → `drug_exposure` conversion** — `MedicationDispense` resources map to `drug_exposure` rows using `drug_type_concept_id` 32825, with `whenHandedOver` as the start date and `daysSupply` as `days_supply`.
+- **`DeviceExposureRow`, `DeviceExposureLink`, `DeviceExposureContext`, and `DeviceExposureEvidence`** — new `phenoml.fhir2Omop` types representing OMOP CDM `device_exposure` output including UDI-DI, provider, visit linkage, and source concept provenance.
+- **`MedicationDispenseSourceContext` and `QuantityUnitConversion`** — new `phenoml.fhir2Omop` types preserving the original `MedicationDispense` fields and auditing UCUM unit conversions applied before strength arithmetic.
+- **`AllergyCodingEvidence`, `AllergyMappingResolution`, and `RowForReview.Item` status values** — new types exposing coding evidence and vocabulary resolution for `AllergyIntolerance` rows, plus new `medication_statement_status_unknown`, `observation_status_unknown`, and `procedure_status_unknown` flag values.
+- **`CreateMultiRequest.small_note`** — optional boolean that bills a `lang2Fhir` multi-document request at the lower small-note rate; `text` must be at most 15,360 bytes when `true`.
+
+### Changed
+- **Drug quantity unit conversion** — quantity derivation now supports cross-unit conversion within mass (`ug`/`mg`/`g`), volume (`uL`/`mL`/`L`), and milliequivalent groups, with converted amounts recorded in `quantity_transformations.unit_conversion`.
+- **`rows_for_review` retention for `unknown` status** — `MedicationStatement`, `Observation`, and `Procedure` resources with an explicit `unknown` status are now retained and indexed in `rows_for_review` rather than dropped.
+
 ## [19.2.0] - 2026-10-21
 ### Added
 - **`CreateRequest.Resource.PhenomlHpoCondition` and `.PhenomlHpoPhenotypicObservation`** — two new built-in HPO extraction profiles for coding clinical findings with the Human Phenotype Ontology, requestable by id.
