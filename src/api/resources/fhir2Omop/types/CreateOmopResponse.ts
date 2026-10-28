@@ -6,7 +6,7 @@ export interface CreateOmopResponse {
     success?: boolean | undefined;
     message?: string | undefined;
     tables?: phenoml.fhir2Omop.OmopTables | undefined;
-    /** Audits supplied direct drug quantities on emitted rows, including derivations and omissions. Omitted when no applicable quantity was supplied. Entries use the response's vocabulary release and do not affect terminology mapping counts in summary. The examples use illustrative concept IDs; actual IDs and evidence belong to vocab_version. */
+    /** Audits supplied direct quantities on emitted drug_exposure rows, including derivations and omissions. Resources returned in other clinical tables have no quantity entry. Omitted when no applicable quantity was supplied on a drug_exposure row. Entries use the response's vocabulary release and do not affect terminology mapping counts in summary. The examples use illustrative concept IDs; actual IDs and evidence belong to vocab_version. */
     quantity_transformations?: phenoml.fhir2Omop.QuantityTransformation[] | undefined;
     /**
      * Index of otherwise shapeable clinical rows with uncertain source status
@@ -54,8 +54,12 @@ export interface CreateOmopResponse {
      * `observation` race row when the person has more than one race.
      */
     mappings?: phenoml.fhir2Omop.MappingEntry[] | undefined;
+    /** One entry per source record that produced device exposures. Each entry groups the derived row links and returns their shared timing, device evidence, and quantity explanation once. Original source values may contain clinical data. */
+    device_exposure_contexts?: phenoml.fhir2Omop.DeviceExposureContext[] | undefined;
     /** Source identities, availability status, and collection timing for emitted specimens, linked by request-local specimen_id. Preserves valued identifier system/value pairs, accession identity, resource id/fullUrl, the chosen source-ID path, and supplied collection/received timing with original precision and offsets. */
     specimen_source_contexts?: phenoml.fhir2Omop.SpecimenSourceContext[] | undefined;
+    /** Supplied dispensing status, timing, instructions, and references linked to each emitted dispensing row, including rows placed in another clinical table. Omitted when there are no emitted dispenses. This response metadata is independent of rows_for_review and does not establish administration or adherence. */
+    medication_dispense_source_contexts?: phenoml.fhir2Omop.MedicationDispenseSourceContext[] | undefined;
     /**
      * Additive FHIR provenance for every supplied PractitionerRole. Each
      * context identifies the canonical or role-fallback provider row and
@@ -72,6 +76,8 @@ export interface CreateOmopResponse {
      * lacks only a date or another CDM-required field is usually returned
      * as a partial row. Specimen requires an explicit resolvable Patient
      * subject but retains missing dates/material with linked diagnostics.
+     * DeviceUseStatement also requires an explicit resolvable Patient subject;
+     * missing Device details or timing retain partial exposure rows.
      * Unsupported resource types are ignored and do not appear here.
      * Eligibility exclusions use stable, resource-specific `reason` codes;
      * other shaping failures retain an explanatory reason string.
@@ -82,7 +88,13 @@ export interface CreateOmopResponse {
      * an OMOP link or canonicalize a `PractitionerRole` provider identity, or explicit
      * subject/patient references that caused a clinical row to be dropped.
      * Specimen missing/unusable collection dates, material, subject, status,
-     * and invalid optional quantity are also explained here.
+     * and invalid optional quantity are also explained here. Device-use status,
+     * attribution, missing detail, timing omissions/conflicts, UDI ambiguity,
+     * and unsupported device counts are also reported with row links when
+     * a row is retained. A shared issue can link to multiple event rows.
+     * MedicationDispense missing/unusable handover, absent exposure end,
+     * unsupported supplied daysSupply, conflicting routes, and unsafe
+     * medication or authorizing-prescription references are also reported.
      * Missing optional references are normal and do not produce a diagnostic.
      * References resolve only against resources supplied in this request.
      * Outcomes distinguish unresolved, ambiguous, conflicting, and unsupported
