@@ -1,3 +1,15 @@
+## [19.3.0] - 2026-10-28
+### Added
+- **`DeviceUseStatement` → `device_exposure` conversion** — the FHIR-to-OMOP pipeline now maps `DeviceUseStatement` resources to `device_exposure` rows with full timing semantics, UDI carrier support, and a `device_exposure_contexts` audit structure.
+- **`MedicationDispense` → `drug_exposure` conversion** — `MedicationDispense` resources (completed and completed-partial-fill) are now converted to `drug_exposure` rows using `whenHandedOver`, `daysSupply`, quantity, route, `sig`, and performer-derived `provider_id`.
+- **`phenoml.fhir2Omop.DeviceExposureRow`** — new output type representing an OMOP CDM device-exposure row, with supporting types `DeviceExposureContext`, `DeviceExposureEvidence`, and `DeviceExposureLink`.
+- **`phenoml.fhir2Omop.MedicationDispenseSourceContext`**, **`QuantityUnitConversion`**, **`AllergyCodingEvidence`**, and **`AllergyMappingResolution`** — new audit and evidence types for MedicationDispense, unit conversion, and AllergyIntolerance mapping.
+- **`CreateMultiRequest.small_note`** — new optional boolean that bills the request at the lower small-note rate; `text` must be at most 15,360 bytes when `true`.
+
+### Changed
+- **`AllergyIntolerance` contextual finding policy** — coded `AllergyIntolerance` statements now resolve a finding concept via `value_as_concept_id` using substance `type` and `category`; invalid values drop the resource with `allergy_type_unrecognized` or `allergy_category_unrecognized`.
+- **Drug quantity unit conversion** — source and strength units in the same mass, volume, or milliequivalent group are now converted before count derivation or volume multiplication; `quantity_transformations` gains a `unit_conversion` field recording the intermediate amount and target unit.
+
 ## [19.2.0] - 2026-10-21
 ### Added
 - **`CreateRequest.Resource.PhenomlHpoCondition` and `.PhenomlHpoPhenotypicObservation`** — two new built-in HPO extraction profiles for coding clinical findings with the Human Phenotype Ontology, requestable by id.
