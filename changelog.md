@@ -1,3 +1,10 @@
+## [20.0.0] - 2026-10-28
+### Added
+- **`phenoml.fhir2Omop.AllergyCodingEvidence` and `.AllergyMappingResolution`** — new exported types representing allergy coding evidence and resolution outcomes from the FHIR-to-OMOP conversion.
+- **`phenoml.fhir2Omop.DeviceExposureRow`, `.DeviceExposureContext`, `.DeviceExposureEvidence`, and `.DeviceExposureLink`** — new exported types representing OMOP CDM device exposure rows and their supporting provenance and evidence structures.
+- **`phenoml.fhir2Omop.MedicationDispenseSourceContext`** — new exported type representing the source context for medication-dispense mappings.
+- **`CreateMultiRequest.small_note`** — new optional boolean field that bills the request at the lower small-note rate; when `true`, `text` must be at most 15,360 bytes (15 KiB) UTF-8 encoded.
+
 ## [19.2.0] - 2026-10-21
 ### Added
 - **`CreateRequest.Resource.PhenomlHpoCondition` and `.PhenomlHpoPhenotypicObservation`** — two new built-in HPO extraction profiles for coding clinical findings with the Human Phenotype Ontology, requestable by id.
