@@ -16,6 +16,7 @@ export interface ObservationRow {
     visit_occurrence_id?: number | undefined;
     provider_id?: number | undefined;
     observation_source_value?: string | undefined;
+    /** For coded AllergyIntolerance rows, the known OMOP identity of the original coding rendered in observation_source_value, even when the finding is unresolved. 0 when no original source identity is known; the configured contextual finding is not a source concept. */
     observation_source_concept_id?: number | undefined;
     /** Original Quantity.code if supplied, otherwise Quantity.unit; human-readable unit text is preserved in the unit mapping's source_name. */
     unit_source_value?: string | undefined;
