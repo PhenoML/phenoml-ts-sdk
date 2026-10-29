@@ -16,8 +16,12 @@ export interface MappingPath {
     source_vocabulary?: string | undefined;
     /** Code of the path's source concept in its OMOP vocabulary. */
     source_code?: string | undefined;
-    /** Shared UMLS concept identifier for a bridge path, when supplied. */
+    /** Shared UMLS concept identifier for UMLS_BRIDGE, UMLS_STRING, or NUCC_LABEL, when supplied. */
     cui?: string | undefined;
+    /** UMLS sibling source abbreviation, such as NUCCHCPT for NUCC routes. */
+    sab?: string | undefined;
+    /** Actual vocabulary string matched by a specialty text layer. For NUCC_LABEL this is the full original preferred term, including its grouping prefix; source_text retains the supplied text. */
+    matched_text?: string | undefined;
 }
 
 export namespace MappingPath {
