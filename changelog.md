@@ -1,3 +1,13 @@
+## [20.0.0] - 2026-10-29
+### Breaking Changes
+- **`ResourceReviewRemediated.action`** — type widened from `"removed_codings" | undefined` to `ResourceReviewRemediated.Action | undefined`; update any exhaustive switch/conditional logic to handle the new `"removed_fields"` and `"flagged_required"` values.
+
+### Added
+- **`ResourceReviewRemediated.Action`** — new typed enum namespace with `RemovedCodings`, `RemovedFields`, and `FlaggedRequired` constants replacing the previous bare string literal type.
+- **`phenoml.fhir2Omop.SpecialtyCodingResult` and `SpecialtyResolution`** — new types exposing per-coding resolution outcomes and text-fallback decisions for practitioner specialty entries.
+- **`phenoml.fhir2Omop.DeviceExposureRow`, `DeviceExposureContext`, `DeviceExposureEvidence`, and `DeviceExposureLink`** — new types representing OMOP `device_exposure` table rows with supporting evidence and linkage context.
+- **`phenoml.fhir2Omop.AllergyCodingEvidence`, `AllergyMappingResolution`, `MedicationDispenseSourceContext`, and `QuantityUnitConversion`** — new types for allergy coding provenance, medication dispense source context, and unit conversion provenance.
+
 ## [19.2.0] - 2026-10-21
 ### Added
 - **`CreateRequest.Resource.PhenomlHpoCondition` and `.PhenomlHpoPhenotypicObservation`** — two new built-in HPO extraction profiles for coding clinical findings with the Human Phenotype Ontology, requestable by id.
