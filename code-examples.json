@@ -2,8 +2,8 @@
   "metadata": {
     "language": "typescript",
     "packageName": "phenoml",
-    "sdkVersion": "19.2.0",
-    "specCommit": "354de55c817a801b5a43654f28396a05d739275a",
+    "sdkVersion": "20.0.0",
+    "specCommit": "bb14930195953c641d1d8ffdd26800cb3c2e7c2d",
     "generatorName": "fernapi/fern-typescript-sdk"
   },
   "renderRules": {
@@ -3595,6 +3595,8 @@
                 "patient",
                 "phenoml-hpo-condition",
                 "phenoml-hpo-phenotypic-observation",
+                "phenoml-hpo-head-circumference-tape-measure",
+                "phenoml-hpo-head-circumference-percentile",
                 "procedure",
                 "questionnaire",
                 "questionnaireresponse",
@@ -3707,85 +3709,7 @@
               "jsonKey": "primary_patient",
               "fieldTemplate": "\"primary_patient\": {{value}}",
               "kind": "object",
-              "required": false,
-              "nested": {
-                "fieldSeparator": ", ",
-                "fields": [
-                  {
-                    "jsonKey": "identifier",
-                    "fieldTemplate": "\"identifier\": {{value}}",
-                    "kind": "object",
-                    "required": false,
-                    "nested": {
-                      "fieldSeparator": ", ",
-                      "fields": [
-                        {
-                          "jsonKey": "system",
-                          "fieldTemplate": "\"system\": {{value}}",
-                          "kind": "string",
-                          "required": true
-                        },
-                        {
-                          "jsonKey": "value",
-                          "fieldTemplate": "\"value\": {{value}}",
-                          "kind": "string",
-                          "required": true
-                        }
-                      ],
-                      "wrap": "{ {{__body__}} }"
-                    }
-                  },
-                  {
-                    "jsonKey": "name",
-                    "fieldTemplate": "\"name\": {{value}}",
-                    "kind": "object",
-                    "required": false,
-                    "nested": {
-                      "fieldSeparator": ", ",
-                      "fields": [
-                        {
-                          "jsonKey": "family",
-                          "fieldTemplate": "\"family\": {{value}}",
-                          "kind": "string",
-                          "required": false
-                        },
-                        {
-                          "jsonKey": "given",
-                          "fieldTemplate": "\"given\": {{value}}",
-                          "kind": "list",
-                          "required": false,
-                          "items": {
-                            "jsonKey": "",
-                            "fieldTemplate": "{{value}}",
-                            "kind": "string",
-                            "required": true
-                          }
-                        }
-                      ],
-                      "wrap": "{ {{__body__}} }"
-                    }
-                  },
-                  {
-                    "jsonKey": "birthDate",
-                    "fieldTemplate": "\"birthDate\": {{value}}",
-                    "kind": "string",
-                    "required": false
-                  },
-                  {
-                    "jsonKey": "gender",
-                    "fieldTemplate": "\"gender\": {{value}}",
-                    "kind": "enum",
-                    "required": false,
-                    "enumValues": [
-                      "male",
-                      "female",
-                      "other",
-                      "unknown"
-                    ]
-                  }
-                ],
-                "wrap": "{ {{__body__}} }"
-              }
+              "required": false
             },
             {
               "jsonKey": "patient_reference",
@@ -3889,6 +3813,12 @@
                 ],
                 "wrap": "{ {{__body__}} }"
               }
+            },
+            {
+              "jsonKey": "small_note",
+              "fieldTemplate": "\"small_note\": {{value}}",
+              "kind": "boolean",
+              "required": false
             }
           ]
         }
@@ -4329,85 +4259,7 @@
               "jsonKey": "primary_patient",
               "fieldTemplate": "\"primary_patient\": {{value}}",
               "kind": "object",
-              "required": false,
-              "nested": {
-                "fieldSeparator": ", ",
-                "fields": [
-                  {
-                    "jsonKey": "identifier",
-                    "fieldTemplate": "\"identifier\": {{value}}",
-                    "kind": "object",
-                    "required": false,
-                    "nested": {
-                      "fieldSeparator": ", ",
-                      "fields": [
-                        {
-                          "jsonKey": "system",
-                          "fieldTemplate": "\"system\": {{value}}",
-                          "kind": "string",
-                          "required": true
-                        },
-                        {
-                          "jsonKey": "value",
-                          "fieldTemplate": "\"value\": {{value}}",
-                          "kind": "string",
-                          "required": true
-                        }
-                      ],
-                      "wrap": "{ {{__body__}} }"
-                    }
-                  },
-                  {
-                    "jsonKey": "name",
-                    "fieldTemplate": "\"name\": {{value}}",
-                    "kind": "object",
-                    "required": false,
-                    "nested": {
-                      "fieldSeparator": ", ",
-                      "fields": [
-                        {
-                          "jsonKey": "family",
-                          "fieldTemplate": "\"family\": {{value}}",
-                          "kind": "string",
-                          "required": false
-                        },
-                        {
-                          "jsonKey": "given",
-                          "fieldTemplate": "\"given\": {{value}}",
-                          "kind": "list",
-                          "required": false,
-                          "items": {
-                            "jsonKey": "",
-                            "fieldTemplate": "{{value}}",
-                            "kind": "string",
-                            "required": true
-                          }
-                        }
-                      ],
-                      "wrap": "{ {{__body__}} }"
-                    }
-                  },
-                  {
-                    "jsonKey": "birthDate",
-                    "fieldTemplate": "\"birthDate\": {{value}}",
-                    "kind": "string",
-                    "required": false
-                  },
-                  {
-                    "jsonKey": "gender",
-                    "fieldTemplate": "\"gender\": {{value}}",
-                    "kind": "enum",
-                    "required": false,
-                    "enumValues": [
-                      "male",
-                      "female",
-                      "other",
-                      "unknown"
-                    ]
-                  }
-                ],
-                "wrap": "{ {{__body__}} }"
-              }
+              "required": false
             },
             {
               "jsonKey": "patient_reference",
