@@ -1,3 +1,23 @@
+## [19.3.0] - 2026-10-30
+### Added
+- **`CreateMultiRequest.small_note`** — new optional boolean on `client.lang2Fhir.createMulti()` that selects the lower small-note rate with unchanged extraction behavior and a 15,360-byte UTF-8 text limit when true; longer text returns HTTP 400.
+- **`CreateRequest.Resource.PhenomlHpoHeadCircumferenceTapeMeasure` and `.PhenomlHpoHeadCircumferencePercentile`** — new built-in HPO extraction profiles for head circumference expressed as a length or an age-adjusted percentile.
+- **`ResourceReviewRemediated.Action`** — new constants namespace and literal union adds `RemovedFields` (`"removed_fields"`) and `FlaggedRequired` (`"flagged_required"`) alongside the existing `RemovedCodings` (`"removed_codings"`) action.
+- **`phenoml.fhir2Omop.OmopTables.device_exposure`** — new optional output table with `DeviceExposureRow` and supporting `DeviceExposureContext`, `DeviceExposureEvidence`, and `DeviceExposureLink` types for device exposure rows and provenance.
+- **`phenoml.fhir2Omop.CreateOmopResponse.device_exposure_contexts` and `.medication_dispense_source_contexts`** — new optional response fields expose device evidence and dispensing status, timing, instructions, and references through `DeviceExposureContext` and `MedicationDispenseSourceContext`.
+- **`phenoml.fhir2Omop.MappingResolution.specialty_resolution` and `MappingEntry.source_coding_index`** — new optional fields with `SpecialtyResolution` and `SpecialtyCodingResult` types expose per-coding provider-specialty outcomes and text-fallback decisions.
+- **`phenoml.fhir2Omop.MappingResolution.allergy`** — new optional `AllergyMappingResolution` field with `AllergyCodingEvidence` and additional `MappingResolution.ReasonCode` values explains contextual allergy/intolerance mapping outcomes.
+- **`phenoml.fhir2Omop.MappingResolution.source_text`, `MappingPath.sab`, and `.matched_text`** — new optional provenance fields accompany additional `MappingResolution.Via` values for contextual allergy mapping and provider-specialty text resolution.
+- **`phenoml.fhir2Omop.QuantityTransformation.unit_conversion`** — new optional `QuantityUnitConversion` field records intermediate UCUM conversion, with `QuantityTransformation.ResourceType.MedicationDispense` and `.Field.Quantity` identifying dispensing quantities.
+- **`phenoml.fhir2Omop.RowForReview.Reasons.Item`** — adds `MedicationStatementStatusUnknown`, `ObservationStatusUnknown`, and `ProcedureStatusUnknown` reasons for rows with explicit unknown source status.
+
+### Changed
+- **`client.fhir2Omop.create()`** — expanded documentation describes DeviceUseStatement and MedicationDispense support, contextual allergy mapping, provider-specialty resolution, quantity conversion, and row-review eligibility.
+- **`CreateMultiRequest.implementation_guide` and `DocumentMultiRequest.implementation_guide`** — documentation now distinguishes the built-in `us_core` and `phenoml_hpo` guides from custom guides and specifies HTTP 404 for an unknown custom name.
+- **`CreateMultiRequest.detection_effort` and `DocumentMultiRequest.detection_effort`** — documentation now states that the deprecated field is ignored and both values produce the same result.
+- **`client.lang2Fhir.createMulti()` and `.documentMulti()`** — updated documentation describes single-patient bundles and how `primary_patient` supplies patient details or an identifier unless source demographics contradict it.
+- **`DocumentMultiResponse.page_classifications`** — updated documentation specifies classifications on every request and default test-requisition-form filtering when neither `page_filter` nor `split_classifications` is set.
+
 ## [19.2.0] - 2026-10-21
 ### Added
 - **`CreateRequest.Resource.PhenomlHpoCondition` and `.PhenomlHpoPhenotypicObservation`** — two new built-in HPO extraction profiles for coding clinical findings with the Human Phenotype Ontology, requestable by id.

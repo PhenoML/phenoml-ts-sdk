@@ -6,6 +6,6 @@
 export interface PrimaryPatientName {
     /** Family name. */
     family?: string | undefined;
-    /** Given names. Matching succeeds when a generated name has a supplied given name. */
+    /** Given names. */
     given?: string[] | undefined;
 }
