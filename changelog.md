@@ -1,3 +1,6 @@
+## [19.4.0] - 2026-10-30
+New backward-compatible capabilities added: DeviceUseStatement-to-device_exposure mapping, MedicationDispense support, contextual allergy finding policy, provider specialty resolution, QuantityUnitConversion, small_note billing flag, and new rows_for_review reasons — all additive with no removed or renamed public symbols.
+
 ## [19.3.0] - 2026-10-30
 ### Added
 - **`CreateMultiRequest.small_note`** — new optional boolean on `client.lang2Fhir.createMulti()` that selects the lower small-note rate with unchanged extraction behavior and a 15,360-byte UTF-8 text limit when true; longer text returns HTTP 400.
