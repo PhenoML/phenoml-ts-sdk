@@ -6,8 +6,18 @@ export interface ResourceReviewRemediated {
     /** The urn:uuid of the remediated resource (its bundle fullUrl). */
     tempId?: string | undefined;
     resourceType?: string | undefined;
-    /** The safe change applied to the resource in the returned bundle. */
-    action?: "removed_codings" | undefined;
+    /** What review did to the resource in the returned bundle: removed_codings removed unsupported codings while each affected concept kept one; removed_fields removed unsupported fields its profile does not require; flagged_required kept unsupported fields its profile requires, so the findings report values that remain in the bundle. */
+    action?: ResourceReviewRemediated.Action | undefined;
     /** Findings for fields in the pre-remediation resource that caused this action. */
     findings?: phenoml.lang2Fhir.ResourceReviewFinding[] | undefined;
+}
+
+export namespace ResourceReviewRemediated {
+    /** What review did to the resource in the returned bundle: removed_codings removed unsupported codings while each affected concept kept one; removed_fields removed unsupported fields its profile does not require; flagged_required kept unsupported fields its profile requires, so the findings report values that remain in the bundle. */
+    export const Action = {
+        RemovedCodings: "removed_codings",
+        RemovedFields: "removed_fields",
+        FlaggedRequired: "flagged_required",
+    } as const;
+    export type Action = (typeof Action)[keyof typeof Action];
 }

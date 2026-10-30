@@ -35,12 +35,13 @@ export interface DocumentMultiRequest {
     content: string;
     /** Optional FHIR provider name for provider-specific profiles */
     provider?: string;
+    /** Context for the patient the document is primarily about. When the document does not name its patient, the bundle's Patient is built from these fields. When it does, the identifier is added to that Patient unless its name, birth date, or gender contradicts these fields. */
     primary_patient?: phenoml.lang2Fhir.PrimaryPatient;
     /** Deprecated compatibility alias for primary_patient.identifier. Cannot be combined with primary_patient. */
     patient_reference?: phenoml.lang2Fhir.PatientReference;
-    /** Custom Implementation Guide name. When specified, profiles from this IG are included alongside the default profiles during resource detection. Default profiles are always the base layer; custom IG profiles are additive. */
+    /** Implementation Guide to generate resources under. `us_core` (the default) and `phenoml_hpo` select a built-in guide. Any other value is a custom Implementation Guide name: its profiles are included alongside the US Core profiles, which are always the base layer. A custom name that matches no uploaded Implementation Guide returns 404. */
     implementation_guide?: string;
-    /** Deprecated; use the default 'standard' value. This field will be removed in a future release. 'standard' runs detection once; 'deep' runs detection multiple times for higher recall. */
+    /** Deprecated and ignored: both values produce the same result. This field will be removed in a future release. */
     detection_effort?: DocumentMultiRequest.DetectionEffort;
     /** FHIR validation method to apply to the generated bundle. 'none' skips validation (default). 'check' runs the bundle through a FHIR structure validator and includes the results in the response. 'fix' runs validation and attempts to auto-correct errors using an LLM (up to 3 validation passes). The response includes results from each pass. Warning: 'fix' can significantly increase latency due to multiple LLM and validation round-trips. */
     validation_method?: DocumentMultiRequest.ValidationMethod;
@@ -48,7 +49,7 @@ export interface DocumentMultiRequest {
 }
 
 export namespace DocumentMultiRequest {
-    /** Deprecated; use the default 'standard' value. This field will be removed in a future release. 'standard' runs detection once; 'deep' runs detection multiple times for higher recall. */
+    /** Deprecated and ignored: both values produce the same result. This field will be removed in a future release. */
     export const DetectionEffort = {
         Standard: "standard",
         Deep: "deep",

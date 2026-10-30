@@ -6,8 +6,15 @@ import type * as phenoml from "../../../index.js";
  * OMOP CDM v5.4 rows grouped by destination table. IDs are sequential and
  * scoped to one response; they are not stable keys across requests.
  * Fields with no value are unset (omitted from the row), except concept
- * IDs reported as `0`. Each `*_datetime` comes from the same source as its
- * `*_date` and is set only when that source has a time of day.
+ * IDs reported as `0` and the following nullable concept fields, which are
+ * always present: `unit_concept_id` on Measurement, Observation, and
+ * Specimen rows, `unit_source_concept_id` on Measurement rows, and
+ * `anatomic_site_concept_id` on Specimen rows. These nullable fields are
+ * `null` when the source value is absent and `0` when supplied but unmapped.
+ * Device exposure `unit_concept_id` and `unit_source_concept_id` are always
+ * present as `null`.
+ * Each `*_datetime` comes from the same source as its `*_date` and is set
+ * only when that source has a time of day.
  */
 export interface OmopTables {
     location?: phenoml.fhir2Omop.LocationRow[] | undefined;
@@ -21,6 +28,7 @@ export interface OmopTables {
     drug_exposure?: phenoml.fhir2Omop.DrugExposureRow[] | undefined;
     procedure_occurrence?: phenoml.fhir2Omop.ProcedureOccurrenceRow[] | undefined;
     measurement?: phenoml.fhir2Omop.MeasurementRow[] | undefined;
+    device_exposure?: phenoml.fhir2Omop.DeviceExposureRow[] | undefined;
     specimen?: phenoml.fhir2Omop.SpecimenRow[] | undefined;
     observation?: phenoml.fhir2Omop.ObservationRow[] | undefined;
 }

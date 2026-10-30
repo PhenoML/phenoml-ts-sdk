@@ -18,14 +18,14 @@
 export interface CreateRequest {
     /** FHIR version to use */
     version: string;
-    /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported profile. The default profile set includes US Core profiles and selected base R4 resources. The built-in PhenoML HPO profiles (`phenoml-hpo-condition`, `phenoml-hpo-phenotypic-observation`) code findings with the Human Phenotype Ontology and must be requested by id. You can also use any custom profile you've uploaded (if you're a develop or launch customer). */
+    /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported profile. The default profile set includes US Core profiles and selected base R4 resources. The built-in PhenoML HPO profiles must be requested by id: `phenoml-hpo-condition` and `phenoml-hpo-phenotypic-observation` code findings with the Human Phenotype Ontology, and `phenoml-hpo-head-circumference-tape-measure` and `phenoml-hpo-head-circumference-percentile` record a head circumference measured as a length or stated as an age-adjusted percentile. You can also use any custom profile you've uploaded (if you're a develop or launch customer). */
     resource: CreateRequest.Resource;
     /** Natural language text to convert */
     text: string;
 }
 
 export namespace CreateRequest {
-    /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported profile. The default profile set includes US Core profiles and selected base R4 resources. The built-in PhenoML HPO profiles (`phenoml-hpo-condition`, `phenoml-hpo-phenotypic-observation`) code findings with the Human Phenotype Ontology and must be requested by id. You can also use any custom profile you've uploaded (if you're a develop or launch customer). */
+    /** Type of FHIR resource to create. Use 'auto' for automatic resource type detection, or specify a supported profile. The default profile set includes US Core profiles and selected base R4 resources. The built-in PhenoML HPO profiles must be requested by id: `phenoml-hpo-condition` and `phenoml-hpo-phenotypic-observation` code findings with the Human Phenotype Ontology, and `phenoml-hpo-head-circumference-tape-measure` and `phenoml-hpo-head-circumference-percentile` record a head circumference measured as a length or stated as an age-adjusted percentile. You can also use any custom profile you've uploaded (if you're a develop or launch customer). */
     export const Resource = {
         Auto: "auto",
         Appointment: "appointment",
@@ -43,6 +43,8 @@ export namespace CreateRequest {
         Patient: "patient",
         PhenomlHpoCondition: "phenoml-hpo-condition",
         PhenomlHpoPhenotypicObservation: "phenoml-hpo-phenotypic-observation",
+        PhenomlHpoHeadCircumferenceTapeMeasure: "phenoml-hpo-head-circumference-tape-measure",
+        PhenomlHpoHeadCircumferencePercentile: "phenoml-hpo-head-circumference-percentile",
         Procedure: "procedure",
         Questionnaire: "questionnaire",
         Questionnaireresponse: "questionnaireresponse",

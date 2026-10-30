@@ -20,6 +20,8 @@ export interface MappingEntry {
     source_system?: string | undefined;
     source_code?: string | undefined;
     source_name?: string | undefined;
+    /** Zero-based index of this coding in its originating specialty entry's coding array. When specialty audit is available, it also identifies the corresponding resolution.specialty_resolution.coding_results outcome. Present only for coded specialty mappings, including empty Coding objects; these mappings retain the supplied coding order. */
+    source_coding_index?: number | undefined;
     target_vocabulary?: string | undefined;
     /**
      * The standard concept's own code: the source code itself for an
@@ -31,12 +33,16 @@ export interface MappingEntry {
     target_name?: string | undefined;
     /**
      * ALREADY_STANDARD (source coding is already a standard OMOP concept),
-     * MAPPED (source coding or clinical source text was mapped to a standard concept), UNCHECKED (a
-     * standard code was suggested for text-only Specimen material but not verified
-     * against the OMOP vocabulary, so `concept_id` stays `0`), or UNMAPPED
+     * MAPPED (source coding or descriptive source text was mapped to a standard
+     * concept), UNCHECKED (a suggested code has not been validated against
+     * the OMOP vocabulary, so `concept_id` is `0`), or UNMAPPED
      * (no target concept selected, including missing mappings,
      * target-domain mismatches and ambiguity, or source information
-     * retained without concept resolution as explained in `note`).
+     * retained without concept resolution as explained in `note`). For
+     * specialties, this describes the entry-level result selected from
+     * supported codings or explicit text. A local coding can remain
+     * unsupported even when the entry resolves; its independent outcome
+     * remains in resolution.specialty_resolution.coding_results.
      */
     mapping_status?: MappingEntry.MappingStatus | undefined;
     /** Whether this source coding was selected for the linked row's `*_source_value` field. Always present; false for alternate codings, text-only rows, and entries without a corresponding row column. For a Patient demographic, it marks the code that determined the PERSON field or race `observation` row, even when that code has no concept; it is false for race and ethnicity null flavors, conflicting values, a Patient `gender` overridden by birth sex, and race categories that did not determine the field. */
@@ -67,12 +73,16 @@ export interface MappingEntry {
 export namespace MappingEntry {
     /**
      * ALREADY_STANDARD (source coding is already a standard OMOP concept),
-     * MAPPED (source coding or clinical source text was mapped to a standard concept), UNCHECKED (a
-     * standard code was suggested for text-only Specimen material but not verified
-     * against the OMOP vocabulary, so `concept_id` stays `0`), or UNMAPPED
+     * MAPPED (source coding or descriptive source text was mapped to a standard
+     * concept), UNCHECKED (a suggested code has not been validated against
+     * the OMOP vocabulary, so `concept_id` is `0`), or UNMAPPED
      * (no target concept selected, including missing mappings,
      * target-domain mismatches and ambiguity, or source information
-     * retained without concept resolution as explained in `note`).
+     * retained without concept resolution as explained in `note`). For
+     * specialties, this describes the entry-level result selected from
+     * supported codings or explicit text. A local coding can remain
+     * unsupported even when the entry resolves; its independent outcome
+     * remains in resolution.specialty_resolution.coding_results.
      */
     export const MappingStatus = {
         AlreadyStandard: "ALREADY_STANDARD",

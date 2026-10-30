@@ -6,15 +6,20 @@ import type * as phenoml from "../../../index.js";
  * Optional field-level mapping outcome and provenance. When a field has
  * several source-coding entries, they share this outcome; paths describe
  * the selected concept rather than separate mappings of every alternate
- * coding. Present for text-only clinical inference attempts. Omitted for
- * unchecked Specimen material suggestions, text-only specimen sites,
- * text-only units, units
- * with missing coding, unsupported unit systems, and Observation values
- * retained without resolution because the output table has no value column.
+ * coding. Present for semantic mapping attempts. Omitted for fields
+ * retained without concept resolution, including text-only collection
+ * sites, text-only units, units with missing coding, unsupported unit
+ * systems, and result values whose output table has no value column.
  * Free-text diagnostics and unselected candidates are not returned.
+ * Allergy source evidence can report complete standard target IDs to
+ * explain source interpretation and ambiguity; these are not independently
+ * selected substance values.
  */
 export interface MappingResolution {
     semantic_mapping?: phenoml.fhir2Omop.SemanticMappingResult | undefined;
+    specialty_resolution?: phenoml.fhir2Omop.SpecialtyResolution | undefined;
+    /** Explicit source text used to select a specialty concept. Its vocabulary spelling or full preferred term is retained separately in paths[].matched_text. */
+    source_text?: string | undefined;
     /** Vocabulary resolution outcome. Any outcome other than RESOLVED yields mapping_status UNMAPPED and concept ID 0 while retaining an otherwise usable row. */
     status: MappingResolution.Status;
     /**
@@ -27,16 +32,21 @@ export interface MappingResolution {
      * - `DOMAIN_MISMATCH`: candidate standard concepts do not match the domain required by the linked OMOP field.
      * - `UNSUPPORTED_SYSTEM`: the source code system is unsupported.
      * - `UNSUPPORTED_CODE`: the source code is unsupported for the linked OMOP field.
+     * - `CONFLICTING_ALLERGY_EVIDENCE`: allergy source meanings or context conflict.
+     * - `UNSUPPORTED_ALLERGY_SOURCE`: no supported allergy source meaning was established.
+     * - `UNSUPPORTED_ALLERGY_CONTEXT`: the source context has no supported finding policy.
+     * - `UNSUPPORTED_SOURCE_MEANING`: a known source concept has no supported allergy interpretation.
      *
      * Unknown reason codes are omitted; `status` still records the outcome.
      */
     reason_code?: MappingResolution.ReasonCode | undefined;
-    /** How the selected concept was reached. DIRECT may use an OMOP Maps to relationship; UMLS_BRIDGE identifies resolution through a shared UMLS concept. Omitted when unavailable or no concept was selected. */
+    /** How the selected concept was reached. DIRECT may use an OMOP Maps to relationship; UMLS_BRIDGE identifies resolution through a shared UMLS concept; CONTEXTUAL identifies an explicit transformation of a substance-coded allergy/intolerance statement using its FHIR context. Specialty text uses CONCEPT_NAME, CONCEPT_SYNONYM, UMLS_STRING, then NUCC_LABEL in that order. NUCC_LABEL removes only the grouping prefix from a NUCC preferred term while retaining the full classification and specialization. Omitted when unavailable or no concept was selected. */
     via?: MappingResolution.Via | undefined;
     /** Mapping paths to the selected concept, in response order. Omitted when unavailable or no concept was selected. */
     paths?: phenoml.fhir2Omop.MappingPath[] | undefined;
     /** Present and true when candidate matches were truncated during resolution. Absence means no truncation was reported. */
     truncated?: boolean | undefined;
+    allergy?: phenoml.fhir2Omop.AllergyMappingResolution | undefined;
 }
 
 export namespace MappingResolution {
@@ -58,6 +68,10 @@ export namespace MappingResolution {
      * - `DOMAIN_MISMATCH`: candidate standard concepts do not match the domain required by the linked OMOP field.
      * - `UNSUPPORTED_SYSTEM`: the source code system is unsupported.
      * - `UNSUPPORTED_CODE`: the source code is unsupported for the linked OMOP field.
+     * - `CONFLICTING_ALLERGY_EVIDENCE`: allergy source meanings or context conflict.
+     * - `UNSUPPORTED_ALLERGY_SOURCE`: no supported allergy source meaning was established.
+     * - `UNSUPPORTED_ALLERGY_CONTEXT`: the source context has no supported finding policy.
+     * - `UNSUPPORTED_SOURCE_MEANING`: a known source concept has no supported allergy interpretation.
      *
      * Unknown reason codes are omitted; `status` still records the outcome.
      */
@@ -69,12 +83,21 @@ export namespace MappingResolution {
         DomainMismatch: "DOMAIN_MISMATCH",
         UnsupportedSystem: "UNSUPPORTED_SYSTEM",
         UnsupportedCode: "UNSUPPORTED_CODE",
+        ConflictingAllergyEvidence: "CONFLICTING_ALLERGY_EVIDENCE",
+        UnsupportedAllergySource: "UNSUPPORTED_ALLERGY_SOURCE",
+        UnsupportedAllergyContext: "UNSUPPORTED_ALLERGY_CONTEXT",
+        UnsupportedSourceMeaning: "UNSUPPORTED_SOURCE_MEANING",
     } as const;
     export type ReasonCode = (typeof ReasonCode)[keyof typeof ReasonCode];
-    /** How the selected concept was reached. DIRECT may use an OMOP Maps to relationship; UMLS_BRIDGE identifies resolution through a shared UMLS concept. Omitted when unavailable or no concept was selected. */
+    /** How the selected concept was reached. DIRECT may use an OMOP Maps to relationship; UMLS_BRIDGE identifies resolution through a shared UMLS concept; CONTEXTUAL identifies an explicit transformation of a substance-coded allergy/intolerance statement using its FHIR context. Specialty text uses CONCEPT_NAME, CONCEPT_SYNONYM, UMLS_STRING, then NUCC_LABEL in that order. NUCC_LABEL removes only the grouping prefix from a NUCC preferred term while retaining the full classification and specialization. Omitted when unavailable or no concept was selected. */
     export const Via = {
         Direct: "DIRECT",
         UmlsBridge: "UMLS_BRIDGE",
+        Contextual: "CONTEXTUAL",
+        ConceptName: "CONCEPT_NAME",
+        ConceptSynonym: "CONCEPT_SYNONYM",
+        UmlsString: "UMLS_STRING",
+        NuccLabel: "NUCC_LABEL",
     } as const;
     export type Via = (typeof Via)[keyof typeof Via];
 }

@@ -3,19 +3,19 @@
 import type * as phenoml from "../../../index.js";
 
 /**
- * Partial context for the patient the document is primarily about. This is not a complete FHIR Patient resource. Lang2FHIR uses the available context to identify a generated primary Patient reliably. An identifier supplied here is added to that Patient; when no Patient is generated, it is used in logical references on generated clinical resources.
+ * Partial context for the patient the source is primarily about. This is not a complete FHIR Patient resource. When the source does not name its patient, the bundle's Patient is built from exactly these fields. When it does, the identifier supplied here is added to that Patient unless its name, birth date, or gender contradicts these fields, so the bundle can be matched back to the caller's own record.
  */
 export interface PrimaryPatient {
     identifier?: phenoml.lang2Fhir.PatientReference | undefined;
     name?: phenoml.lang2Fhir.PrimaryPatientName | undefined;
     /** Complete date of birth in YYYY-MM-DD format. */
     birthDate?: string | undefined;
-    /** Administrative gender. This corroborates another match but does not identify a patient alone. */
+    /** Administrative gender. */
     gender?: PrimaryPatient.Gender | undefined;
 }
 
 export namespace PrimaryPatient {
-    /** Administrative gender. This corroborates another match but does not identify a patient alone. */
+    /** Administrative gender. */
     export const Gender = {
         Male: "male",
         Female: "female",
