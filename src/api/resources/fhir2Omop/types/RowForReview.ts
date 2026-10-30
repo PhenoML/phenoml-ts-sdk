@@ -32,6 +32,9 @@ export namespace RowForReview {
             ConditionVerificationUnrecognized: "condition_verification_unrecognized",
             EncounterStatusUnknown: "encounter_status_unknown",
             EncounterStatusUnrecognized: "encounter_status_unrecognized",
+            MedicationStatementStatusUnknown: "medication_statement_status_unknown",
+            ObservationStatusUnknown: "observation_status_unknown",
+            ProcedureStatusUnknown: "procedure_status_unknown",
             PrimaryConceptUnresolved: "primary_concept_unresolved",
         } as const;
         export type Item = (typeof Item)[keyof typeof Item];

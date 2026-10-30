@@ -6,6 +6,7 @@ export interface ProviderRow {
     /** Single distinct source NPI value, preserved without format or checksum validation, from an identifier with system `http://hl7.org/fhir/sid/us-npi`, `urn:oid:2.16.840.1.113883.4.6`, or `2.16.840.1.113883.4.6`. Blank values and `UNK`/`UNKNOWN` markers (case-insensitive, ignoring surrounding whitespace) are treated as missing. Omitted when no usable NPI value exists or multiple distinct values are supplied. */
     npi?: string | undefined;
     dea?: string | undefined;
+    /** Standard Provider concept shared by every distinct supplied role specialty; otherwise `0`. Inputs resolve independently, without frequency or hierarchy selection. */
     specialty_concept_id?: number | undefined;
     care_site_id?: number | undefined;
     /** Year from Practitioner.birthDate. */
@@ -36,7 +37,9 @@ export interface ProviderRow {
      * `@role-index:1`.
      */
     provider_source_value?: string | undefined;
+    /** Supplied specialty text (or coding display/code) when source values across roles agree, including unresolved text. Conflicting source values remain in provider_role_contexts and mappings. */
     specialty_source_value?: string | undefined;
+    /** Shared input OMOP source concept when all specialties agree on both target and source concept. Text, UMLS routes, conflicting inputs, or differing source concepts leave `0`. */
     specialty_source_concept_id?: number | undefined;
     /** The recorded FHIR administrative-gender value for this Provider. */
     gender_source_value?: string | undefined;
