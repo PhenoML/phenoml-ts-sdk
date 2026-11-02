@@ -3,7 +3,7 @@
 import type * as phenoml from "../../../index.js";
 
 /**
- * Present when resource_review was requested and at least one resource was quarantined, safely remediated, or kept with an unsupported required field. The returned bundle is authoritative and contains the post-review representation of every retained resource.
+ * Present when the resource review ran and at least one resource was quarantined, safely remediated, or kept with an unsupported required field. The returned bundle is authoritative and contains the post-review representation of every retained resource.
  */
 export interface ResourceReviewResult {
     /** Resources pulled from the bundle because an unsupported finding could not be safely repaired. */
