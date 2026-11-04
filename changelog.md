@@ -1,3 +1,13 @@
+## [19.5.0] - 2026-11-04
+### Added
+- **`VisitDetailRow`** — new OMOP CDM type representing an explicit child `Encounter` linked via `Encounter.partOf` to a same-patient top-level visit; exposed through the new `OmopTables.visit_detail` field.
+- **`VisitComponentContext` and `VisitPairAssessment`** — new types exposing vocabulary compatibility evidence for each assessed parent/child Encounter pair; returned in `CreateOmopResponse.visit_component_contexts`.
+- **`visit_detail_id`** — new optional field on `ConditionOccurrenceRow`, `DrugExposureRow`, `MeasurementRow`, `ObservationRow`, `ProcedureOccurrenceRow`, and `DeviceExposureRow` linking clinical rows to their explicit same-patient `visit_detail` component.
+
+### Changed
+- **`client.fhir2Omop.create()`** — expanded documentation describes `Encounter.partOf` component grouping rules, vocabulary compatibility assessment, period containment policy, and `visit_detail` linkage across all six supported clinical tables.
+- **`lang2fhir_ResourceReview`** — documentation now describes default audit targets (Encounter, Procedure, DiagnosticReport, Observation, Condition, MedicationRequest) and clarifies that an empty `targets` list turns the audit off; the `minItems: 1` constraint on `targets` has been removed.
+
 ## [19.4.0] - 2026-11-02
 New backward-compatible capabilities added: DeviceUseStatement-to-device_exposure mapping, MedicationDispense support, contextual AllergyIntolerance finding policy, provider specialty resolution, QuantityUnitConversion, small_note billing flag, new HPO profiles, and new rows_for_review indexing for unknown-status resources.
 
