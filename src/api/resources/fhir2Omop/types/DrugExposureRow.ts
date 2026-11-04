@@ -28,6 +28,8 @@ export interface DrugExposureRow {
     /** Direct FHIR R4 Immunization.lotNumber value. */
     lot_number?: string | undefined;
     visit_occurrence_id?: number | undefined;
+    /** Explicit same-patient component link, supplied together with its overarching visit_occurrence_id. */
+    visit_detail_id?: number | undefined;
     provider_id?: number | undefined;
     drug_source_value?: string | undefined;
     drug_source_concept_id?: number | undefined;

@@ -14,6 +14,8 @@ export interface ObservationRow {
     /** Valid standard Unit concept for coded UCUM; 0 for supplied but unmapped units, null for absent units. Always present in JSON. */
     unit_concept_id?: number | undefined;
     visit_occurrence_id?: number | undefined;
+    /** Explicit same-patient component link, supplied together with its overarching visit_occurrence_id. */
+    visit_detail_id?: number | undefined;
     provider_id?: number | undefined;
     observation_source_value?: string | undefined;
     /** For coded AllergyIntolerance rows, the known OMOP identity of the original coding rendered in observation_source_value, even when the finding is unresolved. 0 when no original source identity is known; the configured contextual finding is not a source concept. */
