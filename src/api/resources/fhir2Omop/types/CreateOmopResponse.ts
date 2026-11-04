@@ -6,6 +6,8 @@ export interface CreateOmopResponse {
     success?: boolean | undefined;
     message?: string | undefined;
     tables?: phenoml.fhir2Omop.OmopTables | undefined;
+    /** Vocabulary compatibility evidence for supported explicit Encounter component candidates, linked to their final detail or standalone visit. Assessments do not add to the concept resolution counts in summary. Omitted when no structurally supported component is assessed. */
+    visit_component_contexts?: phenoml.fhir2Omop.VisitComponentContext[] | undefined;
     /** Audits supplied direct quantities on emitted drug_exposure rows, including derivations and omissions. Resources returned in other clinical tables have no quantity entry. Omitted when no applicable quantity was supplied on a drug_exposure row. Entries use the response's vocabulary release and do not affect terminology mapping counts in summary. The examples use illustrative concept IDs; actual IDs and evidence belong to vocab_version. */
     quantity_transformations?: phenoml.fhir2Omop.QuantityTransformation[] | undefined;
     /**
@@ -31,7 +33,10 @@ export interface CreateOmopResponse {
      * were previously excluded. Existing concept-0 rows keep their placement.
      * Validated visit references remain on the rows. After filtering, include
      * referenced visits or clear optional visit_occurrence_id values pointing
-     * to excluded visits in the load copy. For example, to include indexed
+     * to excluded visits in the load copy. Apply the same rule to optional
+     * visit_detail_id links. Each selected detail requires its parent visit;
+     * retain that parent or exclude the detail rather than clearing its
+     * required visit_occurrence_id. For example, to include indexed
      * condition 3 and visit 2, keep their existing rows and IDs in tables;
      * if only condition 3 is selected, clear its reference to excluded visit 2.
      * Returned observation periods use unindexed clinical rows plus Specimen and Death;

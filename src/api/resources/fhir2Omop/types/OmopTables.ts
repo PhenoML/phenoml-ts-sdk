@@ -24,6 +24,7 @@ export interface OmopTables {
     death?: phenoml.fhir2Omop.DeathRow[] | undefined;
     observation_period?: phenoml.fhir2Omop.ObservationPeriodRow[] | undefined;
     visit_occurrence?: phenoml.fhir2Omop.VisitOccurrenceRow[] | undefined;
+    visit_detail?: phenoml.fhir2Omop.VisitDetailRow[] | undefined;
     condition_occurrence?: phenoml.fhir2Omop.ConditionOccurrenceRow[] | undefined;
     drug_exposure?: phenoml.fhir2Omop.DrugExposureRow[] | undefined;
     procedure_occurrence?: phenoml.fhir2Omop.ProcedureOccurrenceRow[] | undefined;

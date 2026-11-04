@@ -44,4 +44,7 @@ export * from "./SpecimenIdentifier.js";
 export * from "./SpecimenRow.js";
 export * from "./SpecimenSourceContext.js";
 export * from "./Summary.js";
+export * from "./VisitComponentContext.js";
+export * from "./VisitDetailRow.js";
 export * from "./VisitOccurrenceRow.js";
+export * from "./VisitPairAssessment.js";
