@@ -12,6 +12,8 @@ export interface ConditionOccurrenceRow {
     condition_end_datetime?: string | undefined;
     condition_type_concept_id?: number | undefined;
     visit_occurrence_id?: number | undefined;
+    /** Explicit same-patient component link, supplied together with its overarching visit_occurrence_id. */
+    visit_detail_id?: number | undefined;
     provider_id?: number | undefined;
     condition_source_value?: string | undefined;
     condition_source_concept_id?: number | undefined;

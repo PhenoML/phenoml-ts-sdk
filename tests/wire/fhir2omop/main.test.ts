@@ -109,6 +109,16 @@ describe("Fhir2OmopClient", () => {
                     },
                 ],
                 visit_occurrence: [{}],
+                visit_detail: [
+                    {
+                        visit_detail_id: 1000000,
+                        person_id: 1000000,
+                        visit_detail_concept_id: 1000000,
+                        visit_detail_type_concept_id: 1000000,
+                        visit_detail_source_concept_id: 1000000,
+                        visit_occurrence_id: 1000000,
+                    },
+                ],
                 condition_occurrence: [
                     {
                         condition_occurrence_id: 1,
@@ -154,6 +164,22 @@ describe("Fhir2OmopClient", () => {
                 ],
                 observation: [{}],
             },
+            visit_component_contexts: [
+                {
+                    resource_id: "resource_id",
+                    full_url: "full_url",
+                    parent_reference: "parent_reference",
+                    omop_table: "visit_detail",
+                    omop_id: 1000000,
+                    assessment: {
+                        parent_concept_id: 1000000,
+                        detail_concept_id: 1000000,
+                        status: "COMPATIBLE",
+                        reason_code: "SAME_CONCEPT",
+                        vocab_version: "vocab_version",
+                    },
+                },
+            ],
             quantity_transformations: [
                 {
                     resource_type: "MedicationRequest",
@@ -561,6 +587,16 @@ describe("Fhir2OmopClient", () => {
                     },
                 ],
                 visit_occurrence: [{}],
+                visit_detail: [
+                    {
+                        visit_detail_id: 1000000,
+                        person_id: 1000000,
+                        visit_detail_concept_id: 1000000,
+                        visit_detail_type_concept_id: 1000000,
+                        visit_detail_source_concept_id: 1000000,
+                        visit_occurrence_id: 1000000,
+                    },
+                ],
                 condition_occurrence: [
                     {
                         condition_occurrence_id: 1,
@@ -606,6 +642,22 @@ describe("Fhir2OmopClient", () => {
                 ],
                 observation: [{}],
             },
+            visit_component_contexts: [
+                {
+                    resource_id: "resource_id",
+                    full_url: "full_url",
+                    parent_reference: "parent_reference",
+                    omop_table: "visit_detail",
+                    omop_id: 1000000,
+                    assessment: {
+                        parent_concept_id: 1000000,
+                        detail_concept_id: 1000000,
+                        status: "COMPATIBLE",
+                        reason_code: "SAME_CONCEPT",
+                        vocab_version: "vocab_version",
+                    },
+                },
+            ],
             quantity_transformations: [
                 {
                     resource_type: "MedicationRequest",

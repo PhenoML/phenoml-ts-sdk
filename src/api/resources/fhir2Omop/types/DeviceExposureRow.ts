@@ -27,7 +27,7 @@ export interface DeviceExposureRow {
     provider_id?: number | undefined;
     /** Explicit emitted same-patient visit for routed rows; absent for DeviceUseStatement. */
     visit_occurrence_id?: number | undefined;
-    /** Unset; no visit-detail linkage is inferred. */
+    /** Explicit same-patient component for routed rows, with its overarching visit_occurrence_id; absent for DeviceUseStatement. */
     visit_detail_id?: number | undefined;
     /** Original selected type or clinical code, or supplied text; never a resource/inventory identifier. */
     device_source_value?: string | undefined;
