@@ -2,8 +2,8 @@
   "metadata": {
     "language": "typescript",
     "packageName": "phenoml",
-    "sdkVersion": "19.5.0",
-    "specCommit": "fe581d7e1d6e04a7ab671c68f30ef59897f211c1",
+    "sdkVersion": "19.6.0",
+    "specCommit": "e6ecd29f63f6dc887785e453e0047e928f4ad56b",
     "generatorName": "fernapi/fern-typescript-sdk"
   },
   "renderRules": {
