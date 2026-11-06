@@ -1,3 +1,7 @@
+## [20.0.0] - 2026-11-06
+### Breaking Changes
+- **`PageFilter`** — the `PageFilter` interface has been removed from the `lang2Fhir` types module. Remove any imports or usages of `PageFilter` from your code.
+
 ## [19.5.1] - 2026-11-06
 ### Changed
 - **`client.fhir2Omop.create()`** — documentation now explains confirmed individual (Type 1) NPI validation, provider merging, role-only provider emission, and omissions for organization or conflicting NPIs.

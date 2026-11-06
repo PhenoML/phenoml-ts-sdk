@@ -3,7 +3,6 @@ export * from "./DocumentConfig.js";
 export * from "./DocumentMultiResponse.js";
 export * from "./FhirResource.js";
 export * from "./PageClassification.js";
-export * from "./PageFilter.js";
 export * from "./PatientReference.js";
 export * from "./PrimaryPatient.js";
 export * from "./PrimaryPatientName.js";

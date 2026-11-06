@@ -2,8 +2,8 @@
   "metadata": {
     "language": "typescript",
     "packageName": "phenoml",
-    "sdkVersion": "19.5.1",
-    "specCommit": "e6ecd29f63f6dc887785e453e0047e928f4ad56b",
+    "sdkVersion": "20.0.0",
+    "specCommit": "187394f8f7f804395fd206aa1db872080ebb3f51",
     "generatorName": "fernapi/fern-typescript-sdk"
   },
   "renderRules": {
@@ -3962,12 +3962,6 @@
                 "fieldSeparator": ", ",
                 "fields": [
                   {
-                    "jsonKey": "page_filter",
-                    "fieldTemplate": "\"page_filter\": {{value}}",
-                    "kind": "object",
-                    "required": false
-                  },
-                  {
                     "jsonKey": "split_classifications",
                     "fieldTemplate": "\"split_classifications\": {{value}}",
                     "kind": "list",
@@ -4320,12 +4314,6 @@
               "nested": {
                 "fieldSeparator": ", ",
                 "fields": [
-                  {
-                    "jsonKey": "page_filter",
-                    "fieldTemplate": "\"page_filter\": {{value}}",
-                    "kind": "object",
-                    "required": false
-                  },
                   {
                     "jsonKey": "split_classifications",
                     "fieldTemplate": "\"split_classifications\": {{value}}",
