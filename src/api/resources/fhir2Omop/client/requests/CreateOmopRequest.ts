@@ -116,14 +116,19 @@ export interface CreateOmopRequest {
      */
     vocab_version?: string;
     /**
-     * FHIR resources (single resource or Bundle). Must contain at least one
-     * Patient resource. Supported row-producing resources are Patient,
-     * Location, Organization, HealthcareService, Practitioner,
-     * PractitionerRole, Encounter, Specimen, DeviceUseStatement, Condition, Procedure,
-     * MedicationRequest, MedicationStatement, MedicationAdministration, MedicationDispense,
-     * Immunization, Observation, and AllergyIntolerance. Medication and Device
-     * resources provide referenced details without independently producing rows.
-     * Unsupported resource types are accepted in a Bundle but ignored.
+     * A single FHIR R4 resource or Bundle containing at least one top-level Patient.
+     * Supported row-producing sources: Patient, Location, Organization,
+     * HealthcareService, Practitioner, PractitionerRole, Encounter, Specimen,
+     * DeviceUseStatement, Condition, Procedure, MedicationRequest,
+     * MedicationStatement, MedicationAdministration, MedicationDispense,
+     * Immunization, Observation, and AllergyIntolerance.
+     * Medication and Device supply referenced details without independent rows;
+     * unsupported resource types are ignored.
+     *
+     * Each concept field submitted for vocabulary resolution supports at most
+     * 1,000 source items: each coding and any non-empty PractitionerRole.specialty
+     * text (including whitespace-only text) count as one item. Exceeding the
+     * per-field limit rejects the entire request with HTTP 400.
      */
     fhir_resources: Record<string, unknown>;
 }
