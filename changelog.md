@@ -1,3 +1,15 @@
+## [19.6.0] - 2026-11-06
+### Changed
+- **`ProviderRow.npi`** — now populated only from confirmed individual (Type 1) NPIs; organization, invalid, unconfirmed, and conflicting NPIs no longer populate this field.
+- **`ProviderRow.provider_source_value`** — reflects the confirmed individual NPI for role-only providers; unconfirmed NPIs are excluded from source identity selection.
+- **`CreateOmopResponse.dropped`** — now also reports provider sources identified as organizations and `PractitionerRole` entries lacking a confirmed individual NPI or usable Practitioner.
+- **`CreateOmopResponse.diagnostics`** and **`CreateOmopResponse.provider_role_contexts`** — diagnostics gains `UNRESOLVED` entries for unconfirmed or invalid NPIs; `provider_role_contexts` is now scoped to roles linked to an emitted provider row, and role-only providers can emit a row when carrying a confirmed individual NPI.
+- **`VisitPairAssessment`** — assessment unavailability or malformed results now fail the request with HTTP 500 instead of returning an `UNKNOWN` outcome.
+- **`ReferenceDiagnostic.path`** — expanded to enumerate demographic labels, provider identity labels, and Encounter `class/type` labels; `reason` now lists machine-matchable reason-code prefixes for collection and dispensing timing.
+- **`PersonRow.person_source_value`** — documents the `Patient.id` / first `Patient.identifier.value` fallback and omission when neither is available.
+- **`QuantityDenominatorBasis.value`** — clarifies that zero and negative values are retained for audit and that `kind: PER_UNIT` with `value: 1` is required for volume-to-ingredient conversion.
+- **`Summary`** — documentation restructured as a table enumerating counted outcome categories; dropped resources are excluded from counts but indexed rows remain included in `codes_*` and `off_vocab_rate`.
+
 ## [19.5.1] - 2026-11-06
 ### Changed
 - **`client.fhir2Omop.create()`** — documentation now explains confirmed individual (Type 1) NPI validation, provider merging, role-only provider emission, and omissions for organization or conflicting NPIs.
