@@ -1,3 +1,11 @@
+## [19.5.1] - 2026-11-06
+### Changed
+- **`client.fhir2Omop.create()`** — documentation now explains confirmed individual (Type 1) NPI validation, provider merging, role-only provider emission, and omissions for organization or conflicting NPIs.
+- **`ProviderRow.npi`** — documentation clarifies that only confirmed individual NPIs populate this field and that the original source value is preserved.
+- **`ProviderRow.provider_source_value`** — documentation clarifies NPI-based deduplication keys and source-identity fallbacks for Practitioners without one confirmed individual NPI.
+- **`CreateOmopResponse.provider_role_contexts`** — documentation scopes role provenance to roles linked to an emitted provider row.
+- **`CreateOmopResponse.dropped` and `CreateOmopResponse.diagnostics`** — documentation explains omitted provider sources and `UNRESOLVED` diagnostics for unconfirmed NPIs on retained Practitioner rows.
+
 ## [19.5.0] - 2026-11-04
 ### Added
 - **`VisitDetailRow`** — new OMOP CDM type representing an explicit child `Encounter` linked via `Encounter.partOf` to a same-patient top-level visit; exposed through the new `OmopTables.visit_detail` field.
