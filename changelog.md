@@ -1,15 +1,10 @@
-## [19.6.0] - 2026-11-05
-### Added
-- **`VisitDetailRow`** — new OMOP CDM type representing an explicit child `Encounter` linked via `Encounter.partOf` to a same-patient top-level visit, exposed through `OmopTables.visit_detail`.
-- **`VisitComponentContext` and `VisitPairAssessment`** — new types surfacing vocabulary compatibility evidence (`COMPATIBLE`, `INCOMPATIBLE`, `UNKNOWN`) for each assessed parent/child `Encounter` pair, returned in `CreateOmopResponse.visit_component_contexts`.
-- **`visit_detail_id`** — new optional field on all six clinical CDM row types (`ConditionOccurrenceRow`, `DrugExposureRow`, `MeasurementRow`, `ObservationRow`, `ProcedureOccurrenceRow`, `DeviceExposureRow`) linking rows to their `visit_detail` component.
-- **Role-only provider emission** — a `PractitionerRole` without a resolvable `Practitioner` can now emit a provider row when it supplies a single confirmed individual NPI via `PractitionerRole.identifier` or `PractitionerRole.practitioner.identifier`.
-
+## [19.5.1] - 2026-11-06
 ### Changed
-- **`ProviderRow.npi`** — now populated only with a confirmed individual (Type 1) NPI; organization (Type 2) NPIs are omitted and reported in `CreateOmopResponse.dropped` with the new `provider_npi_is_organization` reason code.
-- **`CreateOmopResponse.dropped`** — gains new reason codes `provider_npi_is_organization`, `provider_role_requires_individual_npi`, `provider_role_conflicting_npis`, and `provider_practitioner_is_not_individual` to explain omitted provider sources.
-- **`CreateOmopResponse.provider_role_contexts`** — now covers only `PractitionerRole` entries linked to an emitted provider row; role-fallback rows are no longer included.
-- **`client.fhir2Omop.create()`** — expanded documentation covers `Encounter.partOf` grouping rules, vocabulary compatibility assessment, period containment policy, and `visit_detail` linkage.
+- **`client.fhir2Omop.create()`** — documentation now explains confirmed individual (Type 1) NPI validation, provider merging, role-only provider emission, and omissions for organization or conflicting NPIs.
+- **`ProviderRow.npi`** — documentation clarifies that only confirmed individual NPIs populate this field and that the original source value is preserved.
+- **`ProviderRow.provider_source_value`** — documentation clarifies NPI-based deduplication keys and source-identity fallbacks for Practitioners without one confirmed individual NPI.
+- **`CreateOmopResponse.provider_role_contexts`** — documentation scopes role provenance to roles linked to an emitted provider row.
+- **`CreateOmopResponse.dropped` and `CreateOmopResponse.diagnostics`** — documentation explains omitted provider sources and `UNRESOLVED` diagnostics for unconfirmed NPIs on retained Practitioner rows.
 
 ## [19.5.0] - 2026-11-04
 ### Added
