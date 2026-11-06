@@ -21,7 +21,7 @@ export interface DeviceExposureRow {
     unique_device_id?: string | undefined;
     /** Unset; supplied production components and carriers remain in source context. */
     production_id?: string | undefined;
-    /** 1 when the source has no quantity, dose, rate, or numeric Observation result field; omitted when such a field is supplied, including null or malformed values. See device_exposure_contexts.quantity_basis. */
+    /** Default 1 when quantity evidence is absent; otherwise omitted. See device_exposure_contexts.quantity_basis. */
     quantity?: number | undefined;
     /** Compatible explicit performer on routed rows; absent for DeviceUseStatement and reporting-only actors. */
     provider_id?: number | undefined;

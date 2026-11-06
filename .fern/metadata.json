@@ -14,10 +14,10 @@
             "files": ["openapi"]
         }
     },
-    "originGitCommit": "e6ecd29f63f6dc887785e453e0047e928f4ad56b",
+    "originGitCommit": "544897899b4297495b25c2a236ac83acadedfef0",
     "originGitCommitIsDirty": true,
     "invokedBy": "ci",
     "requestedVersion": "AUTO",
     "ciProvider": "unknown",
-    "sdkVersion": "19.5.1"
+    "sdkVersion": "19.6.0"
 }

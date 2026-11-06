@@ -1,3 +1,11 @@
+## [19.6.0] - 2026-11-06
+### Changed
+- **`client.fhir2Omop.create()`** — only confirmed individual (Type 1) NPIs are now used for provider identity and merging; organization NPIs (Type 2) cause Practitioner and role-only sources to be omitted and reported in `dropped` with `provider_npi_is_organization`.
+- **`ProviderRow.npi`** — documents that organization, invalid, unconfirmed, and conflicting NPIs do not populate this field; the original source value is preserved for confirmed individual NPIs only.
+- **`ProviderRow.provider_source_value`** — clarifies that role-only providers require a confirmed individual NPI and that unconfirmed NPIs are excluded from source identity selection.
+- **`CreateOmopResponse.dropped`** — now also reports provider sources identified as organizations and `PractitionerRole` entries without a confirmed individual NPI or a usable Practitioner reference.
+- **`CreateOmopResponse.diagnostics`** — documents new `UNRESOLVED` diagnostics at `identifier` for unconfirmed NPIs on retained Practitioner rows, and clarifies that `provider_role_contexts` is scoped to roles linked to an emitted provider.
+
 ## [19.5.1] - 2026-11-06
 ### Changed
 - **`client.fhir2Omop.create()`** — documentation now explains confirmed individual (Type 1) NPI validation, provider merging, role-only provider emission, and omissions for organization or conflicting NPIs.
