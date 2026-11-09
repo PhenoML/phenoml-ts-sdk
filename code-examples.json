@@ -2,8 +2,8 @@
   "metadata": {
     "language": "typescript",
     "packageName": "phenoml",
-    "sdkVersion": "19.5.1",
-    "specCommit": "e6ecd29f63f6dc887785e453e0047e928f4ad56b",
+    "sdkVersion": "20.0.0",
+    "specCommit": "5f62ca0732ba8cab683e4471df423b1f1254ebc9",
     "generatorName": "fernapi/fern-typescript-sdk"
   },
   "renderRules": {
@@ -2558,6 +2558,282 @@
         }
       }
     },
+    "POST /fhir2omop/batch": {
+      "httpMethod": "POST",
+      "httpPath": "/fhir2omop/batch",
+      "request": {
+        "body": {
+          "request_id": "omop-cohort-2026-11-02-001"
+        }
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.fhir2OmopBatch.create({ {{__body__}} })",
+        "params": [],
+        "body": {
+          "fieldSeparator": ", ",
+          "fields": [
+            {
+              "jsonKey": "request_id",
+              "fieldTemplate": "\"request_id\": {{value}}",
+              "kind": "string",
+              "required": false
+            }
+          ]
+        }
+      }
+    },
+    "GET /fhir2omop/batch": {
+      "httpMethod": "GET",
+      "httpPath": "/fhir2omop/batch",
+      "request": {
+        "body": null
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.fhir2OmopBatch.list({ {{__body__}} })",
+        "params": [],
+        "body": {
+          "fieldSeparator": ", ",
+          "fields": [
+            {
+              "jsonKey": "cursor",
+              "fieldTemplate": "\"cursor\": {{value}}",
+              "kind": "string",
+              "required": false
+            },
+            {
+              "jsonKey": "limit",
+              "fieldTemplate": "\"limit\": {{value}}",
+              "kind": "number",
+              "required": false
+            }
+          ]
+        }
+      }
+    },
+    "POST /fhir2omop/batch/{job_id}/items": {
+      "httpMethod": "POST",
+      "httpPath": "/fhir2omop/batch/{job_id}/items",
+      "request": {
+        "body": {
+          "id": "patient-000123",
+          "request_id": "omop-cohort-2026-11-02-001-patient-000123",
+          "vocab_version": "v20260829",
+          "fhir_resources": {
+            "resourceType": "Bundle",
+            "type": "collection",
+            "entry": [
+              {
+                "resource": {
+                  "resourceType": "Patient",
+                  "id": "patient-000123",
+                  "gender": "female",
+                  "birthDate": "1985-07-22"
+                }
+              },
+              {
+                "resource": {
+                  "resourceType": "Condition",
+                  "id": "condition-1",
+                  "subject": {
+                    "reference": "Patient/patient-000123"
+                  },
+                  "onsetDateTime": "2024-01-01",
+                  "code": {
+                    "coding": [
+                      {
+                        "system": "http://snomed.info/sct",
+                        "code": "44054006",
+                        "display": "Type 2 diabetes mellitus"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.fhir2OmopBatch.uploadItem({{job_id}}, { {{__body__}} })",
+        "params": [
+          {
+            "name": "job_id",
+            "kind": "string"
+          }
+        ],
+        "body": {
+          "fieldSeparator": ", ",
+          "fields": [
+            {
+              "jsonKey": "fhir_resources",
+              "fieldTemplate": "\"fhir_resources\": {{value}}",
+              "kind": "object",
+              "required": true
+            },
+            {
+              "jsonKey": "vocab_version",
+              "fieldTemplate": "\"vocab_version\": {{value}}",
+              "kind": "string",
+              "required": true
+            },
+            {
+              "jsonKey": "request_id",
+              "fieldTemplate": "\"request_id\": {{value}}",
+              "kind": "string",
+              "required": false
+            },
+            {
+              "jsonKey": "id",
+              "fieldTemplate": "\"id\": {{value}}",
+              "kind": "string",
+              "required": false
+            }
+          ]
+        }
+      }
+    },
+    "POST /fhir2omop/batch/{job_id}/finalize": {
+      "httpMethod": "POST",
+      "httpPath": "/fhir2omop/batch/{job_id}/finalize",
+      "request": {
+        "body": null
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.fhir2OmopBatch.finalize({{job_id}})",
+        "params": [
+          {
+            "name": "job_id",
+            "kind": "string"
+          }
+        ]
+      }
+    },
+    "POST /fhir2omop/batch/{job_id}/cancel": {
+      "httpMethod": "POST",
+      "httpPath": "/fhir2omop/batch/{job_id}/cancel",
+      "request": {
+        "body": null
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.fhir2OmopBatch.cancel({{job_id}})",
+        "params": [
+          {
+            "name": "job_id",
+            "kind": "string"
+          }
+        ]
+      }
+    },
+    "GET /fhir2omop/batch/{job_id}": {
+      "httpMethod": "GET",
+      "httpPath": "/fhir2omop/batch/{job_id}",
+      "request": {
+        "body": null
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.fhir2OmopBatch.get({{job_id}}, { {{__body__}} })",
+        "params": [
+          {
+            "name": "job_id",
+            "kind": "string"
+          }
+        ],
+        "body": {
+          "fieldSeparator": ", ",
+          "fields": [
+            {
+              "jsonKey": "cursor",
+              "fieldTemplate": "\"cursor\": {{value}}",
+              "kind": "string",
+              "required": false
+            },
+            {
+              "jsonKey": "limit",
+              "fieldTemplate": "\"limit\": {{value}}",
+              "kind": "number",
+              "required": false
+            }
+          ]
+        }
+      }
+    },
+    "GET /fhir2omop/batch/{job_id}/results": {
+      "httpMethod": "GET",
+      "httpPath": "/fhir2omop/batch/{job_id}/results",
+      "request": {
+        "body": null
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.fhir2OmopBatch.getResults({{job_id}}, { {{__body__}} })",
+        "params": [
+          {
+            "name": "job_id",
+            "kind": "string"
+          }
+        ],
+        "body": {
+          "fieldSeparator": ", ",
+          "fields": [
+            {
+              "jsonKey": "cursor",
+              "fieldTemplate": "\"cursor\": {{value}}",
+              "kind": "string",
+              "required": false
+            },
+            {
+              "jsonKey": "limit",
+              "fieldTemplate": "\"limit\": {{value}}",
+              "kind": "number",
+              "required": false
+            }
+          ]
+        }
+      }
+    },
+    "GET /fhir2omop/batch/{job_id}/results/{item_id}": {
+      "httpMethod": "GET",
+      "httpPath": "/fhir2omop/batch/{job_id}/results/{item_id}",
+      "request": {
+        "body": null
+      },
+      "response": {
+        "body": null
+      },
+      "render": {
+        "callTemplate": "client.fhir2OmopBatch.getResult({{job_id}}, {{item_id}})",
+        "params": [
+          {
+            "name": "job_id",
+            "kind": "string"
+          },
+          {
+            "name": "item_id",
+            "kind": "string"
+          }
+        ]
+      }
+    },
     "GET /fhir-provider/{fhir_provider_id}/fhir/{fhir_path}": {
       "httpMethod": "GET",
       "httpPath": "/fhir-provider/{fhir_provider_id}/fhir/{fhir_path}",
@@ -3962,12 +4238,6 @@
                 "fieldSeparator": ", ",
                 "fields": [
                   {
-                    "jsonKey": "page_filter",
-                    "fieldTemplate": "\"page_filter\": {{value}}",
-                    "kind": "object",
-                    "required": false
-                  },
-                  {
                     "jsonKey": "split_classifications",
                     "fieldTemplate": "\"split_classifications\": {{value}}",
                     "kind": "list",
@@ -4320,12 +4590,6 @@
               "nested": {
                 "fieldSeparator": ", ",
                 "fields": [
-                  {
-                    "jsonKey": "page_filter",
-                    "fieldTemplate": "\"page_filter\": {{value}}",
-                    "kind": "object",
-                    "required": false
-                  },
                   {
                     "jsonKey": "split_classifications",
                     "fieldTemplate": "\"split_classifications\": {{value}}",
