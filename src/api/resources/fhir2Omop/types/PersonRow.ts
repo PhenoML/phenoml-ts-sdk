@@ -19,6 +19,7 @@ export interface PersonRow {
     location_id?: number | undefined;
     provider_id?: number | undefined;
     care_site_id?: number | undefined;
+    /** Patient.id, or the first non-empty Patient.identifier.value when id is absent. Omitted when neither is available. */
     person_source_value?: string | undefined;
     /** The selected sex-at-birth source code: the US Core birth sex `valueCode`, or Patient `gender` when no birth sex is supplied. Conflicting birth sex values are joined with `|`; empty when the birth sex has no `valueCode`. */
     gender_source_value?: string | undefined;
