@@ -1,3 +1,19 @@
+## [20.0.0] - 2026-11-09
+### Breaking Changes
+- **`PageFilter`** — the `PageFilter` interface has been removed from the `lang2Fhir` types module; remove all references to `PageFilter` and update any per-page pre-extraction filtering logic accordingly.
+
+### Added
+- **`client.fhir2OmopBatch`** — new `Fhir2OmopBatchClient` sub-client (also exported via `./fhir2OmopBatch`) for asynchronous batch FHIR-to-OMOP conversion without blocking on per-patient synchronous calls.
+- **`client.fhir2OmopBatch` methods** — `create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, and `getResult()` cover the full batch job lifecycle from creation through paginated result retrieval.
+- **Batch model types** — `BatchJob`, `BatchItemStatus`, `BatchCounts`, `BatchError`, `JobDetailResponse`, `JobListResponse`, `ResultsPageResponse`, and `UploadItemResponse` describe job/item lifecycle and response envelopes; batch-scoped typed error classes (e.g., `ConflictError`, `ContentTooLargeError`) are also exported.
+
+### Changed
+- **`client.fhir2Omop.create()`** — NPI validation now enforces the ten-digit format and check digit to confirm Type 1 (individual) status; only confirmed individual NPIs populate `ProviderRow.npi`, participate in provider merging, or serve as `provider_source_value`.
+- **`CreateOmopResponse.dropped`** — now also reports organization NPIs (`provider_npi_is_organization`) and roles lacking a confirmed individual NPI or usable Practitioner (`provider_role_requires_individual_npi`, `provider_role_conflicting_npis`, `provider_practitioner_is_not_individual`).
+- **`CreateOmopResponse.diagnostics`** — now includes an `UNRESOLVED` diagnostic at `identifier` for unconfirmed NPIs on retained Practitioner rows, and `provider_role_contexts` is scoped to roles linked to an emitted provider.
+- **`SplitClassification` fields** — documentation for `id`, `description`, and `Operation` clarified to explain classification ID propagation, page-text comparison semantics, and `group`/`drop` behaviour.
+- **`PersonRow.person_source_value`** — documentation now explains the `Patient.id` / first non-empty `Patient.identifier.value` fallback logic and omission when neither is available.
+
 ## [19.5.1] - 2026-11-06
 ### Changed
 - **`client.fhir2Omop.create()`** — documentation now explains confirmed individual (Type 1) NPI validation, provider merging, role-only provider emission, and omissions for organization or conflicting NPIs.
