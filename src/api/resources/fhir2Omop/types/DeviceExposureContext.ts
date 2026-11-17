@@ -11,14 +11,14 @@ export interface DeviceExposureContext {
     source_full_url?: string | undefined;
     /** Links to all device exposure rows derived from this source record. */
     exposures: phenoml.fhir2Omop.DeviceExposureLink[];
-    /** Applies to every linked exposure. default_absent_count accompanies quantity 1 when the source has no quantity, dose, rate, or numeric Observation result field. unsupported_supplied_evidence accompanies an omitted quantity and UNSUPPORTED diagnostics when such a field is supplied, including null or malformed values. */
+    /** Applies to every linked exposure. default_absent_count identifies the default quantity of 1. unsupported_supplied_evidence identifies omitted quantity due to supplied clinical quantity evidence, including null or malformed numeric fields. UNSUPPORTED diagnostics identify the source paths. */
     quantity_basis: DeviceExposureContext.QuantityBasis;
     /** Original supplied source values with source paths. Device detail paths begin with device.; other paths refer to the clinical source resource. Timing precision, offsets, schedules, statuses, relationships, UDI carriers, and unsupported quantities are preserved here. */
     evidence?: phenoml.fhir2Omop.DeviceExposureEvidence[] | undefined;
 }
 
 export namespace DeviceExposureContext {
-    /** Applies to every linked exposure. default_absent_count accompanies quantity 1 when the source has no quantity, dose, rate, or numeric Observation result field. unsupported_supplied_evidence accompanies an omitted quantity and UNSUPPORTED diagnostics when such a field is supplied, including null or malformed values. */
+    /** Applies to every linked exposure. default_absent_count identifies the default quantity of 1. unsupported_supplied_evidence identifies omitted quantity due to supplied clinical quantity evidence, including null or malformed numeric fields. UNSUPPORTED diagnostics identify the source paths. */
     export const QuantityBasis = {
         DefaultAbsentCount: "default_absent_count",
         UnsupportedSuppliedEvidence: "unsupported_supplied_evidence",

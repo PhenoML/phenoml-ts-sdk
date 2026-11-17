@@ -6,6 +6,7 @@ import { CohortClient } from "./api/resources/cohort/client/Client.js";
 import { ConstrueClient } from "./api/resources/construe/client/Client.js";
 import { FhirClient } from "./api/resources/fhir/client/Client.js";
 import { Fhir2OmopClient } from "./api/resources/fhir2Omop/client/Client.js";
+import { Fhir2OmopBatchClient } from "./api/resources/fhir2OmopBatch/client/Client.js";
 import { FhirProviderClient } from "./api/resources/fhirProvider/client/Client.js";
 import { ImplementationGuidesClient } from "./api/resources/implementationGuides/client/Client.js";
 import { Lang2FhirClient } from "./api/resources/lang2Fhir/client/Client.js";
@@ -33,6 +34,7 @@ export class phenomlClient {
     protected _construe: ConstrueClient | undefined;
     protected _fhir: FhirClient | undefined;
     protected _fhir2Omop: Fhir2OmopClient | undefined;
+    protected _fhir2OmopBatch: Fhir2OmopBatchClient | undefined;
     protected _fhirProvider: FhirProviderClient | undefined;
     protected _implementationGuides: ImplementationGuidesClient | undefined;
     protected _lang2Fhir: Lang2FhirClient | undefined;
@@ -69,6 +71,10 @@ export class phenomlClient {
 
     public get fhir2Omop(): Fhir2OmopClient {
         return (this._fhir2Omop ??= new Fhir2OmopClient(this._options));
+    }
+
+    public get fhir2OmopBatch(): Fhir2OmopBatchClient {
+        return (this._fhir2OmopBatch ??= new Fhir2OmopBatchClient(this._options));
     }
 
     public get fhirProvider(): FhirProviderClient {
