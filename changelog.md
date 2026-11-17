@@ -1,3 +1,18 @@
+## [20.0.0] - 2026-11-17
+### Breaking Changes
+- **`PageFilter`** — the exported interface and its `page_filter` config option have been removed; replace all `PageFilter` references and `DocumentConfig.page_filter` usages with `split_classifications` using a `drop` operation.
+
+### Added
+- **`client.fhir2OmopBatch`** — new `Fhir2OmopBatchClient` sub-client for managing asynchronous FHIR-to-OMOP batch jobs, with `create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, and `list()` operations.
+- **`BatchJob`, `BatchCounts`, `BatchItemStatus`, `BatchError`** — new types representing batch job records, per-status tallies, individual item status lines, and structured failure descriptors; accompanied by paginated response types `JobDetailResponse`, `JobListResponse`, `ResultsPageResponse`, and `UploadItemResponse`.
+- **`Lang2FhirClient.deidentify()`** — new alpha method that accepts a PDF, PNG, JPEG, or TIFF document and returns a redacted image-only PDF with PHI covered per the HIPAA Safe Harbor method; available on dedicated instances only.
+- **`DeidentifyRequest`** and **`ContentTooLargeError`** — new `lang2Fhir` types supporting document redaction requests and HTTP 413 error handling.
+
+### Changed
+- **`client.lang2Fhir.documentMulti()`** — all pages with extracted text are now kept by default (no automatic test-requisition-form dropping), and `page_classifications` is omitted from the response unless `config.split_classifications` is set.
+- **`DocumentConfig.split_classifications`** — documentation updated to describe the 20-classification limit, per-page assignment rules, unclassifiable-page fallback behavior, and drop-all-pages error responses.
+- **`DocumentMultiResponse.page_classifications`** and **`CreateMultiResponse.group`** — documentation clarified to reflect conditional return conditions and tie-breaking rules for multi-group resource assignment.
+
 ## [19.5.1] - 2026-11-06
 ### Changed
 - **`client.fhir2Omop.create()`** — documentation now explains confirmed individual (Type 1) NPI validation, provider merging, role-only provider emission, and omissions for organization or conflicting NPIs.
