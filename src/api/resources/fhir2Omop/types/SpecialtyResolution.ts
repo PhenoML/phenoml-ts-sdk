@@ -3,13 +3,10 @@
 import type * as phenoml from "../../../index.js";
 
 /**
- * Specialty-level fallback decision and independent coding outcomes, shared
- * by the specialty entry's mappings. Use resolution.status and the mapping
- * target for the selected result; a coding can remain unsupported while
- * explicit text successfully resolves. Omitted when unavailable or when
- * audit values are unrecognized or cannot be associated with the supplied
- * codings. Omission does not change the selected concept or field-level
- * resolution outcome.
+ * Optional fallback decision and independent coding outcomes for one specialty
+ * entry. The enclosing resolution describes the selected result; unsupported
+ * codings can coexist with successful explicit-text resolution. Omitted when
+ * audit evidence is unavailable; omission does not change the field outcome.
  */
 export interface SpecialtyResolution {
     /**

@@ -4,6 +4,7 @@ export * as cohort from "./cohort/index.js";
 export * as construe from "./construe/index.js";
 export * as fhir from "./fhir/index.js";
 export * as fhir2Omop from "./fhir2Omop/index.js";
+export * as fhir2OmopBatch from "./fhir2OmopBatch/index.js";
 export * as fhirProvider from "./fhirProvider/index.js";
 export * as implementationGuides from "./implementationGuides/index.js";
 export * as lang2Fhir from "./lang2Fhir/index.js";
