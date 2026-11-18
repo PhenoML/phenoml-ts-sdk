@@ -1,17 +1,24 @@
-## [20.0.0] - 2026-11-17
+## [20.0.0] - 2026-11-18
 ### Breaking Changes
-- **`PageFilter`** — the exported interface and its `page_filter` config option have been removed; replace all `PageFilter` references and `DocumentConfig.page_filter` usages with `split_classifications` using a `drop` operation.
+- **`lang2Fhir.DocumentConfig.page_filter`** and **`lang2Fhir.PageFilter`** — remove the deprecated field and type references, and define the pages to exclude with `drop` entries in `lang2Fhir.DocumentConfig.split_classifications`.
+- **`client.lang2Fhir.documentMulti()`** — keeps all pages with extracted text by default, including test requisition forms, so add an explicit `drop` classification to preserve the previous default exclusion.
+- **`lang2Fhir.DocumentMultiResponse.page_classifications`** — guard reads of this field or supply a non-empty `config.split_classifications` list, since the field is now omitted when the list is empty or absent.
 
 ### Added
-- **`client.fhir2OmopBatch`** — new `Fhir2OmopBatchClient` sub-client for managing asynchronous FHIR-to-OMOP batch jobs, with `create()`, `uploadItem()`, `finalize()`, `cancel()`, `get()`, `getResults()`, `getResult()`, and `list()` operations.
-- **`BatchJob`, `BatchCounts`, `BatchItemStatus`, `BatchError`** — new types representing batch job records, per-status tallies, individual item status lines, and structured failure descriptors; accompanied by paginated response types `JobDetailResponse`, `JobListResponse`, `ResultsPageResponse`, and `UploadItemResponse`.
-- **`Lang2FhirClient.deidentify()`** — new alpha method that accepts a PDF, PNG, JPEG, or TIFF document and returns a redacted image-only PDF with PHI covered per the HIPAA Safe Harbor method; available on dedicated instances only.
-- **`DeidentifyRequest`** and **`ContentTooLargeError`** — new `lang2Fhir` types supporting document redaction requests and HTTP 413 error handling.
+- **`client.fhir2OmopBatch`** — submit background FHIR-to-OMOP conversions on dedicated instances with `create()`, `uploadItem()`, and `finalize()`, manage jobs with `get()`, `list()`, and `cancel()`, and fetch results with `getResults()` and `getResult()`.
+- **`Fhir2OmopBatchClient`** — available from the `phenoml/fhir2OmopBatch` subpath.
+- **`fhir2OmopBatch.BatchJob`** and **`fhir2OmopBatch.BatchItemStatus`** — represent job and item status, including counts and structured failure details.
+- **`client.lang2Fhir.deidentify()`** — this alpha method accepts a PDF, PNG, JPEG, or TIFF on dedicated instances and returns a `BinaryResponse` containing the redacted image-only PDF.
+- **`lang2Fhir.DeidentifyRequest`** — provides the `file` field for the document upload.
+- **`lang2Fhir.ContentTooLargeError`** and **`fhir2OmopBatch.ContentTooLargeError`** — typed HTTP 413 errors for document de-identification and batch item uploads that exceed endpoint limits.
 
 ### Changed
-- **`client.lang2Fhir.documentMulti()`** — all pages with extracted text are now kept by default (no automatic test-requisition-form dropping), and `page_classifications` is omitted from the response unless `config.split_classifications` is set.
-- **`DocumentConfig.split_classifications`** — documentation updated to describe the 20-classification limit, per-page assignment rules, unclassifiable-page fallback behavior, and drop-all-pages error responses.
-- **`DocumentMultiResponse.page_classifications`** and **`CreateMultiResponse.group`** — documentation clarified to reflect conditional return conditions and tie-breaking rules for multi-group resource assignment.
+- **`lang2Fhir.DocumentConfig.split_classifications`** — accepts an empty list to skip classification and documents the 20-classification limit, grouping and drop rules, and all-pages-dropped outcomes.
+- **`fhir2Omop.DeviceExposureRow.quantity`** — is omitted when the source Observation has a numeric `valueString`, with the original value retained in `device_exposure_contexts`.
+- **`fhir2Omop.QuantityDenominatorBasis.value`** — the bundled API schema now permits zero and negative denominator values that can be returned for audit.
+
+### Fixed
+- **`client.fhir2Omop.create()`** — now reports concept fields with more than 1,000 source items as HTTP 400.
 
 ## [19.5.1] - 2026-11-06
 ### Changed
