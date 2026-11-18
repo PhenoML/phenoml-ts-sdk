@@ -6,10 +6,10 @@
 export interface PageClassification {
     /** 1-indexed page number. */
     page_number?: number | undefined;
-    /** Whether the page was kept (true) or dropped (false) from FHIR extraction. */
+    /** Whether the page was kept (true) or dropped (false) from FHIR extraction. Pages that could not be classified are kept. */
     include?: boolean | undefined;
-    /** Split classification id assigned to the page. Omitted or empty for the ungrouped/default bucket. */
+    /** Split classification id assigned to the page. Omitted for ungrouped pages, including pages that could not be classified. */
     classification_id?: string | undefined;
-    /** Short LLM-generated explanation of the decision. */
+    /** Short LLM-generated explanation of the decision. When the page could not be classified, says that the classifier was unavailable. */
     reason?: string | undefined;
 }

@@ -1,5 +1,6 @@
 export * from "./BadRequestError.js";
 export * from "./ClientClosedRequestError.js";
+export * from "./ContentTooLargeError.js";
 export * from "./ForbiddenError.js";
 export * from "./GatewayTimeoutError.js";
 export * from "./InternalServerError.js";

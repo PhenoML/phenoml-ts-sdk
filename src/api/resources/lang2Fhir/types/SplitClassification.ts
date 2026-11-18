@@ -4,16 +4,16 @@
  * One caller-defined page classification and the operation to apply when it matches.
  */
 export interface SplitClassification {
-    /** Unique classification id. The reserved id "__ungrouped__" is not allowed. */
+    /** Unique, non-blank classification id. Returned as page_classifications[].classification_id and, for group classifications, as resources[].group and the FHIR meta.tag code. The reserved id "__ungrouped__" is not allowed. */
     id: string;
-    /** Natural-language description of pages that belong to this classification. */
+    /** Non-blank natural-language description of the pages that belong to this classification. Each page's text is compared against these descriptions, so describe what distinguishes these pages from the rest of the document. */
     description: string;
-    /** Operation applied to pages assigned this classification. */
+    /** Operation applied to pages assigned this classification. group keeps the pages and labels resources extracted from them with this id. drop removes the pages before extraction. */
     operation: SplitClassification.Operation;
 }
 
 export namespace SplitClassification {
-    /** Operation applied to pages assigned this classification. */
+    /** Operation applied to pages assigned this classification. group keeps the pages and labels resources extracted from them with this id. drop removes the pages before extraction. */
     export const Operation = {
         Group: "group",
         Drop: "drop",
