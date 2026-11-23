@@ -18,9 +18,8 @@ export interface BatchItemStatus {
      */
     attempts: number;
     /**
-     * How many times concept detection was re-run for the item because a
-     * pass returned no concepts. Present only on a succeeded item whose
-     * detection re-ran at least once; omitted otherwise.
+     * Omitted for new batch items. If present, this is the number of
+     * additional concept detection passes after an empty result.
      */
     detect_retries?: number | undefined;
     /** Size in bytes of the item's stored result. Present once the item has succeeded. */
