@@ -1,15 +1,6 @@
-## [21.0.0] - 2026-11-23
-### Breaking Changes
-- **`lang2fhir.DocumentConfig.page_filter`** and **`lang2fhir.PageFilter`** — removed; replace any `page_filter` usage with a `drop` entry in `config.split_classifications` that describes the pages to exclude.
-- **`client.lang2Fhir.documentMulti()`** — `page_classifications` is now omitted from the response when `config.split_classifications` is absent or empty; guard reads of this field or supply a non-empty `split_classifications` list to restore it.
-
-### Added
-- **`client.fhir2OmopBatch`** — submit background FHIR-to-OMOP conversions with `create()`, `uploadItem()`, and `finalize()`; manage jobs with `get()`, `list()`, and `cancel()`; and fetch results with `getResults()` and `getResult()`.
-- **`fhir2OmopBatch.BatchJob`**, **`fhir2OmopBatch.BatchItemStatus`**, **`fhir2OmopBatch.BatchCounts`**, and related request/response types — represent job lifecycle, per-item status, and paginated result listings.
-- **`client.lang2Fhir.deidentify()`** — alpha endpoint accepting a PDF, PNG, JPEG, or TIFF on dedicated instances and returning a redacted image-only PDF; see endpoint docs for HIPAA Safe Harbor scope and limitations.
-
+## [20.0.1] - 2026-11-23
 ### Changed
-- **`fhir2omop.QuantityDenominatorBasis.value`** — now permits zero and negative denominator values retained for audit; successful injection volume conversion still requires `kind: PER_UNIT` and `value: 1`.
+- **`lang2FhirBatch.BatchItemStatus.detect_retries`** — deprecated and omitted for new Lang2FHIR batch items, but still returned for older items that recorded detection retries.
 
 ## [20.0.0] - 2026-11-18
 ### Breaking Changes
