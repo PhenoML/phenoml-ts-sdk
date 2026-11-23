@@ -1,3 +1,7 @@
+## [20.0.1] - 2026-11-23
+### Changed
+- **`lang2FhirBatch.BatchItemStatus.detect_retries`** — deprecated and omitted for new Lang2FHIR batch items, but still returned for older items that recorded detection retries.
+
 ## [20.0.0] - 2026-11-18
 ### Breaking Changes
 - **`lang2Fhir.DocumentConfig.page_filter`** and **`lang2Fhir.PageFilter`** — remove the deprecated field and type references, and define the pages to exclude with `drop` entries in `lang2Fhir.DocumentConfig.split_classifications`.
