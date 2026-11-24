@@ -1,3 +1,12 @@
+## [21.0.0] - 2026-11-24
+### Breaking Changes
+- **`client.agent`** — the entire `agent` sub-client, including `agent.chat` and `agent.prompts`, all associated request/response types (`AgentChatRequest`, `AgentPromptsCreateRequest`, `AgentResponse`, etc.), and the `./agent*` subpath exports are removed; delete all `client.agent.*` call sites and `phenoml/agent` imports.
+- **`client.cohort`** — the `CohortClient` and all associated types (`CohortRequest`, `CohortResponse`, `SearchConcept`) are removed along with the `./cohort` subpath export; remove all `client.cohort.*` call sites.
+- **`client.tools`** — the `ToolsClient` and its `mcpServers`/`mcpTools` sub-clients, all FHIR/cohort methods (`createFhirResource`, `searchFhirResources`, `analyzeCohort`, etc.), all request/response types, and all `./tools*` subpath exports are removed; remove all `client.tools.*` call sites and `phenoml/tools` imports.
+- **`client.voice`** — the `VoiceClient`, `TranscribeRequest`, `TranscribeResponse`, and all `voice.*` error types are removed along with the `./voice` subpath export; remove all `client.voice.*` call sites.
+- **`client.workflows`** — the `WorkflowsClient`, all workflow CRUD/execute methods, all request/response/definition types, and the `./workflows` subpath export are removed; remove all `client.workflows.*` call sites and `phenoml/workflows` imports.
+- See full changelog for all changes
+
 ## [20.0.1] - 2026-11-23
 ### Changed
 - **`lang2FhirBatch.BatchItemStatus.detect_retries`** — deprecated and omitted for new Lang2FHIR batch items, but still returned for older items that recorded detection retries.
