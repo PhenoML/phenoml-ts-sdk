@@ -3,4 +3,3 @@ export { CreateRequest } from "./CreateRequest.js";
 export type { DeidentifyRequest } from "./DeidentifyRequest.js";
 export { DocumentMultiRequest } from "./DocumentMultiRequest.js";
 export type { DocumentRequest } from "./DocumentRequest.js";
-export type { SearchRequest } from "./SearchRequest.js";
