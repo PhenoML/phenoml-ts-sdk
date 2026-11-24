@@ -21,8 +21,7 @@
  * in the X-Phenoml-On-Behalf-Of header in the format Patient/{uuid} or Practitioner/{uuid}. This only works
  * for the medplum provider currently.
  *
- * More on the authentication headers and how to structure them can be found in the FHIR Proxy, Tools and
- * Agent documentation.
+ * More on the authentication headers and how to structure them can be found in the FHIR Proxy documentation.
  */
 export const AuthMethod = {
     ClientSecret: "client_secret",

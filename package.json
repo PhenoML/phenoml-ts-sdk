@@ -1,6 +1,6 @@
 {
     "name": "phenoml",
-    "version": "20.0.1",
+    "version": "0.0.0-fern-placeholder",
     "private": false,
     "repository": {
         "type": "git",
@@ -22,39 +22,6 @@
             },
             "default": "./dist/cjs/index.js"
         },
-        "./agent": {
-            "import": {
-                "types": "./dist/esm/api/resources/agent/exports.d.mts",
-                "default": "./dist/esm/api/resources/agent/exports.mjs"
-            },
-            "require": {
-                "types": "./dist/cjs/api/resources/agent/exports.d.ts",
-                "default": "./dist/cjs/api/resources/agent/exports.js"
-            },
-            "default": "./dist/cjs/api/resources/agent/exports.js"
-        },
-        "./agent/chat": {
-            "import": {
-                "types": "./dist/esm/api/resources/agent/resources/chat/exports.d.mts",
-                "default": "./dist/esm/api/resources/agent/resources/chat/exports.mjs"
-            },
-            "require": {
-                "types": "./dist/cjs/api/resources/agent/resources/chat/exports.d.ts",
-                "default": "./dist/cjs/api/resources/agent/resources/chat/exports.js"
-            },
-            "default": "./dist/cjs/api/resources/agent/resources/chat/exports.js"
-        },
-        "./agent/prompts": {
-            "import": {
-                "types": "./dist/esm/api/resources/agent/resources/prompts/exports.d.mts",
-                "default": "./dist/esm/api/resources/agent/resources/prompts/exports.mjs"
-            },
-            "require": {
-                "types": "./dist/cjs/api/resources/agent/resources/prompts/exports.d.ts",
-                "default": "./dist/cjs/api/resources/agent/resources/prompts/exports.js"
-            },
-            "default": "./dist/cjs/api/resources/agent/resources/prompts/exports.js"
-        },
         "./authtoken": {
             "import": {
                 "types": "./dist/esm/api/resources/authtoken/exports.d.mts",
@@ -65,17 +32,6 @@
                 "default": "./dist/cjs/api/resources/authtoken/exports.js"
             },
             "default": "./dist/cjs/api/resources/authtoken/exports.js"
-        },
-        "./cohort": {
-            "import": {
-                "types": "./dist/esm/api/resources/cohort/exports.d.mts",
-                "default": "./dist/esm/api/resources/cohort/exports.mjs"
-            },
-            "require": {
-                "types": "./dist/cjs/api/resources/cohort/exports.d.ts",
-                "default": "./dist/cjs/api/resources/cohort/exports.js"
-            },
-            "default": "./dist/cjs/api/resources/cohort/exports.js"
         },
         "./construe": {
             "import": {
@@ -241,61 +197,6 @@
                 "default": "./dist/cjs/api/resources/summary/resources/templates/exports.js"
             },
             "default": "./dist/cjs/api/resources/summary/resources/templates/exports.js"
-        },
-        "./tools": {
-            "import": {
-                "types": "./dist/esm/api/resources/tools/exports.d.mts",
-                "default": "./dist/esm/api/resources/tools/exports.mjs"
-            },
-            "require": {
-                "types": "./dist/cjs/api/resources/tools/exports.d.ts",
-                "default": "./dist/cjs/api/resources/tools/exports.js"
-            },
-            "default": "./dist/cjs/api/resources/tools/exports.js"
-        },
-        "./tools/mcpServers": {
-            "import": {
-                "types": "./dist/esm/api/resources/tools/resources/mcpServers/exports.d.mts",
-                "default": "./dist/esm/api/resources/tools/resources/mcpServers/exports.mjs"
-            },
-            "require": {
-                "types": "./dist/cjs/api/resources/tools/resources/mcpServers/exports.d.ts",
-                "default": "./dist/cjs/api/resources/tools/resources/mcpServers/exports.js"
-            },
-            "default": "./dist/cjs/api/resources/tools/resources/mcpServers/exports.js"
-        },
-        "./tools/mcpTools": {
-            "import": {
-                "types": "./dist/esm/api/resources/tools/resources/mcpTools/exports.d.mts",
-                "default": "./dist/esm/api/resources/tools/resources/mcpTools/exports.mjs"
-            },
-            "require": {
-                "types": "./dist/cjs/api/resources/tools/resources/mcpTools/exports.d.ts",
-                "default": "./dist/cjs/api/resources/tools/resources/mcpTools/exports.js"
-            },
-            "default": "./dist/cjs/api/resources/tools/resources/mcpTools/exports.js"
-        },
-        "./voice": {
-            "import": {
-                "types": "./dist/esm/api/resources/voice/resources/voice/exports.d.mts",
-                "default": "./dist/esm/api/resources/voice/resources/voice/exports.mjs"
-            },
-            "require": {
-                "types": "./dist/cjs/api/resources/voice/resources/voice/exports.d.ts",
-                "default": "./dist/cjs/api/resources/voice/resources/voice/exports.js"
-            },
-            "default": "./dist/cjs/api/resources/voice/resources/voice/exports.js"
-        },
-        "./workflows": {
-            "import": {
-                "types": "./dist/esm/api/resources/workflows/exports.d.mts",
-                "default": "./dist/esm/api/resources/workflows/exports.mjs"
-            },
-            "require": {
-                "types": "./dist/cjs/api/resources/workflows/exports.d.ts",
-                "default": "./dist/cjs/api/resources/workflows/exports.js"
-            },
-            "default": "./dist/cjs/api/resources/workflows/exports.js"
         },
         "./package.json": "./package.json",
         "./openapi.json": "./openapi/openapi.json"

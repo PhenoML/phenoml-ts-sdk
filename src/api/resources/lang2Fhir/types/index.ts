@@ -13,6 +13,5 @@ export * from "./ResourceReviewFlagged.js";
 export * from "./ResourceReviewRemediated.js";
 export * from "./ResourceReviewResult.js";
 export * from "./ResourceReviewTarget.js";
-export * from "./SearchResponse.js";
 export * from "./SplitClassification.js";
 export * from "./UploadProfileResponse.js";
